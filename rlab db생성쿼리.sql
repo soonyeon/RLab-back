@@ -75,7 +75,9 @@ CREATE TABLE `gather` (
 	`ga_content`	longtext NOT NULL,
 	`ga_st_num`	int	NOT NULL,
 	`ga_me_id`	varchar(13)	NOT NULL,
-	`ga_views`	int not null default 0
+	`ga_views`	int not null default 0,
+    `ga_reg_date`	datetime,
+    `ga_upd_date`	datetime
 );
 
 DROP TABLE IF EXISTS `board`;
@@ -86,7 +88,9 @@ CREATE TABLE `board` (
 	`bo_title`	varchar(10)	NULL,
 	`bo_content`	longtext NOT NULL,
 	`bo_me_id`	varchar(13)	NOT NULL,
-	`bo_views`	int  not null default 0
+	`bo_views`	int  not null default 0,
+    `bo_reg_date`	datetime,
+    `bo_upd_date`	datetime
 );
 
 DROP TABLE IF EXISTS `todo`;
