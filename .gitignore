@@ -1,0 +1,10 @@
+
+RLab/target/classes/kr/kh/RLab/controller/BoardController.class
+
+RLab/target/classes/kr/kh/RLab/service/BoardService.class
+
+RLab/target/classes/kr/kh/RLab/service/BoardServiceImp.class
+
+RLab/target/classes/kr/kh/RLab/vo/BoardVO.class
+
+RLab/target/classes/mappers/BoardMapper.xml
