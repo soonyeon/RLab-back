@@ -11,24 +11,26 @@
 </style>
 <form action="<c:url value='/board/insert'></c:url>" method="post" style="width:800px;margin: 0 auto">
 	<button type="button" style="float:right">임시저장 불러오기</button><br>
- <label for="name">스터디명</label><br>
- <select>
- 	<option>정처기 준비하는 스터디</option>
- </select><br>
-  <label for="name">작성자</label><br>
-	<input type="text" name="name" value="김돌탕" disabled="disabled"><br>
- <label for="title">제목</label><br>
-	<input type="text" name="title" placeholder="제목 10자 이내"><br>
- <label for="content">내용</label><br>
- <div id="summernote"></div>
+<label for="st_num">스터디명</label><br>
+<select name="st_num" id="st_num">
+	<c:forEach var="study" items="${studies}">
+		<option value="${study.st_num}">${study.st_name}</option>
+	</c:forEach>
+</select><br>
+  <label for="bo_me_id">작성자</label><br>
+	<input type="text" name="bo_me_id" value="${memberId}" disabled="disabled"><br>
+ <label for="bo_title">제목</label><br>
+	<input type="text" name="bo_title" placeholder="제목 10자 이내"><br>
+ <label for="bo_content">내용</label><br>
+<textarea id="content" name="bo_content"></textarea>
  <div style="float: right">
-	 <button type="button">임시저장</button><button type="button">작성완료</button>
+	 <button type="button">임시저장</button><button type="submit">작성완료</button>
  </div>
  </form>
  
  
  <script>
-   $('#summernote').summernote({
+   $('#content').summernote({
      tabsize: 2,
      height: 300,
      toolbar: [
