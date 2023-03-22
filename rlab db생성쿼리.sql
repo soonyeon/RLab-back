@@ -22,8 +22,8 @@ DROP TABLE IF EXISTS `branch`;
 CREATE TABLE `branch` (
 	`br_num`	int auto_increment primary key	NOT NULL,
 	`br_name`	VARCHAR(255) NOT NULL,
-	`br_address`	VARCHAR(255) NOT NULL,
-	`br_road_address`	VARCHAR(255),
+	`br_address`	VARCHAR(255),
+	`br_road_address`	VARCHAR(255) NOT NULL,
 	`br_tel`	VARCHAR(20) NOT NULL,
 	`br_capacity`	INT NOT NULL,
 	`br_re_name`	varchar(10)	NOT NULL
@@ -57,7 +57,7 @@ CREATE TABLE `reservation` (
 	`re_start_time`	datetime not null DEFAULT NOW(),
 	`re_valid_time`	datetime not null,
 	`re_register_date`	datetime not null,
-	`re_term`	int
+	`re_to_num`	int
 );
 
 DROP TABLE IF EXISTS `kind`;
@@ -270,7 +270,8 @@ CREATE TABLE `seat` (
 	`se_num`	int auto_increment primary key	NOT NULL,
 	`se_br_num`	int	NOT NULL,
 	`se_ki_num`	int	NOT NULL,
-	`se_name`	varchar(15) not null
+	`se_name`	varchar(15) not null,
+    `se_usable`	int not null default 0
 );
 
 DROP TABLE IF EXISTS `ticket_own`;
