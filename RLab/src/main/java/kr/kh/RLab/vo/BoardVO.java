@@ -16,5 +16,7 @@ public class BoardVO {
 	private int bo_views;
 	private Date bo_reg_date;
 	private Date bo_upd_date;
+	private String st_name;
+	private String me_name;
 	
 }

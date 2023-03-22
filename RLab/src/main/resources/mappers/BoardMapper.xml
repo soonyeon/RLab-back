@@ -9,14 +9,21 @@
     	values(#{board.bo_st_num}, #{board.bo_title}, #{board.bo_content}, #{board.bo_me_id}, NOW())
 	</insert>
 	
-	<!-- 게시글 조회 -->
+	<select id="selectBoardList" resultType="kr.kh.RLab.vo.BoardVO">
+		select 
+			*
+		from 
+			board
+		join study
+		on  bo_st_num = st_num
+		join member 
+		on  bo_me_id = me_id
+		order by bo_reg_date desc
+	</select>
 	
-	<!-- 게시글 상세 조회 -->
 	
-	<!-- 게시글 조회수 증가 -->
 	
-	<!-- 게시글 수정 -->
 	
-	<!-- 게시글 삭제 -->
+
 	
 </mapper>

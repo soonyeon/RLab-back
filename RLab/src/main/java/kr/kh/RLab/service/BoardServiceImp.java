@@ -1,5 +1,7 @@
 package kr.kh.RLab.service;
 
+import java.util.ArrayList;
+
 import org.springframework.stereotype.Service;
 
 import kr.kh.RLab.dao.BoardDAO;
@@ -20,7 +22,6 @@ public class BoardServiceImp implements BoardService {
 		if(!checkBoard(board))
 			return false;
 		board.setBo_me_id(member.getMe_id());
-		System.out.println("board====" + board);
 		return boardDao.insertBoard(board);
 	}
 	
@@ -30,6 +31,11 @@ public class BoardServiceImp implements BoardService {
 				board.getBo_content() == null || board.getBo_content().trim().length() == 0)
 			return false;
 		return true;
+	}
+
+	@Override
+	public ArrayList<BoardVO> selectBoardList() {
+		return boardDao.selectBoardList();
 	}
 
 }

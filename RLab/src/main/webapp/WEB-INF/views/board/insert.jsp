@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<link rel="stylesheet" href="<c:url value='/resources/css/board/mypost_post.css'></c:url>">
 <link href="<c:url value='/resources/css/summernote-lite.min.css'></c:url>" rel="stylesheet">
 <script src="<c:url value='/resources/js/summernote-lite.min.js'></c:url>"></script>
 <style>
@@ -8,6 +9,21 @@
  	background-color: white;
  }
 </style>
+<div class="left_menu_container_top" style="margin-left: 118px">
+<div class="left_menu_container">
+                    <nav class="left_menu">
+                        <a href="study_basic.html" class="list_item">스터디홈</a>
+                        <a href="#" class="list_item">스터디 달력</a>
+                        <a href="to_do_list.html" class="list_item">투두 리스트</a>
+                        <a href="Daily Mission.html" class="list_item">데일리 미션</a>
+                        <a href="certification_board.html" class="list_item">인증 게시판</a>
+                        <a href="#" class="list_item">자유 게시판</a>
+                        <a href="#" class="list_item">스터디 관리</a>
+                        <a href="#" class="leave">탈퇴하기</a>
+                    </nav>
+                </div>
+</div>
+<div class="form-container" style="margin-left: 330px;">
 <form action="<c:url value='/board/insert'></c:url>" method="post" style="width:800px;margin: 0 auto;">
 	<button type="button" style="float:right">임시저장 불러오기</button><br>
 <label for="st_num">스터디명</label><br>
@@ -26,7 +42,7 @@
 	 <button type="button">임시저장</button><button type="submit">작성완료</button>
  </div>
  </form>
- 
+ </div>
  
  <script>
    $('form').submit(function() {
