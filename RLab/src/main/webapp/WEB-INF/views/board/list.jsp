@@ -60,15 +60,19 @@
                             <td class="title_list_item">작성일</td>
                           </tr>
                           <c:forEach  var="board" items="${boardList}">
-                          <tr class="board_list_${bo_num}">
+                          <tr class="board_list_${board.bo_num}">
                             <td>${board.bo_num}</td>
                             <td>${board.st_name}</td>
-                            <td class="post_title">${board.bo_title}</td>
+                            <td class="post_title">
+                            	<a href="<c:url value='/board/detail/${board.bo_num}'></c:url>"> ${board.bo_title}</a>
+                           	</td>
                             <td>${board.me_name}</td>
                             <td>${board.bo_reg_date}</td>
                           </tr>
                           </c:forEach>
+                          
                         </table>
+                        <a href="<c:url value="/board/insert"></c:url>" style="float:right;">작성하기</a>
                       </div>
 
                     <!-- 페이지 이동 -->

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -48,9 +49,16 @@ public class BoardController {
 	@GetMapping("/list")
 	public ModelAndView boardList(ModelAndView mv) {
 		ArrayList<BoardVO> boardList = boardService.selectBoardList();
-		System.out.println(boardList);
 		mv.addObject("boardList", boardList);
 		mv.setViewName("/board/list");
+		return mv;
+	}
+	
+	@GetMapping("/detail/{bo_num}")
+	public ModelAndView boardGet(ModelAndView mv, @PathVariable int bo_num) {
+		BoardVO board = boardService.getBoard(bo_num);
+		mv.addObject("bd", board);
+		mv.setViewName("/board/detail");
 		return mv;
 	}
 	

@@ -38,4 +38,9 @@ public class BoardServiceImp implements BoardService {
 		return boardDao.selectBoardList();
 	}
 
+	@Override
+	public BoardVO getBoard(int bo_num) {
+		return boardDao.getBoard(bo_num);
+	}
+
 }
