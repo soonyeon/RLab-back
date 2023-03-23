@@ -7,7 +7,7 @@
 <head>
 	<title>RLab</title>
 	<link rel="stylesheet" href="<c:url value='/resources/css/common.css'></c:url>">
-	<script src="/spring/resources/js/jquery.min.js"></script>
+	<script src="/RLab/resources/js/jquery.min.js"></script>
 </head>
 <body>
     <tiles:insertAttribute name="header"/>    
