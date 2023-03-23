@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <link rel="stylesheet" href="<c:url value='/resources/css/board/detailBoard.css'></c:url>">
 <link href="<c:url value='/resources/css/summernote-lite.min.css'></c:url>" rel="stylesheet">
 <script src="<c:url value='/resources/js/summernote-lite.min.js'></c:url>"></script>
@@ -44,10 +45,13 @@
                                     <div class="scrap_box">
                                         <img class="icon_scrap" src="<c:url value='/resources/img/favorite_tag_white.png'></c:url>">
                                     </div>
-                                    <div class="more_box">
-                                        <img class="icon_more" src="<c:url value='/resources/img/dot_menu.png'></c:url>">
-                               
-                                    </div>
+                                <div class="more_box">
+								  <img class="icon_more" src="<c:url value='/resources/img/dot_menu.png'></c:url>">
+								  <div class="dropdown-menu">
+								    <button type="button" onclick="editFunction()">수정하기</button>
+								    <button type="button" onclick="deleteFunction()">삭제하기</button>
+								  </div>
+								</div>
                                 </div>
                             </div>
                             <div class="board_content">
@@ -58,7 +62,7 @@
                                     <img class="icon_scrap" src="<c:url value='/resources/img/favorite_tag_white.png'></c:url>">
                                     <span>스크랩</span>
                                     <span class="scrap_num">12</span>
-                                </div>
+                             </div>
                                 <div class="comment_bottom">
                                     <img class="icon_scrap" src="<c:url value='/resources/img/speech_bubble.png'></c:url>">
                                     <span>댓글</span>
@@ -67,3 +71,20 @@
                             </div>
                         </div>
                      </div>
+                     
+<script>
+$(document).ready(function() {
+    var iconMore = $('.icon_more');
+    var dropdownMenu = $('.dropdown-menu');
+
+    iconMore.on('click', function() {
+      dropdownMenu.css('display', dropdownMenu.css('display') === 'block' ? 'none' : 'block');
+    });
+
+    $(document).on('click', function(e) {
+      if (!$(e.target).closest('.more_box').length) {
+        dropdownMenu.css('display', 'none');
+      }
+    });
+  });
+</script>

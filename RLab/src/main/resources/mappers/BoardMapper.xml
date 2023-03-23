@@ -10,17 +10,17 @@
 	</insert>
 	
 	<select id="selectBoardList" parameterType="map" resultType="kr.kh.RLab.vo.BoardVO">
-    SELECT *
-    FROM board
-    JOIN study
-    ON bo_st_num = st_num
-    JOIN member
-    ON bo_me_id = me_id
-    <if test="orderBy != null">
-        ORDER BY ${orderBy}
-    </if>
-    LIMIT #{offset}, #{pageSize}
-</select>
+	    SELECT *
+	    FROM board
+	    JOIN study
+	    ON bo_st_num = st_num
+	    JOIN member
+	    ON bo_me_id = me_id
+	    <if test="orderBy != null">
+	        ORDER BY ${orderBy}
+	    </if>
+	    LIMIT #{offset}, #{pageSize}
+	</select>
 	
 	<select id="getBoard" resultType="kr.kh.RLab.vo.BoardVO">
 		select
