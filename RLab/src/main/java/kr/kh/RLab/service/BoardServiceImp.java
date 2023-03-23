@@ -1,6 +1,7 @@
 package kr.kh.RLab.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -33,14 +34,20 @@ public class BoardServiceImp implements BoardService {
 		return true;
 	}
 
-	@Override
-	public ArrayList<BoardVO> selectBoardList() {
-		return boardDao.selectBoardList();
-	}
 
 	@Override
 	public BoardVO getBoard(int bo_num) {
 		return boardDao.getBoard(bo_num);
+	}
+
+	@Override
+	public ArrayList<BoardVO> selectBoardList(Map map) {
+		return boardDao.selectBoardList(map);
+	}
+
+	@Override
+	public int getCount() {
+		return boardDao.getCount();
 	}
 
 }

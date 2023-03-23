@@ -143,3 +143,28 @@ table { border-collapse: collapse; }
   
 }
 .bd_list_item{padding-left: 5px;}
+
+/* 넘기기 버튼 */
+.page_box{
+  margin-top: 40px; display: flex; justify-content: center;
+}
+.page_box>*{float: left; }
+.page_num+.page_num{margin-left: 20px;}
+.page_box .selected{
+  color: var(--color_black); font-weight: bold;
+  
+}
+.page_box span{
+  line-height: 30px; font-size: 25px; color: rgb(62, 62, 62)
+}
+
+.page_box .btn_prev{
+  display: inline-block; width: 30px; height: 30px; margin-right: 10px;
+  background-position: -10px -10px; 
+  background-image: url(../../img/page_left.png);  background-size:50px 50px;
+}
+.page_box .btn_next{
+  width: 30px; height: 30px; margin-left: 10px;
+  background-position: -10px -10px; display: inline-block;
+  background-image: url(../../img/page_right.png); background-size:50px 50px;
+}

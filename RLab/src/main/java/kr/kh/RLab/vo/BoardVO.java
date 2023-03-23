@@ -1,5 +1,6 @@
 package kr.kh.RLab.vo;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import lombok.Data;
@@ -18,5 +19,11 @@ public class BoardVO {
 	private Date bo_upd_date;
 	private String st_name;
 	private String me_name;
+	
+	public String getBo_reg_date_str() {
+		SimpleDateFormat format = 
+			new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		return format.format(bo_reg_date);
+	}
 	
 }

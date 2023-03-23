@@ -14,3 +14,7 @@ RLab/target/classes/kr/kh/RLab/dao/BoardDAO.class
 RLab/target/classes/kr/kh/RLab/vo/StudyVO.class
 
 RLab/src/main/webapp/resources/css/board/mypost_post.css
+
+RLab/target/classes/kr/kh/RLab/pagination/PageHandler.class
+
+*.class
