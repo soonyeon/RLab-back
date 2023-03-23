@@ -52,20 +52,40 @@ public class BoardController {
 	}
 	
 	@GetMapping("/list")
-	public ModelAndView boardList(@RequestParam(defaultValue ="1")Integer page, @RequestParam(defaultValue ="10")Integer pageSize,ModelAndView mv) {
-		//navi
-		int totalCnt = boardService.getCount();
-		PageHandler pageHandler = new PageHandler(totalCnt, page, pageSize);
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("offset",(page-1)*pageSize);
-        map.put("pageSize", pageSize);
-		
-		ArrayList<BoardVO> boardList = boardService.selectBoardList(map);
-		
-		mv.addObject("boardList", boardList);
-		mv.addObject("ph", pageHandler);
-		mv.setViewName("/board/list");
-		return mv;
+	public ModelAndView boardList(
+	        @RequestParam(defaultValue = "1") Integer page,
+	        @RequestParam(defaultValue = "10") Integer pageSize,
+	        @RequestParam(required = false) String sort,
+	        ModelAndView mv
+	) {
+	    int totalCnt = boardService.getCount();
+	    PageHandler pageHandler = new PageHandler(totalCnt, page, pageSize);
+	    Map<String, Object> map = new HashMap<String, Object>();
+	    map.put("offset", (page - 1) * pageSize);
+	    map.put("pageSize", pageSize);
+
+	    if (sort != null) {
+	        switch (sort) {
+	            case "newest":
+	                map.put("orderBy", "bo_reg_date DESC");
+	                break;
+	            case "oldest":
+	                map.put("orderBy", "bo_reg_date ASC");
+	                break;
+	            default:
+	                map.put("orderBy", null);
+	                break;
+	        }
+	    } else {
+	        map.put("orderBy", null);
+	    }
+
+	    ArrayList<BoardVO> boardList = boardService.selectBoardList(map);
+
+	    mv.addObject("boardList", boardList);
+	    mv.addObject("ph", pageHandler);
+	    mv.setViewName("/board/list");
+	    return mv;
 	}
 	
 	@GetMapping("/detail/{bo_num}")

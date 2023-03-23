@@ -10,7 +10,7 @@ public interface BoardService {
     //게시글 작성
 	boolean insertBoard(BoardVO board, MemberVO member);
     //게시글 리스트
-	ArrayList<BoardVO> selectBoardList(Map map);
+	ArrayList<BoardVO> selectBoardList(Map<String, Object> map);
 	//게시글 상세조회
 	BoardVO getBoard(int bo_num);
 	int getCount();

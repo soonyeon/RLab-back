@@ -94,4 +94,26 @@
             </div>
         </main>
     </div>
-    <script></script>
+<script>
+function redirectToBoardList(sortParam) {
+    <c:url var="url" value="/board/list">
+        <c:param name="page" value="1" />
+        <c:param name="pageSize" value="10" />
+    </c:url>
+    window.location.href = "${url}&sort=" + sortParam;
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  var selectView = document.querySelector('select[name="select_view"]');
+  selectView.addEventListener('change', function() {
+    var selectedValue = this.value;
+    var sortParam = "";
+    if (selectedValue === "최신 순") {
+      sortParam = "newest";
+    } else if (selectedValue === "작성일 순") {
+      sortParam = "oldest";
+    }
+    redirectToBoardList(sortParam);
+  });
+});
+</script>
