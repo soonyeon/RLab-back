@@ -14,7 +14,8 @@ CREATE TABLE `member` (
 	`me_authority`	int not null default 0,
 	`me_point`	int not null DEFAULT 0,
 	`me_rest_time`	int	,
-	`me_use_time`	int
+	`me_use_time`	int,
+    `me_profile`	varchar(255)
 );
 
 DROP TABLE IF EXISTS `branch`;
@@ -26,7 +27,8 @@ CREATE TABLE `branch` (
 	`br_road_address`	VARCHAR(255) NOT NULL,
 	`br_tel`	VARCHAR(20) NOT NULL,
 	`br_capacity`	INT NOT NULL,
-	`br_re_name`	varchar(10)	NOT NULL
+	`br_re_name`	varchar(10)	NOT NULL,
+    `br_img`	varchar(255)
 );
 
 DROP TABLE IF EXISTS `study_member`;
@@ -151,7 +153,7 @@ CREATE TABLE `photo` (
 	`ph_pt_num`	int	NOT NULL,
 	`ph_me_id`	varchar(13)	NOT NULL,
 	`ph_register_date`	datetime default now()	NULL,
-	`ph_img`	BLOB NOT NULL,
+	`ph_img`	varchar(255) NOT NULL,
 	`ph_content`	varchar(500),
 	`ph_st_num`	int	NOT NULL
 );
@@ -250,7 +252,7 @@ CREATE TABLE `evolution` (
 	`ev_pe_num`	int	NOT NULL,
 	`ev_level`	int	NOT NULL,
 	`ev_step`	int not NULL,
-	`ev_img`	blob not NULL
+	`ev_img`	varchar(255) not NULL
 );
 
 DROP TABLE IF EXISTS `temporary`;
@@ -355,7 +357,7 @@ CREATE TABLE `study` (
 	`st_now_people`	int(50)  not null default 1,
 	`st_total_people`	int(50)  not null default 1	NULL,
 	`st_re_name`	varchar(10),
-	`st_image`	BLOB
+	`st_image`	varchar(255)
 );
 
 DROP TABLE IF EXISTS `exp`;
