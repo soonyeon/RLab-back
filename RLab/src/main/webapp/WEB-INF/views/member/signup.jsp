@@ -1,0 +1,320 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="<c:url value='/resources/js/jquery.min.js'></c:url>"></script>
+<script src="<c:url value='/resources/js/jquery.validate.min.js'></c:url>"></script>
+<link rel="stylesheet"
+	href="<c:url value ='/resources/css/signup.css'></c:url>">
+<title>signup</title>
+</head>
+
+<body>
+	<!-- background -->
+	<div class="background_bbls">
+		<div class="big_bbls">
+			<div class="bubble"></div>
+			<div class="bubble"></div>
+			<div class="bubble"></div>
+			<div class="bubble"></div>
+		</div>
+		<div class="small_bbls">
+			<div class="bubble"></div>
+			<div class="bubble"></div>
+		</div>
+	</div>
+	<div id="total_container">
+		<!-- header -->
+		<header>
+			<div id="header_container">
+				<div class="header_left">
+					<a href="#" class="btn_home"><i class="icon_home"></i>LAB</a>
+					<nav class="top_menu_container">
+						<a href="#" class="list_item">예약하기</a> <a href="#"
+							class="list_item">스터디</a> <a href="#" class="list_item">모집
+							게시판</a>
+					</nav>
+				</div>
+				<div class="header_right">
+					<div class="mypage_container">
+						<div class="join_box">
+							<!-- 로그인 -->
+							<a href="#" class="login_modal">로그인</a>
+							<!-- 회원가입 -->
+							<a href="../html/signup.html" class="signup_btn">회원가입</a>
+						</div>
+						<a href="#" class="mypage"><i class="icon_mypage"></i><span
+							class="blind">마이페이지</span></a>
+					</div>
+				</div>
+			</div>
+		</header>
+
+
+		<!-- main -------------------------------------------------------------------------->
+		<main>
+			<div class="sign_up_container">
+				<h1>회원가입</h1>
+				<form action="#" method="post" class="form_area">
+					<!-- <form action="<c:url value='/signup'></c:url>" method="post"> -->
+					<div class="form_group">
+						<label for="id">아이디:</label> <input type="text"
+							class="form_control" id="id" name="me_id" placeholder="영문, 숫자 를 이용하여 5-13자 가능">
+					</div>
+					<button class="btn btn_outline_success col-12 btn_check_id" type="button" >아이디
+						중복체크</button>
+					<div class="form_group">
+						<label for="pw">비밀번호:</label> <input type="password"
+							class="form_control" id="pw" name="me_pw" placeholder="영문, 숫자, !@#를 이용하여 8-20자 가능">
+					</div>
+					<div class="form_group">
+						<label for="pw2">비밀번호 확인:</label> <input type="password"
+							class="form_control" id="pw2" name="me_pw2">
+					</div>
+					<div class="form_group">
+						<label for="nickname">닉네임:</label> <input type="text"
+							class="form_control" id="nickname" name="me_name" placeholder="한글,영어,숫자를 이용하여 2-10자 까지 가능">
+					</div>
+					<button class="btn btn_outline_success col-12 btn_check_name" type="button">닉네임
+						중복체크</button>
+					<div class="form_group">
+						<label for="email">이메일:</label> <input type="text"
+							class="form_control" id="useremail" name="me_email">
+					</div>
+					<button class="btn btn_outline_success col-12" type="button"  id="mail_check_btn">이메일 인증</button>
+					<div class="mail-check-box">
+						<input class="form_control mail_check_input" disabled="disabled" maxlength="6" placeholder="인증번호 6자리를 입력해주세요!">
+					</div>
+					
+					<button class="btn btn_outline_success col-12 mt-5">회원가입</button>
+				</form>
+			</div>
+		</main>
+		<!-- ------------------------------------------------------------------------------>
+
+		<footer>
+			<div class="container">
+				<a href="#" class="btn_home"><i class="icon_home"></i>LAB</a>
+				<!-- 관련 정보 섹션 -->
+				<section>
+					<div class="info_container clearfix">
+						<div class="direct_num_box">
+							<h1 class="info_title">대표번호 : 123-4567</h1>
+							<ul class="list_tel">
+								<li class="item_tel"><a href="" class="link_tel">강남
+										1566-1234</a></li>
+								<li class="item_tel"><a href="" class="link_tel">선릉
+										1566-1234</a></li>
+								<li class="item_tel"><a href="" class="link_tel">성수
+										1566-1234</a></li>
+								<li class="item_tel"><a href="" class="link_tel">노원
+										1566-1234</a></li>
+								<li class="item_tel"><a href="" class="link_tel">군자
+										1566-1234</a></li>
+							</ul>
+						</div>
+						<div class="info_right_container">
+							<div class="info_box_right about_us_box">
+								<h3 class="info_title">ABOUT US</h3>
+								<ul>
+									<li><a href="#">지점 소개</a></li>
+								</ul>
+							</div>
+							<div class="info_box_right link_to_box">
+								<h3 class="info_title">LINK TO</h3>
+								<ul>
+									<li class="item_linkto"><a href="#" class="link_linkto">예약하기</a>
+									</li>
+									<li class="item_linkto"><a href="#" class="link_linkto">스터디</a>
+									</li>
+									<li class="item_linkto"><a href="#" class="link_linkto">모집
+											게시판</a></li>
+									<li class="item_linkto"><a href="#" class="link_linkto">마이페이지</a>
+									</li>
+								</ul>
+							</div>
+							<div class="info_box_right my_account_box">
+								<h3 class="info_title">MT ACCOUNT</h3>
+								<ul>
+									<li class="item_member">회원 정보 수정</li>
+									<li class="item_member">예약 확인</li>
+									<li class="item_member">포인트 조회</li>
+								</ul>
+							</div>
+							<div class="info_box_right help_box">
+								<h3 class="info_title">HELP</h3>
+								<ul>
+									<li class="item_help">1:1 문의</li>
+									<li class="item_help">공지사항</li>
+									<li class="item_help">F&Q</li>
+									<li class="item_help">가맹점 문의</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</section>
+				<!-- 프로젝트 정보 섹션 -->
+				<section>
+					<div class="corp_container">
+						<a href="#" class="link_corp">RLAB스터디</a> <a href="#"
+							class="link_corp">사업자등록번호 : 12123-15142435</a> <a href="#"
+							class="link_corp">서울 강남 제214-01호</a> <a href="#"
+							class="link_corp">대표자 : 김세영</a> <a href="#" class="link_corp">책임자
+							: 김세영</a> <a href="#" class="link_corp">개인정보관리책임자 : 김세영</a>
+					</div>
+				</section>
+			</div>
+		</footer>
+	</div>
+
+<script>
+	$('form').validate({
+		rules : { //유효성검사
+			me_id : {
+				required : true,
+				regex : /^[a-zA-Z0-9]{5,12}$/
+			},
+			me_pw : {
+				required : true,
+				regex : /^[a-zA-Z0-9!@#]{8,19}$/
+			},
+			me_pw2 : {
+				equalTo : pw
+			},
+			me_name : {
+				required : true,
+				regex : /^[a-zA-Z0-9]{2,9}$/
+			},
+			me_email : {
+				required : true,
+				email : true
+			}
+
+			
+		},
+		messages : { //유효성검사하고 메시지
+			me_id : {
+				required : '필수항목 입니다',
+				regex : '아이디는 영문, 숫자 를 이용하여 5-13자 까지 가능합니다'
+			},
+			me_pw : {
+				required : '필수항목 입니다',
+				regex : '비밀번호는 영문, 숫자, !@#를 이용하여 8-20자 까지 가능합니다'
+			},
+			me_pw2 : {
+				equalTo : '비밀번호가 일치하지 않습니다'
+			},
+			me_name : {
+				required : '필수항목 입니다',
+				regex : '닉네임은 한글,영어,숫자를 이용하여 2-10자 까지 가능합니다'
+			},
+			me_email : {
+				required : '필수항목 입니다',
+				email : '이메일 형식이 아닙니다'
+			}
+
+		},
+		submitHandler: function(form) {
+			if(!idCheck){
+				alert('아이디 중복체크를 하세요.');
+				return false;
+			}
+			return true;
+		}
+	});
+	$.validator.addMethod("regex", function(value, element, regexp) {
+		var re = new RegExp(regexp);
+		return this.optional(element) || re.test(value);
+	}, "Please check your input.");
+	
+	/*아이디 체크*/
+	$('.btn_check_id').click(function(){
+		let me_id = $('[name=me_id]').val();
+		let obj = {
+				me_id : me_id
+		}
+		$.ajax({
+			async:true,
+			type:'POST',
+			data: JSON.stringify(obj),
+			url: '<c:url value="/check/id"></c:url>',
+			dataType:"json",
+			contentType:"application/json; charset=UTF-8",
+			success : function(data){
+			    if(data.res){
+			    	alert('사용 가능한 아이디입니다.');
+			    	idCheck = true;
+			    }else{
+			    	alert('사용 불가능한 아이디입니다.')
+			    }
+			}
+		});
+	});
+	
+	let idCheck = false;
+	$('[name=me_id]').change(function(){
+		idCheck = false;
+	});
+	
+	/*닉네임 체크*/
+	$('.btn_check_name').click(function(){
+		let me_name = $('[name=me_name]').val();
+		let obj = {
+				me_name : me_name
+		}
+		$.ajax({
+			async:true,
+			type:'POST',
+			data: JSON.stringify(obj),
+			url: '<c:url value="/check/name"></c:url>',
+			dataType:"json",
+			contentType:"application/json; charset=UTF-8",
+			success : function(data){
+			    if(data.res){
+			    	alert('사용 가능한 닉네임 입니다.');
+			    	nameCheck = true;
+			    }else{
+			    	alert('사용 불가능한 닉네임 입니다.')
+			    }
+			},
+			error : function(a,b,c){
+				
+			}
+		});
+	});
+	$('[name=me_name]').change(function(){
+		nameCheck = false;
+	});
+	let nameCheck = false;
+	
+	/*이메일인증*/
+	$('#mail_check_btn').click(function() {
+		const email = $('#useremail').val(); // 이메일 주소값 얻어오기!
+		let member = {
+			me_email : email
+		}
+		$.ajax({
+			async:true,
+			type : 'POST',
+			data: JSON.stringify(member),
+			url : '<c:url value="/send/email"></c:url>', 
+			dataType:"json",
+			contentType:"application/json; charset=UTF-8",
+			success : function (data) {
+				console.log("data : " +  data);
+				checkInput.attr('disabled',false);
+				code =data;
+				alert('인증번호가 전송되었습니다.')
+			}			
+		}); 
+	});
+	
+</script>
+
+</body>
+
