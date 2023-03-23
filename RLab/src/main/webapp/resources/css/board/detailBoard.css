@@ -1,0 +1,105 @@
+
+.left_menu_container{
+  display: flex;
+  justify-content: center;
+  width: 300px;
+  height: 400px;
+  padding: 40px 0;
+  border: 2px solid #020a17;
+  border-radius: var(--border_radius_2);
+  box-sizing: border-box;
+  background-color: var(--color_beige);
+}
+.left_menu_container .left_menu{
+  display: flex;
+  flex-flow: column;
+  align-items: flex-start;
+  gap: 16px;
+  font-size: 15px;
+  font-weight: 800;
+}
+.leave {
+  position: relative;
+  bottom: -120px;
+  left: 5px;
+} 
+.left_menu a:visited {
+  font-weight: bold; 
+  /*클릭했을때 굵어지면서 검정색으로 바뀌게 나중에 수정 */
+}
+
+/* 컨텐츠 */
+.home_container {
+  float: left;
+  width: 720px;
+  margin-left: 30px;
+  margin-right: 30px;
+}
+.inner_board_box{
+  border: 1px solid black;
+  width: 650px;
+  padding: 20px 30px;
+  display: flex;
+  flex-direction: column;
+}
+.writer_and_scrap{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin : 10px 0;
+  justify-content: space-between;
+}
+.writer_main{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.writer_box .icon_writer {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-image: url(../img/profile_img.png);
+  background-repeat: no-repeat;
+}
+.writer{
+  display: flex;
+  align-items: center;
+}
+.view_box .icon_view{
+  width: 20px;
+  height: 20px;
+  vertical-align: -5px;
+}
+.sc_and_mo_main{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.icon_scrap{
+  width: 25px;
+  height: 25px;
+}
+.icon_more{
+  width: 25px;
+  height: 25px;
+}
+.board_content{
+  height: 500px;
+  padding: 30px 0;
+  border-top: 2px solid var(--color_grey);
+}
+
+.scrap_and_comment{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 50px;
+  border-bottom: 2px solid var(--color_grey);
+  
+}
+.scrap_bottom{
+  margin-right: 10px;
+}
+.scrap_num{
+  font-size: 20px;
+}

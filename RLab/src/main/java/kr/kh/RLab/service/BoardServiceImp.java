@@ -37,6 +37,7 @@ public class BoardServiceImp implements BoardService {
 
 	@Override
 	public BoardVO getBoard(int bo_num) {
+		boardDao.countViews(bo_num);
 		return boardDao.getBoard(bo_num);
 	}
 

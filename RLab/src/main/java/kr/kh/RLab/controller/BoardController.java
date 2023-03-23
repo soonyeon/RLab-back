@@ -44,6 +44,7 @@ public class BoardController {
 	@PostMapping("/insert")
 	public ModelAndView boardInsertPost(ModelAndView mv,BoardVO board) {
 		//회원 정보 가져옴 (작성자) 임시로 가짜데이터 생성
+		System.out.println(board);
 		MemberVO member = new MemberVO("qwe123", "김돌탕", "asdf1234", "01012345678", "a@a", 1, 0);
 		boolean res = boardService.insertBoard(board, member);
 		mv.setViewName("redirect:/board/list");
@@ -55,12 +56,12 @@ public class BoardController {
 		//navi
 		int totalCnt = boardService.getCount();
 		PageHandler pageHandler = new PageHandler(totalCnt, page, pageSize);
-		System.out.println("controller 페이지네이션 확인용"+pageHandler);
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("offset",(page-1)*pageSize);
         map.put("pageSize", pageSize);
 		
 		ArrayList<BoardVO> boardList = boardService.selectBoardList(map);
+		
 		mv.addObject("boardList", boardList);
 		mv.addObject("ph", pageHandler);
 		mv.setViewName("/board/list");

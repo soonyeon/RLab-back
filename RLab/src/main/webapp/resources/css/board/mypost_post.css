@@ -168,3 +168,18 @@ table { border-collapse: collapse; }
   background-position: -10px -10px; display: inline-block;
   background-image: url(../../img/page_right.png); background-size:50px 50px;
 }
+
+.write_btn {
+	-webkit-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    border: 0;
+    font-weight: bold;
+    background-color: var(--color_blue);
+    width: 110px;
+    height: 40px ;
+    border-radius: var(--border_radius_3);
+    line-height: 37px;
+    font-size: medium;
+    cursor: pointer;
+}

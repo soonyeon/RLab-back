@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<link rel="stylesheet" href="<c:url value='/resources/css/board/mypost_post.css'></c:url>">
+<link rel="stylesheet" href="<c:url value='/resources/css/board/detailBoard.css'></c:url>">
 <link href="<c:url value='/resources/css/summernote-lite.min.css'></c:url>" rel="stylesheet">
 <script src="<c:url value='/resources/js/summernote-lite.min.js'></c:url>"></script>
 <style>
@@ -9,7 +9,7 @@
  	background-color: white;
  }
 </style>
-<div class="left_menu_container_top" style="margin-left: 118px">
+<div class="left_menu_container_top" style="margin-left: 360px;float:left;">
 <div class="left_menu_container">
                     <nav class="left_menu">
                         <a href="study_basic.html" class="list_item">스터디홈</a>
@@ -17,56 +17,53 @@
                         <a href="to_do_list.html" class="list_item">투두 리스트</a>
                         <a href="Daily Mission.html" class="list_item">데일리 미션</a>
                         <a href="certification_board.html" class="list_item">인증 게시판</a>
-                        <a href="#" class="list_item">자유 게시판</a>
+                        <a href="<c:url value='/board/list'></c:url>" class="list_item">자유 게시판</a>
                         <a href="#" class="list_item">스터디 관리</a>
                         <a href="#" class="leave">탈퇴하기</a>
                     </nav>
                 </div>
 </div>
-<div class="form-container" style="margin-left: 482px;">
-	<button type="button" style="float:right">임시저장 불러오기</button><br>
-<label for="st_num">스터디명</label><br>
-<select name="bo_st_num" id="bo_st_num">
-	<c:forEach var="study" items="${studies}">
-		<option value="${study.st_num}">${study.st_name}</option>
-	</c:forEach>
-</select><br>
-  <label for="bo_me_id">작성자</label><br>
-	<input type="text" name="bo_me_id" value="${memberId}" readonly="readonly"><br>
- <label for="bo_title">제목</label><br>
-	<input type="text" name="bo_title" placeholder="제목 10자 이내" maxlength="10" value="${bd.bo_title}"><br>
- <label for="bo_content">내용</label><br>
-<textarea id="content" name="bo_content"></textarea>
- <div style="float: right">
-	 <button type="button">임시저장</button><button type="submit">수정완료</button>
- </div>
- </div>
- 
- <script>
-   $('form').submit(function() {
-	let title = $('[name=bo_title]').val();
-	let content = $('[name=bo_content]').val();
-	if(title.trim().length == 0) {
-		alert('제목을 입력하세요.');
-		return false;
-	}
-	if(content.trim().length == 0) {
-		alert('내용을 입력하세요.');
-		return false;
-	}
-})
- 
-   $('#content').summernote({
-     tabsize: 2,
-     height: 300,
-     toolbar: [
-       ['style', ['style']],
-       ['font', ['bold', 'underline', 'clear']],
-       ['color', ['color']],
-       ['para', ['ul', 'ol', 'paragraph']],
-       ['table', ['table']],
-       ['insert', ['link', 'picture', 'video']],
-       ['view', ['fullscreen', 'codeview', 'help']]
-     ]
-   });
- </script>
+  <div class="home_container">
+                        <h2>자유게시판</h2>
+                        <div class="inner_board_box" >
+                            <h1 class="board_title">${bd.bo_title}</h1>
+                            <div class="writer_and_scrap">
+                                <div class="writer_main">
+                                    <div class="writer_box">
+                                        <a href="#" class="writer"> 
+                                        <img class="icon_writer" src="<c:url value='/resources/img/profile_img.png'></c:url>">
+                                        <span class="writer_name">${bd.me_name}</span></a>
+                                    </div> 
+                                    <span class="write_date">${bd.bo_reg_date_str}</span>
+                                    <div class="view_box">
+                                        <img class="icon_view" src="<c:url value='/resources/img/view_lightgray.png'></c:url>">
+                                        <span class="view">${bd.bo_views}</span>
+                                    </div>
+                                </div>
+                                <div class="sc_and_mo_main">
+                                    <div class="scrap_box">
+                                        <img class="icon_scrap" src="<c:url value='/resources/img/favorite_tag_white.png'></c:url>">
+                                    </div>
+                                    <div class="more_box">
+                                        <img class="icon_more" src="<c:url value='/resources/img/dot_menu.png'></c:url>">
+                               
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="board_content">
+                                <span>${bd.bo_content}</span>
+                            </div>
+                            <div class="scrap_and_comment">
+                                <div class="scrap_bottom">
+                                    <img class="icon_scrap" src="<c:url value='/resources/img/favorite_tag_white.png'></c:url>">
+                                    <span>스크랩</span>
+                                    <span class="scrap_num">12</span>
+                                </div>
+                                <div class="comment_bottom">
+                                    <img class="icon_scrap" src="<c:url value='/resources/img/speech_bubble.png'></c:url>">
+                                    <span>댓글</span>
+                                    <span class="comment_num">12</span>
+                                </div>
+                            </div>
+                        </div>
+                     </div>

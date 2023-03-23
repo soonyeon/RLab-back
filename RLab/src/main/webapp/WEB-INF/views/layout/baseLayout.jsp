@@ -12,7 +12,7 @@
 </head>
 <body>
     <tiles:insertAttribute name="header"/>   
-    <div style="margin-top:100px">
+    <div style="margin-top:100px" class="clearfix">
     <tiles:insertAttribute name="body" /> 
       
     </div>                                         
