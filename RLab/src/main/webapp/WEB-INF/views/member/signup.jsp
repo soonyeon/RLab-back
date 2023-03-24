@@ -264,7 +264,6 @@
 	});
 	
 	/*닉네임 체크*/
-	/*
 	$('.btn_check_name').click(function(){
 		let me_name = $('[name=me_name]').val();
 		let obj = {

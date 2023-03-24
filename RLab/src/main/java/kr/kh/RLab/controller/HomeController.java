@@ -38,13 +38,12 @@ public class HomeController {
 		boolean isSignup = memberService.signup(member); //회원가입 성공했는지 물어보기	
 		if(isSignup) {
 			
-			mv.setViewName("redirect:/"); //성공하면 메인페이지
-			
+			memberService.sendEmail(member.getMe_id());
+			mv.setViewName("redirect:/");
 		}else {
-			mv.setViewName("redirect:/signup");//연결
+			mv.setViewName("redirect:/signup");
 			return mv;
 		}
-		mv.setViewName("redirect:/");
 		return mv;
 	}
 	
@@ -66,14 +65,8 @@ public class HomeController {
 		map.put("res", res);
 		return map;
 	}
-	/*
-	@ResponseBody
-	@RequestMapping(value="/send/email", method = RequestMethod.POST)
-	public Map<String, Object> mailCheck(@RequestBody MemberVO member) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		boolean res = memberService.sendCheckMail(member.getMe_id(),member.getMe_email());
-		map.put("res", res);
-		return map;
-	} 
-	*/
+	
+	
+
+	
 }

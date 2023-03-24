@@ -12,12 +12,14 @@ public interface MemberDAO {
 	Object selectMemberById(@Param("me_id")String me_id);
 
 	Object selectMemberByName(@Param("me_name")String me_name);
-
+	/*
 	MemberOKVO selectMemberOK(@Param("mok")MemberOKVO mok);
 
 	void deleteMemberOK(@Param("mok")MemberOKVO mok);
 
 	void updateAuthority(@Param("me_id")String me_id,@Param("me_authority") int i);
+
+	*/
 
 	void insertMemberOK(@Param("mok")MemberOKVO mok);
 	
