@@ -30,8 +30,8 @@ public class EmailController {
         session.setMaxInactiveInterval(300); // 코드 유효 시간 설정 (5분)
 
         emailService.sendEmail(email, "회원가입 인증 번호", "인증 번호: " + verificationCode);
-
-        return "이메일이 전송되었습니다.";
+        
+        return "이메일 전송";
     }
     
     @PostMapping("/check")
@@ -47,4 +47,6 @@ public class EmailController {
             return false;
         }
     }
+    
+    
 }

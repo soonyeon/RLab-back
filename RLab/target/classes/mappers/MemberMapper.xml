@@ -16,8 +16,11 @@
 		resultType="kr.kh.RLab.vo.MemberVO">
 		select * from member where me_name = #{me_name}
 	</select>
-	<insert id="insertMemberOK">
-		insert into member_ok(mo_me_id, mo_num, mo_valid_time)
-		values(#{mok.mo_me_id},#{mok.mo_num},date_add(#{mok.mo_valid_time},interval 1 hour))
-	</insert>
+	<update id="updateAuthority">
+		update member
+		set 		
+			me_authority = #{me_authority}
+		where
+			me_id = #{me_id}
+	</update>
 </mapper>

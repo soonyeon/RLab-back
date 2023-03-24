@@ -3,6 +3,8 @@ package kr.kh.RLab.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,10 +37,8 @@ public class HomeController {
 	
 	@RequestMapping(value = "/signup",method =RequestMethod.POST )
 	public ModelAndView signupPost(ModelAndView mv , MemberVO member) {
-		boolean isSignup = memberService.signup(member); //회원가입 성공했는지 물어보기	
+		boolean isSignup = memberService.signup(member); 
 		if(isSignup) {
-			
-			memberService.sendEmail(member.getMe_id());
 			mv.setViewName("redirect:/");
 		}else {
 			mv.setViewName("redirect:/signup");
@@ -67,6 +67,6 @@ public class HomeController {
 	}
 	
 	
-
+	
 	
 }

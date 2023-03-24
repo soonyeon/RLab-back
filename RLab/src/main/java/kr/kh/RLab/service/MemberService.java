@@ -10,9 +10,8 @@ public interface MemberService {
 
 	boolean checkName(MemberVO user);
 
-	void sendEmail(String me_id);
 
-	/*boolean sendCheckMail(String me_id,String me_email);*/
+
 
 
 }
