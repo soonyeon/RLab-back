@@ -54,12 +54,12 @@
            			</div>
         		</c:if> 
 		        <c:if test="${user != null}">		  		       
-		  			<div class="logout_box">
-     					<form action="<c:url value='/logout'></c:url>" method="post">     
+     				<form action="<c:url value='/logout'></c:url>" method="post">     
+		  				<div class="logout_box">
 		  		    		<a href="#"><i class="icon_mypage"></i><span class="blind">마이페이지</span></a>
               				<a class="logout_btn"href="<c:url value='/logout'></c:url>">로그아웃</a>
-              			</form>
-            		</div>    
+            			</div>    
+              		</form>
 		        </c:if>
         	</div>
         </div>
