@@ -11,6 +11,7 @@
           <a href="#" class="close_btn">x</a>
           <div class="login_box">
             <h1>로그인</h1>
+            
             <form action="<c:url value='/login'></c:url>" method="post">
               <div class="form_group">
                 <!-- <label for="id"></label> -->
@@ -28,6 +29,7 @@
                 <a href="#" class="more_action_item 3">회원가입</a>
               </p>
             </form>
+            
           </div>
         </div>
       </div>
@@ -47,19 +49,22 @@
 	    	<div class="mypage_container">
 	    		<c:if test="${user == null}">
             		<div class="join_box">
-            			<a href="#" class="login_modal">로그인</a>
+            			<a class="login_modal" href="#">로그인</a>
            				<a href="../html/signup.html" class="signup_btn">회원가입</a>
            			</div>
         		</c:if> 
-		        <c:if test="${user != null}">   
-		            <a href="#" class="mypage"><i class="icon_mypage"></i><span class="blind">마이페이지</span></a>
+		        <c:if test="${user != null}">		  		       
+		  			<div class="logout_box">
+     					<form action="<c:url value='/logout'></c:url>" method="post">     
+		  		    		<a href="#"><i class="icon_mypage"></i><span class="blind">마이페이지</span></a>
+              				<a class="logout_btn"href="<c:url value='/logout'></c:url>">로그아웃</a>
+              			</form>
+            		</div>    
 		        </c:if>
         	</div>
         </div>
       </div>
     </header>
-    
-    
 <script>
 	$('.login_modal').click(function(){
 		$('.modal_container').show();
