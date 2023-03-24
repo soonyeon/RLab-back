@@ -37,15 +37,17 @@ public class HomeController {
 	public ModelAndView signupPost(ModelAndView mv , MemberVO member) {
 		boolean isSignup = memberService.signup(member); //회원가입 성공했는지 물어보기	
 		if(isSignup) {
-			System.out.println(member);
+			
 			mv.setViewName("redirect:/"); //성공하면 메인페이지
 			
 		}else {
 			mv.setViewName("redirect:/signup");//연결
 			return mv;
-		}	
+		}
+		mv.setViewName("redirect:/");
 		return mv;
 	}
+	
 	
 	@ResponseBody
 	@RequestMapping(value = "/check/id", method=RequestMethod.POST)
@@ -64,7 +66,7 @@ public class HomeController {
 		map.put("res", res);
 		return map;
 	}
-	
+	/*
 	@ResponseBody
 	@RequestMapping(value="/send/email", method = RequestMethod.POST)
 	public Map<String, Object> mailCheck(@RequestBody MemberVO member) {
@@ -72,6 +74,6 @@ public class HomeController {
 		boolean res = memberService.sendCheckMail(member.getMe_id(),member.getMe_email());
 		map.put("res", res);
 		return map;
-	}
-	
+	} 
+	*/
 }

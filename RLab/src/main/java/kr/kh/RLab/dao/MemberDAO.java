@@ -7,7 +7,7 @@ import kr.kh.RLab.vo.MemberVO;
 
 public interface MemberDAO {
 
-	int insertMember(@Param("member")MemberVO member);
+	int insertMember(@Param("m")MemberVO member);
 
 	Object selectMemberById(@Param("me_id")String me_id);
 

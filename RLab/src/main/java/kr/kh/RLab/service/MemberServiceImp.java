@@ -26,15 +26,14 @@ public class MemberServiceImp implements MemberService {
 	@Override
 	public boolean signup(MemberVO member) {
 		if(member == null)
-		return false;
-		
+			return false;
 		if(memberDao.insertMember(member)!=0)
 			return true;
 		return false;
 	}
 
 
-
+	
 	@Override
 	public boolean checkId(MemberVO user) {
 		if(user == null || 
@@ -52,8 +51,9 @@ public class MemberServiceImp implements MemberService {
 		return false;
 		return memberDao.selectMemberByName(user.getMe_name()) == null;
 	}
-
 	
+	
+	/*
 	private String authenticationNumber() {
 		// 인증번호 생성 : 6자리 , 영어 + 숫자로 된 인증 번호
 		String str = "";
@@ -113,7 +113,7 @@ public class MemberServiceImp implements MemberService {
 	    } 
 		
 	}
-
+*/
 
 
 

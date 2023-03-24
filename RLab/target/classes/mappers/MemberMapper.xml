@@ -5,8 +5,8 @@
 <mapper namespace="kr.kh.RLab.dao.MemberDAO">
 
 	<insert id="insertMember">
-		insert into member(me_id, me_pw, me_email,me_phone,me_name)
-		values(#{member.me_id},#{member.me_pw},#{member.me_email},#{member.me_phone},#{member.me_name})
+		insert into member(me_id, me_pw, me_email, me_name)
+		values(#{m.me_id},#{m.me_pw},#{m.me_email},#{m.me_name})
 	</insert>
 	<select id="selectMemberById"
 		resultType="kr.kh.RLab.vo.MemberVO">

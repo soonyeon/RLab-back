@@ -9,8 +9,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="<c:url value='/resources/js/jquery.min.js'></c:url>"></script>
 <script src="<c:url value='/resources/js/jquery.validate.min.js'></c:url>"></script>
-<link rel="stylesheet"
-	href="<c:url value ='/resources/css/signup.css'></c:url>">
+<script src="<c:url value='/resources/js/additional-methods.min.js'></c:url>"></script>
+<link rel="stylesheet" href="<c:url value ='/resources/css/signup.css'></c:url>">
 <title>signup</title>
 </head>
 
@@ -60,17 +60,17 @@
 		<main>
 			<div class="sign_up_container">
 				<h1>회원가입</h1>
-				<form action="#" method="post" class="form_area">
+				<form id="signupform" action="#" method="post" class="form_area" encytype="multipart/form-data">
 					<!-- <form action="<c:url value='/signup'></c:url>" method="post"> -->
 					<div class="form_group">
 						<label for="id">아이디:</label> <input type="text"
-							class="form_control" id="id" name="me_id" placeholder="영문, 숫자 를 이용하여 5-13자 가능">
+							class="form_control" id="me_id" name="me_id" placeholder="영문, 숫자 를 이용하여 5-13자 가능">
 					</div>
 					<button class="btn btn_outline_success col-12 btn_check_id" type="button" >아이디
 						중복체크</button>
 					<div class="form_group">
 						<label for="pw">비밀번호:</label> <input type="password"
-							class="form_control" id="pw" name="me_pw" placeholder="영문, 숫자, !@#를 이용하여 8-20자 가능">
+							class="form_control" id="me_pw" name="me_pw" placeholder="영문, 숫자, !@#를 이용하여 8-20자 가능">
 					</div>
 					<div class="form_group">
 						<label for="pw2">비밀번호 확인:</label> <input type="password"
@@ -232,9 +232,11 @@
 		return this.optional(element) || re.test(value);
 	}, "Please check your input.");
 	
+	
+	/*
 	/*아이디 체크*/
 	$('.btn_check_id').click(function(){
-		let me_id = $('[name=me_id]').val();
+		let me_id = $('#signupform [name=me_id]').val();
 		let obj = {
 				me_id : me_id
 		}
@@ -262,6 +264,7 @@
 	});
 	
 	/*닉네임 체크*/
+	/*
 	$('.btn_check_name').click(function(){
 		let me_name = $('[name=me_name]').val();
 		let obj = {
@@ -290,9 +293,10 @@
 	$('[name=me_name]').change(function(){
 		nameCheck = false;
 	});
-	let nameCheck = false;
+	let nameCheck = false; 
 	
 	/*이메일인증*/
+	/*
 	$('#mail_check_btn').click(function() {
 		const email = $('#useremail').val(); // 이메일 주소값 얻어오기!
 		let member = {
@@ -312,7 +316,8 @@
 				alert('인증번호가 전송되었습니다.')
 			}			
 		}); 
-	});
+		
+	});*/
 	
 </script>
 
