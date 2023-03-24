@@ -68,7 +68,7 @@
                                                     <td>${board.me_name}</td>
                                                     <td>${board.bo_reg_date_str}</td>
                                                     <td>${board.bo_views}</td>
-                                                    <td></td>
+                                                    <td>${board.scrap_count}</td>
                                                 </tr>
                                             </c:forEach>
                                         </table>

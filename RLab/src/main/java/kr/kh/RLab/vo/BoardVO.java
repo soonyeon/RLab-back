@@ -19,6 +19,7 @@ public class BoardVO {
 	private Date bo_upd_date;
 	private String st_name;
 	private String me_name;
+	private int scrap_count;
 	
 	public String getBo_reg_date_str() {
 		SimpleDateFormat format = 
