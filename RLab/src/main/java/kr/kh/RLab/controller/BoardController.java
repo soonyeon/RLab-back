@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.kh.RLab.pagination.PageHandler;
 import kr.kh.RLab.service.BoardService;
+import kr.kh.RLab.service.ScrapService;
 import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.StudyVO;
@@ -27,6 +28,7 @@ import lombok.RequiredArgsConstructor;
 public class BoardController {
 	
 	private final BoardService boardService;
+	private final ScrapService scrapService;
 	
 	@GetMapping("/insert")
 	public ModelAndView boardInsert(ModelAndView mv) {
@@ -92,6 +94,11 @@ public class BoardController {
 	public ModelAndView boardGet(ModelAndView mv, @PathVariable int bo_num) {
 		BoardVO board = boardService.getBoard(bo_num);
 		mv.addObject("bd", board);
+		
+		//스크랩수 가져오기
+	    int scrapCount = scrapService.getScrapCount(bo_num);
+	    mv.addObject("scrapCount", scrapCount);
+		
 		mv.setViewName("/board/detail");
 		return mv;
 	}

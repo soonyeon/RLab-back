@@ -33,6 +33,7 @@
                                     <div class="writer_box">
                                         <a href="#" class="writer"> 
                                         <img class="icon_writer" src="<c:url value='/resources/img/profile_img.png'></c:url>">
+                                        <input type="hidden" value="${bd.bo_me_id}">
                                         <span class="writer_name">${bd.me_name}</span></a>
                                     </div> 
                                     <span class="write_date">${bd.bo_reg_date_str}</span>
@@ -48,8 +49,8 @@
                                 <div class="more_box">
 								  <img class="icon_more" src="<c:url value='/resources/img/dot_menu.png'></c:url>">
 								  <div class="dropdown-menu">
-								    <button type="button" onclick="editFunction()">수정하기</button>
-								    <button type="button" onclick="deleteFunction()">삭제하기</button>
+								    <button type="button" data-id="${bd.bo_num}">수정하기</button>
+								    <button type="button">삭제하기</button>
 								  </div>
 								</div>
                                 </div>
@@ -61,7 +62,7 @@
                                 <div class="scrap_bottom">
                                     <img class="icon_scrap" src="<c:url value='/resources/img/favorite_tag_white.png'></c:url>">
                                     <span>스크랩</span>
-                                    <span class="scrap_num">12</span>
+                                    <span class="scrap_num"></span>
                              </div>
                                 <div class="comment_bottom">
                                     <img class="icon_scrap" src="<c:url value='/resources/img/speech_bubble.png'></c:url>">
@@ -73,7 +74,13 @@
                      </div>
                      
 <script>
+const boardNum = '${bd.bo_num}';
+let scrapCount = '${scrapCount}';
+let mo_id = '${bd.bo_me_id}';
 $(document).ready(function() {
+	//스크랩수 적용
+	$('.scrap_num').text(scrapCount);
+	
     var iconMore = $('.icon_more');
     var dropdownMenu = $('.dropdown-menu');
 
@@ -86,5 +93,42 @@ $(document).ready(function() {
         dropdownMenu.css('display', 'none');
       }
     });
+    
+ 
+    $('.icon_scrap').on('click', function() {
+        scrap();
+    });
+
+
+    function scrap() {
+        // 데이터
+        var requestData = {
+            sc_me_id: mo_id,
+            sc_bo_num: boardNum
+        };
+
+        $.ajax({
+        	url: '<c:url value="/scrap" />',
+            type: 'POST',
+            contentType: "application/json",
+            data: JSON.stringify(requestData),
+            success: function(response) {
+                // 스크랩 상태를 업데이트
+                if (response.scrapState === 1) {
+                    $('.icon_scrap').attr('src', '<c:url value="/resources/img/favorite_tag" />');
+                    alert('스크랩을 했습니다.');
+                } else {
+                    $('.icon_scrap').attr('src', '<c:url value="/resources/img/favorite_tag_white" />');
+                    alert('스크랩을 취소 했습니다.');
+                }
+
+                // 스크랩 개수를 업데이트
+                $('.scrap_num').text(response.scrapCount);
+            },
+            error: function(error) {
+                alert('스크랩에 실패하였습니다. 다시 시도해주세요');
+            }
+        });
+    }
   });
 </script>
