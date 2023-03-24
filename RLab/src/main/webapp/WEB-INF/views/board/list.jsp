@@ -104,16 +104,25 @@ function redirectToBoardList(sortParam) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-  var selectView = document.querySelector('select[name="select_view"]');
-  selectView.addEventListener('change', function() {
-    var selectedValue = this.value;
-    var sortParam = "";
-    if (selectedValue === "최신 순") {
-      sortParam = "newest";
-    } else if (selectedValue === "작성일 순") {
-      sortParam = "oldest";
-    }
-    redirectToBoardList(sortParam);
-  });
-});
+	  var selectView = document.querySelector('select[name="select_view"]');
+	  
+	  var savedValue = localStorage.getItem('selectedOption');
+	  if (savedValue) {
+	    selectView.value = savedValue;
+	  }
+
+	  selectView.addEventListener('change', function() {
+	    var selectedValue = this.value;
+	    localStorage.setItem('selectedOption', selectedValue); //저장
+
+	    var sortParam = "";
+	    if (selectedValue === "최신 순") {
+	      sortParam = "newest";
+	    } else if (selectedValue === "작성일 순") {
+	      sortParam = "oldest";
+	    }
+
+	    redirectToBoardList(sortParam);
+	  });
+	});
 </script>
