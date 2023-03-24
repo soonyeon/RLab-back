@@ -77,7 +77,7 @@ public class BoardController {
 	                break;
 	        }
 	    } else {
-	        map.put("orderBy", null);
+	    	map.put("orderBy", "bo_reg_date DESC");
 	    }
 
 	    ArrayList<BoardVO> boardList = boardService.selectBoardList(map);
@@ -93,6 +93,14 @@ public class BoardController {
 		BoardVO board = boardService.getBoard(bo_num);
 		mv.addObject("bd", board);
 		mv.setViewName("/board/detail");
+		return mv;
+	}
+	
+	@GetMapping("/update/{bo_num}")
+	public ModelAndView boardUpdate(ModelAndView mv, @PathVariable int bo_num) {
+		BoardVO board = boardService.getBoard(bo_num);
+		mv.addObject("bd", board);
+		mv.setViewName("/board/update");
 		return mv;
 	}
 	
