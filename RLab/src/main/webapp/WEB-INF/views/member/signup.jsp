@@ -191,18 +191,30 @@ let nameCheck = false;
             $('.mail_check_input').prop('disabled', false);
         });
     });
-	// 인증번호 확인
-	$("#verify_code_btn").on("click", function () {
-	    var inputCode = $(".mail_check_input").val();
-	    $.post("<c:url value='/verifyEmail'/>", {
-	        inputCode: inputCode
-	    }, function (response) {
-	        if (response === "success") {
-	            alert("인증이 성공적으로 완료되었습니다.");
-	        } else {
-	            alert("인증 번호가 일치하지 않습니다. 다시 시도하십시오.");
+	$('#verify_code_btn').on('click', function () {
+	    var verificationCode = $('.mail_check_input').val();
+	    if (!verificationCode) {
+	        alert('인증번호를 입력해주세요.');
+	        return false;
+	    }
+
+	    $.ajax({
+	        url: '<c:url value="/check"/>',
+	        method: 'POST',
+	        contentType: 'application/json',
+	        data: JSON.stringify({
+	            verificationCode: verificationCode
+	        }),
+	        success: function (response) {
+	            if (response) {
+	                alert('인증번호 확인이 완료되었습니다.');
+	            } else {
+	                alert('인증번호가 일치하지 않습니다.');
+	            }
+	        },
+	        error: function () {
+	            alert('인증번호 확인 중 오류가 발생했습니다.');
 	        }
 	    });
 	});
-
 	</script></body>
