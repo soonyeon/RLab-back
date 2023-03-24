@@ -33,8 +33,7 @@ public class HomeController {
 		MemberVO user = memberService.login(member);
 		mv.addObject("user",user);
 		if(user != null) {
-			mv.setViewName("redirect:/");
-			
+			mv.setViewName("redirect:/");			
 			
 		}else {
 			mv.setViewName("redirect:/");
@@ -44,7 +43,7 @@ public class HomeController {
 	}
 	
 	
-	@RequestMapping(value = "/logout", method = RequestMethod.POST)
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public ModelAndView logoutPost(ModelAndView mv,HttpSession session) {
 		if(session != null)
 			session.removeAttribute("user");
