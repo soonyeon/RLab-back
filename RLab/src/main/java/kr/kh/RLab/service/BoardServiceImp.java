@@ -51,4 +51,10 @@ public class BoardServiceImp implements BoardService {
 		return boardDao.getCount();
 	}
 
+	@Override
+	public void deleteBoard(int bo_num) {
+		boardDao.deleteBoard(bo_num);
+	}
+
+
 }

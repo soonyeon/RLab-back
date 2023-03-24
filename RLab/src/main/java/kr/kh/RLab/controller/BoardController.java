@@ -6,11 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.kh.RLab.pagination.PageHandler;
@@ -109,6 +111,13 @@ public class BoardController {
 		mv.addObject("bd", board);
 		mv.setViewName("/board/update");
 		return mv;
+	}
+	
+	@PostMapping("/delete/{bo_num}")
+	@ResponseBody
+	public String deleteBoard(@PathVariable int bo_num) {
+	    boardService.deleteBoard(bo_num);
+	    return "success";
 	}
 	
 

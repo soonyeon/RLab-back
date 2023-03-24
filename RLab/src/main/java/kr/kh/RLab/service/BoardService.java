@@ -13,6 +13,9 @@ public interface BoardService {
 	ArrayList<BoardVO> selectBoardList(Map<String, Object> map);
 	//게시글 상세조회
 	BoardVO getBoard(int bo_num);
+	//게시글 갯수
 	int getCount();
+	// 게시글 삭제
+	void deleteBoard(int bo_num);
 	
 }

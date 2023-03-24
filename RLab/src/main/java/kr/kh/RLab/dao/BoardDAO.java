@@ -19,4 +19,6 @@ public interface BoardDAO {
 	int getCount();
 
 	void countViews(@Param("bo_num") int bo_num);
+
+	void deleteBoard(int bo_num);
 }
