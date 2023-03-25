@@ -37,12 +37,10 @@
 			    <div id="temporary-list-modal" class="modal-style" style="display: none;">
 			      <h2>임시 게시글<button id="deleteAll">전체 삭제</button></h2>
 			      <ul id="itemList">
-				     <c:forEach var="temp" items="${temp}">
 					        <li>
-					            <span>${temp.te_title}</span>
+					            <span class="temp-title" data-title="${temp.te_title}" data-content="${temp.te_content}"></span>
                 				<button class="deleteBtn" data-id="${temp.te_num}">삭제</button>
 					        </li>
-				      </c:forEach>
 			      </ul>
 			      
 			    </div>
@@ -84,6 +82,7 @@ $(document).ready(function() {
 		
 		 const title = $("input[name='bo_title']").val();
 		 const content = $("textarea[name='bo_content']").val();
+		 
 				 
 		    if (!title || !content) {
 		        alert('제목과 내용을 모두 입력해주세요.');
@@ -117,9 +116,26 @@ $(document).ready(function() {
     });
     //임시저장 불러오기를 클릭했을때
 	  $("#openModal").click(function () {
-		    $("#temporary-list-modal").show();
-		    $("#modal-background").show();
+	        $.ajax({
+	            url: '<c:url value="/temporary/list"/>',
+	            method: 'GET',
+	            success: function(response) {
+	                // 임시저장 목록을 업데이트
+	                $('#itemList').empty(); // 기존 목록 삭제
+	                response.forEach(function(temp) {
+	                    $('#itemList').append('<li><span class="temp-title" data-title="' + temp.te_title + '" data-content="' + temp.te_content + '">' + temp.te_title + '</span><button class="deleteBtn" data-id="' + temp.te_num + '">삭제</button></li>');
+	                });
+	            },
+	            error: function() {
+	                alert('임시저장 목록을 가져오는데 실패했습니다.');
+	            }
+	        });
+
+	        $("#temporary-list-modal").show();
+	        $("#modal-background").show();
 		  });
+    
+    	
 
 		  $("#modal-background").click(function () {
 		    $("#temporary-list-modal").hide();
@@ -132,6 +148,18 @@ $(document).ready(function() {
         $("#modal-background").hide();
     });
 	
+    $('#itemList').on('click', '.temp-title', function() {
+        const title = $(this).data('title');
+        const content = $(this).data('content');
+
+        // 입력 창에 값 설정
+        $('input[name=bo_title]').val(title);
+        $('textarea[name=bo_content]').val(content);
+
+        // 모달창 닫기
+        $("#temporary-list-modal").hide();
+        $("#modal-background").hide();
+    });
 	
 	
 });

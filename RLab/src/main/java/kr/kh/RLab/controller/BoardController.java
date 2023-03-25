@@ -44,9 +44,6 @@ public class BoardController {
 	    studies.add(study);
 	    studies.add(study2);
 	    mv.addObject("studies", studies);
-	    //Temporary 불러오기
-	    ArrayList<TemporaryVO> tempList = temporaryService.getTemporaryList(member.getMe_id());
-		mv.addObject("temp", tempList);
 	    mv.setViewName("/board/insert");
 	    return mv;
 	}
