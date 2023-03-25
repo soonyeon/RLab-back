@@ -29,11 +29,29 @@
                 <h1>자유게시판 작성</h1> 
               </div> 
               <div class="temporary_storage_box"> 
-                <button class="call_temporary_storage">임시저장 불러오기
-									<span>|</span> 
-									<span>1</span> 
-								</button> 
-              </div> 
+			    <button class="call_temporary_storage" id="openModal">임시저장 불러오기
+			      <span>|</span>
+			      <span>1</span>
+			    </button>
+			     
+			    <!-- Modal -->
+			    <div id="temporary-list-modal" class="modal-style" style="display: none;">
+			      <h2>임시 게시글<button id="deleteAll">전체 삭제</button></h2>
+			      <ul id="itemList">
+			        <li>
+			          <span>임시 저장된 항목 1</span>
+			          <button class="deleteBtn">삭제</button>
+			        </li>
+			        <li>
+			          <span>임시 저장된 항목 2</span>
+			          <button class="deleteBtn">삭제</button>
+			        </li>
+			        <!-- 추가적인 항목들 -->
+			      </ul>
+			      
+			    </div>
+			    <div id="modal-background" class="modal-background" style="display: none;"></div>
+			  </div>
               <form action="<c:url value='/board/insert'></c:url>" method="post"> 
               	 <input type="hidden" name="bo_me_id" value="${memberId}">
                 <h2>스터디명</h2> 
@@ -61,6 +79,8 @@
 	    <h2>임시등록이 완료되었습니다.</h2>
 	</div>
 	<div id="modal-background" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 9998;"></div>
+
+	
 <script>
 $(document).ready(function() {
     // 임시 저장 버튼 클릭시
@@ -72,7 +92,6 @@ $(document).ready(function() {
 			    te_st_num: $("#choose_study").val(),
 			    te_table: $("input[name='bo_table']").val()
 			};
-			alert(data);
 			//ajax
 			$.ajax({
 			    url: '<c:url value="/temporary/save"/>',
@@ -92,11 +111,25 @@ $(document).ready(function() {
 			    }
 			});
     });
-	// 모달창 외를 클리했을때 닫기
+    //임시저장 불러오기를 클릭했을때
+	  $("#openModal").click(function () {
+		    $("#temporary-list-modal").show();
+		    $("#modal-background").show();
+		  });
+
+		  $("#modal-background").click(function () {
+		    $("#temporary-list-modal").hide();
+		    $("#modal-background").hide();
+		  });
+    
+	// 모달창 외를 클릭했을때 닫기
     $("#modal-background").on("click", function() {
         $("#temporary-save-modal").hide();
         $("#modal-background").hide();
     });
+	
+	
+	
 });
     $('form').submit(function() {
         let title = $('[name=bo_title]').val();
