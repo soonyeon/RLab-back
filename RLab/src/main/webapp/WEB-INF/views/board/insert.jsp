@@ -55,7 +55,23 @@
 							</div>
 			</form>
 </div> 
+	<!-- Modal -->
+	<div id="temporary-save-modal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; border: 1px solid #ccc; padding: 20px; z-index: 9999;">
+	    <h2>임시등록이 완료되었습니다.</h2>
+	</div>
+	<div id="modal-background" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 9998;"></div>
 <script>
+$(document).ready(function() {
+    $(".ts_btn").on("click", function() {
+        $("#temporary-save-modal").show();
+        $("#modal-background").show();
+    });
+
+    $("#modal-background").on("click", function() {
+        $("#temporary-save-modal").hide();
+        $("#modal-background").hide();
+    });
+});
     $('form').submit(function() {
         let title = $('[name=bo_title]').val();
         let content = $('[name=bo_content]').val();
