@@ -109,9 +109,20 @@ public class BoardController {
 	
 	@GetMapping("/update/{bo_num}")
 	public ModelAndView boardUpdate(ModelAndView mv, @PathVariable int bo_num) {
+	    MemberVO member = new MemberVO("qwe123", "김돌탕", "asdf1234", "a@a", 1, 0);
+	    mv.addObject("memberId", member.getMe_id());
 		BoardVO board = boardService.getBoard(bo_num);
 		mv.addObject("bd", board);
+		//스터디 가져오기
+		ArrayList<StudyVO> studyList = boardService.selectStudyList(member.getMe_id());
+		mv.addObject("study", studyList);
 		mv.setViewName("/board/update");
+		return mv;
+	}
+	@PostMapping("/update/{bo_num}")
+	public ModelAndView boardUpdatePost(ModelAndView mv, @PathVariable int bo_num,BoardVO board) {
+		boolean res = boardService.updateBoard(board);
+		mv.setViewName("redirect:/board/detail/"+bo_num);
 		return mv;
 	}
 	

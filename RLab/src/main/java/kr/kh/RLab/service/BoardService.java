@@ -5,6 +5,7 @@ import java.util.Map;
 
 import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.MemberVO;
+import kr.kh.RLab.vo.StudyVO;
 
 public interface BoardService {
     //게시글 작성
@@ -17,5 +18,10 @@ public interface BoardService {
 	int getCount();
 	// 게시글 삭제
 	void deleteBoard(int bo_num);
+	//게시글 수정
+	boolean updateBoard(BoardVO board);
+	
+	//스터디 가져오기
+	ArrayList<StudyVO> selectStudyList(String st_me_id);
 	
 }

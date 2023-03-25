@@ -16,7 +16,6 @@ public class TemporaryServiceImp implements TemporaryService {
 
 	@Override
 	public boolean saveTemporary(TemporaryVO temporaryVO) {
-		System.out.println(temporaryVO);
 		return temporaryDao.insertTemporary(temporaryVO);
 	}
 

@@ -54,4 +54,20 @@
   	where bo_num = #{bo_num}
   	</delete>
   	
+  	<update id="updateBoard">
+  		update board
+  		set
+  			bo_st_num = #{bo_st_num},
+  			bo_title = #{bo_title},
+  			bo_content = #{bo_content},
+  			bo_upd_date = now()
+  		where
+  			bo_num = #{bo_num}
+  	</update>
+  	
+  	<select id="selectStudyList" resultType="kr.kh.RLab.vo.StudyVO">
+  		select * from study
+  		where st_me_id = #{st_me_id}
+  	</select>
+  	
 </mapper>

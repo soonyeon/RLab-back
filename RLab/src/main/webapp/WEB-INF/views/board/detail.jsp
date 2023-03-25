@@ -49,7 +49,7 @@
                                 <div class="more_box">
 								  <img class="icon_more" src="<c:url value='/resources/img/dot_menu.png'></c:url>">
 								  <div class="dropdown-menu">
-								    <button type="button" data-id="${bd.bo_num}">수정하기</button>
+								    <button type="button" id="update-btn" data-id="${bd.bo_num}">수정하기</button>
 								 <%-- <c:if test="${user != null && user.me.id == board.bo_me_id}">    --%>
 								    	<button id="delete-btn" type="button">삭제하기</button>
 								<%--  </c:if> --%>
@@ -135,6 +135,11 @@ $(document).ready(function() {
   });
   
 $(document).ready(function() {
+	  $('#update-btn').click(function() {
+		let bo_num = $(this).data('id');
+		window.location.href = `<c:url value='/board/update/'/>${bo_num}`;
+	   });
+	  
 	  $('#delete-btn').click(function() {
 	    if (confirm('게시글을 삭제하시겠습니까?')) {
 	      $.ajax({

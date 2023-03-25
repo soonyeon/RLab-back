@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import kr.kh.RLab.dao.BoardDAO;
 import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.MemberVO;
+import kr.kh.RLab.vo.StudyVO;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -54,6 +55,18 @@ public class BoardServiceImp implements BoardService {
 	@Override
 	public void deleteBoard(int bo_num) {
 		boardDao.deleteBoard(bo_num);
+	}
+
+	@Override
+	public boolean updateBoard(BoardVO board) {
+		if(!checkBoard(board))
+			return false;
+		return boardDao.updateBoard(board);
+	}
+
+	@Override
+	public ArrayList<StudyVO> selectStudyList(String st_me_id) {
+		return boardDao.selectStudyList(st_me_id);
 	}
 
 
