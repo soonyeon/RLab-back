@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,9 +17,11 @@ import org.springframework.web.servlet.ModelAndView;
 import kr.kh.RLab.pagination.PageHandler;
 import kr.kh.RLab.service.BoardService;
 import kr.kh.RLab.service.ScrapService;
+import kr.kh.RLab.service.TemporaryService;
 import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.StudyVO;
+import kr.kh.RLab.vo.TemporaryVO;
 import lombok.RequiredArgsConstructor;
 
 
@@ -31,10 +32,11 @@ public class BoardController {
 	
 	private final BoardService boardService;
 	private final ScrapService scrapService;
+	private final TemporaryService temporaryService;
 	
 	@GetMapping("/insert")
 	public ModelAndView boardInsert(ModelAndView mv) {
-	    MemberVO member = new MemberVO("qwe123", "김돌탕", "asdf1234", "01012345678", "a@a", 1, 0);
+	    MemberVO member = new MemberVO("qwe123", "김돌탕", "asdf1234", "a@a", 1, 0);
 	    mv.addObject("memberId", member.getMe_id());
 	    List<StudyVO> studies = new ArrayList<StudyVO>();
 	    StudyVO study = new StudyVO(1, "정처기준비", member.getMe_id(), "정처기준비하는스터디입니다.", 1, 1, "서울 특별시", null);
@@ -42,6 +44,9 @@ public class BoardController {
 	    studies.add(study);
 	    studies.add(study2);
 	    mv.addObject("studies", studies);
+	    //Temporary 불러오기
+	    ArrayList<TemporaryVO> tempList = temporaryService.getTemporaryList(member.getMe_id());
+		mv.addObject("temp", tempList);
 	    mv.setViewName("/board/insert");
 	    return mv;
 	}
@@ -49,7 +54,7 @@ public class BoardController {
 	public ModelAndView boardInsertPost(ModelAndView mv,BoardVO board) {
 		//회원 정보 가져옴 (작성자) 임시로 가짜데이터 생성
 		System.out.println(board);
-		MemberVO member = new MemberVO("qwe123", "김돌탕", "asdf1234", "01012345678", "a@a", 1, 0);
+		MemberVO member = new MemberVO("qwe123", "김돌탕", "asdf1234",  "a@a", 1, 0);
 		boolean res = boardService.insertBoard(board, member);
 		mv.setViewName("redirect:/board/list");
 		return mv;

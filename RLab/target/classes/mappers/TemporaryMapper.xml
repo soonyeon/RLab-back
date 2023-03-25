@@ -8,4 +8,23 @@
         INSERT INTO temporary (te_title, te_content, te_me_id, te_st_num, te_table)
         VALUES (#{te_title}, #{te_content}, #{te_me_id}, #{te_st_num}, #{te_table})
     </insert>
+    <!-- 임시게시물을 전체 가져오는 커리 -->
+    <select id="getTemporaryList" parameterType="String" resultMap="TemporaryResultMap">
+       select * from temporary where te_me_id = #{memberId}
+    </select>
+    <!-- 임시 게시물을 하나만 가져오는 커리 -->
+      <select id="getTemporary" parameterType="String" resultMap="TemporaryResultMap">
+        select * from temporary where te_num = #{te_num}
+    </select>
+    
+    <!-- 객체 매핑 -->
+     <resultMap type="kr.kh.RLab.vo.TemporaryVO" id="TemporaryResultMap">
+        <result property="te_num" column="te_num"/>
+        <result property="te_title" column="te_title"/>
+        <result property="te_content" column="te_content"/>
+        <result property="te_me_id" column="te_me_id"/>
+        <result property="te_st_num" column="te_st_num"/>
+        <result property="te_table" column="te_table"/>
+    </resultMap>
+    
 </mapper>

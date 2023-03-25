@@ -26,7 +26,6 @@
 <div id="main_container" style="width: 800px;margin-left: 630px;">
 			   
               <div class="main_title"> 
-                <h1>자유게시판 작성</h1> 
               </div> 
               <div class="temporary_storage_box"> 
 			    <button class="call_temporary_storage" id="openModal">임시저장 불러오기
@@ -38,15 +37,12 @@
 			    <div id="temporary-list-modal" class="modal-style" style="display: none;">
 			      <h2>임시 게시글<button id="deleteAll">전체 삭제</button></h2>
 			      <ul id="itemList">
-			        <li>
-			          <span>임시 저장된 항목 1</span>
-			          <button class="deleteBtn">삭제</button>
-			        </li>
-			        <li>
-			          <span>임시 저장된 항목 2</span>
-			          <button class="deleteBtn">삭제</button>
-			        </li>
-			        <!-- 추가적인 항목들 -->
+				     <c:forEach var="temp" items="${temp}">
+					        <li>
+					            <span>${temp.te_title}</span>
+                				<button class="deleteBtn" data-id="${temp.te_num}">삭제</button>
+					        </li>
+				      </c:forEach>
 			      </ul>
 			      
 			    </div>
@@ -85,6 +81,14 @@
 $(document).ready(function() {
     // 임시 저장 버튼 클릭시
 	$(".ts_btn").on("click", function() {
+		
+		 const title = $("input[name='bo_title']").val();
+		 const content = $("textarea[name='bo_content']").val();
+				 
+		    if (!title || !content) {
+		        alert('제목과 내용을 모두 입력해주세요.');
+		        return;
+		    }
 		const data = {
 				te_title: $("input[name='bo_title']").val(),
 			    te_content: $("textarea[name='bo_content']").val(),

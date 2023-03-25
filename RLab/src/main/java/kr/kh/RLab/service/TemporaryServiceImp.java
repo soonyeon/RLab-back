@@ -1,5 +1,7 @@
 package kr.kh.RLab.service;
 
+import java.util.ArrayList;
+
 import org.springframework.stereotype.Service;
 
 import kr.kh.RLab.dao.TemporaryDAO;
@@ -17,5 +19,15 @@ public class TemporaryServiceImp implements TemporaryService {
 		System.out.println(temporaryVO);
 		return temporaryDao.insertTemporary(temporaryVO);
 	}
+
+	@Override
+	public ArrayList<TemporaryVO> getTemporaryList(String mo_me_id) {
+		return temporaryDao.getTemporaryList(mo_me_id);
+	}
+	
+	@Override
+    public TemporaryVO getTemporary(String te_num) {
+        return temporaryDao.getTemporary(te_num);
+    }
 
 }
