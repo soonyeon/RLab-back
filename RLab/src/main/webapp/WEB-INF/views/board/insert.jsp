@@ -35,7 +35,7 @@
 								</button> 
               </div> 
               <form action="<c:url value='/board/insert'></c:url>" method="post"> 
-              	 <input type="hidden" value="${memberId}}">
+              	 <input type="hidden" name="bo_me_id" value="${memberId}">
                 <h2>스터디명</h2> 
                 <select id="choose_study" name="bo_st_num">
                 	<c:forEach var="study" items="${studies}">
@@ -45,6 +45,7 @@
                 <h2>제목</h2> 
                 <div class="recruit_title_box"> 
                   <input type="text" class="bo_title" name="bo_title" placeholder="제목 10자 이내" maxlength="10"> 
+                  <input type="hidden" id="table" name="bo_table" value="자유게시판"/>
                 </div> 
                 <h2>내용</h2> 
 								<textarea id="content" name="bo_content"></textarea>  
@@ -62,11 +63,36 @@
 	<div id="modal-background" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 9998;"></div>
 <script>
 $(document).ready(function() {
-    $(".ts_btn").on("click", function() {
-        $("#temporary-save-modal").show();
-        $("#modal-background").show();
+    // 임시 저장 버튼 클릭시
+	$(".ts_btn").on("click", function() {
+		const data = {
+				te_title: $("input[name='bo_title']").val(),
+			    te_content: $("textarea[name='bo_content']").val(),
+			    te_me_id: $("input[name='bo_me_id']").val(),
+			    te_st_num: $("#choose_study").val(),
+			    te_table: $("input[name='bo_table']").val()
+			};
+			alert(data);
+			//ajax
+			$.ajax({
+			    url: '<c:url value="/temporary/save"/>',
+			    method: 'POST',
+			    data: JSON.stringify(data), //
+			    contentType: 'application/json', //
+			    success: function (response) {
+			        if (response == "success") {
+			            $("#temporary-save-modal").show();
+			            $("#modal-background").show();
+			        } else {
+			            alert('임시저장에 실패하였습니다1');
+			        }
+			    },
+			    error: function () {
+			        alert('임시저장에 실패했습니다2');
+			    }
+			});
     });
-
+	// 모달창 외를 클리했을때 닫기
     $("#modal-background").on("click", function() {
         $("#temporary-save-modal").hide();
         $("#modal-background").hide();

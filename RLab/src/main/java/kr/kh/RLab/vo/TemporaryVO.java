@@ -12,6 +12,6 @@ public class TemporaryVO {
 	  private String te_content;
 	  private String te_me_id;
 	  private int te_st_num;
-	  private String te_table;
+	  private String te_table; // 자유게시판 모임게시판
 
 }

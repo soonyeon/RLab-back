@@ -45,7 +45,7 @@ public class ScrapServiceImp implements ScrapService{
 		int currentScrapCount = scrapDAO.getScrapCountByBoard(scrapVO.getSc_bo_num());
 
 		// 스크랩 상태와 스크랩 개수를 추가
-		Map<String, Object> result = new HashMap<>();
+		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("scrapState", newScrapState);
 		result.put("scrapCount", currentScrapCount);
 		return result;
