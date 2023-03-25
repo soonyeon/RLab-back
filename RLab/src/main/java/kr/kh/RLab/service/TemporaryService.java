@@ -12,4 +12,8 @@ public interface TemporaryService {
 
 	TemporaryVO getTemporary(String te_num);
 
+	void deleteAll();
+
+	void delete(int te_num);
+
 }

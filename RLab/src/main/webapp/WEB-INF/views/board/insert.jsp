@@ -114,32 +114,34 @@ $(document).ready(function() {
 			    }
 			});
     });
+	function loadTemporaryList() {
+	    $.ajax({
+	        url: '<c:url value="/temporary/list"/>',
+	        method: 'GET',
+	        success: function(response) {
+	            // 임시저장 목록을 업데이트
+	            $('#itemList').empty(); // 기존 목록 삭제
+	            response.forEach(function(temp) {
+	                $('#itemList').append('<li><span class="temp-title" data-title="' + temp.te_title + '" data-content="' + temp.te_content + '">' + temp.te_title + '</span><button class="deleteBtn" data-id="' + temp.te_num + '">삭제</button></li>');
+	            });
+	        },
+	        error: function() {
+	            alert('임시저장 목록을 가져오는데 실패했습니다.');
+	        }
+	    });
+	}
     //임시저장 불러오기를 클릭했을때
-	  $("#openModal").click(function () {
-	        $.ajax({
-	            url: '<c:url value="/temporary/list"/>',
-	            method: 'GET',
-	            success: function(response) {
-	                // 임시저장 목록을 업데이트
-	                $('#itemList').empty(); // 기존 목록 삭제
-	                response.forEach(function(temp) {
-	                    $('#itemList').append('<li><span class="temp-title" data-title="' + temp.te_title + '" data-content="' + temp.te_content + '">' + temp.te_title + '</span><button class="deleteBtn" data-id="' + temp.te_num + '">삭제</button></li>');
-	                });
-	            },
-	            error: function() {
-	                alert('임시저장 목록을 가져오는데 실패했습니다.');
-	            }
-	        });
-
-	        $("#temporary-list-modal").show();
-	        $("#modal-background").show();
-		  });
+    $("#openModal").click(function () {
+	    loadTemporaryList();
+	    $("#temporary-list-modal").show();
+	    $("#modal-background").show();
+	});
     
     	
 
-		  $("#modal-background").click(function () {
-		    $("#temporary-list-modal").hide();
-		    $("#modal-background").hide();
+	$("#modal-background").click(function () {
+		$("#temporary-list-modal").hide();
+		$("#modal-background").hide();
 		  });
     
 	// 모달창 외를 클릭했을때 닫기
@@ -147,6 +149,39 @@ $(document).ready(function() {
         $("#temporary-save-modal").hide();
         $("#modal-background").hide();
     });
+	
+  //전체 삭제
+    $('#deleteAll').on('click', function() {
+        $.ajax({
+            url: '<c:url value="/temporary/delete/All" />',
+            type: 'POST',
+            success: function(response) {
+                if (response == "success") {
+                    $('#itemList').empty();
+                } else {
+                    alert('전체 삭제에 실패하였습니다.');
+                }
+            },
+            error: function(error) {
+                alert('전체 삭제에 실패하였습니다.');
+            }
+        });
+    });
+  //개별 삭제
+      $(document).on('click', '.deleteBtn', function() {
+      const id = $(this).data('id');
+    
+    	$.ajax({
+        url: '<c:url value="/temporary/delete/' + id + '" />',
+        type: 'POST',
+        success: function(response) {
+            loadTemporaryList();
+        },
+        error: function(error) {
+            alert('삭제 실패');
+        }
+    });
+});
 	
     $('#itemList').on('click', '.temp-title', function() {
         const title = $(this).data('title');
@@ -160,8 +195,8 @@ $(document).ready(function() {
         $("#temporary-list-modal").hide();
         $("#modal-background").hide();
     });
-	
-	
+    
+  
 });
     $('form').submit(function() {
         let title = $('[name=bo_title]').val();

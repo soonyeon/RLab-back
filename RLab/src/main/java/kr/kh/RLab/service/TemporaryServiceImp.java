@@ -30,4 +30,14 @@ public class TemporaryServiceImp implements TemporaryService {
         return temporaryDao.getTemporary(te_num);
     }
 
+	@Override
+	public void deleteAll() {
+		temporaryDao.deleteAll();
+	}
+
+	@Override
+	public void delete(int te_num) {
+		temporaryDao.delete(te_num);
+	}
+
 }

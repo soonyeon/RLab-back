@@ -13,4 +13,8 @@ public interface TemporaryDAO {
 	ArrayList<TemporaryVO> getTemporaryList(String mo_me_id);
 
 	TemporaryVO getTemporary(String te_num);
+
+	void deleteAll();
+
+	void delete(int te_num);
 }
