@@ -187,11 +187,11 @@ $(document).ready(function() {
         const title = $(this).data('title');
         const content = $(this).data('content');
 
-        // 입력 창에 값 설정
+    
         $('input[name=bo_title]').val(title);
-        $('textarea[name=bo_content]').val(content);
+        $('#content').summernote('code', content);
 
-        // 모달창 닫기
+        
         $("#temporary-list-modal").hide();
         $("#modal-background").hide();
     });
