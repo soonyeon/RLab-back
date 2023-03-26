@@ -1,0 +1,332 @@
+
+/*메인*/
+  main{
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    width: 1200px;
+    margin-left: auto; margin-right: auto;
+    margin-top: 70px;
+    width: var(--body_size);
+    margin: 0;
+    margin-top: 70px;
+  }
+ 
+  /* 검색창 */
+  .search_container{
+    height: 180px;  
+    padding: 30px 5px 10px 10px ; 
+    position: relative;
+    margin-bottom: 30px;
+  }
+
+  .search_container .search_content{
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    width: 925px; height: 50px; 
+    margin-bottom: 13px; 
+    border-radius: var(--border_radius_2); 
+    float: right; 
+    border: 2px solid var(--color_black); 
+    padding: 20px; 
+    box-sizing: border-box; 
+    box-shadow: 5px 5px 0px rgb(7, 7, 7);
+  }
+  .search_container .icon_search{
+    width: 20px; height: 20px;
+    cursor: pointer;
+  }
+  .search_container .search_title , .search_tag{
+    width: 90%; 
+    line-height: 50px; 
+    border: none; 
+    background-color: transparent;
+    outline: none;
+    font-size: 16px;
+    line-height: 25px;
+  }
+
+  .search_container .tag_box{ 
+    position: absolute; 
+    top: 73%; 
+    left: 23%; 
+    display: flex; 
+    flex-wrap: wrap;
+    column-gap: 10px; 
+    align-items: center;
+  }
+
+  
+  .search_container .hashTag{
+    border: 2px solid black; 
+    border-radius: var(--border_radius_2); 
+    text-decoration: none;
+    color: var(--color_black); 
+    font-size: var(--font_size_cont_m); 
+    padding: 5px 10px;
+
+  }
+
+  /* 모집 부분 */
+  .result_container{
+    height: 100%;
+    display: flex;
+  }
+  .flex_box{
+    display: flex;
+    flex-direction: column;
+  }
+  /* 모집 부분 - menu-nav */
+   .result_container .menu_nav{
+    float: left; 
+    border: 2px solid var(--color_black); 
+    width: 180px; min-height: 600px;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: var(--color_beige);
+  }
+  .result_container .menu_nav::after{}
+  
+  /* 스위치 버튼 */
+  .result_container .recruit_state {
+     position: relative; 
+     float: right; 
+
+     line-height: 30px;
+    }
+  .result_container .recruit_state_title{ 
+    font-size:18px; 
+    color: var(--color_black);
+  }
+  .result_container #recruit_switch {
+    position: absolute;
+    /* hidden */
+    appearance: none;   -webkit-appearance: none;  -moz-appearance: none;
+  }
+  .switch_label {
+    cursor: pointer; 
+    width: 58px; 
+    height: 23px;
+    border: 2px solid var(--color_black); 
+    border-radius: 20px; 
+    margin-left: 5px; 
+    padding: 3px;
+  }
+  .switch_on{
+  margin-left:3px ;
+   font-size: 15px;
+
+  }
+  .switch_btn { 
+    display: inline-block;
+    width: 30px;  
+    height: 20px;  
+    border-radius: 25px;  
+    background: var(--color_blue);
+    vertical-align: -4px;
+  }
+  
+  /* 왼쪽 태그 박스 */
+  .recruit_tag_box{
+    margin-top: 50px; 
+  }
+  #tag_title{
+    font-size: 25px; font-weight: bold;
+  }
+  .selectd_tag {
+    margin-top: 5px;  
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 2px;
+    row-gap: 3px;
+  }
+  .sel_hashTag{  
+    background : var(--color_mint);
+    border-radius: var(--border_radius_2); 
+    text-decoration: none; 
+    text-align: center;
+    color: var(--color_black);  
+    font-weight: bold;  
+    font-size: 12px;
+    padding: 5px 10px;
+    margin-left: 4px;
+  }
+  .delete_tag{
+   all: unset;
+   margin-left: 2px;
+  }
+
+  
+  /* 왼쪽 회색 줄  */
+  .line{
+    width: 170px ; 
+    height: 2px; 
+    background-color: var(--color_light-grey); 
+    margin-top: 30px;
+  }
+  /* 왼쪽 지역 */
+  .sel_region{
+    display: flex; 
+    flex-flow: column;
+  } 
+  .region_title{
+    font-size: 25px;  font-weight: bold;
+    margin-top: 20px; margin-bottom: 15px;
+  }
+  .sel_region a{
+    text-decoration: none; 
+    color: var(--color_grey); 
+    font-size: var(--font_size_cont_l);
+  }
+  .sel_region .selected{ 
+    font-weight: 
+    bold; color: var(--color_black);  
+  }
+  /*스터디 생성하기*/
+  .make_rc_box{
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    height: 180px;
+    font-size: 15px;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0 0 5px;
+    padding: 5px;
+    background-color: forestgreen;
+  }
+  .make_project{
+    width: 120px; 
+    line-height: 30px ;
+    padding: 3px;
+    margin-top: 10px;
+    border-radius: var(--border_radius_3);
+    background-color: var(--color_mint);
+    border: none;
+    font-size: small;
+    font-weight: bold;
+  }
+
+
+  /* 모집 부분 - study-card-container */
+  .study_card_container{
+    width: 960px;  float: right;
+  }
+  .row_study_card{margin-bottom: 20px;}
+  .study_card_box{
+    width: 296px; 
+    height: 329px; 
+    border: 2px solid var(--color_black); 
+    float: right; 
+    box-shadow: 5px 5px 0px rgb(7, 7, 7);
+    border-radius: var(--border_radius_4);
+  }
+  .study_card_box{
+    margin-left: 15px;
+  }
+  .study_img_box {
+    width: 296px; 
+    height: 151px; 
+    background-size: cover; 
+    background-image: url('../img/recruit_thumb.png');
+    border-top-right-radius: var(--border_radius_4);
+    border-top-left-radius: var(--border_radius_4);
+  }
+  
+  .study_card_container .study_info{
+    width: 270px; 
+    height: 152px;  
+    padding: 13px;
+    background-color: white;
+    border-bottom-right-radius: var(--border_radius_4) ;
+    border-bottom-left-radius :var(--border_radius_4) ;
+  }
+  .study_tag_info{
+    display: flex;
+    column-gap: 5px;
+    row-gap: 5px;
+    flex-wrap: wrap;
+    margin-bottom: 9px;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+  .study_card_container .study_tag{
+    border-radius: var(--border_radius_2); 
+    text-decoration: none; 
+    background-color: var(--color_blue);
+    color: var(--color_black); 
+    text-align :center;
+    font-size: 13px;
+    padding: 5px 10px;
+  }
+  .study_card_container .study_tag_info :nth-child(2n){
+    background-color: var(--color_mint);
+  }
+  .study_card_container .study_recruit_content_box{
+    height: 40px;
+    margin-bottom: 10px;
+    display: flex; align-items: center;
+  }
+  .study_card_container .study_recruit_content{
+    font-size: 18px; 
+    color: var(--color_black);
+
+  }
+  .study_card_container .study_content{
+    display: flex; justify-content: space-between;
+  
+  }
+  .study_card_container .study_content .study_recruiting{
+    border: 2px solid var(--color_black);
+    background-color: var(--color_yellow);
+    text-align: center;
+    border-radius: var(--border_radius_4);
+    color: var(--color_black);
+    font-size:14px; width: 100px; 
+    height: 30px; line-height: 28px;
+  }
+  .study_card_container .study_content .like_img{
+    width: 30px; height: 30px;
+    background-image: url(../img/like_on_red\ copy.png);
+    background-size: cover;
+
+  }
+  .make_recruit{
+    float: right;
+    width: 120px;
+    line-height: 30px;
+    border-radius: var(--border_radius_3);
+    background-color: var(--color_yellow);
+    padding: 3px;
+    border: none;
+    font-weight: bold;
+    box-shadow: 3px 3px 3px var(--color_grey);
+  }
+
+  /* 넘기기 버튼 */
+  .study_card_container .page_box{
+    margin-top: 60px; 
+    display: flex; 
+    justify-content: center;
+  }
+  .study_card_container .page_box>*{float: left; }
+  .study_card_container .page_num+.page_num{margin-left: 20px;}
+  .study_card_container .page_box .selected{
+    color: var(--color_black); font-weight: 500;
+  }
+  .study_card_container .page_box span{
+    line-height: 30px; font-size: 25px; color: rgb(62, 62, 62)
+  }
+
+  .study_card_container .page_box .btn_prev{
+    display: inline-block; width: 30px; height: 30px; margin-right: 10px;
+    background-position: -10px -10px; 
+    background-image: url(../img/page_left.png);  background-size:50px 50px;
+  }
+  .study_card_container .page_box .btn_next{
+    width: 30px; height: 30px; margin-left: 10px;
+    background-position: -10px -10px; display: inline-block;
+    background-image: url(../img/page_right.png); background-size:50px 50px;
+  }
+

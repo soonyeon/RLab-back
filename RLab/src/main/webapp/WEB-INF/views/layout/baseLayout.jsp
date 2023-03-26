@@ -10,8 +10,10 @@
 	<script src="/RLab/resources/js/jquery.min.js"></script>
 </head>
 <body>
-    <tiles:insertAttribute name="header"/>    
-    <tiles:insertAttribute name="body" />                                           
+    <tiles:insertAttribute name="header"/> 
+    <div style="margin-top:150px;margin:0 auto;width:60%;" class="clearfix">   
+    <tiles:insertAttribute name="body" />          
+    </div>                                 
     <tiles:insertAttribute name="footer" />
 </body>
 </html>
