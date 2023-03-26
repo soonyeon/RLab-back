@@ -60,7 +60,7 @@
                   <input type="hidden" id="table" name="bo_table" value="자유게시판"/>
                 </div> 
                 <h2>내용</h2> 
-								<textarea id="content" name="bo_content" value="${bd.bo_content}"></textarea>  
+								<textarea id="content" name="bo_content"></textarea>  
               
 							<div class="btn_box">
 								<button class="ts_btn" type="button">임시저장</button>
@@ -210,6 +210,8 @@ $(document).ready(function() {
             return false;
         }
     })
+    
+  
 
     $('#content').summernote({
         tabsize: 2,
@@ -224,4 +226,6 @@ $(document).ready(function() {
             ['view', ['fullscreen', 'codeview', 'help']]
         ]
     });
+    
+    $('#content').summernote('code','${bd.bo_content}');
 </script>
