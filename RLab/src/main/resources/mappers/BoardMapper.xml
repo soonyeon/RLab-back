@@ -9,11 +9,11 @@
     	values(#{board.bo_st_num}, #{board.bo_title}, #{board.bo_content}, #{board.bo_me_id}, NOW())
 	</insert>
 	
-	<select id="selectBoardList" parameterType="map" resultType="kr.kh.RLab.vo.BoardVO">
-	    SELECT b.*, COUNT(s.sc_bo_num) as scrap_count
+	<select id="selectBoardList" parameterType="map" resultMap="BoardResultMap">
+	    SELECT b.*, st.st_name, me.me_name, COUNT(s.sc_bo_num) as scrap_count
 	    FROM board b
-	    LEFT JOIN study ON b.bo_st_num = st_num
-	    LEFT JOIN member ON b.bo_me_id = me_id
+	    LEFT JOIN study st ON b.bo_st_num = st.st_num
+	    LEFT JOIN member me ON b.bo_me_id = me.me_id
 	    LEFT JOIN scrap s ON b.bo_num = s.sc_bo_num AND s.sc_state = 1
 	    GROUP BY b.bo_num
 	    <if test="orderBy != null">
@@ -69,5 +69,15 @@
   		select * from study
   		where st_me_id = #{st_me_id}
   	</select>
+  	
+  	<resultMap id="BoardResultMap" type="kr.kh.RLab.vo.BoardVO">
+	    <id property="bo_num" column="bo_num" />
+	    <result property="st_name" column="st_name" />
+	    <result property="bo_title" column="bo_title" />
+	    <result property="me_name" column="me_name" />
+	    <result property="bo_reg_date_str" column="bo_reg_date_str" />
+	    <result property="bo_views" column="bo_views" />
+	    <result property="scrap_count" column="scrap_count" />
+	</resultMap>
   	
 </mapper>
