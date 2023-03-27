@@ -1,20 +1,5 @@
 package kr.kh.RLab.service;
 
-import java.util.regex.Pattern;
-
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
-
-import kr.kh.RLab.dao.MemberDAO;
-import kr.kh.RLab.vo.MemberVO;
-
 @Service
 public class MemberServiceImp implements MemberService {
 	
@@ -24,7 +9,37 @@ public class MemberServiceImp implements MemberService {
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
 	
+	@Autowired
+	private JavaMailSender mailSender;
+	
 
+	@Override
+	public boolean signup(MemberVO member) {
+		if(member == null)
+			return false;
+		if(memberDao.insertMember(member)!=0)
+			memberDao.updateAuthority(member.getMe_id(), 1);
+			return true;
+		return false;
+	}
+
+
+	
+	@Override
+	public boolean checkId(MemberVO user) {
+		if(user == null || 
+			user.getMe_id() == null || 
+			user.getMe_id().trim().length() == 0)
+			return false;
+		return memberDao.selectMemberById(user.getMe_id()) == null;
+	}
+
+	@Override
+	public boolean checkName(MemberVO user) {
+		if(user == null || user.getMe_name()==null || user.getMe_name().trim().length()==0)
+		return false;
+		return memberDao.selectMemberByName(user.getMe_name()) == null;
+	}
 
 	@Override
 	public MemberVO login(MemberVO member) {
@@ -50,7 +65,5 @@ public class MemberServiceImp implements MemberService {
 			return user;
 			
 	}
-	
-
 
 }

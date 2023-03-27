@@ -49,8 +49,8 @@
 	    	<div class="mypage_container">
 	    		<c:if test="${user == null}">
             		<div class="join_box">
-            			<a class="login_modal" href="#">로그인</a>
-           				<a href="../html/signup.html" class="signup_btn">회원가입</a>
+            			<a href="#" class="login_modal">로그인</a>
+           				<a href="<c:url value='/signup'></c:url>" class="signup_btn">회원가입</a>
            			</div>
         		</c:if> 
 		        <c:if test="${user != null}">		  		       

@@ -4,7 +4,12 @@ import kr.kh.RLab.vo.MemberVO;
 
 public interface MemberService {
 
-	MemberVO login(MemberVO member);
+	boolean signup(MemberVO member);
 
+	boolean checkId(MemberVO user);
+
+	boolean checkName(MemberVO user);
+
+	MemberVO login(MemberVO member);
 
 }

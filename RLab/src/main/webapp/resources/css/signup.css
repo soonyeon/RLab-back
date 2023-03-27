@@ -107,6 +107,7 @@ a, button{
   color: #2d2d2d;
   z-index: -20;
   border-radius: 10px;
+  margin : auto;
 }
 .sign_up_container label{
   text-align: left;
@@ -131,10 +132,19 @@ a, button{
 background-color: #dbdbdc71;
 }
 
+.email{
+	width: 200px;
+    height: 30px;
+    margin: 5px 0 40px 0;
+}
+
 a, button{
   cursor: pointer;
 }
 
+label.error{
+ color : red;
+}
 
 /* login_modal----------------------------------------------------------------- */
 .modal_container{
@@ -344,25 +354,7 @@ header #header_container {
   font-weight: 50;
 }
 
-/* 로그인 후 */
-/* #header_container .header_right{
-  display: flex;
-  flex-direction: row-reverse;
-  align-items: center;
-}
-.mypage_container .mypage .icon_mypage{
-  display: flex;
-  flex-direction: row-reverse;
-  width: 40px;
-  height: 40px;
-  border: 2px solid var(--color_mint);
-  border-radius: var(--border_radius_1);
-  background-size: 60px 40px;
-  background-position: -10px 0;
-  background-image: url(../img/profile_img.png);
-  background-repeat: no-repeat;
-  margin-right: 30px;
-} */
+
 
 /* footer */
 footer{
