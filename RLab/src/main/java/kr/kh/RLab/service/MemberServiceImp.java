@@ -25,11 +25,21 @@ public class MemberServiceImp implements MemberService {
 	    if (member == null) {
 	        return false;
 	    }
-	    int result = memberDao.insertMember(member);
-	    if (result != 0) {
-	        memberDao.updateAuthority(member.getMe_id(), 1);
-	        return true;
+	    
+	    String newPw = passwordEncoder.encode(member.getMe_pw());
+	    member.setMe_pw(newPw);
+	    
+	    try {
+	        int result = memberDao.insertMember(member);
+	        if (result != 0) {
+	            memberDao.updateAuthority(member.getMe_id(), 1);
+	            return true;
+	        }
+	    } catch (Exception e) {
+	        // 예외 처리 코드 추가
+	        e.printStackTrace();
 	    }
+	    
 	    return false;
 	}
 
@@ -72,8 +82,7 @@ public class MemberServiceImp implements MemberService {
 			return null;
 		//입력한 비번과 저장된 비번이 같은지를 확인'
 		if(member.getMe_pw().equals(user.getMe_pw()));
-			return user;
-			
+			return user;	
 	}
 
 }
