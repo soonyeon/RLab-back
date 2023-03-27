@@ -59,8 +59,8 @@ public class BoardController {
 	
 	@GetMapping("/list")
 	public ModelAndView boardList(
-	        @RequestParam(defaultValue = "1") Integer page,
-	        @RequestParam(defaultValue = "10") Integer pageSize,
+	        @RequestParam(value="page",defaultValue = "1") Integer page,
+	        @RequestParam(value="pageSize",defaultValue = "10") Integer pageSize,
 	        @RequestParam(required = false) String sort,
 	        ModelAndView mv
 	) {
