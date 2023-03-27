@@ -186,7 +186,6 @@
 			<artifactId>spring-security-config</artifactId>
 			<version>4.1.0.RELEASE</version>
 		</dependency>
-
 		<!-- Tiles -->
 		<dependency>
 			<groupId>org.apache.tiles</groupId>

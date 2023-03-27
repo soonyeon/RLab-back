@@ -6,12 +6,16 @@
 <html>
 <head>
 	<title>RLab</title>
-	<link rel="stylesheet" href="<c:url value='/resources/css/common.css'></c:url
+	<link rel="stylesheet" href="<c:url value='/resources/css/common.css'></c:url>">
 	<script src="<c:url value='/resources/js/jquery.min.js'></c:url>"></script>
+	<script src="<c:url value='/resources/js/popper.min.js'></c:url>"></script>
 </head>
 <body>
-    <tiles:insertAttribute name="header"/>    
-    <tiles:insertAttribute name="body" />                                           
+    <tiles:insertAttribute name="header"/>   
+    <div style="margin-top:100px" class="clearfix">
+    <tiles:insertAttribute name="body" /> 
+      
+    </div>                                         
     <tiles:insertAttribute name="footer" />
 </body>
 </html>
