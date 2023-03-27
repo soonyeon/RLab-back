@@ -7,7 +7,7 @@
 <head>
 	<title>RLab</title>
 	<link rel="stylesheet" href="<c:url value='/resources/css/common.css'></c:url>">
-	<script src="<c:url value='RLab/resources/js/jquery.min.js'></c:url>"></script>
+	<script src="<c:url value='/resources/js/jquery.min.js'></c:url>"></script>
 </head>
 <body>
     <tiles:insertAttribute name="header"/>    

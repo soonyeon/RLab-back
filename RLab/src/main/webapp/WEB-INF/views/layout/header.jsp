@@ -66,12 +66,15 @@
       </div>
     </header>
 <script>
+
 	$('.login_modal').click(function(){
 		$('.modal_container').show();
 	});
 	$('.close_btn').click(function(){
 		$('.modal_container').hide();
 	});
+
+
 </script>
     
     

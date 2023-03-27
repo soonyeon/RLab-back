@@ -1,16 +1,12 @@
 package kr.kh.RLab.service;
 
-import java.util.Random;
-
-import javax.mail.internet.MimeMessage;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import kr.kh.RLab.dao.MemberDAO;
-import kr.kh.RLab.vo.MemberOKVO;
 import kr.kh.RLab.vo.MemberVO;
 
 @Service
@@ -22,8 +18,6 @@ public class MemberServiceImp implements MemberService {
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
 	
-	@Autowired
-	private JavaMailSender mailSender;
 	
 
 	@Override
