@@ -165,6 +165,7 @@ $('.ticket_time').click(function(){
 	
 	str += addTicket(str, type,title,price);
 });
+
 function selectTicket(){
 	
 }
