@@ -50,9 +50,9 @@
 								  <img class="icon_more" src="<c:url value='/resources/img/dot_menu.png'></c:url>">
 								  <div class="dropdown-menu">
 								    <button type="button" id="update-btn" data-id="${bd.bo_num}">수정하기</button>
-								 <%-- <c:if test="${user != null && user.me.id == board.bo_me_id}">    --%>
+								 <c:if test="${user != null && user.me.id == board.bo_me_id}">
 								    	<button id="delete-btn" type="button">삭제하기</button>
-								<%--  </c:if> --%>
+								 </c:if>
 								  </div>
 								</div>
                                 </div>
@@ -67,7 +67,7 @@
                                     <span class="scrap_num"></span>
                              </div>
                                 <div class="comment_bottom">
-                                    <img class="icon_scrap" src="<c:url value='/resources/img/speech_bubble.png'></c:url>">
+                                    <img class="icon_comment" src="<c:url value='/resources/img/speech_bubble.png'></c:url>">
                                     <span>댓글</span>
                                     <span class="comment_num">12</span>
                                 </div>
@@ -117,10 +117,10 @@ $(document).ready(function() {
             success: function(response) {
                 // 스크랩 상태를 업데이트
                 if (response.scrapState === 1) {
-                    $('.icon_scrap').attr('src', '<c:url value="/resources/img/favorite_tag" />');
+                    $('.icon_scrap').attr('src', '<c:url value="/resources/img/favorite_tag.png" />');
                     alert('스크랩을 했습니다.');
                 } else {
-                    $('.icon_scrap').attr('src', '<c:url value="/resources/img/favorite_tag_white" />');
+                    $('.icon_scrap').attr('src', '<c:url value="/resources/img/favorite_tag_white.png" />');
                     alert('스크랩을 취소 했습니다.');
                 }
 
