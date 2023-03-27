@@ -80,9 +80,10 @@ public class MemberServiceImp implements MemberService {
 		
 		if(user == null)
 			return null;
-		//입력한 비번과 저장된 비번이 같은지를 확인'
-		if(member.getMe_pw().equals(user.getMe_pw()));
-			return user;	
+		//입력한 비번과 암호화된 비번이 같은지를 확인
+		if(passwordEncoder.matches(member.getMe_pw(), user.getMe_pw()))
+			return user;
+		return null;
 	}
 
 }
