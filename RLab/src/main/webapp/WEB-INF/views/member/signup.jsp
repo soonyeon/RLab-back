@@ -189,7 +189,7 @@
 			},
 			me_name : {
 				required : true,
-				regex : /^[a-zA-Z0-9]{2,9}$/
+				regex : /^[ㄱ-ㅎ가-힣a-zA-Z0-9]{2,9}$/
 			},
 			me_email : {
 				required : true,

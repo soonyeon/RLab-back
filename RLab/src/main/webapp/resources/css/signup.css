@@ -119,10 +119,10 @@ a, button{
 .sign_up_container .form_group{
   margin: 20px 0px 7px;
 }
-.sign_up_container .btn, .form_control{
+.sign_up_container .btn, #signupform .form_control{
   list-style: none;
   height: 35px;
-  width: 100%;
+  width: 490px;
   border-radius: 5px;
   font-size: 15px;
   border: 1px solid gray;

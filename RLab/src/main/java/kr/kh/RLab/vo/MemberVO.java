@@ -12,4 +12,5 @@ public class MemberVO {
 	int me_point;
 	int me_rest_time;
 	int me_use_time;
+
 }
