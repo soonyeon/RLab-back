@@ -33,7 +33,7 @@
                                     <div class="writer_box">
                                         <a href="#" class="writer"> 
                                         <img class="icon_writer" src="<c:url value='/resources/img/profile_img.png'></c:url>">
-                                        <input type="hidden" value="${bd.bo_me_id}">
+                                        <input type="hidden" id="me_id" value="${bd.bo_me_id}">
                                         <span class="writer_name">${bd.me_name}</span></a>
                                     </div> 
                                     <span class="write_date">${bd.bo_reg_date_str}</span>
@@ -72,6 +72,50 @@
                                     <span class="comment_num">12</span>
                                 </div>
                             </div>
+                            <div class="main_bottom_box">
+                                <div class="add_comment_box">
+                                    <div class="cm_input_box">
+                                        <input type="text" class="cm_write" placeholder="궁금한 점을 댓글로 작성해보세요!">
+                                    </div>
+                                    <button class="cm_upload_btn">등록</button>
+                                </div>
+                                <div class="comment_box">    
+                                    <div class="cm_main_box">
+                                        <div class="cm_top_box">
+                                            <div class="cm_writer">
+                                                <a href="#" class="cm_mypage"> 
+                                                    <i class="img_mypage"></i> 
+                                                    <span class="nick_name">도라미</span>
+                                                    <span class="write_date">2023.02.28</span>
+                                                </a> 
+                                            </div> 
+                                            <div class="comment_btn_box">
+                                                <button class="cm_plus_btn"> <img class="reply_icon" src="<c:url value='/resources/img/reply.png'></c:url>">답글달기</button>
+                                                <button class="cm_delete_btn">X삭제하기</button>
+                                            </div>
+                                            <div class="already_comment">안녕하세요!언제까지 모집하시나요?제가이번주에는 일이있어서 당장 참여는 불가능해요.</div>
+                                        </div>
+                                    </div> 
+                                    <div class="re_reply_main_box">
+                                        <div class="re_reply_top_box">
+                                            <img class="re_reply_icon src=""<c:url value='/resources/img/reply.png'></c:url>">
+                                            <div class="re_writer">
+                                                <a href="#" class="re_mypage"> 
+                                                    <i class="img_mypage"></i> 
+                                                    <span class="re_nick_name">김돌탕</span>
+                                                    <span class="re_write_date">2023.02.28</span>
+                                                </a> 
+                                            </div>
+                                            <div class="reply_btn_box">
+                                                <button class="re_edit_btn">수정하기</button>
+                                                <button class="re_delete_btn">X삭제하기</button>
+                                            </div>
+                                            <div class="re_reply_comment">안녕하세요!언제까지 모집하시나요?제가이번주에는 일이있어서 당장 참여는 불가능해요.</div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                             </div> 
                         </div>
                      </div>
                      
@@ -79,6 +123,7 @@
 const boardNum = '${bd.bo_num}';
 let scrapCount = '${scrapCount}';
 let mo_id = '${bd.bo_me_id}';
+let me_id = $('#me_id').val();
 $(document).ready(function() {
 	//스크랩수 적용
 	$('.scrap_num').text(scrapCount);
@@ -135,6 +180,39 @@ $(document).ready(function() {
   });
   
 $(document).ready(function() {
+	<!--댓글-->
+	  $(".cm_upload_btn").click(function() {
+		let commentContent = $(".cm_write").val();
+		
+		if(!commentContent.trim()) {
+			alert("댓글을 입력 해주세요.")
+			return;
+		}
+		
+		let comment = {
+			co_me_id : me_id,
+			co_content: commentContent,
+			co_table: "자유게시판", //게시판 구분
+			co_ex_num: boardNum
+		};
+		
+		$.ajax({
+			url: '<c:url value="/comment/create" />',
+			type: "POST",
+	        contentType: "application/json",
+	        dataType: "json",
+	        data: JSON.stringify(comment),
+	        success: function (response) {
+	        	if (response.result === "success") {
+                    alert("댓글이 등록되었습니다.");
+                    // 댓글 목록 불러오기
+	        	}else {
+	        		alert("댓글 등록에 실패했습니다.");
+	        	}
+	        }
+		});
+	});
+	
 	  $('#update-btn').click(function() {
 		let bo_num = $(this).data('id');
 		window.location.href = `<c:url value='/board/update/'/>${bo_num}`;
