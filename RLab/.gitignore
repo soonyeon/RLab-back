@@ -1,26 +1,52 @@
+# Miscellaneous
+*.java.hsp
+*.sonarj
+*.sw*
+.DS_Store
+build.sh
+integration-repo
+ivy-cache
+argfile*
+activemq-data/
+classes/
 
+# Log files
+jxl.log
+jmx.log
+derby.log
+
+# Gradle artifacts
+.gradle
+.gradletasknamecache
+/build
+buildSrc/build
+/spring-*/build
+/framework-bom/build
+/framework-docs/build
+/integration-tests/build
+/src/asciidoc/build
+spring-test/test-output/
+
+# Maven artifacts
+pom.xml
+/target/
+
+# Eclipse artifacts, including WTP generated manifests
+bin
 .classpath
-
 .project
+.settings
+.springBeans
+spring-*/src/main/java/META-INF/MANIFEST.MF
 
-.settings/.jsdtscope
+# IDEA artifacts and output dirs
+*.iml
+*.ipr
+*.iws
+.idea
+out
+test-output
+atlassian-ide-plugin.xml
 
-.settings/org.eclipse.jdt.core.prefs
-
-.settings/org.eclipse.wst.common.component
-
-.settings/org.eclipse.wst.common.project.facet.core.xml
-
-.settings/org.eclipse.wst.jsdt.ui.superType.container
-
-.settings/org.eclipse.wst.jsdt.ui.superType.name
-
-.settings/org.eclipse.wst.validation.prefs
-
-target/classes/kr/kh/RLab/controller/HomeController.class
-
-target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
-
-target/m2e-wtp/web-resources/META-INF/maven/kr.kh/test/pom.properties
-
-target/m2e-wtp/web-resources/META-INF/maven/kr.kh/test/pom.xml
+# VS Code
+.vscode/
