@@ -10,8 +10,6 @@ public interface MemberService {
 
 	boolean checkName(MemberVO user);
 
-
-
-
+	MemberVO login(MemberVO member);
 
 }

@@ -582,12 +582,19 @@ header #header_container {
   font-weight: 50;
 }
 /* 로그인 후 */
-/* #header_container .header_right{
+  #header_container .header_right{
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
 }
-.mypage_container .mypage .icon_mypage{
+.logout_box{
+  /* background-color: #01f3a3; */
+  display: flex;
+  flex-direction: row;
+  /* justify-content: space-between; */
+  align-items: center;
+}
+.mypage_container .logout_box .icon_mypage{
   display: flex;
   flex-direction: row-reverse;
   width: 40px;
@@ -598,8 +605,16 @@ header #header_container {
   background-position: -10px 0;
   background-image: url(../img/profile_img.png);
   background-repeat: no-repeat;
-  margin-right: 30px;
-} */
+  margin-right: 10px;
+}
+.logout_btn{
+  padding: 5px 5px;
+  margin-right: 10px;
+  border-radius: 5px;
+  border: 1px solid darkgray;
+  font-weight: 50;
+  height: 20px;
+}
 
 /* footer */
 footer .container{

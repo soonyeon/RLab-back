@@ -35,5 +35,18 @@
 	</beans:bean>
 
 	<context:component-scan base-package="kr.kh.RLab.*" />
-
+	
+	<!-- 어느 url에서 인터셉터 등록할 건지를 설정 -->
+	<beans:bean id="loginInterceptor" 
+		class="kr.kh.RLab.interceptor.LoginInterceptor"></beans:bean>
+	<interceptors>
+   		<interceptor>
+        	<mapping path="/login"/>
+        	<beans:ref bean="loginInterceptor"/>
+    	</interceptor>
+	</interceptors>
+	
+	
+	
+	
 </beans:beans>
