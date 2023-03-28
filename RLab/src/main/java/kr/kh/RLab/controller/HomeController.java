@@ -13,9 +13,5 @@ public class HomeController {
 		mv.setViewName("/main/home");
 		return mv;
 	}
-	@RequestMapping(value = "/gather/insertstudy", method=RequestMethod.GET)
-	public ModelAndView makeStudy(ModelAndView mv) {
-		mv.setViewName("/gather/insertstudy");
-		return mv;
-	}
+
 }
