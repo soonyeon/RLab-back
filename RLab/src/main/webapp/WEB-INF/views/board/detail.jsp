@@ -181,6 +181,59 @@ $(document).ready(function() {
   
 $(document).ready(function() {
 	<!--댓글-->
+	function loadComments(page) {
+	    $.ajax({
+	    	url: '/comments/list/' + co_ex_num + '?page=' + page,
+	        type: 'POST',
+	        dataType: 'json',
+	        success: function(response) {
+	            var comments = response.commentList;
+	            var pageHandler = response.pageHandler;
+
+	            $.each(comments, function(index, comment) {
+	                var listHtml = '';
+
+	                listHtml += '<div class="comment_box">';
+	                listHtml += '<div class="cm_main_box">';
+	                listHtml += '<div class="cm_top_box">';
+	                listHtml += '<div class="cm_writer">';
+	                listHtml += '<a href="#" class="cm_mypage">';
+	                listHtml += '<i class="img_mypage"></i>';
+	                listHtml += '<span class="nick_name">' + comment.co_me_id + '</span>'; 
+	                listHtml += '<span class="write_date">' + comment.write_date + '</span>'; 
+	                listHtml += '</a>';
+	                listHtml += '</div>';
+	                listHtml += '<div class="comment_btn_box">';
+	                listHtml += '<button class="cm_plus_btn"> <img class="reply_icon" src="<c:url value="/resources/img/reply.png"></c:url>">답글달기</button>';
+	                listHtml += '<button class="cm_delete_btn">X삭제하기</button>';
+	                listHtml += '</div>';
+	                listHtml += '<div class="already_comment">' + comment.co_content + '</div>';
+	                listHtml += '</div>';
+	                listHtml += '</div>';
+	                listHtml += '</div>'; 
+
+	                $('#comment_list').append(listHtml); // 생성된 HTML 문자열을 댓글 목록 영역에 추가
+	            });
+
+	          
+	            if (pageHandler.totalPage > pageHandler.currentPage) {
+	                $('#load_more_comments').show().off('click').on('click', function() {
+	                    loadComments(pageHandler.currentPage + 1);
+	                });
+	            } else {
+	                $('#load_more_comments').hide();
+	            }
+	        },
+	        error: function(xhr, textStatus, errorThrown) {
+	            console.log('댓글 목록 로딩 실패: ', textStatus);
+	        }
+	    });
+	}
+
+	// 초기 페이지 로딩
+	loadComments(1);
+	
+	
 	  $(".cm_upload_btn").click(function() {
 		let commentContent = $(".cm_write").val();
 		
