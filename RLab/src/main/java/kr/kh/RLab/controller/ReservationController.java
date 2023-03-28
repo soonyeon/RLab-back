@@ -19,11 +19,12 @@ public class ReservationController {
 	@RequestMapping(value = "/reservation/ticket/buy", method=RequestMethod.GET) 
 	public ModelAndView ticketBuy(ModelAndView mv, HttpSession session) {
 //		MemberVO user = session.getAttribute("user");
-		MemberVO user = new MemberVO(); //어떤 유저가 있다고 가정했을 때
+		MemberVO user = new MemberVO("qwe123","닉넴","qwe123123","kimsyty@naver.com",1,0);  
+		//어떤 유저가 있다고 가정했을 때
 		int point = reservationService.getUserPoint(user.getMe_id());
+		mv.addObject("point", point);
 		mv.setViewName("/reservation/buy");
 		return mv;
 	}
 	
-
 }

@@ -132,11 +132,11 @@
 					</div>					
 					<div class="point_container">
 						<div class="point_title">보유 포인트</div> 
-						<div id="my_point"><span name="my_point">1300<span>pt</div>
-						<input type="number" name="" class="use_point">
+						<div id="my_point"><span name="my_point">${point}</span>pt</div>
+						<input type="number" name="use_point" class="use_point">
 					</div>
 					<div class="total_container">
-						<p>최종 결제 금액</p> <div class="total_price" id="final_price">20,000원</div>
+						<p>최종 결제 금액</p> <div class="total_price" id="final_price"><span name="final_price">0</span>원</div>
 					</div>
 				</div>
 				<!-- 결제하기 -->
@@ -165,28 +165,75 @@ $('.ticket_time').click(function(){
 			"type" : type,
 			"title" : title,
 			"price" : price,
-			"num" : num
+			"num" : num,
+			"count" : 1
 	}
 	console.log(ticketArr);
 	addTicket(ticket);
-	$('[name=total_price]').text(calcTotalPrice().toLocaleString());
+	calcTotalPrice();
 });
+
+$(document).on('click','.btn-close', function(){
+	let ticketNum = $(this).parent().parent().data('num');
+	for(index in ticketArr){
+		if(ticketArr[index].num == ticketNum){
+			ticketArr.splice(index,1);
+			ticketStrArr.splice(index,1);
+			showTicketList();
+			calcTotalPrice();
+		}
+	}
+});
+
+$(document).on('change','[name=ticket_count]',function(){
+	let ticketNum = $(this).parent().parent().data('num');
+	let count = $(this).val();
+	for(index in ticketArr){
+		if(ticketArr[index].num == ticketNum)
+			ticketArr[index].count = count;
+	}
+	calcTotalPrice();
+});
+
+$('[name=use_point]').change(function(){
+	if($('[name=total_price]').text()=='0' && $('[name=use_point]').val()>0){
+		alert('결제 금액이 0원입니다.');
+		return;
+	}
+	if($('[name=use_point]').val() > ${point}){
+		alert('사용가능한 포인트를 넘었습니다.');
+		$('[name=use_point]').val(${point});	
+	}
+	calcTotalPrice();
+})
+
+
+//최종 결제금액 구하기
+function calcFinalPrice(totalPrice){
+	let finalPrice = totalPrice - $('[name=use_point]').val();
+	$('[name=final_price]').text(finalPrice.toLocaleString());
+}
+//총 결제금액 구하기
 function calcTotalPrice(){
 	let total = 0;
 	for(i=0;i<ticketArr.length;i++){
-		let count = $('.selected_ticket .ticket_count').val();
+		let count = ticketArr[i].count;
 		let perPrice = ticketArr[i].price.replace(/,/g, "");
 		total +=  perPrice * (+count);
 	}
-	return total;
+	$('[name=total_price]').text(total.toLocaleString());
+	calcFinalPrice(total);
+	
+	return;
 }
+//선택된 이용권 리스트 보여줌
 function showTicketList(){
 	let tmpStr = '';
 	for(i=0;i<ticketStrArr.length;i++)
 		tmpStr += ticketStrArr[i];
 	$('.selected_tickets').html(tmpStr);
 }
-
+//이용권 선택 시 이용권 정보 및 쿼리 추가
 function addTicket(ticket){
 	for(index in ticketArr){
 		if(ticketArr[index].num == ticket.num){
@@ -196,11 +243,13 @@ function addTicket(ticket){
 	}
 	let tmpStr = '';
 	tmpStr +=
-		'<div class="selected_ticket">'+
-			'<div class="selected_title"><div class="dot"></div> '+ticket.type+' - '+ticket.title+'</div>'+
+		'<div class="selected_ticket" data-num="'+ticket.num+'">'+
+			'<div class="selected_title"><div class="dot"></div>'+ticket.type+' - '+ticket.title+
+				'<button class="btn-close">x</button>'+
+			'</div>'+
 			'<div class="selected_content">'+
 				'<div class="ticket_price">'+ticket.price+'원</div>'+
-				'<input type="number" name="" class="ticket_count" value="1">'+
+				'<input type="number" min="0" name="ticket_count" class="ticket_count" value='+ticket.count+'>'+
 			'</div>'+
 		'</div>';
 	
