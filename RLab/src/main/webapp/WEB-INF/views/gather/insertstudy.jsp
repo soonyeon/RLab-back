@@ -42,12 +42,12 @@
 				</div>
 				<div class="ns_people_box">
 					<h3>인원</h3>
-					<input type="number" class="ns_people" placeholder="최대50명" name="st_total_people">
+					<input type="number" class="ns_people" placeholder="최대50명" name="st_total_people" oninput="handleOnInput(this, 50)">
 				</div>
 			</div>
 			<h3>스터디명</h3>
 			<div class="ns_title_box">
-				<input type="text" class="ns_title" placeholder="10자 이내로 제목을 작성해보세요" name="st_name">
+				<input type="text" class="ns_title" placeholder="10자 이내로 제목을 작성해보세요" name="st_name" maxlength="10">
 			</div>
 			<h3>배너이미지</h3>
 			<div class="ns_banner_box">
@@ -61,7 +61,7 @@
 			<h3>소개글</h3>
 			<div class="ns_introduce_box">
 				<input type="text" class="ns_introduce"
-					placeholder="100자 이내로 스터디를 소개해보세요" name="st_info">
+					placeholder="100자 이내로 스터디를 소개해보세요" name="st_info" maxlength="100">
 			</div>
 
 			<div class="btn_box">
@@ -89,4 +89,14 @@
 		});
 
 	});
+	
+	$(document).ready(function() {
+	    $('input.ns_people').on('input', function() {
+	        var max = 50;
+	        if ($(this).val() > max) {
+	            $(this).val(max);
+	        }
+	    });
+	});
+
 </script>
