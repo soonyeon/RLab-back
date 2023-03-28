@@ -16,13 +16,10 @@
 	where co_ex_num = #{co_ex_num}
 </select>
 
-<select id="getCommentList" resultMap="commentResultMap">
+<select id="getCommentList" resultType="kr.kh.RLab.vo.CommentVO">
     SELECT * 
-    FROM comments
+    FROM comment
     WHERE co_ex_num = #{co_ex_num}
-    <if test="co_ori_num != null and co_ori_num != 0">
-        AND co_ori_num = #{co_ori_num}
-    </if>
     LIMIT #{offset}, #{pageSize}
 </select>
 

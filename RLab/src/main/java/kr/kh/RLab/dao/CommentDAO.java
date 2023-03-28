@@ -11,7 +11,7 @@ public interface CommentDAO {
 
 	int getCommentCount(int co_ex_num);
 
-	List<CommentVO> getCommetList(Map<String, Object> map);
+	List<CommentVO> getCommentList(Map<String, Object> map);
 	
 
 }

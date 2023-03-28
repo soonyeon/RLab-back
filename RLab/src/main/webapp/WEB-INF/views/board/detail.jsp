@@ -50,7 +50,7 @@
 								  <img class="icon_more" src="<c:url value='/resources/img/dot_menu.png'></c:url>">
 								  <div class="dropdown-menu">
 								    <button type="button" id="update-btn" data-id="${bd.bo_num}">수정하기</button>
-								 <c:if test="${user != null && user.me.id == board.bo_me_id}">
+								 <c:if test="${user != null && user.me_id == board.bo_me_id}">
 								    	<button id="delete-btn" type="button">삭제하기</button>
 								 </c:if>
 								  </div>
@@ -183,14 +183,17 @@ $(document).ready(function() {
 	<!--댓글-->
 	function loadComments(page) {
 	    $.ajax({
-	    	url: '/comments/list/' + co_ex_num + '?page=' + page,
+	    	url: '<c:url value="/comment/list/'+boardNum+'?page='+page+'" />',
 	        type: 'POST',
 	        dataType: 'json',
 	        success: function(response) {
 	            var comments = response.commentList;
 	            var pageHandler = response.pageHandler;
-
+	            
+	            $('.comment_box').empty();
+				
 	            $.each(comments, function(index, comment) {
+	            	console.log(comment);
 	                var listHtml = '';
 
 	                listHtml += '<div class="comment_box">';
@@ -212,17 +215,17 @@ $(document).ready(function() {
 	                listHtml += '</div>';
 	                listHtml += '</div>'; 
 
-	                $('#comment_list').append(listHtml); // 생성된 HTML 문자열을 댓글 목록 영역에 추가
+	                $('.comment_box').append(listHtml); // 생성된 HTML 문자열을 댓글 목록 영역에 추가
 	            });
 
 	          
-	            if (pageHandler.totalPage > pageHandler.currentPage) {
+	           /*  if (pageHandler.totalPage > pageHandler.currentPage) {
 	                $('#load_more_comments').show().off('click').on('click', function() {
 	                    loadComments(pageHandler.currentPage + 1);
 	                });
 	            } else {
 	                $('#load_more_comments').hide();
-	            }
+	            } */
 	        },
 	        error: function(xhr, textStatus, errorThrown) {
 	            console.log('댓글 목록 로딩 실패: ', textStatus);

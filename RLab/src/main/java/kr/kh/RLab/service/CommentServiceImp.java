@@ -29,7 +29,7 @@ public class CommentServiceImp implements CommentService {
 
 	@Override
 	public List<CommentVO> getCommentList(Map<String, Object> map) {
-		return commentDao.getCommetList(map);
+		return commentDao.getCommentList(map);
 	}
 
 }

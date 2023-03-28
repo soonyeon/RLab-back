@@ -43,9 +43,7 @@ public class BoardController {
 	    mv.addObject("memberId", member.getMe_id());
 	    List<StudyVO> studies = new ArrayList<StudyVO>();
 	    StudyVO study = new StudyVO(1, "정처기준비", member.getMe_id(), "정처기준비하는스터디입니다.", 1, 1, "서울 특별시", null);
-		StudyVO study2 = new StudyVO(2, "토익스터디", member.getMe_id(), "토익 공부하는 스터디입니다.", 1, 1, "서울 특별시", null);
 	    studies.add(study);
-	    studies.add(study2);
 	    mv.addObject("studies", studies);
 	    mv.setViewName("/board/insert");
 	    return mv;

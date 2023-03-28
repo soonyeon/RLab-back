@@ -40,6 +40,7 @@ public class CommentController {
 	    PageHandler pageHandler = new PageHandler(totalCont, page, pageSize);
 	    
 	    Map<String, Object> map = new HashMap<String, Object>();
+	    map.put("co_ex_num", co_ex_num);
 	    map.put("offset", (page - 1) * pageSize);
 	    map.put("pageSize", pageSize);
 	    
