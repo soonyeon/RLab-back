@@ -17,14 +17,18 @@ insert into region values ('지역 미지정'), ('서울 특별시'), ('경기�
     ('울산 광역시'), ('제주 특별 자치도'), ('세종 특별 자치시');
 -- 펫 종류 등록
 insert into pet (pe_name, pe_final_level, pe_prize) values ('돌탕몬', 4, '1500원 포인트 지급'),
-	('와구몬', 5, '2시간 이용권 지급'), ('', 6, '6시간 이용권 지급');
+	('와구멈', 5, '2시간 이용권 지급'), ('호랭이', 6, '6시간 이용권 지급');
 -- 펫 진화 단계 등록 (d/uploadfiles/pet 폴더 안에 1~9.png 파일이 있다고 가정)
 insert into evolution (ev_pe_num, ev_level, ev_step, ev_img)
-	values(1, 1, 1, '/profile/1.png'),(1, 2, 1, '/profile/2.png'),(1, 3, 2, '/profile/2.png'),
-    (1, 4, 2, '/profile/3.png'), (2, 1, 1, '/profile/4.png'),(2, 2, 1, '/profile/4.png'),
-    (2, 3, 2, '/profile/5.png'),(2, 4, 2, '/profile/5.png'),(2, 5, 3, '/profile/6.png'),
-    (3, 1, 1, '/profile/7.png'),(3, 2, 1, '/profile/7.png'),(3, 3, 2, '/profile/8.png'),
-    (3, 4, 2, '/profile/8.png'),(3, 5, 3, '/profile/9.png'),(3, 6, 3, '/profile/9.png');
+	values(1, 1, 1, '/pet/1.png'),(1, 2, 1, '/pet/2.png'),(1, 3, 2, '/pet/2.png'),
+    (1, 4, 2, '/pet/3.png'), (2, 1, 1, '/pet/4.png'),(2, 2, 1, '/pet/4.png'),(2, 3, 2, '/pet/5.png'),
+    (2, 4, 2, '/pet/5.png'),(2, 5, 3, '/pet/6.png'),(3, 1, 1, '/pet/7.png'),(3, 2, 1, '/pet/7.png'),
+    (3, 3, 2, '/pet/8.png'),(3, 4, 2, '/pet/8.png'),(3, 5, 3, '/pet/9.png'),(3, 6, 3, '/pet/9.png');
+-- 펫 파일 이미지 등록
+insert into file (fi_ori_name, fi_name, fi_table)
+values('돌탕몬1','/pet/1.png', 'evolution'), ('돌탕몬2','/pet/2.png', 'evolution'), ('돌탕몬3','/pet/3.png', 'evolution'), 
+('와구멈1','/pet/4.png', 'evolution'), ('와구멈2','/pet/5.png', 'evolution'), ('와구멈3','/pet/6.png', 'evolution'), 
+('호랭이1','/pet/7.png', 'evolution'), ('호랭이2','/pet/8.png', 'evolution'), ('호랭이3','/pet/9.png', 'evolution');
     
 -- 레벨별 누적경험치 등록 
 insert into exp values(1, 8),(2,27),(3,82),(4,178),(5,328),(6,598);
