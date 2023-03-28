@@ -4,8 +4,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.kh.RLab.dao.CommentDAO">
 <insert id="insertComment">
-    INSERT INTO comment (co_me_id, co_content, co_ori_num, co_table, co_ex_num)
-    VALUES (#{co_me_id}, #{co_content}, #{co_ori_num}, #{co_table}, #{co_ex_num})
+    INSERT INTO comment (co_me_id, co_content, co_ori_num, co_table, co_ex_num, co_reg_date)
+    VALUES (#{co_me_id}, #{co_content}, #{co_ori_num}, #{co_table}, #{co_ex_num}, now())
 </insert>
 
 <select id="getCommentCount" resultType="int">

@@ -34,6 +34,7 @@
                                         <a href="#" class="writer"> 
                                         <img class="icon_writer" src="<c:url value='/resources/img/profile_img.png'></c:url>">
                                         <input type="hidden" id="me_id" value="${bd.bo_me_id}">
+                                        <input type="hidden" id="current_page" value="1" />
                                         <span class="writer_name">${bd.me_name}</span></a>
                                     </div> 
                                     <span class="write_date">${bd.bo_reg_date_str}</span>
@@ -80,7 +81,7 @@
                                     <button class="cm_upload_btn">등록</button>
                                 </div>
                                 <div class="comment_box">    
-                                    <div class="cm_main_box">
+                                  <%--   <div class="cm_main_box">
                                         <div class="cm_top_box">
                                             <div class="cm_writer">
                                                 <a href="#" class="cm_mypage"> 
@@ -113,7 +114,7 @@
                                             <div class="re_reply_comment">안녕하세요!언제까지 모집하시나요?제가이번주에는 일이있어서 당장 참여는 불가능해요.</div>
                                         </div>
                                     </div>
-                                    
+                                     --%>
                                 </div>
                              </div> 
                         </div>
@@ -180,6 +181,18 @@ $(document).ready(function() {
   });
   
 $(document).ready(function() {
+	let isLoading = false;
+
+	$(window).scroll(function() {
+	    if ($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+	        if (!isLoading) {
+	            isLoading = true;
+	            var currentPage = parseInt($('#current_page').val()) || 1;
+	            loadComments(currentPage + 1);
+	        }
+	    }
+	});
+	
 	<!--댓글-->
 	function loadComments(page) {
 	    $.ajax({
@@ -190,20 +203,19 @@ $(document).ready(function() {
 	            var comments = response.commentList;
 	            var pageHandler = response.pageHandler;
 	            
-	            $('.comment_box').empty();
+	            
 				
 	            $.each(comments, function(index, comment) {
 	            	console.log(comment);
 	                var listHtml = '';
 
-	                listHtml += '<div class="comment_box">';
 	                listHtml += '<div class="cm_main_box">';
 	                listHtml += '<div class="cm_top_box">';
 	                listHtml += '<div class="cm_writer">';
 	                listHtml += '<a href="#" class="cm_mypage">';
 	                listHtml += '<i class="img_mypage"></i>';
 	                listHtml += '<span class="nick_name">' + comment.co_me_id + '</span>'; 
-	                listHtml += '<span class="write_date">' + comment.write_date + '</span>'; 
+	                listHtml += '<span class="write_date">' + comment.co_reg_date + '</span>'; 
 	                listHtml += '</a>';
 	                listHtml += '</div>';
 	                listHtml += '<div class="comment_btn_box">';
@@ -213,22 +225,16 @@ $(document).ready(function() {
 	                listHtml += '<div class="already_comment">' + comment.co_content + '</div>';
 	                listHtml += '</div>';
 	                listHtml += '</div>';
-	                listHtml += '</div>'; 
 
 	                $('.comment_box').append(listHtml); // 생성된 HTML 문자열을 댓글 목록 영역에 추가
 	            });
+	            // 현재 페이지 값을 갱신
+                $('#current_page').val(page);
 
-	          
-	           /*  if (pageHandler.totalPage > pageHandler.currentPage) {
-	                $('#load_more_comments').show().off('click').on('click', function() {
-	                    loadComments(pageHandler.currentPage + 1);
-	                });
-	            } else {
-	                $('#load_more_comments').hide();
-	            } */
 	        },
 	        error: function(xhr, textStatus, errorThrown) {
 	            console.log('댓글 목록 로딩 실패: ', textStatus);
+	            isLoading = false;
 	        }
 	    });
 	}
@@ -262,6 +268,7 @@ $(document).ready(function() {
 	        	if (response.result === "success") {
                     alert("댓글이 등록되었습니다.");
                     // 댓글 목록 불러오기
+                    loadComments(1);
 	        	}else {
 	        		alert("댓글 등록에 실패했습니다.");
 	        	}

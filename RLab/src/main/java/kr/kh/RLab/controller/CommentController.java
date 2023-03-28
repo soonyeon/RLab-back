@@ -45,7 +45,6 @@ public class CommentController {
 	    map.put("pageSize", pageSize);
 	    
 	    List<CommentVO> commentList = commentService.getCommentList(map);
-	    System.out.println("=====================" +commentList.toString());
 
 	    Map<String, Object> resultMap = new HashMap<String, Object>();
 	    resultMap.put("commentList", commentList);

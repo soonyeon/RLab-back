@@ -141,7 +141,6 @@
 }
 .comment_box{
   width: 640px;
-  height: 350px;
   border-radius: var(--border_radius_3);
   margin-top: 5px;
 
