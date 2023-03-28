@@ -15,64 +15,62 @@
 				임시저장 불러오기 <span>|</span> <span>1</span>
 			</button>
 		</div>
-		<form id="rc_new_box">
+		<form id="rc_new_box" action="<c:url value='/gather/insertstudy'></c:url>" method="post">
 			<div class="top_box">
 				<div class="ns_region_box">
 					<h3>지역</h3>
-					<select id="choose_region">
-						<option value="1">서울 특별시</option>
-						<option value="2">부산 광역시</option>
-						<option value="3">경기도</option>
-						<option value="4">인천 광역시</option>
-						<option value="5">대구 광역시</option>
-						<option value="6">경상북도</option>
-						<option value="7">경상남도</option>
-						<option value="8">대전 광역시</option>
-						<option value="9">전라북도</option>
-						<option value="10">전라남도</option>
-						<option value="11">충청북도</option>
-						<option value="12">충청남도</option>
-						<option value="13">광주 광역시</option>
-						<option value="14">강원도</option>
-						<option value="15">울산 광역시</option>
-						<option value="16">제주 특별 자치도</option>
-						<option value="17">세종 특별 자치도</option>
+					<select id="choose_region" name="st_re_name">
+						<option value="지역미지정">지역미지정</option>
+						<option value="서울특별시">서울특별시</option>
+						<option value="부산광역시">부산광역시</option>
+						<option value="경기도">경기도</option>
+						<option value="인천광역시">인천광역시</option>
+						<option value="대구광역시">대구광역시</option>
+						<option value="경상북도">경상북도</option>
+						<option value="경상남도">경상남도</option>
+						<option value="대전광역시">대전광역시</option>
+						<option value="전라북도">전라북도</option>
+						<option value="전라남도">전라남도</option>
+						<option value="충청북도">충청북도</option>
+						<option value="충청남도">충청남도</option>
+						<option value="광주광역시">광주광역시</option>
+						<option value="강원도">강원도</option>
+						<option value="울산광역시">울산광역시</option>
+						<option value="제주특별자치도">제주특별자치도</option>
+						<option value="세종특별자치도">세종특별자치도</option>
 					</select>
 				</div>
 				<div class="ns_people_box">
 					<h3>인원</h3>
-					<input type="number" class="ns_people" placeholder="최대50명">
-				</div>
-				<div class="ns_finish_date_box">
-					<h3>완료날짜</h3>
-					<li class="yes_finish">적용</li>
-					<li class="no_finish">미적용</li> <input type="date"
-						class="datepicker">
+					<input type="number" class="ns_people" placeholder="최대50명" name="st_total_people">
 				</div>
 			</div>
 			<h3>스터디명</h3>
 			<div class="ns_title_box">
-				<input type="text" class="ns_title" placeholder="10자 이내로 제목을 작성해보세요">
+				<input type="text" class="ns_title" placeholder="10자 이내로 제목을 작성해보세요" name="st_name">
 			</div>
 			<h3>배너이미지</h3>
 			<div class="ns_banner_box">
-				<input type="file" class="ns_banner">
+				<input type="file" class="ns_banner" name="st_image">
 			</div>
 			<h3>태그</h3>
 			<div class="ns_tag_box">
 				<input type="text" class="ns_tag"
-					placeholder="예시. #정처기, #모각코, #프로젝트 (태그명 최대 10자까지)">
+					placeholder="예시. 정처기, 모각코, 프로젝트 (태그명 최대 10자까지)" name="ta_name">
 			</div>
 			<h3>소개글</h3>
 			<div class="ns_introduce_box">
 				<input type="text" class="ns_introduce"
-					placeholder="100자 이내로 스터디를 소개해보세요">
+					placeholder="100자 이내로 스터디를 소개해보세요" name="st_info">
+			</div>
+
+			<div class="btn_box">
+				<a>
+					<button type="button" class="ts_study_btn">임시저장</button>
+				</a>
+				<button type="submit" class="make_study_btn">스터디 생성</button>
 			</div>
 		</form>
-		<div class="btn_box">
-			<button class="ts_study_btn">임시저장</button>
-			<button class="make_study_btn">스터디 생성</button>
-		</div>
 	</div>
 </main>
 

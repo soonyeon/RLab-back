@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?> 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 <mapper namespace="kr.kh.RLab.dao.GatherDAO">
-
-</mapper> 
+<insert id="insertStudy">
+	insert into study(st_name,st_me_id,st_info,st_total_people,st_re_name,st_image)
+	values(#{study.st_name},#{study.st_me_id},#{study.st_info},#{study.st_total_people},#{study.st_re_name},#{study.st_image})
+</insert>
+</mapper>
