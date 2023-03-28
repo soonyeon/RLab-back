@@ -105,46 +105,47 @@
 					</div>
 				</div>
 			</div>
-			<!-- 선택한 이용권 박스 -->
-			<div class="selected_box box">
-				<!-- 선택한 이용권 -->
-				<div class="selected_area area">
-					<h2>선택한 이용권</h2>
-					<div class="selected_tickets">
-						<div class="selected_ticket">
-							<div class="selected_title"><div class="dot"></div> 당일 이용권 - 2시간</div>
-							<div class="selected_content">
-								<div class="ticket_price">10,000원</div>
-								<input type="number" name="" class="ticket_count">
+			<form action="<c:url value='/ticket/buy'></c:url>" method="post">
+				<!-- 선택한 이용권 박스 -->
+				<div class="selected_box box">
+					<!-- 선택한 이용권 -->
+					<div class="selected_area area">
+						<h2>선택한 이용권</h2>
+						<div class="selected_tickets">
+							<div class="selected_ticket">
+								<div class="selected_title"><div class="dot"></div> 당일 이용권 - 2시간</div>
+								<div class="selected_content">
+									<div class="ticket_price">10,000원</div>
+									<input type="number" name="" class="ticket_count">
+								</div>
 							</div>
 						</div>
+						<div class="total_container">
+							<p>총 결제 금액</p> <div class="total_price"><span name="total_price">0</span>원</div>
+						</div>
 					</div>
-					<div class="total_container">
-						<p>총 결제 금액</p> <div class="total_price"><span name="total_price">0</span>원</div>
+					<!-- 포인트 -->
+					<div class="point_area area">
+						<div class="title">
+							<i class="icon_point"></i>
+							<h2>포인트</h2>
+							<i class="icon_info"></i>
+						</div>					
+						<div class="point_container">
+							<div class="point_title">보유 포인트</div> 
+							<div id="my_point"><span name="pa_point">${point}</span>pt</div>
+							<input type="number" name="pa_used_point" class="use_point">
+						</div>
+						<div class="total_container">
+							<p>최종 결제 금액</p> <div class="total_price" id="final_price"><span name="final_price">0</span>원</div>
+						</div>
+					</div>
+					<!-- 결제하기 -->
+					<div class="pay_area area">
+						<input type="submit" value="결제하기" id="pay_btn">
 					</div>
 				</div>
-				<!-- 포인트 -->
-				<div class="point_area area">
-					<div class="title">
-						<i class="icon_point"></i>
-						<h2>포인트</h2>
-						<i class="icon_info"></i>
-					</div>					
-					<div class="point_container">
-						<div class="point_title">보유 포인트</div> 
-						<div id="my_point"><span name="my_point">${point}</span>pt</div>
-						<input type="number" name="use_point" class="use_point">
-					</div>
-					<div class="total_container">
-						<p>최종 결제 금액</p> <div class="total_price" id="final_price"><span name="final_price">0</span>원</div>
-					</div>
-				</div>
-				<!-- 결제하기 -->
-				<div class="pay_area area">
-					<input type="submit" value="결제하기" id="pay_btn">
-				</div>
-			</div>
-
+			</form>
 		</div>
 	</div>
 </main>
@@ -195,14 +196,14 @@ $(document).on('change','[name=ticket_count]',function(){
 	calcTotalPrice();
 });
 
-$('[name=use_point]').change(function(){
-	if($('[name=total_price]').text()=='0' && $('[name=use_point]').val()>0){
+$('[name=pa_used_point]').change(function(){
+	if($('[name=total_price]').text()=='0' && $('[name=pa_used_point]').val()>0){
 		alert('결제 금액이 0원입니다.');
 		return;
 	}
-	if($('[name=use_point]').val() > ${point}){
+	if($('[name=pa_used_point]').val() > ${point}){
 		alert('사용가능한 포인트를 넘었습니다.');
-		$('[name=use_point]').val(${point});	
+		$('[name=pa_used_point]').val(${point});	
 	}
 	calcTotalPrice();
 })
@@ -210,7 +211,7 @@ $('[name=use_point]').change(function(){
 
 //최종 결제금액 구하기
 function calcFinalPrice(totalPrice){
-	let finalPrice = totalPrice - $('[name=use_point]').val();
+	let finalPrice = totalPrice - $('[name=pa_used_point]').val();
 	$('[name=final_price]').text(finalPrice.toLocaleString());
 }
 //총 결제금액 구하기
