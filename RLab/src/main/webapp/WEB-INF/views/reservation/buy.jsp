@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<link href="<c:url value='/resources/css/reservation_ticket_buy.css'></c:url>" rel="stylesheet">
+<link href="<c:url value='/resources/css/ticket_buy.css'></c:url>" rel="stylesheet">
 <script src="<c:url value='/resources/js/jquery.min.js'></c:url>"></script>
 <main>
 	<div class="main_container">
@@ -120,7 +120,7 @@
 						</div>
 					</div>
 					<div class="total_container">
-						<p>총 결제 금액</p> <div class="total_price">0원</div>
+						<p>총 결제 금액</p> <div class="total_price"><span name="total_price">0</span>원</div>
 					</div>
 				</div>
 				<!-- 포인트 -->
@@ -132,7 +132,7 @@
 					</div>					
 					<div class="point_container">
 						<div class="point_title">보유 포인트</div> 
-						<div id="my_point">1300pt</div>
+						<div id="my_point"><span name="my_point">1300<span>pt</div>
 						<input type="number" name="" class="use_point">
 					</div>
 					<div class="total_container">
@@ -149,37 +149,79 @@
 	</div>
 </main>
 <script>
-let str = '';
+let ticketStrArr = [];
+let ticketArr = [];
 let totalPrice = 0;
 
-
-$('.selected_tickets').html(str);
-
+showTicketList();
 
 $('.ticket_time').click(function(){
 	let type = $(this).parent().siblings('.ticket_title').text();
 	type = type!='' ? type : '사물함 이용권';
 	let title = $(this).find('.title').text();
 	let price = $(this).find('.price').text();
-	
-	
-	str += addTicket(str, type,title,price);
+	let num = $(this).data('num');
+	let ticket = {
+			"type" : type,
+			"title" : title,
+			"price" : price,
+			"num" : num
+	}
+	console.log(ticketArr);
+	addTicket(ticket);
+	$('[name=total_price]').text(calcTotalPrice().toLocaleString());
 });
-
-function selectTicket(){
-	
+function calcTotalPrice(){
+	let total = 0;
+	for(i=0;i<ticketArr.length;i++){
+		let count = $('.selected_ticket .ticket_count').val();
+		let perPrice = ticketArr[i].price.replace(/,/g, "");
+		total +=  perPrice * (+count);
+	}
+	return total;
+}
+function showTicketList(){
+	let tmpStr = '';
+	for(i=0;i<ticketStrArr.length;i++)
+		tmpStr += ticketStrArr[i];
+	$('.selected_tickets').html(tmpStr);
 }
 
-function addTicket(str, type, title, price){
-	str +=
+function addTicket(ticket){
+	for(index in ticketArr){
+		if(ticketArr[index].num == ticket.num){
+			alert('이미 선택한 이용권입니다.');
+			return;
+		}
+	}
+	let tmpStr = '';
+	tmpStr +=
 		'<div class="selected_ticket">'+
-			'<div class="selected_title"><div class="dot"></div> '+type+' - '+title+'</div>'+
+			'<div class="selected_title"><div class="dot"></div> '+ticket.type+' - '+ticket.title+'</div>'+
 			'<div class="selected_content">'+
-				'<div class="ticket_price">'+price+'원</div>'+
+				'<div class="ticket_price">'+ticket.price+'원</div>'+
 				'<input type="number" name="" class="ticket_count" value="1">'+
 			'</div>'+
 		'</div>';
-	$('.selected_tickets').html(str);
-	return str;
+	
+	if(ticketArr.length==0){
+		ticketArr.push(ticket);
+		ticketStrArr.push(tmpStr);
+		showTicketList();
+		return;		
+	}
+	for(index in ticketArr){
+		if(ticketArr[index].num > ticket.num){
+			ticketArr.splice(index, 0, ticket);
+			ticketStrArr.splice(index, 0, tmpStr);
+			break;
+		}
+		if(index == ticketArr.length-1){
+			ticketArr.push(ticket);
+			ticketStrArr.push(tmpStr);
+		}
+	}
+	showTicketList();
+	return;
 }
 </script>
