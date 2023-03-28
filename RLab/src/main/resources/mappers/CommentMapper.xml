@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.kh.RLab.dao.CommentDAO">
+<insert id="insertComment">
+    INSERT INTO comment (co_me_id, co_content, co_ori_num, co_table, co_ex_num)
+    VALUES (#{co_me_id}, #{co_content}, #{co_ori_num}, #{co_table}, #{co_ex_num})
+</insert>
+
+<select id="getCommentCount" resultType="int">
+	select
+		count(*)
+	from
+		comment
+	where co_ex_num = #{co_ex_num}
+</select>
+
+<select id="getCommentList" resultMap="commentResultMap">
+    SELECT * 
+    FROM comments
+    WHERE co_ex_num = #{co_ex_num}
+    <if test="co_ori_num != null and co_ori_num != 0">
+        AND co_ori_num = #{co_ori_num}
+    </if>
+    LIMIT #{offset}, #{pageSize}
+</select>
+
+<resultMap id="commentResultMap" type="kr.kh.RLab.vo.CommentVO">
+    <id property="co_num" column="co_num"/>
+    <result property="co_me_id" column="co_me_id"/>
+    <result property="co_content" column="co_content"/>
+    <result property="co_ori_num" column="co_ori_num"/>
+    <result property="co_table" column="co_table"/>
+    <result property="co_ex_num" column="co_ex_num"/>
+</resultMap>
+
+</mapper>
