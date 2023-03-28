@@ -10,8 +10,8 @@
  	background-color: white;
  }
 </style>
-<div class="left_menu_container_top" style="margin-left: 360px;float:left;">
-<div class="left_menu_container">
+<div class="left_menu_container_top">
+<div class="left_menu_container" style="float:left;">
                     <nav class="left_menu">
                         <a href="study_basic.html" class="list_item">스터디홈</a>
                         <a href="#" class="list_item">스터디 달력</a>
@@ -118,6 +118,112 @@
                                 </div>
                              </div> 
                         </div>
+                        <aside>
+                    <div class="right-container">
+                        <!-- 메뉴바 3개 -->
+                        <div class="study_link_container">
+                            <div class="circle_now cc">
+                                <div class="now">NOW</div>
+                            </div>
+                            <div class="circle_star cc">
+                            
+                                <img class="star" src="<c:url value='/resources/img/favorite_star_on.png'></c:url>">
+                            </div>
+                            <div class="my_study_container">
+                                <div class="my_list_title">
+
+                                    <div class="my">MY</div>
+
+                                    <!-- <div class="my_study" >나의 스터디<button id="dropdown_btn">▼</button></div> -->
+                                </div>
+                                <div id="dropdown_list" style="display: none;">
+                                    <ul class="dropdown_list_ul">
+                                        <li class="dropdown_list_li">
+                                            <div class="dropdown_list_contents">
+                                                <p class="dropdown_list_contents_title">정보처리기사 스터디</p>
+                                                <div class="dropdown_list_contents_on_img"></div>
+                                                <div class="dropdown_hr"></div>
+                                            </div>
+                                        </li>
+                                        <li class="dropdown_list_li">
+                                            <div class="dropdown_list_contents">
+                                                <p class="dropdown_list_contents_title">정보처리기사 스터디</p>
+                                                <div class="dropdown_list_contents_off_img"></div>
+                                                <div class="dropdown_hr"></div>
+                                            </div>
+                                        </li>
+                                        <li class="dropdown_list_li">
+                                            <div class="dropdown_list_contents">
+                                                <p class="dropdown_list_contents_title">정보처리기사 스터디</p>
+                                                <div class="dropdown_list_contents_off_img"></div>
+                                                <div class="dropdown_hr"></div>
+                                            </div>
+                                        </li>
+                                        <li class="dropdown_list_li">
+                                            <div class="dropdown_list_contents">
+                                                <p class="dropdown_list_contents_title">정보처리기사 스터디</p>
+                                                <div class="dropdown_list_contents_off_img"></div>
+                                                <div class="dropdown_hr"></div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 접속상태 -->
+                    <div class="accessor">
+                        <div class="study_title">정보처리기사 스터디</div>
+                        <div class="accessor_container">
+                            <div class="circle_accessor">
+                                <div class="accessor_on"></div>
+                            </div>
+                            <div class="study_name">김돌탕</div><span class="your">YOU</span>
+                        </div>
+                        <div class="accessor_container">
+                            <div class="circle_accessor"></div>
+                            <div class="study_name">김순연</div>
+                        </div>
+                        <div class="accessor_container">
+                            <div class="circle_accessor"></div>
+                            <div class="study_name">김세영</div>
+                        </div>
+                        <div class="accessor_container">
+                            <div class="circle_accessor"></div>
+                            <div class="study_name">김도현</div>
+                        </div>
+                        <div class="accessor_container">
+                            <div class="circle_accessor"></div>
+                            <div class="study_name">이정현</div>
+                        </div>
+                        <div class="accessor_container">
+                            <div class="circle_accessor"></div>
+                            <div class="study_name">가나다</div>
+                        </div>
+                        <div class="accessor_container">
+                            <div class="circle_accessor"></div>
+                            <div class="study_name">라마바</div>
+                        </div>
+                        <div class="accessor_container">
+                            <div class="circle_accessor"></div>
+                            <div class="study_name">사아나</div>
+                        </div>
+                        <div class="accessor_container">
+                            <div class="circle_accessor"></div>
+                            <div class="study_name">s아나</div>
+                        </div>
+                        <div class="accessor_container">
+                            <div class="circle_accessor"></div>
+                            <div class="study_name">s아나</div>
+                        </div>
+                        <div class="accessor_container">
+                            <div class="circle_accessor"></div>
+                            <div class="study_name">s아나</div>
+                        </div>
+
+                    </div>
+            </div>
+            </aside>
                      </div>
                      
 <script>
