@@ -38,6 +38,18 @@
     LIMIT #{offset}, #{pageSize}
 </select>
 
+<select id="selectComment" resultType="kr.kh.RLab.vo.CommentVO">
+	select *
+	from comment
+	where co_num = #{co_num}
+</select>
+
+<delete id="deleteComment">
+	delete from
+		comment
+	where co_num = #{co_num}
+</delete>
+
 <resultMap id="commentResultMap" type="kr.kh.RLab.vo.CommentVO">
     <id property="co_num" column="co_num"/>
     <result property="co_me_id" column="co_me_id"/>

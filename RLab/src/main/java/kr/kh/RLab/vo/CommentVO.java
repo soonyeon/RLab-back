@@ -22,6 +22,8 @@ public class CommentVO {
 	public String getCo_reg_date() {
 		SimpleDateFormat format = 
 			new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		if(co_reg_date == null)
+			return "";
 		return format.format(co_reg_date);
 	}
 

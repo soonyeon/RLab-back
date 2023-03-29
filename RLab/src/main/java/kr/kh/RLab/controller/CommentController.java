@@ -4,7 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.web.bind.annotation.GetMapping;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import kr.kh.RLab.pagination.PageHandler;
 import kr.kh.RLab.service.CommentService;
 import kr.kh.RLab.vo.CommentVO;
+import kr.kh.RLab.vo.MemberVO;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -51,6 +53,16 @@ public class CommentController {
 	    resultMap.put("ph", pageHandler);
 	    
 	    return resultMap;
+	}
+	
+	@PostMapping("/delete")
+	public Map<String,Object> comment(@RequestBody CommentVO comment,HttpSession session) {
+		System.out.println(comment);
+		Map<String,Object> map = new HashMap<String, Object>();
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		boolean res = commentService.deleteComment(comment,user);
+		map.put("result", res ? "success" : "fail");
+		return map;
 	}
 
 }

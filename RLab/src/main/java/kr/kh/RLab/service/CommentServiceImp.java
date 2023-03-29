@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kr.kh.RLab.dao.CommentDAO;
 import kr.kh.RLab.vo.CommentVO;
+import kr.kh.RLab.vo.MemberVO;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -30,6 +31,16 @@ public class CommentServiceImp implements CommentService {
 	@Override
 	public List<CommentVO> getCommentList(Map<String, Object> map) {
 		return commentDao.getCommentList(map);
+	}
+
+	@Override
+	public boolean deleteComment(CommentVO comment, MemberVO user) {
+		if(comment == null || user == null)
+			return false;
+		CommentVO dbComment = commentDao.selectComment(comment.getCo_num());
+		if(dbComment == null || !dbComment.getCo_me_id().equals(user.getMe_id()))
+			return false;
+		return commentDao.deleteComment(comment) != 0;
 	}
 
 }

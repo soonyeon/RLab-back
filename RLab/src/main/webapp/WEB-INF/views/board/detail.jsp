@@ -224,6 +224,7 @@
             </div>
                      
 <script>
+let page = 1;//댓글 페이지
 const boardNum = '${bd.bo_num}';
 const userId = '${user.me_id}';
 let scrapCount = '${scrapCount}';
@@ -326,8 +327,8 @@ $(document).ready(function() {
 	                    listHtml += '<div class="comment_btn_box">';
 	                    listHtml += '<button class="cm_plus_btn" data-num="' + comment.co_num + '"> <img class="reply_icon" src="<c:url value="/resources/img/reply.png"></c:url>">답글달기</button>';
 	                    if (userId == comment.co_me_id) {
-	                        listHtml += `<button class="cm_update_btn" data-num="${comment.co_num}">수정하기</button>`;
-	                        listHtml += `<button class="cm_delete_btn" data-num="${comment.co_num}">X삭제하기</button>`;
+	                        listHtml += '<button class="cm_update_btn" data-num="'+comment.co_num+'">수정하기</button>';
+	                        listHtml += '<button class="cm_delete_btn" data-num="'+comment.co_num+'">X삭제하기</button>';
 	                    }
 	                    listHtml += '</div>';
 	                    listHtml += '<div class="already_comment">' + comment.co_content + '</div>';
@@ -465,6 +466,41 @@ $(document).ready(function() {
 		 })
 		 
 	  })
+	  //댓글,답글 삭제
+	  $(document).on('click', '.cm_delete_btn, .re_delete_btn', function() {
+    let co_num = $(this).data('num');
+    let comment = {
+        co_num: co_num
+    }
+    deleteComment(comment, page);
+    console.log(comment);
+});
+	
+	function deleteComment(comment, page) {
+    $.ajax({
+    	url: '<c:url value="/comment/delete" />',
+        type: 'POST',
+        data: JSON.stringify({
+            co_num: comment.co_num
+        }),
+        contentType: 'application/json',
+        dataType: 'json',
+        success: function (response) {
+            if (response.result == "success") {
+                alert("댓글이 삭제되었습니다.");
+                // 댓글 목록을 다시 불러옴
+                loadComments(page);
+            } else {
+                alert("댓글 삭제에 실패했습니다. 다시 시도해주세요.");
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error("Status:", status);
+            console.error("Error:", error);
+            alert("댓글 삭제 중 오류가 발생했습니다. 다시 시도해주세요.");
+        }
+    });
+}
 	  
 	
 	  $('#update-btn').click(function() {
