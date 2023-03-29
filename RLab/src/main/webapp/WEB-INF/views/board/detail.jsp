@@ -225,6 +225,7 @@
                      
 <script>
 const boardNum = '${bd.bo_num}';
+const userId = '${user.me_id}';
 let scrapCount = '${scrapCount}';
 let mo_id = '${bd.bo_me_id}';
 let me_id = $('#me_id').val();
@@ -309,30 +310,32 @@ $(document).ready(function() {
 	            
 				
 	            $.each(comments, function(index, comment) {
-	            	console.log(comment);
-	            	if(comment.co_num == comment.co_ori_num) {
-	                let listHtml = '';
+	                console.log(comment);
+	                if (comment.co_num == comment.co_ori_num) {
+	                    let listHtml = '';
 
-	                listHtml += '<div class="cm_main_box">';
-	                listHtml += '<div class="cm_top_box">';
-	                listHtml += '<div class="cm_writer">';
-	                listHtml += '<a href="#" class="cm_mypage">';
-	                listHtml += '<i class="img_mypage"></i>';
-	                listHtml += '<span class="nick_name">' + comment.me_name + '</span>';
-	                listHtml += '<span class="write_date">' + comment.co_reg_date + '</span>';
-	                listHtml += '</a>';
-	                listHtml += '</div>';
-	                listHtml += '<div class="comment_btn_box">';
-	                listHtml += '<button class="cm_plus_btn" data-num="' + comment.co_num + '"> <img class="reply_icon" src="<c:url value="/resources/img/reply.png"></c:url>">답글달기</button>';
-	                listHtml += '<button class="cm_update_btn" data-num="' + comment.co_num + '">수정하기</button>';
-	                listHtml += '<button class="cm_delete_btn" data-num="' + comment.co_num + '">X삭제하기</button>';
-	                listHtml += '</div>';
-	                listHtml += '<div class="already_comment">' + comment.co_content + '</div>';
-	                listHtml += '</div>';
-	                listHtml += '</div>';
+	                    listHtml += '<div class="cm_main_box">';
+	                    listHtml += '<div class="cm_top_box">';
+	                    listHtml += '<div class="cm_writer">';
+	                    listHtml += '<a href="#" class="cm_mypage">';
+	                    listHtml += '<i class="img_mypage"></i>';
+	                    listHtml += '<span class="nick_name">' + comment.me_name + '</span>';
+	                    listHtml += '<span class="write_date">' + comment.co_reg_date + '</span>';
+	                    listHtml += '</a>';
+	                    listHtml += '</div>';
+	                    listHtml += '<div class="comment_btn_box">';
+	                    listHtml += '<button class="cm_plus_btn" data-num="' + comment.co_num + '"> <img class="reply_icon" src="<c:url value="/resources/img/reply.png"></c:url>">답글달기</button>';
+	                    if (userId == comment.co_me_id) {
+	                        listHtml += `<button class="cm_update_btn" data-num="${comment.co_num}">수정하기</button>`;
+	                        listHtml += `<button class="cm_delete_btn" data-num="${comment.co_num}">X삭제하기</button>`;
+	                    }
+	                    listHtml += '</div>';
+	                    listHtml += '<div class="already_comment">' + comment.co_content + '</div>';
+	                    listHtml += '</div>';
+	                    listHtml += '</div>';
 
-	                $('.comment_box').append(listHtml); // 생성된 HTML 문자열을 댓글 목록 영역에 추가
-	            	}
+	                    $('.comment_box').append(listHtml); // 생성된 HTML 문자열을 댓글 목록 영역에 추가
+	                }
 	            	else {
 	                    let reReplyHtml = '';
 
@@ -347,8 +350,10 @@ $(document).ready(function() {
 	                    reReplyHtml += '</a>';
 	                    reReplyHtml += '</div>';
 	                    reReplyHtml += '<div class="reply_btn_box">';
+	                    if (userId == comment.co_me_id) {
 	                    reReplyHtml += '<button class="re_edit_btn" data-num="' + comment.co_num + '">수정하기</button>';
 	                    reReplyHtml += '<button class="re_delete_btn" data-num="' + comment.co_num + '">X삭제하기</button>';
+	                    }
 	                    reReplyHtml += '</div>';
 	                    reReplyHtml += '<div class="re_reply_comment">' + comment.co_content + '</div>';
 	                    reReplyHtml += '</div>';
