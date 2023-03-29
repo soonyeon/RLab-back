@@ -9,6 +9,8 @@ import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.RegionVO;
 import kr.kh.RLab.vo.StudyVO;
+import kr.kh.RLab.vo.TagRegisterVO;
+import kr.kh.RLab.vo.TagVO;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor 
@@ -19,7 +21,7 @@ public class GatherServiceImp implements GatherService{
 	String uploadPath = "D:\\uploadfiles";
 	
 	@Override 
-	public boolean insertStudy(StudyVO study, MemberVO member,RegionVO region,MultipartFile [] files,FileVO file) {
+	public boolean insertStudy(StudyVO study, MemberVO member,RegionVO region,MultipartFile [] files,FileVO file,TagVO tag,TagRegisterVO tagRegister) {
 		System.out.println(study);
 		System.out.println(member);
 		System.out.println(files);
@@ -32,6 +34,16 @@ public class GatherServiceImp implements GatherService{
 	    }
 	    study.setSt_me_id(member.getMe_id()); 
 	    gatherDao.insertStudy(study); 
+	    
+	    String[] tags = tag.getTa_name().split(",");
+	    
+	    //각 태그 DB에 저장
+	    for (String tagName : tags) {
+	        TagVO tagVO = new TagVO();
+	        tagVO.setTa_name(tagName.trim());
+	        gatherDao.insertTag(tagVO);
+	        gatherDao.insertStudyTag(study.getSt_num(), tagVO.getTa_name());
+	    }
 	    uploadFiles(files,study.getSt_num(),file.getFi_table());
 		return true;
 	}

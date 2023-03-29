@@ -7,9 +7,13 @@ import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.RegionVO;
 import kr.kh.RLab.vo.StudyVO;
+import kr.kh.RLab.vo.TagRegisterVO;
+import kr.kh.RLab.vo.TagVO;
 
 public interface GatherService {
 
-	boolean insertStudy(StudyVO study,MemberVO member,RegionVO region,MultipartFile [] files,FileVO file);
+	boolean insertStudy(StudyVO study,MemberVO member,RegionVO region,MultipartFile [] files,FileVO file,TagVO tag,TagRegisterVO tagRegister);
+
+
 
 }
