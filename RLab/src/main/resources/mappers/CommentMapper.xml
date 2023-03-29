@@ -52,13 +52,15 @@
 	where co_num = #{co_num}
 </delete>
 
-<resultMap id="commentResultMap" type="kr.kh.RLab.vo.CommentVO">
-    <id property="co_num" column="co_num"/>
-    <result property="co_me_id" column="co_me_id"/>
-    <result property="co_content" column="co_content"/>
-    <result property="co_ori_num" column="co_ori_num"/>
-    <result property="co_table" column="co_table"/>
-    <result property="co_ex_num" column="co_ex_num"/>
-</resultMap>
+<update id="updateComment">
+	update 
+		comment
+	set
+		co_content = #{co_content}
+	where
+		co_num = #{co_num}
+</update>
+
+
 
 </mapper>
