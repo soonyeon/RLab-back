@@ -505,8 +505,74 @@
                 }
             });
         }
+        $(document).on('click', '.cm_update_btn, .re_edit_btn', function() {
+            let co_num = $(this).data('num');
+            let currentContentElement = $(this).closest('.cm_top_box, .re_reply_top_box').find('.already_comment, .re_reply_comment');
+            let currentContent = currentContentElement.text();
 
+            currentContentElement.replaceWith('<input type="text" class="cm_update" value="' + currentContent + '" style="border: none; background-color: transparent;">');
 
+            $(this).text('수정완료').addClass('cm_update_confirm_btn').removeClass('cm_update_btn re_edit_btn');
+            $(this).after('<button class="cm_update_cancel_btn">취소하기</button>');
+            $(this).siblings('.cm_delete_btn, .re_delete_btn').css('visibility', 'hidden'); // 삭제하기 버튼 숨기기
+        });
+
+        $(document).on('click', '.cm_update_cancel_btn', function() {
+            let originalContent = $(this).closest('.cm_top_box, .re_reply_top_box').find('.cm_update').val();
+            $(this).closest('.cm_top_box, .re_reply_top_box').find('.cm_update').replaceWith('<div class="already_comment">' + originalContent + '</div>');
+
+            let updateButton = $(this).siblings('.cm_update_confirm_btn');
+            updateButton.text('수정').addClass('cm_update_btn re_edit_btn').removeClass('cm_update_confirm_btn');
+            updateButton.siblings('.cm_delete_btn, .re_delete_btn').css('visibility', 'visible'); // 삭제하기 버튼 다시 보이게 만들기
+            $(this).remove();
+        });
+        
+        $(document).on('click', '.cm_update_confirm_btn', function() {
+            let co_num = $(this).data('num');
+            let updatedContent = $(this).closest('.cm_top_box, .re_reply_top_box').find('.cm_update').val();
+
+            if (!updatedContent) {
+                alert('댓글을 입력 해주세요');
+                return;
+            }
+
+            let comment = {
+                co_num: co_num,
+                co_content: updatedContent
+            };
+
+            updateComment(comment, $('#current_page').val());
+        });
+
+        $(document).on('click', '.cm_update_cancel_btn', function() {
+            let originalContent = $(this).closest('.cm_top_box, .re_reply_top_box').find('.cm_update').val();
+            $(this).closest('.cm_top_box, .re_reply_top_box').find('.cm_update').replaceWith('<div class="already_comment">' + originalContent + '</div>');
+
+            $(this).siblings('.cm_update_confirm_btn').text('수정').addClass('cm_update_btn re_edit_btn').removeClass('cm_update_confirm_btn');
+            $(this).remove();
+        });
+
+        function updateComment(comment, page) {
+            $.ajax({
+                url: '<c:url value="/comment/update" />',
+                type: 'POST',
+                data: JSON.stringify({
+                    co_num: comment.co_num,
+                    co_content: comment.co_content
+                }),
+                contentType: 'application/json',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.result == "success") {
+                        alert("댓글이 수정되었습니다.");
+                        // 댓글 목록을 다시 불러옴
+                        loadComments(page);
+                    } else {
+                        alert("댓글 수정에 실패했습니다. 다시 시도해주세요.");
+                    }
+                },
+            });
+        }
 
 
         $('#update-btn').click(function() {

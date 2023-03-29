@@ -219,6 +219,17 @@
   width: 80px;
   
 }
+
+.cm_update {
+	width: 92%;
+    height: 45px;
+    background-color: transparent;
+    outline: none;
+    font-size: 16px;
+    border-radius: var(--border_radius_4);
+    padding: 0 10px;
+}
+
 .reply_icon{
   width: 20px;
   height: 20px;
@@ -293,7 +304,10 @@
 
 }
 .reply_btn_box .re_edit_btn, 
-.reply_btn_box .re_delete_btn {
+.reply_btn_box .re_delete_btn,
+.cm_update_confirm_btn,
+.cm_update_cancel_btn {
+	
   background-color: transparent;
   border: none;
   margin-left: 10px;
