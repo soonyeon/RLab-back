@@ -5,19 +5,21 @@
 <mapper namespace="kr.kh.RLab.dao.CommentDAO">
 <insert id="insertComment">
     insert into
-  			comment(co_num, co_me_id,co_content, co_reg_date, co_ori_num,co_ex_num)
-  			select
-  				ifnull(max(co_num), 0 ) + 1,
-  				#{co_me_id}, #{co_content}, now()
-  				<if test="co_ori_num == 0">
-  				ifnull(max(co_num), 0) + 1,
-  				</if>
-  				<if test="co_ori_num != 0">
-  				#{co_ori_num},
-  				</if>
-  				#{co_ex_num}
-  			from
-  				comment
+        comment(co_num, co_me_id, co_content, co_reg_date, co_ori_num, co_ex_num)
+    select
+        ifnull(max(co_num), 0 ) + 1,
+        #{co_me_id}, #{co_content}, now(),
+        <choose>
+            <when test="co_ori_num == 0">
+                ifnull(max(co_num), 0) + 1,
+            </when>
+            <otherwise>
+                #{co_ori_num},
+            </otherwise>
+        </choose>
+        #{co_ex_num}
+    from
+        comment
 </insert>
 
 <select id="getCommentCount" resultType="int">

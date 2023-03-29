@@ -286,20 +286,22 @@ $(document).ready(function() {
   });
   
 $(document).ready(function() {
-	let isLoading = false;
+	  let currentPage = 1; 
+	  let isLoading = false;
 
-	$(window).scroll(function() {
+	  $(window).scroll(function() {
 	    if ($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
-	        if (!isLoading) {
-	            isLoading = true;
-	            var currentPage = parseInt($('#current_page').val()) || 1;
-	            loadComments(currentPage + 1);
-	        }
+	      if (!isLoading) {
+	        isLoading = true;
+	        loadComments(currentPage + 1); 
+	      }
 	    }
-	});
+	  });
 	
 	<!--댓글-->
 	function loadComments(page) {
+		// 기존 댓글 목록을 지우고 시작
+	    $('.comment_box').empty();
 	    $.ajax({
 	    	url: '<c:url value="/comment/list/'+boardNum+'?page='+page+'" />',
 	        type: 'POST',
@@ -379,6 +381,11 @@ $(document).ready(function() {
 	
 	
 	  $(".cm_upload_btn").click(function() {
+	 	 if ('${user.me_id}' == '') {
+		    alert('로그인을 해야 합니다.');
+		    return;
+		  }
+		  
 		let commentContent = $(".cm_write").val();
 		
 		if(!commentContent.trim()) {
@@ -426,7 +433,6 @@ $(document).ready(function() {
 	    '<button class="cm_reply_btn">답글등록</button>' +
 	    '</div>';
 	
-	  //$('.add_comment_box').remove();
 	
 	  $(this).closest('.cm_main_box').append(listHtml);
 	});
