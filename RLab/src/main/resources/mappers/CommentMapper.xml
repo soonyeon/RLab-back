@@ -4,8 +4,20 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.kh.RLab.dao.CommentDAO">
 <insert id="insertComment">
-    INSERT INTO comment (co_me_id, co_content, co_ori_num, co_table, co_ex_num, co_reg_date)
-    VALUES (#{co_me_id}, #{co_content}, #{co_ori_num}, #{co_table}, #{co_ex_num}, now())
+    insert into
+  			comment(co_num, co_me_id,co_content, co_reg_date, co_ori_num,co_ex_num)
+  			select
+  				ifnull(max(co_num), 0 ) + 1,
+  				#{co_me_id}, #{co_content}, now()
+  				<if test="co_ori_num == 0">
+  				ifnull(max(co_num), 0) + 1,
+  				</if>
+  				<if test="co_ori_num != 0">
+  				#{co_ori_num},
+  				</if>
+  				#{co_ex_num}
+  			from
+  				comment
 </insert>
 
 <select id="getCommentCount" resultType="int">
@@ -18,8 +30,11 @@
 
 <select id="getCommentList" resultType="kr.kh.RLab.vo.CommentVO">
     SELECT * 
-    FROM comment
+    FROM comment AS c
+    LEFT JOIN member AS me ON c.co_me_id = me.me_id
     WHERE co_ex_num = #{co_ex_num}
+    order by
+  			co_ori_num desc, co_num asc
     LIMIT #{offset}, #{pageSize}
 </select>
 

@@ -81,7 +81,7 @@
                                     <button class="cm_upload_btn">등록</button>
                                 </div>
                                 <div class="comment_box">    
-                                  <%--   <div class="cm_main_box">
+                                 <%--  <div class="cm_main_box">
                                         <div class="cm_top_box">
                                             <div class="cm_writer">
                                                 <a href="#" class="cm_mypage"> 
@@ -118,7 +118,6 @@
                                 </div>
                              </div> 
                         </div>
-                        <aside>
                     <div class="right-container">
                         <!-- 메뉴바 3개 -->
                         <div class="study_link_container">
@@ -223,8 +222,6 @@
 
                     </div>
             </div>
-            </aside>
-                     </div>
                      
 <script>
 const boardNum = '${bd.bo_num}';
@@ -306,36 +303,62 @@ $(document).ready(function() {
 	        type: 'POST',
 	        dataType: 'json',
 	        success: function(response) {
-	            var comments = response.commentList;
-	            var pageHandler = response.pageHandler;
+	            let comments = response.commentList;
+	            let pageHandler = response.pageHandler;
 	            
 	            
 				
 	            $.each(comments, function(index, comment) {
 	            	console.log(comment);
-	                var listHtml = '';
+	            	if(comment.co_num == comment.co_ori_num) {
+	                let listHtml = '';
 
 	                listHtml += '<div class="cm_main_box">';
 	                listHtml += '<div class="cm_top_box">';
 	                listHtml += '<div class="cm_writer">';
 	                listHtml += '<a href="#" class="cm_mypage">';
 	                listHtml += '<i class="img_mypage"></i>';
-	                listHtml += '<span class="nick_name">' + comment.co_me_id + '</span>'; 
-	                listHtml += '<span class="write_date">' + comment.co_reg_date + '</span>'; 
+	                listHtml += '<span class="nick_name">' + comment.me_name + '</span>';
+	                listHtml += '<span class="write_date">' + comment.co_reg_date + '</span>';
 	                listHtml += '</a>';
 	                listHtml += '</div>';
 	                listHtml += '<div class="comment_btn_box">';
-	                listHtml += '<button class="cm_plus_btn"> <img class="reply_icon" src="<c:url value="/resources/img/reply.png"></c:url>">답글달기</button>';
-	                listHtml += '<button class="cm_delete_btn">X삭제하기</button>';
+	                listHtml += '<button class="cm_plus_btn" data-num="' + comment.co_num + '"> <img class="reply_icon" src="<c:url value="/resources/img/reply.png"></c:url>">답글달기</button>';
+	                listHtml += '<button class="cm_update_btn" data-num="' + comment.co_num + '">수정하기</button>';
+	                listHtml += '<button class="cm_delete_btn" data-num="' + comment.co_num + '">X삭제하기</button>';
 	                listHtml += '</div>';
 	                listHtml += '<div class="already_comment">' + comment.co_content + '</div>';
 	                listHtml += '</div>';
 	                listHtml += '</div>';
 
 	                $('.comment_box').append(listHtml); // 생성된 HTML 문자열을 댓글 목록 영역에 추가
+	            	}
+	            	else {
+	                    let reReplyHtml = '';
+
+	                    reReplyHtml += '<div class="re_reply_main_box">';
+	                    reReplyHtml += '<div class="re_reply_top_box">';
+	                    reReplyHtml += '<img class="re_reply_icon" src="<c:url value="/resources/img/reply.png"></c:url>">';
+	                    reReplyHtml += '<div class="re_writer">';
+	                    reReplyHtml += '<a href="#" class="re_mypage">';
+	                    reReplyHtml += '<i class="img_mypage"></i>';
+	                    reReplyHtml += '<span class="re_nick_name">' + comment.me_name + '</span>';
+	                    reReplyHtml += '<span class="re_write_date">' + comment.co_reg_date + '</span>';
+	                    reReplyHtml += '</a>';
+	                    reReplyHtml += '</div>';
+	                    reReplyHtml += '<div class="reply_btn_box">';
+	                    reReplyHtml += '<button class="re_edit_btn" data-num="' + comment.co_num + '">수정하기</button>';
+	                    reReplyHtml += '<button class="re_delete_btn" data-num="' + comment.co_num + '">X삭제하기</button>';
+	                    reReplyHtml += '</div>';
+	                    reReplyHtml += '<div class="re_reply_comment">' + comment.co_content + '</div>';
+	                    reReplyHtml += '</div>';
+	                    reReplyHtml += '</div>';
+
+	                    $('.comment_box').append(reReplyHtml); // 생성된 답글 HTML 문자열을 댓글 목록 영역에 추가
+	                }
 	            });
 	            // 현재 페이지 값을 갱신
-                $('#current_page').val(page);
+	            $('#current_page').val(page);
 
 	        },
 	        error: function(xhr, textStatus, errorThrown) {
@@ -381,6 +404,63 @@ $(document).ready(function() {
 	        }
 		});
 	});
+	//답글 버튼 클릭 이벤트
+	$(document).on('click', '.cm_plus_btn', function () {
+	  if ('${user.me_id}' == '') {
+	    alert('로그인을 해야 합니다.');
+	    return;
+	  }
+	  let co_ori_num = $(this).data('num');
+	
+	  let listHtml =
+	    '<div class="add_comment_box">' +
+	    '<div class="cm_input_box">' +
+	    '<input type="text" class="cm_write" placeholder="답글을 작성해보세요!">' +
+	    '</div>' +
+	    '<button class="cm_reply_btn">답글등록</button>' +
+	    '</div>';
+	
+	  //$('.add_comment_box').remove();
+	
+	  $(this).closest('.cm_main_box').append(listHtml);
+	});
+	
+	  $(document).on('click', '.cm_reply_btn' , function() {
+		  let replyContent = $(this).siblings('.cm_input_box').find('.cm_write').val();
+		  
+		  if(!replyContent) {
+			  alert('답글을 입력 해주세요');
+			  return;
+		  }
+		  
+		 //클릭한 답글 버튼의 댓글번호를 가져옴
+		 let co_ori_num = $(this).closest('.cm_main_box').find('.cm_plus_btn').data('num');
+		
+		 let Data = {
+				 co_me_id : '${user.me_id}',
+				 co_content : replyContent,
+				 co_ori_num : co_ori_num,
+				 co_table: '자유게시판',
+				 co_ex_num: boardNum
+		 }
+		 
+		 $.ajax({
+			 url: '<c:url value="/comment/create" />',
+			 type: 'POST',
+			 data: JSON.stringify(Data), 
+			 contentType: 'application/json', 
+			 dataType: 'json',
+			 success: function (Data) {
+				 alert('대댓글 등록에 성공하였습니다.');
+				 loadComments(1); // 댓글 다시 불러오기
+			 },
+			 error: function (error) {
+			        alert('대댓글 등록에 실패했습니다. 다시 시도해주세요.');
+			},
+		 })
+		 
+	  })
+	  
 	
 	  $('#update-btn').click(function() {
 		let bo_num = $(this).data('id');

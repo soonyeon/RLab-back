@@ -165,7 +165,8 @@
     border-radius: var(--border_radius_4);
     padding: 0 10px;
 }
-.cm_upload_btn{
+.cm_upload_btn,
+.cm_reply_btn{
     width: 80px;
     height: 47px;
     background-color: var(--color_blue);
@@ -210,7 +211,8 @@
   font-size: 13px;
 }
 .comment_btn_box .cm_plus_btn, 
-.comment_btn_box .cm_delete_btn {
+.comment_btn_box .cm_delete_btn,
+.comment_btn_box .cm_update_btn  {
   background-color: transparent;
   border: none;
   color: var(--color_grey);
