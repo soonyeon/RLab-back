@@ -15,6 +15,6 @@ public class StudyVO {
 	private int st_now_people;
 	private int st_total_people;
 	private String st_re_name;
-	private byte[] st_image;
+	private String st_image;
 	
 }

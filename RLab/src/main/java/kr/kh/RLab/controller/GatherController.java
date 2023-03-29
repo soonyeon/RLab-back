@@ -6,9 +6,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.kh.RLab.service.GatherService;
+import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.RegionVO;
 import kr.kh.RLab.vo.StudyVO;
@@ -28,9 +30,9 @@ public class GatherController {
 	    return mv;
 	}
 	@PostMapping("/insertstudy")
-	public ModelAndView gatherInsertPost(ModelAndView mv,StudyVO study,HttpServletRequest request,RegionVO region) {
+	public ModelAndView gatherInsertPost(ModelAndView mv,StudyVO study,HttpServletRequest request,RegionVO region,MultipartFile [] files,FileVO file) {
 		MemberVO member = (MemberVO)request.getSession().getAttribute("user");
-		boolean res = gatherService.insertStudy(study,member,region);
+		boolean res = gatherService.insertStudy(study,member,region,files,file);
 		mv.setViewName("/gather/insertstudy");
 		return mv;
 	}

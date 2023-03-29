@@ -15,7 +15,7 @@
 				임시저장 불러오기 <span>|</span> <span>1</span>
 			</button>
 		</div>
-		<form id="rc_new_box" action="<c:url value='/gather/insertstudy'></c:url>" method="post">
+		<form id="rc_new_box" action="<c:url value='/gather/insertstudy'></c:url>" method="post" enctype="multipart/form-data">
 			<div class="top_box">
 				<div class="ns_region_box">
 					<h3>지역</h3>
@@ -51,7 +51,8 @@
 			</div>
 			<h3>배너이미지</h3>
 			<div class="ns_banner_box">
-				<input type="file" class="ns_banner" name="st_image">
+				<input type="file" class="ns_banner" name="files" >
+				<input name ="fi_table" type="hidden" value="모집생성글">
 			</div>
 			<h3>태그</h3>
 			<div class="ns_tag_box">
