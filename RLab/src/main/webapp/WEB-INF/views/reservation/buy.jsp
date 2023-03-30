@@ -144,8 +144,8 @@
 						</div>
 					</div>
 					<!-- 결제하기 -->
-					<div class="pay_area area" onclick="requestPay()">
-						<input type="submit" value="결제하기" id="pay_btn">
+					<div class="pay_area area">
+						<input type="button" value="결제하기" id="pay_btn" onclick="requestPay()">
 					</div>
 				</div>
 			</form>
@@ -165,7 +165,7 @@ var makeMerchantUid = hours +  minutes + seconds + milliseconds;
 
 function requestPay() {
     IMP.request_pay({
-      pg: "kcp.imp07478433", //"kcp.{상점ID}"
+      pg: "kcp.A52CY", //"kcp.{상점ID}"
       pay_method: "card",
       merchant_uid: "${user.me_id}"+makeMerchantUid,   // 주문번호
       name: "알랩 결제 테스트용",
