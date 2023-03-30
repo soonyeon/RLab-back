@@ -22,6 +22,7 @@ public class ReservationController {
 		MemberVO user = new MemberVO("qwe123","닉넴","qwe123123","kimsyty@naver.com",1,0);  
 		//어떤 유저가 있다고 가정했을 때
 		int point = reservationService.getUserPoint(user.getMe_id());
+		mv.addObject("user", user);
 		mv.addObject("point", point);
 		mv.setViewName("/reservation/buy");
 		return mv;

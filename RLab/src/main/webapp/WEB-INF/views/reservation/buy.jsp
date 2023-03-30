@@ -2,7 +2,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <link href="<c:url value='/resources/css/ticket_buy.css'></c:url>" rel="stylesheet">
+<!-- jQuery -->
 <script src="<c:url value='/resources/js/jquery.min.js'></c:url>"></script>
+<!-- PortOne.payment.js -->
+<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 <main>
 	<div class="main_container">
 		<!-- 주문과정/절차 -->
@@ -105,7 +108,7 @@
 					</div>
 				</div>
 			</div>
-			<form action="<c:url value='/ticket/buy'></c:url>" method="post">
+			<form action="#" method="post">
 				<!-- 선택한 이용권 박스 -->
 				<div class="selected_box box">
 					<!-- 선택한 이용권 -->
@@ -142,14 +145,49 @@
 					</div>
 					<!-- 결제하기 -->
 					<div class="pay_area area">
-						<input type="submit" value="결제하기" id="pay_btn">
+						<input type="submit" value="결제하기" id="pay_btn" onclick="requestPay()">
 					</div>
 				</div>
 			</form>
 		</div>
 	</div>
 </main>
-<script>
+<script><!-- 결제 -->
+var IMP = window.IMP; // 생략 가능
+IMP.init("imp07478433"); // "가맹점 식별코드" 예: imp00000000a
+
+var today = new Date();   
+var hours = today.getHours(); // 시
+var minutes = today.getMinutes();  // 분
+var seconds = today.getSeconds();  // 초
+var milliseconds = today.getMilliseconds();
+var makeMerchantUid = hours +  minutes + seconds + milliseconds;
+
+function requestPay() {
+    IMP.request_pay({
+      pg: "kcp",
+      pay_method: "card",
+      merchant_uid: "${user.me_id}"+makeMerchantUid,   // 주문번호
+      name: "알랩 결제 테스트용",
+      amount: 100,                         // 숫자 타입
+      buyer_email: "kimsyty@naver.com",
+      buyer_name: "홍길동",
+      buyer_tel: "010-4242-4242",
+      buyer_addr: "서울특별시 강남구 신사동",
+      buyer_postcode: "01181"
+    }, function (rsp) { // callback
+      if (rsp.success) {
+        // 결제 성공 시 로직
+        console.log(rsp);
+      } else {
+        // 결제 실패 시 로직
+    	console.log(rsp);
+      }
+    });
+  }
+
+</script>
+<script> <!-- 화면 구성 -->
 let ticketStrArr = [];
 let ticketArr = [];
 let totalPrice = 0;
