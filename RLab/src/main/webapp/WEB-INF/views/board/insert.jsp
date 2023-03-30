@@ -29,8 +29,6 @@
               </div> 
               <div class="temporary_storage_box"> 
 			    <button class="call_temporary_storage" id="openModal">임시저장 불러오기
-			      <span>|</span>
-			      <span>1</span>
 			    </button>
 			     
 			    <!-- Modal -->
