@@ -102,7 +102,7 @@ public class HomeController {
 			HttpSession session) {
 //		System.out.println(pw);
 //		MemberVO user = (MemberVO)session.getAttribute("user");
-		MemberVO user = new MemberVO("qwe123", "돌탕", "qwe123123", "kimsyty@naver.com");
+		MemberVO user = new MemberVO("qwe123", "돌탕", "qwe123123", "kimsyty@naver.com", 1,0);
 		boolean res = memberService.checkPw(pw, user);
 		System.out.println(res);
 		if(res) {
