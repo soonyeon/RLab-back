@@ -1,5 +1,7 @@
 package kr.kh.RLab.controller;
 
+import java.io.UnsupportedEncodingException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -23,7 +25,7 @@ public class EmailController {
 
     @RequestMapping(value = "/sendEmail", method = RequestMethod.POST)
     @ResponseBody
-    public String sendEmail(HttpServletRequest request, @RequestParam("email") String email) {
+    public byte[] sendEmail(HttpServletRequest request, @RequestParam("email") String email) throws UnsupportedEncodingException {
         String verificationCode = emailService.generateVerificationCode();
         HttpSession session = request.getSession();
         session.setAttribute("verificationCode", verificationCode);
@@ -31,7 +33,7 @@ public class EmailController {
 
         emailService.sendEmail(email, "회원가입 인증 번호", "인증 번호: " + verificationCode);
         
-        return "이메일 전송";
+        return "인증번호가 이메일로 전송 되었습니다.".getBytes("UTF-8");
     }
     
     @PostMapping("/check")
