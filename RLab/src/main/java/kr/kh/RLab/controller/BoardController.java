@@ -60,7 +60,7 @@ public class BoardController {
 	@GetMapping("/list")
 	public ModelAndView boardList(
 	        @RequestParam(value="page",defaultValue = "1") Integer page,
-	        @RequestParam(value="pageSize",defaultValue = "10") Integer pageSize,
+	        @RequestParam(value="pageSize",defaultValue = "3") Integer pageSize,
 	        @RequestParam(required = false) String sort,
 	        ModelAndView mv
 	) {

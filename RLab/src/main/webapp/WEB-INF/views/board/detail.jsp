@@ -50,8 +50,9 @@
                 <div class="more_box">
                     <img class="icon_more" src="<c:url value='/resources/img/dot_menu.png'></c:url>">
                     <div class="dropdown-menu">
+                        <c:if test="${user != null && user.me_id == bd.bo_me_id}">
+                        
                         <button type="button" id="update-btn" data-id="${bd.bo_num}">수정하기</button>
-                        <c:if test="${user != null && user.me_id == board.bo_me_id}">
                             <button id="delete-btn" type="button">삭제하기</button>
                         </c:if>
                     </div>
