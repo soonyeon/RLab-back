@@ -9,7 +9,6 @@
 #summernote {
 	width: 750px;
 }
-}
 </style>
 <!-- main -->
 <main>

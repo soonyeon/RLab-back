@@ -56,7 +56,6 @@ public class GatherController {
 	    return mv;
 	}
 	
-	//모집글 생성
 	@PostMapping("/insertgather")
 	public ModelAndView gatherInsertPost(ModelAndView mv,HttpServletRequest request,GatherVO gather,StudyVO study) {
 		MemberVO member = (MemberVO)request.getSession().getAttribute("user");
@@ -65,6 +64,16 @@ public class GatherController {
 	    mv.setViewName("/gather/insertgather");
 	    return mv;
 	}
+	
+	//모집글 상세보기
+	@GetMapping("/detail")
+	public ModelAndView detailgather(ModelAndView mv) {
+		//MemberVO member = (MemberVO)request.getSession().getAttribute("user");
+
+		mv.setViewName("/gather/detail");
+	    return mv;
+	}
+	
 	
 	
 	
