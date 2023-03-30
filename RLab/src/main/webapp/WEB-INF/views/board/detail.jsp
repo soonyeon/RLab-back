@@ -45,7 +45,12 @@
             </div>
             <div class="sc_and_mo_main">
                 <div class="scrap_box">
-                    <img class="icon_scrap" src="<c:url value='/resources/img/favorite_tag_white.png'></c:url>">
+                    <c:if test="${scrapCount != 0}">
+						<img class="icon_scrap" src="<c:url value='/resources/img/favorite_tag.png' />">
+					</c:if>
+					<c:if test="${scrapCount == 0}">
+						<img class="icon_scrap" src="<c:url value='/resources/img/favorite_tag_white.png' />">
+					</c:if>
                 </div>
                 <div class="more_box">
                     <img class="icon_more" src="<c:url value='/resources/img/dot_menu.png'></c:url>">
@@ -64,7 +69,12 @@
         </div>
         <div class="scrap_and_comment">
             <div class="scrap_bottom">
-                <img class="icon_scrap" src="<c:url value='/resources/img/favorite_tag_white.png'></c:url>">
+            	<c:if test="${scrapCount != 0}">
+					<img class="icon_scrap" src="<c:url value='/resources/img/favorite_tag.png' />">
+				</c:if>
+				<c:if test="${scrapCount == 0}">
+					<img class="icon_scrap" src="<c:url value='/resources/img/favorite_tag_white.png' />">
+				</c:if>
                 <span>스크랩</span>
                 <span class="scrap_num"></span>
             </div>

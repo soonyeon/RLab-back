@@ -29,8 +29,6 @@
               </div> 
               <div class="temporary_storage_box"> 
 			    <button class="call_temporary_storage" id="openModal">임시저장 불러오기
-			      <span>|</span>
-			      <span>1</span>
 			    </button>
 			     
 			    <!-- Modal -->
@@ -56,7 +54,7 @@
                 </select> 
                 <h2>제목</h2> 
                 <div class="recruit_title_box"> 
-                  <input type="text" class="bo_title" name="bo_title" value="${bd.bo_title}"> 
+                  <input type="text" class="bo_title" name="bo_title" value="${bd.bo_title}" maxlength="10" placeholder="제목 10자 이내"> 
                   <input type="hidden" id="table" name="bo_table" value="자유게시판"/>
                 </div> 
                 <h2>내용</h2> 
