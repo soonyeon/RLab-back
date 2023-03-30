@@ -1,5 +1,7 @@
 package kr.kh.RLab.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.kh.RLab.service.ReservationService;
+import kr.kh.RLab.vo.BranchVO;
 import kr.kh.RLab.vo.MemberVO;
 
 @Controller
@@ -37,6 +40,13 @@ public class ReservationController {
 	public ModelAndView book(ModelAndView mv) {
 
 		mv.setViewName("/reservation/book");
+		return mv;
+	}
+	@RequestMapping(value = "/reservation/1/spot", method=RequestMethod.GET) 
+	public ModelAndView seatSpot(ModelAndView mv) {
+		ArrayList<BranchVO> brList = reservationService.getAllBranchList();
+		mv.addObject("brList", brList);
+		mv.setViewName("/reservation/seat_spot");
 		return mv;
 	}
 }

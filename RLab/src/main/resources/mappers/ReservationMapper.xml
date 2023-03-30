@@ -6,5 +6,7 @@
 	<select id="selectAllPointById" resultType="int">
 		select sum(po_amount) from point where po_me_id = #{me_id} and po_state = 1
 	</select>
-
+	<select id="selectAllBranch" resultType="kr.kh.RLab.vo.BranchVO">
+		select * from branch
+	</select>
 </mapper>

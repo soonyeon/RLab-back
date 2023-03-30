@@ -13,7 +13,7 @@
 			<div class="button_container">
 				<ul class="list_button clearfix">
 					<li class="item_button">
-						<a href="./book_seat_spot.html" class="link_button btn_seat add_shadow">
+						<a href="<c:url value='/reservation/1/spot'></c:url>" class="link_button btn_seat add_shadow">
 							<div class="icon_box">
 								<span class="button_text">좌석</span>
 								<i class="icon_seat"></i>
@@ -21,7 +21,7 @@
 						</a>
 					</li>
 					<li class="item_button">
-						<a href="./book_locker_spot.html" class="link_button btn_cabinet add_shadow">
+						<a href="<c:url value='/reservation/2/spot'></c:url>" class="link_button btn_cabinet add_shadow">
 							<div class="icon_box">
 								<span class="button_text">사물함</span>
 								<i class="icon_cabinet"></i>
@@ -29,7 +29,7 @@
 						</a>
 					</li>
 					<li class="item_button">
-						<a href="#" class="link_button btn_room add_shadow ">
+						<a href="<c:url value='/reservation/3/spot'></c:url>" class="link_button btn_room add_shadow ">
 							<div class="icon_box">
 								<span class="button_text">프로젝트룸</span>
 								<i class="icon_room"></i>
