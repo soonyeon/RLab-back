@@ -75,5 +75,11 @@ public class GatherServiceImp implements GatherService {
 	        gatherDao.insertFile(fileVo);
 	    }
 	}
+	
+	
+	//모집글생성
+	
+	
+	
 
 }

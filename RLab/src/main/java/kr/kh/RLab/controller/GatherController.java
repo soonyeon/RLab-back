@@ -26,13 +26,13 @@ public class GatherController {
 	private final GatherService gatherService;
 
 	@GetMapping("/insertstudy")
-	public ModelAndView gatherInsert(ModelAndView mv,HttpServletRequest request) {
+	public ModelAndView studyInsert(ModelAndView mv,HttpServletRequest request) {
 		MemberVO member = (MemberVO)request.getSession().getAttribute("user");
 	    mv.setViewName("/gather/insertstudy");
 	    return mv;
 	}
 	@PostMapping("/insertstudy")
-	public ModelAndView gatherInsertPost(ModelAndView mv,StudyVO study,HttpServletRequest request,RegionVO region,MultipartFile [] files,
+	public ModelAndView studyInsertPost(ModelAndView mv,StudyVO study,HttpServletRequest request,RegionVO region,MultipartFile [] files,
 			FileVO file,TagVO tag,TagRegisterVO tagRegister) {
 		MemberVO member = (MemberVO)request.getSession().getAttribute("user");
 		boolean res = gatherService.insertStudy(study,member,region,files,file,tag,tagRegister);
@@ -40,6 +40,14 @@ public class GatherController {
 		mv.setViewName("/gather/insertstudy");
 		return mv;
 	}
+	
+	@GetMapping("/insertgather")
+	public ModelAndView gatherInsert(ModelAndView mv,HttpServletRequest request) {
+		MemberVO member = (MemberVO)request.getSession().getAttribute("user");
+	    mv.setViewName("/gather/insertgather");
+	    return mv;
+	}
+	
 	
 	
 }
