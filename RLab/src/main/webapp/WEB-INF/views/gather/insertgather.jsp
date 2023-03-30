@@ -18,29 +18,26 @@
 			<h1>모집글 작성</h1>
 		</div>
 		<div class="temporary_storage_box">
-			<button class="call_temporary_storage">
-				임시저장 불러오기 <span>|</span> <span>1</span>
+			<button class="call_temporary_storage" >
+				임시저장 불러오기
 			</button>
 		</div>
-		<form action="<c:url value='/gather/insertgather'></c:url>"
-			method="post">
+		<form action="<c:url value='/gather/insertgather'></c:url>" method="post">			
 			<h2>모집할스터디</h2>
-			<select id="choose_study">
-				<option value="1">정처기 준비하는 스터디</option>
-				<option value="2">독서 모임 토론</option>
-				<option value="3">모각코</option>
-				<option value="4">모집할 스터디</option>
+			<select id="choose_study" name="ga_st_num">
+			 	<c:forEach var="study" items="${studies}">
+                	<option value="${study.st_num}">${study.st_name}</option>
+           		</c:forEach>
 			</select>
 			<h2>제목</h2>
 			<div class="recruit_title_box">
-				<input type="text" class="recruit_title" placeholder="제목 10자 이내">
+				<input type="text" class="recruit_title" placeholder="제목 10자 이내" maxlength="10" name="ga_title">
 			</div>
 			<h2>내용</h2>
-			<div id="summernote"></div>
-
+			<textarea id="summernote" name="ga_content" ></textarea>
 			<div class="btn_box">
-				<button class="ts_btn">임시저장</button>
-				<button class="write_complete_btn">작성완료</button>
+				<button type="button" class="ts_btn">임시저장</button>
+				<button type="submit" class="write_complete_btn">작성완료</button>
 			</div>
 		</form>
 	</div>
@@ -58,4 +55,6 @@
 						[ 'insert', [ 'link', 'picture', 'video' ] ],
 						[ 'view', [ 'fullscreen', 'codeview', 'help' ] ] ]
 			});
+	
+	
 </script>

@@ -17,4 +17,11 @@
 	insert into tag_register(tr_st_num,tr_name)
 	values(#{st_num},#{ta_name})
 </insert>
+<insert id="insertGather">
+	insert into gather(ga_title,ga_content,ga_st_num,ga_me_id,ga_reg_date)
+	values(#{gather.ga_title},#{gather.ga_content},#{gather.ga_st_num},#{gather.ga_me_id},NOW())
+</insert>
+<select id="selectStudy" resultType="kr.kh.RLab.vo.StudyVO">
+	select * from study
+</select>
 </mapper>

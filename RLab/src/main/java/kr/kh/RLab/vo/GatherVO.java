@@ -1,5 +1,6 @@
 package kr.kh.RLab.vo;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import lombok.Data;
@@ -17,4 +18,9 @@ public class GatherVO {
 	Date ga_reg_date;
 	Date ga_upd_date;
 	
+	public String getGa_reg_date_str() {
+		SimpleDateFormat format = 
+			new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		return format.format(ga_reg_date);
+	}
 }

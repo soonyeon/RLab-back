@@ -1,11 +1,14 @@
 package kr.kh.RLab.service;
 
+import java.util.ArrayList;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.kh.RLab.dao.GatherDAO;
 import kr.kh.RLab.utils.UploadFileUtils;
 import kr.kh.RLab.vo.FileVO;
+import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.RegionVO;
 import kr.kh.RLab.vo.StudyVO;
@@ -74,6 +77,35 @@ public class GatherServiceImp implements GatherService {
 	        // 다오에게서 첨부파일 정보를 주면서 추가하라고 요청
 	        gatherDao.insertFile(fileVo);
 	    }
+	}
+
+	//모집글 
+	@Override
+	public boolean insertGather(MemberVO member, GatherVO gather, StudyVO study) {
+		System.out.println(gather);
+		System.out.println(member);
+		if(member == null)
+			return false;
+		if(!checkGather(gather))
+			return false;
+		gather.setGa_me_id(member.getMe_id());
+		//gather.setGa_st_num(study.getSt_num());
+		
+		
+		return gatherDao.insertGather(gather);
+	}
+
+	private boolean checkGather(GatherVO gather) {
+		if(gather == null ||
+				gather.getGa_title() == null || gather.getGa_title().trim().length()==0 ||
+				gather.getGa_content() == null || gather.getGa_content().trim().length()==0)	
+		return false;
+		return true;
+	}
+
+	@Override
+	public ArrayList<StudyVO> selectStudyAll() {
+		return gatherDao.selectStudy();
 	}
 	
 	

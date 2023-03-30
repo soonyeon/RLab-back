@@ -1,5 +1,7 @@
 package kr.kh.RLab.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
@@ -11,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.kh.RLab.service.GatherService;
 import kr.kh.RLab.vo.FileVO;
+import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.RegionVO;
 import kr.kh.RLab.vo.StudyVO;
@@ -25,6 +28,8 @@ public class GatherController {
 
 	private final GatherService gatherService;
 
+	
+	//스터디 생성
 	@GetMapping("/insertstudy")
 	public ModelAndView studyInsert(ModelAndView mv,HttpServletRequest request) {
 		MemberVO member = (MemberVO)request.getSession().getAttribute("user");
@@ -41,9 +46,22 @@ public class GatherController {
 		return mv;
 	}
 	
+	//모집글 생성
 	@GetMapping("/insertgather")
 	public ModelAndView gatherInsert(ModelAndView mv,HttpServletRequest request) {
 		MemberVO member = (MemberVO)request.getSession().getAttribute("user");
+		ArrayList<StudyVO> list = gatherService.selectStudyAll();
+		mv.addObject("studies",list);
+		mv.setViewName("/gather/insertgather");
+	    return mv;
+	}
+	
+	//모집글 생성
+	@PostMapping("/insertgather")
+	public ModelAndView gatherInsertPost(ModelAndView mv,HttpServletRequest request,GatherVO gather,StudyVO study) {
+		MemberVO member = (MemberVO)request.getSession().getAttribute("user");
+		boolean res = gatherService.insertGather(member,gather,study);
+		System.out.println(study);
 	    mv.setViewName("/gather/insertgather");
 	    return mv;
 	}
