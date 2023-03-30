@@ -12,4 +12,6 @@ public interface MemberService {
 
 	MemberVO login(MemberVO member);
 
+	boolean checkPw(MemberVO pw, MemberVO user);
+
 }

@@ -31,7 +31,7 @@
 
 				<div class="form_container">
 					<form action="./edit_info_next.html">
-						<h1>개인정보 수정</h1>
+						<h1>개인정보 수정tnwjd</h1>
 						<div class="input_container">
 							<label for="pw">비밀번호 입력</label>
 							<div class="input_box">

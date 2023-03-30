@@ -1,9 +1,6 @@
 package kr.kh.RLab.controller;
 
 
-import javax.servlet.http.HttpSession;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,17 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.kh.RLab.service.MemberService;
-import kr.kh.RLab.vo.MemberVO;
-
-
-
-import kr.kh.RLab.service.MemberService;
-import kr.kh.RLab.vo.MemberOKVO;
 import kr.kh.RLab.vo.MemberVO;
 
 @Controller
@@ -101,7 +91,34 @@ public class HomeController {
 		return map;
 	}
 	
+	@RequestMapping(value="/mypage/pwcheck", method=RequestMethod.GET)
+	public ModelAndView pwCheck(ModelAndView mv) {
+		mv.setViewName("/mypage/pwcheck");
+		return mv;
+	}
 	
+	@RequestMapping(value="/mypage/pwcheck", method=RequestMethod.POST)
+	public ModelAndView pwCheckPost(ModelAndView mv, MemberVO pw,
+			HttpSession session) {
+//		System.out.println(pw);
+//		MemberVO user = (MemberVO)session.getAttribute("user");
+		MemberVO user = new MemberVO("qwe123", "돌탕", "qwe123123", "kimsyty@naver.com");
+		boolean res = memberService.checkPw(pw, user);
+		System.out.println(res);
+		if(res) {
+			mv.setViewName("redirect:/mypage/user");
+		}
+		mv.setViewName("redirect:/mypage/pwcheck");
+		return mv;
+	}
+	
+	
+
+	@RequestMapping(value="/mypage/user", method=RequestMethod.GET)
+	public ModelAndView editUser(ModelAndView mv) {
+		mv.setViewName("/mypage/edit_user");
+		return mv;
+	}
 	
 	
 }
