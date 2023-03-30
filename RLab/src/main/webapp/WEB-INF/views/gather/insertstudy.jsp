@@ -10,11 +10,6 @@
 		<div class="main_title">
 			<h1>스터디 만들기</h1>
 		</div>
-		<div class="temporary_storage_box">
-			<button class="call_temporary_storage">
-				임시저장 불러오기 <span>|</span> <span>1</span>
-			</button>
-		</div>
 		<form id="rc_new_box" action="<c:url value='/gather/insertstudy'></c:url>" method="post" enctype="multipart/form-data">
 			<div class="top_box">
 				<div class="ns_region_box">
@@ -66,17 +61,10 @@
 			</div>
 
 			<div class="btn_box">
-				<a>
-					<button type="button" class="ts_study_btn">임시저장</button>
-				</a>
 				<button type="submit" class="make_study_btn">스터디 생성</button>
 			</div>
 		</form>
-		<div id="temporary-save-modal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; border: 1px solid #ccc; padding: 20px; z-index: 9999;"> 
-	    <h2>임시등록이 완료되었습니다.</h2> 
-	</div> 
-	<div id="modal-background" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 9998;"></div> 
-	</div>
+		</div>
 	
 </main>
 
@@ -105,15 +93,4 @@
 	    });
 	});
 	
-	$(document).ready(function() { 
-	    $(".ts_study_btn").on("click", function() { 
-	    	 $("#temporary-save-modal").show(); 
-		     $("#modal-background").show(); 
-	    }); 
-	   $("#modal-background").on("click", function() { 
-	        $("#temporary-save-modal").hide(); 
-	        $("#modal-background").hide(); 
-	    }); 
-	}); 
-
 </script>
