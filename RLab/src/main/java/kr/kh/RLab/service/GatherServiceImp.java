@@ -107,6 +107,18 @@ public class GatherServiceImp implements GatherService {
 	public ArrayList<StudyVO> selectStudyAll() {
 		return gatherDao.selectStudy();
 	}
+
+	@Override
+	public ArrayList<FileVO> selectFileList() {
+		return gatherDao.selectFileList();
+	}
+
+	@Override
+	public ArrayList<TagRegisterVO> selectTagList() {
+		return gatherDao.selectTagList();
+	}
+
+
 	
 	
 

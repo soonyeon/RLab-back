@@ -60,7 +60,6 @@ public class GatherController {
 	public ModelAndView gatherInsertPost(ModelAndView mv,HttpServletRequest request,GatherVO gather,StudyVO study) {
 		MemberVO member = (MemberVO)request.getSession().getAttribute("user");
 		boolean res = gatherService.insertGather(member,gather,study);
-		System.out.println(study);
 	    mv.setViewName("/gather/detail");
 	    return mv;
 	}
@@ -68,16 +67,22 @@ public class GatherController {
 	//게시글 리스트보기
 		@GetMapping("/list")
 		public ModelAndView listgather(ModelAndView mv) {
-			//MemberVO member = (MemberVO)request.getSession().getAttribute("user");
-
+			ArrayList<StudyVO> studyList = gatherService.selectStudyAll();
+			ArrayList<FileVO> fileList = gatherService.selectFileList();
+			ArrayList<TagRegisterVO> tagList = gatherService.selectTagList();
+			mv.addObject("studyList",studyList);
 			mv.setViewName("/gather/list");
 		    return mv;
 		}
+	
+	
+		
+		
+		
 	//모집글 상세보기
 	@GetMapping("/detail/{ga_num}")
-	public ModelAndView detailgather(ModelAndView mv) {
+	public ModelAndView detailgather(ModelAndView mv,HttpServletRequest request) {
 		//MemberVO member = (MemberVO)request.getSession().getAttribute("user");
-
 		mv.setViewName("/gather/detail");
 	    return mv;
 	}

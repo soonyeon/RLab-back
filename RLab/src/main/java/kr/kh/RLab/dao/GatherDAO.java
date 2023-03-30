@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.StudyVO;
+import kr.kh.RLab.vo.TagRegisterVO;
 import kr.kh.RLab.vo.TagVO;
 
 public interface GatherDAO {
@@ -22,5 +23,11 @@ public interface GatherDAO {
 	boolean insertGather(@Param("gather")GatherVO gather);
 
 	ArrayList<StudyVO> selectStudy();
+
+	ArrayList<StudyVO> selectStudyList();
+
+	ArrayList<FileVO> selectFileList();
+
+	ArrayList<TagRegisterVO> selectTagList();
 
 }

@@ -21,6 +21,13 @@ public interface GatherService {
 
 	ArrayList<StudyVO> selectStudyAll();
 
+	ArrayList<FileVO> selectFileList();
+
+	ArrayList<TagRegisterVO> selectTagList();
+
+
+
+
 
 
 }

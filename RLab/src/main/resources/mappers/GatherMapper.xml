@@ -24,4 +24,13 @@
 <select id="selectStudy" resultType="kr.kh.RLab.vo.StudyVO">
 	select * from study
 </select>
+<select id="selectFileList" resultType="kr.kh.RLab.vo.FileVO">
+	select * from file
+</select>
+<select id="selectTagList" resultType="kr.kh.RLab.vo.TagVO">
+SELECT tag_register.tr_name
+FROM tag_register
+INNER JOIN study ON tag_register.tr_st_num = study.st_num;
+</select>
+
 </mapper>
