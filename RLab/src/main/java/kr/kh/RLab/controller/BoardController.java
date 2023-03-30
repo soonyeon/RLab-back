@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.kh.RLab.pagination.PageHandler;
 import kr.kh.RLab.service.BoardService;
+import kr.kh.RLab.service.CommentService;
 import kr.kh.RLab.service.ScrapService;
 import kr.kh.RLab.service.TemporaryService;
 import kr.kh.RLab.vo.BoardVO;
@@ -36,6 +37,7 @@ public class BoardController {
 	private final BoardService boardService;
 	private final ScrapService scrapService;
 	private final TemporaryService temporaryService;
+	private final CommentService commtentService;
 	
 	@GetMapping("/insert")
 	public ModelAndView boardInsert(ModelAndView mv,HttpServletRequest request) {
@@ -102,6 +104,11 @@ public class BoardController {
 		//스크랩수 가져오기
 	    int scrapCount = scrapService.getScrapCount(bo_num);
 	    mv.addObject("scrapCount", scrapCount);
+	    
+		/*
+		 * //댓글수 가져오기 int commentCount = commtentService.getCommentTotalCount(bo_num);
+		 * mv.addObject("commentCount", commentCount);
+		 */
 		
 		mv.setViewName("/board/detail");
 		return mv;
@@ -133,5 +140,6 @@ public class BoardController {
 	    return "success";
 	}
 	
+
 
 }

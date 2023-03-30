@@ -71,7 +71,7 @@
             <div class="comment_bottom">
                 <img class="icon_comment" src="<c:url value='/resources/img/speech_bubble.png'></c:url>">
                 <span>댓글</span>
-                <span class="comment_num">12</span>
+                <span class="comment_num"></span>
             </div>
         </div>
         <div class="main_bottom_box">
@@ -309,6 +309,7 @@
                 success: function(response) {
                     let comments = response.commentList;
                     let pageHandler = response.pageHandler;
+                    let count = response.commentCount;
 
 
 
@@ -374,9 +375,11 @@
                 }
             });
         }
-
-        // 초기 페이지 로딩
-        loadComments(1);
+		        loadCommentCount();
+		        setInterval(function() {
+		          loadCommentCount();
+		        }, 10000);
+		        loadComments(1);
 
 
         $(".cm_upload_btn").click(function() {
@@ -408,7 +411,6 @@
                 success: function(response) {
                     if (response.result === "success") {
                         alert("댓글이 등록되었습니다.");
-                        // 댓글 목록 불러오기
                         loadComments(1);
                     } else {
                         alert("댓글 등록에 실패했습니다.");
@@ -416,6 +418,23 @@
                 }
             });
         });
+        
+        function loadCommentCount() {
+        	  $.ajax({
+        	    url: '<c:url value="/comment/count/' + boardNum + '" />',
+        	    type: 'GET',
+        	    dataType: 'json',
+        	    success: function(response) {
+        	      let count = response;
+        	      $('.comment_num').text(count); 
+        	    },
+        	    error: function(xhr, textStatus, errorThrown) {
+        	      console.log('댓글 수 로딩 실패: ', textStatus);
+        	    }
+        	  });
+        	}
+
+        
         //답글 버튼 클릭 이벤트
         $(document).on('click', '.cm_plus_btn', function() {
             if ('${user.me_id}' == '') {
@@ -451,7 +470,7 @@
                 co_me_id: '${user.me_id}',
                 co_content: replyContent,
                 co_ori_num: co_ori_num,
-                co_table: '자유게시판',
+                co_table: 'board',
                 co_ex_num: boardNum
             }
 

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -73,6 +74,12 @@ public class CommentController {
 	    map.put("result", res ? "success" : "fail");
 	    return map;
 	}
+	
+    @GetMapping("/count/{boardNum}")
+    public int getCommentCount(@PathVariable int boardNum) {
+        int commentCount = commentService.getCommentTotalCount(boardNum);
+        return commentCount;
+    }
 	
 	
 
