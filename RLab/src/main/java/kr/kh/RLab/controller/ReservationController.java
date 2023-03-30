@@ -30,7 +30,13 @@ public class ReservationController {
 	public ModelAndView ticketBuyPost(ModelAndView mv) {
 		MemberVO user = new MemberVO("qwe123","닉넴","qwe123123","kimsyty@naver.com",1,0);  
 		//결제내역과 결제된 티켓정보들을 DTO로 받아서 DB에 반영하는 작업
-		mv.setViewName("/reservation/buy_complete");
+		mv.setViewName("redirect:/reservation/buy");
+		return mv;
+	}
+	@RequestMapping(value = "/reservation/book", method=RequestMethod.GET) 
+	public ModelAndView book(ModelAndView mv) {
+
+		mv.setViewName("/reservation/book");
 		return mv;
 	}
 }

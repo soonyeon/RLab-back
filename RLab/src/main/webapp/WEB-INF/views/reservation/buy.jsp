@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<link href="<c:url value='/resources/css/ticket_buy.css'></c:url>" rel="stylesheet">
+<link href="<c:url value='/resources/css/reservation/ticket_buy.css'></c:url>" rel="stylesheet">
 <script src="<c:url value='/resources/js/jquery.min.js'></c:url>"></script>
 <main>
 	<div class="main_container">
@@ -105,7 +105,7 @@
 					</div>
 				</div>
 			</div>
-			<form action="<c:url value='/ticket/buy'></c:url>" method="post">
+			<!-- <form action="#" method="post"> -->
 				<!-- 선택한 이용권 박스 -->
 				<div class="selected_box box">
 					<!-- 선택한 이용권 -->
@@ -145,7 +145,7 @@
 						<input type="submit" value="결제하기" id="pay_btn">
 					</div>
 				</div>
-			</form>
+			<!-- </form> -->
 		</div>
 	</div>
 </main>
