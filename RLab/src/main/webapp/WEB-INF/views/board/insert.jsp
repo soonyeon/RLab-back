@@ -150,7 +150,7 @@ $(document).ready(function() {
   //전체 삭제
     $('#deleteAll').on('click', function() {
         $.ajax({
-            url: '<c:url value="/temporary/delete/All" />',
+            url: '<c:url value="/temporary/deleteAll" />',
             type: 'POST',
             success: function(response) {
                 if (response == "success") {

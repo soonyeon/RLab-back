@@ -93,3 +93,48 @@
     margin: 10px 0 0 0;
     background-color: white;
 }
+
+ /*모달창  */
+.call_temporary_storage {
+  cursor: pointer;
+}
+
+.modal-style {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  padding: 28px 32px 0;
+  height: 477px;
+  overflow-y: auto;
+  box-sizing: border-box;
+  z-index: 9999;
+}
+
+.modal-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9998;
+}
+
+/* 수정된 버튼 스타일 */
+.deleteBtn, #deleteAll{
+  background-color: #d3d3d3; 
+  border: none;
+  color: black;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px; 
+}

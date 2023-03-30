@@ -19,9 +19,23 @@
 			<h1>모집글 작성</h1>
 		</div>
 		<div class="temporary_storage_box">
-			<button class="call_temporary_storage" >
+			<button class="call_temporary_storage" id="openModal">
 				임시저장 불러오기
 			</button>
+			
+			  <!-- Modal -->
+			    <div id="temporary-list-modal" class="modal-style" style="display: none;">
+			      <h2>임시 게시글<button id="deleteAll">전체 삭제</button></h2>
+			      <ul id="itemList">
+					        <li>
+					            <span class="temp-title" data-title="${temp.te_title}" data-content="${temp.te_content}"></span>
+                				<button class="deleteBtn" data-id="${temp.te_num}">삭제</button>
+					        </li>
+			      </ul>
+			      
+			    </div>
+			    <div id="modal-background" class="modal-background" style="display: none;"></div>
+			  </div>
 		</div>
 		<form action="<c:url value='/gather/insertgather'></c:url>" method="post">			
 			<h2>모집할스터디</h2>
@@ -57,8 +71,6 @@ $(document).ready(function() {
 		
 		 const ga_title = $("input[name='ga_title']").val();
 		 const ga_content = $("textarea[name='ga_content']").val();
-		 	alert(ga_title);
-		 	alert(ga_content);
 			if (!ga_title || !ga_content) {
 		        alert('제목과 내용을 모두 입력해주세요.');
 		        return;
@@ -90,12 +102,87 @@ $(document).ready(function() {
 			});
     });
     
+	function loadTemporaryList() {
+	    $.ajax({
+	        url: '<c:url value="/temporary/list"/>',
+	        method: 'GET',
+	        success: function(response) {
+	            // 임시저장 목록을 업데이트
+	            $('#itemList').empty(); // 기존 목록 삭제
+	            response.forEach(function(temp) {
+	                $('#itemList').append('<li><span class="temp-title" data-title="' + temp.te_title + '" data-content="' + temp.te_content + '">' + temp.te_title + '</span><button class="deleteBtn" data-id="' + temp.te_num + '">삭제</button></li>');
+	            });
+	        },
+	        error: function() {
+	            alert('임시저장 목록을 가져오는데 실패했습니다.');
+	        }
+	    });
+	}
+    //임시저장 불러오기를 클릭했을때
+    $("#openModal").click(function () {
+	    loadTemporaryList();
+	    $("#temporary-list-modal").show();
+	    $("#modal-background").show();
+	});
+    
+    	
+
+	$("#modal-background").click(function () {
+		$("#temporary-list-modal").hide();
+		$("#modal-background").hide();
+		  });
+    
 	// 모달창 외를 클릭했을때 닫기
     $("#modal-background").on("click", function() {
         $("#temporary-save-modal").hide();
         $("#modal-background").hide();
     });
+  //전체 삭제
+    $('#deleteAll').on('click', function() {
+        $.ajax({
+            url: '<c:url value="/temporary/deleteAll" />',
+            type: 'POST',
+            success: function(response) {
+                if (response == "success") {
+                    $('#itemList').empty();
+                } else {
+                    alert('전체 삭제에 실패하였습니다.');
+                }
+            },
+            error: function(error) {
+                alert('전체 삭제에 실패하였습니다.');
+            }
+        });
+    });
+  //개별 삭제
+      $(document).on('click', '.deleteBtn', function() {
+      const id = $(this).data('id');
+    
+    	$.ajax({
+        url: '<c:url value="/temporary/delete/' + id + '" />',
+        type: 'POST',
+        success: function(response) {
+            loadTemporaryList();
+        },
+        error: function(error) {
+            alert('삭제 실패');
+        }
+    });
+});
 	
+    $('#itemList').on('click', '.temp-title', function() {
+        const title = $(this).data('title');
+        const content = $(this).data('content');
+
+    
+        $('input[name=ga_title]').val(title);
+        $('#summernote').summernote('code', content);
+
+        
+        $("#temporary-list-modal").hide();
+        $("#modal-background").hide();
+    });
+    
     
   
 });
