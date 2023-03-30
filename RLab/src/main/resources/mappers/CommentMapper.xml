@@ -5,7 +5,7 @@
 <mapper namespace="kr.kh.RLab.dao.CommentDAO">
 <insert id="insertComment">
     insert into
-        comment(co_num, co_me_id, co_content, co_reg_date, co_ori_num, co_ex_num)
+        comment(co_num, co_me_id, co_content, co_reg_date, co_ori_num, co_table, co_ex_num)
     select
         ifnull(max(co_num), 0 ) + 1,
         #{co_me_id}, #{co_content}, now(),
@@ -17,6 +17,7 @@
                 #{co_ori_num},
             </otherwise>
         </choose>
+        #{co_table},
         #{co_ex_num}
     from
         comment

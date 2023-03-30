@@ -394,7 +394,7 @@
             let comment = {
                 co_me_id: me_id,
                 co_content: commentContent,
-                co_table: "자유게시판", //게시판 구분
+                co_table: "board", //게시판 구분
                 co_ex_num: boardNum
             };
 
