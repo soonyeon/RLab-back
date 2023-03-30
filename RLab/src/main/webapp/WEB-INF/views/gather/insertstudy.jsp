@@ -52,7 +52,7 @@
 			<h3>배너이미지</h3>
 			<div class="ns_banner_box">
 				<input type="file" class="ns_banner" name="files" >
-				<input name ="fi_table" type="hidden" value="모집생성글">
+				<input name ="fi_table" type="hidden" value="study">
 			</div>
 			<h3>태그</h3>
 			<div class="ns_tag_box">

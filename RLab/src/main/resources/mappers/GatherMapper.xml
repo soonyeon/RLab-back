@@ -6,8 +6,8 @@
 	values(#{study.st_name},#{study.st_me_id},#{study.st_info},#{study.st_total_people},#{study.st_re_name},#{study.st_image})
 </insert>
 <insert id="insertFile">
-	insert into file(fi_ori_name,fi_name,fi_table)
-	values(#{file.fi_ori_name},#{file.fi_name},#{file.fi_table})
+	insert into file( fi_ori_name, fi_name, fi_table, fi_ex_num)
+	values(#{file.fi_ori_name}, #{file.fi_name}, #{file.fi_table}, #{file.fi_ex_num}) 
 </insert>
 <insert id="insertTag" useGeneratedKeys="true" keyProperty="tag.ta_name" >
 	insert into tag(ta_name)

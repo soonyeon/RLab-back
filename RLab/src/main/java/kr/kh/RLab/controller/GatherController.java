@@ -1,6 +1,6 @@
 package kr.kh.RLab.controller;
+
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +36,7 @@ public class GatherController {
 			FileVO file,TagVO tag,TagRegisterVO tagRegister) {
 		MemberVO member = (MemberVO)request.getSession().getAttribute("user");
 		boolean res = gatherService.insertStudy(study,member,region,files,file,tag,tagRegister);
+		
 		mv.setViewName("/gather/insertstudy");
 		return mv;
 	}
