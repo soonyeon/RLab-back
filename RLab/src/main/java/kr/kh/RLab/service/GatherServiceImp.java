@@ -109,7 +109,7 @@ public class GatherServiceImp implements GatherService {
 	}
 	
 	
-	//모집글생성
+
 	
 	
 	
