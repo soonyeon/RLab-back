@@ -61,12 +61,20 @@ public class GatherController {
 		MemberVO member = (MemberVO)request.getSession().getAttribute("user");
 		boolean res = gatherService.insertGather(member,gather,study);
 		System.out.println(study);
-	    mv.setViewName("/gather/insertgather");
+	    mv.setViewName("/gather/detail");
 	    return mv;
 	}
 	
+	//게시글 리스트보기
+		@GetMapping("/list")
+		public ModelAndView listgather(ModelAndView mv) {
+			//MemberVO member = (MemberVO)request.getSession().getAttribute("user");
+
+			mv.setViewName("/gather/list");
+		    return mv;
+		}
 	//모집글 상세보기
-	@GetMapping("/detail")
+	@GetMapping("/detail/{ga_num}")
 	public ModelAndView detailgather(ModelAndView mv) {
 		//MemberVO member = (MemberVO)request.getSession().getAttribute("user");
 
