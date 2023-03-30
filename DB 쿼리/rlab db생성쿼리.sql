@@ -347,9 +347,10 @@ CREATE TABLE `study` (
 	`st_me_id`	varchar(13)	NOT NULL,
 	`st_info`	varchar(100)	NULL,
 	`st_now_people`	int(50)  not null default 1,
-	`st_total_people`	int(50)  not null default 1	NULL,
+	`st_total_people`	int(50)  not null default 1,
 	`st_re_name`	varchar(10),
-	`st_image`	varchar(255)
+	`st_image`	varchar(255),
+    `st_state` int not null default 1
 );
 
 DROP TABLE IF EXISTS `exp`;
