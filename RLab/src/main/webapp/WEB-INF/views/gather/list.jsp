@@ -107,7 +107,7 @@
 									<div class="study_info">
 										<div class="study_tag_info">
 											<c:forEach items="${tagList}" var="ta" varStatus="vs">
-												<span href="#" class="study_tag">#${ta.tr_name}</span> 
+												<span class="study_tag">#${ta.tr_name}</span> 
 											</c:forEach>
 										</div>
 										<div class="study_recruit_content_box">
