@@ -1,8 +1,12 @@
 package kr.kh.RLab.vo;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class MemberVO {
 	String me_id;
 	String me_name;
