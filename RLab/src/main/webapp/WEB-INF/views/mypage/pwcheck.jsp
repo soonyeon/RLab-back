@@ -10,7 +10,7 @@
 <script src="<c:url value='/resources/js/jquery.min.js'></c:url>"></script>
 <script src="<c:url value='/resources/js/jquery.validate.min.js'></c:url>"></script>
 <script src="<c:url value='/resources/js/additional-methods.min.js'></c:url>"></script>
-<link rel="stylesheet" href="<c:url value ='/resources/css/edit_info.css'></c:url>">
+<link rel="stylesheet" href="<c:url value ='/resources/css/pwcheck.css'></c:url>">
 <title>개인정보 수정</title>
 </head>
 <body>
@@ -34,8 +34,10 @@
 						<h1>개인정보 수정</h1>
 						<div class="input_container">
 							<label for="pw">비밀번호 입력</label>
-							<div class="input_box">
-								<input type="password" id="pw" name="me_pw" placeholder="비밀번호 입력">
+							<div class="item_container">
+								<div class="input_box">
+									<input type="password" id="pw" class="input_window" name="me_pw" placeholder="비밀번호 입력">
+								</div>
 								<input type="submit" class="check_btn" value="확인">
 							</div>
 						</div>

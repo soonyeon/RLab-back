@@ -10,7 +10,7 @@
 <script src="<c:url value='/resources/js/jquery.min.js'></c:url>"></script>
 <script src="<c:url value='/resources/js/jquery.validate.min.js'></c:url>"></script>
 <script src="<c:url value='/resources/js/additional-methods.min.js'></c:url>"></script>
-<link rel="stylesheet" href="<c:url value ='/resources/css/edit_info_next.css'></c:url>">
+<link rel="stylesheet" href="<c:url value ='/resources/css/edit_user.css'></c:url>">
 <title>개인정보 수정</title>
 </head>
 <body>
@@ -34,39 +34,48 @@
 						<h1>개인정보 수정</h1>
 						<div class="input_container">
 							<label for="nick_name">닉네임 수정</label>
-							<div class="input_box">
-								<input type="text" id="nick_name" name="me_name" placeholder="새 닉네임 입력">
-								 <span id="nick_name_error" class="error_msg"></span>
-								<input type="button" class="check_btn check_name" value="중복확인">
+							<div class="item_container">
+								<div class="input_box">
+									<input type="text" class="input_window" id="nick_name" name="me_name" placeholder="새 닉네임 입력">
+								</div>
+								<input type="button" class="check_btn check_name" value="중복 확인">
 							</div>
 						</div>
 
 						<div class="input_container">
 							<label for="pw_new">비밀번호 수정</label>
 							<div class="input_box">
-								<input type="password" id="pw_new" name="me_pw" placeholder="새 비밀번호 입력">
-								 <span id="me_pw_error" class="error_msg"></span>
-								<input type="button" class="check_btn check_pw" value="확인">
+								<input type="password" class="input_window" id="pw_new" name="me_pw" placeholder="새 비밀번호 입력">
 							</div>
 						</div>
 
 						<div class="input_container">
 							<label for="pw_new_check">새 비밀번호 확인</label>
 							<div class="input_box">
-								<input type="password" id="pw_new_check" name="me_pw2" placeholder="새 비밀번호 입력">
-								<span id="me_pw2_error" class="error_msg"></span>
-								<input type="button" class="check_btn check_pw2" value="확인">
+								<input type="password" class="input_window" id="pw_new_check" name="me_pw2" placeholder="새 비밀번호 확인">
 							</div>
 						</div>
 
 						<div class="input_container">
 							<label for="email">이메일</label>
-							<div class="input_box">
-								<input type="email" id="email" name="me_email" placeholder="000000@naver.com">
-								 <span id="me_email_error" class="error_msg"></span>
-								<input type="button" class="check_btn check_mail" value="인증하기">
+							<div class="item_container">
+								<div class="input_box">
+									<input type="email" class="input_window" id="email" name="me_email" placeholder="000000@naver.com">
+								</div>
+								<input type="button" id="mail_send_btn" class="check_btn check_mail" value="이메일 인증">
 							</div>
 						</div>
+						
+						<div class="input_container">
+							<label for="email">이메일 인증</label>
+							<div class="item_container">
+								<div class="input_box">
+									<input class="mail_check_input input_window" maxlength="6" placeholder="인증번호 6자리를 입력해주세요!">
+								</div>
+								<input type="button" id="verify_code_btn" class="check_btn check_mail" value="인증번호 확인">
+							</div>
+						</div>
+						
 						<div class="submit_container">
 							<input type="submit" value="수정하기" id="submit_btn" class="submit_btn">
 						</div>
@@ -80,9 +89,10 @@
 
 	</div>
 <script>
-	$(document).ready(function(){
+
+	$("#edit_info").validate({
 		// 유효성 검사 규칙
-		var rules = {
+		rules : {
 			me_name : {
 				required : true,
 				regex : /^[ㄱ-ㅎ가-힣a-zA-Z0-9]{2,9}$/
@@ -92,16 +102,16 @@
 				regex : /^[a-zA-Z0-9!@#]{8,19}$/
 			},
 			me_pw2 : {
-				equalTo : #pw_new
+				equalTo : pw_new
 			},
 			me_email : {
 				required : true,
 				email : true
 			}
-		};
+		},
 		
 		// 유효성 검사 메세지
-		var messages = {
+		messages : {
 			me_name : {
 				required : '필수항목 입니다',
 				regex : '닉네임은 한글,영어,숫자를 이용하여 2-10자 까지 가능합니다'
@@ -117,32 +127,97 @@
 				required : '필수항목 입니다',
 				email : '이메일 형식이 아닙니다'
 			}	
-		};
-		
-		// 유효성 검사 욥션
-		 var options = {
-		    errorClass: 'error',
-		    errorElement: 'span',
-		    errorPlacement: function(error, element) {
-		      error.insertAfter(element);
-		    }
-		};
-		
-		// 유효성 검사 적용
-		 $('#edit_info').validate({
-		    rules: rules,
-		    messages: messages,
-		    errorPlacement: options.errorPlacement,
-		    errorClass: options.errorClass,
-		    highlight: function(element, errorClass) {
-		      $(element).addClass(errorClass);
-		    },
-		    unhighlight: function(element, errorClass) {
-		      $(element).removeClass(errorClass);
-		    }
-		  });
-	})
+		},
+		submitHandler: function(form) {
+			if(!nameCheck){
+				alert('닉네임 중복체크를 하세요.');
+				return flase;
+			}
+			if(!emailCheck){
+				alert('이메일 인증 하세요.');
+				return false;
+			}
+			return true;
+		}
+	});
 
+$.validator.addMethod("regex", function(value, element, regexp) {
+	var re = new RegExp(regexp);
+	return this.optional(element) || re.test(value);
+}, "Please check your input.");
+
+$('[name= me_name]').change(function(){
+	nameCheck = false;
+});
+$('#verify_code_btn').change(function(){
+	emailCheck = false;
+});
+
+/* 닉네임 체크 */
+$('.check_name').click(function(){
+	let me_name = $('[name = me_name]').val();
+	let obj = {
+			me_name : me_name
+	}
+	$.ajax({
+		async:true,
+		type:'POST',
+		data: JSON.stringify(obj),
+		url: '<c:url value="/check/name"></c:url>',
+		dataType:"json",
+		contentType:"application/json; charset=UTF-8",
+		success : function(data){
+		    if(data.res){
+		    	alert('사용 가능한 닉네임 입니다.');
+		    	nameCheck = true;
+		    }else{
+		    	alert('사용 불가능한 닉네임 입니다.')
+		    }
+		},
+		error : function(a,b,c){
+			
+		}
+	});
+});
+$('[name= me_name]').change(function(){
+	nameCheck = false;
+});
+let nameCheck = false; 
+
+
+/* 이메일인증 */
+ $('#mail_send_btn').on('click', function() {
+    var email = $('#email').val();
+    $.post('<c:url value="/sendEmail"/>', {email: email}, function(response) {
+        alert(response);
+        $('.mail_check_input').prop('disabled', false);
+    });
+});
+$('#verify_code_btn').on('click', function () {
+    var verificationCode = $('.mail_check_input').val();
+    if (!verificationCode) {
+        alert('인증번호를 입력해주세요.');
+        return false;
+    }
+    $.ajax({
+        url: '<c:url value="/check"/>',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            verificationCode: verificationCode
+        }),
+        success: function (response) {
+            if (response) {
+                alert('인증번호 확인이 완료되었습니다.');
+            } else {
+                alert('인증번호가 일치하지 않습니다.');
+            }
+        },
+        error: function () {
+            alert('인증번호 확인 중 오류가 발생했습니다.');
+        }
+    });
+});
 
 </script>
 </body>
