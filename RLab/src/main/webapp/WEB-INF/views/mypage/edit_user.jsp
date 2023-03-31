@@ -131,7 +131,7 @@
 		submitHandler: function(form) {
 			if(!nameCheck){
 				alert('닉네임 중복체크를 하세요.');
-				return flase;
+				return false;
 			}
 			if(!emailCheck){
 				alert('이메일 인증 하세요.');
