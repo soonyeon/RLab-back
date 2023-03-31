@@ -11,5 +11,7 @@
 	</select>
 	<select id="selectBranchBySearchName" resultType="kr.kh.RLab.vo.BranchVO">
 		select * from branch where br_name like #{search}
+		<if test="region == ''"></if>
+		<if test="region != ''"> and br_re_name = #{region}</if>
 	</select>
 </mapper>

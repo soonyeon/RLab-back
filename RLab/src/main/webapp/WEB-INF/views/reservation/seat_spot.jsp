@@ -30,41 +30,43 @@
 			<section>
 				<div class="search_container">
 					<div class="filter_area">
-						<select class="choose_region">
-							<option value="select_region" selected>지역 미지정</option>
-							<option value="서울특별시">서울특별시</option>
-							<option value="인천광역시">인천광역시</option>
-							<option value="대구광역시">대구광역시</option>
-							<option value="대전광역시">대전광역시</option>
-							<option value="부산광역시">부산광역시</option>
-							<option value="광주광역시">광주광역시</option>
-							<option value="울산광역시">울산광역시</option>
-							<option value="경기도">경기도</option>
-							<option value="강원도">강원도</option>
-							<option value="경상북도">경상북도</option>
-							<option value="경상남도">경상남도</option>
-							<option value="전라북도">전라북도</option>
-							<option value="전라남도">전라남도</option>
-							<option value="충청북도">충청북도</option>
-							<option value="충청남도">충청남도</option>
-							<option value="제주특별자치도">제주특별자치도</option>
-							<option value="세종특별자치시">세종특별자치시</option>
+					<form action="<c:url value='/reservation/1/spot'></c:url>" method="post" style="display:flex;">
+						<select class="choose_region" name="br_re_name">
+							<option value="" <c:if test="${region==''}">selected</c:if>>지역 선택</option>
+							<option value="지역 미지정" <c:if test="${region=='지역 미지정'}">selected</c:if>>지역 미지정</option>
+							<option value="서울특별시" <c:if test="${region=='서울특별시'}">selected</c:if>>서울특별시</option>
+							<option value="인천광역시" <c:if test="${region=='인천광역시'}">selected</c:if>>인천광역시</option>
+							<option value="대구광역시" <c:if test="${region=='대구광역시'}">selected</c:if>>대구광역시</option>
+							<option value="대전광역시" <c:if test="${region=='대전광역시'}">selected</c:if>>대전광역시</option>
+							<option value="부산광역시" <c:if test="${region=='부산광역시'}">selected</c:if>>부산광역시</option>
+							<option value="광주광역시" <c:if test="${region=='광주광역시'}">selected</c:if>>광주광역시</option>
+							<option value="울산광역시" <c:if test="${region=='울산광역시'}">selected</c:if>>울산광역시</option>
+							<option value="경기도" <c:if test="${region=='경기도'}">selected</c:if>>경기도</option>
+							<option value="강원도" <c:if test="${region=='강원도'}">selected</c:if>>강원도</option>
+							<option value="경상북도" <c:if test="${region=='경상북도'}">selected</c:if>>경상북도</option>
+							<option value="경상남도" <c:if test="${region=='경상남도'}">selected</c:if>>경상남도</option>
+							<option value="전라북도" <c:if test="${region=='전라북도'}">selected</c:if>>전라북도</option>
+							<option value="전라남도" <c:if test="${region=='전라남도'}">selected</c:if>>전라남도</option>
+							<option value="충청북도" <c:if test="${region=='충청북도'}">selected</c:if>>충청북도</option>
+							<option value="충청남도" <c:if test="${region=='충청남도'}">selected</c:if>>충청남도</option>
+							<option value="제주특별자치도" <c:if test="${region=='제주특별자치도'}">selected</c:if>>제주특별자치도</option>
+							<option value="세종특별자치시" <c:if test="${region=='세종특별자치시'}">selected</c:if>>세종특별자치시</option>
 						</select>
-						<form action="<c:url value='/reservation/1/spot'></c:url>" method="post">
-							<div class="search_box">
-								<input type="search" class="search" name="search" placeholder="지역, 지점명으로 검색" value="${keyword}">
-								<button class="btn_search"><i class="icon_search"></i></button>
-							</div>
-						</form>
+						<div class="search_box">
+							<input type="search" class="search" name="br_name" placeholder="지역, 지점명으로 검색" value="${keyword}">
+							<button class="btn_search"><i class="icon_search"></i></button>
+						</div>
+					</form>
 					</div>
+				</div>
 					
 			</section>
 			<!-- 지점 카드 -->
 			<section>
 				<div class="spot_card_container">
 					<ul class="list_card">
-					<c:if test="${brList==null}"> 검색 결과가 없습니다.</c:if>
-					<c:if test="${brList!=null}">
+					<c:if test="${brList.size()==0}"> 검색 결과가 없습니다.</c:if>
+					<c:if test="${brList.size()!=0}">
 						<c:forEach begin="0" end="${brList.size()-1}" step="3" var="i">
 							<div class="row_card clearfix">
 								<c:forEach begin="${i}" end="${i+2}" var="index">
@@ -104,12 +106,5 @@
 	</div>
 </main>
 <script>
-$('.btn_search').click(function(){
-	let val = $('[name=search]').val();
-	let obj = {
-			keyword : val
-	}
-	
-	
-});
+
 </script>

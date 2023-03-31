@@ -25,9 +25,9 @@ public class ReservationServiceImp implements ReservationService {
 	}
 
 	@Override
-	public ArrayList<BranchVO> searchBranchList(String search) {
-		search = "%"+search+"%";
-		return reservationDao.selectBranchBySearchName(search);
+	public ArrayList<BranchVO> searchBranchList(BranchVO br) {
+		String search = "%"+br.getBr_name()+"%";
+		return reservationDao.selectBranchBySearchName(search, br.getBr_re_name());
 	}
 
 }

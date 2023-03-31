@@ -10,6 +10,6 @@ public interface ReservationService {
 
 	ArrayList<BranchVO> getAllBranchList();
 
-	ArrayList<BranchVO> searchBranchList(String search);
+	ArrayList<BranchVO> searchBranchList(BranchVO br);
 
 }
