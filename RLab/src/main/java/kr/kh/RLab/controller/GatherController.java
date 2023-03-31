@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
@@ -44,7 +45,7 @@ public class GatherController {
 		MemberVO member = (MemberVO)request.getSession().getAttribute("user");
 		boolean res = gatherService.insertStudy(study,member,region,files,file,tag,tagRegister);
 		
-		mv.setViewName("/gather/insertstudy");
+		mv.setViewName("/gather/insertgather");
 		return mv;
 	}
 	
@@ -54,7 +55,7 @@ public class GatherController {
 		MemberVO member = (MemberVO)request.getSession().getAttribute("user");
 		ArrayList<StudyVO> list = gatherService.selectStudyAll();
 		mv.addObject("studies",list);
-		mv.setViewName("/gather/insertgather");
+		mv.setViewName("/gather/list");
 	    return mv;
 	}
 	
@@ -78,28 +79,25 @@ public class GatherController {
 	    return mv;
 	}
 	
-	@GetMapping("/gather/list")
-	public ModelAndView gatherSearch(ModelAndView mv,Criteria cri) {
-		ArrayList<StudyVO> stdList = gatherService.getBoardList(cri);
-		//페이지네이션
-		int totalCount = gatherService.getBoardTotalCount(cri);
-		PageMaker pm = new PageMaker(totalCount,9,cri);//한 페이지의 게시글 개수를 3개로 
-		mv.addObject("stdList",stdList);
-		mv.addObject("pm",pm);
-		mv.setViewName("/gather/list");
-	    return mv;
-	}
+//	@GetMapping("/gather/list")
+//	public ModelAndView gatherSearch(ModelAndView mv,Criteria cri) {
+//		ArrayList<StudyVO> stdList = gatherService.getBoardList(cri);
+//		//페이지네이션
+//		int totalCount = gatherService.getBoardTotalCount(cri);
+//		PageMaker pm = new PageMaker(totalCount,9,cri);//한 페이지의 게시글 개수를 3개로 
+//		mv.addObject("stdList",stdList);
+//		mv.addObject("pm",pm);
+//		mv.setViewName("/gather/list");
+//	    return mv;
+//	}
 
-
-	
-
-		
 		
 	//모집글 상세보기
 	@GetMapping("/detail/{ga_num}")
-	public ModelAndView gatherDetail(ModelAndView mv,HttpServletRequest request) {
-		//MemberVO member = (MemberVO)request.getSession().getAttribute("user");
-		mv.setViewName("/gather/detail/{ga_num}");
+	public ModelAndView gatherDetail(ModelAndView mv,@PathVariable int ga_num) {
+		GatherVO gather = gatherService.getGather(ga_num);
+		mv.addObject("ga",gather);
+		mv.setViewName("/gather/detail");
 	    return mv;
 	}
 	

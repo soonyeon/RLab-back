@@ -32,14 +32,14 @@
 		</div>
 		<h2>내용</h2>
 		<div class="main_total_box">
-			<div class="main_left_box"></div>
+			<div class="main_left_box">${ga.ga_content}</div>
 			<div class="main_right_box">
 				<div class="rc_img_box">
 					<div class="rc_img"></div>
 				</div>
 				<div class="rc_info_box">
 					<div class="study_recruit_content_box">
-						<span class="rc_title">정처기 같이 공부해요 </span>
+						<span class="rc_title">${ga.ga_title}</span>
 					</div>
 					<div class="study_content">
 						<div class="study_recruiting">

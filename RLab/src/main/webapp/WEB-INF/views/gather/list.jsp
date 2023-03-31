@@ -16,16 +16,16 @@
 		<div class="search_container">
 			<div class="search_content">
 				<input type="text" class="search_title" placeholder="제목으로 검색하기" name="search" value="${pm.cri.search}">
-				<img class="icon_search"
-					src="<c:url value='/resources/img/serch.png'></c:url>" alt="">
+				<button type="submit"><img class="icon_search"
+					src="<c:url value='/resources/img/serch.png'></c:url>" alt=""></button>
 			</div>
 			<div class="search_content">
 				<input type="text" class="search_tag" placeholder="# 태그로 검색하기">
 			</div>
 			<div class="tag_box">
 				<span class="tag_box_name">관련 태그 : </span> <a href="#"
-					class="hashTag">#자격증</a> <a href="#" class="hashTag">#독서토론모임</a> <a
-					href="#" class="hashTag">#자격증</a> <a href="#" class="hashTag">#자격증</a>
+					class="hashTag">#자격증</a> <a href="#" class="hashTag">#독서토론모임</a> 
+					<a	href="#" class="hashTag">#자격증</a> <a href="#" class="hashTag">#자격증</a>
 				<a href="#" class="hashTag">#자격증</a>
 			</div>
 		</div>
@@ -93,7 +93,7 @@
 						<c:forEach begin="${i}" end="${i+2}" var="index">
 						<c:if  test="${stList.size()-1 >= index}" >
 							<li class="study_card_box add_shadow">
-								<a href="<c:url value='/gather/detail'></c:url>">
+								<a href="<c:url value='/gather/detail/{ga_num}'></c:url>">
 									<div class="study_img_box">
 										<c:forEach items="${fileList}" var="fi" varStatus="">
 											<c:if test="${fi.fi_ex_num == stList.get(index).st_num}">

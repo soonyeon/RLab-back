@@ -31,6 +31,8 @@ public interface GatherService {
 
 	int getBoardTotalCount(Criteria cri);
 
+	GatherVO getGather(int ga_num);
+
 
 
 

@@ -34,6 +34,8 @@ public interface GatherDAO {
 
 	int selectStudyTotalCount(@Param("cri")Criteria cri);
 
+	GatherVO selectGather(int ga_num);
+
 
 
 }

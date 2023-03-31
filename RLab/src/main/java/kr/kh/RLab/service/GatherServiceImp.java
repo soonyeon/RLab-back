@@ -134,6 +134,11 @@ public class GatherServiceImp implements GatherService {
 		return 0;
 	}
 
+	@Override
+	public GatherVO getGather(int ga_num) {	
+		return gatherDao.selectGather(ga_num);
+	}
+
 	
 
 
