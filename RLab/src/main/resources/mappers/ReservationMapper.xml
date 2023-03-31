@@ -14,4 +14,7 @@
 		<if test="region == ''"></if>
 		<if test="region != ''"> and br_re_name = #{region}</if>
 	</select>
+	<select id="selectBranchByBr_num" resultType="kr.kh.RLab.vo.BranchVO">
+		select * from branch where br_num = #{br_num}
+	</select>
 </mapper>

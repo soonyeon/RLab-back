@@ -12,4 +12,6 @@ public interface ReservationService {
 
 	ArrayList<BranchVO> searchBranchList(BranchVO br);
 
+	BranchVO getBranchByBrNum(int br_num);
+
 }

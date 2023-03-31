@@ -14,4 +14,6 @@ public interface ReservationDAO {
 
 	ArrayList<BranchVO> selectBranchBySearchName(@Param("search")String search, @Param("region")String region);
 
+	BranchVO selectBranchByBr_num(@Param("br_num")int br_num);
+
 }

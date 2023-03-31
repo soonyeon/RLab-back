@@ -72,7 +72,7 @@
 								<c:forEach begin="${i}" end="${i+2}" var="index">
 									<c:if test="${brList.size()-1 >= index}">
 										<li class="item_card add_shadow">
-											<a href="./book_seat_select.html">
+											<a href="<c:url value='/reservation/1/${brList.get(index).br_num}'></c:url>">
 												<div class="img-box"></div>
 												<div class="info_area">
 													<h2>${brList.get(index).br_name}</h2>

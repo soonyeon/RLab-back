@@ -1,17 +1,14 @@
 package kr.kh.RLab.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.kh.RLab.service.ReservationService;
@@ -61,6 +58,14 @@ public class ReservationController {
 		System.out.println(brList);
 		mv.addObject("brList", brList);
 		mv.setViewName("/reservation/seat_spot");
+		return mv;
+	}
+	@RequestMapping(value = "/reservation/1/{br_num}", method=RequestMethod.GET) 
+	public ModelAndView seatDetail(ModelAndView mv, @PathVariable("br_num")int br_num) {
+		BranchVO br = reservationService.getBranchByBrNum(br_num);
+		mv.addObject("br", br);
+		mv.addObject("br_num", br_num);
+		mv.setViewName("/reservation/seat_select");
 		return mv;
 	}
 }

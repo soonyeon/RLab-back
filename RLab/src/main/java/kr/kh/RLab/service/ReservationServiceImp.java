@@ -30,4 +30,9 @@ public class ReservationServiceImp implements ReservationService {
 		return reservationDao.selectBranchBySearchName(search, br.getBr_re_name());
 	}
 
+	@Override
+	public BranchVO getBranchByBrNum(int br_num) {
+		return reservationDao.selectBranchByBr_num(br_num);
+	}
+
 }
