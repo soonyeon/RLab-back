@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="<c:url value='/resources/css/common.css'></c:url>">
 <link href="<c:url value='/resources/css/summernote-lite.min.css'></c:url>" rel="stylesheet">
 <script src="<c:url value='/resources/js/summernote-lite.min.js'></c:url>"></script>
+<script src="<c:url value='/resources/js/jquery.min.js'></c:url>"></script>
 <style>
  .note-editable {
  	background-color: white;
@@ -23,10 +24,10 @@
 					src="<c:url value='/resources/img/profile_img.png'></c:url>"> <span class="writer_name">김돌탕</span></a>
 			</div>
 			
-			<span class="write_date">2023.02.27</span>
+			<span class="write_date">${ga.ga_reg_date}</span>
 			<div class="view_box">
 				<img class="icon_view" src="<c:url value='/resources/img/view_lightgray.png'></c:url>">
-				<span class="view">60</span>
+				<span class="view">${ga.ga_views}</span>
 			</div>
 			
 		</div>
@@ -48,11 +49,13 @@
 						<div class="like_img"></div>
 					</div>
 					<div class="study_tag_info">
-						<span href="#" class="study_tag">#자격증</span> <span href="#"
-							class="study_tag">#프로젝트</span> <span href="#" class="study_tag">#컴퓨터</span>
-						<span href="#" class="study_tag">#독서토론</span> <span href="#"
-							class="study_tag">#운동</span> <span href="#" class="study_tag">#경제학과</span>
+						<c:forEach items="${tagList}" var="ta" varStatus="vs">
+							<c:if test="${ta.tr_st_num==st.st_num}">
+								<span href="#" class="study_tag">${ta.tr_name}</span>
+							</c:if>
+						</c:forEach>
 					</div>
+
 
 					<button class="apply_btn">신청하기</button>
 				</div>
@@ -379,4 +382,6 @@
         });
     }
 }); */
+
+
 </script>

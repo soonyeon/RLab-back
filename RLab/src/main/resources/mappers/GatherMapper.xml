@@ -19,7 +19,7 @@
 </insert>
 <insert id="insertGather">
 	insert into gather(ga_title,ga_content,ga_st_num,ga_me_id,ga_reg_date)
-	values(#{gather.ga_title},#{gather.ga_content},#{gather.ga_st_num},#{gather.ga_me_id},NOW())
+	values(#{gather.ga_title},#{gather.ga_content},#{gather.ga_st_num},#{gather.ga_me_id},DATE(NOW()))
 </insert>
 <select id="selectStudy" resultType="kr.kh.RLab.vo.StudyVO" >
 	select * from study
