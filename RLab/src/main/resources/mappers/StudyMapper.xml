@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.kh.RLab.dao.StudyDAO">
+	<select id="getPhotoType" resultType="kr.kh.RLab.vo.PhotoTypeVO">
+		select *
+			from photo_type
+	</select>
+	
+	<insert id="insertCB" useGeneratedKeys="true" keyProperty="ph_num">
+    	insert into photo (ph_pt_num, ph_me_id, ph_register_date, ph_img, ph_content, ph_st_num)
+    	values (#{ph_pt_num}, #{ph_me_id}, now(), #{ph_img}, #{ph_content}, #{ph_st_num})
+	</insert>
+	
+	
+	<insert id="insertFile">
+		insert into file( fi_ori_name, fi_name, fi_table, fi_ex_num)
+		values(#{file.fi_ori_name}, #{file.fi_name}, #{file.fi_table}, #{file.fi_ex_num}) 
+	</insert>
+
+</mapper>
