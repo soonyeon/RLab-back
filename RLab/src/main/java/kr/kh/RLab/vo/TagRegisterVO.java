@@ -11,7 +11,7 @@ public class TagRegisterVO {
 	int tr_num;
 	int tr_st_num;
 	String tr_name;
-
+	
 	
 	
 }

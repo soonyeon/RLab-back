@@ -1,9 +1,11 @@
 package kr.kh.RLab.dao;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
+import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.StudyVO;
@@ -24,10 +26,14 @@ public interface GatherDAO {
 
 	ArrayList<StudyVO> selectStudy();
 
-	ArrayList<StudyVO> selectStudyList();
-
 	ArrayList<FileVO> selectFileList();
 
 	ArrayList<TagRegisterVO> selectTagList();
+
+	ArrayList<StudyVO> selectStudyList(@Param("cri")Criteria cri);
+
+	int selectStudyTotalCount(@Param("cri")Criteria cri);
+
+
 
 }

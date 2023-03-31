@@ -2,9 +2,11 @@ package kr.kh.RLab.service;
 
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.MemberVO;
@@ -24,6 +26,11 @@ public interface GatherService {
 	ArrayList<FileVO> selectFileList();
 
 	ArrayList<TagRegisterVO> selectTagList();
+
+	ArrayList<StudyVO> getBoardList(Criteria cri);
+
+	int getBoardTotalCount(Criteria cri);
+
 
 
 

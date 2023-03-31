@@ -237,7 +237,7 @@
     width: 296px; 
     height: 151px; 
     background-size: cover; 
-    background-image: url('../img/recruit_thumb.png');
+    background-image: url('../../img/recruit_thumb.png');
     border-top-right-radius: var(--border_radius_4);
     border-top-left-radius: var(--border_radius_4);
   }
@@ -330,10 +330,10 @@
   .study_card_container .page_box .btn_prev{
     display: inline-block; width: 30px; height: 30px; margin-right: 10px;
     background-position: -10px -10px; 
-    background-image: url(../img/page_left.png);  background-size:50px 50px;
+    background-image: url(../../img/page_left.png);  background-size:50px 50px;
   }
   .study_card_container .page_box .btn_next{
     width: 30px; height: 30px; margin-left: 10px;
     background-position: -10px -10px; display: inline-block;
-    background-image: url(../img/page_right.png); background-size:50px 50px;
+    background-image: url(../../img/page_right.png); background-size:50px 50px;
   }

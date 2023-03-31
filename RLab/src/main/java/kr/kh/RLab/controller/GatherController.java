@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.kh.RLab.pagination.Criteria;
+import kr.kh.RLab.pagination.PageMaker;
 import kr.kh.RLab.service.GatherService;
 import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.GatherVO;
@@ -65,25 +67,39 @@ public class GatherController {
 	}
 	
 	//게시글 리스트보기
-		@GetMapping("/list")
-		public ModelAndView listgather(ModelAndView mv) {
-			ArrayList<StudyVO> studyList = gatherService.selectStudyAll();
-			ArrayList<FileVO> fileList = gatherService.selectFileList();
-			ArrayList<TagRegisterVO> tagList = gatherService.selectTagList();
-			mv.addObject("studyList",studyList);
-			mv.setViewName("/gather/list");
-		    return mv;
-		}
+	@GetMapping("/list")
+	public ModelAndView mainlistgather(ModelAndView mv) {
+		ArrayList<StudyVO> stList = gatherService.selectStudyAll();
+		ArrayList<FileVO> fileList = gatherService.selectFileList();
+		ArrayList<TagRegisterVO> tagList = gatherService.selectTagList();
+		mv.addObject("stList",stList);
+		mv.addObject("tagList",tagList);
+		mv.setViewName("/gather/list");
+	    return mv;
+	}
 	
+	@GetMapping("/gather/list")
+	public ModelAndView gatherSearch(ModelAndView mv,Criteria cri) {
+		ArrayList<StudyVO> stdList = gatherService.getBoardList(cri);
+		//페이지네이션
+		int totalCount = gatherService.getBoardTotalCount(cri);
+		PageMaker pm = new PageMaker(totalCount,9,cri);//한 페이지의 게시글 개수를 3개로 
+		mv.addObject("stdList",stdList);
+		mv.addObject("pm",pm);
+		mv.setViewName("/gather/list");
+	    return mv;
+	}
+
+
 	
-		
+
 		
 		
 	//모집글 상세보기
 	@GetMapping("/detail/{ga_num}")
-	public ModelAndView detailgather(ModelAndView mv,HttpServletRequest request) {
+	public ModelAndView gatherDetail(ModelAndView mv,HttpServletRequest request) {
 		//MemberVO member = (MemberVO)request.getSession().getAttribute("user");
-		mv.setViewName("/gather/detail");
+		mv.setViewName("/gather/detail/{ga_num}");
 	    return mv;
 	}
 	

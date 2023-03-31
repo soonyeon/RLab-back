@@ -21,16 +21,30 @@
 	insert into gather(ga_title,ga_content,ga_st_num,ga_me_id,ga_reg_date)
 	values(#{gather.ga_title},#{gather.ga_content},#{gather.ga_st_num},#{gather.ga_me_id},NOW())
 </insert>
-<select id="selectStudy" resultType="kr.kh.RLab.vo.StudyVO">
+<select id="selectStudy" resultType="kr.kh.RLab.vo.StudyVO" >
 	select * from study
 </select>
 <select id="selectFileList" resultType="kr.kh.RLab.vo.FileVO">
 	select * from file
 </select>
-<select id="selectTagList" resultType="kr.kh.RLab.vo.TagVO">
-SELECT tag_register.tr_name
-FROM tag_register
-INNER JOIN study ON tag_register.tr_st_num = study.st_num;
+<select id="selectTagList" resultType="kr.kh.RLab.vo.TagRegisterVO">
+select 	* from tag_register
+</select>
+<select id="selectStudyList" resultType="kr.kh.RLab.vo.StudyVO">
+select * 
+from study
+where
+  	st_name like concat('%',#{cri.search},'%')
+  order by st_num desc
+  limit #{cri.pageStart}, #{cri.perPageNum}
+</select>
+<select id="selectStudyTotalCount" resultType="int">
+select 
+	count(*) 
+from study
+where 	
+	(st_name like concat('%',#{cri.search},'%'))
+	or (st_content like concat('%', #{cri.search},'%'))
 </select>
 
 </mapper>

@@ -1,11 +1,13 @@
 package kr.kh.RLab.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.kh.RLab.dao.GatherDAO;
+import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.utils.UploadFileUtils;
 import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.GatherVO;
@@ -115,8 +117,25 @@ public class GatherServiceImp implements GatherService {
 
 	@Override
 	public ArrayList<TagRegisterVO> selectTagList() {
-		return gatherDao.selectTagList();
+		ArrayList<TagRegisterVO> tagList =  gatherDao.selectTagList();
+		return tagList;
 	}
+
+	@Override
+	public ArrayList<StudyVO> getBoardList(Criteria cri) {
+		if(cri == null)
+			cri = new Criteria();
+		return gatherDao.selectStudyList(cri);
+	}
+
+	@Override
+	public int getBoardTotalCount(Criteria cri) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	
+
 
 
 	
