@@ -49,4 +49,14 @@ public class ReservationController {
 		mv.setViewName("/reservation/seat_spot");
 		return mv;
 	}
+	@RequestMapping(value = "/reservation/1/spot", method=RequestMethod.POST) 
+	public ModelAndView seatSpot(ModelAndView mv, String search) {
+		System.out.println(search);
+		ArrayList<BranchVO> brList = reservationService.searchBranchList(search);
+		System.out.println(brList);
+		mv.addObject("keyword", search);
+		mv.addObject("brList", brList);
+		mv.setViewName("/reservation/seat_spot");
+		return mv;
+	}
 }

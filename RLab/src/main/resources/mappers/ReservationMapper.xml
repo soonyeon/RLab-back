@@ -9,4 +9,7 @@
 	<select id="selectAllBranch" resultType="kr.kh.RLab.vo.BranchVO">
 		select * from branch
 	</select>
+	<select id="selectBranchBySearchName" resultType="kr.kh.RLab.vo.BranchVO">
+		select * from branch where br_name like #{search}
+	</select>
 </mapper>

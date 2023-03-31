@@ -31,29 +31,31 @@
 				<div class="search_container">
 					<div class="filter_area">
 						<select class="choose_region">
-							<option value="select_region" selected>지역 선택</option>
-							<option value="seoul">서울특별시</option>
-							<option value="incheon">인천광역시</option>
-							<option value="daegu">대구광역시</option>
-							<option value="daejeon">대전광역시</option>
-							<option value="busan">부산광역시</option>
-							<option value="gwangju">광주광역시</option>
-							<option value="ulsan">울산광역시</option>
-							<option value="gyeonggi">경기도</option>
-							<option value="gangwon">강원도</option>
-							<option value="gyeongbuk">경상북도</option>
-							<option value="gyeongnam">경상남도</option>
-							<option value="jeonbuk">전라북도</option>
-							<option value="jeonnam">전라남도</option>
-							<option value="chungbuk">충청북도</option>
-							<option value="chungnam">충청남도</option>
-							<option value="jeju">제주특별자치도</option>
-							<option value="sejong">세종특별자치시</option>
+							<option value="select_region" selected>지역 미지정</option>
+							<option value="서울특별시">서울특별시</option>
+							<option value="인천광역시">인천광역시</option>
+							<option value="대구광역시">대구광역시</option>
+							<option value="대전광역시">대전광역시</option>
+							<option value="부산광역시">부산광역시</option>
+							<option value="광주광역시">광주광역시</option>
+							<option value="울산광역시">울산광역시</option>
+							<option value="경기도">경기도</option>
+							<option value="강원도">강원도</option>
+							<option value="경상북도">경상북도</option>
+							<option value="경상남도">경상남도</option>
+							<option value="전라북도">전라북도</option>
+							<option value="전라남도">전라남도</option>
+							<option value="충청북도">충청북도</option>
+							<option value="충청남도">충청남도</option>
+							<option value="제주특별자치도">제주특별자치도</option>
+							<option value="세종특별자치시">세종특별자치시</option>
 						</select>
-						<div class="search_box">
-							<input type="search" class="search" placeholder="지역, 지점명으로 검색">
-							<button class="btn_search"><i class="icon_search"></i></button>
-						</div>
+						<form action="<c:url value='/reservation/1/spot'></c:url>" method="post">
+							<div class="search_box">
+								<input type="search" class="search" name="search" placeholder="지역, 지점명으로 검색" value="${keyword}">
+								<button class="btn_search"><i class="icon_search"></i></button>
+							</div>
+						</form>
 					</div>
 					
 			</section>
@@ -61,140 +63,31 @@
 			<section>
 				<div class="spot_card_container">
 					<ul class="list_card">
-						<div class="row_card clearfix">
-							<c:forEach items="${brList}" var="br">
-							<li class="item_card add_shadow">
-								<a href="./book_seat_select.html">
-									<div class="img-box"></div>
-									<div class="info_area">
-										<h2>[서울] 강남역점</h2>
-										<span class="spot_address">서울특별시 강남구 테헤란로 10길 9,5층</span>
-										<div class="info_running_time">
-											<span>운영시간</span>
-											<span class="hour">24시간</span>
-											<span class="holiday">연중무휴</span>
-										</div>
-									</div>
-								</a>
-							</li>
-							</c:forEach>
-							<li class="item_card add_shadow">
-								<a href="./book_seat_select.html">
-									<div class="img-box"></div>
-									<div class="info_area">
-										<h2>[서울] 강남역점</h2>
-										<span class="spot_address">서울특별시 강남구 테헤란로 10길 9,5층</span>
-										<div class="info_running_time">
-											<span>운영시간</span>
-											<span class="hour">24시간</span>
-											<span class="holiday">연중무휴</span>
-										</div>
-									</div>
-								</a>
-							</li>
-							<li class="item_card add_shadow">
-								<a href="./book_seat_select.html">
-									<div class="img-box"></div>
-									<div class="info_area">
-										<h2>[서울] 강남역점</h2>
-										<span class="spot_address">서울특별시 강남구 테헤란로 10길 9,5층</span>
-										<div class="info_running_time">
-											<span>운영시간</span>
-											<span class="hour">24시간</span>
-											<span class="holiday">연중무휴</span>
-										</div>
-									</div>
-								</a>
-							</li>
-						</div>
-						<div class="row_card clearfix">
-							<li class="item_card add_shadow">
-								<a href="./book_seat_select.html">
-									<div class="img-box"></div>
-									<div class="info_area">
-										<h2>[서울] 강남역점</h2>
-										<span class="spot_address">서울특별시 강남구 테헤란로 10길 9,5층</span>
-										<div class="info_running_time">
-											<span>운영시간</span>
-											<span class="hour">24시간</span>
-											<span class="holiday">연중무휴</span>
-										</div>
-									</div>
-								</a>
-							</li>
-							<li class="item_card add_shadow">
-								<a href="./book_seat_select.html">
-									<div class="img-box"></div>
-									<div class="info_area">
-										<h2>[서울] 강남역점</h2>
-										<span class="spot_address">서울특별시 강남구 테헤란로 10길 9,5층</span>
-										<div class="info_running_time">
-											<span>운영시간</span>
-											<span class="hour">24시간</span>
-											<span class="holiday">연중무휴</span>
-										</div>
-									</div>
-								</a>
-							</li>
-							<li class="item_card add_shadow">
-								<a href="./book_seat_select.html">
-									<div class="img-box"></div>
-									<div class="info_area">
-										<h2>[서울] 강남역점</h2>
-										<span class="spot_address">서울특별시 강남구 테헤란로 10길 9,5층</span>
-										<div class="info_running_time">
-											<span>운영시간</span>
-											<span class="hour">24시간</span>
-											<span class="holiday">연중무휴</span>
-										</div>
-									</div>
-								</a>
-							</li>
-						</div>
-						<div class="row_card clearfix">
-							<li class="item_card add_shadow">
-								<a href="./book_seat_select.html">
-									<div class="img-box"></div>
-									<div class="info_area">
-										<h2>[서울] 강남역점</h2>
-										<span class="spot_address">서울특별시 강남구 테헤란로 10길 9,5층</span>
-										<div class="info_running_time">
-											<span>운영시간</span>
-											<span class="hour">24시간</span>
-											<span class="holiday">연중무휴</span>
-										</div>
-									</div>
-								</a>
-							</li>
-							<li class="item_card add_shadow">
-								<a href="./book_seat_select.html">
-									<div class="img-box"></div>
-									<div class="info_area">
-										<h2>[서울] 강남역점</h2>
-										<span class="spot_address">서울특별시 강남구 테헤란로 10길 9,5층</span>
-										<div class="info_running_time">
-											<span>운영시간</span>
-											<span class="hour">24시간</span>
-											<span class="holiday">연중무휴</span>
-										</div>
-									</div>
-								</a>
-							</li>
-							<li class="item_card add_shadow">
-								<a href="./book_seat_select.html">
-									<div class="img-box"></div>
-									<div class="info_area">
-										<h2>[서울] 강남역점</h2>
-										<span class="spot_address">서울특별시 강남구 테헤란로 10길 9,5층</span>
-										<div class="info_running_time">
-											<span>운영시간</span>
-											<span class="hour">24시간</span>
-											<span class="holiday">연중무휴</span>
-										</div>
-									</div>
-								</a>
-							</li>
-						</div>
+					<c:if test="${brList==null}"> 검색 결과가 없습니다.</c:if>
+					<c:if test="${brList!=null}">
+						<c:forEach begin="0" end="${brList.size()-1}" step="3" var="i">
+							<div class="row_card clearfix">
+								<c:forEach begin="${i}" end="${i+2}" var="index">
+									<c:if test="${brList.size()-1 >= index}">
+										<li class="item_card add_shadow">
+											<a href="./book_seat_select.html">
+												<div class="img-box"></div>
+												<div class="info_area">
+													<h2>${brList.get(index).br_name}</h2>
+													<span class="spot_address">${brList.get(index).br_road_address}</span>
+													<div class="info_running_time">
+														<span>수용인원</span>
+														<span class="hour">${brList.get(index).br_capacity}</span>명
+														<span class="holiday">24시간 연중무휴</span>
+													</div>
+												</div>
+											</a>
+										</li> 
+									</c:if>
+								</c:forEach>
+							</div>
+						</c:forEach>
+					</c:if>	
 					</ul>
 					<div class="page_box clearfix">
 						<i class="btn_prev"></i>
@@ -208,7 +101,15 @@
 				</div>
 			</section>
 		</div>
-		<div class="cabinet_container display_none">사물함 예약</div>
-		<div class="room_container display_none">프로젝트룸 예약</div>
 	</div>
 </main>
+<script>
+$('.btn_search').click(function(){
+	let val = $('[name=search]').val();
+	let obj = {
+			keyword : val
+	}
+	
+	
+});
+</script>
