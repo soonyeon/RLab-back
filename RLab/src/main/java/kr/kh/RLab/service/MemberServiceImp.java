@@ -31,6 +31,7 @@ public class MemberServiceImp implements MemberService {
 	    
 	    try {
 	        int result = memberDao.insertMember(member);
+	        System.out.println(result);
 	        if (result != 0) {
 	            memberDao.updateAuthority(member.getMe_id(), 1);
 	            return true;
@@ -42,7 +43,6 @@ public class MemberServiceImp implements MemberService {
 	    
 	    return false;
 	}
-
 
 	
 	@Override
