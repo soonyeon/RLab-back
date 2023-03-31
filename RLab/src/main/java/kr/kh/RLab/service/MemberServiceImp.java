@@ -89,8 +89,18 @@ public class MemberServiceImp implements MemberService {
 
 	@Override
 	public boolean checkPw(MemberVO pw, MemberVO user) {
-		//입력한 비번과 암호화된 비번이 같은지를 확인
-		if(passwordEncoder.matches(user.getMe_pw(), pw.getMe_pw()))
+		//입력한 비번과 암호화된 비번이 같은지를 확인'
+		String pwRegex = "^[a-zA-Z0-9!@#$]{8,20}$";
+		if(pw.getMe_pw() == null || 
+				!Pattern.matches(pwRegex, pw.getMe_pw()))
+			return false;
+//		user = memberDao.selectMemberByPw(pw.getMe_pw());
+		System.out.println(user);
+		System.out.println(pw);
+		if(user == null)
+			return false;
+		if(passwordEncoder.matches(pw.getMe_pw(), user.getMe_pw()))		
+//		if(passwordEncoder.matches(user.getMe_pw(), pw.getMe_pw()))
 			return true;
 		return false;
 	}

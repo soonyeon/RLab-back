@@ -30,7 +30,7 @@
 				</aside>
 
 				<div class="form_container">
-					<form action="<c:url value ='/mypage/edit_user'></c:url>" method="post" id="edit_info">
+					<form action="<c:url value ='/mypage/user'></c:url>" method="post" id="edit_info">
 						<h1>개인정보 수정</h1>
 						<div class="input_container">
 							<label for="nick_name">닉네임 수정</label>
