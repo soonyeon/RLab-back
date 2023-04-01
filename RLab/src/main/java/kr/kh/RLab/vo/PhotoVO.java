@@ -19,6 +19,7 @@ public class PhotoVO {
 	private String ph_img;
 	private String ph_content;
 	private int ph_st_num; // 스터디번호
+	private String me_name;
 	
 	public String getPh_register_date_str() {
 		SimpleDateFormat format = 

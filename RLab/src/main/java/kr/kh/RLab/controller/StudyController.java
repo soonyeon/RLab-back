@@ -35,6 +35,7 @@ public class StudyController {
 		StudyVO study = StudyServcie.getStudyByMemberId(member.getMe_id());
 		int st_num = study.getSt_num();
 		List<PhotoVO> photos = StudyServcie.getPhotosByStudyNum(st_num);
+		System.out.println("++++++++++"+photos);
 		model.addAttribute("memberId", member);
 		model.addAttribute("ptList", phototypeList );
 	    model.addAttribute("photos", photos);

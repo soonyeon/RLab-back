@@ -25,6 +25,8 @@
     
     <!-- 오늘 해당하는거만 가져오기 -->
      <select id="getPhotosByStudyNum" resultType="kr.kh.RLab.vo.PhotoVO">
-        SELECT * FROM photo WHERE ph_st_num = #{st_num} AND DATE(ph_register_date) = DATE(NOW())
+       SELECT p.*, m.me_name
+	   FROM photo p JOIN member m ON p.ph_me_id = m.me_id  
+	   WHERE ph_st_num = #{st_num} AND DATE(ph_register_date) = DATE(NOW())
     </select>
 </mapper>
