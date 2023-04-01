@@ -188,32 +188,34 @@
                     </div>
             </div>
 <script>
-$(document).ready(function() {
-	  var modal = $("#modal");
+    $(document).ready(function() {
+        var modal = $("#modal");
 
-	  var btn = $(".circle_btn");
+        var btn = $(".circle_btn");
 
-	  var span = $(".close");
+        var span = $(".close");
 
-	  btn.click(function() {
-	    modal.show();
-	  });
+        btn.click(function() {
+            modal.show();
+        });
 
-	  span.click(function() {
-	    modal.hide();
-	  });
+        span.click(function() {
+            modal.hide();
+        });
 
-	  $(window).click(function(event) {
-	    if (event.target == modal[0]) {
-	      modal.hide();
-	    }
-	  });
-	});
-	
+        $(window).click(function(event) {
+            if (event.target == modal[0]) {
+                modal.hide();
+            }
+        });
+    });
+
     $("button").click(function(e){
         e.preventDefault();
-        let formData = new FormData($('form')[0]);
-        formData.append("image", formData.files[0]);
+        let formData = new FormData();
+        formData.append('photo', $('#photo')[0].files[0]);
+        formData.append('content', $('#content').val());
+        formData.append('ph_pt_num', $('#ph_pt_num').val());
         
         $.ajax({
             type: "POST",

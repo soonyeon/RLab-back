@@ -13,6 +13,6 @@ public interface StudyService {
 
 	ArrayList<PhotoTypeVO> getListPhotoType();
 
-	boolean insertCB(PhotoVO photo, MemberVO member,MultipartFile[] files,FileVO file);
+	boolean insertCB(PhotoVO photo, MultipartFile[] files, MemberVO member);
 
 }

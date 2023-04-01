@@ -8,13 +8,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.kh.RLab.service.StudyService;
-import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.PhotoTypeVO;
 import kr.kh.RLab.vo.PhotoVO;
@@ -38,17 +37,22 @@ public class StudyController {
 	
 	@PostMapping("/insertCB")
 	@ResponseBody
-	public String insertCB(@RequestBody PhotoVO photo,HttpServletRequest request,MultipartFile [] files,
-			FileVO file) {
-			MemberVO member = (MemberVO)request.getSession().getAttribute("user");
-			
-			if(StudyServcie.insertCB(photo,member,files,file)) {
-				return "success";	
-			}else {
-				return "error";				
-			}
+	public String insertCB(@RequestParam("photo") MultipartFile[] files,
+	                       @RequestParam("content") String content,
+	                       @RequestParam("ph_pt_num") String ph_pt_num,
+	                       HttpServletRequest request) {
+	    MemberVO member = (MemberVO) request.getSession().getAttribute("user");
+
+	    PhotoVO photoVO = new PhotoVO();
+	    photoVO.setPh_content(content);
+	    photoVO.setPh_pt_num(Integer.parseInt(ph_pt_num));
+
+	    if (StudyServcie.insertCB(photoVO, files, member)) {
+	        return "success";
+	    } else {
+	        return "error";
+	    }
 	}
-	
 	
 	
 
