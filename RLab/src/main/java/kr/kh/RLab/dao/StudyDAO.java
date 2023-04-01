@@ -1,6 +1,7 @@
 package kr.kh.RLab.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.PhotoTypeVO;
@@ -16,5 +17,7 @@ public interface StudyDAO {
 	void insertFile(FileVO fileVo);
 
 	StudyVO getStudyByMemberId(String st_me_id);
+	
+	List<PhotoVO> getPhotosByStudyNum(int st_num);
 
 }

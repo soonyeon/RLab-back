@@ -22,4 +22,9 @@
 	 <select id="getStudyByMemberId" parameterType="String" resultType="kr.kh.RLab.vo.StudyVO">
         SELECT * FROM study WHERE st_me_id = #{st_me_id}
     </select>
+    
+    <!-- 오늘 해당하는거만 가져오기 -->
+     <select id="getPhotosByStudyNum" resultType="kr.kh.RLab.vo.PhotoVO">
+        SELECT * FROM photo WHERE ph_st_num = #{st_num} AND DATE(ph_register_date) = DATE(NOW())
+    </select>
 </mapper>

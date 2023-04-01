@@ -1,13 +1,13 @@
 package kr.kh.RLab.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.kh.RLab.dao.StudyDAO;
 import kr.kh.RLab.utils.UploadFileUtils;
-import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.PhotoTypeVO;
 import kr.kh.RLab.vo.PhotoVO;
@@ -60,4 +60,9 @@ public class StudyServiceImp implements StudyService {
 	public StudyVO getStudyByMemberId(String me_id) {
 		return studyDao.getStudyByMemberId(me_id);
 	}
+	
+	 @Override
+	public List<PhotoVO> getPhotosByStudyNum(int st_num) {
+	     return studyDao.getPhotosByStudyNum(st_num);
+	    }
 }

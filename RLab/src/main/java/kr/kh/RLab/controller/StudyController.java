@@ -1,6 +1,7 @@
 package kr.kh.RLab.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -32,8 +33,11 @@ public class StudyController {
 		ArrayList<PhotoTypeVO> phototypeList = StudyServcie.getListPhotoType();
 		MemberVO member = (MemberVO)request.getSession().getAttribute("user");
 		StudyVO study = StudyServcie.getStudyByMemberId(member.getMe_id());
+		int st_num = study.getSt_num();
+		List<PhotoVO> photos = StudyServcie.getPhotosByStudyNum(st_num);
 		model.addAttribute("memberId", member);
 		model.addAttribute("ptList", phototypeList );
+	    model.addAttribute("photos", photos);
 		return "/study/certification_board";
 	}
 	
@@ -57,7 +61,6 @@ public class StudyController {
 	        return "error";
 	    }
 	}
-	
 	
 
 }
