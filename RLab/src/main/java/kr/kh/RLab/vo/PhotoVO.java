@@ -25,5 +25,9 @@ public class PhotoVO {
 			new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		return format.format(ph_register_date);
 	}
+	
+	public String getPhImgUrl() {
+	    return "file:///D:/uploadfiles/" + ph_img;
+	}
 
 }

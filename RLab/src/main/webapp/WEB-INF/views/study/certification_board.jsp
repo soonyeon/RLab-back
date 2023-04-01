@@ -35,7 +35,7 @@
 							        <div class="feed_name">${photo.ph_me_id}</div>
 							        <div class="feed_date">${photo.ph_register_date_str}</div>
 							        <div class="feed_contents_img">	
-							        	<!-- 내용 이미지 -->
+							        	<img src="${photo.phImgUrl}" alt="이미지">
      							   </div>
 							        <div class="middle_container2">
 							          <span class="feed_date_min"><fmt:formatDate value="${photo.ph_register_date}" pattern="MM/dd" /></span>
