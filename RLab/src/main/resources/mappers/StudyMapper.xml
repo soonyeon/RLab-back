@@ -18,5 +18,8 @@
 		insert into file( fi_ori_name, fi_name, fi_table, fi_ex_num)
 		values(#{file.fi_ori_name}, #{file.fi_name}, #{file.fi_table}, #{file.fi_ex_num}) 
 	</insert>
-
+	
+	 <select id="getStudyByMemberId" parameterType="String" resultType="kr.kh.RLab.vo.StudyVO">
+        SELECT * FROM study WHERE st_me_id = #{st_me_id}
+    </select>
 </mapper>

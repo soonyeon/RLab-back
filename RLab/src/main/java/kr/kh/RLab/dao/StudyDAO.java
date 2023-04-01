@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.PhotoTypeVO;
 import kr.kh.RLab.vo.PhotoVO;
+import kr.kh.RLab.vo.StudyVO;
 
 public interface StudyDAO {
 
@@ -13,5 +14,7 @@ public interface StudyDAO {
 	void insertCB(PhotoVO photo);
 
 	void insertFile(FileVO fileVo);
+
+	StudyVO getStudyByMemberId(String st_me_id);
 
 }

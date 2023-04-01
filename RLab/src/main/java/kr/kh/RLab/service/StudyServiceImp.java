@@ -11,6 +11,7 @@ import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.PhotoTypeVO;
 import kr.kh.RLab.vo.PhotoVO;
+import kr.kh.RLab.vo.StudyVO;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -27,42 +28,36 @@ public class StudyServiceImp implements StudyService {
 
     @Override
     public boolean insertCB(PhotoVO photo, MultipartFile[] files, MemberVO member) {
-    	System.out.println("serviceimpl" + photo);
-    	System.out.println("serviceimpl" + files);
-    	System.out.println("serviceimpl" + member);
         if (member == null)
             return false;
         photo.setPh_me_id(member.getMe_id());
-       
 
-        //게시글 등록
-        studyDao.insertCB(photo);
         if (files != null && files.length > 0) {
-            uploadFiles(files, photo.getPh_num());
+            uploadFiles(files, photo.getPh_num(), photo);
         }
 
         return true;
     }
 
-    private void uploadFiles(MultipartFile[] files, int st_num) {
+    private void uploadFiles(MultipartFile[] files, int st_num, PhotoVO photo) {
         if (files == null || files.length == 0)
             return;
-        // 반복문
         for (MultipartFile file : files) {
             if (file == null || file.getOriginalFilename().length() == 0)
                 continue;
             String fileName = "";
-            // 첨부파일 서버에 업로드
             try {
                 fileName = UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes());
+                photo.setPh_img(fileName);
+                studyDao.insertCB(photo);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            // 첨부파일 객체를 생성
-            FileVO fileVo = new FileVO(file.getOriginalFilename(), fileName, st_num);
-
-            // 다오에게서 첨부파일 정보를 주면서 추가하라고 요청
-            studyDao.insertFile(fileVo);
         }
     }
+
+	@Override
+	public StudyVO getStudyByMemberId(String me_id) {
+		return studyDao.getStudyByMemberId(me_id);
+	}
 }
