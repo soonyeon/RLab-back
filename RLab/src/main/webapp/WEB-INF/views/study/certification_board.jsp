@@ -1,6 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+    
 
 <link rel="stylesheet" href="<c:url value='/resources/css/study/certification_board.css'></c:url>">
 <link rel="stylesheet" href="<c:url value='/resources/css/study/study.css'></c:url>">
@@ -27,35 +29,25 @@
                             
                             <div class="time_line_container2">
                                 <div class="today_feed_board">
-                                    <div class="board">
-                                        <div class="feed_img"></div>
-                                        <div class="feed_name">김돌탕</div>
-                                        <div class="feed_date">2023년 01월 21일 오후 9시 12분</div>
-                                        <div class="feed_contents_img"></div>
-                                        <div class="middle_container2">
-                                            <span class="feed_date_min">01/21</span>
-                                            <span class="feed_contents">인증합니다</span>
-                                        </div>
-                                        <div class="middle_container3">
-                                            <div class="feed_like_img"></div>
-                                            <div class="feed_like_count">10</div>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="board">
-                                        <div class="feed_img"></div>
-                                        <div class="feed_name">김돌탕</div>
-                                        <div class="feed_date">2023년 01월 21일 오후 9시 12분</div>
-                                        <div class="feed_contents_img"></div>
-                                        <div class="middle_container2">
-                                            <span class="feed_date_min">01/21</span>
-                                            <span class="feed_contents">인증합니다</span>
-                                        </div>
-                                        <div class="middle_container3">
-                                            <div class="feed_like_img"></div>
-                                            <div class="feed_like_count">10</div>
-                                        </div>
-                                    </div>
+                                  <c:forEach var="photo" items="${photos}">
+							      <div class="board">
+							        <div class="feed_img"></div>
+							        <div class="feed_name">${photo.ph_me_id}</div>
+							        <div class="feed_date">${photo.ph_register_date_str}</div>
+							        <div class="feed_contents_img">	
+							        	<!-- 내용 이미지 -->
+     							   </div>
+							        <div class="middle_container2">
+							          <span class="feed_date_min"><fmt:formatDate value="${photo.ph_register_date}" pattern="MM/dd" /></span>
+							          <span class="feed_contents">${photo.ph_content}</span>
+							        </div>
+							        <div class="middle_container3">
+							          <div class="feed_like_img"></div>
+							          <div class="feed_like_count">10</div>
+							        </div>
+							      </div>
+							      <hr>
+							    </c:forEach>
                                 </div>
                             </div>
                         </div>

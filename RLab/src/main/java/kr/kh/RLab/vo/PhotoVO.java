@@ -1,5 +1,6 @@
 package kr.kh.RLab.vo;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
@@ -19,6 +20,10 @@ public class PhotoVO {
 	private String ph_content;
 	private int ph_st_num; // 스터디번호
 	
-
+	public String getPh_register_date_str() {
+		SimpleDateFormat format = 
+			new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		return format.format(ph_register_date);
+	}
 
 }
