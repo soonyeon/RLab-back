@@ -32,7 +32,6 @@ public class StudyController {
 		ArrayList<PhotoTypeVO> phototypeList = StudyServcie.getListPhotoType();
 		MemberVO member = (MemberVO)request.getSession().getAttribute("user");
 		StudyVO study = StudyServcie.getStudyByMemberId(member.getMe_id());
-		System.out.println("가입한 스터디 가져오기" + study);
 		model.addAttribute("memberId", member);
 		model.addAttribute("ptList", phototypeList );
 		return "/study/certification_board";
@@ -51,9 +50,6 @@ public class StudyController {
 	    photoVO.setPh_pt_num(Integer.parseInt(ph_pt_num));
 	    photoVO.setPh_st_num(study.getSt_num()); //스터디 번호 가져오기
 	    
-	    System.out.println("photoVo"+photoVO);
-	    System.out.println("files" + files);
-	    System.out.println("member" + member);
 	    
 	    if (StudyServcie.insertCB(photoVO, files, member)) {
 	        return "success";
