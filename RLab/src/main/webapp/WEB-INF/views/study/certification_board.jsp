@@ -27,39 +27,48 @@
                         <div class="time_line_container_top">
                             <div class="time_line_title"> 인증 게시판</div>
                             
-                            <div class="time_line_container2">
-                                <div class="today_feed_board">
-                                  <c:forEach var="photo" items="${photos}">
-							      <div class="board">
-							        <div class="feed_img"></div>
-							        <div class="feed_name">${photo.me_name}</div>
-							        <div class="feed_date">${photo.ph_register_date_str}</div>
-							        <div class="feed_contents_img">	
-							        	<img src="${photo.phImgUrl}" alt="이미지">
-     							   </div>
-							        <div class="middle_container2">
-							          <span class="feed_date_min"><fmt:formatDate value="${photo.ph_register_date}" pattern="MM/dd" /></span>
-							          <span class="feed_contents">${photo.ph_content}</span>
-							        </div>
-							        <div class="middle_container3">
-							        <input type="hidden" id="like_clicked_image_url" value="<c:url value='/resources/img/like_clicked.png'/>">
-									<input type="hidden" id="like_off_image_url" value="<c:url value='/resources/img/like_off.png'/>">
-							  <c:choose>
-							  <c:when test="${likeCounts[photo.ph_num] > 0 && userLikes[photo.ph_num]}">
-							    <img class="feed_like_img" data-photo-id="${photo.ph_num}" src="<c:url value='/resources/img/like_clicked.png'/>" />
-							  </c:when>
-							  <c:otherwise>
-							    <img class="feed_like_img" data-photo-id="${photo.ph_num}" src="<c:url value='/resources/img/like_off.png'/>" />
-							  </c:otherwise>
-							</c:choose>
-									
-									<div class="feed_like_count">${likeCounts[photo.ph_num]}</div>
-							        </div>
-							      </div>
-							      <hr>
-							    </c:forEach>
-                                </div>
+                           <div class="time_line_container2">
+        <c:choose>
+            <c:when test="${empty photos}">
+                <div class="no_certification_message">
+                     오늘의 인증글이 없습니다. 가장 먼저 인증글을 올려보세요!
+                </div>
+            </c:when>
+            <c:otherwise>
+                <div class="today_feed_board">
+                    <c:forEach var="photo" items="${photos}">
+                        <div class="board">
+                            <div class="feed_img"></div>
+                            <div class="feed_name">${photo.me_name}</div>
+                            <div class="feed_date">${photo.ph_register_date_str}</div>
+                            <div class="feed_contents_img">
+                                <img src="${photo.phImgUrl}" alt="이미지">
                             </div>
+                            <div class="middle_container2">
+                                <span class="feed_date_min"><fmt:formatDate value="${photo.ph_register_date}" pattern="MM/dd" /></span>
+                                <span class="feed_contents">${photo.ph_content}</span>
+                            </div>
+                            <div class="middle_container3">
+                                <input type="hidden" id="like_clicked_image_url" value="<c:url value='/resources/img/like_clicked.png'/>">
+                                <input type="hidden" id="like_off_image_url" value="<c:url value='/resources/img/like_off.png'/>">
+                                <c:choose>
+                                    <c:when test="${likeCounts[photo.ph_num] > 0 && userLikes[photo.ph_num]}">
+                                        <img class="feed_like_img" data-photo-id="${photo.ph_num}" src="<c:url value='/resources/img/like_clicked.png'/>" />
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img class="feed_like_img" data-photo-id="${photo.ph_num}" src="<c:url value='/resources/img/like_off.png'/>" />
+                                    </c:otherwise>
+                                </c:choose>
+                                <div class="feed_like_count">${likeCounts[photo.ph_num]}</div>
+                            </div>
+                        </div>
+                        <hr>
+                    </c:forEach>
+                </div>
+            </c:otherwise>
+        </c:choose>
+    </div>
+</div>
                         </div>
                         <div class="circle_btn">인증하기</div>
                         

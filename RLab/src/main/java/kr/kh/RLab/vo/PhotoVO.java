@@ -22,9 +22,8 @@ public class PhotoVO {
 	private String me_name;
 	
 	public String getPh_register_date_str() {
-		SimpleDateFormat format = 
-			new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		return format.format(ph_register_date);
+	    SimpleDateFormat format = new SimpleDateFormat("yyyy년 MM월 dd일 aa hh:mm:ss");
+	    return format.format(ph_register_date);
 	}
 	
 	public String getPhImgUrl() {

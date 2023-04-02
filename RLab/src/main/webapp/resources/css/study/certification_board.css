@@ -88,5 +88,11 @@
   display: block;
   margin: 0 auto;
 }
-  
+.no_certification_message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    min-height: 500px; 
+}
   
