@@ -351,7 +351,7 @@ progress {
   border-radius: var(--border_radius_4);
 }
 .feed_like_img {
-  background-image: url(../../img/like_off.png);
+  /* background-image: url(../../img/like_off.png); */
   width: 30px;
   height: 30px;
   border: none;

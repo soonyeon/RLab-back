@@ -29,4 +29,26 @@
 	   FROM photo p JOIN member m ON p.ph_me_id = m.me_id  
 	   WHERE ph_st_num = #{st_num} AND DATE(ph_register_date) = DATE(NOW())
     </select>
+    
+    <!-- 좋아요기능 -->
+	 <insert id="insertLike">
+	    INSERT INTO `like` (li_num, li_me_id, li_ph_num, li_state)
+	    VALUES (#{li_num}, #{li_me_id}, #{li_ph_num}, #{li_state})
+	</insert>
+	
+	<update id="updateLikeStatus">
+	    UPDATE `like`
+	    SET li_state = #{li_state}
+	    WHERE li_me_id = #{li_me_id} AND li_ph_num = #{li_ph_num}
+	</update>
+	
+	<select id="getLikeByUserIdAndPhotoId" resultType="kr.kh.RLab.vo.LikeVO">
+	    SELECT * FROM `like`
+	    WHERE li_me_id = #{li_me_id} AND li_ph_num = #{li_ph_num}
+	</select>
+	
+	<select id="countLikesByPhotoId" parameterType="int" resultType="int">
+	    SELECT COUNT(*) FROM `like` WHERE li_ph_num = #{li_ph_num} AND li_state = 1
+	</select>
+    
 </mapper>

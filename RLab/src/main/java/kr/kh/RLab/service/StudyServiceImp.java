@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.kh.RLab.dao.StudyDAO;
 import kr.kh.RLab.utils.UploadFileUtils;
+import kr.kh.RLab.vo.LikeVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.PhotoTypeVO;
 import kr.kh.RLab.vo.PhotoVO;
@@ -65,4 +66,24 @@ public class StudyServiceImp implements StudyService {
 	public List<PhotoVO> getPhotosByStudyNum(int st_num) {
 	     return studyDao.getPhotosByStudyNum(st_num);
 	    }
+
+	@Override
+	public void insertLike(LikeVO likeVO) {
+		studyDao.insertLike(likeVO);
+	}
+
+	@Override
+	public void updateLikeStatus(String li_me_id, int li_ph_num, int li_state) {
+		studyDao.updateLikeStatus(li_me_id, li_ph_num, li_state);
+	}
+
+	@Override
+	public LikeVO getLikeByUserIdAndPhotoId(String li_me_id, int li_ph_num) {
+		return studyDao.getLikeByUserIdAndPhotoId(li_me_id, li_ph_num);
+	}
+
+	@Override
+	public int countLikesByPhotoId(int li_ph_num) {
+		return studyDao.countLikesByPhotoId(li_ph_num);
+	}
 }

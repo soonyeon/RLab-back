@@ -42,8 +42,19 @@
 							          <span class="feed_contents">${photo.ph_content}</span>
 							        </div>
 							        <div class="middle_container3">
-							          <div class="feed_like_img"></div>
-							          <div class="feed_like_count">10</div>
+							        <input type="hidden" id="like_clicked_image_url" value="<c:url value='/resources/img/like_clicked.png'/>">
+									<input type="hidden" id="like_off_image_url" value="<c:url value='/resources/img/like_off.png'/>">
+							         <!-- 좋아요 수가 0이 아닌 경우 -->
+									<c:if test="${likeCounts != 0}">
+									    <div class="feed_like_img" data-photo-id="1" src="<c:url value='/resources/img/like_clicked.png'></c:url>"></div>
+									</c:if>
+									
+									<!-- 좋아요 수가 0인 경우 -->
+									<c:if test="${likeCounts == 0}">
+									    <div class="feed_like_img" data-photo-id="1" src="<c:url value='/resources/img/like_off.png'></c:url>"></div>
+									</c:if>
+									
+									<div class="feed_like_count">${likeCounts}</div>
 							        </div>
 							      </div>
 							      <hr>
@@ -180,6 +191,8 @@
                     </div>
             </div>
 <script>
+const likeclickedImageUrl = $("#like_clicked_image_url").val();
+const likeOffImageUrl = $("#like_off_image_url").val();
     $(document).ready(function() {
         var modal = $("#modal");
 
@@ -226,6 +239,29 @@
             error: function(e){
                 console.log(e);
             }
+        });
+    });
+    
+    $(".feed_like_img").on("click", function () {
+        const li_ph_num = $(this).data("photo-id");
+        const $likeCount = $(this).siblings(".feed_like_count");
+        const $likeImg = $(this).children(".feed_like_img");
+
+        $.ajax({
+            url: "/toggleLike",
+            type: "POST",
+            data: {
+                li_ph_num: li_ph_num
+            },
+            success: function (response) {
+                if (response === "inserted" || response === "updated") {
+                    $likeImg.attr("src", likeclickedImageUrl);
+                    $likeCount.text(parseInt($likeCount.text()) + 1);
+                } else if (response === "canceled") {
+                    $likeImg.attr("src", likeOffImageUrl);
+                    $likeCount.text(parseInt($likeCount.text()) - 1);
+                }
+            },
         });
     });
 </script>
