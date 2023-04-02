@@ -44,17 +44,16 @@
 							        <div class="middle_container3">
 							        <input type="hidden" id="like_clicked_image_url" value="<c:url value='/resources/img/like_clicked.png'/>">
 									<input type="hidden" id="like_off_image_url" value="<c:url value='/resources/img/like_off.png'/>">
-							         <!-- 좋아요 수가 0이 아닌 경우 -->
-									<c:if test="${likeCounts != 0}">
-									    <div class="feed_like_img" data-photo-id="1" src="<c:url value='/resources/img/like_clicked.png'></c:url>"></div>
-									</c:if>
+							  <c:choose>
+							  <c:when test="${likeCounts[photo.ph_num] > 0}">
+							    <img class="feed_like_img" data-photo-id="${photo.ph_num}" src="<c:url value='/resources/img/like_clicked.png'/>" />
+							  </c:when>
+							  <c:otherwise>
+							    <img class="feed_like_img" data-photo-id="${photo.ph_num}" src="<c:url value='/resources/img/like_off.png'/>" />
+							  </c:otherwise>
+							</c:choose>
 									
-									<!-- 좋아요 수가 0인 경우 -->
-									<c:if test="${likeCounts == 0}">
-									    <div class="feed_like_img" data-photo-id="1" src="<c:url value='/resources/img/like_off.png'></c:url>"></div>
-									</c:if>
-									
-									<div class="feed_like_count">${likeCounts}</div>
+									<div class="feed_like_count">${likeCounts[photo.ph_num]}</div>
 							        </div>
 							      </div>
 							      <hr>
