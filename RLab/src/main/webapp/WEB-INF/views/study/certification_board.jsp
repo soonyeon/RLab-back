@@ -45,7 +45,7 @@
 							        <input type="hidden" id="like_clicked_image_url" value="<c:url value='/resources/img/like_clicked.png'/>">
 									<input type="hidden" id="like_off_image_url" value="<c:url value='/resources/img/like_off.png'/>">
 							  <c:choose>
-							  <c:when test="${likeCounts[photo.ph_num] > 0}">
+							  <c:when test="${likeCounts[photo.ph_num] > 0 && userLikes[photo.ph_num]}">
 							    <img class="feed_like_img" data-photo-id="${photo.ph_num}" src="<c:url value='/resources/img/like_clicked.png'/>" />
 							  </c:when>
 							  <c:otherwise>
@@ -247,7 +247,7 @@ const likeOffImageUrl = $("#like_off_image_url").val();
         const $likeImg = $(this).children(".feed_like_img");
 
         $.ajax({
-            url: "/toggleLike",
+        	url: '<c:url value="/study/toggleLike" />',
             type: "POST",
             data: {
                 li_ph_num: li_ph_num
@@ -256,9 +256,11 @@ const likeOffImageUrl = $("#like_off_image_url").val();
                 if (response === "inserted" || response === "updated") {
                     $likeImg.attr("src", likeclickedImageUrl);
                     $likeCount.text(parseInt($likeCount.text()) + 1);
+                    location.reload();
                 } else if (response === "canceled") {
                     $likeImg.attr("src", likeOffImageUrl);
                     $likeCount.text(parseInt($likeCount.text()) - 1);
+                    location.reload();
                 }
             },
         });
