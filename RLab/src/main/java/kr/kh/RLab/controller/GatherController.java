@@ -59,7 +59,7 @@ public class GatherController {
 	    return mv;
 	}
 	
-	@PostMapping("/list")
+	@PostMapping("/insertgather")
 	public ModelAndView gatherInsertPost(ModelAndView mv,HttpServletRequest request,GatherVO gather,StudyVO study) {
 		MemberVO member = (MemberVO)request.getSession().getAttribute("user");
 		boolean res = gatherService.insertGather(member,gather,study);
