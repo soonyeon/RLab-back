@@ -1,0 +1,533 @@
+:root {
+	/* color */
+	--color_blue: #66a0e2;
+	--color_yellow: #f0ea58;
+	--color_mint: #01f3a3;
+	--color_black: #020a17;
+	--color_beige: #fcf4ed;
+	--color_light-grey: #bfbfbf;
+	--color_grey: #626262;
+
+	/* size */
+	--body_size: 1200px;
+
+	/* border */
+	--border_basic: 3px solid #020a17;
+	--border_light: 2px solid #bfbfbf;
+
+	/* border-radius */
+	--border_radius_1: 50%;
+	--border_radius_2: 30px;
+	--border_radius_3: 20px;
+	--border_radius_4: 10px;
+
+	/* font */
+	--font_family_main: -apple-system, BlinkMacSystemFont, "Malgun Gothic",
+		"맑은 고딕", helvetica, "Apple SD Gothic Neo", sans-serif;
+	--font_family_sub: -apple-system, BlinkMacSystemFont, "Malgun Gothic",
+		"맑은 고딕", helvetica, "Apple SD Gothic Neo", sans-serif;
+	--font_size_title_l: 35px;
+	--font_size_title_m: 20px;
+	--font_size_title_s: 15px;
+	--font_size_cont_l: 14px;
+	--font_size_cont_m: 12px;
+	--font_size_cont_s: 8px;
+}
+
+/* 공통 */
+* {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	text-decoration: none;
+}
+body {
+	background-color: var(--color_beige);
+	height: 600px;
+  position: relative;
+}	
+#total_container {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+}
+.blind {
+	position: absolute;
+	width: 2px;
+	height: 2px;
+	margin: -2px;
+	overflow: hidden;
+}
+.display_none{
+	display: none;
+}
+.clearfix::after{
+	clear: both; display: block; content: '';
+}
+a{color: #000;}
+.btn_home {
+	display: flex;
+	width: 66px;
+	height: 50px;
+	font-size: 14px;
+	font-weight: 800;
+	line-height: 80px;
+	overflow: hidden;
+}
+.btn_home .icon_home {
+	width: 40px;
+	height: 51px;
+	background-size: 58px 58px;
+	background-position: -10px -4px;
+	background-image: url(../img/rlab_logo.png);
+	background-repeat: no-repeat;
+}
+.add_shadow {box-shadow: 5px 5px 0px rgb(7, 7, 7);}
+/* background */
+.background_bbls{
+	position: absolute;
+	height: 100%;
+	top: 750px;
+	display: flex;
+	width: 100%;
+	height: 100%;
+	z-index: -10;
+	overflow: hidden;
+}
+.background_bbls .bubble{
+	position: absolute;
+	width: 300px;
+	height: 300px;
+	border-radius: var(--border_radius_1);
+	background-color: var(--color_mint);
+}
+.big_bbls .bubble:nth-child(1){
+	top: 927px;
+	left: -385px;
+	background-color: var(--color_blue);
+	width: 1600px;
+	height: 1600px;
+}
+.big_bbls .bubble:nth-child(2){
+	top: 673px;
+	left: 988px;
+	background-color: var(--color_mint);
+	width: 1080px;
+	height: 1080px;
+	z-index: -20;
+}
+.big_bbls .bubble:nth-child(3){
+	top: 1075px;
+	left: 863px;
+	background-color: var(--color_yellow);
+	width: 1290px;
+	height: 1290px;
+}
+.big_bbls .bubble:nth-child(4){
+	top: 966px;
+	left: 804px;
+	background-color: var(--color_black);
+	width: 300px;
+	height: 300px;
+	z-index: -30;
+	opacity: 30%;
+}
+.small_bbls .bubble:nth-child(1){
+	top: 124px;
+	left: -114px;
+	background-color: var(--color_mint);
+	width: 400px;
+	height: 400px;
+}
+.small_bbls .bubble:nth-child(2){
+	top: 77px;
+	left: 1616px;
+	background-color: var(--color_yellow);
+	width: 250px;
+	height: 250px;
+}
+
+/* header */
+header {
+	/* 2023-02-21 width 100% 속성 추가*/ 
+	width: 100%;
+	position: fixed;
+	display: flex;
+	justify-content: center;
+	margin-bottom: 250px;
+	background-color: var(--color_beige);
+	z-index: 100;
+}
+header #header_container {
+	display: flex;
+	justify-content: space-between;
+	width: var(--body_size);
+	padding: 10px 0 10px 10px;
+	border-radius: var(--border_radius_3);
+
+	box-sizing: border-box;
+	font-weight: 800;
+}
+#header_container .header_left{
+	display: flex;
+	gap: 80px;
+}
+.btn_home {
+	display: flex;
+	width: 66px;
+	height: 50px;
+	font-size: 14px;
+	font-weight: 800;
+	line-height: 80px;
+	overflow: hidden;
+}
+.btn_home .icon_home {
+	width: 40px;
+	height: 51px;
+	background-size: 58px 58px;
+	background-position: -9px -4px;
+	background-image: url(../img/rlab_logo.png);
+	background-repeat: no-repeat;
+}
+.top_menu_container{
+	width: 230px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-size: 15px;
+}
+#header_container .header_right{
+	display: flex;
+	align-items: center;
+}
+.mypage_container .mypage .icon_mypage{
+	display: flex;
+	width: 40px;
+	height: 40px;
+	border: 2px solid var(--color_mint);
+	border-radius: 50%;
+	background-size: 61px 40px;
+	background-position: -9px 0;
+	background-image: url(../img/profile_img.png);
+	background-repeat: no-repeat;
+}
+/* main 에 margin-top 속성 추가하세요!!*/
+main{
+		width: var(--body_size);
+		margin: 0;
+		margin-top: 150px;
+}
+.boxes_container{
+	display: flex;
+	justify-content: center;
+	gap: 30px;
+}
+.boxes_container .box{
+	width: 560px;
+	display: flex;
+	flex-flow: column;
+	gap: 55px;
+	border: 2px solid #020a17;
+	border-radius: var(--border_radius_3);
+	padding: 45px 40px;
+	box-sizing: border-box;
+	background-color: var(--color_beige);
+}
+.box .area{
+	display: flex;
+	flex-flow: column;
+	gap: 30px;
+}
+
+/* 이용권 종류 박스 */
+.title{
+	display: flex;
+	justify-content: flex-start;
+	gap: 10px;
+	align-items: center;
+}
+.title .icon_seat{
+	width: 45px;
+	height: 45px;
+	background-size: 45px 45px;
+	background-image: url(../img/office-chair_.png);
+	background-repeat: no-repeat;
+}
+.title .icon_info{
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+	background-image: url(../img/info.png);
+	background-repeat: no-repeat;
+	opacity: 60%;
+}
+.title .icon_locker{
+	width: 45px;
+	height: 45px;
+	background-size: 45px 45px;
+	background-image: url(../img/locker_.png);
+	background-repeat: no-repeat;
+}
+.title .icon_point{
+	width: 45px;
+	height: 45px;
+	background-size: 45px 45px;
+	background-image: url(../img/point.png);
+	background-repeat: no-repeat;
+	margin-right: 5px;
+}
+.area .tickets{
+	display: flex;
+	flex-flow: column;
+	gap: 40px;
+}
+.tickets .ticket{
+	display: flex;
+	flex-flow: column;
+	gap: 15px;
+}
+.ticket .ticket_title{
+	width: 140px;
+	height: 45px;
+	font-weight: 600;
+	font-size: 17px;
+	border-radius: var(--border_radius_2);
+	background-color: var(--color_yellow);
+	padding: 8px;
+	box-sizing: border-box;
+	text-align: center;
+	line-height: 30px;
+}
+.times{
+	display: flex;
+	justify-content: flex-start;
+	gap: 6px;
+	margin-left: 5px;
+}
+.times .ticket_time{
+	font-size: 12px;
+	border: 1px solid #020a17;
+	border-radius: 6px;
+	padding: 10px;
+	box-sizing: border-box;
+	text-align: center;
+	display : flex;
+}
+
+/* 선택한 이용권 박스 */
+.selected_area, .point_area{
+	padding-bottom: 30px;
+	box-sizing: border-box;
+}
+.selected_title{
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-size: 17px;
+	font-weight: 600;
+}
+.selected_title .dot{
+	width: 10px;
+	height: 10px;
+	border-radius: var(--border_radius_1);
+	background-color: var(--color_yellow);
+}
+.selected_tickets{
+	display: flex;
+	flex-flow: column;
+	gap: 35px;
+	padding-bottom: 30px;
+	box-sizing: border-box;
+	border-bottom: 2px solid #020a17;
+}
+.selected_tickets .selected_ticket{
+	display: flex;
+	flex-flow: column;
+	gap: 10px;
+}
+.selected_content{
+	display: flex;
+	justify-content: space-between;
+	margin-left: 20px;
+	gap: 50px;
+}
+.selected_content .ticket_price{
+	font-size: 26px;
+	font-weight: 700;
+	color: var(--color_grey);
+}
+#final_price{
+	color: var(--color_mint);
+}
+.point_container{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 8px;
+	padding-bottom: 30px;
+	box-sizing: border-box;
+	border-bottom: 2px solid #020a17;
+}
+.point_container .point_title{
+	font-size: 17px;
+	font-weight: 600;
+}
+.point_container #my_point{
+	font-size: 30px;
+	font-weight: 700;
+}
+.point_container .use_point{
+	margin-left: 20px;
+}
+.total_container{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 5px;
+	font-size: 17px;
+}
+.total_container p{
+
+}
+.total_price{
+	font-size: 30px;
+	font-weight: 600;
+}
+
+#pay_btn{
+	font-size: 20px;
+	padding: 25px;
+	box-sizing: border-box;
+	font-weight: 600;
+	border: none;
+	box-shadow: 2px 5px 6px #62626275;
+	background-color: var(--color_yellow);
+	border-radius: var(--border_radius_4);
+}
+
+/* footer */
+footer{
+	margin-top : 150px
+}
+footer .container{
+	width: 1200px; margin: 0 auto; padding: 50px;
+}
+.info_container{
+margin-top: 25px;
+}
+.info_container .direct_num_box{
+	float: left;
+	width: 300px;
+	height: 180px;
+}
+.direct_num_box .list_tel{
+	margin-top: 5px;
+}
+.direct_num_box .item_tel{
+	margin-left: 10px;
+}
+.direct_num_box .link_tel{
+	font-size: 18px;
+	margin-top: 3px;
+	display: inline-block;
+}
+.info_container .info_right_container{
+	float: right;
+}
+.info_container .info_box_right{
+	float: left;
+	width: 140px;
+	height: 180px;
+	margin-right: 20px;
+}
+.info_container .info_box_right .info_title{
+	margin-bottom: 5px;
+}
+.info_container .info_box_right li{
+	padding-top: 5px;
+}
+footer .corp_container{
+	margin-top: 10px;
+}
+footer .corp_container .link_corp{
+	padding-left: 7px;
+	font-size: 13px;
+}
+footer .corp_container .link_corp::before{
+	width: 1px;
+	height: 11px;
+	content: '';
+	display: inline-block;
+	margin-right: 10px;
+	background-color: grey;
+}
+footer .corp_container .link_corp:nth-child(1){
+	padding: 0;
+}
+footer .corp_container .link_corp:nth-child(1)::before{
+	display: none;
+}
+
+/* main */
+main .main_container{
+	display: flex;
+	flex-flow: column;
+	width: 1200px;
+	gap: 30px;
+	margin: 0 auto;
+}
+
+/* 이용권 구매 단계 안내 */
+.procedure_container{
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+	gap: 30px;
+	width: 800px;
+	margin: 0 auto;
+}
+.selected{
+	background-color: var(--color_yellow);
+}
+.detail_procedure{
+	display: flex;
+	gap: 20px;
+}
+.procedure_container .procedure_title{
+	text-align: center;
+	height: 40px;
+	line-height: 40px;
+}
+.procedure_container .item_procedure{
+	float: left;
+	border: 1px solid #000;
+	width: 120px;
+	height: 120px;
+	text-align: center;
+	border-radius: 50%;
+	position: relative;
+}
+.item_procedure .numbering{
+	position: absolute;
+	right: 0; left: 0; top: 23px;
+	text-decoration: underline;
+	font-size: 14px;
+	line-height: normal;
+}
+.item_procedure .item_text{
+	line-height: 120px;
+	text-align: center;
+}
+.procedure_container .item_procedure+.item_procedure{
+	margin-left: 20px;
+}
+.procedure_container .item_procedure+.item_procedure::before{
+	content: '';
+	display: inline-block;
+	background-image: url(../img/page_right.png);
+	background-size: 30px 30px;
+	width: 30px;
+	height: 30px;
+}

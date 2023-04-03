@@ -1,9 +1,6 @@
 package kr.kh.RLab.controller;
 
 
-import javax.servlet.http.HttpSession;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,17 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.kh.RLab.service.MemberService;
-import kr.kh.RLab.vo.MemberVO;
-
-
-
-import kr.kh.RLab.service.MemberService;
-import kr.kh.RLab.vo.MemberOKVO;
 import kr.kh.RLab.vo.MemberVO;
 
 @Controller
@@ -103,5 +93,5 @@ public class HomeController {
 	
 	
 	
-	
+
 }

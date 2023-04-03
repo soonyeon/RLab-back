@@ -1,37 +1,10 @@
- /* 왼쪽 메뉴바 */
-.left_menu_container{
-  display: flex;
-  justify-content: center;
-  width: 300px;
-  height: 400px;
-  padding: 40px 0;
-  border: 2px solid #020a17;
-  border-radius: var(--border_radius_2);
-  box-sizing: border-box;
-  background-color: var(--color_beige);
-  float : left;
-}
-.left_menu_container .left_menu{
-  display: flex;
-  flex-flow: column;
-  align-items: flex-start;
-  gap: 16px;
-  font-size: 15px;
-  font-weight: 800;
-}
-.leave {
-  position: relative;
-  bottom: -120px;
-  left: 5px;
-} 
-.left_menu a:visited {
-  font-weight: bold; 
-  /*클릭했을때 굵어지면서 검정색으로 바뀌게 나중에 수정 */
-}
- 
- 
- 
- #main_container{
+/* main */
+  main{
+  width: var(--body_size);
+  margin: 0;
+  margin-top: 100px;
+  }
+  #main_container{
     display: flex;
     flex-direction: column;
   }
@@ -72,7 +45,7 @@
     padding: 10px 15px;
     margin: 10px 0 20px 0;
   }
-  .recruit_title_box .bo_title{
+  .recruit_title_box .recruit_title{
     width: 90%; 
     border: none; 
     background-color: transparent;
@@ -119,8 +92,9 @@
   .note-editor.note-frame{
     margin: 10px 0 0 0;
     background-color: white;
-  }
-  /*모달창  */
+}
+
+ /*모달창  */
 .call_temporary_storage {
   cursor: pointer;
 }
@@ -150,6 +124,7 @@
   z-index: 9998;
 }
 
+/* 수정된 버튼 스타일 */
 .deleteBtn, #deleteAll{
   background-color: #d3d3d3; 
   border: none;
@@ -163,4 +138,3 @@
   cursor: pointer;
   border-radius: 5px; 
 }
- 

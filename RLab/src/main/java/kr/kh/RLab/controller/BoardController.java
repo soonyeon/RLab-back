@@ -25,7 +25,6 @@ import kr.kh.RLab.service.TemporaryService;
 import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.StudyVO;
-import kr.kh.RLab.vo.TemporaryVO;
 import lombok.RequiredArgsConstructor;
 
 

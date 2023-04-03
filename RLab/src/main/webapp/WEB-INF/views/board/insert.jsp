@@ -58,12 +58,11 @@
                   <input type="hidden" id="table" name="bo_table" value="자유게시판"/>
                 </div> 
                 <h2>내용</h2> 
-								<textarea id="content" name="bo_content"></textarea>  
-              
-							<div class="btn_box">
-								<button class="ts_btn" type="button">임시저장</button>
-								<button class="write_complete_btn" type="submit">작성완료</button>
-							</div>
+					<textarea id="content" name="bo_content"></textarea>  
+				<div class="btn_box">
+					<button class="ts_btn" type="button">임시저장</button>
+					<button class="write_complete_btn" type="submit">작성완료</button>
+				</div>
 			</form>
 </div> 
 	<!-- Modal -->
@@ -151,7 +150,7 @@ $(document).ready(function() {
   //전체 삭제
     $('#deleteAll').on('click', function() {
         $.ajax({
-            url: '<c:url value="/temporary/delete/All" />',
+            url: '<c:url value="/temporary/deleteAll" />',
             type: 'POST',
             success: function(response) {
                 if (response == "success") {
