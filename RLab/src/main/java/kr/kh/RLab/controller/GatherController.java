@@ -45,7 +45,7 @@ public class GatherController {
 		MemberVO member = (MemberVO)request.getSession().getAttribute("user");
 		boolean res = gatherService.insertStudy(study,member,region,files,file,tag,tagRegister);
 		
-		mv.setViewName("/gather/insertstudy");
+		mv.setViewName("/gather/gather");
 		return mv;
 	}
 	
@@ -63,7 +63,7 @@ public class GatherController {
 	public ModelAndView gatherInsertPost(ModelAndView mv,HttpServletRequest request,GatherVO gather,StudyVO study) {
 		MemberVO member = (MemberVO)request.getSession().getAttribute("user");
 		boolean res = gatherService.insertGather(member,gather,study);
-	    mv.setViewName("/gather/detail");
+	    mv.setViewName("/gather/list");
 	    return mv;
 	}
 	
@@ -86,7 +86,7 @@ public class GatherController {
 		GatherVO gather = gatherService.getGather(st_num);
 		StudyVO study = gatherService.getStudy(st_num);
 		ArrayList<TagRegisterVO> tagList = gatherService.selectTagList();
-		mv.addObject("tagList",tagList);
+		mv.addObject("tgList",tagList);
 		mv.addObject("st",study);
 		mv.addObject("ga",gather);
 		mv.setViewName("/gather/detail");

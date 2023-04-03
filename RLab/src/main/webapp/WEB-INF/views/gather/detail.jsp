@@ -49,7 +49,7 @@
 						<div class="like_img"></div>
 					</div>
 					<div class="study_tag_info">
-						<c:forEach items="${tagList}" var="ta" varStatus="vs">
+						<c:forEach items="${tgList}" var="ta" varStatus="vs">
 							<c:if test="${ta.tr_st_num==st.st_num}">
 								<span href="#" class="study_tag">${ta.tr_name}</span>
 							</c:if>
