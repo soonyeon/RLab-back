@@ -73,7 +73,7 @@ public class GatherController {
 	public ModelAndView mainlistgather(ModelAndView mv,Criteria cri) {
 		cri.setPerPageNum(9);
 		int totalCount = gatherService.getStudyTotalCount(cri);
-		PageMaker pm = new PageMaker(totalCount, 1, cri);
+		PageMaker pm = new PageMaker(totalCount, 5, cri);
 		ArrayList<StudyVO> stList = gatherService.selectStudyAll(cri);
 		ArrayList<FileVO> fileList = gatherService.selectFileList();
 		ArrayList<TagRegisterVO> tagList = gatherService.selectTagList();
