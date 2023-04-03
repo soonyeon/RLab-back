@@ -278,7 +278,6 @@ progress {
 }
 .board {
   margin-top: 30px;
-  height: 450px;
   overflow: hidden;
   padding-right: 20px;
 }
@@ -341,7 +340,6 @@ progress {
   font-weight: bold;
 }
 .feed_contents_img{
-  background-image: url(../../img/certify_img.jpeg);
   background-size: cover;
   min-height: 270px;
   background-position: center;
