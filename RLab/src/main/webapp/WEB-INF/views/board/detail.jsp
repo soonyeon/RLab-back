@@ -432,6 +432,7 @@
                     alert("댓글이 등록되었습니다.");
                     $('.comment_box').empty()
                     loadComments(1);
+                    loadCommentCount();
                 } else {
                     alert("댓글 등록에 실패했습니다.");
                 }
@@ -503,6 +504,7 @@
             success: function(Data) {
                 alert('대댓글 등록에 성공하였습니다.');
                 loadComments(1); // 댓글 다시 불러오기
+                loadCommentCount();
             },
             error: function(error) {
                 alert('대댓글 등록에 실패했습니다. 다시 시도해주세요.');
@@ -534,6 +536,7 @@
                     alert("댓글이 삭제되었습니다.");
                     // 댓글 목록을 다시 불러옴
                     loadComments(page);
+                    loadCommentCount();
                 } else {
                     alert("댓글 삭제에 실패했습니다. 다시 시도해주세요.");
                 }
@@ -611,6 +614,7 @@
                     loadComments(i);
                     console.log(i);
                     }
+                    loadCommentCount(); 
                 } else {
                     alert("댓글 수정에 실패했습니다. 다시 시도해주세요.");
                 }
