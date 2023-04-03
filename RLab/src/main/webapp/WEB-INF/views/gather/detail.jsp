@@ -112,9 +112,9 @@
 let page = 1; //댓글 페이지
 const boardNum = '${ga.ga_num}';
 const userId = '${user.me_id}';
+    let isLoading = false;
 $(document).ready(function() {
     let currentPage = 1;
-    let isLoading = false;
 
     $(window).scroll(function() {
         if ($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
@@ -122,8 +122,8 @@ $(document).ready(function() {
                 isLoading = true;
                 page = page+1;
                 loadComments(page);
-                console.log(page);
-                isLoading = false;
+
+                
             }
         }
     });
@@ -139,12 +139,12 @@ $(document).ready(function() {
                 let pageHandler = response.pageHandler;
                 let count = response.commentCount;
                 console.log(response);
-				if(response.ph.endPage == page) {
-					page=page-1;
+                if(response.commentList.length == 0) {
+					page = page-1;
 					return;
 				}
-
-
+				
+				
                 $.each(comments, function(index, comment) {
                     console.log(comment);
                     if (comment.co_num == comment.co_ori_num) {
@@ -199,6 +199,8 @@ $(document).ready(function() {
                 });
                 // 현재 페이지 값을 갱신
                 $('#current_page').val(page1);
+                isLoading = false;
+                
 
             },
             error: function(xhr, textStatus, errorThrown) {
