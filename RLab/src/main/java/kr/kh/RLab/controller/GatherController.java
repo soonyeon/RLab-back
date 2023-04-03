@@ -79,23 +79,11 @@ public class GatherController {
 	    return mv;
 	}
 	
-//	@GetMapping("/gather/list")
-//	public ModelAndView gatherSearch(ModelAndView mv,Criteria cri) {
-//		ArrayList<StudyVO> stdList = gatherService.getBoardList(cri);
-//		//페이지네이션
-//		int totalCount = gatherService.getBoardTotalCount(cri);
-//		PageMaker pm = new PageMaker(totalCount,9,cri);//한 페이지의 게시글 개수를 3개로 
-//		mv.addObject("stdList",stdList);
-//		mv.addObject("pm",pm);
-//		mv.setViewName("/gather/list");
-//	    return mv;
-//	}
-
 		
 	//모집글 상세보기
-	@GetMapping("/detail/{ga_num}")
-	public ModelAndView gatherDetail(ModelAndView mv,@PathVariable int ga_num) {
-		GatherVO gather = gatherService.getGather(ga_num);
+	@GetMapping("/detail/{st_num}")
+	public ModelAndView gatherDetail(ModelAndView mv,@PathVariable("st_num")int st_num) {
+		GatherVO gather = gatherService.getGather(st_num);
 		ArrayList<StudyVO> stList = gatherService.selectStudyAll();
 		ArrayList<TagRegisterVO> tagList = gatherService.selectTagList();
 		mv.addObject("ga",gather);

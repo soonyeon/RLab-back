@@ -27,11 +27,8 @@ public interface GatherService {
 
 	ArrayList<TagRegisterVO> selectTagList();
 
-	ArrayList<StudyVO> getBoardList(Criteria cri);
 
-	int getBoardTotalCount(Criteria cri);
-
-	GatherVO getGather(int ga_num);
+	GatherVO getGather(int st_num);
 
 
 

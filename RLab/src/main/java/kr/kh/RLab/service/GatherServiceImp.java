@@ -121,22 +121,11 @@ public class GatherServiceImp implements GatherService {
 		return tagList;
 	}
 
-	@Override
-	public ArrayList<StudyVO> getBoardList(Criteria cri) {
-		if(cri == null)
-			cri = new Criteria();
-		return gatherDao.selectStudyList(cri);
-	}
+
 
 	@Override
-	public int getBoardTotalCount(Criteria cri) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public GatherVO getGather(int ga_num) {	
-		return gatherDao.selectGather(ga_num);
+	public GatherVO getGather(int st_num) {	
+		return gatherDao.selectGather(st_num);
 	}
 
 	

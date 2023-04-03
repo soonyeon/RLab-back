@@ -33,23 +33,7 @@ select 	* from tag_register
 <select id="selectGather" resultType="kr.kh.RLab.vo.GatherVO">
 select * from gather
 join study on ga_st_num = st_num
-where ga_num = #{ga_num}
+where ga_st_num = #{st_num}
 </select>
 
-<!--  <select id="selectStudyList" resultType="kr.kh.RLab.vo.StudyVO">
-select * 
-from study
-where
-  	st_name like concat('%',#{cri.search},'%')
-  order by st_num desc
-  limit #{cri.pageStart}, #{cri.perPageNum}
-</select>
-<select id="selectStudyTotalCount" resultType="int">
-select 
-	count(*) 
-from study
-where 	
-	(st_name like concat('%',#{cri.search},'%'))
-	or (st_content like concat('%', #{cri.search},'%'))
-</select>-->
 </mapper>

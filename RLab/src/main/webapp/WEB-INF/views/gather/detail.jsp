@@ -55,8 +55,6 @@
 							</c:if>
 						</c:forEach>
 					</div>
-
-
 					<button class="apply_btn">신청하기</button>
 				</div>
 			</div>
@@ -107,7 +105,7 @@
                                      --%>
             </div>
         </div>
-    </div>		
+    </div>	
 </main>
 
 <script>

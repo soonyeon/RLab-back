@@ -93,7 +93,7 @@
 						<c:forEach begin="${i}" end="${i+2}" var="index">
 						<c:if  test="${stList.size()-1 >= index}" >
 							<li class="study_card_box add_shadow">
-								<a href="<c:url value='/gather/detail/{ga_num}'></c:url>">
+								<a href="<c:url value='/gather/detail/${stList.get(index).st_num}'></c:url>">
 									<div class="study_img_box">
 										<c:forEach items="${fileList}" var="fi" varStatus="">
 											<c:if test="${fi.fi_ex_num == stList.get(index).st_num}">
