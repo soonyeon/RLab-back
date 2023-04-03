@@ -95,14 +95,43 @@ public class MemberServiceImp implements MemberService {
 				!Pattern.matches(pwRegex, pw.getMe_pw()))
 			return false;
 //		user = memberDao.selectMemberByPw(pw.getMe_pw());
-		System.out.println(user);
-		System.out.println(pw);
+		System.out.println("비번체크 세션" + user);
+		System.out.println("비번체크 입력" + pw);
 		if(user == null)
 			return false;
 		if(passwordEncoder.matches(pw.getMe_pw(), user.getMe_pw()))		
-//		if(passwordEncoder.matches(user.getMe_pw(), pw.getMe_pw()))
+
 			return true;
 		return false;
+	}
+
+
+	@Override
+	public boolean editUser(MemberVO member, MemberVO user) {
+		   if (member == null) {
+		        return false;
+		    }
+		    System.out.println("기존 정보" + member);
+		    if(!member.getMe_pw().equals("")) {
+			    String newPw = passwordEncoder.encode(member.getMe_pw());
+			    member.setMe_pw(newPw);
+		    }else {
+		    	member.setMe_pw(user.getMe_pw());
+		    }
+			    System.out.println("encoder" + member);
+		    try {
+		        int result = memberDao.updateMember(member);
+		        if(result == 0) {
+		        	return false;
+		        }
+		        
+		    } catch (Exception e) {
+		        // 예외 처리 코드 추가
+		        e.printStackTrace();
+		    }
+		
+		
+		return true;
 	}
 
 }

@@ -36,7 +36,7 @@
 							<label for="nick_name">닉네임 수정</label>
 							<div class="item_container">
 								<div class="input_box">
-									<input type="text" class="input_window" id="nick_name" name="me_name" placeholder="새 닉네임 입력">
+									<input type="text" class="input_window" id="nick_name" name="me_name" value="${user.me_name}" placeholder="새 닉네임 입력">
 								</div>
 								<input type="button" class="check_btn check_name" value="중복 확인">
 							</div>
@@ -52,7 +52,7 @@
 						<div class="input_container">
 							<label for="pw_new_check">새 비밀번호 확인</label>
 							<div class="input_box">
-								<input type="password" class="input_window" id="pw_new_check" name="me_pw2" placeholder="새 비밀번호 확인">
+								<input type="password" class="input_window" id="pw_new_check" name="me_pw2"  placeholder="새 비밀번호 확인">
 							</div>
 						</div>
 
@@ -60,7 +60,7 @@
 							<label for="email">이메일</label>
 							<div class="item_container">
 								<div class="input_box">
-									<input type="email" class="input_window" id="email" name="me_email" placeholder="000000@naver.com">
+									<input type="email" class="input_window" id="email" name="me_email" value="${user.me_email}" placeholder="000000@naver.com">
 								</div>
 								<input type="button" id="mail_send_btn" class="check_btn check_mail" value="이메일 인증">
 							</div>
@@ -89,23 +89,28 @@
 
 	</div>
 <script>
-
+alert('<%=request.getParameter("me_pw") == null%>')
+if(<%=request.getParameter("me_pw") == null%>) {
+    member.setMe_pw((String) session.getAttribute("me_pw"));
+} else {
+    member.setMe_pw(request.getParameter("me_pw"));
+}
 	$("#edit_info").validate({
 		// 유효성 검사 규칙
 		rules : {
 			me_name : {
-				required : true,
+				//required : true,
 				regex : /^[ㄱ-ㅎ가-힣a-zA-Z0-9]{2,9}$/
 			},
 			me_pw : {
-				required : true,
+				//required : true,
 				regex : /^[a-zA-Z0-9!@#]{8,19}$/
 			},
 			me_pw2 : {
 				equalTo : pw_new
 			},
 			me_email : {
-				required : true,
+				//required : true,
 				email : true
 			}
 		},
@@ -182,7 +187,7 @@ $('.check_name').click(function(){
 $('[name= me_name]').change(function(){
 	nameCheck = false;
 });
-let nameCheck = false; 
+let nameCheck = true; 
 
 
 /* 이메일인증 */

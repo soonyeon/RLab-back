@@ -14,4 +14,6 @@ public interface MemberDAO {
 	
 	void updateAuthority(@Param("me_id")String me_id,@Param("me_authority") int i);
 
+	int updateMember(@Param("m")MemberVO member);
+
 }

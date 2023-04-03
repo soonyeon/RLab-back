@@ -102,6 +102,7 @@ public class HomeController {
 			HttpSession session) {
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		boolean res = memberService.checkPw(pw, user);
+		System.out.println(res);
 		if(res) {
 			mv.setViewName("redirect:/mypage/user");
 		}
@@ -110,13 +111,36 @@ public class HomeController {
 		return mv;
 	}
 	
-	
-
 	@RequestMapping(value="/mypage/user", method=RequestMethod.GET)
 	public ModelAndView editUser(ModelAndView mv) {
 		mv.setViewName("/mypage/edit_user");
 		return mv;
 	}
+
+	@RequestMapping(value="/mypage/user", method=RequestMethod.POST)
+	public ModelAndView editUser(ModelAndView mv, MemberVO member, HttpSession session) {
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		member.setMe_id(user.getMe_id());
+		System.out.println(member);
+		boolean isEdited = memberService.editUser(member, user); 
+		if(isEdited) {
+			user.setMe_name(member.getMe_name());
+			System.out.println(member.getMe_pw());
+			user.setMe_pw(member.getMe_pw());
+			user.setMe_email(member.getMe_email());
+			session.setAttribute("user", user);
+			System.out.println("수정된 세션" + user);
+			System.out.println("수정성공");
+			mv.setViewName("redirect:/");
+		}else {
+			System.out.println("수정실패");
+			mv.setViewName("redirect:/mypage/user");
+			return mv;
+		}
+		return mv;
+	}
+	
+
 	
 	
 }

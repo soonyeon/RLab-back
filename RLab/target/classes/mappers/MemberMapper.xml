@@ -22,5 +22,12 @@
 		where
 			me_id = #{me_id}
 	</update>
+	<update id="updateMember">
+		  UPDATE member
+		  SET me_name = #{m.me_name},
+		      me_pw = #{m.me_pw},
+		      me_email = #{m.me_email}
+		  WHERE me_id = #{m.me_id}
+	</update>
 
 </mapper>
