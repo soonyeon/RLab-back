@@ -24,21 +24,21 @@ public interface GatherDAO {
 
 	boolean insertGather(@Param("gather")GatherVO gather);
 
-	ArrayList<StudyVO> selectStudyAll();
+	ArrayList<StudyVO> selectStudyAll(@Param("cri")Criteria cri);
 
 	ArrayList<FileVO> selectFileList();
 
 	ArrayList<TagRegisterVO> selectTagList();
-
-	ArrayList<StudyVO> selectStudyList(@Param("cri")Criteria cri);
-
-	int selectStudyTotalCount(@Param("cri")Criteria cri);
 
 	GatherVO selectGather(@Param("st_num")int st_num);
 
 	StudyVO selectStudy(@Param("st_num")int st_num);
 
 	void countViews(@Param("st_num")int st_num);
+
+	int selectStudyTotalCount(@Param("cri")Criteria cri);
+
+
 
 
 

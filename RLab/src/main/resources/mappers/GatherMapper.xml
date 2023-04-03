@@ -23,7 +23,8 @@
 </insert>
 <select id="selectStudyAll" resultType="kr.kh.RLab.vo.StudyVO" >
 	select * from study
-	order by st_num desc 
+	order by st_num desc
+	limit #{cri.pageStart}, #{cri.perPageNum} 
 </select>
 <select id="selectFileList" resultType="kr.kh.RLab.vo.FileVO">
 	select * from file
@@ -47,4 +48,8 @@ where st_num = #{st_num}
 		where
 			ga_st_num = #{st_num}
 </update>
+<select id="selectStudyTotalCount" resultType="int"> 
+	select count(*) from study
+</select> 
+
 </mapper>

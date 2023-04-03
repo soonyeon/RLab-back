@@ -21,7 +21,7 @@ public interface GatherService {
 
 	boolean insertGather(MemberVO member, GatherVO gather, StudyVO study);
 
-	ArrayList<StudyVO> selectStudyAll();
+	ArrayList<StudyVO> selectStudyAll(Criteria cri);
 
 	ArrayList<FileVO> selectFileList();
 
@@ -30,6 +30,9 @@ public interface GatherService {
 	GatherVO getGather(int st_num);
 
 	StudyVO getStudy(int st_num);
+
+	int getStudyTotalCount(Criteria cri);
+
 
 
 

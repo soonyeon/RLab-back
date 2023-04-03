@@ -106,8 +106,8 @@ public class GatherServiceImp implements GatherService {
 	}
 
 	@Override
-	public ArrayList<StudyVO> selectStudyAll() {
-		return gatherDao.selectStudyAll();
+	public ArrayList<StudyVO> selectStudyAll(Criteria cri) {
+		return gatherDao.selectStudyAll(cri);
 	}
 
 	@Override
@@ -131,6 +131,12 @@ public class GatherServiceImp implements GatherService {
 	public StudyVO getStudy(int st_num) {
 		return gatherDao.selectStudy(st_num);
 	}
+
+	@Override
+	public int getStudyTotalCount(Criteria cri) {
+		return gatherDao.selectStudyTotalCount(cri);
+	}
+
 
 	
 

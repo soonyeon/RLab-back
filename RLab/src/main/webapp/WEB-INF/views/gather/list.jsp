@@ -8,8 +8,6 @@
 <script src="<c:url value='/resources/js/jquery.min.js'></c:url>"></script>
 
 </script>
-<!-- 검색창 -->
-<!-- Main -->
 <main>
 	<!-- 검색창 -->
 	<section>
@@ -131,16 +129,20 @@
 					</div>
 					</c:forEach>
 				</ul>
-
+	
             <a class="make_recruit" href="<c:url value='/gather/insertgather'></c:url>">모집글 작성</a>
             <div class="page_box clearfix">
-                <i class="btn_prev"></i>
-                <span class="page_num selected">1</span>
-                <span class="page_num">2</span>
-                <span class="page_num">3</span>
-                <span class="page_num">4</span>
-                <span class="page_num">5</span>
-                <i class="btn_next"></i>
+            	<c:if test="${pm.prev}">
+               	 <a href="<c:url value='/gather/list?page=${pm.startPage-1}'></c:url>"><i class="btn_prev"></i></a>
+                </c:if>	 
+                <c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
+               	 <span class="page_num <c:if test="${pm.cri.page == i }">selected</c:if>">
+					<a href="<c:url value='/gather/list?page=${i}'></c:url>">${i}</a>
+               	 </span>
+                </c:forEach>
+                <c:if test="${pm.next}">
+                	<a href="<c:url value='/gather/list?page=${pm.endPage+1}'></c:url>"><i class="btn_next"></i></a>
+                </c:if>	 
             </div>
 	</div>
 </main>
