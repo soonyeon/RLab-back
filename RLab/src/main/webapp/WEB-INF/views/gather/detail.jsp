@@ -112,7 +112,7 @@
 let page = 1; //댓글 페이지
 const boardNum = '${ga.ga_num}';
 const userId = '${user.me_id}';
-    let isLoading = false;
+let isLoading = false;
 $(document).ready(function() {
     let currentPage = 1;
 
