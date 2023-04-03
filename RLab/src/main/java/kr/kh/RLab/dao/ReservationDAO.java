@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Param;
 
 import kr.kh.RLab.vo.BranchVO;
+import kr.kh.RLab.vo.TicketOwnVO;
 
 public interface ReservationDAO {
 
@@ -15,5 +16,7 @@ public interface ReservationDAO {
 	ArrayList<BranchVO> selectBranchBySearchName(@Param("search")String search, @Param("region")String region);
 
 	BranchVO selectBranchByBr_num(@Param("br_num")int br_num);
+
+	ArrayList<TicketOwnVO> selectAllTicketOwnById(@Param("me_id")String me_id);
 
 }

@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import kr.kh.RLab.service.ReservationService;
 import kr.kh.RLab.vo.BranchVO;
 import kr.kh.RLab.vo.MemberVO;
+import kr.kh.RLab.vo.TicketOwnVO;
 
 @Controller
 public class ReservationController {
@@ -61,10 +62,15 @@ public class ReservationController {
 		return mv;
 	}
 	@RequestMapping(value = "/reservation/1/{br_num}", method=RequestMethod.GET) 
-	public ModelAndView seatDetail(ModelAndView mv, @PathVariable("br_num")int br_num) {
+	public ModelAndView seatDetail(ModelAndView mv, @PathVariable("br_num")int br_num, HttpSession session) {
 		BranchVO br = reservationService.getBranchByBrNum(br_num);
+		//소유티켓가져와서 넘겨줘야함
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		ArrayList<TicketOwnVO> toList = reservationService.getTicketOwnListById(user.getMe_id());
+		System.out.println(toList);
 		mv.addObject("br", br);
 		mv.addObject("br_num", br_num);
+		mv.addObject("toList", toList);
 		mv.setViewName("/reservation/seat_select");
 		return mv;
 	}

@@ -192,16 +192,12 @@
 					<!-- 이용권 고르기 영역 -->
 					<div class="ticket_area">
 						<select id="ticket_select">
-							<option value="onetime_2">1회 이용권 (2시간)</option>
-							<option value="onetime_3">1회 이용권 (3시간)</option>
-							<option value="onetime_6">1회 이용권 (6시간)</option>
-							<option value="period_2">기간 이용권 (2주)</option>
-							<option value="period_4">기간 이용권 (4주)</option>
-							<option value="timepkg_30">시간 패키지 (30시간)</option>
-							<option value="timepkg_50">시간 패키지 (50시간)</option>
-							<option value="timepkg_100">시간 패키지 (100시간)</option>
+							<c:forEach items="${toList}" var="to">
+								<option value="${to.to_num}">${to.tt_name}(${to.ti_name})</option>
+							</c:forEach>
+							<option value="12">ads(2dsfsfd)</option>
 						</select>
-						<select class="time_select time_30 ">
+						<select class="time_select time_30 display_none">
 							<option value="hour_1">1시간</option>
 							<option value="hour_2">2시간</option>
 							<option value="hour_3">3시간</option>
@@ -423,6 +419,18 @@ $('.seat').click(function(){
 $('.seat_selected').click(function(){
 	seatInit();
 })
+
+$('.ticket_select').click(function(){
+	let val = $(this).val();
+	console.log(val);
+	if(val==4)
+		$('.time_select.time_30').removeClass('.display_none');
+	if(val==5)
+		$('.time_select.time_50').removeClass('.display_none');
+	if(val==6)
+		$('.time_select.time_100').removeClass('.display_none');
+})
+
 
 function seatInit(){
 	$('.seat_table .seat_selected').removeClass('seat_selected').addClass('seat');

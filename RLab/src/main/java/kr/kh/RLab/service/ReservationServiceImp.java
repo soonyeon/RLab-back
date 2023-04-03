@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kr.kh.RLab.dao.ReservationDAO;
 import kr.kh.RLab.vo.BranchVO;
+import kr.kh.RLab.vo.TicketOwnVO;
 
 @Service
 public class ReservationServiceImp implements ReservationService {
@@ -33,6 +34,11 @@ public class ReservationServiceImp implements ReservationService {
 	@Override
 	public BranchVO getBranchByBrNum(int br_num) {
 		return reservationDao.selectBranchByBr_num(br_num);
+	}
+
+	@Override
+	public ArrayList<TicketOwnVO> getTicketOwnListById(String me_id) {
+		return reservationDao.selectAllTicketOwnById(me_id);
 	}
 
 }

@@ -3,6 +3,7 @@ package kr.kh.RLab.service;
 import java.util.ArrayList;
 
 import kr.kh.RLab.vo.BranchVO;
+import kr.kh.RLab.vo.TicketOwnVO;
 
 public interface ReservationService {
 
@@ -13,5 +14,7 @@ public interface ReservationService {
 	ArrayList<BranchVO> searchBranchList(BranchVO br);
 
 	BranchVO getBranchByBrNum(int br_num);
+
+	ArrayList<TicketOwnVO> getTicketOwnListById(String me_id);
 
 }
