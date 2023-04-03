@@ -688,4 +688,3 @@ ALTER TABLE `study` ADD CONSTRAINT `FK_region_TO_study_1` FOREIGN KEY (
 REFERENCES `region` (
 	`re_name`
 );
-
