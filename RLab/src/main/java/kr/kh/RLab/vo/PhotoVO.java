@@ -26,8 +26,6 @@ public class PhotoVO {
 	    return format.format(ph_register_date);
 	}
 	
-	public String getPhImgUrl() {
-	    return "file:///D:/uploadfiles/" + ph_img;
-	}
+
 
 }
