@@ -27,8 +27,9 @@ public interface GatherService {
 
 	ArrayList<TagRegisterVO> selectTagList();
 
-
 	GatherVO getGather(int st_num);
+
+	StudyVO getStudy(int st_num);
 
 
 

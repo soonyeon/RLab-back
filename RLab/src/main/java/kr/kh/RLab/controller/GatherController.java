@@ -59,7 +59,7 @@ public class GatherController {
 	    return mv;
 	}
 	
-	@PostMapping("/list")
+	@PostMapping("/insertgather")
 	public ModelAndView gatherInsertPost(ModelAndView mv,HttpServletRequest request,GatherVO gather,StudyVO study) {
 		MemberVO member = (MemberVO)request.getSession().getAttribute("user");
 		boolean res = gatherService.insertGather(member,gather,study);
@@ -84,8 +84,10 @@ public class GatherController {
 	@GetMapping("/detail/{st_num}")
 	public ModelAndView gatherDetail(ModelAndView mv,@PathVariable("st_num")int st_num) {
 		GatherVO gather = gatherService.getGather(st_num);
-		ArrayList<StudyVO> stList = gatherService.selectStudyAll();
+		StudyVO study = gatherService.getStudy(st_num);
 		ArrayList<TagRegisterVO> tagList = gatherService.selectTagList();
+		mv.addObject("tagList",tagList);
+		mv.addObject("st",study);
 		mv.addObject("ga",gather);
 		mv.setViewName("/gather/detail");
 	    return mv;

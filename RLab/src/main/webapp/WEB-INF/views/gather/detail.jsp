@@ -16,15 +16,15 @@
 <main>
 	<div id="main_container">
 		<div class="board_title">
-			<span>[서울]</span> <span>정처기 같이 준비해요!</span>
+			<span>${st.st_re_name}</span><span>${st.st_name}</span>
 		</div>
 		<div class="title_bottom">
 			<div class="writer_box">
 				<a href="#" class="writer"> <img class="icon_writer"
-					src="<c:url value='/resources/img/profile_img.png'></c:url>"> <span class="writer_name">김돌탕</span></a>
+					src="<c:url value='/resources/img/profile_img.png'></c:url>"> <span class="writer_name">${ga.me_name}</span></a>
 			</div>
 			
-			<span class="write_date">${ga.ga_reg_date}</span>
+			<span class="write_date">${ga.ga_reg_date_str}</span>
 			<div class="view_box">
 				<img class="icon_view" src="<c:url value='/resources/img/view_lightgray.png'></c:url>">
 				<span class="view">${ga.ga_views}</span>
@@ -44,7 +44,7 @@
 					</div>
 					<div class="study_content">
 						<div class="study_recruiting">
-							<span>모집중</span> <span>1</span> <span>/</span> <span>5</span>
+							<span>모집중</span> <span>${st.st_now_people}</span> <span>/</span> <span>${st.st_total_people}</span>
 						</div>
 						<div class="like_img"></div>
 					</div>

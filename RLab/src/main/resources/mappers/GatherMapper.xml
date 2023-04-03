@@ -21,7 +21,7 @@
 	insert into gather(ga_title,ga_content,ga_st_num,ga_me_id,ga_reg_date)
 	values(#{gather.ga_title},#{gather.ga_content},#{gather.ga_st_num},#{gather.ga_me_id},DATE(NOW()))
 </insert>
-<select id="selectStudy" resultType="kr.kh.RLab.vo.StudyVO" >
+<select id="selectStudyAll" resultType="kr.kh.RLab.vo.StudyVO" >
 	select * from study
 </select>
 <select id="selectFileList" resultType="kr.kh.RLab.vo.FileVO">
@@ -31,9 +31,20 @@
 select 	* from tag_register
 </select>
 <select id="selectGather" resultType="kr.kh.RLab.vo.GatherVO">
-select * from gather
-join study on ga_st_num = st_num
+select * from gather 
+join member on me_id = ga_me_id
 where ga_st_num = #{st_num}
 </select>
-
+<select id="selectStudy" resultType="kr.kh.RLab.vo.StudyVO">
+select * from study
+where st_num = #{st_num}
+</select>
+<update id="countViews">
+	update gather
+		set 
+			ga_views = ga_views+1
+		where
+			ga_st_num = #{st_num}
+	
+</update>
 </mapper>
