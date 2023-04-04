@@ -64,8 +64,11 @@
     color: var(--color_black); 
     font-size: var(--font_size_cont_m); 
     padding: 5px 10px;
-
   }
+  .search_container .search_icon{
+    background-color: transparent;
+    border: transparent;
+   }
 
   /* 모집 부분 */
   .result_container{
@@ -214,6 +217,7 @@
     border: none;
     font-size: small;
     font-weight: bold;
+    text-align : center;
   }
 
 
@@ -310,6 +314,7 @@
     border: none;
     font-weight: bold;
     box-shadow: 3px 3px 3px var(--color_grey);
+    text-align: center;
   }
 
   /* 넘기기 버튼 */

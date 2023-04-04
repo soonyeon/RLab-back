@@ -11,20 +11,21 @@
 <main>
 	<!-- 검색창 -->
 	<section>
+	
 		<div class="search_container">
+		<form action="<c:url value='/gather/list'></c:url>">
 			<div class="search_content">
 				<input type="text" class="search_title" placeholder="제목으로 검색하기" name="search" value="${pm.cri.search}">
-				<button type="submit"><img class="icon_search"
+				<button class="search_icon" type="submit"><img class="icon_search"
 					src="<c:url value='/resources/img/serch.png'></c:url>" alt=""></button>
 			</div>
 			<div class="search_content">
 				<input type="text" class="search_tag" placeholder="# 태그로 검색하기">
 			</div>
+		</form>
 			<div class="tag_box">
-				<span class="tag_box_name">관련 태그 : </span> <a href="#"
-					class="hashTag">#자격증</a> <a href="#" class="hashTag">#독서토론모임</a> 
-					<a	href="#" class="hashTag">#자격증</a> <a href="#" class="hashTag">#자격증</a>
-				<a href="#" class="hashTag">#자격증</a>
+				<span class="tag_box_name">관련 태그 : </span> 
+				<a href="#" class="hashTag">#자격증</a> 
 			</div>
 		</div>
 	</section>
@@ -78,9 +79,11 @@
 					</div>
 				</div>
 				<div class="make_rc_box">
-					<span>바로 지금,나만의 공부메이트</span> <a
-						href="<c:url value='/gather/insertstudy'></c:url>"
-						class="make_project"> 스터디 만들기</a>
+					<span>바로 지금,나만의 공부메이트</span> 
+					<c:if test="${user != null }">
+						<a href="<c:url value='/gather/insertstudy'></c:url>"
+							class="make_project"> 스터디 만들기</a>
+					</c:if>
 				</div>
 			</div>
 		</section>
@@ -129,19 +132,20 @@
 					</div>
 					</c:forEach>
 				</ul>
-	
-            <a class="make_recruit" href="<c:url value='/gather/insertgather'></c:url>">모집글 작성</a>
+			<c:if test="${user != null}">
+           	 <a class="make_recruit" href="<c:url value='/gather/insertgather'></c:url>">모집글 작성</a>
+            </c:if>
             <div class="page_box clearfix">
             	<c:if test="${pm.prev}">
                	 <a href="<c:url value='/gather/list?page=${pm.startPage-1}'></c:url>"><i class="btn_prev"></i></a>
                 </c:if>	 
                 <c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
                	 <span class="page_num <c:if test="${pm.cri.page == i }">selected</c:if>">
-					<a href="<c:url value='/gather/list?page=${i}'></c:url>">${i}</a>
+					<a href="<c:url value='/gather/list?page=${i}&search=${pm.cri.search}'></c:url>">${i}</a>
                	 </span>
                 </c:forEach>
                 <c:if test="${pm.next}">
-                	<a href="<c:url value='/gather/list?page=${pm.endPage+1}'></c:url>"><i class="btn_next"></i></a>
+                	<a href="<c:url value='/gather/list?page=${pm.endPage+1}&search=${pm.cri.search}'></c:url>"><i class="btn_next"></i></a>
                 </c:if>	 
             </div>
 	</div>

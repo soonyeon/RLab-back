@@ -22,9 +22,11 @@
 	values(#{gather.ga_title},#{gather.ga_content},#{gather.ga_st_num},#{gather.ga_me_id},DATE(NOW()))
 </insert>
 <select id="selectStudyAll" resultType="kr.kh.RLab.vo.StudyVO" >
-	select * from study
-	order by st_num desc
-	limit #{cri.pageStart}, #{cri.perPageNum} 
+	SELECT *
+	FROM study
+	WHERE st_name LIKE CONCAT('%',#{cri.search},'%')
+	ORDER BY st_num DESC
+	LIMIT #{cri.pageStart}, #{cri.perPageNum} 
 </select>
 <select id="selectFileList" resultType="kr.kh.RLab.vo.FileVO">
 	select * from file
@@ -50,6 +52,7 @@ where st_num = #{st_num}
 </update>
 <select id="selectStudyTotalCount" resultType="int"> 
 	select count(*) from study
+	where st_name like concat('%',#{cri.search},'%')
 </select> 
 
 </mapper>
