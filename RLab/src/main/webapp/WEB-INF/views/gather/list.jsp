@@ -169,11 +169,12 @@
 	
 	//지역검색
 	$(document).ready(function(){
-		  $('.sel_region a').click(function(e){
-		    $('.sel_region .selected').removeClass('selected'); 
-		    $(this).addClass('selected'); 
-		  });
-		});
+	  $('.sel_region a').click(function(e){
+	    //e.preventDefault(); // 기본 동작 중지
+	    $('.sel_region .selected').removeClass('selected');
+	    $(this).addClass('selected');
+	  });
+	});
 	
 	//태그 삭제
 	$(document).on('click', '.delete_tag', function(e){
@@ -188,6 +189,7 @@
 	  $(this).parent().remove();
 	  $('#gather_form').submit();
 	});
+	//a태그 새로고침 막아주는 스크립트
 	$(document).on('click', '.sel_hashTag', function(e){
 		e.preventDefault();
 	});
