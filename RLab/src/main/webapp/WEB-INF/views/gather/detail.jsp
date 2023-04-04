@@ -317,7 +317,8 @@ $(document).ready(function() {
             dataType: 'json',
             success: function(Data) {
                 alert('대댓글 등록에 성공하였습니다.');
-                loadComments(1); // 댓글 다시 불러오기
+                $('.comment_box').empty()
+                loadComments(1);
             },
             error: function(error) {
                 alert('대댓글 등록에 실패했습니다. 다시 시도해주세요.');
