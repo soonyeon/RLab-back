@@ -94,6 +94,12 @@ public class HomeController {
 		return map;
 	}
 	
+	@RequestMapping(value="/mypage/mypage", method=RequestMethod.GET)
+	public ModelAndView mypage(ModelAndView mv) {
+		mv.setViewName("/mypage/mypage");
+		return mv;
+	}
+	
 	@RequestMapping(value="/mypage/pwcheck", method=RequestMethod.GET)
 	public ModelAndView pwCheck(ModelAndView mv) {
 		mv.setViewName("/mypage/pwcheck");
