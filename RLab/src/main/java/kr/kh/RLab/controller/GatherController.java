@@ -77,6 +77,7 @@ public class GatherController {
 		ArrayList<StudyVO> stList = gatherService.selectStudyAll(cri);
 		ArrayList<FileVO> fileList = gatherService.selectFileList();
 		ArrayList<TagRegisterVO> tagList = gatherService.selectTagList();
+		System.out.println(stList);
 		mv.addObject("pm",pm);
 		mv.addObject("stList",stList);
 		mv.addObject("tagList",tagList);
