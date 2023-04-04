@@ -232,7 +232,7 @@ $(document).ready(function() {
         let comment = {
             co_me_id: '${user.me_id}',
             co_content: commentContent,
-            co_table: "board", //게시판 구분
+            co_table: "gather", //게시판 구분
             co_ex_num: boardNum
         };
 
@@ -305,7 +305,7 @@ $(document).ready(function() {
             co_me_id: '${user.me_id}',
             co_content: replyContent,
             co_ori_num: co_ori_num,
-            co_table: 'board',
+            co_table: 'gather',
             co_ex_num: boardNum
         }
 
