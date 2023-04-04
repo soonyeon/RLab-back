@@ -536,6 +536,7 @@
                 if (response.result == "success") {
                     alert("댓글이 삭제되었습니다.");
                     // 댓글 목록을 다시 불러옴
+                    $('.comment_box').empty();
                     loadComments(page);
                     loadCommentCount();
                 } else {
