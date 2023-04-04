@@ -45,7 +45,7 @@ public class GatherController {
 		MemberVO member = (MemberVO)request.getSession().getAttribute("user");
 		boolean res = gatherService.insertStudy(study,member,region,files,file,tag,tagRegister);
 		
-		mv.setViewName("/gather/gather");
+		mv.setViewName("redirect:/gather/list");
 		return mv;
 	}
 	
@@ -64,10 +64,9 @@ public class GatherController {
 	public ModelAndView gatherInsertPost(ModelAndView mv,HttpServletRequest request,GatherVO gather,StudyVO study) {
 		MemberVO member = (MemberVO)request.getSession().getAttribute("user");
 		boolean res = gatherService.insertGather(member,gather,study);
-	    mv.setViewName("/gather/list");
+	    mv.setViewName("redirect:/gather/list");
 	    return mv;
 	}
-	
 	//게시글 리스트보기
 	@GetMapping("/list")
 	public ModelAndView mainlistgather(ModelAndView mv,Criteria cri) {

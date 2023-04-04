@@ -96,23 +96,27 @@
 	});
 	
 	$('form').submit(function(){
-		let region = $('[name=st_re_name]').val();
-		let title = $('[name=ga_title]').val();
-		let content = $('[name=ga_content]').val();
-		if(title.trim().length == 0){
-			alert('지역을 선택하세요.');
-			return false;
-		}
-		if(title.trim().length == 0){
-			alert('스터디명을 입력하세요.');
-			return false;
-		}
-		if(content.trim().length == 0){
-			alert('내용을 입력하세요.');
-			return false;
-		}
-
-	})
+		  let region = $('[name=st_re_name]').val();
+		  let member = $('[name=st_total_people]').val();
+		  let title = $('[name=st_name]').val();
+		  let content = $('[name=st_info]').val();
+		  if(region == '지역미지정'){
+		    alert('지역을 선택하세요.');
+		    return false;
+		  }
+		  if(member == 0){
+			    alert('인원을 입력하세요.');
+			    return false;
+			  }
+		  if(title.trim().length == 0){
+		    alert('스터디명을 입력하세요.');
+		    return false;
+		  }
+		  if(content.trim().length == 0){
+		    alert('소개글을 입력하세요.');
+		    return false;
+		  }
+		})
 	
 
 </script>

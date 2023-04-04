@@ -42,7 +42,7 @@
           <nav class="top_menu_container">
          	<a href="#" class="list_item">예약하기</a>
             <a href="#" class="list_item">스터디</a>
-            <a href="#" class="list_item">모집 게시판</a>
+            <a href="<c:url value='/gather/list'></c:url>" class="list_item">모집 게시판</a>
           </nav>
         </div>
         <div class="header_right">
