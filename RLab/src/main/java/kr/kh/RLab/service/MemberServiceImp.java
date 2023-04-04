@@ -134,4 +134,23 @@ public class MemberServiceImp implements MemberService {
 		return true;
 	}
 
+
+	@Override
+	public boolean editImg(MemberVO member, MemberVO user) {
+		System.out.println(member);
+		 try {
+		        int result = memberDao.updateProfile(member);
+		        if(result == 0) {
+		        	return false;
+		        }
+		        
+		    } catch (Exception e) {
+		        // 예외 처리 코드 추가
+		        e.printStackTrace();
+		    }
+		
+
+		return true;
+	}
+
 }

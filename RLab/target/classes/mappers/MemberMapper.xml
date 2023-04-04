@@ -29,5 +29,10 @@
 		      me_email = #{m.me_email}
 		  WHERE me_id = #{m.me_id}
 	</update>
+	<update id="updateProfile">
+		  UPDATE member
+		  SET me_profile = #{m.me_profile}
+		  WHERE me_id = #{m.me_id}
+	</update>
 
 </mapper>

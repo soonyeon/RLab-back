@@ -16,4 +16,6 @@ public interface MemberDAO {
 
 	int updateMember(@Param("m")MemberVO member);
 
+	int updateProfile(@Param("m")MemberVO member);
+
 }

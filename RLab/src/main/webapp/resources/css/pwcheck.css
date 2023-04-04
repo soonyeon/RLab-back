@@ -129,17 +129,7 @@ header #header_container {
   display: flex;
   align-items: center;
 }
-.mypage_container .mypage .icon_mypage{
-  display: flex;
-  width: 40px;
-  height: 40px;
-  border: 2px solid var(--color_mint);
-  border-radius: 50%;
-  background-size: 61px 40px;
-  background-position: -9px 0;
-  background-image: url(../img/profile_img.png);
-  background-repeat: no-repeat;
-}
+
 
 /* main */
 main{

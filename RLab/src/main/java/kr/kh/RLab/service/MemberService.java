@@ -16,4 +16,6 @@ public interface MemberService {
 
 	boolean editUser(MemberVO member, MemberVO user);
 
+	boolean editImg(MemberVO member, MemberVO user);
+
 }

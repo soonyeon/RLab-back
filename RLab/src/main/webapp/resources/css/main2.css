@@ -605,6 +605,7 @@ header #header_container {
   border-radius: var(--border_radius_1);
   margin-right: 10px;
 }
+
 .logout_btn{
   padding: 5px 5px;
   margin-right: 10px;

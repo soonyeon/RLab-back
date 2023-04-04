@@ -1,6 +1,8 @@
 package kr.kh.RLab.controller;
 
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.kh.RLab.service.MemberService;
@@ -140,7 +143,50 @@ public class HomeController {
 		return mv;
 	}
 	
+	@RequestMapping(value="/mypage/edit_img", method=RequestMethod.GET)
+	public ModelAndView editImg(ModelAndView mv) {
+		mv.setViewName("/mypage/edit_img");
+		return mv;
+	}
+	
+	@RequestMapping(value="/mypage/edit_img", method=RequestMethod.POST)
+	public ModelAndView editImgPost(ModelAndView mv, MemberVO member, HttpSession session, MultipartFile file) {
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		member.setMe_id(user.getMe_id());
+		String filePath = "D:/uploadFiles/";
+		String fileName = file.getOriginalFilename();
+		File dest = new File(filePath + fileName);
+		member.setMe_profile("/"+fileName);
+		System.out.println(user);
+		System.out.println(member);
 
+			try {
+				file.transferTo(dest);
+				System.out.println("저장 성공");
+				boolean isEdited = memberService.editImg(member, user); 
+				if(isEdited) {
+					System.out.println("수정 성공");
+					user.setMe_profile(member.getMe_profile());
+					System.out.println(user);
+					mv.setViewName("redirect:/mypage/edit_img");
+				}else {
+					System.out.println("수정 실패");
+					mv.setViewName("redirect:/mypage/edit_img");
+				}
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+				System.out.println("저장 실패");
+				mv.setViewName("redirect:/");
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.out.println("수정 실패");
+				mv.setViewName("redirect:/");
+			}
+				
+
+		
+		return mv;
+	}
 	
 	
 }

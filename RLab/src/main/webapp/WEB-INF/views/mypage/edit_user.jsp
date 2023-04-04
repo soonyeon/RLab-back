@@ -89,12 +89,7 @@
 
 	</div>
 <script>
-alert('<%=request.getParameter("me_pw") == null%>')
-if(<%=request.getParameter("me_pw") == null%>) {
-    member.setMe_pw((String) session.getAttribute("me_pw"));
-} else {
-    member.setMe_pw(request.getParameter("me_pw"));
-}
+
 	$("#edit_info").validate({
 		// 유효성 검사 규칙
 		rules : {
