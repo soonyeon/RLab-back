@@ -20,7 +20,10 @@
 					src="<c:url value='/resources/img/serch.png'></c:url>" alt=""></button>
 			</div>
 			<div class="search_content">
-				<input type="text" class="search_tag" placeholder="# 태그로 검색하기" >
+				<input type="text" class="search_tag" placeholder="# 태그로 검색하기" name="tagList[${pm.cri.tagList.size()}]" value="${pm.cri.searchTag}" >
+				<c:forEach items="${pm.cri.tagList}" var="tag" varStatus="vs">
+					<input type="hidden" name="tagList[${vs.index}]" value="${tag}">
+				</c:forEach>
 			</div>
 		</form>
 			<div class="tag_box">
@@ -50,9 +53,11 @@
 					<div class="recruit_tag_box ">
 						<span id="tag_title">#태그</span>
 						<div class="selectd_tag clearfix">
-								<a href="#" class="sel_hashTag">
+						<c:forEach items="${pm.cri.tagList}" var="tag" varStatus="vs">
+								<a href="" class="sel_hashTag" >
 									<button class="delete_tag"></button> 
 								</a> 
+						</c:forEach>
 						</div>
 					</div>
 					<div class="line"></div>
@@ -144,11 +149,11 @@
                 </c:if>	 
                 <c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
                	 <span class="page_num <c:if test="${pm.cri.page == i }">selected</c:if>">
-					<a href="<c:url value='/gather/list?page=${i}&search=${pm.cri.search}'></c:url>">${i}</a>
+					<a href="<c:url value='/gather/list?page=${i}&search=${pm.cri.search}&searchTag=${pm.cri.searchTag}'></c:url>">${i}</a>
                	 </span>
                 </c:forEach>
                 <c:if test="${pm.next}">
-                	<a href="<c:url value='/gather/list?page=${pm.endPage+1}&search=${pm.cri.search}'></c:url>"><i class="btn_next"></i></a>
+                	<a href="<c:url value='/gather/list?page=${pm.endPage+1}&search=${pm.cri.search}&searchTag=${pm.cri.searchTag}'></c:url>"><i class="btn_next"></i></a>
                 </c:if>	 
             </div>
 	</div>
@@ -169,8 +174,9 @@
 		});
 	
 	$(".search_tag").on("keydown", function(event) {
+		/*
 		  if (event.keyCode === 13) { // 엔터키를 누르면
-		    event.preventDefault(); // 기본 이벤트인 폼 제출을 막습니다.
+		    //event.preventDefault(); // 기본 이벤트인 폼 제출을 막습니다.
 		    var tagText = $(this).val().trim(); // 입력된 태그 텍스트를 가져옵니다.
 		    if (tagText !== "") { // 입력된 값이 비어있지 않은 경우에만 태그를 추가합니다.
 		      var $newTag = $("<a>").attr("href", "#").addClass("sel_hashTag").text("#" + tagText);
@@ -185,6 +191,7 @@
 		      $(this).val(""); // 입력된 값을 초기화합니다.
 		    }
 		  }
+		*/
 		});
 	
 	$(document).on("click", ".delete_tag", function() {
