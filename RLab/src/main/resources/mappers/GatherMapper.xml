@@ -35,6 +35,7 @@ LIMIT #{cri.pageStart}, #{cri.perPageNum}
 	select * from file
 </select>
 <select id="selectTagList" resultType="kr.kh.RLab.vo.TagRegisterVO">
+
 select 	* from tag_register
 </select>
 <select id="selectGather" resultType="kr.kh.RLab.vo.GatherVO">

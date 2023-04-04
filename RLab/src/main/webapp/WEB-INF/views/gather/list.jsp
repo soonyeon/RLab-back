@@ -20,12 +20,14 @@
 					src="<c:url value='/resources/img/serch.png'></c:url>" alt=""></button>
 			</div>
 			<div class="search_content">
-				<input type="text" class="search_tag" placeholder="# 태그로 검색하기">
+				<input type="text" class="search_tag" placeholder="# 태그로 검색하기" >
 			</div>
 		</form>
 			<div class="tag_box">
 				<span class="tag_box_name">관련 태그 : </span> 
-				<a href="#" class="hashTag">#자격증</a> 
+				<c:forEach items="tagList" var="tg">
+					<a href="#" class="hashTag">#자격증</a> 
+				</c:forEach>
 			</div>
 		</div>
 	</section>
@@ -48,26 +50,11 @@
 					<div class="recruit_tag_box ">
 						<span id="tag_title">#태그</span>
 						<div class="selectd_tag clearfix">
-							<a href="#" class="sel_hashTag">#자격증
-								<button class="delete_tag">X</button>
-							</a> <a href="#" class="sel_hashTag">#자격증
-								<button class="delete_tag">X</button>
-							</a> <a href="#" class="sel_hashTag">#자격증
-								<button class="delete_tag">X</button>
-							</a> <a href="#" class="sel_hashTag">#자격증
-								<button class="delete_tag">X</button>
-							</a> <a href="#" class="sel_hashTag">#자격증
-								<button class="delete_tag">X</button>
-							</a> <a href="#" class="sel_hashTag">#자격증
-								<button class="delete_tag">X</button>
-							</a> <a href="#" class="sel_hashTag">#자격증
-								<button class="delete_tag">X</button>
-							</a> <a href="#" class="sel_hashTag">#독서토론
-								<button class="delete_tag">X</button>
-							</a>
+								<a href="#" class="sel_hashTag">
+									<button class="delete_tag"></button> 
+								</a> 
 						</div>
 					</div>
-					
 					<div class="line"></div>
 					<div class="sel_region clearfix">
 						<span class="region_title">지역</span> 
@@ -175,9 +162,32 @@
 	
 	$(document).ready(function(){
 		  $('.sel_region a').click(function(e){
-		  	 //e.preventDefault(); 
+		  	 //e.preventDefault(); a태그 막아주는 기능
 		    $('.sel_region .selected').removeClass('selected'); 
 		    $(this).addClass('selected'); 
 		  });
+		});
+	
+	$(".search_tag").on("keydown", function(event) {
+		  if (event.keyCode === 13) { // 엔터키를 누르면
+		    event.preventDefault(); // 기본 이벤트인 폼 제출을 막습니다.
+		    var tagText = $(this).val().trim(); // 입력된 태그 텍스트를 가져옵니다.
+		    if (tagText !== "") { // 입력된 값이 비어있지 않은 경우에만 태그를 추가합니다.
+		      var $newTag = $("<a>").attr("href", "#").addClass("sel_hashTag").text("#" + tagText);
+		      var $deleteBtn = $("<button>").addClass("delete_tag").text("X");
+		      $newTag.append($deleteBtn);
+		      var $lastTag = $(".sel_hashTag").last();
+		      if ($lastTag.length > 0) {
+		        $newTag.insertAfter($lastTag);
+		      } else {
+		        $(".sel_hashTag").append($newTag);
+		      }
+		      $(this).val(""); // 입력된 값을 초기화합니다.
+		    }
+		  }
+		});
+	
+	$(document).on("click", ".delete_tag", function() {
+		  $(this).parent().remove(); // 클릭된 버튼의 부모 요소인 a 요소를 삭제합니다.
 		});
 </script>

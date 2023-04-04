@@ -15,6 +15,8 @@ public class Criteria {
 	//지역
 	private String region;
 	
+	private String tag;
+	
 	// Criteria 디폴트 생성자 : 현재 페이지를 1페이지로, 한 페이지에 10개의 컨텐츠
 	public Criteria() {
 		this.page = 1;
@@ -22,6 +24,7 @@ public class Criteria {
 		this.search ="";
 		this.type = 0; //초기값을 지정하지 않아도 초기값 0으로 처리됨. 
 		this.region="";
+		this.tag="";
 	}
 
 	/* 쿼리문에서 limit에 사용되는 인덱스를 계산하는 getter */
