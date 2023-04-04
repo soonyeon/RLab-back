@@ -70,5 +70,6 @@ where st_num = #{st_num}
 	AND st_re_name = #{cri.region} 
 	AND tr_name like concat('%',#{cri.searchTag},'%')
 </select> 
+<delete id=""></delete>
 
 </mapper>

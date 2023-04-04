@@ -13,7 +13,7 @@
 	<section>
 	
 		<div class="search_container">
-		<form action="<c:url value='/gather/list'></c:url>">
+		<form action="<c:url value='/gather/list'></c:url>" id="gather_form">
 			<div class="search_content">
 				<input type="text" class="search_title" placeholder="제목으로 검색하기" name="search" value="${pm.cri.search}">
 				<button class="search_icon" type="submit"><img class="icon_search"
@@ -22,7 +22,7 @@
 			<div class="search_content">
 				<input type="text" class="search_tag" placeholder="# 태그로 검색하기" name="tagList[${pm.cri.tagList.size()}]" value="${pm.cri.searchTag}" >
 				<c:forEach items="${pm.cri.tagList}" var="tag" varStatus="vs">
-					<input type="hidden" name="tagList[${vs.index}]" value="${tag}">
+					<input type="text" name="tagList[${vs.index}]" value="${tag}" class="list_tag">
 				</c:forEach>
 			</div>
 		</form>
@@ -42,20 +42,21 @@
 				<div class="menu_nav clearfix">
 					<div class="recruit_state">
 						<div class="recruit_state_title">모집중</div>
-						<input type="checkbox" id="recruit_switch"> <label
-							for="switch" class="switch_label"> <span
-							class="switch_on">ON</span> <span class="switch_btn"></span>
-							<li class="switch_check"><span class="btn_on">ON</span> <span
-								class="" btn_off>OFF</span>
-								<div class="switch_btn"></div></li>
+						<input type="checkbox" id="recruit_switch"> 
+						<label for="switch" class="switch_label"> 
+							<li class="switch_check">
+								<span class="btn_on">ON</span> 
+								<span class="btn_off">OFF</span>
+								<div class="switch_btn"></div>
+							</li>
 						</label>
 					</div>
 					<div class="recruit_tag_box ">
 						<span id="tag_title">#태그</span>
 						<div class="selectd_tag clearfix">
 						<c:forEach items="${pm.cri.tagList}" var="tag" varStatus="vs">
-								<a href="" class="sel_hashTag" >
-									<button class="delete_tag"></button> 
+								<a href="" class="sel_hashTag" ><span>${tag}</span>
+									<button class="delete_tag">X</button> 
 								</a> 
 						</c:forEach>
 						</div>
@@ -63,7 +64,7 @@
 					<div class="line"></div>
 					<div class="sel_region clearfix">
 						<span class="region_title">지역</span> 
-						<a href="<c:url value='/gather/list?region'></c:url>" class="selected">지역	미지정</a> 
+						<a href="<c:url value='/gather/list?region'></c:url>" class="selected">지역 미지정</a> 
 						<a href="<c:url value='/gather/list?region=서울특별시'></c:url>">서울 특별시</a> 
 						<a href="<c:url value='/gather/list?region=경기도'></c:url>">경기도</a> 
 						<a href="<c:url value='/gather/list?region=부산광역시'></c:url>">부산 광역시</a> 
@@ -159,42 +160,35 @@
 	</div>
 </main>
 <script>
+	//스위치 on off
 	$(document).ready(function() {
 		$('.switch_check').click(function() {
 			$('.switch_btn').toggleClass('switch_btn_on');
 		});
 	});
 	
+	//지역검색
 	$(document).ready(function(){
 		  $('.sel_region a').click(function(e){
-		  	 //e.preventDefault(); a태그 막아주는 기능
 		    $('.sel_region .selected').removeClass('selected'); 
 		    $(this).addClass('selected'); 
 		  });
 		});
 	
-	$(".search_tag").on("keydown", function(event) {
-		/*
-		  if (event.keyCode === 13) { // 엔터키를 누르면
-		    //event.preventDefault(); // 기본 이벤트인 폼 제출을 막습니다.
-		    var tagText = $(this).val().trim(); // 입력된 태그 텍스트를 가져옵니다.
-		    if (tagText !== "") { // 입력된 값이 비어있지 않은 경우에만 태그를 추가합니다.
-		      var $newTag = $("<a>").attr("href", "#").addClass("sel_hashTag").text("#" + tagText);
-		      var $deleteBtn = $("<button>").addClass("delete_tag").text("X");
-		      $newTag.append($deleteBtn);
-		      var $lastTag = $(".sel_hashTag").last();
-		      if ($lastTag.length > 0) {
-		        $newTag.insertAfter($lastTag);
-		      } else {
-		        $(".sel_hashTag").append($newTag);
-		      }
-		      $(this).val(""); // 입력된 값을 초기화합니다.
-		    }
-		  }
-		*/
-		});
-	
-	$(document).on("click", ".delete_tag", function() {
-		  $(this).parent().remove(); // 클릭된 버튼의 부모 요소인 a 요소를 삭제합니다.
-		});
+	//태그 삭제
+	$(document).on('click', '.delete_tag', function(e){
+		e.preventDefault();
+		var tag = $(this).prev().text()
+		console.log(tag)
+		$('.list_tag').each(function(){
+			console.log($(this).val()==tag)
+			if($(this).val()==tag)
+				$(this).remove();
+		})
+	  $(this).parent().remove();
+	  $('#gather_form').submit();
+	});
+	$(document).on('click', '.sel_hashTag', function(e){
+		e.preventDefault();
+	});
 </script>

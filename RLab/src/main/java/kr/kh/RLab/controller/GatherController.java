@@ -71,6 +71,8 @@ public class GatherController {
 	//게시글 리스트보기
 	@GetMapping("/list")
 	public ModelAndView mainlistgather(ModelAndView mv,Criteria cri) {
+		cri.sortCri();
+		System.out.println(cri.getTagList().size());
 		cri.setPerPageNum(9);
 		int totalCount = gatherService.getStudyTotalCount(cri);
 		PageMaker pm = new PageMaker(totalCount, 5, cri);

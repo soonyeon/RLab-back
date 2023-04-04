@@ -35,4 +35,10 @@ public class Criteria {
 	public int getPageStart() {
 		return (this.page -1) * perPageNum;
 	}
+	public void sortCri() {
+		for(int i = tagList.size()-1; i>=0; i--) {
+			if(tagList.get(i) == null || tagList.get(i).trim().length() == 0)
+				tagList.remove(i);
+		}
+	}
 }
