@@ -137,6 +137,11 @@ public class GatherServiceImp implements GatherService {
 		return gatherDao.selectStudyTotalCount(cri);
 	}
 
+	@Override
+	public ArrayList<Integer> selectStudyList() {
+		return gatherDao.selectStudyList();
+	}
+
 
 	
 

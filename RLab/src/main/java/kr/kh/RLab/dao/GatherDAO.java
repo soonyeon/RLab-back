@@ -38,6 +38,8 @@ public interface GatherDAO {
 
 	int selectStudyTotalCount(@Param("cri")Criteria cri);
 
+	ArrayList<Integer> selectStudyList();
+
 
 
 

@@ -298,9 +298,10 @@
     font-size:14px; width: 100px; 
     height: 30px; line-height: 28px;
   }
-  .study_card_container .study_content .like_img{
-    width: 30px; height: 30px;
-    background-image: url(../../img/like_on_red\copy.png);
+  .study_card_container .like_img{
+    width: 30px; 
+    height: 30px;
+    background-image: url('../../img/like_on_red.png');
     background-size: cover;
 
   }

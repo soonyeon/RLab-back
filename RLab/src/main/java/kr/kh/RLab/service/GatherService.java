@@ -33,6 +33,8 @@ public interface GatherService {
 
 	int getStudyTotalCount(Criteria cri);
 
+	ArrayList<Integer> selectStudyList();
+
 
 
 

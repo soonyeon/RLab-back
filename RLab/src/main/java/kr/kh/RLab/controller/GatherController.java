@@ -15,6 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.pagination.PageMaker;
 import kr.kh.RLab.service.GatherService;
+import kr.kh.RLab.service.ScrapService;
+import kr.kh.RLab.service.WantService;
 import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.MemberVO;
@@ -92,6 +94,8 @@ public class GatherController {
 		GatherVO gather = gatherService.getGather(st_num);
 		StudyVO study = gatherService.getStudy(st_num);
 		ArrayList<TagRegisterVO> tagList = gatherService.selectTagList();
+		//ArrayList<Integer> stList = gatherService.selectStudyList();
+		//mv.addObject("stList",stList);
 		mv.addObject("tgList",tagList);
 		mv.addObject("st",study);
 		mv.addObject("ga",gather);

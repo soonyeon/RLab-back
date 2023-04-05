@@ -39,7 +39,6 @@ AND st_re_name = #{cri.region}
 group by st_num
 ORDER BY st_num DESC
 LIMIT #{cri.pageStart}, #{cri.perPageNum}
-
 </select>
 <select id="selectFileList" resultType="kr.kh.RLab.vo.FileVO">
 	select * from file
@@ -70,6 +69,8 @@ where st_num = #{st_num}
 	AND st_re_name = #{cri.region} 
 	AND tr_name like concat('%',#{cri.searchTag},'%')
 </select> 
-<delete id=""></delete>
+<select id="selectStudyList">
+	select * from study
+</select>
 
 </mapper>

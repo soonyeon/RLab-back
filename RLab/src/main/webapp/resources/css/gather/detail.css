@@ -112,11 +112,16 @@
       height: 37px;
       line-height: 38px;
     }
-     .study_content .like_img{
-      width: 40px; 
-      height: 40px;
-      background-image: url('../../img/like_on_red.png');
+    
+     .study_content .want_icon {
+      width: 30px; 
+      height: 30px;
+      background-image: url('../../img/love_off.png');
       background-size: cover;
+    }
+    .unlike_img .like_icon{
+    	width : 30px;
+    	height:30px;
     }
     .study_tag_info{
       display: flex;

@@ -65,7 +65,7 @@
                                     <img class="icon_scrap" src="<c:url value='/resources/img/favorite_tag_white.png'></c:url>">
                                     <span>스크랩</span>
                                     <span class="scrap_num"></span>
-                             </div>
+                             	</div>
                                 <div class="comment_bottom">
                                     <img class="icon_scrap" src="<c:url value='/resources/img/speech_bubble.png'></c:url>">
                                     <span>댓글</span>
