@@ -4,8 +4,8 @@
 <link href="<c:url value='/resources/css/ticket_buy.css'></c:url>" rel="stylesheet">
 <!-- jQuery -->
 <script src="<c:url value='/resources/js/jquery.min.js'></c:url>"></script>
-<!-- PortOne.payment.js -->
-<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+<!-- bootpay.js -->
+<script src="https://js.bootpay.co.kr/bootpay-4.2.9.min.js" type="application/javascript"></script>
 <main>
 	<div class="main_container">
 		<!-- 주문과정/절차 -->
@@ -145,48 +145,14 @@
 					</div>
 					<!-- 결제하기 -->
 					<div class="pay_area area">
-						<input type="button" value="결제하기" id="pay_btn" onclick="requestPay()">
+						<input type="button" value="결제하기" id="pay_btn">
 					</div>
 				</div>
 			</form>
 		</div>
 	</div>
 </main>
-<script><!-- 결제 -->
-var IMP = window.IMP; // 생략 가능
-IMP.init("imp07478433"); // "가맹점 식별코드" 예: imp00000000a
 
-var today = new Date();   
-var hours = today.getHours(); // 시
-var minutes = today.getMinutes();  // 분
-var seconds = today.getSeconds();  // 초
-var milliseconds = today.getMilliseconds();
-var makeMerchantUid = hours +  minutes + seconds + milliseconds;
-
-function requestPay() {
-    IMP.request_pay({
-      pg: "kcp.A52CY", //"kcp.{상점ID}"
-      pay_method: "card",
-      merchant_uid: "${user.me_id}"+makeMerchantUid,   // 주문번호
-      name: "알랩 결제 테스트용",
-      amount: 10,                         // 숫자 타입
-      buyer_email: "kimsyty@naver.com",
-      buyer_name: "홍길동",
-      buyer_tel: "010-4242-4242",
-      buyer_addr: "서울특별시 강남구 신사동",
-      buyer_postcode: "01181"
-    }, function (rsp) { // callback
-      if (rsp.success) {
-        // 결제 성공 시 로직
-        console.log(rsp);
-      } else {
-        // 결제 실패 시 로직
-    	console.log(rsp);
-      }
-    });
-  }
-
-</script>
 <script> <!-- 화면 구성 -->
 let ticketStrArr = [];
 let ticketArr = [];
@@ -249,7 +215,7 @@ $('[name=pa_used_point]').change(function(){
 
 //최종 결제금액 구하기
 function calcFinalPrice(totalPrice){
-	let finalPrice = totalPrice - $('[name=pa_used_point]').val();
+	finalPrice = totalPrice - $('[name=pa_used_point]').val();
 	$('[name=final_price]').text(finalPrice.toLocaleString());
 }
 //총 결제금액 구하기
@@ -312,4 +278,153 @@ function addTicket(ticket){
 	showTicketList();
 	return;
 }
+</script>
+<script><!-- 결제 -->
+var today = new Date();   
+var hours = today.getHours(); // 시
+var minutes = today.getMinutes();  // 분
+var seconds = today.getSeconds();  // 초
+var milliseconds = today.getMilliseconds();
+var makeMerchantUid = hours +  minutes + seconds + milliseconds;
+
+var items = [];
+let finalName = '';
+let finalPrice = 0;
+function makeItemList(){
+	for(i=0; i<ticketArr.length-1; i++){
+		let id='';
+		if(ticketArr[i].type==1)
+			id = '1회 예약권';
+		else if(ticketArr[i].type==2)
+			id = '기간 이용권';
+		else if(ticketArr[i].type==3)
+			id = '시간 패키지';
+		else
+			id = '사물함 이용권';
+		let item = {
+			 "id": id,
+		     "name": ticketArr[i].title,
+		     "qty": ticketArr[i].count,
+		     "price": ticketArr[i].price.replace(/,/g, "")
+		}
+		items.push(item);
+	}
+	if(ticketArr.length==1)
+		finalName = ticketArr[0].title;
+	else if(ticketArr.length > 1)
+		finalName = ticketArr[0].title +'외 '+ticketArr.length-1+'건';
+}
+
+/* 결제 진행 */
+$('#pay_btn').click(function(){
+	makeItemList();
+	console.log(finalPrice);
+	console.log(items);
+	try {
+		const response = Bootpay.requestPayment({
+	   		"application_id": "642d26f2755e27001dad6270",
+	   		"price": finalPrice,
+	   		"order_name": finalName,
+	   		"order_id": "TEST_ORDER_ID",
+	   		"pg": "이니시스",
+	   		"method": "카드",
+	   		"tax_free": 0,
+	   		"user": {
+	   		  "id": '${user.me_id}',
+	   		  "email": '${user.me_email}'
+	   		},
+	   		"items": items,
+	   		"extra": {
+	   		  "open_type": "iframe",
+	   		  "card_quota": "0,2,3",
+	   		  "escrow": false
+	   		}
+	    })
+	    switch (response.event) {
+	        case 'issued':// 가상계좌 입금 완료 처리
+	            break
+	        case 'done':// 결제 완료 처리
+	            //비즈니스 로직을 수행하기 전에 결제 유효성 검증을 하길 추천함!
+				//location.replace("pay/confirm?receipt_id="+data.receipt_id);
+	            console.log(response);
+	            break
+	        case 'confirm': //payload.extra.separately_confirmed = true; 일 경우 승인 전 해당 이벤트가 호출됨
+	            console.log(response.receipt_id)
+	            
+	            /* 1. 클라이언트 승인을 하고자 할때
+	             * // validationQuantityFromServer(); //예시) 재고확인과 같은 내부 로직을 처리하기 한다.
+	             */
+	            const confirmedData = Bootpay.confirm() //결제를 승인한다
+	            if(confirmedData.event === 'done') {
+	                //결제 성공
+	            }
+	            /* 2. 서버 승인을 하고자 할때
+	             * // requestServerConfirm(); //예시) 서버 승인을 할 수 있도록  API를 호출한다. 서버에서는 재고확인과 로직 검증 후 서버승인을 요청한다.
+	             * Bootpay.destroy(); //결제창을 닫는다.*/
+	            break
+	    }
+	} catch (e) {// 결제 진행중 오류 발생
+	    // e.error_code - 부트페이 오류 코드
+	    // e.pg_error_code - PG 오류 코드
+	    // e.message - 오류 내용
+	    console.log(e.message)
+	    switch (e.event) {
+	        case 'cancel':// 사용자가 결제창을 닫을때 호출
+	            console.log(e.message);
+	    		//location.replace("pay/delete?id="+order.id); //DB값 삭제
+	            break
+	        case 'error':// 결제 승인 중 오류 발생시 호출
+	            console.log(e.error_code);
+	    		//location.replace("pay/delete?id="+order.id); //DB값 삭제
+	            break
+	    }
+	}
+	/* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+	const response = BootPay.request({
+		price: totalPrice,//실제 결제되는 가격
+		application_id: "642d26f2755e27001dad6270",
+		name : finalName, //결제창에서 보여질 이름
+		pg: "이니시스",
+		method: "card", //결제수단, 입력하지 않으면 결제수단 선택부터 화면이 시작
+		show_agree_window: 0, //부트페이 정보동의창 보이기 여부
+		item: [
+			{
+				item_name: item.name, //상품명 ****
+				qty: 1, //수량
+				unique: item.id.toString(), //해당상품을 구분짓는 primary key
+				price: item.price, //상품단가
+			}
+		],
+		order_id: order.id, //고유 주문번호로, 생성한 값을 넣을 것
+	}).error(function(data){
+		//결제 진행 시 에러가 발생하면 수행
+		console.log(data);
+		location.replace("pay/delete?id="+order.id);//DB값 삭제
+	}).ready(function(data){
+		//가상계좌 입금 계좌번호가 발급되면 호출되는 함수
+		console.log(data);
+	}).confirm(function(data){
+		//결제가 실행되기 전에 수행되며, 주로 재고를 확인하는 로직이 들어감
+		//주의 - 카드 수기결제일 경우 이부분 실행되지 않음.
+		console.log(data);
+		var enable = true; //재고 수량 관리 로직 혹은 다른 처리
+		if(enable){
+			BootPay.transactionConfirm(data);//조건이 맞으면 승인처리함
+		}else{
+			BootPay.removePaymentWindow(); //조건이 맞지 않으면 결제창을 닫고 승인X
+		}
+	}).cancle(function(data){
+		//결제가 취소되면 수행됨
+		console.log(data);
+		location.replace("pay/delete?id="+order.id); //DB값 삭제
+	}).close(function(data){
+		//결제창이 닫힐 때 수행됨(성공,실패,취소에 상관없이 모두 수행됨)
+		console.log(data);
+	}).done(function(data){
+		//결제가 정상적으로 완료되면 수행됨
+		//비즈니스 로직을 수행하기 전에 결제 유효성 검증을 하길 추천함!
+		location.replace("pay/confirm?receipt_id="+data.receipt_id);
+		console.log(data);
+	}); */
+});
 </script>
