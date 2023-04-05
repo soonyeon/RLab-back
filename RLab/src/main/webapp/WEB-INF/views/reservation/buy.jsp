@@ -169,7 +169,7 @@ function requestPay() {
       pay_method: "card",
       merchant_uid: "${user.me_id}"+makeMerchantUid,   // 주문번호
       name: "알랩 결제 테스트용",
-      amount: 100,                         // 숫자 타입
+      amount: 10,                         // 숫자 타입
       buyer_email: "kimsyty@naver.com",
       buyer_name: "홍길동",
       buyer_tel: "010-4242-4242",

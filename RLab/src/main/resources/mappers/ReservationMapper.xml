@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.kh.RLab.dao.ReservationDAO">
 	<select id="selectAllPointById" resultType="int">
-		select sum(po_amount) from point where po_me_id = #{me_id} and po_state = 1
+		select ifnull(sum(po_amount),0) from point where po_me_id = #{me_id} and po_state = 1
 	</select>
 
 </mapper>
