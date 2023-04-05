@@ -12,9 +12,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import kr.kh.RLab.service.StudyService;
 import kr.kh.RLab.vo.LikeVO;
@@ -102,6 +104,20 @@ public class StudyController {
 	            return new_li_state == 1 ? "updated" : "canceled";
 	        }
 	    }
-	
+	 
+	 @RequestMapping(value = "/management")
+		public ModelAndView management(ModelAndView mv) {
+			mv.setViewName("study/management_study");
+			return mv;
+		}
 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+
+	
 }
