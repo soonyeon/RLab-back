@@ -35,25 +35,21 @@ public class BoardController {
 	
 	private final BoardService boardService;
 	private final ScrapService scrapService;
-	private final TemporaryService temporaryService;
-	private final CommentService commtentService;
 	
 	@GetMapping("/insert")
-	public ModelAndView boardInsert(ModelAndView mv,HttpServletRequest request) {
-		MemberVO member = (MemberVO)request.getSession().getAttribute("user");
-	    mv.addObject("memberId", member.getMe_id());
-	    List<StudyVO> studies = new ArrayList<StudyVO>();
-	    StudyVO study = new StudyVO(1, "정처기준비", member.getMe_id(), "정처기준비하는스터디입니다.", 1, 1, "서울 특별시", null);
-	    studies.add(study);
-	    mv.addObject("studies", studies);
+	public ModelAndView boardInsert(ModelAndView mv,HttpSession session) {
+		MemberVO user = (MemberVO) session.getAttribute("user");	    
+		mv.addObject("memberId", user.getMe_id());
+	    //스터디 가져오기
+	    ArrayList<StudyVO> studyList = boardService.selectStudyList(user.getMe_id());
+	    mv.addObject("studies", studyList);
 	    mv.setViewName("/board/insert");
 	    return mv;
 	}
 	@PostMapping("/insert")
-	public ModelAndView boardInsertPost(ModelAndView mv,BoardVO board,HttpServletRequest request) {
-		//회원 정보 가져옴 (작성자) 임시로 가짜데이터 생성
-		MemberVO member = (MemberVO)request.getSession().getAttribute("user");
-		boolean res = boardService.insertBoard(board, member);
+	public ModelAndView boardInsertPost(ModelAndView mv,BoardVO board,HttpSession session) {
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		boolean res = boardService.insertBoard(board, user);
 		mv.setViewName("redirect:/board/list");
 		return mv;
 	}
@@ -104,23 +100,18 @@ public class BoardController {
 	    int scrapCount = scrapService.getScrapCount(bo_num);
 	    mv.addObject("scrapCount", scrapCount);
 	    
-		/*
-		 * //댓글수 가져오기 int commentCount = commtentService.getCommentTotalCount(bo_num);
-		 * mv.addObject("commentCount", commentCount);
-		 */
-		
 		mv.setViewName("/board/detail");
 		return mv;
 	}
 	
 	@GetMapping("/update/{bo_num}")
-	public ModelAndView boardUpdate(ModelAndView mv, @PathVariable int bo_num,HttpServletRequest request) {
-		MemberVO member = (MemberVO)request.getSession().getAttribute("user");
-	    mv.addObject("memberId", member.getMe_id());
+	public ModelAndView boardUpdate(ModelAndView mv, @PathVariable int bo_num,HttpSession session) {
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		mv.addObject("memberId", user.getMe_id());
 		BoardVO board = boardService.getBoard(bo_num);
 		mv.addObject("bd", board);
 		//스터디 가져오기
-		ArrayList<StudyVO> studyList = boardService.selectStudyList(member.getMe_id());
+		ArrayList<StudyVO> studyList = boardService.selectStudyList(user.getMe_id());
 		mv.addObject("study", studyList);
 		mv.setViewName("/board/update");
 		return mv;
