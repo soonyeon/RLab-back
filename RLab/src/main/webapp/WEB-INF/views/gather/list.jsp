@@ -193,4 +193,6 @@
 	$(document).on('click', '.sel_hashTag', function(e){
 		e.preventDefault();
 	});
+	
 </script>
+${pm}

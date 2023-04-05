@@ -25,7 +25,6 @@
 SELECT *
 FROM study
 left join tag_register on tr_st_num = st_num
-
 WHERE st_name LIKE CONCAT('%',#{cri.search},'%')
 <if test="cri.region != ''">
 AND st_re_name = #{cri.region}
@@ -67,11 +66,11 @@ where st_num = #{st_num}
 	select count(*) from study
 	join tag_register on tr_st_num = st_num
 	WHERE st_name LIKE CONCAT('%',#{cri.search},'%')
-	AND st_re_name = #{cri.region} 
-	AND tr_name like concat('%',#{cri.searchTag},'%')
+	<if test="cri.region != ''">
+		AND st_re_name = #{cri.region}
+	</if>
+	and tr_name in like concat('%',#{cri.searchTag},'%')
+	group by st_num
 </select> 
-<select id="selectStudyList">
-	select * from study
-</select>
 
 </mapper>
