@@ -7,7 +7,8 @@
 <link rel="stylesheet" href="<c:url value='/resources/css/study/certification_board.css'></c:url>">
 <link rel="stylesheet" href="<c:url value='/resources/css/study/study.css'></c:url>">
 
- <div class="main_container">
+ <div class="main_container" style="
+    margin-left: 150px;">
                 <!-- 왼쪽 메뉴바 -->
                 <div class="left_menu_container">
                     <nav class="left_menu">
@@ -145,7 +146,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
                     <!-- 접속상태 -->
                     <div class="accessor">
                         <div class="study_title">정보처리기사 스터디</div>
@@ -197,6 +197,7 @@
                         </div>
 
                     </div>
+            </div>
             </div>
 <script>
 const likeclickedImageUrl = $("#like_clicked_image_url").val();
