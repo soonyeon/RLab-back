@@ -42,11 +42,11 @@
 		<form action="<c:url value='/gather/insertgather'></c:url>" method="post">			
 			<h2>모집할스터디</h2>
 			<select id="choose_study" name="ga_st_num">
-			<c:if test="${user != null}">
+			
 			 	<c:forEach var="study" items="${studies}">
                 	<option value="${study.st_num}">${study.st_name}</option>
            		</c:forEach>
-          	</c:if>
+
 			</select>
 			
 			<h2>제목</h2>

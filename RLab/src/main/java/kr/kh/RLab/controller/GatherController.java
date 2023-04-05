@@ -47,7 +47,7 @@ public class GatherController {
 		MemberVO member = (MemberVO)request.getSession().getAttribute("user");
 		boolean res = gatherService.insertStudy(study,member,region,files,file,tag,tagRegister);
 		
-		mv.setViewName("redirect:/gather/list");
+		mv.setViewName("/gather/insertgather");
 		return mv;
 	}
 	

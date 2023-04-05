@@ -15,9 +15,9 @@
 <!-- main -->
 <main>
 	<div id="main_container">
-		<div class="board_title">
-			<input type="hidden" value="${ga.st_md_id}">
-			<span>${st.st_re_name}</span><span>${st.st_name}</span>
+		<div class="board_title">${st.st_name}
+			<input type="hidden" value="${ga.ga_me_id}">
+			
 		</div>
 		<div class="title_bottom">
 			<div class="writer_box">
