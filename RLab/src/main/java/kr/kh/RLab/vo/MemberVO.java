@@ -25,6 +25,11 @@ public class MemberVO {
 		this.me_authority = me_authority;
 		this.me_point = me_point;
 	}
+
+	public Object getMemberId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 

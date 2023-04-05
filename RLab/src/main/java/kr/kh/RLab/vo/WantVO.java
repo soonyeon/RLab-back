@@ -10,4 +10,5 @@ public class WantVO {
 	private String wa_me_id;
 	private int wa_ga_num;
 	private int wa_state;
+
 }

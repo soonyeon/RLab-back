@@ -113,7 +113,7 @@
 
 <script>
 const userId = '${user.me_id}'; 
-const gatherNum = '${ga.ga_st_num}';
+const gatherNum = '${ga.ga_num}';
 $(document).ready(function() {
   $('.like_icon').on('click', function() {
     scrap();
