@@ -48,8 +48,7 @@
 							<span>모집중</span> <span>${st.st_now_people}</span> <span>/</span> <span>${st.st_total_people}</span>
 						</div>
 							<div class="want_icon">
-								<img class="like_icon" src="<c:url value='/resources/img/love_off.png'></c:url>" 
-								style="width: 40px; height: 40px;">
+								<img class="like_icon" src="<c:url value='/resources/img/love_off.png'></c:url>" style="width: 40px; height: 40px;">
 							</div>
 					</div>
 					<div class="study_tag_info">
@@ -116,38 +115,35 @@
 const userId = '${user.me_id}'; 
 const gatherNum = '${ga.ga_st_num}';
 $(document).ready(function() {
+  $('.like_icon').on('click', function() {
+    scrap();
+  });
 
-	  $('.like_icon').on('click', function() {
-		  scrap();
-	   });
-		
-	  function scrap() {
-	        // 데이터
-	        var requestData = {
-	            sc_me_id: userId,
-	            sc_bo_num: gatherNum
-	        };
-	  $.ajax({
-      	url: '<c:url value="/want" />',
-          type: 'POST',
-          contentType: "application/json",
-          data: JSON.stringify(requestData),
-          success: function(response) {
-              // 스크랩 상태를 업데이트
-              if (response.wantState === 1) {
-                  $('.like_icon').attr('src', '<c:url value="/resources/img/love_off" />');
-                  alert('찜 했습니다.');
-              } else {
-                  $('.like_icon').attr('src', '<c:url value="/resources/img/like_on_red" />');
-                  alert('찜을 취소 했습니다.');
-              }
-          },
-          error: function(error) {
-              alert('찜에 실패하였습니다. 다시 시도해주세요');
-          }
-      });
+  function scrap() {
+    // 데이터
+    var requestData = {
+      wa_me_id: userId,
+      wa_ga_num: gatherNum
+    };
+    $.ajax({
+      url: '<c:url value="/want" />',
+      type: 'POST',
+      contentType: "application/json",
+      data: JSON.stringify(requestData),
+      success: function(response) {
+        if (response && response.wantState === 1) {
+          $('.like_icon').attr('src', '<c:url value="/resources/img/love_off" />');
+          alert('찜 했습니다.');
+        } else if (response && response.wantState === 0) {
+          $('.like_icon').attr('src', '<c:url value="/resources/img/like_on_red" />');
+          alert('찜을 취소 했습니다.');
+        }
+      },
+      error: function(error) {
+    	  console.log(error)
+        alert('찜에 실패하였습니다. 다시 시도해주세요');
+      }
+    });
   }
 });
-
-
 </script>

@@ -37,9 +37,6 @@ public class WantServiceImp implements WantService{
 		}
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("wantState", newWantState);
-		return null;
+		return result;
 	}
-	
-	
-
 }
