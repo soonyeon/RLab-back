@@ -1,0 +1,325 @@
+/* 전체 container(header, main, footer) */
+#total_container{
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+	justify-content: space-between;
+}
+.content_container{
+  height: 1050px;
+  display: flex;
+  flex-flow: column;
+}
+/* tab */
+.tab-content {
+	display: flex;
+}
+
+.tab-container {
+	display: flex;
+	justify-content: flex-start;
+	padding: 5px;
+}
+
+.tab {
+	padding: 15px;
+	border: var(--border_basic);
+	border-top-left-radius: var(--border_radius_3);
+	border-top-right-radius: var(--border_radius_3);
+	cursor: pointer;
+	background-color: var(--color_light-grey);
+	height: 20px;
+	font-weight: bold;
+}
+
+.tab1.selected_tab {
+	background-color: var(--color_yellow);
+}
+
+.tab2.selected_tab {
+	background-color: var(--color_blue);
+}
+
+.tab3.selected_tab {
+	background-color: var(--color_mint);
+}
+
+
+.tab {
+	background-color: var(--color_light-grey);
+}
+
+
+/* 나의 게시글, 나의 스크랩에서만 헤더가 이상함*/
+.top_menu_container{
+  line-height: 50px;
+}
+
+.list_item{
+  height:60px;
+}
+.select_box_area{
+  height: 29.5px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row-reverse;
+}
+.select_view option{
+  width: 200px;
+  border-radius: 5px;
+}
+/* main */
+main{
+  width: 1200px;
+	/* margin-top: 150px; */
+}
+main #main_container{
+    width: 100%;
+		display: flex;
+		justify-content: space-between;
+		gap: 30px;
+}
+#my_container {
+	width: 710px;
+  height: 886px;
+  top: -47px;
+	position: relative;
+	border: var(--border_basic); 
+	border-radius: var(--border_radius_4);
+	padding: 110px;
+	background-color: var(--color_beige);
+	box-sizing: border-box;
+	z-index: 10;
+  overflow: hidden;
+}
+
+.option_container{
+  display: flex;
+  flex-flow: column;
+  gap: 50px;
+}
+.option_container .study_box{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.study_box .sb_title{
+  width: 170px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  gap: 5px;
+} 
+.sb_title .icon_info{
+  width: 25px;
+  height: 18px;
+  background-repeat: no-repeat;
+  background-size: 18px 18px;
+  background-image: url(../img/info.png);
+  cursor: pointer;
+}
+.info_modal{
+  position: absolute;
+  width: 220px;
+  font-size: 10px;
+  background-color: white;
+  padding: 10px;
+  box-sizing: border-box;
+  box-shadow: 3px 3px 3px rgba(92, 92, 92, 0.315);
+  opacity: 95%;
+}
+.info_finish, .info_delete{
+  top: 19px;
+  left: 166px;
+}
+
+.study_box h3{
+  width: 200px;
+}
+.study_box button{
+  width: 200px;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 15px;
+  border: none;
+  border-radius: var(--border_radius_2);
+  box-shadow: 3px 3px 3px rgba(92, 92, 92, 0.315);
+  cursor: pointer;
+}
+.study_box .btn_finish{
+  background-color: var(--color_mint);
+}
+.study_box .btn_delete{
+  background-color: rgb(255, 47, 20);
+  color: white;
+}
+.btn_finish:hover{
+  background-color: rgb(17, 212, 138);
+}
+.btn_delete:hover{
+  background-color: rgb(219, 39, 15);
+}
+
+/* 강퇴, 위임 버튼 */
+.btn_container{
+  display: flex;
+  justify-content: flex-end;
+  gap: 5px;
+}
+.btn_member{
+  width: 55px;
+  border: none;
+  border-radius: var(--border_radius_3);
+  padding: 7px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+.btn_drop{
+  background-color: rgb(255, 47, 20);
+  color: white;
+}
+.btn_drop:hover{
+  background-color: rgb(219, 39, 15);
+}
+.btn_power{
+  width: 110px;
+  background-color: var(--color_mint);
+}
+.btn_power:hover{
+  background-color: rgb(17, 212, 138);
+}
+/* 게시판 */
+table { 
+  border-collapse: collapse; 
+}
+
+.board_title_list{
+  box-sizing: border-box;
+  background-color: var(--color_blue);
+  font-size: 20px;
+  font-weight: bold;
+}
+.board_list {
+  border-bottom: 1px solid var(--color_blue);
+  height: 50px;
+}
+
+.post_title{
+  font-weight:bold;
+  font-size: 15px;
+  color:rgb(67, 66, 66)
+}
+.profile_box{
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+.profile_box .img_box{
+  display: flex;
+  margin: 0;
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--color_blue);
+  border-radius: var(--border_radius_1);
+  overflow: hidden;
+}
+.profile_img{
+  width: 40px;
+  height: 40px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url(../img/profile_img.png);
+
+}
+.table_area{
+  width: 100%;
+  font-size: 15px;
+  text-align: center;
+  color: rgb(43, 42, 42);
+}
+
+.fa-solid{margin-left: 5px; margin-right: -10px;}
+
+.border_box{
+  width: 100%;
+}
+
+.border_box .title_list_item{
+  height: 50px;
+  font-size: 17px;
+}
+
+.background_bbls{
+  height: 1253px;
+}
+
+.icon_scrab{
+  width: 32px;   
+  height: 50px;
+  background-size: 30px 50px;
+  background-image: url(../img/favorite_tag.png);
+  
+}
+/* 게시판, 페이지네이션 부모 */
+.tab_container {
+  position: relative;
+	display: flex;
+  margin-left: 6px;
+}
+.item_tab{
+  width: 132px;
+  height: 100px;
+  border: var(--border_basic);
+  border-radius: var(--border_radius_3);
+  padding: 15px;
+  box-sizing: border-box;
+  text-align: center;
+  background-color: var(--color_light-grey);
+  color: var(--color_black);
+}
+.tab_content{
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.selected.tab1{
+  background-color: var(--color_blue);
+}
+.selected.tab2{
+  background-color: var(--color_mint);
+}
+
+/* 넘기기 버튼 */
+.page_box{
+display: flex; 
+justify-content: center;
+}
+.page_box>*{float: left; }
+.page_num+.page_num{margin-left: 20px;}
+.page_box .selected {
+  color: var(--color_black); font-weight: 500;
+}
+.page_box span{
+  line-height: 30px; font-size: 25px; color: rgb(62, 62, 62)
+}
+
+.page_box .btn_prev{
+  display: inline-block; 
+  width: 30px; 
+  height: 30px; 
+  margin-right: 10px;
+  background-position: -10px -10px; 
+  background-size: cover;
+  background-image: url(../img/page_left.png);  
+  background-size:50px 50px;
+}
+.page_box .btn_next{
+  width: 30px; height: 30px; margin-left: 10px;
+  background-position: -10px -10px; display: inline-block;
+  background-image: url(../img/page_right.png); background-size:50px 50px;
+}
