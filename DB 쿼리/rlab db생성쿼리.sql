@@ -8,7 +8,7 @@ DROP TABLE IF EXISTS `member`;
 CREATE TABLE `member` (
 	`me_id`	varchar(13) primary key	NOT NULL,
 	`me_name`	varchar(10)	NOT NULL,
-	`me_pw`	varchar(20)	NOT NULL,
+	`me_pw`	varchar(255)	NOT NULL,
 	`me_email`	varchar(30)	NOT NULL,
 	`me_authority`	int not null default 0,
 	`me_point`	int not null DEFAULT 0,
@@ -293,7 +293,8 @@ DROP TABLE IF EXISTS `want`;
 CREATE TABLE `want` (
 	`wa_num`	int auto_increment primary key	NOT NULL,
 	`wa_me_id`	varchar(13)	NOT NULL,
-	`wa_ga_num`	int	NOT NULL
+	`wa_ga_num`	int	NOT NULL,
+    `wa_state` tinyint(1)
 );
 
 DROP TABLE IF EXISTS `session`;
@@ -688,3 +689,4 @@ ALTER TABLE `study` ADD CONSTRAINT `FK_region_TO_study_1` FOREIGN KEY (
 REFERENCES `region` (
 	`re_name`
 );
+
