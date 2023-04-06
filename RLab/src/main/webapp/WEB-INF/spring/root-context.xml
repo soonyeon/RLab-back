@@ -49,5 +49,3 @@
 <mybatis-spring:scan base-package="kr.kh.RLab.dao"/>
 
 </beans>
-
-</beans>
