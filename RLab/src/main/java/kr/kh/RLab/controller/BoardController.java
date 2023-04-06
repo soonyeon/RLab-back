@@ -46,16 +46,6 @@ public class BoardController {
 	    mv.setViewName("/board/insert");
 	    return mv;
 	}
-	@GetMapping("/insert2")
-	public ModelAndView boardInsert2(ModelAndView mv,HttpSession session) {
-		MemberVO user = (MemberVO) session.getAttribute("user");	    
-		mv.addObject("memberId", user.getMe_id());
-	    //스터디 가져오기
-	    ArrayList<StudyVO> studyList = boardService.selectStudyList(user.getMe_id());
-	    mv.addObject("studies", studyList);
-	    mv.setViewName("/board/insert2");
-	    return mv;
-	}
 	@PostMapping("/insert")
 	public ModelAndView boardInsertPost(ModelAndView mv,BoardVO board,HttpSession session) {
 		MemberVO user = (MemberVO) session.getAttribute("user");
