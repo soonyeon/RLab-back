@@ -291,28 +291,19 @@ var items = [];
 let finalName = '';
 let finalPrice = 0;
 function makeItemList(){
-	for(i=0; i<ticketArr.length-1; i++){
-		let id='';
-		if(ticketArr[i].type==1)
-			id = '1회 예약권';
-		else if(ticketArr[i].type==2)
-			id = '기간 이용권';
-		else if(ticketArr[i].type==3)
-			id = '시간 패키지';
-		else
-			id = '사물함 이용권';
+	for(i=0; i<ticketArr.length; i++){
 		let item = {
-			 "id": id,
-		     "name": ticketArr[i].title,
+			 "id": ticketArr[i].num,
+		     "name": ticketArr[i].type +' - ' + ticketArr[i].title,
 		     "qty": ticketArr[i].count,
 		     "price": ticketArr[i].price.replace(/,/g, "")
 		}
 		items.push(item);
 	}
-	if(ticketArr.length==1)
-		finalName = ticketArr[0].title;
-	else if(ticketArr.length > 1)
-		finalName = ticketArr[0].title +'외 '+ticketArr.length-1+'건';
+	if(items.length==1)
+		finalName = items[0].name;
+	else if(items.length > 1)
+		finalName = items[0].name +' 외 '+ (items.length-1) +'건';
 }
 
 /* 결제 진행 */
@@ -320,6 +311,7 @@ $('#pay_btn').click(function(){
 	makeItemList();
 	console.log(finalPrice);
 	console.log(items);
+	console.log(finalName);
 	try {
 		const response = Bootpay.requestPayment({
 	   		"application_id": "642d26f2755e27001dad6270",
@@ -345,7 +337,7 @@ $('#pay_btn').click(function(){
 	            break
 	        case 'done':// 결제 완료 처리
 	            //비즈니스 로직을 수행하기 전에 결제 유효성 검증을 하길 추천함!
-				//location.replace("pay/confirm?receipt_id="+data.receipt_id);
+				//location.replace("/pay/confirm?receipt_id="+response.receipt_id);
 	            console.log(response);
 	            break
 	        case 'confirm': //payload.extra.separately_confirmed = true; 일 경우 승인 전 해당 이벤트가 호출됨
