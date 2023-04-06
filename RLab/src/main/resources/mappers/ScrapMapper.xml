@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.kh.RLab.dao.ScrapDAO">
+
+ 	<select id="findScrap" resultType="kr.kh.RLab.vo.ScrapVO">
+        SELECT * FROM scrap WHERE sc_me_id=#{sc_me_id} AND sc_bo_num=#{sc_bo_num}
+    </select>
+
+    <insert id="insertScrap">
+        INSERT INTO scrap (sc_me_id, sc_bo_num, sc_state)
+        VALUES (#{sc_me_id}, #{sc_bo_num}, #{sc_state})
+    </insert>
+
+    <update id="updateScrap">
+        UPDATE scrap
+        SET sc_state=#{sc_state}
+        WHERE sc_me_id=#{sc_me_id} AND sc_bo_num=#{sc_bo_num}
+    </update>
+
+   
+    <select id="getScrapCountByBoard" parameterType="int" resultType="int">
+        SELECT COUNT(*) FROM scrap WHERE sc_bo_num=#{bo_num} AND sc_state=1
+    </select>
+    
+    </mapper>

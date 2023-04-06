@@ -9,7 +9,6 @@ CREATE TABLE `member` (
 	`me_id`	varchar(13) primary key	NOT NULL,
 	`me_name`	varchar(10)	NOT NULL,
 	`me_pw`	varchar(20)	NOT NULL,
-	`me_phone`	varchar(11)	NOT NULL,
 	`me_email`	varchar(30)	NOT NULL,
 	`me_authority`	int not null default 0,
 	`me_point`	int not null DEFAULT 0,
@@ -211,6 +210,7 @@ CREATE TABLE `comment` (
 	`co_num`	int auto_increment primary key	NOT NULL,
 	`co_me_id`	varchar(13)	NOT NULL,
 	`co_content`	varchar(500) NOT NULL,
+    `co_reg_date` datetime not null,
 	`co_ori_num`	int	NOT NULL,
 	`co_table`	varchar(15)	NULL,
 	`co_ex_num`	int	NOT NULL
@@ -305,14 +305,6 @@ CREATE TABLE `session` (
 	`ss_out`	datetime DEFAULT NULL
 );
 
-DROP TABLE IF EXISTS `member_ok`;
-
-CREATE TABLE `member_ok` (
-	`mo_me_id`	varchar(13) primary key	NOT NULL,
-	`mo_num`	CHAR(6) not NULL,
-	`mo_valid_time`	DATETIME not null
-);
-
 DROP TABLE IF EXISTS `region`;
 
 CREATE TABLE `region` (
@@ -355,9 +347,10 @@ CREATE TABLE `study` (
 	`st_me_id`	varchar(13)	NOT NULL,
 	`st_info`	varchar(100)	NULL,
 	`st_now_people`	int(50)  not null default 1,
-	`st_total_people`	int(50)  not null default 1	NULL,
+	`st_total_people`	int(50)  not null default 1,
 	`st_re_name`	varchar(10),
-	`st_image`	varchar(255)
+	`st_image`	varchar(255),
+    `st_state` int not null default 1
 );
 
 DROP TABLE IF EXISTS `exp`;
@@ -549,13 +542,6 @@ REFERENCES `member` (
 	`me_id`
 );
 
-ALTER TABLE `comment` ADD CONSTRAINT `FK_comment_TO_comment_1` FOREIGN KEY (
-	`co_ori_num`
-)
-REFERENCES `comment` (
-	`co_num`
-);
-
 ALTER TABLE `like` ADD CONSTRAINT `FK_member_TO_like_1` FOREIGN KEY (
 	`li_me_id`
 )
@@ -668,13 +654,6 @@ REFERENCES `member` (
 	`me_id`
 );
 
-ALTER TABLE `member_ok` ADD CONSTRAINT `FK_member_TO_member_ok_1` FOREIGN KEY (
-	`mo_me_id`
-)
-REFERENCES `member` (
-	`me_id`
-);
-
 ALTER TABLE `pay_detail` ADD CONSTRAINT `FK_pay_TO_pay_detail_1` FOREIGN KEY (
 	`pd_pa_num`
 )
@@ -709,4 +688,3 @@ ALTER TABLE `study` ADD CONSTRAINT `FK_region_TO_study_1` FOREIGN KEY (
 REFERENCES `region` (
 	`re_name`
 );
-

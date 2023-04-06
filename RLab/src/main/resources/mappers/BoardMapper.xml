@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.kh.RLab.dao.BoardDAO">
+
+	<insert id="insertBoard">
+    insert into board(bo_st_num, bo_title, bo_content, bo_me_id, bo_reg_date)
+    	values(#{board.bo_st_num}, #{board.bo_title}, #{board.bo_content}, #{board.bo_me_id}, NOW())
+	</insert>
+	
+	<select id="selectBoardList" parameterType="map" resultMap="BoardResultMap">
+	    SELECT b.*, st.st_name, me.me_name, COUNT(s.sc_bo_num) as scrap_count
+	    FROM board b
+	    LEFT JOIN study AS st ON b.bo_st_num = st.st_num
+	    LEFT JOIN member AS me ON b.bo_me_id = me.me_id
+	    LEFT JOIN scrap s ON b.bo_num = s.sc_bo_num AND s.sc_state = 1
+	    GROUP BY b.bo_num
+	    <if test="orderBy != null">
+	        ORDER BY ${orderBy}
+	    </if>
+	    LIMIT #{offset}, #{pageSize}
+	</select>
+	
+	<select id="getBoard" resultType="kr.kh.RLab.vo.BoardVO">
+		select
+			*
+		from
+			board
+		join member 
+		on  bo_me_id = me_id
+		where
+			bo_num = #{bo_num}
+		
+	</select>
+	
+	<select id="getCount" resultType="int">
+		select
+			count(*)
+		from
+			board
+	</select>
+	
+	<update id="countViews">
+  		update board 
+  			set 
+  				bo_views = bo_views+1 
+  			where 
+  				bo_num = #{bo_num}
+  	</update>
+  	
+  	<delete id="deleteBoard">
+  	delete from board
+  	where bo_num = #{bo_num}
+  	</delete>
+  	
+  	<update id="updateBoard">
+  		update board
+  		set
+  			bo_st_num = #{bo_st_num},
+  			bo_title = #{bo_title},
+  			bo_content = #{bo_content},
+  			bo_upd_date = now()
+  		where
+  			bo_num = #{bo_num}
+  	</update>
+  	
+  	<select id="selectStudyList" resultType="kr.kh.RLab.vo.StudyVO">
+  		select * from study
+  		where st_me_id = #{st_me_id}
+  	</select>
+  	
+  	<resultMap id="BoardResultMap" type="kr.kh.RLab.vo.BoardVO">
+	    <id property="bo_num" column="bo_num" />
+	    <result property="st_name" column="st_name" />
+	    <result property="bo_title" column="bo_title" />
+	    <result property="me_name" column="me_name" />
+	    <result property="bo_reg_date_str" column="bo_reg_date_str" />
+	    <result property="bo_views" column="bo_views" />
+	    <result property="scrap_count" column="scrap_count" />
+	</resultMap>
+  	
+</mapper>
