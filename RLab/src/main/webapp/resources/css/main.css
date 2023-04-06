@@ -54,7 +54,7 @@ body {
   overflow: hidden;
 }
 .display_none{
-  clear: both; content: ''; display: block;
+  display: none;
 }
 .clearfix::after{
   clear: both; display: block; content: '';

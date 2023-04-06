@@ -10,13 +10,13 @@
 <script src="<c:url value='/resources/js/jquery.min.js'></c:url>"></script>
 <script src="<c:url value='/resources/js/jquery.validate.min.js'></c:url>"></script>
 <script src="<c:url value='/resources/js/additional-methods.min.js'></c:url>"></script>
-<link rel="stylesheet" href="<c:url value ='/resources/css/mypage.css?after'></c:url>">
-<link rel="stylesheet" href="<c:url value ='/resources/css/main.css?after'></c:url>">
+<link rel="stylesheet" href="<c:url value ='/resources/css/mypage/mypage.css?after'></c:url>">
+<link rel="stylesheet" href="<c:url value ='/resources/css/mypage/mypage_common.css?after'></c:url>">
 <title>마이 페이지</title>
 </head>
 <body>
     <!-- pet_store_popup -->
-    <div id="pet_store_popup_container" class="display_none">
+    <div class="pet_store_popup_container display_none">
       <div class="pet_store_popup_box">
         <i class="btn_remove"></i>
         <div class="pet_store_content">
@@ -282,6 +282,19 @@
       </main>
 
     </div>
-    <script src="<c:url value ='/resources/js/mypage.js'></c:url>"></script>
+<!--     <script src="<c:url value ='/resources/js/mypage.js'></c:url>"></script> -->
+    <script>
+	 // pet_store 모달 열기
+	    $(document).on('click', '#pet_store_container', function(e){
+	    	console.log('click');
+	    	$('.pet_store_popup_container').css('display','flex');
+	    })
+	
+	    // pet_store 모달 닫기
+	    $(document).on('click', '.btn_remove', function(e){
+	    	console.log('click');
+	    	$('.pet_store_popup_container').css('display','none');
+	    })
+    </script>
 </body>
 </html>

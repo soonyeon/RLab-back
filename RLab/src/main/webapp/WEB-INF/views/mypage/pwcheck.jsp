@@ -10,7 +10,7 @@
 <script src="<c:url value='/resources/js/jquery.min.js'></c:url>"></script>
 <script src="<c:url value='/resources/js/jquery.validate.min.js'></c:url>"></script>
 <script src="<c:url value='/resources/js/additional-methods.min.js'></c:url>"></script>
-<link rel="stylesheet" href="<c:url value ='/resources/css/pwcheck.css'></c:url>">
+<link rel="stylesheet" href="<c:url value ='/resources/css/mypage/pwcheck.css'></c:url>">
 <title>개인정보 수정</title>
 </head>
 <body>
@@ -25,7 +25,7 @@
 						<a href="./edit_info.html" class="list_item">개인정보 수정</a>
 						<a href="#" class="list_item">예약 관리</a>
 						<a href="./mystudy.html" class="list_item">스터디 관리</a>
-						<a href="./mypost.html" class="list_item">작성글 관리</a>
+						<a href="<c:url value='/mypage/mypost_post'></c:url>" class="list_item">작성글 관리</a>
 					</nav>
 				</aside>
 
