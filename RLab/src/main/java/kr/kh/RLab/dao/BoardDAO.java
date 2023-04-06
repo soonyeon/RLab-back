@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
+import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.StudyVO;
 
@@ -26,4 +27,6 @@ public interface BoardDAO {
 	boolean updateBoard(BoardVO board);
 
 	ArrayList<StudyVO> selectStudyList(String st_me_id);
+
+	ArrayList<BoardVO> selectBoardListById(Criteria cri, String me_id);
 }

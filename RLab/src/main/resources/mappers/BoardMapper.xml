@@ -79,5 +79,10 @@
 	    <result property="bo_views" column="bo_views" />
 	    <result property="scrap_count" column="scrap_count" />
 	</resultMap>
+	
+  	<select id="selectBoardListById" resultType="kr.kh.RLab.vo.BoardVO">
+ 		SELECT bo_num, bo_title, bo_me_id, bo_reg_date FROM board
+ 		where bo_me_id = #{me_id};
+  	</select>
   	
 </mapper>

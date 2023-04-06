@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import kr.kh.RLab.dao.BoardDAO;
+import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.StudyVO;
@@ -67,6 +68,13 @@ public class BoardServiceImp implements BoardService {
 	@Override
 	public ArrayList<StudyVO> selectStudyList(String st_me_id) {
 		return boardDao.selectStudyList(st_me_id);
+	}
+
+	@Override
+	public ArrayList<BoardVO> getBoardListById(Criteria cri, String me_id) {
+		if(cri == null)
+			return null;
+		return boardDao.selectBoardListById(cri, me_id);
 	}
 
 

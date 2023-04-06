@@ -68,14 +68,15 @@
                           </thead>
                           
                           <tbody>
-                            <tr class="board_list">
-                              <td>24</td>
-                              <td>프론트엔트 공부해요</td>
-                              <td class="post_title">리액트 처음부터 함께 배워요</td>
-                              <td>프론트 마스터</td>
-                              <td>2023.02.28</td>
-                            </tr>                       
-
+	                         <c:forEach items="${myBoardList}" var="bo" varStatus="vs">
+	                            <tr class="board_list">
+	                              <td>${bo.bo_num}</td>
+	                              <td></td>
+	                              <td class="post_title">${bo.bo_title}</td>
+	                              <td>프론트 마스터</td>
+	                              <td>2023.02.28</td>
+	                            </tr>                       
+							</c:forEach>
                           </tbody>
                         </table>
                       </div>
@@ -100,34 +101,7 @@
 
 	</div>
 <script>	
-	$('#edit_info').submit(function(){
-		event.preventDefault(); // submit 이벤트 막기
-		
-		if($("#profile_img").val() != ''){	
-			
-			var allowedExtensions = ["jpg", "jpeg", "png", "gif"];
-			var fileName = $("#profile_img").val();
-			var fileExtension = "";
-			
-			// 파일 이름에서 확장자 추출
-	        var i = fileName.lastIndexOf('.');
-	        if (i > 0) {
-	            fileExtension = fileName.substring(i+1);
-	            
-		    	// 이미지 파일이 아닌 경우
-		        if ($.inArray(fileExtension.toLowerCase(), allowedExtensions) == -1) {
-		            alert("이미지 파일 형식이 아닙니다.");
-		            return false;
-		        }else{	    	 
-					alert('이미지가 변경되었습니다.');
-					$(this).unbind('submit').submit(); // submit 이벤트 다시 실행	        	
-		        }
-	        }
-		}else{
-			alert('파일을 선택해주세요.');
-			return false;			
-		}
-	});
+
 
 
 </script>

@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.pagination.PageHandler;
 import kr.kh.RLab.service.BoardService;
 import kr.kh.RLab.service.CommentService;
@@ -126,7 +128,7 @@ public class BoardController {
 		return mv;
 	}
 	@PostMapping("/update/{bo_num}")
-	public ModelAndView boardUpdatePost(ModelAndView mv, @PathVariable int bo_num,BoardVO board) {
+	public ModelAndView boardUpdatePost(ModelAndView mv, @PathVariable int bo_num, BoardVO board) {
 		boolean res = boardService.updateBoard(board);
 		mv.setViewName("redirect:/board/detail/"+bo_num);
 		return mv;
@@ -139,6 +141,15 @@ public class BoardController {
 	    return "success";
 	}
 	
+	@RequestMapping(value="/mypage/mypost_post", method=RequestMethod.GET)
+	public ModelAndView mypost(ModelAndView mv,  HttpSession session, BoardVO board, Criteria cri) {
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		String me_id = user.getMe_id();
+		ArrayList<BoardVO> myBoardList = boardService.getBoardListById(cri, me_id);
+		mv.addObject("myBoardList",myBoardList);
+		mv.setViewName("/mypage/mypost_post");
+		return mv;
+	}
 
 
 }

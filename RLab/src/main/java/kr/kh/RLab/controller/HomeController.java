@@ -182,11 +182,7 @@ public class HomeController {
 		return mv;
 	}
 	
-	@RequestMapping(value="/mypage/mypost_post", method=RequestMethod.GET)
-	public ModelAndView mypost(ModelAndView mv) {
-		mv.setViewName("/mypage/mypost_post");
-		return mv;
-	}
+
 	
 	@RequestMapping(value="/mypage/mypost_recruit", method=RequestMethod.GET)
 	public ModelAndView mypostRecruit(ModelAndView mv) {
