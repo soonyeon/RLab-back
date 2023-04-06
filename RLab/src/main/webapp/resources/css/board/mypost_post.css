@@ -3,6 +3,7 @@
   display: flex;
   flex-flow: row; 
   height : 1100px;
+  margin-left: -120px;
 }
 #main_container {
 	float:right;
