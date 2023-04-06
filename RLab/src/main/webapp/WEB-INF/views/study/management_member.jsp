@@ -12,21 +12,21 @@
 	    <!-- 왼쪽 메뉴바 -->
 	    <div class="left_menu_container">
 	        <nav class="left_menu">
-	            <a href="study_basic.html" class="list_item">스터디홈</a>
+	            <a href="<c:url value='/study/main'></c:url>" class="list_item">스터디홈</a>
 	            <a href="#" class="list_item">스터디 달력</a>
 	            <a href="to_do_list.html" class="list_item">투두 리스트</a>
 	            <a href="Daily Mission.html" class="list_item">데일리 미션</a>
 	            <a href="certification_board.html" class="list_item">인증 게시판</a>
 	            <a href="board.html" class="list_item">자유 게시판</a>
-	            <a href="management_study.html" class="list_item">스터디 관리</a>
+	            <a href="<c:url value='/study/management/member'></c:url>" class="list_item">스터디 관리</a>
 	            <a href="#" class="leave">탈퇴하기</a>
 	        </nav>
 	    </div>
 	    <div class="content_container">
 	        <!-- 탭 -->
 	        <div class="tab_container">
-	            <a href="../html/management_member.html" class="item_tab  selected tab1">회원 관리</a>
-	            <a href="../html/management_study.html" class="item_tab unselected tab2">스터디 관리</a>
+	            <a href="<c:url value='/study/management/member'></c:url>" class="item_tab  selected tab1">회원 관리</a>
+	            <a href="<c:url value='/study/management/study'></c:url>" class="item_tab unselected tab2">스터디 관리</a>
 	        </div>
 	
 	        <div class="my_study_container" id="my_container">
@@ -37,6 +37,16 @@
 	
 	                    <!-- 나의 스크랩 -->
 	                    <div class="table_area" id="tabs_3">
+	                    
+	                        <div class="slect_study_box">
+	                            <h3 class="select_study_title">스터디 선택</h3>
+	                            <select name="study" class="slect_study_list">
+	                                <option value="">스터디를 선택하세요</option>
+	                                <option value="자바 스터디 모임">자바 스터디 모임</option>
+	                                <option value="javascript">자바스크립트 공부하기</option>
+	                                <option value="리액트 스터디">리액트 스터디</option>
+	                            </select>
+	                        </div>	                                        
 	                        <table class="border_box">
 	                            <thead>
 	                                <tr class="board_title_list">
@@ -246,7 +256,7 @@
 	                    <div class="now">NOW</div>
 	                </div>
 	                <div class="circle_star cc">
-	                    <img class="star" src="../img/favorite_star_on.png">
+	                    <img class="star" src="<c:url value="/resources/img/favorite_star_on.png"></c:url>">
 	                </div>
 	                <div class="my_study_container">
 	                    <div class="my_list_title">

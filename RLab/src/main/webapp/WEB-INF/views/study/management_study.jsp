@@ -12,7 +12,7 @@
 	    <!-- 왼쪽 메뉴바 -->
 	    <div class="left_menu_container">
 	        <nav class="left_menu">
-	            <a href="study_basic.html" class="list_item">스터디홈</a>
+	            <a href="<c:url value='/study/main'></c:url>" class="list_item">스터디홈</a>
 	            <a href="#" class="list_item">스터디 달력</a>
 	            <a href="to_do_list.html" class="list_item">투두 리스트</a>
 	            <a href="Daily Mission.html" class="list_item">데일리 미션</a>
@@ -25,12 +25,21 @@
 	    <div class="content_container">
 	        <!-- 탭 -->
 	        <div class="tab_container">
-	            <a href="../html/management_member.html" class="item_tab unselected tab1">회원 관리</a>
-	            <a href="../html/management_study.html" class="item_tab selected tab2">스터디 관리</a>
+	            <a href="<c:url value='/study/management/member'></c:url>" class="item_tab unselected tab1">회원 관리</a>
+	            <a href="<c:url value='/study/management/study'></c:url>" class="item_tab selected tab2">스터디 관리</a>
 	        </div>
 	
 	        <div class="my_study_container" id="my_container">
 	            <div class="option_container">
+	                <div class="slect_study_box">
+	                    <h3 class="select_study_title">스터디 선택</h3>
+	                    <select name="study" class="slect_study_list">
+	                        <option value="">스터디를 선택하세요</option>
+	                        <option value="자바 스터디 모임">자바 스터디 모임</option>
+	                        <option value="javascript">자바스크립트 공부하기</option>
+	                        <option value="리액트 스터디">리액트 스터디</option>
+	                    </select>
+	                </div>            
 	                <div class="finish_box study_box">
 	                    <div class="sb_title">
 	                        <h3>스터디 완료 전환</h3>
@@ -67,7 +76,8 @@
 	                    <div class="now">NOW</div>
 	                </div>
 	                <div class="circle_star cc">
-	                    <img class="star" src="../img/favorite_star_on.png">
+	                    <img class="star" src="<c:url value="/resources/img/favorite_star_on.png"></c:url>">
+	                    
 	                </div>
 	                <div class="my_study_container">
 	                    <div class="my_list_title">
@@ -183,14 +193,20 @@ $(document).ready(function(){
 })
 
 
-// 버튼 클릭시 confirm창 나타남
+// 버튼 클릭시 스터디 선택 여부에 따라 confirm창 나타남
 function confirmAction(buttonText, action) {
+  const selectedOptionValue = $("select.slect_study_list option:selected").val();
+  if (selectedOptionValue === "") {
+    alert("스터디를 선택하세요.");
+    return;
+  }
   if (confirm(buttonText)) {
     action();
-	}else{
-		console.log("작업 취소");
-	}
+  } else {
+    console.log("작업 취소");
+  }
 }
+
 
 $(".btn_finish").on("click", function() {
   confirmAction("완료된 스터디로 전환 시 스터디 활동이 일부 제한되며, 자유게시판만 사용가능합니다. 목표를 달성하거나 일정이 모두 완료된 경우에만 전환할 것을 권유드립니다. 정말 완료하시겠습니까?", function() {
