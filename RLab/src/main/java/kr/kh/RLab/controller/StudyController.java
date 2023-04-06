@@ -105,9 +105,29 @@ public class StudyController {
 	        }
 	    }
 	 
-	 @RequestMapping(value = "/management")
-		public ModelAndView management(ModelAndView mv) {
+	 @RequestMapping(value = "/main")
+		public ModelAndView main(ModelAndView mv) {
+		 	
+
+			mv.setViewName("study/study_basic");
+			return mv;
+		}
+	 
+	 
+	 
+	 @RequestMapping(value = "/management/study")
+		public ModelAndView managementStudy(ModelAndView mv) {
+		 	
+
 			mv.setViewName("study/management_study");
+			return mv;
+		}
+	 
+	 @RequestMapping(value = "/management/member")
+		public ModelAndView managementMember(ModelAndView mv) {
+		 	
+
+			mv.setViewName("study/management_member");
 			return mv;
 		}
 

@@ -4,8 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     
 
-<link rel="stylesheet" href="<c:url value='/resources/css/study.css'></c:url>">
-<link rel="stylesheet" href="<c:url value='/resources/css/to_do_list.css'></c:url>">
+<link rel="stylesheet" href="<c:url value='/resources/css/study/study.css'></c:url>">
+<link rel="stylesheet" href="<c:url value='/resources/css/study/to_do_list.css'></c:url>">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 <div class="main_container">
