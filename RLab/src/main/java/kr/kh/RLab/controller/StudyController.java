@@ -109,7 +109,7 @@ public class StudyController {
 		public ModelAndView main(ModelAndView mv) {
 		 	
 
-			mv.setViewName("study/study_basic");
+			mv.setViewName("/study/study_basic");
 			return mv;
 		}
 	 
@@ -119,7 +119,7 @@ public class StudyController {
 		public ModelAndView managementStudy(ModelAndView mv) {
 		 	
 
-			mv.setViewName("study/management_study");
+			mv.setViewName("/study/management_study");
 			return mv;
 		}
 	 
@@ -127,7 +127,7 @@ public class StudyController {
 		public ModelAndView managementMember(ModelAndView mv) {
 		 	
 
-			mv.setViewName("study/management_member");
+			mv.setViewName("/study/management_member");
 			return mv;
 		}
 
