@@ -63,14 +63,22 @@ where st_num = #{st_num}
 			ga_st_num = #{st_num}
 </update>
 <select id="selectStudyTotalCount" resultType="int"> 
-	select count(*) from study
-	join tag_register on tr_st_num = st_num
+	select count(*) from (
+	select * from study
+	left join tag_register on tr_st_num = st_num
 	WHERE st_name LIKE CONCAT('%',#{cri.search},'%')
 	<if test="cri.region != ''">
 		AND st_re_name = #{cri.region}
 	</if>
-	and tr_name in like concat('%',#{cri.searchTag},'%')
+	<if test="cri.tagList.size() != 0">
+	and tr_name in 
+	<foreach item="tag" index="index" collection="cri.tagList"
+	      open="(" separator="," close=")">
+	        #{tag}
+	</foreach>
+</if>
 	group by st_num
+	) as t
 </select> 
 
 </mapper>

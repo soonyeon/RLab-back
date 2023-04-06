@@ -106,7 +106,7 @@
 										<c:forEach items="${fileList}" var="fi" varStatus="">
 											<c:if test="${fi.fi_ex_num == stList.get(index).st_num}">
 											<input type="file" accept="image/*" onchange="readURL(this);">
-											<img src="<c:url value="/download${fi.fi_name}"></c:url>">
+											<img src="<c:url value="/download${fi.fi_name}"></c:url>" >
 											</c:if>
 										</c:forEach>
 									</div>

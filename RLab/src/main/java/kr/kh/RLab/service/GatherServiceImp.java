@@ -134,7 +134,8 @@ public class GatherServiceImp implements GatherService {
 
 	@Override
 	public int getStudyTotalCount(Criteria cri) {
-		return gatherDao.selectStudyTotalCount(cri);
+		Integer totalCount = gatherDao.selectStudyTotalCount(cri);
+		return totalCount != null ? totalCount : 0;
 	}
 
 	@Override
