@@ -103,12 +103,14 @@
 							<li class="study_card_box add_shadow">
 								<a href="<c:url value='/gather/detail/${stList.get(index).st_num}'></c:url>">
 									<div class="study_img_box">
-										<c:forEach items="${fileList}" var="fi" varStatus="">
+									<c:if test="${files.size() != 0 }">
+										<c:forEach items="${fileList}" var="fi">
 											<c:if test="${fi.fi_ex_num == stList.get(index).st_num}">
-											<input type="file" accept="image/*" onchange="readURL(this);">
-											<img src="<c:url value="/download${fi.fi_name}"></c:url>" >
+											<!-- <input type="file" accept="image/*" onchange="readURL(this);"> -->
+											<img src="<c:url value='/download${fi.fi_name}'></c:url>" class="study_img">
 											</c:if>
 										</c:forEach>
+									</c:if>	
 									</div>
 									<div class="study_info">
 										<div class="study_tag_info">
