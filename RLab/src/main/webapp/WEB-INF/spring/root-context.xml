@@ -20,7 +20,7 @@
               value="jdbc:mysql://localhost:3306/rlab?useSSL=false&amp;serverTimezone=Asia/Seoul">
     </property>
     <property name="username" value="root"></property>
-    <property name="password" value="rootroot"></property>
+    <property name="password" value="root"></property>
 </bean> 
 
 <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
