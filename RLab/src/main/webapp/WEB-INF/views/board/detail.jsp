@@ -19,7 +19,7 @@
 <main>
 	<div class="main_container">
 		<!-- 왼쪽 메뉴바 -->
-		<div class="left_menu_container">
+		<div class="left_menu_container" style="width:200px;">
  					<nav class="left_menu">
                         <a href="study_basic.html" class="list_item">스터디홈</a>
                         <a href="#" class="list_item">스터디 달력</a>
