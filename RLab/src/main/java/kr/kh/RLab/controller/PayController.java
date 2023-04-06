@@ -33,13 +33,13 @@ public class PayController {
 	}
 	//결제 단건 조회: 보안상 클라이언트에서 수행된 결제는 서버간 통신으로 조회하여 정상적인 결제인지 검증해야함
 	@RequestMapping(value = "/receipt/{receipt_id}", method=RequestMethod.GET) 
-	public void receiptId(@PathVariable("receipt_ud")String receiptId) {
+	public ModelAndView receiptId(ModelAndView mv, @PathVariable("receipt_ud")String receiptId) {
 		try {
 		    Bootpay bootpay = new Bootpay("642d26f2755e27001dad6270", 
 		    		"jPqzzyXRG5Qbpmy5Zgw8QKVx/KDTvIu1fTqoqZ5to78=");
 		    HashMap<String, Object> token = bootpay.getAccessToken();
 		    if(token.get("error_code") != null) { //failed
-		        return;
+		        return mv;
 		    }
 		    HashMap<String, Object> res = bootpay.getReceipt(receiptId);
 		    if(res.get("error_code") == null) { //success
@@ -50,7 +50,8 @@ public class PayController {
 		} catch (Exception e) {
 		    e.printStackTrace();
 		}
-		return ;
+		mv.setViewName("/reservation/buy_complete");
+		return mv;
 	}
 	//결제 서버 승인
 	@RequestMapping(value = "/confirm", method=RequestMethod.POST) 

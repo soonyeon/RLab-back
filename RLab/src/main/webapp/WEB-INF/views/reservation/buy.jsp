@@ -307,16 +307,23 @@ function makeItemList(){
 		finalName = items[0].name +' 외 '+ (items.length-1) +'건';
 }
 
+let response ;
 /* 결제 진행 */
 $('#pay_btn').click(function(){
-	console.log('리스트만들기전:');
-	console.log(ticketArr);
 	makeItemList();
-	console.log(finalPrice);
-	console.log(items);
-	console.log(finalName);
+	//ajax로 씽크false로 해서 db에 등록하기
+	$.ajax({
+        async:false,
+        type: 'POST',
+        data: JSON.stringify(obj),
+        url: '<c:url value="/reservation/buy"></c:url>',
+        dataType:"json", //success에 있는 data타입(주는거)
+        contentType:"application/json; charset=UTF-8", //위에있는 data타입(받는거)
+        success : successFunc
+	});
+	console.log('결제중 DB 등록 완료');
 	try {
-		const response = Bootpay.requestPayment({
+		response = Bootpay.requestPayment({
 	   		"application_id": "642d26f2755e27001dad6270",
 	   		"price": finalPrice,
 	   		"order_name": finalName,
@@ -334,14 +341,17 @@ $('#pay_btn').click(function(){
 	   		  "card_quota": "0,2,3",
 	   		  "escrow": false
 	   		}
-	    })
+	    }).then((response)=>{
+	    	
 	    switch (response.event) {
 	        case 'issued':// 가상계좌 입금 완료 처리
 	            break
 	        case 'done':// 결제 완료 처리
 	            //비즈니스 로직을 수행하기 전에 결제 유효성 검증을 하길 추천함!
 				//location.replace("/pay/confirm?receipt_id="+response.receipt_id);
-	            console.log(response);
+				//location.replace("/reservation/buy/"+);
+	            console.log('결제완료');
+				location.replace("/receipt/"+response.data.receipt_id);
 	            break
 	        case 'confirm': //payload.extra.separately_confirmed = true; 일 경우 승인 전 해당 이벤트가 호출됨
 	            console.log(response.receipt_id)
@@ -358,6 +368,7 @@ $('#pay_btn').click(function(){
 	             * Bootpay.destroy(); //결제창을 닫는다.*/
 	            break
 	    }
+	    })    
 	} catch (e) {// 결제 진행중 오류 발생
 	    // e.error_code - 부트페이 오류 코드
 	    // e.pg_error_code - PG 오류 코드
