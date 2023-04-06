@@ -12,7 +12,7 @@
 	    <!-- 왼쪽 메뉴바 -->
 	    <div class="left_menu_container">
 	        <nav class="left_menu">
-	            <a href="<c:url value='/study/main'></c:url>" class="list_item">스터디홈</a>
+	            <a href="<c:url value='/study/'></c:url>" class="list_item">스터디홈</a>
 	            <a href="#" class="list_item">스터디 달력</a>
 	            <a href="to_do_list.html" class="list_item">투두 리스트</a>
 	            <a href="Daily Mission.html" class="list_item">데일리 미션</a>
@@ -373,13 +373,18 @@
 		})
 	})
 
-// 버튼 클릭시 confirm창 나타남
+// 버튼 클릭시 스터디 선택 여부에 따라 confirm창 나타남
 function confirmAction(buttonText, action) {
+  const selectedOptionValue = $("select.slect_study_list option:selected").val();
+  if (selectedOptionValue === "") {
+    alert("스터디를 선택하세요.");
+    return;
+  }
   if (confirm(buttonText)) {
     action();
-	}else{
-		console.log("작업 취소");
-	}
+  } else {
+    console.log("작업 취소");
+  }
 }
 
 $(".btn_finish").on("click", function() {

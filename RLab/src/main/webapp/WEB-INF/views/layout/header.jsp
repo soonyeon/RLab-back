@@ -41,7 +41,7 @@
           <a href="#" class="btn_home"><i class="icon_home"></i>LAB</a>
           <nav class="top_menu_container">
          	<a href="#" class="list_item">예약하기</a>
-            <a href="<c:url value='/study/main'></c:url>" class="list_item">스터디</a>
+            <a href="<c:url value='/study/'></c:url>" class="list_item">스터디</a>
             <a href="#" class="list_item">모집 게시판</a>
           </nav>
         </div>
