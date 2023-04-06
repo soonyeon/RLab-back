@@ -1,3 +1,19 @@
+.main_container {
+	width: 1240px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.home_container {
+  float: left;
+  margin-left: 2%;
+}
+
+.right-container {
+  width: 117%;
+  float: right;
+}
+
 
 .total_container{
 	display:flex;
