@@ -12,6 +12,7 @@ import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.StudyVO;
 import kr.kh.RLab.vo.TagRegisterVO;
 import kr.kh.RLab.vo.TagVO;
+import kr.kh.RLab.vo.WantVO;
 
 public interface GatherDAO {
 
@@ -42,6 +43,9 @@ public interface GatherDAO {
 	ArrayList<Integer> selectStudyList();
 
 	ArrayList<Integer> selectWantedStudyList(@Param("me_id")String me_id);
+
+
+	
 
 
 

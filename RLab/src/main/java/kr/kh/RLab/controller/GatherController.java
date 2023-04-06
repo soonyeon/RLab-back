@@ -25,6 +25,7 @@ import kr.kh.RLab.vo.RegionVO;
 import kr.kh.RLab.vo.StudyVO;
 import kr.kh.RLab.vo.TagRegisterVO;
 import kr.kh.RLab.vo.TagVO;
+import kr.kh.RLab.vo.WantVO;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -97,12 +98,15 @@ public class GatherController {
 	
 	//모집글 상세보기
 	@GetMapping("/detail/{st_num}")
-	public ModelAndView gatherDetail(ModelAndView mv,@PathVariable("st_num")int st_num) {
+	public ModelAndView gatherDetail(ModelAndView mv,@PathVariable("st_num")int st_num,HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		MemberVO user = (MemberVO) session.getAttribute("user");
 		GatherVO gather = gatherService.getGather(st_num);
 		StudyVO study = gatherService.getStudy(st_num);
 		ArrayList<TagRegisterVO> tagList = gatherService.selectTagList();
-		//ArrayList<Integer> stList = gatherService.selectStudyList();
-		//mv.addObject("stList",stList);
+		ArrayList<Integer> waList =  gatherService.selectWantedStudyList(user);
+		mv.addObject("st_num",st_num);
+		mv.addObject("waList",waList);
 		mv.addObject("tgList",tagList);
 		mv.addObject("st",study);
 		mv.addObject("ga",gather);

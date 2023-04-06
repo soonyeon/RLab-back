@@ -52,10 +52,10 @@
 									<div class="unlike_img"></div>
 								</c:if>	
 								<c:if test="${user != null}">
-									<c:if test="${waList.contains(stList.get(index).st_num)}">
+									<c:if test="${waList.contains(st_num)}">
 										<div class="like_img"></div>	
 									</c:if>
-									<c:if test="!${waList.contains(stList.get(index).st_num)}">
+									<c:if test="${!waList.contains(st_num)}">
 										<div class="unlike_img"></div>	
 									</c:if>
 								</c:if>
@@ -143,10 +143,10 @@ $(document).ready(function() {
       success: function(response) {
         if (response && response.wantState === 1) {
         	 $('.unlike_img').removeClass('unlike_img').addClass('like_img');
-          alert('찜 했습니다.');
+          alert('스터디를 찜 했습니다.');
         } else if (response && response.wantState === 0) {
         	 $('.like_img').removeClass('like_img').addClass('unlike_img');
-          alert('찜을 취소 했습니다.');
+          alert('스터디 찜을 취소 했습니다.');
         }
       },
       error: function(error) {

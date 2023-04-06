@@ -14,6 +14,7 @@ import kr.kh.RLab.vo.RegionVO;
 import kr.kh.RLab.vo.StudyVO;
 import kr.kh.RLab.vo.TagRegisterVO;
 import kr.kh.RLab.vo.TagVO;
+import kr.kh.RLab.vo.WantVO;
 
 public interface GatherService {
 
@@ -36,6 +37,8 @@ public interface GatherService {
 	ArrayList<Integer> selectStudyList();
 
 	ArrayList<Integer> selectWantedStudyList(MemberVO user);
+
+
 
 
 

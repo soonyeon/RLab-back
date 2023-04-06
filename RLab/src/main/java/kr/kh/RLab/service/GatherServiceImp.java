@@ -16,6 +16,7 @@ import kr.kh.RLab.vo.RegionVO;
 import kr.kh.RLab.vo.StudyVO;
 import kr.kh.RLab.vo.TagRegisterVO;
 import kr.kh.RLab.vo.TagVO;
+import kr.kh.RLab.vo.WantVO;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -149,6 +150,8 @@ public class GatherServiceImp implements GatherService {
 			return null;
 		return gatherDao.selectWantedStudyList(user.getMe_id());
 	}
+
+
 
 
 	

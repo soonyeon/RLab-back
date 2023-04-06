@@ -137,7 +137,7 @@
 													<c:if test="${waList.contains(stList.get(index).st_num)}">
 														<div class="like_img"></div>	
 													</c:if>
-													<c:if test="!${waList.contains(stList.get(index).st_num)}">
+													<c:if test="${!waList.contains(stList.get(index).st_num)}">
 														<div class="unlike_img"></div>	
 													</c:if>
 													
