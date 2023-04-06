@@ -46,15 +46,15 @@
 							<div class="times">
 								<div class="ticket_time" data-num="1">
 									<span class="title">2시간</span> 
-									(<span class="price">10,000</span>원)
+									(<span class="price">50</span>원)
 								</div>
 								<div class="ticket_time" data-num="2">
 									<span class="title">3시간</span>
-									(<span class="price">15,000</span>원)
+									(<span class="price">70</span>원)
 								</div>
 								<div class="ticket_time" data-num="3">
 									<span class="title">6시간</span>
-									(<span class="price">30,000</span>원)
+									(<span class="price">100</span>원)
 								</div>
 							</div>
 						</div>
@@ -63,11 +63,11 @@
 							<div class="times">
 								<div class="ticket_time" data-num="4">
 									<span class="title">2주</span>
-									(<span class="price">100,000</span>원)
+									(<span class="price">80</span>원)
 								</div>
 								<div class="ticket_time" data-num="5">
 									<span class="title">4주</span>
-									(<span class="price">200,000</span>원)
+									(<span class="price">90</span>원)
 								</div>
 							</div>
 						</div>
@@ -76,15 +76,15 @@
 							<div class="times">
 								<div class="ticket_time" data-num="6">
 									<span class="title">30시간</span>
-									(<span class="price">150,000</span>원)
+									(<span class="price">110</span>원)
 								</div>
 								<div class="ticket_time" data-num="7">
 									<span class="title">50시간</span>
-									(<span class="price">250,000</span>원)
+									(<span class="price">120</span>원)
 								</div>
 								<div class="ticket_time" data-num="8">
 									<span class="title">100시간</span>
-									(<span class="price">500,000</span>원)
+									(<span class="price">130</span>원)
 								</div>
 							</div>
 						</div>
@@ -99,11 +99,11 @@
 					<div class="times">
 						<div class="ticket_time" data-num="9">
 							<span class="title">2주</span>
-							(<span class="price">100,000</span>원)
+							(<span class="price">140</span>원)
 						</div>
 						<div class="ticket_time" data-num="10">
 							<span class="title">4주</span>
-							(<span class="price">200,000</span>원)
+							(<span class="price">150</span>원)
 						</div>
 					</div>
 				</div>
@@ -291,6 +291,7 @@ var items = [];
 let finalName = '';
 let finalPrice = 0;
 function makeItemList(){
+	items = [];
 	for(i=0; i<ticketArr.length; i++){
 		let item = {
 			 "id": ticketArr[i].num,
@@ -308,6 +309,8 @@ function makeItemList(){
 
 /* 결제 진행 */
 $('#pay_btn').click(function(){
+	console.log('리스트만들기전:');
+	console.log(ticketArr);
 	makeItemList();
 	console.log(finalPrice);
 	console.log(items);
