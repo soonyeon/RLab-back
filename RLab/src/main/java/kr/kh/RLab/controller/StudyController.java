@@ -105,7 +105,7 @@ public class StudyController {
 	        }
 	    }
 	 
-	 @RequestMapping(value = "/main")
+	 @RequestMapping(value = "/")
 		public ModelAndView main(ModelAndView mv) {
 		 	
 
