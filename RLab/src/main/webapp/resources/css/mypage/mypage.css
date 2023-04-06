@@ -322,7 +322,7 @@
     #used_hours_container #point_container{
         width: 100%;
         display: flex;
-        justify-content: flex-end;
+        justify-content: flex-start;
     }
     #point_container .my_point{
         position: relative;
@@ -331,16 +331,17 @@
         gap: 10px;
         margin-bottom: -3px;
     }
-    #point_container .my_point .icon_point{
-        width: 75px;
-        height: 75px;
-        background-size: 75px 75px;
+    .icon_point{
+        width: 55px;
+        height: 55px;
+        background-size: cover;
         background-image: url(../img/point.png);
-        /* background-repeat: no-repeat; */
+        background-repeat: no-repeat; 
         opacity: 40%;
     }
     .my_point .title_point{
         font-size: 20px;
+        padding-left: 7px;
     }
     .my_point .point_texts .num_point{
         font-size: 20px;
@@ -374,7 +375,7 @@
         justify-content: center;
         align-items: center;
     }
-    .point_btns_container .btn_info .icon_info{
+    .my_point .icon_info{
         width: 20px;
         height: 20px;
         background-size: 20px 20px;
@@ -482,7 +483,6 @@
     #pet_store_popup_container{
         display: flex;
         justify-content: center;
-        align-items: center;
         position: absolute;
         width: 100%;
         height: 100%;
@@ -507,7 +507,7 @@
         padding: 25px 30px;
         box-sizing: border-box;
         background-color: var(--color_beige);
-        margin-bottom: 200px;
+        margin-top: 127px;
         border-radius: var(--border_radius_3);
         box-shadow: 5px 5px 20px #18181856;
     }

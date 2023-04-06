@@ -163,34 +163,40 @@ public class HomeController {
 		String fileName = file.getOriginalFilename();
 		File dest = new File(filePath + fileName);
 		member.setMe_profile("/"+fileName);
-		System.out.println(user);
-		System.out.println(member);
-
 			try {
 				file.transferTo(dest);
-				System.out.println("저장 성공");
 				boolean isEdited = memberService.editImg(member, user); 
 				if(isEdited) {
-					System.out.println("수정 성공");
 					user.setMe_profile(member.getMe_profile());
-					System.out.println(user);
 					mv.setViewName("redirect:/mypage/edit_img");
 				}else {
-					System.out.println("수정 실패");
 					mv.setViewName("redirect:/mypage/edit_img");
 				}
 			} catch (IllegalStateException e) {
 				e.printStackTrace();
-				System.out.println("저장 실패");
 				mv.setViewName("redirect:/");
 			} catch (IOException e) {
 				e.printStackTrace();
-				System.out.println("수정 실패");
 				mv.setViewName("redirect:/");
-			}
-				
-
-		
+			}				
+		return mv;
+	}
+	
+	@RequestMapping(value="/mypage/mypost_post", method=RequestMethod.GET)
+	public ModelAndView mypost(ModelAndView mv) {
+		mv.setViewName("/mypage/mypost_post");
+		return mv;
+	}
+	
+	@RequestMapping(value="/mypage/mypost_recruit", method=RequestMethod.GET)
+	public ModelAndView mypostRecruit(ModelAndView mv) {
+		mv.setViewName("/mypage/mypost_recruit");
+		return mv;
+	}
+	
+	@RequestMapping(value="/mypage/mypost_scrap", method=RequestMethod.GET)
+	public ModelAndView mypostScrap(ModelAndView mv) {
+		mv.setViewName("/mypage/mypost_scrap");
 		return mv;
 	}
 	
