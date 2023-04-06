@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<link rel="stylesheet" href="<c:url value='/resources/css/main.css'></c:url>">
+<link rel="stylesheet" href="<c:url value='/resources/css/main2.css'></c:url>">
 <!-- header -->
 <!-- 모달 -->
     <header>
@@ -56,8 +56,17 @@
 		        <c:if test="${user != null}">		  		       
      				<form action="<c:url value='/logout'></c:url>" method="post">     
 		  				<div class="logout_box">
-		  		    		<a href="#"><i class="icon_mypage"></i><span class="blind">마이페이지</span></a>
-              				<a class="logout_btn"href="<c:url value='/logout'></c:url>">로그아웃</a>
+		  		    		<a href="<c:url value='/mypage/mypage'></c:url>" class="icon_mypage">
+		  		    			<c:if test="${user.me_profile == null}">
+		  		    				<img class="mypage_img" src="<c:url value='/resources/img/user.png'></c:url>" width="auto" height="40">
+		  		    				<span class="blind">마이페이지</span>
+		  		    			</c:if>
+		  		    			<c:if test="${user.me_profile != null}">
+			  		    			<img class="mypage_img" src="<c:url value='/download${user.me_profile}'></c:url>" width="auto" height="40">
+			  		    			<span class="blind">마이페이지</span>
+		  		    			</c:if>
+			  		    	</a>
+              				<a class="logout_btn" href="<c:url value='/logout'></c:url>">로그아웃</a>
             			</div>    
               		</form>
 		        </c:if>

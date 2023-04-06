@@ -1,0 +1,36 @@
+
+table{
+	overflow: hidden;
+	table-layout: fixed;
+}
+td{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	word-break:break-all;
+	padding: 5px;
+	box-sizing: border-box;
+}
+td:nth-child(1){
+	width: 15px;
+}
+td:nth-child(2){
+	width: 50px;
+}
+td:nth-child(3){
+	width: 80px;
+}
+td:nth-child(4){
+	width: 20px;
+}
+td:nth-child(5){
+	width: 20px;
+}
+
+
+/* 제외 버튼 */
+.except_container{
+	width: 100%;
+  display: flex;
+	justify-content: flex-end;
+}
