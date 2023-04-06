@@ -303,7 +303,12 @@
     height: 30px;
     background-image: url('../../img/like_on_red.png');
     background-size: cover;
-
+  }
+   .study_card_container .unlike_img{
+    width: 30px; 
+    height: 30px;
+    background-image: url('../../img/love_off.png');
+    background-size: cover;
   }
   .make_recruit{
     float: right;

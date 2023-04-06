@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.GatherVO;
+import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.StudyVO;
 import kr.kh.RLab.vo.TagRegisterVO;
 import kr.kh.RLab.vo.TagVO;
@@ -39,6 +40,8 @@ public interface GatherDAO {
 	int selectStudyTotalCount(@Param("cri")Criteria cri);
 
 	ArrayList<Integer> selectStudyList();
+
+	ArrayList<Integer> selectWantedStudyList(@Param("me_id")String me_id);
 
 
 

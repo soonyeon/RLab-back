@@ -119,9 +119,17 @@
       background-image: url('../../img/love_off.png');
       background-size: cover;
     }
-    .unlike_img .like_icon{
-    	width : 30px;
-    	height:30px;
+    .study_content .unlike_img{
+     width: 30px; 
+      height: 30px;
+      background-image: url('../../img/love_off.png');
+      background-size: cover;
+    }
+    .study_content .like_img {
+	   	width : 30px;
+	   	height:30px;
+	   	background-image: url('../../img/like_on_red.png');
+	   	background-size: cover;
     }
     .study_tag_info{
       display: flex;

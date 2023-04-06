@@ -23,18 +23,18 @@
 </insert>
 <select id="selectStudyAll" resultType="kr.kh.RLab.vo.StudyVO" >
 SELECT *
-FROM study
+FROM study 
 left join tag_register on tr_st_num = st_num
 WHERE st_name LIKE CONCAT('%',#{cri.search},'%')
 <if test="cri.region != ''">
 AND st_re_name = #{cri.region}
 </if>
 <if test="cri.tagList.size() != 0">
-	and tr_name in 
-	<foreach item="tag" index="index" collection="cri.tagList"
-	      open="(" separator="," close=")">
-	        #{tag}
-	</foreach>
+and tr_name in
+<foreach item="tag" index="index" collection="cri.tagList"
+open="(" separator="," close=")">
+#{tag}
+</foreach>
 </if>
 group by st_num
 ORDER BY st_num DESC
@@ -80,5 +80,10 @@ where st_num = #{st_num}
 	group by st_num
 	) as t
 </select> 
+<select id="selectWantedStudyList" resultType="Integer">
+	SELECT ga_st_num FROM want 
+	join gather on ga_num = wa_ga_num
+	where wa_state=1 and wa_me_id = #{me_id}
+</select>
 
 </mapper>

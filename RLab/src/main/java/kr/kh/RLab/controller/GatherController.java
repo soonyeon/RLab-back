@@ -1,8 +1,11 @@
 package kr.kh.RLab.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.pagination.PageMaker;
 import kr.kh.RLab.service.GatherService;
-import kr.kh.RLab.service.ScrapService;
-import kr.kh.RLab.service.WantService;
 import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.MemberVO;
@@ -71,7 +72,9 @@ public class GatherController {
 	}
 	//게시글 리스트보기
 	@GetMapping("/list")
-	public ModelAndView mainlistgather(ModelAndView mv,Criteria cri) {
+	public ModelAndView mainlistgather(ModelAndView mv,Criteria cri,HttpServletRequest request) {
+		 HttpSession session = request.getSession();
+		 MemberVO user = (MemberVO) session.getAttribute("user");
 		cri.sortCri();
 		System.out.println(cri.getTagList().size());
 		cri.setPerPageNum(9);
@@ -80,12 +83,17 @@ public class GatherController {
 		ArrayList<StudyVO> stList = gatherService.selectStudyAll(cri);
 		ArrayList<FileVO> fileList = gatherService.selectFileList();
 		ArrayList<TagRegisterVO> tagList = gatherService.selectTagList();
+		ArrayList<Integer> waList =  gatherService.selectWantedStudyList(user);
+		mv.addObject("user",user);
+		mv.addObject("waList",waList);
 		mv.addObject("pm",pm);
 		mv.addObject("stList",stList);
 		mv.addObject("tagList",tagList);
 		mv.setViewName("/gather/list");
+		
 	    return mv;
 	}
+	
 	
 	//모집글 상세보기
 	@GetMapping("/detail/{st_num}")

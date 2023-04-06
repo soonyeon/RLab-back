@@ -25,4 +25,5 @@ public class WantController {
 		MemberVO member = (MemberVO)request.getSession().getAttribute("user");
 	     return wantService.toggleWant(wantVO,member);
 	 }
+	
 }

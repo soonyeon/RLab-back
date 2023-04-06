@@ -129,7 +129,20 @@
 												<span>/</span> 
 												<span>${stList.get(index).st_total_people}</span>
 											</div>
-											<div class="like_img"></div>
+											<div class="want_icon">
+												<c:if test="${user == null}" >
+													<div class="unlike_img"></div>
+												</c:if>
+												<c:if test="${user != null}">
+													<c:if test="${waList.contains(stList.get(index).st_num)}">
+														<div class="like_img"></div>	
+													</c:if>
+													<c:if test="!${waList.contains(stList.get(index).st_num)}">
+														<div class="unlike_img"></div>	
+													</c:if>
+													
+												</c:if>
+											</div>
 										</div>
 									</div>
 								</a>
@@ -195,4 +208,3 @@
 	});
 	
 </script>
-${pm}

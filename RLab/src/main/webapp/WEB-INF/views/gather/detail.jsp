@@ -47,8 +47,18 @@
 						<div class="study_recruiting">
 							<span>모집중</span> <span>${st.st_now_people}</span> <span>/</span> <span>${st.st_total_people}</span>
 						</div>
-							<div class="want_icon">
-								<img class="like_icon" src="<c:url value='/resources/img/love_off.png'></c:url>" style="width: 40px; height: 40px;">
+							<div class="want_icon" >
+								<c:if test="${user == null}" >
+									<div class="unlike_img"></div>
+								</c:if>	
+								<c:if test="${user != null}">
+									<c:if test="${waList.contains(stList.get(index).st_num)}">
+										<div class="like_img"></div>	
+									</c:if>
+									<c:if test="!${waList.contains(stList.get(index).st_num)}">
+										<div class="unlike_img"></div>	
+									</c:if>
+								</c:if>
 							</div>
 					</div>
 					<div class="study_tag_info">
@@ -115,11 +125,11 @@
 const userId = '${user.me_id}'; 
 const gatherNum = '${ga.ga_num}';
 $(document).ready(function() {
-  $('.like_icon').on('click', function() {
-    scrap();
+  $('.want_icon').on('click', function() {
+    want();
   });
 
-  function scrap() {
+  function want() {
     // 데이터
     var requestData = {
       wa_me_id: userId,
@@ -132,10 +142,10 @@ $(document).ready(function() {
       data: JSON.stringify(requestData),
       success: function(response) {
         if (response && response.wantState === 1) {
-          $('.like_icon').attr('src', '<c:url value="/resources/img/love_off" />');
+        	 $('.unlike_img').removeClass('unlike_img').addClass('like_img');
           alert('찜 했습니다.');
         } else if (response && response.wantState === 0) {
-          $('.like_icon').attr('src', '<c:url value="/resources/img/like_on_red" />');
+        	 $('.like_img').removeClass('like_img').addClass('unlike_img');
           alert('찜을 취소 했습니다.');
         }
       },
