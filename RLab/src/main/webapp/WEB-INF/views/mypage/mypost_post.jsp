@@ -84,16 +84,12 @@
                     <!-- 페이지 이동 -->
                      <div class="page_area">
                      	<div class="page_box clearfix">
-	                       	<c:if test="${ph.showPrev}">
-	    						<a href="<c:url value='/mypage/mypost_post?page=${ph.beginPage-1}&pageSize=${ph.pageSize}'/>"> <i class="btn_prev"></i></a>
-							</c:if>
-							<c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">
-	   						 	<a class='"page_num <c:if test="${ph.page == i}"> selected </c:if>"' href="<c:url value='/mypage/mypost_post?page=${i}&pageSize=${ph.pageSize}'/>">${i}</a>
-							</c:forEach>
-	                           <c:if test="${ph.showNext}">
-							<a href="<c:url value='/mypage/mypost_post?page=${ph.endPage+1}&pageSize=${ph.pageSize}'/>"><i class="btn_next"></i></a>
-							</c:if>                              
-                     	</div>
+							<i class="btn_prev"></i>
+							<span class="page_num selected">1</span>
+							<span class="page_num">2</span>
+							<span class="page_num">3</span>
+							<i class="btn_next"></i>
+						</div>
                      </div>  
                       
                     </div>
@@ -106,20 +102,8 @@
 
 	</div>
 <script>	
-function redirectToBoardList(sortParam) {
-    <c:url var="url" value="/mypage/mypost_post">
-        <c:param name="page" value="1" />
-        <c:param name="pageSize" value="10" />
-    </c:url>
-    window.location.href = "${url}&sort=" + sortParam;
-}
-//<div class="page_box clearfix">
-//<i class="btn_prev"></i>
-//<span class="page_num selected">1</span>
-//<span class="page_num">2</span>
-//<span class="page_num">3</span>
-//<i class="btn_next"></i>
-//</div>
+
+
 
 </script>
 

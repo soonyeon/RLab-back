@@ -34,24 +34,15 @@ public class MypageController {
 	
 	@GetMapping("/mypost_post")
 	public ModelAndView mypost(
-			ModelAndView mv,  HttpSession session, BoardVO board, MemberVO member,
-			@RequestParam(value="page",defaultValue = "1") Integer page,
-		    @RequestParam(value="pageSize",defaultValue = "10") Integer pageSize) {
+			ModelAndView mv,  HttpSession session, BoardVO board, MemberVO member){
 		
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		member.setMe_id(user.getMe_id());
 		String memberId = member.getMe_id();
 		System.out.println(member);
 		ArrayList<BoardVO> myBoardList = boardService.getBoardListById(memberId);
-		
-		int totalCnt = boardService.getCountById(memberId);
-	    PageHandler pageHandler = new PageHandler(totalCnt, page, pageSize);
-	    Map<String, Object> map = new HashMap<String, Object>();
-	    map.put("offset", (page - 1) * pageSize);
-	    map.put("pageSize", pageSize);
-		
-		mv.addObject("myBoardList",myBoardList);
-		mv.addObject("ph", pageHandler);
+
+		mv.addObject("myBoardList", myBoardList);
 		mv.setViewName("/mypage/mypost_post");
 		return mv;
 	}

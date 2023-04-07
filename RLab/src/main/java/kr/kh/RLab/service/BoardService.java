@@ -33,7 +33,5 @@ public interface BoardService {
 	// 아이디로 작성게시글 가져오기
 	ArrayList<BoardVO> getBoardListById(String memberId);
 	
-	// 아이디로 작성게시글 개수 가져오기
-	int getCountById(String memberId);
 	
 }
