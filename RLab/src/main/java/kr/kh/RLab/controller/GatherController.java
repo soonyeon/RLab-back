@@ -89,7 +89,6 @@ public class GatherController {
 		mv.addObject("stList",stList);
 		mv.addObject("tagList",tagList);
 		mv.setViewName("/gather/list");
-		
 	    return mv;
 	}
 	

@@ -41,13 +41,14 @@
 			<div class="flex_box">
 				<div class="menu_nav clearfix">
 					<div class="recruit_state">
-						<div class="recruit_state_title">모집중</div>
-						<input type="checkbox" id="switch1" name="switch1" class="input__on-off">
+						<div class="recruit_state_title">모집전체보기</div>
+							<input type="checkbox" id="switch1" name="switch1" class="input__on-off" value="on" <c:if test="${pm.cri.filter == 'on'}">checked</c:if>>
 						<label for="switch1" class="label__on-off">
 						  <span class="marble"></span>
 						  <span class="on">on</span>
 						  <span class="off">off</span>
 						</label>
+
 					</div>
 					<div class="recruit_tag_box ">
 						<span id="tag_title">#태그</span>
@@ -172,14 +173,17 @@
             </div>
 	</div>
 </main>
-<script>
-	//스위치 on off
-	$(document).ready(function() {
-		$('.switch_check').click(function() {
-			$('.switch_btn').toggleClass('switch_btn_on');
-		});
-	});
-	
+<script>	
+
+	$('#switch1').change(function(){
+		if(${pm.cri.filter != 'on'}){
+			$('.recruit_state_title').text('모집중');
+			location.replace('<c:url value="/gather/list?filter=on"></c:url>');
+		}else{
+			$('.recruit_state_title').text('전체보기');
+			location.replace('<c:url value="/gather/list?filter=off"></c:url>');	
+		}
+	})
 	//지역검색
 	$(document).ready(function(){
 	  $('.sel_region a').click(function(e){
