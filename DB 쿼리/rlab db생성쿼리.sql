@@ -36,7 +36,8 @@ CREATE TABLE `study_member` (
 	`sm_num`	int auto_increment primary key NOT NULL,
 	`sm_st_num`	int NOT NULL,
 	`sm_me_id`	varchar(13)	NOT NULL,
-	`sm_authority`	int not null default 0
+	`sm_authority`	int not null default 0,
+    `sm_join_date` datetime
 );
 
 DROP TABLE IF EXISTS `calendar`;
