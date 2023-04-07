@@ -13,10 +13,10 @@ public class CalendarServiceImp implements CalendarService{
 	private final CalendarDAO calendarDao;
 
 	@Override
-	public void insert(CalendarVO calendarVo,int ca_st_num) {
+	public void insert(CalendarVO calendarVo) {
 		if(calendarVo == null) 
 			return ;
-		calendarDao.insert(calendarVo,ca_st_num);
+		calendarDao.insert(calendarVo);
 	}
 
 }

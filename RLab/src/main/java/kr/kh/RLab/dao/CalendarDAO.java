@@ -4,6 +4,6 @@ import kr.kh.RLab.vo.CalendarVO;
 
 public interface CalendarDAO {
 
-	void insert(CalendarVO calendarVo, int ca_st_num);
+	void insert(CalendarVO calendarVo);
 
 }

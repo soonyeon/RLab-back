@@ -133,6 +133,7 @@
 	            
 	             <dialog id="calendarDialog">
 		        <form id="calendarForm">
+		        	<input type="hidden" value="${ca_st_num}" id="ca_st_num">
 		            <div class="mb-3">
 		                <label for="calendarTitle" class="form-label">제목</label>
 		                <input type="text" class="form-control" id="calendarTitle">

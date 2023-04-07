@@ -6,8 +6,8 @@
 
 <!-- 캘런더 등록 쿼리 -->
 <insert id="insert">
-insert into calendar(ca_st_num,ca_title,ca_start,ca_end,ca_all_day)
-	values(#{ca_st_num},#{ca_title},#{ca_start},#{ca_end},#{ca_all_day])
+  INSERT INTO calendar(ca_st_num, ca_title, ca_start, ca_end, ca_all_day)
+  VALUES(#{ca_st_num}, #{ca_title}, #{ca_start}, #{ca_end}, #{ca_all_day});
 </insert>
 
 </mapper>
