@@ -70,11 +70,15 @@ public class ReservationController {
 		    }
 		    HashMap<String, Object> res2 = bootpay.getReceipt(receiptId);
 		    if(res2.get("error_code") == null) { //success
+		    	PayDTO payDto = new PayDTO();
 		        System.out.println("confirm success: " + res2);
-		        reservationService.setPaymentSuccessed(receiptId);
-//		        reservationService.updatePay();
-//		        reservationService.updatePayDetail();
-//		        reservationService.insertTicketOwn();
+		        //status가 1이고 가격이 등록된 값이랑 같은지 검수
+//		        if(res2.get("status")==(Integer)1)
+//		        	System.out.println("status = 1");
+//		        if(res2.get("price")==(Integer)1)
+		        	
+//		        reservationService.setPaymentSuccessed(receiptId); //->pay_detail 수정하고 ticket_own추가
+
 		    } else {
 		        System.out.println("confirm false: " + res2);
 		    }

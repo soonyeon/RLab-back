@@ -285,11 +285,11 @@ var hours = today.getHours(); // 시
 var minutes = today.getMinutes();  // 분
 var seconds = today.getSeconds();  // 초
 var milliseconds = today.getMilliseconds();
-var makeMerchantUid = hours +  minutes + seconds + milliseconds;
+var makeMerchantUid = '${user.me_id}' + hours +  minutes + seconds + milliseconds;
 
 var items = [];
 let finalName = '';
-let finalPrice = 0;
+var finalPrice = 0;
 
 let itemsForDb = [];
 let usedPoint = +$('[name=pa_used_point]').val();
@@ -325,6 +325,11 @@ function makeItemVoList(){
 let response ;
 /* 결제 진행 */
 $('#pay_btn').click(function(){
+	//if(${user.me_id==''}){
+	//	alert('로그인 후 결제를 진행해주세요.');
+	//	return;		
+	//}
+	console.log(makeMerchantUid);
 	makeItemList();//주문용 리스트 생성
 	makeItemVoList();//DB전달용 VO리스트 생성
 	console.log(itemsForDb);
@@ -355,7 +360,7 @@ $('#pay_btn').click(function(){
 	   		"application_id": "642d26f2755e27001dad6270",
 	   		"price": finalPrice,
 	   		"order_name": finalName,
-	   		"order_id": "TEST_ORDER_ID",
+	   		"order_id": makeMerchantUid,
 	   		"pg": "이니시스",
 	   		"method": "카드",
 	   		"tax_free": 0,
