@@ -68,110 +68,15 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr class="board_list">
-                              <td>24</td>
-                              <td>프론트엔트 공부해요</td>
-                              <td class="post_title">리액트 처음부터 함께 배워요! 당신도 할수있다! 아자아자 화이팅!</td>
-                              <td>매미킴</td>
-                              <td>2023.02.28</td>                             
-                            <tr class="board_list">
-                              <td>23</td>
-                              <td>스프링 박살내기</td>
-                              <td class="post_title">스프링을 이용한 게시판 만들기</td>
-                              <td>매미킴sdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsd</td>
-                              <td>2023.02.28</td>
-                            </tr>
-                            <tr class="board_list">
-                              <td>22</td>
-                              <td>코딩 테스트</td>
-                              <td class="post_title">백엔드 취업을 위한 코딩테스트</td>
-                              <td>보드키</td>
-                              <td>2023.02.28</td>
-                            </tr>
-                            <tr class="board_list">
-                              <td>21</td>
-                              <td>반응형 페이지 만들기</td>
-                              <td class="post_title">html, css, js를 이용한 반응형 웹 만들기</td>
-                              <td>스키야키</td>
-                              <td>2023.02.28</td>
-                            </tr>
-                            <tr class="board_list">
-                              <td>20</td>
-                              <td>java study</td>
-                              <td class="post_title">남궁성: 자바의 정석 책으로 함께 자바 공부해요</td>
-                              <td>다나카</td>
-                              <td>2023.02.28</td>
-                            </tr>
-                            <tr class="board_list">
-                              <td>19</td>
-                              <td>정처기 준비하는 스터디</td>
-                              <td class="post_title">정처기 필기 과목별로 정리했습니다!</td>
-                              <td>김돌탕</td>
-                              <td>2023.02.28</td>
-                            </tr>
-                            <tr class="board_list">
-                              <td>18</td>
-                              <td>정처기 준비하는 스터디</td>
-                              <td class="post_title">정처기 필기 과목별로 정리했습니다!</td>
-                              <td>김돌탕</td>
-                              <td>2023.02.28</td>
-                            </tr>
-                            <tr class="board_list">
-                              <td>17</td>
-                              <td>정처기 준비하는 스터디</td>
-                              <td class="post_title">정처기 필기 과목별로 정리했습니다!</td>
-                              <td>김돌탕</td>
-                              <td>2023.02.28</td>
-                            </tr>
-                            <tr class="board_list">
-                              <td>16</td>
-                              <td>정처기 준비하는 스터디</td>
-                              <td class="post_title">정처기 필기 과목별로 정리했습니다!</td>
-                              <td>김돌탕</td>
-                              <td>2023.02.28</td>
-                            </tr>
-                            <tr class="board_list">
-                              <td>15</td>
-                              <td>정처기 준비하는 스터디</td>
-                              <td class="post_title">정처기 필기 과목별로 정리했습니다!</td>
-                              <td>김돌탕</td>
-                              <td>2023.02.28</td>
-                            </tr>
-                            <tr class="board_list">
-                              <td>14</td>
-                              <td>정처기 준비하는 스터디</td>
-                              <td class="post_title">정처기 필기 과목별로 정리했습니다!</td>
-                              <td>김돌탕</td>
-                              <td>2023.02.28</td>
-                            </tr>
-                            <tr class="board_list">
-                              <td>17</td>
-                              <td>정처기 준비하는 스터디</td>
-                              <td class="post_title">정처기 필기 과목별로 정리했습니다!</td>
-                              <td>김돌탕</td>
-                              <td>2023.02.28</td>
-                            </tr>
-                            <tr class="board_list">
-                              <td>16</td>
-                              <td>정처기 준비하는 스터디</td>
-                              <td class="post_title">정처기 필기 과목별로 정리했습니다!</td>
-                              <td>김돌탕</td>
-                              <td>2023.02.28</td>
-                            </tr>
-                            <tr class="board_list">
-                              <td>15</td>
-                              <td>정처기 준비하는 스터디</td>
-                              <td class="post_title">정처기 필기 과목별로 정리했습니다!</td>
-                              <td>김돌탕</td>
-                              <td>2023.02.28</td>
-                            </tr>
-                            <tr class="board_list">
-                              <td>14</td>
-                              <td>정처기 준비하는 스터디</td>
-                              <td class="post_title">정처기 필기 과목별로 정리했습니다!</td>
-                              <td>김돌탕</td>
-                              <td>2023.02.28</td>
-                            </tr>
+                           <c:forEach items="${myScrapList}" var="bo" varStatus="vs">
+	                            <tr class="board_list" onclick="location.href='<c:url value='/board/detail/${bo.bo_num}'/>';">	      
+	                              <td>${bo.bo_num}</td>
+	                              <td>${bo.st_name}</td>
+	                              <td class="post_title">${bo.bo_title}</td>
+	                              <td>${bo.me_name}</td>
+	                              <td>${bo.bo_reg_date_str}</td>                             
+								</tr>
+							</c:forEach>
                           </tbody>
                         </table>
                       </div>

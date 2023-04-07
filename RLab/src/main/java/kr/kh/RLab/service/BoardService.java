@@ -30,8 +30,10 @@ public interface BoardService {
 	//스터디 가져오기
 	ArrayList<StudyVO> selectStudyList(String st_me_id);
 	
-	// 아이디로 작성게시글 가져오기
+	// 아이디로 작성게시글 목록 가져오기
 	ArrayList<BoardVO> getBoardListById(String memberId);
+	
+
 	
 	
 }

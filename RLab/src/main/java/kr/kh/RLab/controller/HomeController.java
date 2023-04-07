@@ -196,11 +196,7 @@ public class HomeController {
 		return mv;
 	}
 	
-	@RequestMapping(value="/mypage/mypost_scrap", method=RequestMethod.GET)
-	public ModelAndView mypostScrap(ModelAndView mv) {
-		mv.setViewName("/mypage/mypost_scrap");
-		return mv;
-	}
+
 	
 	
 }
