@@ -38,7 +38,6 @@ public interface GatherService {
 	ArrayList<Integer> selectStudyList();
 
 	ArrayList<Integer> selectWantedStudyList(MemberVO user);
-	
 
 	ArrayList<Integer> selectStudyMemberList(MemberVO user);
 

@@ -42,13 +42,11 @@
 				<div class="menu_nav clearfix">
 					<div class="recruit_state">
 						<div class="recruit_state_title">모집중</div>
-						<input type="checkbox" id="recruit_switch"> 
-						<label for="switch" class="switch_label"> 
-							<li class="switch_check">
-								<span class="btn_on">ON</span> 
-								<span class="btn_off">OFF</span>
-								<div class="switch_btn"></div>
-							</li>
+						<input type="checkbox" id="switch1" name="switch1" class="input__on-off">
+						<label for="switch1" class="label__on-off">
+						  <span class="marble"></span>
+						  <span class="on">on</span>
+						  <span class="off">off</span>
 						</label>
 					</div>
 					<div class="recruit_tag_box ">
