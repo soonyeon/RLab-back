@@ -60,9 +60,7 @@
 			<mapping path="/board/delete/*"/>
 			<mapping path="/board/list"/>
 			<mapping path="/board/detail/*"/>
-			<mapping path="/study/certificationBoard"/>
-			<mapping path="/study/insertCB"/>
-			<mapping path="/study/toggleLike"/>
+			<mapping path="/study/*"/>
 			<beans:ref bean="memberInterceptor"/>
 		</interceptor>
 	</interceptors>

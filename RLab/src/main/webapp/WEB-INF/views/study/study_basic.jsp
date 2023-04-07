@@ -7,9 +7,82 @@
 <link rel="stylesheet" href="<c:url value='/resources/css/study/study.css'></c:url>">
 <link rel="stylesheet" href="<c:url value='/resources/css/study/calendar_main.css'></c:url>">
 <script src="<c:url value='/resources/js/study/calendar/calendar.js'/>"></script>
-<script src="<c:url value='/resources/js/study/calendar/study_og.js'/>"></script>>
+<script src="<c:url value='/resources/js/study/calendar/study_og.js'/>"></script>
+
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+ <style>
+ 
+ 		#calendarDialog {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 9999;
+    }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-control {
+            margin-bottom: 10px;
+        }
+        
+            body {
+        font-family: Arial, sans-serif;
+    }
+	    .overlay {
+	        position: fixed;
+	        top: 0;
+	        left: 0;
+	        width: 100%;
+	        height: 100%;
+	        background-color: rgba(0, 0, 0, 0.5);
+	        display: flex;
+	        justify-content: center;
+	        align-items: center;
+	        z-index: 1000;
+	    }
+	    .modal {
+	        background-color: white;
+	        padding: 20px;
+	        border-radius: 4px;
+	        width: 80%;
+	        max-width: 500px;
+	        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	    }
+	    .modal menu {
+	        display: flex;
+	        justify-content: flex-end;
+	    }
+	    
+	    #calendarDialog button {
+		  background-color: #007bff;
+		  border: none;
+		  color: white;
+		  cursor: pointer;
+		  font-size: 16px;
+		  margin-right: 10px;
+		  padding: 8px 16px;
+		}
+		
+		#calendarDialog button:hover {
+		  background-color: #0056b3;
+		  color: white;
+		}
+		
+		#calendarDialog #closecalendar {
+		  background-color: #6c757d;
+		}
+		
+		#calendarDialog #deletecalendar {
+		  background-color: #dc3545;
+		}
+		
+		#calendarDialog #savecalendar {
+		  background-color: #28a745;
+		}
+    </style>
 
 <main>
 	<div class="main_container">
@@ -57,6 +130,34 @@
 	                    <div id='calendar'></div>
 	                </div>
 	            </div>
+	            
+	             <dialog id="calendarDialog">
+		        <form id="calendarForm">
+		            <div class="mb-3">
+		                <label for="calendarTitle" class="form-label">제목</label>
+		                <input type="text" class="form-control" id="calendarTitle">
+		            </div>
+		            <div class="mb-3">
+		                <label for="calendarStart" class="form-label">시작일</label>
+		                <input type="datetime-local" class="form-control" id="calendarStart">
+		            </div>
+		            <div class="mb-3">
+		                <label for="calendarEnd" class="form-label">종료일</label>
+		                <input type="datetime-local" class="form-control" id="calendarEnd">
+		            </div>
+		            <div class="mb-3 form-check">
+		                <input type="checkbox" class="form-check-input" id="calendarAllDay">
+		                <label class="form-check-label" for="calendarAllDay">하루종일</label>
+		            </div>
+		            <menu>
+		                <button type="button" id="closecalendar">닫기</button>
+		                <button type="button" id="savecalendar">저장</button>
+		            </menu>
+		        </form>
+    			</dialog>
+	            
+	            
+	            
 	            <div class="middle_container clearfix">
 	                
 	                
@@ -201,7 +302,7 @@
 	                    <div class="now">NOW</div>
 	                </div>
 	                <div class="circle_star cc">
-	                    <img class="star" src="../img/favorite_star_on.png">
+	                    <img class="star" src="<c:url value='/resources/img/favorite_star_on.png'></c:url>">
 	                </div>
 	                <div class="my_study_container">
 	                    <div class="my_list_title">

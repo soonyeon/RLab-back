@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class calendarVO {
+public class CalendarVO {
 	
 	private int ca_num;
 	private int ca_st_num;

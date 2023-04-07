@@ -1,20 +1,24 @@
 $(document).ready(function() {
   var calendarEl = document.getElementById('calendar');
 
-  var calendar = new FullCalendar.Calendar(calendarEl, {
-    locale: 'ko',
-    headerToolbar: {
-      left: '',
-      center: '',
-      right: 'prev,title,next'
-    },
-    initialDate: '2023-01-12',
-    navLinks: true,
-    editable: true,
-    dayMaxEvents: true,
-    events: eventObj,
-    initialView: 'dayGridMonth' 
-  });
+	var calendar = new FullCalendar.Calendar(calendarEl, {
+	    locale: 'ko',
+	    headerToolbar: {
+	      left: '',
+	      center: '',
+	      right: 'prev,title,next'
+	    },
+	    initialDate: '2023-04-07',
+	    navLinks: true,
+	    editable: true,
+	    dayMaxEvents: true,
+	    events: eventObj,
+	    initialView: 'dayGridMonth',
+	    dateClick: function(info) {
+	      var dialog = document.getElementById('calendarDialog');
+	      dialog.showModal();
+	    },
+	});
 
 
   $('.tab1').click(function() {
@@ -27,6 +31,11 @@ $(document).ready(function() {
   });
 
   calendar.render();
+  // 닫기 버튼 클릭 이벤트
+	$('#closecalendar').click(function() {
+	var dialog = document.getElementById('calendarDialog');
+	dialog.close();
+	});
 });
   
   let eventObj = [
