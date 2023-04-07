@@ -81,8 +81,10 @@
 	</resultMap>
 	
   	<select id="selectBoardListById" resultType="kr.kh.RLab.vo.BoardVO">
- 		SELECT bo_num, bo_title, bo_me_id, bo_reg_date FROM board
- 		where bo_me_id = #{me_id};
+ 		SELECT board.bo_num, study.st_name, board.bo_title, board.bo_me_id, board.bo_reg_date 
+ 		FROM board
+ 		JOIN study ON board.bo_st_num = study.st_num
+ 		where board.bo_me_id = #{memberId};
   	</select>
   	
 </mapper>

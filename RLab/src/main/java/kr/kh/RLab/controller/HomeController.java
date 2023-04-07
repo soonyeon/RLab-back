@@ -3,6 +3,7 @@ package kr.kh.RLab.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,7 +18,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.kh.RLab.pagination.Criteria;
+import kr.kh.RLab.service.BoardService;
 import kr.kh.RLab.service.MemberService;
+import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.MemberVO;
 
 @Controller
@@ -25,6 +29,7 @@ public class HomeController {
 	
 	@Autowired
 	MemberService memberService;
+	BoardService boardService;
 
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -182,6 +187,7 @@ public class HomeController {
 		return mv;
 	}
 	
+
 
 	
 	@RequestMapping(value="/mypage/mypost_recruit", method=RequestMethod.GET)

@@ -71,10 +71,10 @@
 	                         <c:forEach items="${myBoardList}" var="bo" varStatus="vs">
 	                            <tr class="board_list">
 	                              <td>${bo.bo_num}</td>
-	                              <td></td>
+	                              <td>${bo.st_name}</td>
 	                              <td class="post_title">${bo.bo_title}</td>
-	                              <td>프론트 마스터</td>
-	                              <td>2023.02.28</td>
+	                              <td>${bo.bo_me_id}</td>
+	                              <td>${bo.bo_reg_date_str}</td>
 	                            </tr>                       
 							</c:forEach>
                           </tbody>

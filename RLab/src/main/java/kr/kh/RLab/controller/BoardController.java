@@ -141,15 +141,9 @@ public class BoardController {
 	    return "success";
 	}
 	
-	@RequestMapping(value="/mypage/mypost_post", method=RequestMethod.GET)
-	public ModelAndView mypost(ModelAndView mv,  HttpSession session, BoardVO board, Criteria cri) {
-		MemberVO user = (MemberVO)session.getAttribute("user");
-		String me_id = user.getMe_id();
-		ArrayList<BoardVO> myBoardList = boardService.getBoardListById(cri, me_id);
-		mv.addObject("myBoardList",myBoardList);
-		mv.setViewName("/mypage/mypost_post");
-		return mv;
-	}
 
+
+	
+	
 
 }

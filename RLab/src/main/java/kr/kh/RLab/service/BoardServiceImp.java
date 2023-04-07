@@ -71,10 +71,11 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public ArrayList<BoardVO> getBoardListById(Criteria cri, String me_id) {
-		if(cri == null)
+	public ArrayList<BoardVO> getBoardListById(String memberId) {
+		if(memberId == null)
 			return null;
-		return boardDao.selectBoardListById(cri, me_id);
+		System.out.println("userId2 : "  + memberId);
+		return boardDao.selectBoardListById(memberId);
 	}
 
 

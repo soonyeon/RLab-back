@@ -26,6 +26,6 @@ public interface BoardService {
 	ArrayList<StudyVO> selectStudyList(String st_me_id);
 	
 	// 아이디로 작성게시글 가져오기
-	ArrayList<BoardVO> getBoardListById(Criteria cri, String userId);
+	ArrayList<BoardVO> getBoardListById(String memberId);
 	
 }
