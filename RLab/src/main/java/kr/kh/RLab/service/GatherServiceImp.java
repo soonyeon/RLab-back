@@ -1,6 +1,7 @@
 package kr.kh.RLab.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
@@ -13,10 +14,10 @@ import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.RegionVO;
+import kr.kh.RLab.vo.StudyMemberVO;
 import kr.kh.RLab.vo.StudyVO;
 import kr.kh.RLab.vo.TagRegisterVO;
 import kr.kh.RLab.vo.TagVO;
-import kr.kh.RLab.vo.WantVO;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -151,6 +152,26 @@ public class GatherServiceImp implements GatherService {
 		return gatherDao.selectWantedStudyList(user.getMe_id());
 	}
 
+	@Override
+	public ArrayList<Integer> selectStudyMemberList(MemberVO user) {
+		if(user == null)
+			return null;
+		return gatherDao.selectStudyMemberList(user.getMe_id());
+	}
+
+	@Override
+	public ArrayList<Integer> selelctJoinStudyMemberList(MemberVO user) {
+		if (user == null)
+			return null;
+		return gatherDao.selelctJoinStudyMemberList(user.getMe_id());
+	}
+
+
+
+	
+
+	}
+
 
 
 
@@ -165,4 +186,3 @@ public class GatherServiceImp implements GatherService {
 	
 	
 
-}

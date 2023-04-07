@@ -85,5 +85,9 @@ where st_num = #{st_num}
 	join gather on ga_num = wa_ga_num
 	where wa_state=1 and wa_me_id = #{me_id}
 </select>
-
+<select id="selelctJoinStudyMemberList" resultType="Integer">
+	select sm_st_num from study_member
+	join study on st_num = sm_st_num
+	where sm_authority=1 and sm_me_id = #{me_id}
+</select>
 </mapper>

@@ -15,11 +15,11 @@
     values (#{wa_me_id},#{wa_ga_num},#{wa_state})
   </insert>
   <update id="updateWant">
- update want
-set wa_state=#{wa_state}
-where 
-    wa_me_id=#{wa_me_id} 
-and 
-    wa_ga_num=#{wa_ga_num}
+	 update want
+		set wa_state=#{wa_state}
+	where 
+	    wa_me_id=#{wa_me_id} 
+	and 
+	    wa_ga_num=#{wa_ga_num}
   </update>
 </mapper>

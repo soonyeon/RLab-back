@@ -9,6 +9,7 @@ import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.MemberVO;
+import kr.kh.RLab.vo.StudyMemberVO;
 import kr.kh.RLab.vo.StudyVO;
 import kr.kh.RLab.vo.TagRegisterVO;
 import kr.kh.RLab.vo.TagVO;
@@ -44,6 +45,11 @@ public interface GatherDAO {
 
 	ArrayList<Integer> selectWantedStudyList(@Param("me_id")String me_id);
 
+	ArrayList<Integer> selectStudyMemberList(@Param("me_id")String me_id);
+
+	ArrayList<Integer> selelctJoinStudyMemberList(@Param("me_id")String me_id);
+
+	
 
 	
 

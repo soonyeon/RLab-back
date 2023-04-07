@@ -21,7 +21,6 @@ public class WantController {
 	
 	 @PostMapping("/want")
 	    public Map<String, Object> want(@RequestBody WantVO wantVO,HttpServletRequest request) {
-		 System.out.println(wantVO);
 		MemberVO member = (MemberVO)request.getSession().getAttribute("user");
 	     return wantService.toggleWant(wantVO,member);
 	 }

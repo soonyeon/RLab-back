@@ -45,7 +45,7 @@
 					</div>
 					<div class="study_content">
 						<div class="study_recruiting">
-							<span>모집중</span> <span>${st.st_now_people}</span> <span>/</span> <span>${st.st_total_people}</span>
+							<span>모집중</span> <span class="now_pp">${st.st_now_people}</span> <span>/</span> <span>${st.st_total_people}</span>
 						</div>
 							<div class="want_icon" >
 								<c:if test="${user == null}" >
@@ -68,7 +68,19 @@
 							</c:if>
 						</c:forEach>
 					</div>
-					<button class="apply_btn">신청하기</button>
+					<div class="join_study">
+			   		<c:if test="${user == null }">
+			   		 <button class="apply_btn">신청하기</button>
+					</c:if>
+					<c:if test="${user != null }">
+						<c:if test="${smList.contains(st_num)}">
+							<button class="already_apply_btn">스터디 가입 완료</button>
+						</c:if>
+						<c:if test="${!smList.contains(st_num)}">
+							<button class="apply_btn">신청하기</button>
+						</c:if>
+					</c:if>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -79,7 +91,10 @@
                 <div class="cm_input_box">
                     <input type="text" class="cm_write" placeholder="궁금한 점을 댓글로 작성해보세요!">
                 </div>
+               
+               
                 <button class="cm_upload_btn">등록</button>
+           
             </div>
             <div class="comment_box">
                 <%--  <div class="cm_main_box">
@@ -124,6 +139,9 @@
 <script>
 const userId = '${user.me_id}'; 
 const gatherNum = '${ga.ga_num}';
+const studyNum = '${st_num}';
+let joinCount = '${joinCount}';
+
 $(document).ready(function() {
   $('.want_icon').on('click', function() {
     want();
@@ -152,6 +170,45 @@ $(document).ready(function() {
       error: function(error) {
     	  console.log(error)
         alert('찜에 실패하였습니다. 다시 시도해주세요');
+      }
+    });
+  }
+});
+
+
+$(document).ready(function() {
+  $('.now_pp').text(joinCount);
+	
+	
+  $('.join_study').on('click', function() {
+    join();
+  });
+
+  function join() {
+    // 데이터
+    var requestData = {
+      sm_me_id: userId,
+      sm_st_num: studyNum
+    };
+    $.ajax({
+      url: '<c:url value="/join" />',
+      type: 'POST',
+      contentType: "application/json",
+      data: JSON.stringify(requestData),
+      success: function(response) {
+        if (response.joinState === 1) {
+        	 $('.apply_btn').removeClass('apply_btn').addClass('already_apply_btn');
+          alert('스터디를 가입했습니다.');
+        } else if (response.joinState === 0) {
+        	 $('.already_apply_btn').removeClass('already_apply_btn').addClass('apply_btn');
+          alert('스터디 가입 취소했습니다.');
+        }
+     // 신청 개수를 업데이트
+        $('.now_pp').text(response.joinCount);
+      },
+      error: function(error) {
+    	  console.log(error)
+        alert('스터디 가입에 실패하였습니다. 다시 시도해주세요');
       }
     });
   }

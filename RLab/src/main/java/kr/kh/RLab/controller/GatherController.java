@@ -1,8 +1,6 @@
 package kr.kh.RLab.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -18,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.pagination.PageMaker;
 import kr.kh.RLab.service.GatherService;
+import kr.kh.RLab.service.JoinStudyService;
 import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.MemberVO;
@@ -25,7 +24,6 @@ import kr.kh.RLab.vo.RegionVO;
 import kr.kh.RLab.vo.StudyVO;
 import kr.kh.RLab.vo.TagRegisterVO;
 import kr.kh.RLab.vo.TagVO;
-import kr.kh.RLab.vo.WantVO;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -34,7 +32,7 @@ import lombok.RequiredArgsConstructor;
 public class GatherController {
 
 	private final GatherService gatherService;
-
+	private final JoinStudyService joinstudyService;
 	
 	//스터디 생성
 	@GetMapping("/insertstudy")
@@ -77,7 +75,6 @@ public class GatherController {
 		 HttpSession session = request.getSession();
 		 MemberVO user = (MemberVO) session.getAttribute("user");
 		cri.sortCri();
-		System.out.println(cri.getTagList().size());
 		cri.setPerPageNum(9);
 		int totalCount = gatherService.getStudyTotalCount(cri);
 		PageMaker pm = new PageMaker(totalCount, 5, cri);
@@ -106,6 +103,10 @@ public class GatherController {
 		StudyVO study = gatherService.getStudy(st_num);
 		ArrayList<TagRegisterVO> tagList = gatherService.selectTagList();
 		ArrayList<Integer> waList =  gatherService.selectWantedStudyList(user);
+		ArrayList<Integer> smList = gatherService.selelctJoinStudyMemberList(user);
+		int joinCount = joinstudyService.getJoinCount(st_num);
+		mv.addObject("smList",smList);
+		mv.addObject("joinCount",joinCount);
 		mv.addObject("st_num",st_num);
 		mv.addObject("waList",waList);
 		mv.addObject("tgList",tagList);
@@ -117,6 +118,4 @@ public class GatherController {
 	
 	
 
-
-	
 }

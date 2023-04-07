@@ -155,6 +155,16 @@
       background-color: var(--color_yellow);
       cursor: pointer;
     }
+    
+    .main_right_box .already_apply_btn{
+      margin-top: 18px;
+      width: 260px;
+      height: 50px;
+      font-size: 25px;
+      border-radius: var(--border_radius_4);
+      background-color: var(--color_yellow);
+      cursor: pointer;
+    }
     .main_bottom_box{
       margin-top: 40px;
     }
