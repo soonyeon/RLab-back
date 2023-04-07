@@ -13,6 +13,4 @@ public class ReservationController {
 		mv.setViewName("/reservation/buy");
 		return mv;
 	}
-	
-
 }

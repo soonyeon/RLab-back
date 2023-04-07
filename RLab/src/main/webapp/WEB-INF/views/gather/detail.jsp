@@ -69,17 +69,17 @@
 						</c:forEach>
 					</div>
 					<div class="join_study">
-			   		<c:if test="${user == null }">
-			   		 <button class="apply_btn">신청하기</button>
-					</c:if>
-					<c:if test="${user != null }">
-						<c:if test="${smList.contains(st_num)}">
-							<button class="already_apply_btn">스터디 가입 완료</button>
+				   		<c:if test="${user == null }">
+				   		 <button class="apply_btn">스터디 가입</button>
 						</c:if>
-						<c:if test="${!smList.contains(st_num)}">
-							<button class="apply_btn">신청하기</button>
+						<c:if test="${user != null }">
+							<c:if test="${smList.contains(st_num)}">
+								<button class="already_apply_btn">스터디 가입 완료</button>
+							</c:if>
+							<c:if test="${!smList.contains(st_num)}">
+								<button class="apply_btn">스터디 가입</button>
+							</c:if>
 						</c:if>
-					</c:if>
 					</div>
 				</div>
 			</div>
@@ -177,13 +177,13 @@ $(document).ready(function() {
 
 
 $(document).ready(function() {
-  $('.now_pp').text(joinCount);
-	
 	
   $('.join_study').on('click', function() {
     join();
   });
-
+  
+  $('.now_pp').text(joinCount);
+  
   function join() {
     // 데이터
     var requestData = {
@@ -197,14 +197,16 @@ $(document).ready(function() {
       data: JSON.stringify(requestData),
       success: function(response) {
         if (response.joinState === 1) {
-        	 $('.apply_btn').removeClass('apply_btn').addClass('already_apply_btn');
+        	 $('.apply_btn').removeClass('apply_btn').addClass('already_apply_btn').text('스터디 가입 완료');
           alert('스터디를 가입했습니다.');
+          location.reload();
         } else if (response.joinState === 0) {
-        	 $('.already_apply_btn').removeClass('already_apply_btn').addClass('apply_btn');
+        	 $('.already_apply_btn').removeClass('already_apply_btn').addClass('apply_btn').text('스터디 가입');
           alert('스터디 가입 취소했습니다.');
+       		location.reload();
+          $('.now_pp').text(response.joinCount);
         }
-     // 신청 개수를 업데이트
-        $('.now_pp').text(response.joinCount);
+		
       },
       error: function(error) {
     	  console.log(error)
