@@ -37,7 +37,7 @@ CREATE TABLE `study_member` (
 	`sm_st_num`	int NOT NULL,
 	`sm_me_id`	varchar(13)	NOT NULL,
 	`sm_authority`	int not null default 0,
-    `sm_join_date` datetime
+    `sm_join_date` datetime not null
 );
 
 DROP TABLE IF EXISTS `calendar`;
