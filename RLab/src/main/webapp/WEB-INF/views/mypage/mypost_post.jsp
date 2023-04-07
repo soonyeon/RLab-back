@@ -73,7 +73,7 @@
 	                              <td>${bo.bo_num}</td>
 	                              <td>${bo.st_name}</td>
 	                              <td class="post_title">${bo.bo_title}</td>
-	                              <td>${bo.bo_me_id}</td>
+	                              <td>${bo.me_name}</td>
 	                              <td>${bo.bo_reg_date_str}</td>
 	                            </tr>                       
 							</c:forEach>
