@@ -58,6 +58,10 @@ public class MypageController {
 		return mv;
 	}
 	
-	
+	@RequestMapping(value="/mypage/mypost_recruit", method=RequestMethod.GET)
+	public ModelAndView mypostRecruit(ModelAndView mv) {
+		mv.setViewName("/mypage/mypost_recruit");
+		return mv;
+	}
 
 }
