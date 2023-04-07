@@ -6,5 +6,15 @@
 	<select id="selectAllPointById" resultType="int">
 		select ifnull(sum(po_amount),0) from point where po_me_id = #{me_id} and po_state = 1
 	</select>
-
+	<insert id="insertPay" useGeneratedKeys="true" keyProperty="pa.pa_num">
+		insert into pay(pa_me_id, pa_order_name, pa_date, pa_amount, pa_point, pa_used_point)
+		values(#{pa.pa_me_id},#{pa.pa_order_name},now(),#{pa.pa_amount},#{pa.pa_point},#{pa.pa_used_point})
+	</insert>
+	<insert id="insertPayDetail">
+		insert into pay_detail(pd_pa_num, pd_ti_num, pd_amount, pd_price, pd_state)
+		values
+		<foreach collection="items" item="i" separator=",">
+			(#{pa_num}, #{i.pd_ti_num}, #{i.pd_amount}, #{i.pd_price}, '결제중')
+		</foreach>
+	</insert>
 </mapper>

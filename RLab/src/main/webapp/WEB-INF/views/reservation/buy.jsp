@@ -192,7 +192,7 @@ $(document).on('click','.btn-close', function(){
 
 $(document).on('change','[name=ticket_count]',function(){
 	let ticketNum = $(this).parent().parent().data('num');
-	let count = $(this).val();
+	let count = +$(this).val();
 	for(index in ticketArr){
 		if(ticketArr[index].num == ticketNum)
 			ticketArr[index].count = count;
@@ -290,6 +290,10 @@ var makeMerchantUid = hours +  minutes + seconds + milliseconds;
 var items = [];
 let finalName = '';
 let finalPrice = 0;
+
+let itemsForDb = [];
+let usedPoint = +$('[name=pa_used_point]').val();
+
 function makeItemList(){
 	items = [];
 	for(i=0; i<ticketArr.length; i++){
@@ -306,22 +310,47 @@ function makeItemList(){
 	else if(items.length > 1)
 		finalName = items[0].name +' 외 '+ (items.length-1) +'건';
 }
+function makeItemVoList(){
+	itemsForDb = [];
+	for(i in items){
+		let a = {
+			"pd_ti_num": items[i].id,
+			"pd_amount": items[i].qty,
+			"pd_price": items[i].price
+		}
+		itemsForDb.push(a);
+	}
+}
 
 let response ;
 /* 결제 진행 */
 $('#pay_btn').click(function(){
-	makeItemList();
-	//ajax로 씽크false로 해서 db에 등록하기
+	makeItemList();//주문용 리스트 생성
+	makeItemVoList();//DB전달용 VO리스트 생성
+	console.log(itemsForDb);
+	let payDto = {
+			pa_me_id: "${user.me_id}",
+			pa_amount: finalPrice,
+			pa_order_name: finalName,
+			pay_point: parseInt(finalPrice*0.01),
+			pay_used_point: +$('[name=pa_used_point]').val(),
+			itemList: itemsForDb			
+	}
+	console.log(payDto);
+	//ajax로 어씽크false로 해서 db에 등록하기
 	$.ajax({
         async:false,
         type: 'POST',
-        data: JSON.stringify(obj),
+        data: JSON.stringify(payDto),
         url: '<c:url value="/reservation/buy"></c:url>',
         dataType:"json", //success에 있는 data타입(주는거)
         contentType:"application/json; charset=UTF-8", //위에있는 data타입(받는거)
-        success : successFunc
+        success : function(data){
+        	console.log(data);
+        }
 	});
 	console.log('결제중 DB 등록 완료');
+	return;
 	try {
 		response = Bootpay.requestPayment({
 	   		"application_id": "642d26f2755e27001dad6270",
