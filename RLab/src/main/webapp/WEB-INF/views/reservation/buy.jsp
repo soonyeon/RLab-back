@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<link href="<c:url value='/resources/css/ticket_buy.css'></c:url>" rel="stylesheet">
+<link href="<c:url value='/resources/css/reservation/ticket_buy.css'></c:url>" rel="stylesheet">
 <!-- jQuery -->
 <script src="<c:url value='/resources/js/jquery.min.js'></c:url>"></script>
 <!-- bootpay.js -->
@@ -350,7 +350,6 @@ $('#pay_btn').click(function(){
         }
 	});
 	console.log('결제중 DB 등록 완료');
-	return;
 	try {
 		response = Bootpay.requestPayment({
 	   		"application_id": "642d26f2755e27001dad6270",
@@ -380,7 +379,7 @@ $('#pay_btn').click(function(){
 				//location.replace("/pay/confirm?receipt_id="+response.receipt_id);
 				//location.replace("/reservation/buy/"+);
 	            console.log('결제완료');
-				location.replace("/receipt/"+response.data.receipt_id);
+				location.replace('<c:url value="/receipt/'+response.data.receipt_id+'"></c:url>');
 	            break
 	        case 'confirm': //payload.extra.separately_confirmed = true; 일 경우 승인 전 해당 이벤트가 호출됨
 	            console.log(response.receipt_id)

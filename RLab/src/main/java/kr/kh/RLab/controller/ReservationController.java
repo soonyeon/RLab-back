@@ -39,13 +39,51 @@ public class ReservationController {
 	@RequestMapping(value = "/reservation/buy", method=RequestMethod.POST) 
 	public Map<String,Object> ticketBuyPost(@RequestBody PayDTO payDto) {
 		HashMap<String,Object> map = new HashMap<String,Object>();
-		System.out.println(payDto);
 		//결제내역과 결제된 티켓정보들을 DTO로 받아서 DB에 반영하는 작업
 		if(reservationService.insertPayment(payDto)) {
 			System.out.println("성공");
 		}
-		
 		//mv.setViewName("/reservation/buy_complete");
 		return map;
+	}
+	//결제 단건 조회: 보안상 클라이언트에서 수행된 결제는 서버간 통신으로 조회하여 정상적인 결제인지 검증해야함
+	@RequestMapping(value = "/receipt/{receipt_id}", method=RequestMethod.GET) 
+	public ModelAndView receiptId(ModelAndView mv, @PathVariable("receipt_id")String receiptId) {
+		System.out.println(receiptId);
+		try {
+			//토큰 발급 받기
+		    Bootpay bootpay = new Bootpay("642d26f2755e27001dad6273", 
+		    		"jPqzzyXRG5Qbpmy5Zgw8QKVx/KDTvIu1fTqoqZ5to78=");
+		    HashMap res = bootpay.getAccessToken();
+		    if(res.get("error_code") == null) { //success
+		        System.out.println("goGetToken success: " + res);
+		    } else {
+		        System.out.println("goGetToken false: " + res);
+		    }
+		    
+		    //결제 단건 조회
+		    HashMap<String, Object> token = bootpay.getAccessToken();
+		    if(token.get("error_code") != null) { //failed
+		    	System.out.println("토큰에러발생");
+		    	System.out.println(token.get("error_code"));
+		        return mv;
+		    }
+		    HashMap<String, Object> res2 = bootpay.getReceipt(receiptId);
+		    if(res2.get("error_code") == null) { //success
+		        System.out.println("confirm success: " + res2);
+		        reservationService.setPaymentSuccessed(receiptId);
+//		        reservationService.updatePay();
+//		        reservationService.updatePayDetail();
+//		        reservationService.insertTicketOwn();
+		    } else {
+		        System.out.println("confirm false: " + res2);
+		    }
+		} catch (Exception e) {
+		    e.printStackTrace();
+		}
+		
+		
+		mv.setViewName("/reservation/buy_complete");
+		return mv;
 	}
 }

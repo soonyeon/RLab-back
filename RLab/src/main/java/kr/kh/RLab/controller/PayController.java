@@ -31,6 +31,7 @@ public class PayController {
 		}
 		return mv;
 	}
+	/*
 	//결제 단건 조회: 보안상 클라이언트에서 수행된 결제는 서버간 통신으로 조회하여 정상적인 결제인지 검증해야함
 	@RequestMapping(value = "/receipt/{receipt_id}", method=RequestMethod.GET) 
 	public ModelAndView receiptId(ModelAndView mv, @PathVariable("receipt_ud")String receiptId) {
@@ -52,7 +53,7 @@ public class PayController {
 		}
 		mv.setViewName("/reservation/buy_complete");
 		return mv;
-	}
+	}*/
 	//결제 서버 승인
 	@RequestMapping(value = "/confirm", method=RequestMethod.POST) 
 	public void confirm() {

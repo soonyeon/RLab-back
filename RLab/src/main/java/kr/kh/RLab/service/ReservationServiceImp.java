@@ -23,11 +23,9 @@ public class ReservationServiceImp implements ReservationService {
 			System.out.println("pay 등록 실패");
 			return false;
 		}
-		System.out.println(payDto);
 		if(reservationDao.insertPayDetail(payDto.getPa_num(), payDto.getItemList())==0){
 			System.out.println("pay_detail 등록 실패");
 			return false;
-			
 		}
 		return true;
 	}
