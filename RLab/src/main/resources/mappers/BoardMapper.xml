@@ -89,4 +89,12 @@
  		ORDER BY board.bo_reg_date DESC;
   	</select>
   	
+  	<select id="getCountById" resultType="int">
+		select
+			count(*)
+		from
+			board
+		where bo_me_id = #{memberId}
+	</select>
+  	
 </mapper>

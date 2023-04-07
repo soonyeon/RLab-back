@@ -11,14 +11,19 @@ import kr.kh.RLab.vo.StudyVO;
 public interface BoardService {
     //게시글 작성
 	boolean insertBoard(BoardVO board, MemberVO member);
+	
     //게시글 리스트
 	ArrayList<BoardVO> selectBoardList(Map<String, Object> map);
+	
 	//게시글 상세조회
 	BoardVO getBoard(int bo_num);
+	
 	//게시글 갯수
 	int getCount();
+	
 	// 게시글 삭제
 	void deleteBoard(int bo_num);
+	
 	//게시글 수정
 	boolean updateBoard(BoardVO board);
 	
@@ -27,5 +32,8 @@ public interface BoardService {
 	
 	// 아이디로 작성게시글 가져오기
 	ArrayList<BoardVO> getBoardListById(String memberId);
+	
+	// 아이디로 작성게시글 개수 가져오기
+	int getCountById(String memberId);
 	
 }

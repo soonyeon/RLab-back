@@ -30,4 +30,6 @@ public interface BoardDAO {
 	ArrayList<StudyVO> selectStudyList(String st_me_id);
 
 	ArrayList<BoardVO> selectBoardListById(String memberId);
+	
+	int getCountById(String memberId);
 }

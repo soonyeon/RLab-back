@@ -78,5 +78,10 @@ public class BoardServiceImp implements BoardService {
 		return boardDao.selectBoardListById(memberId);
 	}
 
+	@Override
+	public int getCountById(String memberId) {
+		return boardDao.getCountById(memberId);
+	}
+
 
 }
