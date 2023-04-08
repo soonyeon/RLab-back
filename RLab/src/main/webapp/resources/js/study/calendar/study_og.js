@@ -85,10 +85,11 @@ $(document).ready(function () {
             dialog.close();
         });
         
-               // 이벤트 저장 버튼 클릭 이벤트
+        // 이벤트 저장 버튼 클릭 이벤트
         $("#savecalendar").click(function () {
             var eventData = {
                 ca_num: $("#ca_num").val(),
+                ca_st_num: $("#ca_st_num").val(),
                 ca_title: $("#calendarTitle").val(),
                 ca_start: $("#calendarStart").val(),
                 ca_end: $("#calendarEnd").val(),
