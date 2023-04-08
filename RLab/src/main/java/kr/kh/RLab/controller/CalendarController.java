@@ -1,8 +1,8 @@
 package kr.kh.RLab.controller;
 
-import javax.servlet.http.HttpSession;
+import java.util.List;
 
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,9 +24,12 @@ public class CalendarController {
 	@PostMapping("/insert")
 	public void insert(@RequestBody CalendarVO calendarVo) {
 		calendarService.insert(calendarVo);
-		
 	}
 	
+	@GetMapping("/findAll")
+	public List<CalendarVO> findAll() {
+		return calendarService.findAll();
+	}
 	
 
 }

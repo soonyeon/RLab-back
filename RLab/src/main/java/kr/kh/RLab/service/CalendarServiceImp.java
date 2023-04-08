@@ -1,5 +1,7 @@
 package kr.kh.RLab.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import kr.kh.RLab.dao.CalendarDAO;
@@ -17,6 +19,11 @@ public class CalendarServiceImp implements CalendarService{
 		if(calendarVo == null) 
 			return ;
 		calendarDao.insert(calendarVo);
+	}
+
+	@Override
+	public List<CalendarVO> findAll() {
+		return calendarDao.findAll();
 	}
 
 }
