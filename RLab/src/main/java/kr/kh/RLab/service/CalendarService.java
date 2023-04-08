@@ -10,4 +10,6 @@ public interface CalendarService {
 	
 	List<CalendarVO> findAll();
 
+	CalendarVO findCaNum(int ca_num);
+
 }

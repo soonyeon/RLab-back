@@ -26,4 +26,9 @@ public class CalendarServiceImp implements CalendarService{
 		return calendarDao.findAll();
 	}
 
+	@Override
+	public CalendarVO findCaNum(int ca_num) {
+		return calendarDao.findByCaNum(ca_num);
+	}
+
 }
