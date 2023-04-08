@@ -5,6 +5,7 @@
     
 
 <link rel="stylesheet" href="<c:url value='/resources/css/study/study.css'></c:url>">
+<link rel="stylesheet" href="<c:url value='/resources/css/common.css'></c:url>">
 <link rel="stylesheet" href="<c:url value='/resources/css/study/calendar_main.css'></c:url>">
 <script src="<c:url value='/resources/js/study/calendar/calendar.js'/>"></script>
 <script src="<c:url value='/resources/js/study/calendar/study_og.js'/>"></script>
