@@ -58,7 +58,7 @@ public class BoardController {
 	public ModelAndView boardList(
 	        ModelAndView mv,Criteria cri
 	) {
-		cri.setPerPageNum(15); // 한 페이지당 컨텐츠 갯수
+		cri.setPerPageNum(10); // 한 페이지당 컨텐츠 갯수
 	    int totalCount = boardService.getCount();
 	    PageMaker pm = new PageMaker(totalCount, 10, cri);
 
