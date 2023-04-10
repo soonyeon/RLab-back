@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.kh.RLab.pagination.Criteria;
+import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.MemberVO;

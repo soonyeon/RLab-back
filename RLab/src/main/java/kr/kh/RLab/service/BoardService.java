@@ -30,13 +30,4 @@ public interface BoardService {
 	//스터디 가져오기
 	ArrayList<StudyVO> selectStudyList(String st_me_id);
 	
-	// 아이디로 작성게시글 목록 가져오기
-	ArrayList<BoardVO> getBoardListById(String memberId);
-	
-	// 로그인한 회원이 작성한 게시글 전체 수
-	int getPostBoardTotalCount(String memberId);
-	
-
-	
-	
 }

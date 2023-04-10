@@ -39,7 +39,7 @@ WHERE st_name LIKE CONCAT('%',#{cri.search},'%')
 	#{tag}
 	</foreach>
 </if>
-group by st_num, tr_num, tr_name
+group by st_num
 ORDER BY st_num DESC
 LIMIT #{cri.pageStart}, #{cri.perPageNum}
 </select>
@@ -47,7 +47,7 @@ LIMIT #{cri.pageStart}, #{cri.perPageNum}
 	select * from file
 </select>
 <select id="selectTagList" resultType="kr.kh.RLab.vo.TagRegisterVO">
-select 	* from tag_register
+	select 	* from tag_register
 </select>
 <select id="selectGather" resultType="kr.kh.RLab.vo.GatherVO">
 select * from gather 

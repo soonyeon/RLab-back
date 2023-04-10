@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 import kr.kh.RLab.pagination.Criteria;
+import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.MemberVO;
@@ -48,6 +49,11 @@ public interface GatherDAO {
 	ArrayList<Integer> selectStudyMemberList(@Param("me_id")String me_id);
 
 	ArrayList<Integer> selelctJoinStudyMemberList(@Param("me_id")String me_id);
+
+	ArrayList<BoardVO> selectGatherListById(@Param("memberId")String memberId, @Param("cri")Criteria cri);
+
+	int selectGatherTotalCount(String memberId);
+
 
 	//ArrayList<StudyVO> selectFilteredStudy(@Param("cri")Criteria cri);
 

@@ -49,13 +49,24 @@ body {
    flex-flow: column;
    align-items: center;
 }
-  .blind {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-  }
+.blind {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+}
+/* 페이지네이션 기본값 */ 
+.study_card_container .page_box .page_num a{
+    line-height: 30px;
+    font-size: 25px;
+    color: var(--color_grey);
+}
+/*  현재 페이지 속성 */
+.active{
+	font-weight: 800;
+	color: var(--color_black)!important;
+}
 /* 추가(세영) 2023-02-10 */
 .display_none{
 	display: none;

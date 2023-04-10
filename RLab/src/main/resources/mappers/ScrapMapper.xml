@@ -24,13 +24,4 @@
         SELECT COUNT(*) FROM scrap WHERE sc_bo_num=#{bo_num} AND sc_state=1
     </select>
     
-    <select id="selectScrapListById" resultType="kr.kh.RLab.vo.BoardVO">
-	    SELECT board.bo_num, study.st_name, board.bo_title, member.me_name, board.bo_reg_date
-		FROM board
-		JOIN study ON board.bo_st_num = study.st_num
-		JOIN member ON board.bo_me_id = member.me_id
-		JOIN scrap ON board.bo_num = scrap.sc_bo_num
-		WHERE member.me_id = #{memberId} AND scrap.sc_state = 1;
-    </select>
-    
     </mapper>

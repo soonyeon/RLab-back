@@ -29,9 +29,7 @@ public interface BoardDAO {
 
 	ArrayList<StudyVO> selectStudyList(String st_me_id);
 
-	ArrayList<BoardVO> selectBoardListById(String memberId);
+	ArrayList<BoardVO> selectBoardListById(@Param("memberId")String memberId, @Param("cri")Criteria cri);
 	
 	int getCountById(String memberId);
-
-	int selectPostBoardTotalCount(String memberId);
 }

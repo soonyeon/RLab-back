@@ -10,8 +10,9 @@
 <script src="<c:url value='/resources/js/jquery.min.js'></c:url>"></script>
 <script src="<c:url value='/resources/js/jquery.validate.min.js'></c:url>"></script>
 <script src="<c:url value='/resources/js/additional-methods.min.js'></c:url>"></script>
-  <link rel="stylesheet" href="<c:url value ='/resources/css/mypage/mypage_common.css?after'></c:url>" />
- <link rel="stylesheet" href="<c:url value ='/resources/css/tab_common.css?after'></c:url>" />
+ <link rel="stylesheet" href="<c:url value ='/resources/css/common.css?after'></c:url>" />
+<link rel="stylesheet" href="<c:url value ='/resources/css/mypage/mypage_common.css?after'></c:url>" />
+<link rel="stylesheet" href="<c:url value ='/resources/css/tab_common.css?after'></c:url>" />
 <link rel="stylesheet" href="<c:url value ='/resources/css/table_common.css?after'></c:url>" />
 <link rel="stylesheet" href="<c:url value ='/resources/css/mypage/mypost_scrap.css?after'></c:url>">
 <title>작성글 관리</title>
@@ -82,14 +83,24 @@
                       </div>
                       <!-- 페이지 이동 -->
                       <div class="page_area">
-                        </div>
-                          <div class="page_box clearfix">
-                            <i class="btn_prev"></i>
-                            <span class="page_num selected">1</span>
-                            <span class="page_num">2</span>
-                            <span class="page_num">3</span>
-                            <i class="btn_next"></i>
-                        </div>
+	                       <div class="page_box clearfix">
+		                        <c:if test="${pm.prev}">
+	                     			<a class="page-link" href="<c:url value='/mypage/mypost_scrap?page=${pm.endPage-1}'></c:url>">
+										<i class="btn_prev"></i>
+									</a>
+								</c:if>
+								<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
+									<span class="page_num">										
+										<a class="page-link <c:if test="${pm.cri.page == i}"> active</c:if>" href="<c:url value='/mypage/mypost_scrap?page=${i}'></c:url>">${i}</a>
+									</span>
+								</c:forEach>
+								<c:if test="${pm.next}">										
+									<a class="page-link" href="<c:url value='/mypage/mypost_scrap?page=${pm.endPage+1}'></c:url>">
+										<i class="btn_next"></i>
+									</a>
+								</c:if>
+	                       </div>
+                       </div>
                       </div>
                     </div>
 
