@@ -62,6 +62,18 @@
 		co_num = #{co_num}
 </update>
 
+<select id="selectCommentByBoNum" resultType="kr.kh.RLab.vo.CommentVO">
+	select *
+		from comment
+	where sc_bo_num = #{bo_num}
+</select>
+
+<delete id="deleteCommentAll">
+	delete
+	from comment
+	where  co_me_id = #{me_id}
+</delete>
+
 
 
 </mapper>

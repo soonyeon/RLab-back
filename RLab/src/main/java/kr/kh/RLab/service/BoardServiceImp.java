@@ -66,8 +66,8 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public ArrayList<StudyVO> selectStudyList(String st_me_id) {
-		return boardDao.selectStudyList(st_me_id);
+	public ArrayList<StudyVO> selectStudyList() {
+		return boardDao.selectStudyList();
 	}
 
 	@Override
@@ -84,8 +84,4 @@ public class BoardServiceImp implements BoardService {
 		return totalCount;
 		
 	}
-
-
-
-
 }

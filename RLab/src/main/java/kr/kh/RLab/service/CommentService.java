@@ -1,5 +1,6 @@
 package kr.kh.RLab.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -17,5 +18,9 @@ public interface CommentService {
 	boolean deleteComment(CommentVO comment, MemberVO user);
 
 	boolean updateComment(CommentVO comment, MemberVO user);
+
+	ArrayList<CommentVO> selectCommentByBoNum(int bo_num);
+
+	void deleteCommentAll(ArrayList<CommentVO> comment, MemberVO user);
 
 }

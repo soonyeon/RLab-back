@@ -28,7 +28,7 @@ public interface BoardService {
 	boolean updateBoard(BoardVO board);
 	
 	//스터디 가져오기
-	ArrayList<StudyVO> selectStudyList(String st_me_id);
+	ArrayList<StudyVO> selectStudyList();
 	
 	// 아이디로 작성게시글 목록 가져오기
 	ArrayList<BoardVO> getBoardListById(String memberId);

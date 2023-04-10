@@ -27,7 +27,7 @@ public interface BoardDAO {
 
 	boolean updateBoard(BoardVO board);
 
-	ArrayList<StudyVO> selectStudyList(String st_me_id);
+	ArrayList<StudyVO> selectStudyList();
 
 	ArrayList<BoardVO> selectBoardListById(String memberId);
 	

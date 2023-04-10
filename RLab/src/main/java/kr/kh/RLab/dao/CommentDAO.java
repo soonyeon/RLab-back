@@ -1,9 +1,11 @@
 package kr.kh.RLab.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import kr.kh.RLab.vo.CommentVO;
+import kr.kh.RLab.vo.MemberVO;
 
 public interface CommentDAO {
 	
@@ -18,6 +20,10 @@ public interface CommentDAO {
 	int deleteComment(CommentVO comment);
 
 	int updateComment(CommentVO comment);
+
+	ArrayList<CommentVO> selectCommentByBoNum(int bo_num);
+
+	void deleteCommentAll(ArrayList<CommentVO> comment, String me_id);
 	
 
 }

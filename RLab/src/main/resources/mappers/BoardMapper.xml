@@ -67,7 +67,6 @@
   	
   	<select id="selectStudyList" resultType="kr.kh.RLab.vo.StudyVO">
   		select * from study
-  		where st_me_id = #{st_me_id}
   	</select>
   	
   	<resultMap id="BoardResultMap" type="kr.kh.RLab.vo.BoardVO">

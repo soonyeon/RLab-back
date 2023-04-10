@@ -1,5 +1,6 @@
 package kr.kh.RLab.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -51,6 +52,18 @@ public class CommentServiceImp implements CommentService {
 		if(dbComment == null || !dbComment.getCo_me_id().equals(user.getMe_id()))
 			return false;
 		return commentDao.updateComment(comment) != 0;
+	}
+
+	@Override
+	public ArrayList<CommentVO> selectCommentByBoNum(int bo_num) {
+		if(bo_num == 0)
+			return null;
+		return commentDao.selectCommentByBoNum(bo_num);
+	}
+
+	@Override
+	public void deleteCommentAll(ArrayList<CommentVO> comment, MemberVO user) {
+		commentDao.deleteCommentAll(comment,user.getMe_id());
 	}
 
 }
