@@ -632,3 +632,7 @@
   bottom: 180px;
   right: 600px;
 }
+
+.section::after{
+	clear: both; display: block; content: '';
+}

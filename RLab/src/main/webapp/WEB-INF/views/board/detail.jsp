@@ -32,7 +32,7 @@
                     </nav>
 		</div>
 
-		<section>
+		<section class="section">
 			<div class="home_container">
 				   <h2>자유게시판</h2>
     <div class="inner_board_box">
