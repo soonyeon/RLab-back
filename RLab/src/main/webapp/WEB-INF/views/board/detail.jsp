@@ -296,6 +296,7 @@
     function loadComments(page1) {
     
         $.ajax({
+        	async:false,
             url: '<c:url value="/comment/list/' + boardNum + '?page=' + page1 + '" />',
             type: 'POST',
             dataType: 'json',
@@ -518,17 +519,12 @@
                     alert("댓글이 삭제되었습니다.");
                     // 댓글 목록을 다시 불러옴
                     $('.comment_box').empty();
-                    loadComments(page);
+                    loadComments(1); // 현재 페이지가 1인 경우만 댓글을 다시 불러옴
                     loadCommentCount();
                 } else {
                     alert("댓글 삭제에 실패했습니다. 다시 시도해주세요.");
                 }
             },
-            error: function(xhr, status, error) {
-                console.error("Status:", status);
-                console.error("Error:", error);
-                alert("댓글 삭제 중 오류가 발생했습니다. 다시 시도해주세요.");
-            }
         });
     }
     $(document).on('click', '.cm_update_btn, .re_edit_btn', function() {
@@ -579,7 +575,6 @@
     });
 
     function updateComment(comment, page) {
-        $('.comment_box').empty();
         $.ajax({
             url: '<c:url value="/comment/update" />',
             type: 'POST',
@@ -593,10 +588,8 @@
                 if (response.result == "success") {
                     alert("댓글이 수정되었습니다.");
                     // 댓글 목록을 다시 불러옴
-                    for(i=1;i<=page;i++){
-                    loadComments(i);
-                    console.log(i);
-                    }
+                    $('.comment_box').empty();
+                    loadComments(1); // 현재 페이지가 1인 경우만 댓글을 다시 불러옴
                     loadCommentCount(); 
                 } else {
                     alert("댓글 수정에 실패했습니다. 다시 시도해주세요.");
