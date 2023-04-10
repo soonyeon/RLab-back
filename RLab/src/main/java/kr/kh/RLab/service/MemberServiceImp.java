@@ -25,14 +25,24 @@ public class MemberServiceImp implements MemberService {
 	    if (member == null) {
 	        return false;
 	    }
-	    int result = memberDao.insertMember(member);
-	    if (result != 0) {
-	        memberDao.updateAuthority(member.getMe_id(), 1);
-	        return true;
+	    
+	    String newPw = passwordEncoder.encode(member.getMe_pw());
+	    member.setMe_pw(newPw);
+	    
+	    try {
+	        int result = memberDao.insertMember(member);
+	        System.out.println(result);
+	        if (result != 0) {
+	            memberDao.updateAuthority(member.getMe_id(), 1);
+	            return true;
+	        }
+	    } catch (Exception e) {
+	        // 예외 처리 코드 추가
+	        e.printStackTrace();
 	    }
+	    
 	    return false;
 	}
-
 
 	
 	@Override
@@ -70,10 +80,77 @@ public class MemberServiceImp implements MemberService {
 		
 		if(user == null)
 			return null;
-		//입력한 비번과 저장된 비번이 같은지를 확인'
-		if(member.getMe_pw().equals(user.getMe_pw()));
+		//입력한 비번과 암호화된 비번이 같은지를 확인
+		if(passwordEncoder.matches(member.getMe_pw(), user.getMe_pw()))
 			return user;
-			
+		return null;
+	}
+
+
+	@Override
+	public boolean checkPw(MemberVO pw, MemberVO user) {
+		//입력한 비번과 암호화된 비번이 같은지를 확인'
+		String pwRegex = "^[a-zA-Z0-9!@#$]{8,20}$";
+		if(pw.getMe_pw() == null || 
+				!Pattern.matches(pwRegex, pw.getMe_pw()))
+			return false;
+//		user = memberDao.selectMemberByPw(pw.getMe_pw());
+		System.out.println("비번체크 세션" + user);
+		System.out.println("비번체크 입력" + pw);
+		if(user == null)
+			return false;
+		if(passwordEncoder.matches(pw.getMe_pw(), user.getMe_pw()))		
+
+			return true;
+		return false;
+	}
+
+
+	@Override
+	public boolean editUser(MemberVO member, MemberVO user) {
+		   if (member == null) {
+		        return false;
+		    }
+		    System.out.println("기존 정보" + member);
+		    if(!member.getMe_pw().equals("")) {
+			    String newPw = passwordEncoder.encode(member.getMe_pw());
+			    member.setMe_pw(newPw);
+		    }else {
+		    	member.setMe_pw(user.getMe_pw());
+		    }
+			    System.out.println("encoder" + member);
+		    try {
+		        int result = memberDao.updateMember(member);
+		        if(result == 0) {
+		        	return false;
+		        }
+		        
+		    } catch (Exception e) {
+		        // 예외 처리 코드 추가
+		        e.printStackTrace();
+		    }
+		
+		
+		return true;
+	}
+
+
+	@Override
+	public boolean editImg(MemberVO member, MemberVO user) {
+		System.out.println(member);
+		 try {
+		        int result = memberDao.updateProfile(member);
+		        if(result == 0) {
+		        	return false;
+		        }
+		        
+		    } catch (Exception e) {
+		        // 예외 처리 코드 추가
+		        e.printStackTrace();
+		    }
+		
+
+		return true;
 	}
 
 }

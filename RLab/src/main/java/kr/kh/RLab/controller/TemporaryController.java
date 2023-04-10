@@ -2,6 +2,8 @@ package kr.kh.RLab.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,8 +36,8 @@ public class TemporaryController {
 	
 	@GetMapping("/list")
 	@ResponseBody
-	public ArrayList<TemporaryVO> ListTemporary() {
-	    MemberVO member = new MemberVO("qwe123", "김돌탕", "asdf1234", "a@a", 1, 0);
+	public ArrayList<TemporaryVO> ListTemporary(HttpServletRequest request) {
+		MemberVO member = (MemberVO)request.getSession().getAttribute("user");
 	    ArrayList<TemporaryVO> tempList = temporaryService.getTemporaryList(member.getMe_id());
 	    return tempList;
 	}
