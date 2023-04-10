@@ -5,6 +5,7 @@
     
 
 <link rel="stylesheet" href="<c:url value='/resources/css/study/study.css'></c:url>">
+<link rel="stylesheet" href="<c:url value='/resources/css/common.css'></c:url>">
 <link rel="stylesheet" href="<c:url value='/resources/css/study/calendar_main.css'></c:url>">
 <script src="<c:url value='/resources/js/study/calendar/calendar.js'/>"></script>
 <script src="<c:url value='/resources/js/study/calendar/study_og.js'/>"></script>
@@ -89,12 +90,11 @@
 	    <!-- 왼쪽 메뉴바 -->
 	    <div class="left_menu_container">
 	        <nav class="left_menu">
-	            <a href="study_basic.html" class="list_item">스터디홈</a>
-	            <a href="#" class="list_item">스터디 달력</a>
+	            <a href="<c:url value='/study/'></c:url>" class="list_item">스터디홈</a>
 	            <a href="to_do_list.html" class="list_item">투두 리스트</a>
 	            <a href="Daily Mission.html" class="list_item">데일리 미션</a>
-	            <a href="certification_board.html" class="list_item">인증 게시판</a>
-	            <a href="board.html" class="list_item">자유 게시판</a>
+	            <a href="<c:url value='/study/certificationBoard'></c:url>" class="list_item">인증 게시판</a>
+	            <a href="<c:url value='/board/list'></c:url>" class="list_item">자유 게시판</a>
 	            <a href="<c:url value='/study/management/member'></c:url>" class="list_item">스터디 관리</a>
 	            <a href="#" class="leave">탈퇴하기</a>
 	        </nav>
