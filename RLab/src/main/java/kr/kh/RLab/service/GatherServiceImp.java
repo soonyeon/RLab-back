@@ -40,24 +40,33 @@ public class GatherServiceImp implements GatherService {
 	    gatherDao.insertStudy(study);
 
 	    String[] tags = tag.getTa_name().split(",");
+	    ArrayList<TagVO> tagList = new ArrayList<>();
 
 	    // 각 태그 DB에 저장
 	    for (String tagName : tags) {
-	        TagVO tagVO = new TagVO();
-	        tagVO.setTa_name(tagName.trim());
-	        gatherDao.insertTag(tagVO);
+	        tagName = tagName.trim();
+	        if(tagName.isEmpty()) {
+	            continue;
+	        }
+
+	        ArrayList<TagVO> tagVOList = gatherDao.selectTag(tagName);
+	        if(tagVOList.isEmpty()) {
+	            TagVO tagVO = new TagVO();
+	            tagVO.setTa_name(tagName);
+	            gatherDao.insertTag(tagVO);
+	            tagVOList.add(tagVO);
+	        }
+	        TagVO tagVO = tagVOList.get(0);
+	        tagList.add(tagVO);
 	        gatherDao.insertStudyTag(study.getSt_num(), tagVO.getTa_name());
 	    }
-	    
 	    // 파일 업로드 처리
 	    if (files != null && files.length > 0) {
 	        uploadFiles(files, study.getSt_num(), file.getFi_table());
 	    }
-	    
-
-	    return true;
+		return false;
 	}
-
+	
 	private void uploadFiles(MultipartFile[] files, int st_num, String fi_table) {
 	    if (files == null || files.length == 0)
 	        return;

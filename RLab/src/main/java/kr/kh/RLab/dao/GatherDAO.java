@@ -51,7 +51,10 @@ public interface GatherDAO {
 
 	ArrayList<StudyVO> selectStudyById(String me_id);
 
-	//ArrayList<StudyVO> selectFilteredStudy(@Param("cri")Criteria cri);
+	ArrayList<TagVO> selectTag(@Param("tagName") String tagName);
+
+
+	
 
 	
 

@@ -9,6 +9,9 @@
 	insert into file( fi_ori_name, fi_name, fi_table, fi_ex_num)
 	values(#{file.fi_ori_name}, #{file.fi_name}, #{file.fi_table}, #{file.fi_ex_num}) 
 </insert>
+<select id="selectTag" resultType="kr.kh.RLab.vo.TagVO">
+	select * from tag where ta_name = #{tagName}
+</select>
 <insert id="insertTag" useGeneratedKeys="true" keyProperty="tag.ta_name" >
 	insert into tag(ta_name)
 	values(#{tag.ta_name})

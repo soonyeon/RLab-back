@@ -45,7 +45,6 @@ public interface GatherService {
 
 	ArrayList<StudyVO> selectStudyById(MemberVO member);
 
-	//ArrayList<StudyVO> selectFilteredStudy(Criteria cri);
 
 	
 
