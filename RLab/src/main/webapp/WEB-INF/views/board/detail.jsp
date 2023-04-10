@@ -413,6 +413,7 @@
                     $('.comment_box').empty()
                     loadComments(1);
                     loadCommentCount();
+                    $(".cm_write").val(''); // 입력창 내용 비우기
                 } else {
                     alert("댓글 등록에 실패했습니다.");
                 }
