@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -113,35 +114,32 @@ public class StudyController {
 		return mv;
 	}
 
-	@RequestMapping(value = "/management/study")
-	public ModelAndView managementStudy(ModelAndView mv, HttpSession session) {
-
-
-	    // HttpSession에서 "user"라는 이름의 속성을 가져와 MemberVO 객체로 형변환하여 변수 user에 저장
+	@RequestMapping(value = "/management/member", method=RequestMethod.GET)
+	public ModelAndView managementMember(ModelAndView mv, HttpSession session,MemberVO member,StudyVO study) {
+		// HttpSession에서 "user"라는 이름의 속성을 가져와 MemberVO 객체로 형변환하여 변수 user에 저장
 		// 로그인한 유저정보를 가져온다
 	    MemberVO user = (MemberVO) session.getAttribute("user");
-	    
-	    // MemberVO 객체를 사용하여 StudyVO 객체를 얻어오는데, 이는 사용자가 속한 스터디 정보를 가져오는 것으로 추정
-	    // 유저가 스터기장(st_me_id)인 스터디를 가져온다
-	    StudyVO study = StudyServcie.getStudyByMemberId(user.getMe_id());
-	    
-	    // 스터디 정보에서 st_num 속성을 가져와 변수 ca_st_num에 저장
-	    int ca_st_num = study.getSt_num();
-	    
-	    // ModelAndView 객체에 "ca_st_num"이라는 이름으로 추가
-	    mv.addObject("ca_st_num", ca_st_num);
-	    
-	    // ModelAndView 객체의 View 이름을 "/study/management_study"으로 설정
-		mv.setViewName("/study/management_study");
+	    String memberId = user.getMe_id();	    	    
+	    ArrayList<StudyVO> myStudyList = StudyServcie.getStudyListById(memberId);	    
+	    mv.addObject("myStudyList", myStudyList);
+	    mv.setViewName("/study/management_member");
 		return mv;
 	}
 	
-	
 
-	@RequestMapping(value = "/management/member")
-	public ModelAndView managementMember(ModelAndView mv) {
-
-		mv.setViewName("/study/management_member");
+	@RequestMapping(value = "/management/study")
+	public ModelAndView managementStudy(ModelAndView mv, HttpSession session,MemberVO member,StudyVO study) {
+		// HttpSession에서 "user"라는 이름의 속성을 가져와 MemberVO 객체로 형변환하여 변수 user에 저장
+		// 로그인한 유저정보를 가져온다
+	    MemberVO user = (MemberVO) session.getAttribute("user");
+	    String memberId = user.getMe_id();	    
+	    System.out.println(user);
+	    
+	    ArrayList<StudyVO> myStudyList = StudyServcie.getStudyListById(memberId);
+	    System.out.println(myStudyList);
+	    
+	    mv.addObject("myStudyList", myStudyList);
+		mv.setViewName("/study/management_study");
 		return mv;
 	}
 

@@ -29,4 +29,6 @@ public interface StudyService {
 
 	int countLikesByPhotoId(int li_ph_num);
 
+	ArrayList<StudyVO> getStudyListById(String memberId);
+
 }

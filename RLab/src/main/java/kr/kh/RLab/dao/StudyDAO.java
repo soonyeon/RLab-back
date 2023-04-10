@@ -30,5 +30,7 @@ public interface StudyDAO {
     LikeVO getLikeByUserIdAndPhotoId(@Param("li_me_id") String li_me_id, @Param("li_ph_num") int li_ph_num);
     
     int countLikesByPhotoId(@Param("li_ph_num") int li_ph_num);
+    
+    ArrayList<StudyVO> selectStudyListById(String memberId);
 
 }

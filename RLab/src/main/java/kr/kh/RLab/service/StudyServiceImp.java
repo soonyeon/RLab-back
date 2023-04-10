@@ -86,4 +86,12 @@ public class StudyServiceImp implements StudyService {
 	public int countLikesByPhotoId(int li_ph_num) {
 		return studyDao.countLikesByPhotoId(li_ph_num);
 	}
+
+	@Override
+	public ArrayList<StudyVO> getStudyListById(String memberId) {
+		if(memberId == null)		
+			return null;
+		System.out.println(memberId+2);
+		return studyDao.selectStudyListById(memberId);
+	}
 }

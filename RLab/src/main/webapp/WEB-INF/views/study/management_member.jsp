@@ -40,12 +40,14 @@
 	                    
 	                        <div class="slect_study_box">
 	                            <h3 class="select_study_title">스터디 선택</h3>
-	                            <select name="study" class="slect_study_list">
+	                            
+		                          <select name="study" class="slect_study_list">
 	                                <option value="">스터디를 선택하세요</option>
-	                                <option value="자바 스터디 모임">자바 스터디 모임</option>
-	                                <option value="javascript">자바스크립트 공부하기</option>
-	                                <option value="리액트 스터디">리액트 스터디</option>
-	                            </select>
+                            		<c:forEach items="${myStudyList}" var="st" varStatus="vs">
+	                                	<option value="${st.st_name}">${st.st_name}</option>
+                            		</c:forEach>
+		                            </select>
+	                            
 	                        </div>	                                        
 	                        <table class="border_box">
 	                            <thead>
