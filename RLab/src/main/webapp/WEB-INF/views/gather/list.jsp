@@ -63,7 +63,7 @@
 					<div class="line"></div>
 					<div class="sel_region clearfix">
 						<span class="region_title">지역</span> 
-						<a href="<c:url value='/gather/list?region'></c:url>" class="selected">지역 미지정</a> 
+						<a href="<c:url value='/gather/list?region=지역미지정'></c:url>" class="selected">지역 미지정</a> 
 						<a href="<c:url value='/gather/list?region=서울특별시'></c:url>">서울 특별시</a> 
 						<a href="<c:url value='/gather/list?region=경기도'></c:url>">경기도</a> 
 						<a href="<c:url value='/gather/list?region=부산광역시'></c:url>">부산 광역시</a> 
@@ -120,7 +120,7 @@
 											</c:forEach>
 										</div>
 										<div class="study_recruit_content_box">
-											<span class="study_recruit_content"> ${stList.get(index).st_re_name} ${stList.get(index).st_name}
+											<span class="study_recruit_content"> [${stList.get(index).st_re_name}] ${stList.get(index).st_name}
 											</span>
 										</div>
 										<div class="study_content">
