@@ -88,6 +88,10 @@
  		where board.bo_me_id = #{memberId}
  		ORDER BY board.bo_reg_date DESC;
   	</select>
-
+	  	<select id="selectPostBoardTotalCount" resultType="Integer">
+  		select count(*)
+		from board
+		where bo_me_id = #{memberId}
+  	</select>
   	
 </mapper>

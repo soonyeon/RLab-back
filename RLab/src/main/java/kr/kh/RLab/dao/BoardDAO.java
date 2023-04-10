@@ -32,4 +32,6 @@ public interface BoardDAO {
 	ArrayList<BoardVO> selectBoardListById(String memberId);
 	
 	int getCountById(String memberId);
+
+	int selectPostBoardTotalCount(String memberId);
 }

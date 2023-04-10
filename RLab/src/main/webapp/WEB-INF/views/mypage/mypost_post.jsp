@@ -84,11 +84,19 @@
 		                    <!-- 페이지 이동 -->
 		                     <div class="page_area">
 		                     	<div class="page_box clearfix">
-									<i class="btn_prev"></i>
-									<span class="page_num selected">1</span>
-									<span class="page_num">2</span>
-									<span class="page_num">3</span>
-									<i class="btn_next"></i>
+		                     		<c:if test="${pm.prev}">
+										<i class="btn_prev"></i>
+									</c:if>
+									<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
+										<span class="page_num <c:if test="${pm.cri.page == i}"> active</c:if>">										
+											<a class="page-link" href="<c:url value='/mypage/mypost_post?page=${i}'></c:url>">${i}</a>
+										</span>
+									</c:forEach>
+									<!--<span class="page_num selected">1</span>
+									<span class="page_num">3</span> -->
+									<c:if test="${pm.next}">
+										<i class="btn_next"></i>
+									</c:if>
 								</div>
 		                     </div>  		                      
 		                   </div>

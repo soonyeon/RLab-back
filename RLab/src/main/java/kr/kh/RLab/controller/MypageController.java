@@ -1,8 +1,6 @@
 package kr.kh.RLab.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -10,10 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import kr.kh.RLab.pagination.PageHandler;
+import kr.kh.RLab.pagination.Criteria;
+import kr.kh.RLab.pagination.PageMaker;
 import kr.kh.RLab.service.BoardService;
 import kr.kh.RLab.service.CommentService;
 import kr.kh.RLab.service.ScrapService;
@@ -35,14 +33,16 @@ public class MypageController {
 	
 	@GetMapping("/mypost_post")
 	public ModelAndView mypost(
-			ModelAndView mv, HttpSession session, BoardVO board, MemberVO member){		
+			ModelAndView mv, HttpSession session, MemberVO member, BoardVO board, Criteria cri){		
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		member.setMe_id(user.getMe_id());
-		String memberId = member.getMe_id();
-		System.out.println(member);
+		String memberId = user.getMe_id();
 		ArrayList<BoardVO> myBoardList = boardService.getBoardListById(memberId);
-
+		int totalCount = boardService.getPostBoardTotalCount(memberId);
+		System.out.println(totalCount);
+		PageMaker pm = new PageMaker(totalCount, 10, cri);
 		mv.addObject("myBoardList", myBoardList);
+		mv.addObject("pm", pm);
 		mv.setViewName("/mypage/mypost_post");
 		return mv;
 	}
