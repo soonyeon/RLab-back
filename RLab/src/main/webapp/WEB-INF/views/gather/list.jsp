@@ -22,7 +22,7 @@
 			<div class="search_content">
 				<input type="text" class="search_tag" placeholder="# 태그로 검색하기" name="tagList[${pm.cri.tagList.size()}]" value="${pm.cri.searchTag}" >
 				<c:forEach items="${pm.cri.tagList}" var="tag" varStatus="vs">
-					<input type="text" name="tagList[${vs.index}]" value="${tag}" class="list_tag">
+					<input type="hidden" name="tagList[${vs.index}]" value="${tag}" class="list_tag">
 				</c:forEach>
 			</div>
 		</form>
@@ -41,7 +41,7 @@
 			<div class="flex_box">
 				<div class="menu_nav clearfix">
 					<div class="recruit_state">
-						<div class="recruit_state_title">모집전체보기</div>
+						<div class="recruit_state_title">모집중</div>
 							<input type="checkbox" id="switch1" name="switch1" class="input__on-off" value="on" <c:if test="${pm.cri.filter == 'on'}">checked</c:if>>
 						<label for="switch1" class="label__on-off">
 						  <span class="marble"></span>
@@ -177,10 +177,8 @@
 
 	$('#switch1').change(function(){
 		if(${pm.cri.filter != 'on'}){
-			$('.recruit_state_title').text('모집중');
 			location.replace('<c:url value="/gather/list?filter=on"></c:url>');
 		}else{
-			$('.recruit_state_title').text('전체보기');
 			location.replace('<c:url value="/gather/list?filter=off"></c:url>');	
 		}
 	})

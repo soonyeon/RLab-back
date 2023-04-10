@@ -299,7 +299,7 @@
 
   /* 모집 부분 - study-card-container */
   .study_card_container{
-    width: 960px;  float: right;
+    margin-left: 20px;
   }
   .row_study_card{margin-bottom: 20px;}
   .study_card_box{
@@ -312,6 +312,7 @@
   }
   .study_card_box{
     margin-left: 15px;
+    float : left;
   }
   .study_img_box {
     width: 296px; 
