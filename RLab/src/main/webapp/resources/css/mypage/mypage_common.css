@@ -52,7 +52,7 @@ main #main_container{
 
 
 /* 넘기기 버튼 */
-.study_card_container .page_box{
+.page_box{
 display: flex; justify-content: center;
 }
 .study_card_container .page_box>*{float: left; }
@@ -64,12 +64,12 @@ display: flex; justify-content: center;
   line-height: 30px; font-size: 25px; color: rgb(62, 62, 62)
 }
 
-.study_card_container .page_box .btn_prev{
+.btn_prev{
   display: inline-block; width: 30px; height: 30px; margin-right: 10px;
   background-position: -10px -10px; 
   background-image: url(../../img/page_left.png);  background-size:50px 50px;
 }
-.study_card_container .page_box .btn_next{
+.btn_next{
   width: 30px; height: 30px; margin-left: 10px;
   background-position: -10px -10px; display: inline-block;
   background-image: url(../../img/page_right.png); background-size:50px 50px;

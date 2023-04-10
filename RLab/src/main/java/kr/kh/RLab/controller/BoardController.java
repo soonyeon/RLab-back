@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.pagination.PageHandler;
 import kr.kh.RLab.service.BoardService;
 import kr.kh.RLab.service.CommentService;
@@ -117,7 +119,7 @@ public class BoardController {
 		return mv;
 	}
 	@PostMapping("/update/{bo_num}")
-	public ModelAndView boardUpdatePost(ModelAndView mv, @PathVariable int bo_num,BoardVO board) {
+	public ModelAndView boardUpdatePost(ModelAndView mv, @PathVariable int bo_num, BoardVO board) {
 		boolean res = boardService.updateBoard(board);
 		mv.setViewName("redirect:/board/detail/"+bo_num);
 		return mv;
@@ -131,5 +133,8 @@ public class BoardController {
 	}
 	
 
+
+	
+	
 
 }

@@ -23,8 +23,10 @@ public class BoardVO {
 	
 	public String getBo_reg_date_str() {
 		SimpleDateFormat format = 
-			new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		return format.format(bo_reg_date);
+			new SimpleDateFormat("yyyy.MM.dd");
+		if(bo_reg_date == null) 
+			return "";
+			return format.format(bo_reg_date);
 	}
 	
 }

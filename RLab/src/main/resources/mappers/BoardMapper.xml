@@ -79,5 +79,19 @@
 	    <result property="bo_views" column="bo_views" />
 	    <result property="scrap_count" column="scrap_count" />
 	</resultMap>
+	
+  	<select id="selectBoardListById" resultType="kr.kh.RLab.vo.BoardVO">
+ 		SELECT board.bo_num, study.st_name, board.bo_title, member.me_name, board.bo_reg_date 
+ 		FROM board
+ 		JOIN study ON board.bo_st_num = study.st_num
+ 		JOIN member ON board.bo_me_id = member.me_id
+ 		where board.bo_me_id = #{memberId}
+ 		ORDER BY board.bo_reg_date DESC;
+  	</select>
+	  	<select id="selectPostBoardTotalCount" resultType="Integer">
+  		select count(*)
+		from board
+		where bo_me_id = #{memberId}
+  	</select>
   	
 </mapper>

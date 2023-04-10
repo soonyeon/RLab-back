@@ -84,8 +84,7 @@
             							</c:forEach>
                                         <c:if test="${ph.showNext}">
 											<a href="<c:url value='/board/list?page=${ph.endPage+1}&pageSize=${ph.pageSize}'/>"><i class="btn_next"></i></a>
-            							</c:if>
-                                       
+            							</c:if>                              
                                     </div>
                                 </div>
                             </div>
