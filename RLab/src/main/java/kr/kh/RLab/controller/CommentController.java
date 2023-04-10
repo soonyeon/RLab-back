@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import kr.kh.RLab.pagination.CommentCriteria;
 import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.pagination.PageMaker;
 import kr.kh.RLab.service.CommentService;
@@ -37,12 +38,12 @@ public class CommentController {
 	}
 	
 	@PostMapping("/list/{co_ex_num}")
-	public Map<String, Object> commentList(Criteria cri, @PathVariable("co_ex_num") int co_ex_num) {
-	    cri.setPerPageNum(10); // 한 페이지당 컨텐츠 갯수
+	public Map<String, Object> commentList(CommentCriteria cc, @PathVariable("co_ex_num") int co_ex_num) {
+	    cc.setPerPageNum(10); // 한 페이지당 컨텐츠 갯수
 	    int totalCount = commentService.getCommentTotalCount(co_ex_num);
-		PageMaker pm = new PageMaker(totalCount, 10, cri);
+		PageMaker pm = new PageMaker(totalCount, 10, cc);
 	    
-	    List<CommentVO> commentList = commentService.getCommentList(cri);
+	    List<CommentVO> commentList = commentService.getCommentList(cc);
 	    
 	    Map<String, Object> resultMap = new HashMap<String, Object>();
 	    resultMap.put("commentList", commentList);
