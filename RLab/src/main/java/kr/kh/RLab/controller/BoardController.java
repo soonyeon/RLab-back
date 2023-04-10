@@ -26,6 +26,7 @@ import kr.kh.RLab.service.ScrapService;
 import kr.kh.RLab.service.TemporaryService;
 import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.MemberVO;
+import kr.kh.RLab.vo.ScrapVO;
 import kr.kh.RLab.vo.StudyVO;
 import lombok.RequiredArgsConstructor;
 
@@ -94,14 +95,17 @@ public class BoardController {
 	}
 	
 	@GetMapping("/detail/{bo_num}")
-	public ModelAndView boardGet(ModelAndView mv, @PathVariable int bo_num) {
+	public ModelAndView boardGet(ModelAndView mv, @PathVariable int bo_num,HttpSession session) {
+		MemberVO user = (MemberVO) session.getAttribute("user");
 		BoardVO board = boardService.getBoard(bo_num);
 		mv.addObject("bd", board);
 		
 		//스크랩수 가져오기
 	    int scrapCount = scrapService.getScrapCount(bo_num);
 	    mv.addObject("scrapCount", scrapCount);
-	    
+	    //스크랩 정보 가져오기
+	    ScrapVO scrap = scrapService.findScrap(user.getMe_id());
+	    mv.addObject("sc", scrap);
 		mv.setViewName("/board/detail");
 		return mv;
 	}

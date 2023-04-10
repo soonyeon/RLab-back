@@ -7,6 +7,7 @@ import kr.kh.RLab.vo.ScrapVO;
 
 public interface ScrapDAO {
     ScrapVO findScrap(ScrapVO scrapVO);
+    ScrapVO findScrap2(String me_id);
     void insertScrap(ScrapVO scrapVO);
     void updateScrap(ScrapVO scrapVO);
     int getScrapCountByBoard(int bo_num);

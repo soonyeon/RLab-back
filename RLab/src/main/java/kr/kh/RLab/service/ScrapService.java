@@ -15,4 +15,6 @@ public interface ScrapService {
 	// 아이디로 스크랩한 게시글 목록 가져오기
 	ArrayList<BoardVO> getScrapListById(String memberId);
 
+	ScrapVO findScrap(String me_id);
+
 }

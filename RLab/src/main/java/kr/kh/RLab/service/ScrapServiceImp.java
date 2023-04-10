@@ -65,4 +65,9 @@ public class ScrapServiceImp implements ScrapService{
 		return scrapDAO.selectScrapListById(memberId);
 	}
 
+	@Override
+	public ScrapVO findScrap(String me_id) {
+		return scrapDAO.findScrap2(me_id);
+	}
+
 }

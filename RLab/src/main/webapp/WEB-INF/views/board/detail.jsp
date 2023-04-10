@@ -54,7 +54,7 @@
             </div>
             <div class="sc_and_mo_main">
                 <div class="scrap_box">
-                    <c:if test="${scrapCount != 0}">
+                    <c:if test="${scrapCount != 0 && userId == sc_me_id}">
 						<img class="icon_scrap" src="<c:url value='/resources/img/favorite_tag.png' />">
 					</c:if>
 					<c:if test="${scrapCount == 0}">
