@@ -21,7 +21,8 @@ public class JoinStudyController {
 	
 	 @PostMapping("/join")
 	    public Map<String, Object> join(@RequestBody StudyMemberVO studyMember,HttpServletRequest request) {
-		MemberVO member = (MemberVO)request.getSession().getAttribute("user"); 
+		System.out.println(studyMember);
+		 MemberVO member = (MemberVO)request.getSession().getAttribute("user"); 
 	    return joinstudyService.toggleJoin(studyMember,member);
 	 }
 }

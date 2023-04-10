@@ -60,6 +60,7 @@ public class GatherServiceImp implements GatherService {
 	        tagList.add(tagVO);
 	        gatherDao.insertStudyTag(study.getSt_num(), tagVO.getTa_name());
 	    }
+	    
 	    // 파일 업로드 처리
 	    if (files != null && files.length > 0) {
 	        uploadFiles(files, study.getSt_num(), file.getFi_table());
@@ -181,12 +182,6 @@ public class GatherServiceImp implements GatherService {
 			return null;
 		return gatherDao.selectStudyById(member.getMe_id());
 	}
-
-	
-	
-
-
-	
 
 	}
 
