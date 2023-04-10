@@ -312,6 +312,7 @@
   }
   .study_card_box{
     margin-left: 15px;
+    float : left;
   }
   .study_img_box {
     width: 296px; 
