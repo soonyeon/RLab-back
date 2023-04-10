@@ -100,6 +100,7 @@ where st_num = #{st_num}
 </select>
 <select id="selectStudyById" resultType="kr.kh.RLab.vo.StudyVO">
 select * from study
-where st_me_id = #{me_id}
+left join gather on ga_st_num = st_num
+where st_me_id = #{me_id} and ga_num is null
 </select>
 </mapper>
