@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="kr.kh.RLab.dao.MypageDAO">
+	<!-- [나의 게시글 > 작성글 관리] -->
+		<!-- 아이디로 작성 게시글 목록 가져오기  -->
+	  	<select id="selectBoardListById" resultType="kr.kh.RLab.vo.BoardVO">
+	 		SELECT board.bo_num, study.st_name, board.bo_title, member.me_name, board.bo_reg_date 
+	 		FROM board
+	 		JOIN study ON board.bo_st_num = study.st_num
+	 		JOIN member ON board.bo_me_id = member.me_id
+	 		where board.bo_me_id = #{memberId}
+	 		ORDER BY board.bo_reg_date DESC 
+	 		limit #{cri.pageStart}, #{cri.perPageNum}
+	  	</select>
+	  	
+	  	<!-- 로그인한 회원이 스크랩한 게시글 전체 수 가져오기  -->
+	  	<select id="selectPostBoardTotalCount" resultType="int">
+	  		select count(*)
+			from board
+			where bo_me_id = #{memberId}
+	  	</select>
+	  
+		
+		
+  	<!-- [나의 스크랩 > 작성글 관리] -->
+  		<!-- 아이디로 스크랩한 게시글 목록 가져오기  -->	
+  		<select id="selectScrapListById" resultType="kr.kh.RLab.vo.BoardVO">
+		    SELECT board.bo_num, study.st_name, board.bo_title, member.me_name, board.bo_reg_date
+			FROM board
+			JOIN study ON board.bo_st_num = study.st_num
+			JOIN member ON board.bo_me_id = member.me_id
+			JOIN scrap ON board.bo_num = scrap.sc_bo_num
+			WHERE member.me_id = #{memberId} AND scrap.sc_state = 1
+			limit #{cri.pageStart}, #{cri.perPageNum}
+   		</select>
+   		
+    	<!-- 로그인한 회원이 스크랩한 게시글 전체 수 가져오기  -->	
+	    <select id="selectScrapBoardTotalCount" resultType="int">
+	  		select
+				count(*)
+				from scrap
+				where sc_me_id = #{memberId}
+	  	</select>
+	  	
+	  	
+	<!-- [나의 모집글 > 작성글 관리] -->
+  		<!-- 아이디로 내가 쓴 모집글 가져오기  -->	
+  		<select id="selectGatherListById" resultType="kr.kh.RLab.vo.GatherVO">
+			SELECT *
+			FROM study 
+			left join tag_register on tr_st_num = st_num
+			WHERE 
+				st_me_id = #{memberId}
+			<if test="cri.filter == 'on'">
+				AND st_state = 1
+			</if>
+			group by st_num
+			ORDER BY st_num DESC
+		</select>
+		
+  		<!-- 내가 쓴 모집글 스터디의 태그들 가져오기  -->		
+		<select id="selectTagListById" resultType="kr.kh.RLab.vo.TagRegisterVO">
+			select tag_register.tr_name
+			from tag_register
+			join study on tag_register.tr_st_num = study.st_num
+			where st_me_id = #{memberId}
+		</select>
+
+</mapper>
