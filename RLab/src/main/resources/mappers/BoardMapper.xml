@@ -16,10 +16,7 @@
 	    LEFT JOIN member AS me ON b.bo_me_id = me.me_id
 	    LEFT JOIN scrap s ON b.bo_num = s.sc_bo_num AND s.sc_state = 1
 	    GROUP BY b.bo_num
-	    <if test="orderBy != null">
-	        ORDER BY ${orderBy}
-	    </if>
-	    LIMIT #{offset}, #{pageSize}
+	  	LIMIT #{pageStart}, #{perPageNum}
 	</select>
 	
 	<select id="getBoard" resultType="kr.kh.RLab.vo.BoardVO">

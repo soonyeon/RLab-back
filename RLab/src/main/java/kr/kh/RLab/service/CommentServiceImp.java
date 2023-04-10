@@ -2,11 +2,11 @@ package kr.kh.RLab.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
 import kr.kh.RLab.dao.CommentDAO;
+import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.vo.CommentVO;
 import kr.kh.RLab.vo.MemberVO;
 import lombok.RequiredArgsConstructor;
@@ -30,8 +30,8 @@ public class CommentServiceImp implements CommentService {
 	}
 
 	@Override
-	public List<CommentVO> getCommentList(Map<String, Object> map) {
-		return commentDao.getCommentList(map);
+	public List<CommentVO> getCommentList(Criteria cri) {
+		return commentDao.getCommentList(cri);
 	}
 
 	@Override

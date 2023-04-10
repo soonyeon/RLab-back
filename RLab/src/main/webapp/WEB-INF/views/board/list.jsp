@@ -75,16 +75,16 @@
                                         </table>
                                         <a class="write_btn" href="<c:url value="/board/insert"></c:url>" style="float:right;">작성하기</a>
                                     </div>
-                                    <div class="page_box clearfix">
-                                    	<c:if test="${ph.showPrev}">
-                 							<a href="<c:url value='/board/list?page=${ph.beginPage-1}&pageSize=${ph.pageSize}'/>"> <i class="btn_prev"></i></a>
+                                     <div class="page_box clearfix">
+                                    	<c:if test="${pm.prev}">
+                 							<a href="<c:url value='/board/list?page=${pm.startPage-1}&pageSize=${ph.pageSize}'/>"> <i class="btn_prev"></i></a>
            								</c:if>
-           								<c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">
-                						 	<a class="page_num<c:if test="${ph.page == i}"> selected</c:if>" href="<c:url value='/board/list?page=${i}&pageSize=${ph.pageSize}'/>">${i}</a>
+           								<c:forEach var="i" begin="${pm.startPage}" end="${pm.endPage}">
+                						 	<a class="page_num<c:if test="${pm.cri.page == i}"> selected</c:if>" href="<c:url value='/board/list?page=${i}'/>">${i}</a>
             							</c:forEach>
-                                        <c:if test="${ph.showNext}">
-											<a href="<c:url value='/board/list?page=${ph.endPage+1}&pageSize=${ph.pageSize}'/>"><i class="btn_next"></i></a>
-            							</c:if>                              
+                                        <c:if test="${pm.next}">
+											<a href="<c:url value='/board/list?page=${pm.endPage+1}'/>"><i class="btn_next"></i></a>
+            							</c:if>                                      
                                     </div>
                                 </div>
                             </div>

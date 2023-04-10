@@ -36,9 +36,8 @@
     FROM comment AS c
     LEFT JOIN member AS me ON c.co_me_id = me.me_id
     WHERE co_ex_num = #{co_ex_num}
-    order by
-  			co_ori_num desc, co_num asc
-    LIMIT #{offset}, #{pageSize}
+    order by co_ori_num desc, co_num asc
+    LIMIT #{pageStart}, #{perPageNum}
 </select>
 
 <select id="selectComment" resultType="kr.kh.RLab.vo.CommentVO">

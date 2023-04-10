@@ -44,8 +44,8 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public ArrayList<BoardVO> selectBoardList(Map<String, Object> map) {
-		return boardDao.selectBoardList(map);
+	public ArrayList<BoardVO> selectBoardList(Criteria cri) {
+		return boardDao.selectBoardList(cri);
 	}
 
 	@Override

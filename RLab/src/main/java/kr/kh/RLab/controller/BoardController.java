@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import kr.kh.RLab.pagination.PageHandler;
+import kr.kh.RLab.pagination.Criteria;
+import kr.kh.RLab.pagination.PageMaker;
 import kr.kh.RLab.service.BoardService;
 import kr.kh.RLab.service.CommentService;
 import kr.kh.RLab.service.ScrapService;
@@ -56,37 +56,17 @@ public class BoardController {
 	
 	@GetMapping("/list")
 	public ModelAndView boardList(
-	        @RequestParam(value="page",defaultValue = "1") Integer page,
-	        @RequestParam(value="pageSize",defaultValue = "10") Integer pageSize,
-	        @RequestParam(required = false) String sort,
-	        ModelAndView mv
+	        ModelAndView mv,Criteria cri
 	) {
-	    int totalCnt = boardService.getCount();
-	    PageHandler pageHandler = new PageHandler(totalCnt, page, pageSize);
-	    Map<String, Object> map = new HashMap<String, Object>();
-	    map.put("offset", (page - 1) * pageSize);
-	    map.put("pageSize", pageSize);
+		cri.setPerPageNum(15); // 한 페이지당 컨텐츠 갯수
+	    int totalCount = boardService.getCount();
+	    System.out.println(totalCount);
+	    PageMaker pm = new PageMaker(totalCount, 10, cri);
 
-	    if (sort != null) {
-	        switch (sort) {
-	            case "newest":
-	                map.put("orderBy", "bo_reg_date DESC");
-	                break;
-	            case "oldest":
-	                map.put("orderBy", "bo_reg_date ASC");
-	                break;
-	            default:
-	                map.put("orderBy", null);
-	                break;
-	        }
-	    } else {
-	    	map.put("orderBy", "bo_reg_date DESC");
-	    }
-
-	    ArrayList<BoardVO> boardList = boardService.selectBoardList(map);
-
+	    ArrayList<BoardVO> boardList = boardService.selectBoardList(cri);
+	    System.out.println(boardList);
 	    mv.addObject("boardList", boardList);
-	    mv.addObject("ph", pageHandler);
+	    mv.addObject("pm", pm);
 	    mv.setViewName("/board/list");
 	    return mv;
 	}
