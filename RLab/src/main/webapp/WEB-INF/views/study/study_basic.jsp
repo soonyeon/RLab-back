@@ -95,7 +95,7 @@
 	            <a href="Daily Mission.html" class="list_item">데일리 미션</a>
 	            <a href="<c:url value='/study/certificationBoard'></c:url>" class="list_item">인증 게시판</a>
 	            <a href="<c:url value='/board/list'></c:url>" class="list_item">자유 게시판</a>
-	            <a href="<c:url value='/study/management/member'></c:url>" class="list_item">스터디 관리</a>
+	            <a href="<c:url value='/study/management'></c:url>" class="list_item">스터디 관리</a>
 	            <a href="#" class="leave">탈퇴하기</a>
 	        </nav>
 	    </div>

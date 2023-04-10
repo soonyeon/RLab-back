@@ -9,6 +9,7 @@ import kr.kh.RLab.vo.LikeVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.PhotoTypeVO;
 import kr.kh.RLab.vo.PhotoVO;
+import kr.kh.RLab.vo.StudyMemberVO;
 import kr.kh.RLab.vo.StudyVO;
 
 public interface StudyService {
@@ -30,5 +31,7 @@ public interface StudyService {
 	int countLikesByPhotoId(int li_ph_num);
 
 	ArrayList<StudyVO> getStudyListById(String memberId);
+
+	ArrayList<StudyMemberVO> getStudyMemberList(int st_num);
 
 }

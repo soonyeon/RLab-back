@@ -28,65 +28,29 @@
 	            <a href="<c:url value='/study/management/member'></c:url>" class="item_tab  selected tab1">회원 관리</a>
 	            <a href="<c:url value='/study/management/study'></c:url>" class="item_tab unselected tab2">스터디 관리</a>
 	        </div>
-	
 	        <div class="my_study_container" id="my_container">
 	            <!-- table  -->
-	            <div class="table_container">
-	
-	                <div class="tab_content">
-
+	            <div class="table_container">	
+	                <div class="tab_content">	
+	                    <!-- 나의 스크랩 -->
 	                    <div class="table_area" id="tabs_3">
-	                    	                                        
-	                        <table class="border_box">
-	                            <thead>
-	                                <tr class="board_title_list">
-	                                    <td class="title_list_item">닉네임</td>
-	                                    <td class="title_list_item">가입일</td>
-	                                    <td class="title_list_item"></td>
-	                                </tr>
-	                            </thead>
-	                            
-	                            <tbody>
-	                            	<c:forEach items="${memberList}" var="sm" varStatus="vs" >
-		                                <tr class="board_list">
-		                                    <td class="post_title">
-		                                        <div class="profile_box">
-		                                            <div class="img_box">
-		                                                <div class="profile_img"></div>
-		                                            </div>
-		                                            ${sm.me_name}
-		                                        </div>
-		                                    </td>
-		                                    <td>${sm.sm_join_date}</td>
-		                                    <td>
-		                                        <div class="btn_container">
-		                                            <button class="btn_member btn_drop">강퇴</button>
-		                                            <button class="btn_member btn_power">스터디장 위임</button>
-		                                        </div>
-		                                    </td>
-		                                </tr>
-	                                </c:forEach>
-	                                
-	
-	                            </tbody>
-	                        </table>
-	                    </div>
-	                    <!-- 페이지 이동 -->
-	                    <div class="page_area">
-	                    </div>
-	                    <div class="page_box clearfix">
-	                        <i class="btn_prev"></i>
-	                        <span class="page_num selected">1</span>
-	                        <span class="page_num">2</span>
-	                        <span class="page_num">3</span>
-	                        <i class="btn_next"></i>
+	                    	<form action="<c:url value='/study/management'></c:url>" method="post" >
+		                        <div class="slect_study_box">
+		                          <h3 class="select_study_title">스터디 선택</h3>
+		                          <select name="st_num" class="slect_study_list">
+	                                <option value="">스터디를 선택하세요</option>
+                            		<c:forEach items="${myStudyList}" var="st" varStatus="vs">
+	                                	<option value="${st.st_num}">${st.st_name}</option>
+                            		</c:forEach>
+		                          </select>
+		                          <button class="btn_choose">선택</button>
+	                    		</div>	 
+	                    	</form>                                    
 	                    </div>
 	                </div>
 	            </div>
 	        </div>
 	    </div>
-	
-	
 	    <!-- 오른쪽 메뉴 -->
 	    <aside>
 	        <div class="right-container">
@@ -100,9 +64,7 @@
 	                </div>
 	                <div class="my_study_container">
 	                    <div class="my_list_title">
-	
 	                        <div class="my">MY</div>
-	
 	                        <!-- <div class="my_study" >나의 스터디<button id="dropdown_btn">▼</button></div> -->
 	                    </div>
 	                    <div id="dropdown_list" style="display: none;">
@@ -189,11 +151,9 @@
 	                <div class="circle_accessor"></div>
 	                <div class="study_name">s아나</div>
 	            </div>
-	
 	        </div>
 	    </aside>
 	</div>
-	
 </main>	
 	
 	

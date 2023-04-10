@@ -9,6 +9,7 @@ import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.LikeVO;
 import kr.kh.RLab.vo.PhotoTypeVO;
 import kr.kh.RLab.vo.PhotoVO;
+import kr.kh.RLab.vo.StudyMemberVO;
 import kr.kh.RLab.vo.StudyVO;
 
 public interface StudyDAO {
@@ -31,6 +32,10 @@ public interface StudyDAO {
     
     int countLikesByPhotoId(@Param("li_ph_num") int li_ph_num);
     
-    ArrayList<StudyVO> selectStudyListById(String memberId);
+    ArrayList<StudyVO> selectStudyListById(@Param("memberId")String memberId);
+
+	ArrayList<StudyMemberVO> selectStudyMemberList(@Param("st_num")int st_num);
+    
+    
 
 }
