@@ -8,21 +8,21 @@
         INSERT INTO temporary (te_title, te_content, te_me_id, te_st_num, te_table)
         VALUES (#{te_title}, #{te_content}, #{te_me_id}, #{te_st_num}, #{te_table})
     </insert>
-    <!-- 임시게시물을 전체 가져오는 커리 -->
+    <!-- 임시게시물을 전체 가져오는 쿼리 -->
     <select id="getTemporaryList" parameterType="String" resultMap="TemporaryResultMap">
        select * from temporary where te_me_id = #{memberId}
     </select>
-    <!-- 임시 게시물을 하나만 가져오는 커리 -->
+    <!-- 임시 게시물을 하나만 가져오는 쿼리 -->
     <select id="getTemporary" parameterType="String" resultMap="TemporaryResultMap">
         select * from temporary where te_num = #{te_num}
     </select>
     
-    <!-- 임시 게시물을 전체 삭제하는 커리 -->
+    <!-- 임시 게시물을 전체 삭제하는 쿼리 -->
     <delete id="deleteAll">
     	delete from temporary
     </delete>
     
-    <!-- 임시 게시물을 개별 삭제 하는 커리 -->
+    <!-- 임시 게시물을 개별 삭제 하는 쿼리 -->
     <delete id="delete">
     	delete from temporary
     	where te_num = #{te_num}

@@ -8,7 +8,6 @@
   border: 2px solid #020a17;
   border-radius: var(--border_radius_2);
   box-sizing: border-box;
-  background-color: var(--color_beige);
 }
 .left_menu_container .left_menu{
   display: flex;

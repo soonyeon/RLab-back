@@ -39,8 +39,8 @@ public class CommentController {
 	@PostMapping("/list/{co_ex_num}")
 	public Map<String, Object> commentList(@RequestParam(value="page",defaultValue = "1") Integer page,
 	        @RequestParam(value="pageSize",defaultValue = "10") Integer pageSize, @PathVariable("co_ex_num") int co_ex_num) {
-	    int totalCont = commentService.getCommentTotalCount(co_ex_num);
-	    PageHandler pageHandler = new PageHandler(totalCont, page, pageSize);
+	    int totalCount = commentService.getCommentTotalCount(co_ex_num);
+	    PageHandler pageHandler = new PageHandler(totalCount, page, pageSize);
 	    
 	    Map<String, Object> map = new HashMap<String, Object>();
 	    map.put("co_ex_num", co_ex_num);
