@@ -49,6 +49,8 @@ public interface GatherDAO {
 
 	ArrayList<Integer> selelctJoinStudyMemberList(@Param("me_id")String me_id);
 
+	ArrayList<StudyVO> selectStudyById(String me_id);
+
 	//ArrayList<StudyVO> selectFilteredStudy(@Param("cri")Criteria cri);
 
 	

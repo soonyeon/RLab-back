@@ -53,10 +53,9 @@ public class GatherController {
 	
 	//모집글 생성
 	@GetMapping("/insertgather")
-	public ModelAndView gatherInsert(ModelAndView mv,HttpServletRequest request,Criteria cri) {
+	public ModelAndView gatherInsert(ModelAndView mv,HttpServletRequest request) {
 		MemberVO member = (MemberVO)request.getSession().getAttribute("user");
-		ArrayList<StudyVO> list = gatherService.selectStudyAll(cri);
-		cri.setPerPageNum(999);
+		ArrayList<StudyVO> list = gatherService.selectStudyById(member);
 		mv.addObject("studies",list);
 		mv.setViewName("/gather/insertgather");
 	    return mv;

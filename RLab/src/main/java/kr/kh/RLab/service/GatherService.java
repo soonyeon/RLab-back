@@ -43,6 +43,8 @@ public interface GatherService {
 
 	ArrayList<Integer> selelctJoinStudyMemberList(MemberVO user);
 
+	ArrayList<StudyVO> selectStudyById(MemberVO member);
+
 	//ArrayList<StudyVO> selectFilteredStudy(Criteria cri);
 
 	

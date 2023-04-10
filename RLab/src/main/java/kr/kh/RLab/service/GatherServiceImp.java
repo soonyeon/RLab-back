@@ -166,10 +166,13 @@ public class GatherServiceImp implements GatherService {
 		return gatherDao.selelctJoinStudyMemberList(user.getMe_id());
 	}
 
-	/*
-	 * @Override public ArrayList<StudyVO> selectFilteredStudy(Criteria cri) {
-	 * return gatherDao.selectFilteredStudy(cri); }
-	 */
+	@Override
+	public ArrayList<StudyVO> selectStudyById(MemberVO member) {
+		if(member == null)
+			return null;
+		return gatherDao.selectStudyById(member.getMe_id());
+	}
+
 	
 	
 
