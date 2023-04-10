@@ -61,7 +61,9 @@
 			</div>
 
 			<div class="btn_box">
+			<c:if test="${user != null }">
 				<button type="submit" class="make_study_btn">스터디 생성</button>
+			</c:if>
 			</div>
 		</form>
 		</div>
@@ -93,4 +95,28 @@
 	    });
 	});
 	
+	$('form').submit(function(){
+		  let region = $('[name=st_re_name]').val();
+		  let member = $('[name=st_total_people]').val();
+		  let title = $('[name=st_name]').val();
+		  let content = $('[name=st_info]').val();
+		  if(region == '지역미지정'){
+		    alert('지역을 선택하세요.');
+		    return false;
+		  }
+		  if(member == 0){
+			    alert('인원을 입력하세요.');
+			    return false;
+			  }
+		  if(title.trim().length == 0){
+		    alert('스터디명을 입력하세요.');
+		    return false;
+		  }
+		  if(content.trim().length == 0){
+		    alert('소개글을 입력하세요.');
+		    return false;
+		  }
+		})
+	
+
 </script>

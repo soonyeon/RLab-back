@@ -15,16 +15,17 @@
 <!-- main -->
 <main>
 	<div id="main_container">
-		<div class="board_title">
-			<span>[서울]</span> <span>정처기 같이 준비해요!</span>
+		<div class="board_title">${st.st_name}
+			<input type="hidden" value="${ga.ga_me_id}">
+			
 		</div>
 		<div class="title_bottom">
 			<div class="writer_box">
 				<a href="#" class="writer"> <img class="icon_writer"
-					src="<c:url value='/resources/img/profile_img.png'></c:url>"> <span class="writer_name">김돌탕</span></a>
+					src="<c:url value='/resources/img/profile_img.png'></c:url>"> <span class="writer_name">${ga.me_name}</span></a>
 			</div>
 			
-			<span class="write_date">${ga.ga_reg_date}</span>
+			<span class="write_date">${ga.ga_reg_date_str}</span>
 			<div class="view_box">
 				<img class="icon_view" src="<c:url value='/resources/img/view_lightgray.png'></c:url>">
 				<span class="view">${ga.ga_views}</span>
@@ -44,18 +45,42 @@
 					</div>
 					<div class="study_content">
 						<div class="study_recruiting">
-							<span>모집중</span> <span>1</span> <span>/</span> <span>5</span>
+							<span>모집중</span> <span class="now_pp">${st.st_now_people}</span> <span>/</span> <span>${st.st_total_people}</span>
 						</div>
-						<div class="like_img"></div>
+							<div class="want_icon" >
+								<c:if test="${user == null}" >
+									<div class="unlike_img"></div>
+								</c:if>	
+								<c:if test="${user != null}">
+									<c:if test="${waList.contains(st_num)}">
+										<div class="like_img"></div>	
+									</c:if>
+									<c:if test="${!waList.contains(st_num)}">
+										<div class="unlike_img"></div>	
+									</c:if>
+								</c:if>
+							</div>
 					</div>
 					<div class="study_tag_info">
-						<c:forEach items="${tagList}" var="ta" varStatus="vs">
+						<c:forEach items="${tgList}" var="ta" varStatus="vs">
 							<c:if test="${ta.tr_st_num==st.st_num}">
 								<span href="#" class="study_tag">${ta.tr_name}</span>
 							</c:if>
 						</c:forEach>
 					</div>
-					<button class="apply_btn">신청하기</button>
+					<div class="join_study">
+				   		<c:if test="${user == null }">
+				   		 <button class="apply_btn">스터디 가입</button>
+						</c:if>
+						<c:if test="${user != null }">
+							<c:if test="${smList.contains(st_num)}">
+								<button class="already_apply_btn">스터디 가입 완료</button>
+							</c:if>
+							<c:if test="${!smList.contains(st_num)}">
+								<button class="apply_btn">스터디 가입</button>
+							</c:if>
+						</c:if>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -66,7 +91,10 @@
                 <div class="cm_input_box">
                     <input type="text" class="cm_write" placeholder="궁금한 점을 댓글로 작성해보세요!">
                 </div>
+               
+               
                 <button class="cm_upload_btn">등록</button>
+           
             </div>
             <div class="comment_box">
                 <%--  <div class="cm_main_box">
@@ -109,6 +137,34 @@
 </main>
 
 <script>
+const userId = '${user.me_id}'; 
+const gatherNum = '${ga.ga_num}';
+const studyNum = '${st_num}';
+let joinCount = '${joinCount}';
+
+$(document).ready(function() {
+  $('.want_icon').on('click', function() {
+    want();
+  });
+
+  function want() {
+    // 데이터
+    var requestData = {
+      wa_me_id: userId,
+      wa_ga_num: gatherNum
+    };
+    $.ajax({
+      url: '<c:url value="/want" />',
+      type: 'POST',
+      contentType: "application/json",
+      data: JSON.stringify(requestData),
+      success: function(response) {
+        if (response && response.wantState === 1) {
+        	 $('.unlike_img').removeClass('unlike_img').addClass('like_img');
+          alert('스터디를 찜 했습니다.');
+        } else if (response && response.wantState === 0) {
+        	 $('.like_img').removeClass('like_img').addClass('unlike_img');
+          alert('스터디 찜을 취소 했습니다.');
 let page = 1; //댓글 페이지
 const boardNum = '${ga.ga_num}';
 const userId = '${user.me_id}';
@@ -126,7 +182,55 @@ $(document).ready(function() {
                 
             }
         }
+      },
+      error: function(error) {
+    	  console.log(error)
+        alert('찜에 실패하였습니다. 다시 시도해주세요');
+      }
     });
+  }
+});
+
+
+$(document).ready(function() {
+	
+  $('.join_study').on('click', function() {
+    join();
+  });
+  
+  $('.now_pp').text(joinCount);
+  
+  function join() {
+    // 데이터
+    var requestData = {
+      sm_me_id: userId,
+      sm_st_num: studyNum
+    };
+    $.ajax({
+      url: '<c:url value="/join" />',
+      type: 'POST',
+      contentType: "application/json",
+      data: JSON.stringify(requestData),
+      success: function(response) {
+        if (response.joinState === 1) {
+        	 $('.apply_btn').removeClass('apply_btn').addClass('already_apply_btn').text('스터디 가입 완료');
+          alert('스터디를 가입했습니다.');
+          location.reload();
+        } else if (response.joinState === 0) {
+        	 $('.already_apply_btn').removeClass('already_apply_btn').addClass('apply_btn').text('스터디 가입');
+          alert('스터디 가입 취소했습니다.');
+       		location.reload();
+          $('.now_pp').text(response.joinCount);
+        }
+		
+      },
+      error: function(error) {
+    	  console.log(error)
+        alert('스터디 가입에 실패하였습니다. 다시 시도해주세요');
+      }
+    });
+  }
+});
 
     function loadComments(page1) {
     

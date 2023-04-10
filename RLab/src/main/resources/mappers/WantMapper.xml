@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "kr.kh.RLab.dao.WantDAO">
+  <select id="findWant" resultType="kr.kh.RLab.vo.WantVO">
+    select * from want
+    where
+      wa_me_id =#{wa_me_id} 
+    and 
+      wa_ga_num =#{wa_ga_num}
+  </select>
+  <insert id="insertScrap">
+    insert into want (wa_me_id, wa_ga_num, wa_state)
+    values (#{wa_me_id},#{wa_ga_num},#{wa_state})
+  </insert>
+  <update id="updateWant">
+	 update want
+		set wa_state=#{wa_state}
+	where 
+	    wa_me_id=#{wa_me_id} 
+	and 
+	    wa_ga_num=#{wa_ga_num}
+  </update>
+</mapper>

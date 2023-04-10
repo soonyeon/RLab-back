@@ -1,6 +1,7 @@
 package kr.kh.RLab.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.RegionVO;
+import kr.kh.RLab.vo.StudyMemberVO;
 import kr.kh.RLab.vo.StudyVO;
 import kr.kh.RLab.vo.TagRegisterVO;
 import kr.kh.RLab.vo.TagVO;
@@ -106,8 +108,8 @@ public class GatherServiceImp implements GatherService {
 	}
 
 	@Override
-	public ArrayList<StudyVO> selectStudyAll() {
-		return gatherDao.selectStudy();
+	public ArrayList<StudyVO> selectStudyAll(Criteria cri) {
+		return gatherDao.selectStudyAll(cri);
 	}
 
 	@Override
@@ -121,13 +123,64 @@ public class GatherServiceImp implements GatherService {
 		return tagList;
 	}
 
-
-
 	@Override
 	public GatherVO getGather(int st_num) {	
+		gatherDao.countViews(st_num);
 		return gatherDao.selectGather(st_num);
 	}
 
+	@Override
+	public StudyVO getStudy(int st_num) {
+		return gatherDao.selectStudy(st_num);
+	}
+
+	@Override
+	public int getStudyTotalCount(Criteria cri) {
+		Integer totalCount = gatherDao.selectStudyTotalCount(cri);
+		return totalCount != null ? totalCount : 0;
+	}
+
+	@Override
+	public ArrayList<Integer> selectStudyList() {
+		return gatherDao.selectStudyList();
+	}
+
+	@Override
+	public ArrayList<Integer> selectWantedStudyList(MemberVO user){
+		if(user == null)
+			return null;
+		return gatherDao.selectWantedStudyList(user.getMe_id());
+	}
+
+	@Override
+	public ArrayList<Integer> selectStudyMemberList(MemberVO user) {
+		if(user == null)
+			return null;
+		return gatherDao.selectStudyMemberList(user.getMe_id());
+	}
+
+	@Override
+	public ArrayList<Integer> selelctJoinStudyMemberList(MemberVO user) {
+		if (user == null)
+			return null;
+		return gatherDao.selelctJoinStudyMemberList(user.getMe_id());
+	}
+
+	/*
+	 * @Override public ArrayList<StudyVO> selectFilteredStudy(Criteria cri) {
+	 * return gatherDao.selectFilteredStudy(cri); }
+	 */
+	
+	
+
+
+	
+
+	}
+
+
+
+
 	
 
 
@@ -139,4 +192,3 @@ public class GatherServiceImp implements GatherService {
 	
 	
 
-}

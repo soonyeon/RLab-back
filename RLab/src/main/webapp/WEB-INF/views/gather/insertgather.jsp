@@ -19,9 +19,11 @@
 			<h1>모집글 작성</h1>
 		</div>
 		<div class="temporary_storage_box">
-			<button class="call_temporary_storage" id="openModal">
-				임시저장 불러오기
-			</button>
+			<c:if test="${user != null }">
+				<button class="call_temporary_storage" id="openModal">
+					임시저장 불러오기
+				</button>
+			</c:if>
 			
 			  <!-- Modal -->
 			    <div id="temporary-list-modal" class="modal-style" style="display: none;">
@@ -40,9 +42,11 @@
 		<form action="<c:url value='/gather/insertgather'></c:url>" method="post">			
 			<h2>모집할스터디</h2>
 			<select id="choose_study" name="ga_st_num">
+			
 			 	<c:forEach var="study" items="${studies}">
                 	<option value="${study.st_num}">${study.st_name}</option>
            		</c:forEach>
+
 			</select>
 			
 			<h2>제목</h2>
@@ -52,8 +56,10 @@
 			<h2>내용</h2>
 			<textarea id="summernote" name="ga_content" ></textarea>
 			<div class="btn_box">
+				<c:if test="${user != null }">
 				<button type="button" class="ts_btn">임시저장</button>
 				<button type="submit" class="write_complete_btn">작성완료</button>
+				</c:if>
 			</div>
 		</form>
 	</div>
@@ -187,6 +193,20 @@ $(document).ready(function() {
   
 });
 
+$('form').submit(function(){
+	let user = $('[name=userId]').val();
+	let title = $('[name=ga_title]').val();
+	let content = $('[name=ga_content]').val();
+	if(title.trim().length == 0){
+		alert('제목을 입력하세요.');
+		return false;
+	}
+	if(content.trim().length == 0){
+		alert('내용을 입력하세요.');
+		return false;
+	}
+
+})
 
 	$('#summernote').summernote(
 			{
