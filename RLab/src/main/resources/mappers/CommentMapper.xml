@@ -65,7 +65,7 @@
 <select id="selectCommentByBoNum" resultType="kr.kh.RLab.vo.CommentVO">
 	select *
 		from comment
-	where sc_bo_num = #{bo_num}
+	where co_ex_num = #{bo_num}
 </select>
 
 <delete id="deleteCommentAll">

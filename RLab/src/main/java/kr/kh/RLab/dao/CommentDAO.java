@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import kr.kh.RLab.vo.CommentVO;
 import kr.kh.RLab.vo.MemberVO;
 
@@ -23,7 +25,7 @@ public interface CommentDAO {
 
 	ArrayList<CommentVO> selectCommentByBoNum(int bo_num);
 
-	void deleteCommentAll(ArrayList<CommentVO> comment, String me_id);
+	void deleteCommentAll(ArrayList<CommentVO> comment, @Param("me_id")String me_id);
 	
 
 }
