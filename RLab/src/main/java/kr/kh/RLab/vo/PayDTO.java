@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PayDTO {
-	int pa_num;
+	String pa_order_id;
 	String pa_me_id;
 	int pa_amount;
 	String pa_order_name;

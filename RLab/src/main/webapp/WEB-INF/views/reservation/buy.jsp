@@ -334,6 +334,7 @@ $('#pay_btn').click(function(){
 	makeItemVoList();//DB전달용 VO리스트 생성
 	console.log(itemsForDb);
 	let payDto = {
+			pa_order_id: makeMerchantUid,
 			pa_me_id: "${user.me_id}",
 			pa_amount: finalPrice,
 			pa_order_name: finalName,
@@ -351,7 +352,7 @@ $('#pay_btn').click(function(){
         dataType:"json", //success에 있는 data타입(주는거)
         contentType:"application/json; charset=UTF-8", //위에있는 data타입(받는거)
         success : function(data){
-        	console.log(data);
+        	console.log('사전데이터 DB저장완료')
         }
 	});
 	console.log('결제중 DB 등록 완료');
@@ -388,7 +389,7 @@ $('#pay_btn').click(function(){
 	            break
 	        case 'confirm': //payload.extra.separately_confirmed = true; 일 경우 승인 전 해당 이벤트가 호출됨
 	            console.log(response.receipt_id)
-	            
+	        	console.log(response);
 	            /* 1. 클라이언트 승인을 하고자 할때
 	             * // validationQuantityFromServer(); //예시) 재고확인과 같은 내부 로직을 처리하기 한다.
 	             */

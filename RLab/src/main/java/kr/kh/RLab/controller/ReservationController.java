@@ -27,7 +27,7 @@ public class ReservationController {
 	@RequestMapping(value = "/reservation/buy", method=RequestMethod.GET) 
 	public ModelAndView ticketBuy(ModelAndView mv, HttpSession session) {
 //		MemberVO user = session.getAttribute("user");
-		MemberVO user = new MemberVO("qwe123","닉넴","qwe123123","kimsyty@naver.com",1,0);  
+		MemberVO user = new MemberVO("qwe123","닉넴","qwe123123","kimsyty@naver.com","",1,0);  
 		//어떤 유저가 있다고 가정했을 때
 		int point = reservationService.getUserPoint(user.getMe_id());
 		mv.addObject("user", user);
@@ -76,8 +76,9 @@ public class ReservationController {
 //		        if(res2.get("status")==(Integer)1)
 //		        	System.out.println("status = 1");
 //		        if(res2.get("price")==(Integer)1)
-		        	
-//		        reservationService.setPaymentSuccessed(receiptId); //->pay_detail 수정하고 ticket_own추가
+		        
+		        System.out.println(res2);//제대로 넘어가는거 확인했고 payDto의 pa_order_id 받아서 기존데이터 수정하면 됨
+		        //reservationService.setPaymentSuccessed(receiptId); //->pay_detail 수정하고 ticket_own추가
 
 		    } else {
 		        System.out.println("confirm false: " + res2);
@@ -87,7 +88,7 @@ public class ReservationController {
 		}
 		
 		
-		mv.setViewName("/reservation/buy_complete");
+		//mv.setViewName("/reservation/buy_complete");
 		return mv;
 	}
 }

@@ -19,14 +19,19 @@ public class ReservationServiceImp implements ReservationService {
 
 	@Override
 	public boolean insertPayment(PayDTO payDto) {
+		if(payDto.getPa_order_id().equals("")) {
+			System.out.println("pa_order_id가 없습니다.");
+			return false;
+		}
 		if(reservationDao.insertPay(payDto)==0) {
 			System.out.println("pay 등록 실패");
 			return false;
 		}
-		if(reservationDao.insertPayDetail(payDto.getPa_num(), payDto.getItemList())==0){
+		if(reservationDao.insertPayDetail(payDto.getPa_order_id(), payDto.getItemList()) == 0){
 			System.out.println("pay_detail 등록 실패");
 			return false;
 		}
+		System.out.println("서비스 임플 - 사전 데이터 등록 성공");
 		return true;
 	}
 

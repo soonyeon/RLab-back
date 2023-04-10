@@ -13,6 +13,6 @@ public interface ReservationDAO {
 
 	int insertPay(@Param("pa")PayDTO payDto);
 
-	int insertPayDetail(@Param("pa_num")int pa_num, @Param("items")ArrayList<ItemVO> itemList);
+	int insertPayDetail(@Param("pa_order_id")String pa_order_id, @Param("items")ArrayList<ItemVO> itemList);
 
 }
