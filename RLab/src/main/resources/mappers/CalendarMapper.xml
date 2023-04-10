@@ -16,7 +16,7 @@
 	</select>
 	
     <select id="findByCaNum" resultMap="CalendarResultMap" parameterType="int">
-        SELECT * FROM events WHERE ca_num = #{ca_num}
+        SELECT * FROM calendar WHERE ca_num = #{ca_num}
     </select>
 
 

@@ -4,7 +4,7 @@ $(document).ready(function () {
     // 이벤트 데이터를 가져오는 함수
     function fetchEvents() {
         return $.ajax({
-            url: "/RLab/calendar/findAll",
+            url: "/rlab/calendar/findAll",
             type: "GET",
             dataType: "json",
         });
@@ -26,7 +26,7 @@ $(document).ready(function () {
     // ca_num 별로 이벤트를 가져오는 함수
     function fetchEventByCaNum(ca_num) {
         return $.ajax({
-            url: "/RLab/calendar/findByCaNum/" + ca_num,
+            url: "/rlab/calendar/findByCaNum/" + ca_num,
             type: "GET",
             dataType: "json",
         });
@@ -59,7 +59,8 @@ $(document).ready(function () {
                 fetchEventByCaNum(ca_num).done(function (eventData) {
                 // 이벤트 데이터를 변환
                 var convertedEvent = convertEventData([eventData])[0];
-
+				// 콘솔에 변환된 캘린더 정보를 표시함
+        		console.log(convertedEvent);
 
                 });
             },
@@ -97,7 +98,7 @@ $(document).ready(function () {
             };
             console.log(eventData);
             $.ajax({
-                url: "/RLab/calendar/insert",
+                url: "/rlab/calendar/insert",
                 type: "POST",
                 contentType: "application/json",
                 data: JSON.stringify(eventData),
