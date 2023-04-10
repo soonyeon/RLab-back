@@ -52,15 +52,25 @@ $(document).ready(function () {
             events: convertedEventData,
             initialView: "dayGridMonth",
             eventClick: function (info) {
-                // 클릭된 이벤트의 ca_num 값을 가져옴
-                var ca_num = info.event.id;
-
-                // ca_num 별로 이벤트를 가져옴
-                fetchEventByCaNum(ca_num).done(function (eventData) {
-                // 이벤트 데이터를 변환
-                var convertedEvent = convertEventData([eventData])[0];
-				// 콘솔에 변환된 캘린더 정보를 표시함
-        		console.log(convertedEvent);
+               // 클릭된 이벤트의 ca_num 값을 가져옴
+			  var ca_num = info.event.id;
+			
+			  // ca_num 별로 이벤트를 가져옴
+			  fetchEventByCaNum(ca_num).done(function (eventData) {
+			    // 이벤트 데이터를 변환
+			    var convertedEvent = convertEventData([eventData])[0];
+			
+			    // 이벤트 데이터를 입력 필드에 설정
+			    $("#editCa_num").val(convertedEvent.id);
+			    $("#editCa_st_num").val(eventData.ca_st_num);
+			    $("#editCalendarTitle").val(convertedEvent.title);
+			    $("#editCalendarStart").val(convertedEvent.start);
+			    $("#editCalendarEnd").val(convertedEvent.end);
+			    $("#editCalendarAllDay").prop("checked", convertedEvent.allDay);
+			
+			    // 수정 및 삭제 모달을 표시함
+			    var editDialog = document.getElementById("editCalendarDialog");
+			    editDialog.showModal();
 
                 });
             },
@@ -81,10 +91,13 @@ $(document).ready(function () {
         });
 
         // 닫기 버튼 클릭 이벤트
-        $("#closecalendar").click(function () {
-            var dialog = document.getElementById("calendarDialog");
-            dialog.close();
-        });
+       $("#closecalendar, #closeEditCalendar").click(function () {
+	    var dialog = document.getElementById("calendarDialog");
+	    dialog.close();
+	
+	    var editDialog = document.getElementById("editCalendarDialog");
+	    editDialog.close();
+	  });
         
         // 이벤트 저장 버튼 클릭 이벤트
         $("#savecalendar").click(function () {
