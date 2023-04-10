@@ -114,11 +114,29 @@ public class StudyController {
 	}
 
 	@RequestMapping(value = "/management/study")
-	public ModelAndView managementStudy(ModelAndView mv) {
+	public ModelAndView managementStudy(ModelAndView mv, HttpSession session) {
 
+
+	    // HttpSession에서 "user"라는 이름의 속성을 가져와 MemberVO 객체로 형변환하여 변수 user에 저장
+		// 로그인한 유저정보를 가져온다
+	    MemberVO user = (MemberVO) session.getAttribute("user");
+	    
+	    // MemberVO 객체를 사용하여 StudyVO 객체를 얻어오는데, 이는 사용자가 속한 스터디 정보를 가져오는 것으로 추정
+	    // 유저가 스터기장(st_me_id)인 스터디를 가져온다
+	    StudyVO study = StudyServcie.getStudyByMemberId(user.getMe_id());
+	    
+	    // 스터디 정보에서 st_num 속성을 가져와 변수 ca_st_num에 저장
+	    int ca_st_num = study.getSt_num();
+	    
+	    // ModelAndView 객체에 "ca_st_num"이라는 이름으로 추가
+	    mv.addObject("ca_st_num", ca_st_num);
+	    
+	    // ModelAndView 객체의 View 이름을 "/study/management_study"으로 설정
 		mv.setViewName("/study/management_study");
 		return mv;
 	}
+	
+	
 
 	@RequestMapping(value = "/management/member")
 	public ModelAndView managementMember(ModelAndView mv) {
