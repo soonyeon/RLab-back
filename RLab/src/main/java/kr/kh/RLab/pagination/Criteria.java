@@ -13,8 +13,6 @@ public class Criteria {
 	//검색어
 	private String search;
 
-
-	
 	// Criteria 디폴트 생성자 : 현재 페이지를 1페이지로, 한 페이지에 10개의 컨텐츠
 	public Criteria() {
 		this.page = 1;

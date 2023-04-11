@@ -12,6 +12,11 @@ public interface JoinStudyDAO {
 
 	int getJoinCountByStudy(int st_num);
 
+	void updateNowPeople(int sm_st_num);
+
+	int getJoinCount();
+
+	void updateUnJoinStudyMember(StudyMemberVO isJoin);
 
 
 }

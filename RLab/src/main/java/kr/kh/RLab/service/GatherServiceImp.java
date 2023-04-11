@@ -1,14 +1,13 @@
 package kr.kh.RLab.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.kh.RLab.dao.GatherDAO;
-import kr.kh.RLab.pagination.Criteria;
+
+import kr.kh.RLab.pagination.gatherCriteria;
 import kr.kh.RLab.utils.UploadFileUtils;
 import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.GatherVO;
@@ -121,8 +120,8 @@ public class GatherServiceImp implements GatherService {
 	}
 
 	@Override
-	public ArrayList<StudyVO> selectStudyAll(Criteria cri) {
-		return gatherDao.selectStudyAll(cri);
+	public ArrayList<StudyVO> selectStudyAll(gatherCriteria gcri) {
+		return gatherDao.selectStudyAll(gcri);
 	}
 
 	@Override
@@ -148,8 +147,8 @@ public class GatherServiceImp implements GatherService {
 	}
 
 	@Override
-	public int getStudyTotalCount(Criteria cri) {
-		Integer totalCount = gatherDao.selectStudyTotalCount(cri);
+	public int getStudyTotalCount(gatherCriteria gcri) {
+		Integer totalCount = gatherDao.selectStudyTotalCount(gcri);
 		return totalCount != null ? totalCount : 0;
 	}
 

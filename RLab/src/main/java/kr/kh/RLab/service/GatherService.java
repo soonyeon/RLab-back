@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.kh.RLab.pagination.Criteria;
+import kr.kh.RLab.pagination.gatherCriteria;
 import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.MemberVO;
@@ -23,7 +24,7 @@ public interface GatherService {
 
 	boolean insertGather(MemberVO member, GatherVO gather, StudyVO study);
 
-	ArrayList<StudyVO> selectStudyAll(Criteria cri);
+	ArrayList<StudyVO> selectStudyAll(gatherCriteria gcri);
 
 	ArrayList<FileVO> selectFileList();
 
@@ -33,7 +34,7 @@ public interface GatherService {
 
 	StudyVO getStudy(int st_num);
 
-	int getStudyTotalCount(Criteria cri);
+	int getStudyTotalCount(gatherCriteria gcri);
 
 	ArrayList<Integer> selectStudyList();
 

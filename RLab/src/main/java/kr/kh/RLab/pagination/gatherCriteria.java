@@ -2,7 +2,9 @@ package kr.kh.RLab.pagination;
 
 import java.util.ArrayList;
 
+
 import lombok.Data;
+
 
 @Data
 public class gatherCriteria extends Criteria {
@@ -17,6 +19,7 @@ public class gatherCriteria extends Criteria {
 	private String filter;
 	
 	public gatherCriteria() {
+		super();
 		this.region="";
 		this.searchTag="";
 		this.filter="";
@@ -28,4 +31,5 @@ public class gatherCriteria extends Criteria {
 				tagList.remove(i);
 		}
 	}
+
 }
