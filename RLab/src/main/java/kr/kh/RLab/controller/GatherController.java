@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.pagination.PageMaker;
+import kr.kh.RLab.pagination.gatherCriteria;
 import kr.kh.RLab.service.GatherService;
 import kr.kh.RLab.service.JoinStudyService;
 import kr.kh.RLab.vo.FileVO;
@@ -69,14 +69,14 @@ public class GatherController {
 	}
 	//게시글 리스트보기
 	@GetMapping("/list")
-	public ModelAndView mainlistgather(ModelAndView mv,Criteria cri,HttpServletRequest request) {
+	public ModelAndView mainlistgather(ModelAndView mv,gatherCriteria gcri,HttpServletRequest request) {
 		 HttpSession session = request.getSession();
 		 MemberVO user = (MemberVO) session.getAttribute("user");
-		cri.sortCri();
-		cri.setPerPageNum(9);
-		int totalCount = gatherService.getStudyTotalCount(cri);
-		PageMaker pm = new PageMaker(totalCount, 5, cri);
-		ArrayList<StudyVO> stList = gatherService.selectStudyAll(cri);
+		 gcri.sortCri();
+		 gcri.setPerPageNum(9);
+		int totalCount = gatherService.getStudyTotalCount(gcri);
+		PageMaker pm = new PageMaker(totalCount, 5, gcri);
+		ArrayList<StudyVO> stList = gatherService.selectStudyAll(gcri);
 		ArrayList<FileVO> fileList = gatherService.selectFileList();
 		ArrayList<TagRegisterVO> tagList = gatherService.selectTagList();
 		ArrayList<Integer> waList =  gatherService.selectWantedStudyList(user);
