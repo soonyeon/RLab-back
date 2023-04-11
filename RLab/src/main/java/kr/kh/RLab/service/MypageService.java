@@ -3,6 +3,7 @@ package kr.kh.RLab.service;
 import java.util.ArrayList;
 
 import kr.kh.RLab.pagination.Criteria;
+import kr.kh.RLab.pagination.GatherCriteria;
 import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.TagRegisterVO;
@@ -26,7 +27,7 @@ public interface MypageService {
 	
 	// [나의 모집글 > 작성글 관리]
 		// 아이디로 내가 쓴 모집글 가져오기
-		ArrayList<GatherVO> getGatherListById(String memberId, Criteria cri);
+		ArrayList<GatherVO> getGatherListById(String memberId, GatherCriteria cri);
 		
 		// 내가 쓴 모집글 스터디의 태그들 가져오기
 		ArrayList<TagRegisterVO> selectTagListById(String memberId);

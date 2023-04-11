@@ -16,4 +16,9 @@ public class StudyVO {
 	private int st_total_people;
 	private String st_re_name;
 	private String st_image;
+	private GatherVO gatherVO; // 모집글 관리에서 데이터 한꺼번에 조회할 때 필요
+	
+	public GatherVO getgatherVO() {
+		return gatherVO;
+	}
 }

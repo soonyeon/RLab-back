@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import kr.kh.RLab.dao.MypageDAO;
 import kr.kh.RLab.pagination.Criteria;
+import kr.kh.RLab.pagination.GatherCriteria;
+import kr.kh.RLab.pagination.GatherCriteria;
 import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.TagRegisterVO;
@@ -54,9 +56,10 @@ public class MypageServiceImp implements MypageService {
 	// [나의 모집글 > 작성글 관리]
 		// 아이디로 내가 쓴 모집글 가져오기
 		@Override
-		public ArrayList<GatherVO> getGatherListById(String memberId, Criteria cri) {
+		public ArrayList<GatherVO> getGatherListById(String memberId, GatherCriteria cri) {
 			if(memberId == null)
 				return null;
+			System.out.println("me_id" + memberId);
 			return mypageDao.selectGatherListById(memberId, cri);
 		}
 		

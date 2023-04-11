@@ -70,24 +70,24 @@
 					                                  <a href="">
 					                                      <div class="study_img_box"></div>
 					                                      <div class="study_info">
-					                                          <div class="study_tag_info">
-					                                              <span href="#" class="study_tag">#자격증</span>
-					                                              <span href="#" class="study_tag">#프로젝트</span>
-					                                              <span href="#" class="study_tag">#컴퓨터</span>
-					                                              <span href="#" class="study_tag">#독서토론</span>
-					                                              <span href="#" class="study_tag">#운동</span>
-					                                              <span href="#" class="study_tag">#경제학과</span>
-					                          
-					                                          </div>
+					                                      	<!-- tag 리스트 -->
+					                                      	<!--<c:forEach items="${tagList}" var="ta" varStatus="vs">
+					                                      		<c:if test="${ta.tr_st_num == myGatherList.get(index).studyVO.st_num}">
+						                                          <div class="study_tag_info">
+						                                              <span href="#" class="study_tag">${ta.tr_name}</span>		                          
+						                                          </div>
+						                                        </c:if>
+					                                        </c:forEach>  -->
 					                                          <div class="study_recruit_content_box">
-					                                              <span class="study_recruit_content">[서울] 정처기 같이 공부해요 </span>
+					                                              <span class="study_recruit_content">${myGatherList.get(index).st_re_name} ${myGatherList.get(index).gatherVO.ga_title} </span>
 					                                            </div>
+					                                      		<!-- 모집중 상태 -->
 					                                          <div class="study_content">
 					                                              <div class="study_recruiting">
 					                                                  <span>모집중</span>
-					                                                  <span>1</span>
+					                                                  <span>${myGatherList.get(index).st_now_people}</span>
 					                                                  <span>/</span>
-					                                                  <span>5</span>
+					                                                  <span>${myGatherList.get(index).st_total_people}</span>
 					                                              </div>
 					                                              <div class="like_img"></div>
 					                                          </div>
@@ -104,11 +104,21 @@
 		  
 		                        <!-- 페이지네이션 -->
 		                        <div class="page_box clearfix">
-		                          <i class="btn_prev"></i>
-		                          <span class="page_num selected">1</span>
-		                          <span class="page_num">2</span>
-		                          <span class="page_num">3</span>
-		                          <i class="btn_next"></i>
+		                         <c:if test="${pm.prev}">
+		                     			<a class="page-link" href="<c:url value='/mypage/mypost_post?page=${pm.endPage-1}'></c:url>">
+											<i class="btn_prev"></i>
+										</a>
+									</c:if>
+									<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
+										<span class="page_num">										
+											<a class="page-link <c:if test="${pm.cri.page == i}"> active</c:if>" href="<c:url value='/mypage/mypost_post?page=${i}'></c:url>">${i}</a>
+										</span>
+									</c:forEach>
+									<c:if test="${pm.next}">										
+										<a class="page-link" href="<c:url value='/mypage/mypost_post?page=${pm.endPage+1}'></c:url>">
+											<i class="btn_next"></i>
+										</a>
+									</c:if>
 		                      </div>
 		                    </div>                                         
 		                </div>

@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?> 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 <mapper namespace="kr.kh.RLab.dao.MypageDAO">
+<!--  -->
+<resultMap id="gather" type="kr.kh.RLab.vo.StudyVO">
+	<id property="st_num" column="st_num" />
+	<id property="st_me_id" column="st_me_id" />
+	<id property="st_info" column="st_info" />
+	<id property="st_now_people" column="st_now_people" />
+	<id property="st_total_people" column="st_total_people" />
+	<id property="st_re_name" column="st_re_name" />
+	<id property="st_image" column="st_image" />
+		<association property="gatherVO" javaType="kr.kh.RLab.vo.GatherVO">
+			<result property="ga_num" column="ga_num"/>
+			<result property="ga_title" column="ga_title"/>
+			<result property="ga_content" column="ga_content"/>
+			<result property="ga_st_num" column="ga_st_num"/>
+			<result property="ga_me_id" column="ga_me_id"/>
+			<result property="ga_views" column="ga_views"/>
+			<result property="ga_reg_date" column="ga_reg_date"/>
+			<result property="ga_upd_date" column="ga_upd_date"/>
+			<result property="me_name" column="me_name"/>
+		</association>
+</resultMap>
+
 	<!-- [나의 게시글 > 작성글 관리] -->
 		<!-- 아이디로 작성 게시글 목록 가져오기  -->
 	  	<select id="selectBoardListById" resultType="kr.kh.RLab.vo.BoardVO">
@@ -42,20 +64,29 @@
 				where sc_me_id = #{memberId}
 	  	</select>
 	  	
+			
 	  	
 	<!-- [나의 모집글 > 작성글 관리] -->
   		<!-- 아이디로 내가 쓴 모집글 가져오기  -->	
-  		<select id="selectGatherListById" resultType="kr.kh.RLab.vo.GatherVO">
-			SELECT *
-			FROM study 
-			left join tag_register on tr_st_num = st_num
+  		<select id="selectGatherListById" resultMap="gather">
+  			select ga_num, ga_title, ga_me_id, 
+  				st_num, st_re_name, st_now_people, st_total_people
+  			from gather
+  			join study on ga_st_num = st_num
 			WHERE 
-				st_me_id = #{memberId}
-			<if test="cri.filter == 'on'">
-				AND st_state = 1
-			</if>
-			group by st_num
-			ORDER BY st_num DESC
+				ga_me_id = #{memberId}
+			ORDER BY ga_num DESC
+			limit #{gatherCri.pageStart}, #{gatherCri.perPageNum}
+  					
+  		
+			<!--   SELECT gather.ga_num, gather.ga_title, study.st_num, gather.ga_me_id, 
+			study.st_re_name, study.st_now_people, study.st_total_people
+			FROM gather 
+			join study on ga_st_num = st_num
+			WHERE 
+				ga_me_id = #{memberId}
+			ORDER BY ga_num DESC
+			limit #{gatherCri.pageStart}, #{gatherCri.perPageNum}-->
 		</select>
 		
   		<!-- 내가 쓴 모집글 스터디의 태그들 가져오기  -->		

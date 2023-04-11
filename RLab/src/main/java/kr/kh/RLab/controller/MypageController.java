@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.kh.RLab.pagination.Criteria;
+import kr.kh.RLab.pagination.GatherCriteria;
 import kr.kh.RLab.pagination.PageMaker;
 import kr.kh.RLab.service.BoardService;
 import kr.kh.RLab.service.CommentService;
@@ -81,13 +82,14 @@ public class MypageController {
 	
 	// [나의 모집글 > 작성글 관리]
 	@GetMapping("/mypost_recruit")
-	public ModelAndView mypostRecruit(ModelAndView mv, HttpSession session, GatherVO gather, Criteria cri) {
+	public ModelAndView mypostRecruit(ModelAndView mv, HttpSession session, GatherVO gather, GatherCriteria cri) {
 		// 세션 정보 가져오기
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		String memberId = user.getMe_id();
 		
 		// 아이디로 내가 쓴 모집글 가져오기
 		ArrayList<GatherVO> myGatherList = mypageService.getGatherListById(memberId, cri);
+		System.out.println("모집글" + myGatherList);
 		// 내가 쓴 모집글 스터디의 태그들 가져오기
 		ArrayList<TagRegisterVO> tagList = mypageService.selectTagListById(memberId);
 		
