@@ -1,5 +1,6 @@
 package kr.kh.RLab.service;
 
+import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.PayDTO;
 
 public interface ReservationService {
@@ -8,6 +9,6 @@ public interface ReservationService {
 
 	boolean insertPayment(PayDTO payDto);
 
-	void setPaymentSuccessed(String paOrderId);
+	void setPaymentSuccessed(String paOrderId, MemberVO user);
 
 }

@@ -338,8 +338,8 @@ $('#pay_btn').click(function(){
 			pa_me_id: "${user.me_id}",
 			pa_amount: finalPrice,
 			pa_order_name: finalName,
-			pay_point: parseInt(finalPrice*0.01),
-			pay_used_point: +$('[name=pa_used_point]').val(),
+			pa_point: parseInt(finalPrice*0.01),
+			pa_used_point: +$('[name=pa_used_point]').val(),
 			itemList: itemsForDb			
 	}
 	console.log(payDto);
@@ -411,6 +411,7 @@ $('#pay_btn').click(function(){
 	    switch (e.event) {
 	        case 'cancel':// 사용자가 결제창을 닫을때 호출
 	            console.log(e.message);
+				location.replace('<c:url value="/cancel/'+response.data.receipt_id+'"></c:url>');
 	    		//location.replace("pay/delete?id="+order.id); //DB값 삭제
 	            break
 	        case 'error':// 결제 승인 중 오류 발생시 호출

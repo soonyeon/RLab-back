@@ -26,8 +26,9 @@ public class ReservationController {
 	
 	@RequestMapping(value = "/reservation/buy", method=RequestMethod.GET) 
 	public ModelAndView ticketBuy(ModelAndView mv, HttpSession session) {
-//		MemberVO user = session.getAttribute("user");
-		MemberVO user = new MemberVO("qwe123","닉넴","qwe123123","kimsyty@naver.com","",1,0);  
+//		MemberVO user = (MemberVO)session.getAttribute("user");
+		MemberVO user = new MemberVO("asd123","닉넴","qwe123123","kimsyty@naver.com","",1,0);  
+		user.setMe_point(1000);
 		//어떤 유저가 있다고 가정했을 때
 		int point = reservationService.getUserPoint(user.getMe_id());
 		mv.addObject("user", user);
@@ -48,7 +49,8 @@ public class ReservationController {
 	}
 	//결제 단건 조회: 보안상 클라이언트에서 수행된 결제는 서버간 통신으로 조회하여 정상적인 결제인지 검증해야함
 	@RequestMapping(value = "/receipt/{receipt_id}", method=RequestMethod.GET) 
-	public ModelAndView receiptId(ModelAndView mv, @PathVariable("receipt_id")String receiptId) {
+	public ModelAndView receiptId(ModelAndView mv, @PathVariable("receipt_id")String receiptId,
+			HttpSession session) {
 		try {
 			//토큰 발급 받기
 		    Bootpay bootpay = new Bootpay("642d26f2755e27001dad6273", 
@@ -75,18 +77,21 @@ public class ReservationController {
 //		        	System.out.println("status = 1");
 //		        if(res2.get("price")==(Integer)1)
 		        
-		        //제대로 넘어가는거 확인했고 payDto의 pa_order_id 받아서 기존데이터 수정하면 됨
+//		        MemberVO user = (MemberVO)session.getAttribute("user");
+				MemberVO user = new MemberVO("asd123","닉넴","qwe123123","kimsyty@naver.com","",1,0);  
 		        String paOrderId = (String)res2.get("order_id");
-		        reservationService.setPaymentSuccessed(paOrderId); //->pay_detail 수정하고 ticket_own추가
+		        reservationService.setPaymentSuccessed(paOrderId, user);
 
 		    } else {
 		        System.out.println("confirm false: " + res2);
 		    }
 		} catch (Exception e) {
 		    e.printStackTrace();
+		    
 		}
 		
-		
+
+		mv.setViewName("/reservation/buy");
 		//mv.setViewName("/reservation/buy_complete");
 		return mv;
 	}

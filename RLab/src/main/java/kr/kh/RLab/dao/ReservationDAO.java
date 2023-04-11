@@ -18,5 +18,18 @@ public interface ReservationDAO {
 	ArrayList<ItemVO> selectPayDetailByPaOrderId(@Param("pa_order_id")String paOrderId);
 
 	int updatePayDetailState(@Param("pd")ItemVO pd);
+	
+	PayDTO selectPayByPaOrderId(@Param("pa_order_id")String paOrderId);
+
+	void insertTicketOwn(@Param("pay")PayDTO payDto);
+
+	int insertTicketOwn(@Param("pa_me_id")String pa_me_id,@Param("pa_order_id")String paOrderId,@Param("pd")ItemVO pd);
+
+	int updateMePoint(@Param("pay")PayDTO payDto);
+
+	void insertPoint(@Param("pay")PayDTO payDto);
+
+	void insertUsedPoint(@Param("pay")PayDTO payDto);
+
 
 }

@@ -3,8 +3,11 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.kh.RLab.dao.ReservationDAO">
-	<select id="selectAllPointById" resultType="int">
+	<!-- <select id="selectAllPointById" resultType="int">
 		select ifnull(sum(po_amount),0) from point where po_me_id = #{me_id} and po_state = 1
+	</select> -->
+	<select id="selectAllPointById" resultType="int">
+		select me_point from member where me_id = #{me_id}
 	</select>
 	<insert id="insertPay" useGeneratedKeys="true" keyProperty="pa.pa_num">
 		insert into pay(pa_order_id,pa_me_id, pa_order_name, pa_date, pa_amount, pa_point, pa_used_point)
@@ -23,4 +26,26 @@
 	<update id="updatePayDetailState">
 		update pay_detail set pd_state = '결제완료' where pd_num = #{pd.pd_num}
 	</update>
+	<select id="selectPayByPaOrderId" resultType="kr.kh.RLab.vo.PayDTO">
+		select * from pay where pa_order_id = #{pa_order_id}
+	</select>
+	<insert id="insertTicketOwn">
+		insert into ticket_own(to_me_id, to_ti_num, to_pa_order_id, to_rest_time, to_valid_date, to_state)
+		values(#{pa_me_id},#{pd.pd_ti_num},#{pa_order_id}, (
+			select ti_period from ticket where ti_num = #{pd.pd_ti_num}
+		), date_add(now(),interval 6 month),1)
+	</insert>
+	<update id="updateMePoint">
+		update member 
+		set me_point = me_point + #{pay.pa_point} - #{pay.pa_used_point} 
+		where me_id = #{pay.pa_me_id}
+	</update>
+	<insert id="insertPoint">
+		insert into point(po_me_id, po_date, po_amount, po_state)
+		values(#{pay.pa_me_id},now(), #{pay.pa_point},1)
+	</insert>
+	<insert id="insertUsedPoint">
+		insert into point(po_me_id, po_date, po_amount, po_state)
+		values(#{pay.pa_me_id},now(), #{pay.pa_used_point},0)
+	</insert>
 </mapper>
