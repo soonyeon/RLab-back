@@ -21,6 +21,7 @@ import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.RegionVO;
+import kr.kh.RLab.vo.StudyMemberVO;
 import kr.kh.RLab.vo.StudyVO;
 import kr.kh.RLab.vo.TagRegisterVO;
 import kr.kh.RLab.vo.TagVO;
@@ -43,9 +44,10 @@ public class GatherController {
 	}
 	@PostMapping("/insertstudy")
 	public ModelAndView studyInsertPost(ModelAndView mv,StudyVO study,HttpServletRequest request,RegionVO region,MultipartFile [] files,
-			FileVO file,TagVO tag,TagRegisterVO tagRegister) {
+			FileVO file,TagVO tag,TagRegisterVO tagRegister,StudyMemberVO studyMember) {
 		MemberVO member = (MemberVO)request.getSession().getAttribute("user");
-		boolean res = gatherService.insertStudy(study,member,region,files,file,tag,tagRegister);
+		boolean res = gatherService.insertStudy(study,member,
+				region,files,file,tag,tagRegister,studyMember);
 		mv.setViewName("redirect:/gather/insertgather");
 		return mv;
 	}

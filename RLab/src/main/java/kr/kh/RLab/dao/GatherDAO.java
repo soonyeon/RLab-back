@@ -55,6 +55,8 @@ public interface GatherDAO {
 
 	ArrayList<GatherVO> selectGatherAll();
 
+	void insertStudyLeader(@Param("sm")StudyMemberVO studyMember);
+
 
 	
 

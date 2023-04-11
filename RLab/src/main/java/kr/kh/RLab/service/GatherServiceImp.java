@@ -29,15 +29,19 @@ public class GatherServiceImp implements GatherService {
 
 	@Override
 	public boolean insertStudy(StudyVO study, MemberVO member, RegionVO region, MultipartFile[] files, FileVO file,
-	        TagVO tag, TagRegisterVO tagRegister) {
+	        TagVO tag, TagRegisterVO tagRegister,StudyMemberVO studyMember) {
 	    if (member == null) {
 	        return false;
 	    }
+	    
 	    if (study.getSt_name().trim().length() == 0 || study.getSt_total_people() < 1) {
 	        return false;
 	    }
 	    study.setSt_me_id(member.getMe_id());
 	    gatherDao.insertStudy(study);
+	    studyMember.setSm_me_id(member.getMe_id());
+	    studyMember.setSm_st_num(study.getSt_num());
+	    gatherDao.insertStudyLeader(studyMember);
 
 	    String[] tags = tag.getTa_name().split(",");
 	    ArrayList<TagVO> tagList = new ArrayList<>();

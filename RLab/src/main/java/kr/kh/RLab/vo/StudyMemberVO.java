@@ -13,5 +13,5 @@ public class StudyMemberVO {
 	private String sm_me_id;
 	private int sm_authority;
 	private Date sm_join_date;
-
+	private int st_num;
 }

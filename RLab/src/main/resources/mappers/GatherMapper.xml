@@ -111,4 +111,8 @@
 	select * from gather
 	join study on ga_st_num = st_num
 </select>
+<insert id="insertStudyLeader">
+	insert into study_member(sm_st_num,sm_me_id,sm_authority,sm_join_date)
+	values(#{sm.sm_st_num},#{sm.sm_me_id},9,NOW())
+</insert>
 </mapper>
