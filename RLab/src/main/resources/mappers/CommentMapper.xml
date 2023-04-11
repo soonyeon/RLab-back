@@ -73,6 +73,4 @@
 	where  co_me_id = #{me_id}
 </delete>
 
-
-
 </mapper>
