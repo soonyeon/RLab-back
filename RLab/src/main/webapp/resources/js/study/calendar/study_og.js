@@ -25,8 +25,9 @@ $(document).ready(function () {
 
     // ca_num 별로 이벤트를 가져오는 함수
     function fetchEventByCaNum(ca_num) {
+    	var url = "/rlab/calendar/findByCaNum/" + parseInt(ca_num);
         return $.ajax({
-            url: "/rlab/calendar/findByCaNum/" + ca_num,
+            url: url,
             type: "GET",
             dataType: "json",
         });
