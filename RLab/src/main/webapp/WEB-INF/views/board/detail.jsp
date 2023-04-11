@@ -325,7 +325,12 @@
                         listHtml += '<div class="cm_top_box">';
                         listHtml += '<div class="cm_writer">';
                         listHtml += '<a href="#" class="cm_mypage">';
-                        listHtml += '<i class="img_mypage"></i>';
+                        <c:if test="${user.me_profile == null}">
+                        listHtml += '<img src="<c:url value="/resources/img/user.png"></c:url>" width="auto" height="40">';
+                        </c:if>
+                        <c:if test="${user.me_profile != null}">
+                        listHtml += '<img src="<c:url value="/download${user.me_profile}"></c:url>" width="auto" height="40">';
+                        </c:if>
                         listHtml += '<span class="nick_name">' + comment.me_name + '</span>';
                         listHtml += '<span class="write_date">' + comment.co_reg_date + '</span>';
                         listHtml += '</a>';
@@ -350,7 +355,12 @@
                         reReplyHtml += '<img class="re_reply_icon" src="<c:url value="/resources/img/reply.png"></c:url>">';
                         reReplyHtml += '<div class="re_writer">';
                         reReplyHtml += '<a href="#" class="re_mypage">';
-                        reReplyHtml += '<i class="img_mypage"></i>';
+                        <c:if test="${user.me_profile == null}">
+                        reReplyHtml += '<img src="<c:url value="/resources/img/user.png"></c:url>" width="auto" height="40">';
+                        </c:if>
+                        <c:if test="${user.me_profile != null}">
+                        reReplyHtml += '<img src="<c:url value="/download${user.me_profile}"></c:url>" width="auto" height="40">';
+                        </c:if>
                         reReplyHtml += '<span class="re_nick_name">' + comment.me_name + '</span>';
                         reReplyHtml += '<span class="re_write_date">' + comment.co_reg_date + '</span>';
                         reReplyHtml += '</a>';
