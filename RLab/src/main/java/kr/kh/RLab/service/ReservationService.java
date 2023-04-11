@@ -11,4 +11,6 @@ public interface ReservationService {
 
 	void setPaymentSuccessed(String paOrderId, MemberVO user);
 
+	void deleteCanceledPayment(String receiptId);
+
 }

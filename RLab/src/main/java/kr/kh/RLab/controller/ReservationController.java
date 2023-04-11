@@ -81,18 +81,19 @@ public class ReservationController {
 				MemberVO user = new MemberVO("asd123","닉넴","qwe123123","kimsyty@naver.com","",1,0);  
 		        String paOrderId = (String)res2.get("order_id");
 		        reservationService.setPaymentSuccessed(paOrderId, user);
-
 		    } else {
 		        System.out.println("confirm false: " + res2);
 		    }
 		} catch (Exception e) {
 		    e.printStackTrace();
-		    
 		}
-		
-
-		mv.setViewName("/reservation/buy");
-		//mv.setViewName("/reservation/buy_complete");
+		mv.setViewName("/reservation/buy_complete");
+		return mv;
+	}
+	@RequestMapping(value = "/cancel/{receipt_id}", method=RequestMethod.POST) 
+	public ModelAndView ticketBuyPost(ModelAndView mv, @PathVariable("receipt_id")String receiptId) {
+		reservationService.deleteCanceledPayment(receiptId);
+		mv.setViewName("");
 		return mv;
 	}
 }

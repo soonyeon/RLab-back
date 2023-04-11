@@ -369,7 +369,6 @@ $('#pay_btn').click(function(){
 	   		  "id": '${user.me_id}',
 	   		  "email": '${user.me_email}'
 	   		},
-	   		"items": items,
 	   		"extra": {
 	   		  "open_type": "iframe",
 	   		  "card_quota": "0,2,3",
