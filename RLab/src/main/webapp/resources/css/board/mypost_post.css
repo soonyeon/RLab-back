@@ -183,3 +183,6 @@ table { border-collapse: collapse; }
     font-size: medium;
     cursor: pointer;
 }
+.nick_name {
+	font-weight: bold;
+}
