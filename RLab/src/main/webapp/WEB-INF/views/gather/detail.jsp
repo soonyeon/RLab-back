@@ -15,7 +15,7 @@
 <!-- main -->
 <main>
 	<div id="main_container">
-		<div class="board_title">${st.st_name}
+		<div class="board_title">${ga.ga_title}
 			<input type="hidden" value="${ga.ga_me_id}">
 			
 		</div>
@@ -41,7 +41,7 @@
 				</div>
 				<div class="rc_info_box">
 					<div class="study_recruit_content_box">
-						<span class="rc_title">${ga.ga_title}</span>
+						<span class="rc_title">${st.st_name}</span>
 					</div>
 					<div class="study_content">
 						<div class="study_recruiting">

@@ -15,7 +15,6 @@ import kr.kh.RLab.vo.StudyMemberVO;
 import kr.kh.RLab.vo.StudyVO;
 import kr.kh.RLab.vo.TagRegisterVO;
 import kr.kh.RLab.vo.TagVO;
-import kr.kh.RLab.vo.WantVO;
 
 public interface GatherService {
 
