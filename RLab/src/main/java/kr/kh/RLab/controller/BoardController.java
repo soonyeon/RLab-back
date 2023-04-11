@@ -72,7 +72,6 @@ public class BoardController {
 	@GetMapping("/detail/{bo_num}")
 	public ModelAndView boardGet(ModelAndView mv, @PathVariable int bo_num,HttpSession session) {
 		MemberVO user = (MemberVO) session.getAttribute("user");
-		System.out.println("user=========" + user);
 		BoardVO board = boardService.getBoard(bo_num);
 		mv.addObject("bd", board);
 		
@@ -81,10 +80,8 @@ public class BoardController {
 	    mv.addObject("scrapCount", scrapCount);
 	    //스크랩한 사람들 명단 가져오기
 	    ArrayList<ScrapVO> scrapedList = scrapService.findScrap(bo_num);
-	    System.out.println("=========" + scrapedList);
 	    for (ScrapVO scv : scrapedList) {
 				mv.addObject("scv", scv);
-				System.out.println("scv==========" +  scv);
 		}
 		mv.setViewName("/board/detail");
 		return mv;
