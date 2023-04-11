@@ -357,6 +357,7 @@ progress {
   background-size: 30px 30px;
   background-repeat: no-repeat;
   float: left;
+  margin-bottom: 10px;
 
 }
 .feed_like_count {

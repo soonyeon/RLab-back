@@ -15,6 +15,7 @@ public class MemberVO {
 	private int me_point;
 	private int me_rest_time;
 	private int me_use_time;
+	private String me_profile;
 	
 	public MemberVO(String me_id, String me_name, String me_pw, String me_email, int me_authority,
 			int me_point) {

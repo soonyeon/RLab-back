@@ -37,7 +37,9 @@ public class StudyController {
 	private final StudyService studyService;
 
 	@GetMapping("/certificationBoard")
-	public String certificationBoard(HttpServletRequest request, Model model) {
+	public String certificationBoard(HttpServletRequest request, Model model,HttpSession session) {
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		model.addAttribute("user", user);
 		ArrayList<PhotoTypeVO> phototypeList = studyService.getListPhotoType();
 		MemberVO member = (MemberVO) request.getSession().getAttribute("user");
 		StudyVO study = studyService.getStudyByMemberId(member.getMe_id());

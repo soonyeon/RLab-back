@@ -39,7 +39,12 @@
                 <div class="today_feed_board">
                     <c:forEach var="photo" items="${photos}">
                         <div class="board">
-                            <div class="feed_img"></div>
+                         	 <c:if test="${user.me_profile == null}">
+                    	 		<img class="feed_img" src="<c:url value='/resources/img/user.png'></c:url>">
+                    		</c:if>
+		                    <c:if test="${user.me_profile != null}">
+		                    	  <img class="feed_img" src="<c:url value='/download${user.me_profile}'></c:url>">
+		                   	</c:if>
                             <div class="feed_name">${photo.me_name}</div>
                             <div class="feed_date">${photo.ph_register_date_str}</div>
                             <div class="feed_contents_img">
