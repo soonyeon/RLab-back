@@ -48,7 +48,6 @@ public class GatherServiceImp implements GatherService {
 	        if(tagName.isEmpty()) {
 	            continue;
 	        }
-
 	        ArrayList<TagVO> tagVOList = gatherDao.selectTag(tagName);
 	        if(tagVOList.isEmpty()) {
 	            TagVO tagVO = new TagVO();

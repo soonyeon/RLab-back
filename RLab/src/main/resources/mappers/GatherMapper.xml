@@ -27,9 +27,9 @@
 <select id="selectStudyAll" resultType="kr.kh.RLab.vo.StudyVO" >
 SELECT *
 FROM study 
-join gather on ga_st_num = st_num
-left join tag_register on tr_st_num = st_num
-WHERE st_name LIKE CONCAT('%',#{cri.search},'%')
+JOIN gather ON ga_st_num = st_num
+LEFT JOIN tag_register ON tr_st_num = st_num
+WHERE st_name LIKE CONCAT('%', #{cri.search}, '%')
 <if test="cri.filter == 'on'">
 	AND st_state = 1
 </if>
@@ -37,13 +37,17 @@ WHERE st_name LIKE CONCAT('%',#{cri.search},'%')
 	AND st_re_name = #{cri.region}
 </if>
 <if test="cri.tagList.size() != 0">
-	and tr_name in
-	<foreach item="tag" index="index" collection="cri.tagList"
-	open="(" separator="," close=")">
-	#{tag}
-	</foreach>
+	AND st_num IN (
+		SELECT tr_st_num
+		FROM tag_register
+		WHERE tr_name IN
+		<foreach item="tag" index="index" collection="cri.tagList"
+			open="(" separator="," close=")">
+			#{tag}
+		</foreach>
+	)
 </if>
-group by st_num, tr_num, tr_name
+GROUP BY st_num
 ORDER BY st_num DESC
 LIMIT #{cri.pageStart}, #{cri.perPageNum}
 </select>
