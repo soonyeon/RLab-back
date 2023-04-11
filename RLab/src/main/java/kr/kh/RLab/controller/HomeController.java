@@ -49,7 +49,6 @@ public class HomeController {
 		}else {
 			mv.setViewName("redirect:/");
 		}
-//		System.out.println(user);
 		return mv;
 	}
 	

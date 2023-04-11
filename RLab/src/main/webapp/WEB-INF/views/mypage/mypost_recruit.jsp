@@ -58,37 +58,46 @@
 		  
 		                      <!-- 컨텐트 박스 -->
 		                        <div class="content_box">
+		                        <!-- myGatherList가 0 이 아니면 실행 -->
 		                          <c:if test="${myGatherList.size() != 0 }">
-		                          	<div class="row_study_card clearfix">
-		                              <li class="study_card_box add_shadow op">
-		                                  <a href="">
-		                                      <div class="study_img_box"></div>
-		                                      <div class="study_info">
-		                                          <div class="study_tag_info">
-		                                              <span href="#" class="study_tag">#자격증</span>
-		                                              <span href="#" class="study_tag">#프로젝트</span>
-		                                              <span href="#" class="study_tag">#컴퓨터</span>
-		                                              <span href="#" class="study_tag">#독서토론</span>
-		                                              <span href="#" class="study_tag">#운동</span>
-		                                              <span href="#" class="study_tag">#경제학과</span>
-		                          
-		                                          </div>
-		                                          <div class="study_recruit_content_box">
-		                                              <span class="study_recruit_content">[서울] 정처기 같이 공부해요 </span>
-		                                            </div>
-		                                          <div class="study_content">
-		                                              <div class="study_recruiting">
-		                                                  <span>모집중</span>
-		                                                  <span>1</span>
-		                                                  <span>/</span>
-		                                                  <span>5</span>
-		                                              </div>
-		                                              <div class="like_img"></div>
-		                                          </div>
-		                                      </div>
-		                                  </a>
-		                              	</li>
-			                          </div>
+		                          	<!-- 0부터 myGatherList의 수가 끝날 때까지 row_study_card가 3개씩 반복 -->
+		                          	<c:forEach begin="0" end="${myGatherList.size()-1}" step="3" var="i">
+			                          	<div class="row_study_card clearfix">
+			                          		<!-- 모집글 하나가 row -->
+			                          		<c:forEach begin="${i}" end="${i+2}" var="index">
+				                          		<c:if test="${myGatherList.size()-1 >= index}">
+					                              <li class="study_card_box add_shadow op">
+					                                  <a href="">
+					                                      <div class="study_img_box"></div>
+					                                      <div class="study_info">
+					                                          <div class="study_tag_info">
+					                                              <span href="#" class="study_tag">#자격증</span>
+					                                              <span href="#" class="study_tag">#프로젝트</span>
+					                                              <span href="#" class="study_tag">#컴퓨터</span>
+					                                              <span href="#" class="study_tag">#독서토론</span>
+					                                              <span href="#" class="study_tag">#운동</span>
+					                                              <span href="#" class="study_tag">#경제학과</span>
+					                          
+					                                          </div>
+					                                          <div class="study_recruit_content_box">
+					                                              <span class="study_recruit_content">[서울] 정처기 같이 공부해요 </span>
+					                                            </div>
+					                                          <div class="study_content">
+					                                              <div class="study_recruiting">
+					                                                  <span>모집중</span>
+					                                                  <span>1</span>
+					                                                  <span>/</span>
+					                                                  <span>5</span>
+					                                              </div>
+					                                              <div class="like_img"></div>
+					                                          </div>
+					                                      </div>
+					                                  </a>
+					                              </li>
+					                        	</c:if>
+				                          	</c:forEach>
+				                          </div>
+				                     	</c:forEach>
 									</c:if>
 		                          
 		                        </div>

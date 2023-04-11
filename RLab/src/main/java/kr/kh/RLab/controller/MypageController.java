@@ -49,7 +49,6 @@ public class MypageController {
 		// 페이지 네이션
 		// 로그인한 회원이 작성한 게시글 전체 수 가져오기
 		int totalCount = mypageService.getPostBoardTotalCount(memberId);
-		System.out.println(totalCount);
 		PageMaker pm = new PageMaker(totalCount, 2, cri);
 		
 		mv.addObject("myBoardList", myBoardList);
