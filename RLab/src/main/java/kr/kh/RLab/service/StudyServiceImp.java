@@ -12,6 +12,7 @@ import kr.kh.RLab.vo.LikeVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.PhotoTypeVO;
 import kr.kh.RLab.vo.PhotoVO;
+import kr.kh.RLab.vo.StudyMemberVO;
 import kr.kh.RLab.vo.StudyVO;
 import lombok.RequiredArgsConstructor;
 
@@ -86,4 +87,26 @@ public class StudyServiceImp implements StudyService {
 	public int countLikesByPhotoId(int li_ph_num) {
 		return studyDao.countLikesByPhotoId(li_ph_num);
 	}
+
+	@Override
+	public ArrayList<StudyVO> getStudyListById(String memberId) {
+		if(memberId == null)		
+			return null;
+//		System.out.println(memberId+2);
+		return studyDao.selectStudyListById(memberId);
+	}
+
+	@Override
+	public ArrayList<StudyMemberVO> getStudyMemberList(int st_num) {
+			
+		return studyDao.selectStudyMemberList(st_num);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 }

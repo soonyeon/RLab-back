@@ -13,7 +13,15 @@
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
  <style>
- 
+ 	  dialog {
+	  position: fixed;
+	  top: 50%;
+	  left: 50%;
+	  transform: translate(-50%, -50%);
+	  z-index: 9999;
+	  border: none;
+	  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	}
  		#calendarDialog {
         position: fixed;
         top: 50%;
@@ -83,6 +91,32 @@
 		#calendarDialog #savecalendar {
 		  background-color: #28a745;
 		}
+		#editCalendarDialog button {
+		  background-color: #007bff;
+		  border: none;
+		  color: white;
+		  cursor: pointer;
+		  font-size: 16px;
+		  margin-right: 10px;
+		  padding: 8px 16px;
+		}
+		
+		#editCalendarDialog button:hover {
+		  background-color: #0056b3;
+		  color: white;
+		}
+		
+		#editCalendarDialog #closeEditCalendar {
+		  background-color: #6c757d;
+		}
+		
+		#editCalendarDialog #deleteCalendar {
+		  background-color: #dc3545;
+		}
+		
+		#editCalendarDialog #updateCalendar {
+		  background-color: #28a745;
+		}
     </style>
 
 <main>
@@ -95,7 +129,7 @@
 	            <a href="Daily Mission.html" class="list_item">데일리 미션</a>
 	            <a href="<c:url value='/study/certificationBoard'></c:url>" class="list_item">인증 게시판</a>
 	            <a href="<c:url value='/board/list'></c:url>" class="list_item">자유 게시판</a>
-	            <a href="<c:url value='/study/management/member'></c:url>" class="list_item">스터디 관리</a>
+	            <a href="<c:url value='/study/management'></c:url>" class="list_item">스터디 관리</a>
 	            <a href="#" class="leave">탈퇴하기</a>
 	        </nav>
 	    </div>
@@ -157,6 +191,34 @@
 		        </form>
     			</dialog>
 	            
+	            <dialog id="editCalendarDialog">
+				  <form id="editCalendarForm">
+				    <input type="hidden" id="editCa_num">
+				    <input type="hidden" id="editCa_st_num">
+				    <h3>일정 수정 및 삭제</h3>
+				    <div class="mb-3">
+				      <label for="editCalendarTitle" class="form-label">제목</label>
+				      <input type="text" class="form-control" id="editCalendarTitle">
+				    </div>
+				    <div class="mb-3">
+				      <label for="editCalendarStart" class="form-label">시작일</label>
+				      <input type="datetime-local" class="form-control" id="editCalendarStart">
+				    </div>
+				    <div class="mb-3">
+				      <label for="editCalendarEnd" class="form-label">종료일</label>
+				      <input type="datetime-local" class="form-control" id="editCalendarEnd">
+				    </div>
+				    <div class="mb-3 form-check">
+				      <input type="checkbox" class="form-check-input" id="editCalendarAllDay">
+				      <label class="form-check-label" for="editCalendarAllDay">하루종일</label>
+				    </div>
+				    <menu>
+				      <button type="button" id="closeEditCalendar">닫기</button>
+				      <button type="button" id="updateCalendar">수정</button>
+				      <button type="button" id="deleteCalendar">삭제</button>
+				    </menu>
+				  </form>
+				</dialog>
 	            
 	            
 	            <div class="middle_container clearfix">

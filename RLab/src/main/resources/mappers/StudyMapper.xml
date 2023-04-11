@@ -51,4 +51,16 @@
 	    SELECT COUNT(*) FROM `like` WHERE li_ph_num = #{li_ph_num} AND li_state = 1
 	</select>
     
+    <select id="selectStudyListById" resultType="kr.kh.RLab.vo.StudyVO">
+    	SELECT st_num, st_name 
+		FROM study 
+		WHERE st_me_id = #{memberId};
+    </select>
+    <select id="selectStudyMemberList" resultType="kr.kh.RLab.vo.StudyMemberVO">
+    	SELECT * FROM study_member
+    	join member on sm_me_id = me_id
+    	WHERE sm_st_num = #{st_num};
+    	
+    </select>
+    
 </mapper>

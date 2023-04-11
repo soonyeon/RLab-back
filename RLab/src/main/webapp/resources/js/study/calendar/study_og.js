@@ -4,7 +4,7 @@ $(document).ready(function () {
     // 이벤트 데이터를 가져오는 함수
     function fetchEvents() {
         return $.ajax({
-            url: "/RLab/calendar/findAll",
+            url: "/rlab/calendar/findAll",
             type: "GET",
             dataType: "json",
         });
@@ -26,7 +26,7 @@ $(document).ready(function () {
     // ca_num 별로 이벤트를 가져오는 함수
     function fetchEventByCaNum(ca_num) {
         return $.ajax({
-            url: "/RLab/calendar/findByCaNum/" + ca_num,
+            url: "/rlab/calendar/findByCaNum/" + ca_num,
             type: "GET",
             dataType: "json",
         });
@@ -52,14 +52,25 @@ $(document).ready(function () {
             events: convertedEventData,
             initialView: "dayGridMonth",
             eventClick: function (info) {
-                // 클릭된 이벤트의 ca_num 값을 가져옴
-                var ca_num = info.event.id;
-
-                // ca_num 별로 이벤트를 가져옴
-                fetchEventByCaNum(ca_num).done(function (eventData) {
-                // 이벤트 데이터를 변환
-                var convertedEvent = convertEventData([eventData])[0];
-
+               // 클릭된 이벤트의 ca_num 값을 가져옴
+			  var ca_num = info.event.id;
+			
+			  // ca_num 별로 이벤트를 가져옴
+			  fetchEventByCaNum(ca_num).done(function (eventData) {
+			    // 이벤트 데이터를 변환
+			    var convertedEvent = convertEventData([eventData])[0];
+			
+			    // 이벤트 데이터를 입력 필드에 설정
+			    $("#editCa_num").val(convertedEvent.id);
+			    $("#editCa_st_num").val(eventData.ca_st_num);
+			    $("#editCalendarTitle").val(convertedEvent.title);
+			    $("#editCalendarStart").val(convertedEvent.start);
+			    $("#editCalendarEnd").val(convertedEvent.end);
+			    $("#editCalendarAllDay").prop("checked", convertedEvent.allDay);
+			
+			    // 수정 및 삭제 모달을 표시함
+			    var editDialog = document.getElementById("editCalendarDialog");
+			    editDialog.showModal();
 
                 });
             },
@@ -80,10 +91,13 @@ $(document).ready(function () {
         });
 
         // 닫기 버튼 클릭 이벤트
-        $("#closecalendar").click(function () {
-            var dialog = document.getElementById("calendarDialog");
-            dialog.close();
-        });
+       $("#closecalendar, #closeEditCalendar").click(function () {
+	    var dialog = document.getElementById("calendarDialog");
+	    dialog.close();
+	
+	    var editDialog = document.getElementById("editCalendarDialog");
+	    editDialog.close();
+	  });
         
         // 이벤트 저장 버튼 클릭 이벤트
         $("#savecalendar").click(function () {
@@ -97,7 +111,7 @@ $(document).ready(function () {
             };
             console.log(eventData);
             $.ajax({
-                url: "/RLab/calendar/insert",
+                url: "/rlab/calendar/insert",
                 type: "POST",
                 contentType: "application/json",
                 data: JSON.stringify(eventData),
