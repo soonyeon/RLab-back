@@ -15,4 +15,6 @@ public interface ReservationDAO {
 
 	int insertPayDetail(@Param("pa_order_id")String pa_order_id, @Param("items")ArrayList<ItemVO> itemList);
 
+	PayDTO selectPayByPaOrderId(@Param("pa_order_id")String paOrderId);
+
 }

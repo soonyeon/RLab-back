@@ -17,4 +17,7 @@
 			(#{pa_order_id}, #{i.pd_ti_num}, #{i.pd_amount}, #{i.pd_price}, '결제중')
 		</foreach>
 	</insert>
+	<select id="selectPayByPaOrderId" resultType="kr.kh.RLab.vo.PayDTO">
+		select * from pay where pa_order_id = #{pa_order_id}
+	</select>
 </mapper>

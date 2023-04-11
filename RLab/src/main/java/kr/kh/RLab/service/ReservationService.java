@@ -8,4 +8,6 @@ public interface ReservationService {
 
 	boolean insertPayment(PayDTO payDto);
 
+	PayDTO setPaymentSuccessed(String paOrderId);
+
 }

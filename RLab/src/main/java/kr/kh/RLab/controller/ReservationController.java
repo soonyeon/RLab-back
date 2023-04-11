@@ -49,7 +49,6 @@ public class ReservationController {
 	//결제 단건 조회: 보안상 클라이언트에서 수행된 결제는 서버간 통신으로 조회하여 정상적인 결제인지 검증해야함
 	@RequestMapping(value = "/receipt/{receipt_id}", method=RequestMethod.GET) 
 	public ModelAndView receiptId(ModelAndView mv, @PathVariable("receipt_id")String receiptId) {
-		System.out.println(receiptId);
 		try {
 			//토큰 발급 받기
 		    Bootpay bootpay = new Bootpay("642d26f2755e27001dad6273", 
@@ -70,15 +69,15 @@ public class ReservationController {
 		    }
 		    HashMap<String, Object> res2 = bootpay.getReceipt(receiptId);
 		    if(res2.get("error_code") == null) { //success
-		    	PayDTO payDto = new PayDTO();
 		        System.out.println("confirm success: " + res2);
 		        //status가 1이고 가격이 등록된 값이랑 같은지 검수
 //		        if(res2.get("status")==(Integer)1)
 //		        	System.out.println("status = 1");
 //		        if(res2.get("price")==(Integer)1)
 		        
-		        System.out.println(res2);//제대로 넘어가는거 확인했고 payDto의 pa_order_id 받아서 기존데이터 수정하면 됨
-		        //reservationService.setPaymentSuccessed(receiptId); //->pay_detail 수정하고 ticket_own추가
+		        //제대로 넘어가는거 확인했고 payDto의 pa_order_id 받아서 기존데이터 수정하면 됨
+		        String paOrderId = (String)res2.get("order_id");
+		        PayDTO payDto = reservationService.setPaymentSuccessed(paOrderId); //->pay_detail 수정하고 ticket_own추가
 
 		    } else {
 		        System.out.println("confirm false: " + res2);

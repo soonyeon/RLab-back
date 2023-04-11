@@ -35,4 +35,14 @@ public class ReservationServiceImp implements ReservationService {
 		return true;
 	}
 
+	@Override
+	public PayDTO setPaymentSuccessed(String paOrderId) {
+		System.out.println("넘어온 pa_order_id:"+paOrderId);
+		paOrderId = "qwe12321412962";
+		PayDTO payDto = reservationDao.selectPayByPaOrderId(paOrderId);
+		System.out.println(payDto);
+		return payDto;
+		
+	}
+
 }
