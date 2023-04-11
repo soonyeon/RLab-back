@@ -1,9 +1,12 @@
 package kr.kh.RLab.service;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.kh.RLab.dao.ReservationDAO;
+import kr.kh.RLab.vo.ItemVO;
 import kr.kh.RLab.vo.PayDTO;
 
 @Service
@@ -36,12 +39,20 @@ public class ReservationServiceImp implements ReservationService {
 	}
 
 	@Override
-	public PayDTO setPaymentSuccessed(String paOrderId) {
+	public void setPaymentSuccessed(String paOrderId) {
 		System.out.println("넘어온 pa_order_id:"+paOrderId);
 		paOrderId = "qwe12321412962";
-		PayDTO payDto = reservationDao.selectPayByPaOrderId(paOrderId);
-		System.out.println(payDto);
-		return payDto;
+		//pay_detail 테이블 '결제완료'로 업데이트
+		ArrayList<ItemVO> pdList = reservationDao.selectPayDetailByPaOrderId(paOrderId);
+		for(ItemVO pd : pdList) {
+			if(reservationDao.updatePayDetailState(pd)==0) {
+				System.out.println("결제완료 변경 실패");
+				return;
+			}
+		}
+		//payDto.setItemList(pdList);
+		//System.out.println(payDto);
+		
 		
 	}
 

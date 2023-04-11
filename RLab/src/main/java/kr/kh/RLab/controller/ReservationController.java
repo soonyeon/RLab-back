@@ -77,7 +77,7 @@ public class ReservationController {
 		        
 		        //제대로 넘어가는거 확인했고 payDto의 pa_order_id 받아서 기존데이터 수정하면 됨
 		        String paOrderId = (String)res2.get("order_id");
-		        PayDTO payDto = reservationService.setPaymentSuccessed(paOrderId); //->pay_detail 수정하고 ticket_own추가
+		        reservationService.setPaymentSuccessed(paOrderId); //->pay_detail 수정하고 ticket_own추가
 
 		    } else {
 		        System.out.println("confirm false: " + res2);

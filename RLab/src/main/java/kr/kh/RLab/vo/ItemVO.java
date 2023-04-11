@@ -8,8 +8,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ItemVO {
+	int pd_num;
 	String pd_ti_num;//id
 	int pd_amount;//qty
 	int pd_price;//price
-	int pd_state;
+	String pd_state;
 }
