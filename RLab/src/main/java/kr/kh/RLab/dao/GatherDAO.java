@@ -53,6 +53,8 @@ public interface GatherDAO {
 
 	ArrayList<TagVO> selectTag(@Param("tagName") String tagName);
 
+	ArrayList<GatherVO> selectGatherAll();
+
 
 	
 

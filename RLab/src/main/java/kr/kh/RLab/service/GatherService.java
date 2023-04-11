@@ -45,6 +45,8 @@ public interface GatherService {
 
 	ArrayList<StudyVO> selectStudyById(MemberVO member);
 
+	ArrayList<GatherVO> selectGatherAll();
+
 
 	
 

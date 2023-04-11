@@ -77,11 +77,12 @@ public class GatherController {
 		int totalCount = gatherService.getStudyTotalCount(gcri);
 		PageMaker pm = new PageMaker(totalCount, 5, gcri);
 		ArrayList<StudyVO> stList = gatherService.selectStudyAll(gcri);
-		
-		ArrayList<FileVO> fileList = gatherService.selectFileList();
+		ArrayList<GatherVO> gaList = gatherService.selectGatherAll();
+ 		ArrayList<FileVO> fileList = gatherService.selectFileList();
 		ArrayList<TagRegisterVO> tagList = gatherService.selectTagList();
 		ArrayList<Integer> waList =  gatherService.selectWantedStudyList(user);
 		System.out.println(stList);
+		mv.addObject("gaList",gaList);
 		mv.addObject("fileList",fileList);
 		mv.addObject("user",user);
 		mv.addObject("waList",waList);

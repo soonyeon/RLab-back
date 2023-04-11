@@ -120,8 +120,14 @@
 											</c:forEach>
 										</div>
 										<div class="study_recruit_content_box">
-											<span class="study_recruit_content"> [${stList.get(index).st_re_name}] ${stList.get(index).st_name}
-											</span>
+										
+											<span class="study_recruit_content">[${stList.get(index).st_re_name}]</span>
+											<c:forEach items="${gaList}" var="ga">
+												<c:if test="${ga.ga_st_num==stList.get(index).st_num}">
+													<span> ${ga.ga_title}</span>
+												</c:if>
+											</c:forEach>
+											
 										</div>
 										<div class="study_content">
 											<div class="study_recruiting">
@@ -146,6 +152,7 @@
 											</div>
 										</div>
 									</div>
+
 								</a>
 							</li>
 							</c:if >
