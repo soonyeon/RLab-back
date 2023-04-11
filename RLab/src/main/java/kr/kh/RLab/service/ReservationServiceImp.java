@@ -74,7 +74,7 @@ public class ReservationServiceImp implements ReservationService {
 
 	@Override
 	public void deleteCanceledPayment(String receiptId) {
-		// TODO Auto-generated method stub
+		PayDTO pay = 
 		
 	}
 
