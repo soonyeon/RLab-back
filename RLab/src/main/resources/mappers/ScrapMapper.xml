@@ -9,7 +9,7 @@
     </select>
     
     <select id="findScrap2" resultType="kr.kh.RLab.vo.ScrapVO">
-    	 SELECT * FROM scrap WHERE sc_me_id=#{me_id}
+    	 SELECT * FROM scrap WHERE sc_bo_num=#{bo_num} and sc_state=1
     </select>
 
     <insert id="insertScrap">
