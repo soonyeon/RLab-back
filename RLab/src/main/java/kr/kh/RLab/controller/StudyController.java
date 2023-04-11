@@ -117,9 +117,12 @@ public class StudyController {
 	public ModelAndView main(ModelAndView mv, HttpSession session) {
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		StudyVO study = studyService.getStudyByMemberId(user.getMe_id());
+		if (study == null) {
+		  return new ModelAndView("redirect:/"); // 다른 경로로 리다이렉트
+		}
 		// ca_st_num 불러오기
-		// int ca_st_num = study.getSt_num(); // 에러떠서 일단 주석처리
-		// mv.addObject("ca_st_num", ca_st_num);
+		int ca_st_num = study.getSt_num(); // 에러떠서 일단 주석처리
+		mv.addObject("ca_st_num", ca_st_num);
 		mv.setViewName("/study/study_basic");
 		return mv;
 	}
