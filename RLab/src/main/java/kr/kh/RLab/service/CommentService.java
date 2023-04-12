@@ -24,4 +24,5 @@ public interface CommentService {
 
 	void deleteCommentAll(ArrayList<CommentVO> comment, MemberVO user);
 
+
 }

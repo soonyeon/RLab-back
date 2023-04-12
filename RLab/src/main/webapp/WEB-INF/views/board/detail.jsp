@@ -318,7 +318,18 @@
 				
                 $.each(comments, function(index, comment) {
                     console.log(comment);
+                    if(comment.co_state == 'Y') {
+                     	 let cmStateHtml = '';
+                        cmStateHtml += '<div class="cm_main_box">';
+                        cmStateHtml += '<div class="cm_top_box">';
+                        cmStateHtml += '<div class="already_comment">' + '삭제된 댓글입니다' + '</div>';
+                        cmStateHtml += '</div>';
+                        cmStateHtml += '</div>';
+                        $('.comment_box').append(cmStateHtml);
+                        return;
+                   } 	
                     if (comment.co_num == comment.co_ori_num) {
+                       
                         let listHtml = '';
 
                         listHtml += '<div class="cm_main_box">';
@@ -347,7 +358,8 @@
                         listHtml += '</div>';
 
                         $('.comment_box').append(listHtml); // 생성된 HTML 문자열을 댓글 목록 영역에 추가
-                    } else {
+                    }
+                    else {
                         let reReplyHtml = '';
 
                         reReplyHtml += '<div class="re_reply_main_box">';

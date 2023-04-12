@@ -83,7 +83,7 @@ public class BoardController {
 	    for (ScrapVO scv : scrapedList) {
 				mv.addObject("scv", scv);
 		}
-		mv.setViewName("/board/detail");
+	    mv.setViewName("/board/detail");
 		return mv;
 	}
 	

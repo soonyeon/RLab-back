@@ -46,11 +46,11 @@
 	where co_num = #{co_num}
 </select>
 
-<delete id="deleteComment">
-	delete from
-		comment
+<update id="deleteComment">
+	update comment
+	set co_state = 'Y'
 	where co_num = #{co_num}
-</delete>
+</update>
 
 <update id="updateComment">
 	update 

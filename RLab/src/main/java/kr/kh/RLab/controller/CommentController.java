@@ -56,11 +56,8 @@ public class CommentController {
 	public Map<String,Object> comment(@RequestBody CommentVO comment,HttpSession session) {
 		Map<String,Object> map = new HashMap<String, Object>();
 		MemberVO user = (MemberVO) session.getAttribute("user");
-		// 원댓글이면 co_state를 Y로 해서 상태를 삭제된 댓글로 변경함
-		if(comment.getCo_num() == comment.getCo_ori_num()) {
-			comment.setCo_state('Y');
-			commentService.updateComment(comment, user);
-		}
+		System.out.println("co_num"+comment.getCo_num());
+		System.out.println("ori_num"+comment.getCo_ori_num());
 		boolean res = commentService.deleteComment(comment,user);
 		map.put("result", res ? "success" : "fail");
 		return map;
