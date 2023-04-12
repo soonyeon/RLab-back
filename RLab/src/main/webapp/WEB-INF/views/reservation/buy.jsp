@@ -355,7 +355,6 @@ $('#pay_btn').click(function(){
         	console.log('사전데이터 DB저장완료')
         }
 	});
-	console.log('결제중 DB 등록 완료');
 	try {
 		response = Bootpay.requestPayment({
 	   		"application_id": "642d26f2755e27001dad6270",
@@ -375,43 +374,50 @@ $('#pay_btn').click(function(){
 	   		  "escrow": false
 	   		}
 	    }).then((response)=>{
-	    	
-	    switch (response.event) {
-	        case 'issued':// 가상계좌 입금 완료 처리
-	            break
-	        case 'done':// 결제 완료 처리
-	            //비즈니스 로직을 수행하기 전에 결제 유효성 검증을 하길 추천함!
-				//location.replace("/pay/confirm?receipt_id="+response.receipt_id);
-				//location.replace("/reservation/buy/"+);
-	            console.log('결제완료');
-				location.replace('<c:url value="/receipt/'+response.data.receipt_id+'"></c:url>');
-	            break
-	        case 'confirm': //payload.extra.separately_confirmed = true; 일 경우 승인 전 해당 이벤트가 호출됨
-	            console.log(response.receipt_id)
-	        	console.log(response);
-	            /* 1. 클라이언트 승인을 하고자 할때
-	             * // validationQuantityFromServer(); //예시) 재고확인과 같은 내부 로직을 처리하기 한다.
-	             */
-	            const confirmedData = Bootpay.confirm() //결제를 승인한다
-	            if(confirmedData.event === 'done') {
-	                //결제 성공
-	            }
-	            /* 2. 서버 승인을 하고자 할때
-	             * // requestServerConfirm(); //예시) 서버 승인을 할 수 있도록  API를 호출한다. 서버에서는 재고확인과 로직 검증 후 서버승인을 요청한다.
-	             * Bootpay.destroy(); //결제창을 닫는다.*/
-	            break
-	    }
-	    })    
-	} catch (e) {// 결제 진행중 오류 발생
+	    	console.log(response);
+			switch (response.event) {
+		        case 'issued':// 가상계좌 입금 완료 처리
+		            break
+		        case 'done':// 결제 완료 처리
+		            //비즈니스 로직을 수행하기 전에 결제 유효성 검증을 하길 추천함!
+					//location.replace("/pay/confirm?receipt_id="+response.receipt_id);
+					//location.replace("/reservation/buy/"+);
+		            console.log('결제완료');
+					location.replace('<c:url value="/receipt/'+response.data.receipt_id+'"></c:url>');
+		            break;
+		        case 'confirm': //payload.extra.separately_confirmed = true; 일 경우 승인 전 해당 이벤트가 호출됨
+		            console.log(response.receipt_id)
+		        	console.log(response);
+		            /* 1. 클라이언트 승인을 하고자 할때
+		             * // validationQuantityFromServer(); //예시) 재고확인과 같은 내부 로직을 처리하기 한다.
+		             */
+		            const confirmedData = Bootpay.confirm() //결제를 승인한다
+		            if(confirmedData.event === 'done') {
+		                //결제 성공
+		            }
+		            /* 2. 서버 승인을 하고자 할때
+		             * // requestServerConfirm(); //예시) 서버 승인을 할 수 있도록  API를 호출한다. 서버에서는 재고확인과 로직 검증 후 서버승인을 요청한다.
+		             * Bootpay.destroy(); //결제창을 닫는다.*/
+		            break;
+		        case 'cancel':
+		        	console.log('취소');
+		        	location.replace('<c:url value="/cancel/?order_id='+makeMerchantUid+'"></c:url>');
+					console.log('결제취소: 사전데이터 삭제 완료');
+					break;
+		    }
+	    })
+	} catch(e) {// 결제 진행중 오류 발생
 	    // e.error_code - 부트페이 오류 코드
 	    // e.pg_error_code - PG 오류 코드
 	    // e.message - 오류 내용
-	    console.log(e.message)
+	    console.log(e.message);
+      	console.log(1);
 	    switch (e.event) {
 	        case 'cancel':// 사용자가 결제창을 닫을때 호출
 	            console.log(e.message);
-				location.replace('<c:url value="/cancel/?order_id='+makeMerchantUid+'"></c:url>');
-	    		//location.replace("pay/delete?id="+order.id); //DB값 삭제
+				location.replace('<c:url value="/cancel/?order_id='+makeMerchantUid+'"></c:url>'); //DB값 삭제
+				console.log('결제취소: 사전데이터 삭제 완료');
+	    		//location.replace("pay/delete?id="+order.id); 
 	            break
 	        case 'error':// 결제 승인 중 오류 발생시 호출
 	            console.log(e.error_code);

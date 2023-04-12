@@ -52,6 +52,6 @@
 		delete from pay where pa_order_id = #{pa_order_id}
 	</delete>
 	<delete id="deletePayDetailByPaOrderId">
-		delete from paydetail where pd_pa_order_id = #{pa_order_id}
+		delete from pay_detail where pd_pa_order_id = #{pa_order_id}
 	</delete>
 </mapper>

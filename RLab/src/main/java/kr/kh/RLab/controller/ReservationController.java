@@ -26,8 +26,8 @@ public class ReservationController {
 	
 	@RequestMapping(value = "/reservation/buy", method=RequestMethod.GET) 
 	public ModelAndView ticketBuy(ModelAndView mv, HttpSession session) {
-//		MemberVO user = (MemberVO)session.getAttribute("user");
-		MemberVO user = new MemberVO("asd123","닉넴","qwe123123","kimsyty@naver.com","",1,0);  
+		MemberVO user = (MemberVO)session.getAttribute("user");
+//		MemberVO user = new MemberVO("asd123","닉넴","qwe123123","kimsyty@naver.com","",1,0);  
 		user.setMe_point(1000);
 		//어떤 유저가 있다고 가정했을 때
 		int point = reservationService.getUserPoint(user.getMe_id());
@@ -77,8 +77,8 @@ public class ReservationController {
 //		        	System.out.println("status = 1");
 //		        if(res2.get("price")==(Integer)1)
 		        
-//		        MemberVO user = (MemberVO)session.getAttribute("user");
-				MemberVO user = new MemberVO("asd123","닉넴","qwe123123","kimsyty@naver.com","",1,0);  
+		        MemberVO user = (MemberVO)session.getAttribute("user");
+//				MemberVO user = new MemberVO("asd123","닉넴","qwe123123","kimsyty@naver.com","",1,0);  
 		        String paOrderId = (String)res2.get("order_id");
 		        reservationService.setPaymentSuccessed(paOrderId, user);
 		    } else {
