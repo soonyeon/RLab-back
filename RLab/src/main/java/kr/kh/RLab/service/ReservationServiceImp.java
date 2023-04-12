@@ -74,11 +74,11 @@ public class ReservationServiceImp implements ReservationService {
 
 	@Override
 	public void deleteCanceledPayment(String orderId) {
+		//pd테이블 삭제
+		reservationDao.deletePayDetailByPaOrderId(orderId);
 		//pay테이블 삭제
 //		PayDTO pay = reservationDao.selectPayByPaOrderId(orderId);
 		reservationDao.deletePayByPaOrderId(orderId);
-		//pd테이블 삭제
-		reservationDao.deletePayDetailByPaOrderId(orderId);
 	}
 
 }

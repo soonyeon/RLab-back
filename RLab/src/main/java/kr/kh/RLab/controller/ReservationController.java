@@ -90,10 +90,12 @@ public class ReservationController {
 		mv.setViewName("/reservation/buy_complete");
 		return mv;
 	}
-	@RequestMapping(value = "/cancel/?order_id={order_id}", method=RequestMethod.POST) 
-	public ModelAndView ticketBuyPost(ModelAndView mv, @PathVariable("order_id")String orderId) {
-		reservationService.deleteCanceledPayment(orderId);
-		mv.setViewName("");
-		return mv;
+	@ResponseBody
+	@RequestMapping(value = "/cancel", method=RequestMethod.POST) 
+	public HashMap<String,Object> ticketBuyPost(ModelAndView mv,@RequestBody PayDTO canceledData) {
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		System.out.println(canceledData);
+		reservationService.deleteCanceledPayment(canceledData.getPa_order_id());
+		return map;
 	}
 }

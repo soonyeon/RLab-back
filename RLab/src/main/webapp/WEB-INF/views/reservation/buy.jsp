@@ -399,12 +399,47 @@ $('#pay_btn').click(function(){
 		             * // requestServerConfirm(); //예시) 서버 승인을 할 수 있도록  API를 호출한다. 서버에서는 재고확인과 로직 검증 후 서버승인을 요청한다.
 		             * Bootpay.destroy(); //결제창을 닫는다.*/
 		            break;
-		        case 'cancel':
-		        	console.log('취소');
-		        	location.replace('<c:url value="/cancel/?order_id='+makeMerchantUid+'"></c:url>');
-					console.log('결제취소: 사전데이터 삭제 완료');
-					break;
 		    }
+	    }).catch(function(e){
+	    	console.log(e.message);
+	    	switch (e.event) {
+	        case 'cancel':// 사용자가 결제창을 닫을때 호출
+	            console.log(e.message);
+				console.log('취소');
+	        	let canceledData = {
+	        			pa_order_id : makeMerchantUid
+	        	};
+	        	$.ajax({
+	                async:false,
+	                type: 'POST',
+	                data: JSON.stringify(canceledData),
+	                url: '<c:url value="/cancel"></c:url>',
+	                dataType:"json", //success에 있는 data타입(주는거)
+	                contentType:"application/json; charset=UTF-8", //위에있는 data타입(받는거)
+	                success : function(data){
+	                	console.log('사전데이터 DB삭제완료');
+	                }
+	        	});
+	            break
+	        case 'error':// 결제 승인 중 오류 발생시 호출
+	            console.log(e.error_code);
+				console.log('에러');
+	        	let canceledData = {
+	        			pa_order_id : makeMerchantUid
+	        	};
+	        	$.ajax({
+	                async:false,
+	                type: 'POST',
+	                data: JSON.stringify(canceledData),
+	                url: '<c:url value="/cancel"></c:url>',
+	                dataType:"json", //success에 있는 data타입(주는거)
+	                contentType:"application/json; charset=UTF-8", //위에있는 data타입(받는거)
+	                success : function(data){
+	                	console.log('사전데이터 DB삭제완료');
+	                }
+	        	});
+	            break
+	    	}
 	    })
 	} catch(e) {// 결제 진행중 오류 발생
 	    // e.error_code - 부트페이 오류 코드
@@ -415,13 +450,9 @@ $('#pay_btn').click(function(){
 	    switch (e.event) {
 	        case 'cancel':// 사용자가 결제창을 닫을때 호출
 	            console.log(e.message);
-				location.replace('<c:url value="/cancel/?order_id='+makeMerchantUid+'"></c:url>'); //DB값 삭제
-				console.log('결제취소: 사전데이터 삭제 완료');
-	    		//location.replace("pay/delete?id="+order.id); 
 	            break
 	        case 'error':// 결제 승인 중 오류 발생시 호출
 	            console.log(e.error_code);
-	    		//location.replace("pay/delete?id="+order.id); //DB값 삭제
 	            break
 	    }
 	}
