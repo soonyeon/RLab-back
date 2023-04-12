@@ -100,7 +100,8 @@
 <select id="selelctJoinStudyMemberList" resultType="Integer">
 	select sm_st_num from study_member
 	join study on st_num = sm_st_num
-	where sm_authority=1 and sm_me_id = #{me_id}
+	where sm_authority=1 or sm_authority=9 and sm_me_id = #{me_id}
+	
 </select>
 <select id="selectStudyById" resultType="kr.kh.RLab.vo.StudyVO">
 	select * from study
@@ -115,4 +116,5 @@
 	insert into study_member(sm_st_num,sm_me_id,sm_authority,sm_join_date)
 	values(#{sm.sm_st_num},#{sm.sm_me_id},9,NOW())
 </insert>
+
 </mapper>

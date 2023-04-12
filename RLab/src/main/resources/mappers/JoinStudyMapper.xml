@@ -24,4 +24,5 @@
 <update id="updateStudyNowPeopleDown">
 	update study set st_now_people = st_now_people -1 where st_num = #{st_num};
 </update>
+
 </mapper>

@@ -20,7 +20,7 @@ public class JoinStudyServiceImp implements JoinStudyService{
 	@Override
 	public Map<String, Object> toggleJoin(StudyMemberVO studyMember,MemberVO member) {
 		StudyMemberVO isJoin = joinstudyDao.findJoinStudyMember(studyMember);//select로 고치기
-		int newJoinState;
+		int newJoinState;	    
 	    if (isJoin == null) {
 	        if (member == null) {
 	            newJoinState = 0;
@@ -39,6 +39,7 @@ public class JoinStudyServiceImp implements JoinStudyService{
 	        joinstudyDao.updateStudyNowPeopleDown(studyMember.getSm_st_num());
 	        newJoinState=0;
 	    }
+	
 		// 게시글에 대한 현재 스크랩 개수를 가져옴
 		int currentJoinCount = joinstudyDao.getJoinCountByStudy(studyMember.getSm_st_num());
 		

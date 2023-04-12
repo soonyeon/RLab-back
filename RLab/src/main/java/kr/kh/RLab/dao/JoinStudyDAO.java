@@ -21,4 +21,5 @@ public interface JoinStudyDAO {
 	void updateStudyNowPeopleDown(int sm_st_num);
 
 
+
 }

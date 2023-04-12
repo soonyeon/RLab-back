@@ -171,8 +171,7 @@ $(document).ready(function() {
           alert('스터디 가입 취소했습니다.');
        		location.reload();
           $('.now_pp').text(response.joinCount);
-        }
-		
+        } 		
       },
       error: function(error) {
     	  console.log(error)

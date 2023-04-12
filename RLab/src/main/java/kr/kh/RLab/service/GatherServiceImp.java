@@ -175,6 +175,7 @@ public class GatherServiceImp implements GatherService {
 	public ArrayList<Integer> selelctJoinStudyMemberList(MemberVO user) {
 		if (user == null)
 			return null;
+
 		return gatherDao.selelctJoinStudyMemberList(user.getMe_id());
 	}
 
@@ -189,6 +190,8 @@ public class GatherServiceImp implements GatherService {
 	public ArrayList<GatherVO> selectGatherAll() {
 		return gatherDao.selectGatherAll();
 	}
+
+
 
 	}
 
