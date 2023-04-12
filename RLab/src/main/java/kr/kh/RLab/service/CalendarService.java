@@ -6,7 +6,7 @@ import kr.kh.RLab.vo.CalendarVO;
 
 public interface CalendarService {
 	//캘린더 등록
-	void insert(CalendarVO calendarVo);
+	int insert(CalendarVO calendarVo);
 	
 	List<CalendarVO> findAll();
 

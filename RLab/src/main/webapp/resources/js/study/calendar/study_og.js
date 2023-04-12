@@ -101,40 +101,42 @@ $(document).ready(function () {
 	  });
         
         // 이벤트 저장 버튼 클릭 이벤트
-        $("#savecalendar").click(function () {
-            var eventData = {
-                ca_num: $("#ca_num").val(),
-                ca_st_num: $("#ca_st_num").val(),
-                ca_title: $("#calendarTitle").val(),
-                ca_start: $("#calendarStart").val(),
-                ca_end: $("#calendarEnd").val(),
-                ca_all_day: $("#calendarAllDay").is(":checked") ? 1 : 0,
-            };
-            console.log(eventData);
-            $.ajax({
-                url: "/RLab/calendar/insert",
-                type: "POST",
-                contentType: "application/json",
-                data: JSON.stringify(eventData),
-                success: function (response) {
-                    // 변환된 이벤트 데이터 형식으로 추가함
-                    var convertedEvent = {
-                        id: eventData.ca_num,
-                        title: eventData.ca_title,
-                        start: eventData.ca_start,
-                        end: eventData.ca_end,
-                        allDay: eventData.ca_all_day === 1,
-                    };
-
-                    calendar.addEvent(convertedEvent); // 변환된 이벤트 데이터를 사용하여 이벤트를 추가함
-                    var dialog = document.getElementById("calendarDialog");
-                    dialog.close();
-                },
-                error: function (xhr, status, error) {
-                    alert("이벤트 추가에 실패했습니다.");
-                },
-            });
-        }); // 저장 클릭이벤트
+         $("#savecalendar").click(function () {
+	        var eventData = {
+	            ca_st_num: $("#ca_st_num").val(),
+	            ca_title: $("#calendarTitle").val(),
+	            ca_start: $("#calendarStart").val(),
+	            ca_end: $("#calendarEnd").val(),
+	            ca_all_day: $("#calendarAllDay").is(":checked") ? 1 : 0,
+	        };
+	        console.log(eventData);
+	        $.ajax({
+	            url: "/RLab/calendar/insert",
+	            type: "POST",
+	            contentType: "application/json",
+	            data: JSON.stringify(eventData),
+	            success: function (response) {
+	                // 새로 생성된 ca_num 값을 가져옴
+	                var ca_num = response.ca_num;
+	
+	                // 변환된 이벤트 데이터 형식으로 추가함
+	                var convertedEvent = {
+	                    id: ca_num,
+	                    title: eventData.ca_title,
+	                    start: eventData.ca_start,
+	                    end: eventData.ca_end,
+	                    allDay: eventData.ca_all_day === 1,
+	                };
+	
+	                calendar.addEvent(convertedEvent); // 변환된 이벤트 데이터를 사용하여 이벤트를 추가함
+	                var dialog = document.getElementById("calendarDialog");
+	                dialog.close();
+	            },
+	            error: function (xhr, status, error) {
+	                alert("이벤트 추가에 실패했습니다.");
+	            },
+	        });
+	    });
         //삭제
       $("#deleteCalendar").click(function() {
 	    var ca_num = $("#editCa_num").val();
