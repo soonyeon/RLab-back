@@ -149,7 +149,6 @@ $(document).ready(function() {
     join();
   });
   
-  $('.now_pp').text(joinCount);
   
   function join() {
     // 데이터
