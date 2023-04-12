@@ -424,9 +424,6 @@ $('#pay_btn').click(function(){
 	        case 'error':// 결제 승인 중 오류 발생시 호출
 	            console.log(e.error_code);
 				console.log('에러');
-	        	let canceledData = {
-	        			pa_order_id : makeMerchantUid
-	        	};
 	        	$.ajax({
 	                async:false,
 	                type: 'POST',

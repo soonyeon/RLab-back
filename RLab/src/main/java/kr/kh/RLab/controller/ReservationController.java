@@ -27,7 +27,6 @@ public class ReservationController {
 	@RequestMapping(value = "/reservation/buy", method=RequestMethod.GET) 
 	public ModelAndView ticketBuy(ModelAndView mv, HttpSession session) {
 		MemberVO user = (MemberVO)session.getAttribute("user");
-//		MemberVO user = new MemberVO("asd123","닉넴","qwe123123","kimsyty@naver.com","",1,0);  
 		user.setMe_point(1000);
 		//어떤 유저가 있다고 가정했을 때
 		int point = reservationService.getUserPoint(user.getMe_id());
@@ -44,7 +43,6 @@ public class ReservationController {
 		if(reservationService.insertPayment(payDto)) {
 			System.out.println("성공");
 		}
-		//mv.setViewName("/reservation/buy_complete");
 		return map;
 	}
 	//결제 단건 조회: 보안상 클라이언트에서 수행된 결제는 서버간 통신으로 조회하여 정상적인 결제인지 검증해야함
@@ -78,16 +76,19 @@ public class ReservationController {
 //		        if(res2.get("price")==(Integer)1)
 		        
 		        MemberVO user = (MemberVO)session.getAttribute("user");
-//				MemberVO user = new MemberVO("asd123","닉넴","qwe123123","kimsyty@naver.com","",1,0);  
 		        String paOrderId = (String)res2.get("order_id");
 		        reservationService.setPaymentSuccessed(paOrderId, user);
+		        
+		        PayDTO pay = reservationService.getPayDto(paOrderId);
+		        mv.addObject("pay", pay);
+		        mv.setViewName("/reservation/buy_complete");
 		    } else {
 		        System.out.println("confirm false: " + res2);
+		        System.out.println("결제에러발생");
 		    }
 		} catch (Exception e) {
 		    e.printStackTrace();
 		}
-		mv.setViewName("/reservation/buy_complete");
 		return mv;
 	}
 	@ResponseBody
