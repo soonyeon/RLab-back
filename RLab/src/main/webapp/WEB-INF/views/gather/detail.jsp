@@ -104,7 +104,7 @@
 </main>
 
 <script>
-const userId = '${user.me_id}'; 
+const userId1 = '${user.me_id}'; 
 const gatherNum = '${ga.ga_num}';
 const studyNum = '${st_num}';
 let joinCount = '${joinCount}';
@@ -117,7 +117,7 @@ $(document).ready(function() {
   function want() {
     // 데이터
     var requestData = {
-      wa_me_id: userId,
+      wa_me_id: userId1,
       wa_ga_num: gatherNum
     };
     $.ajax({
@@ -154,7 +154,7 @@ $(document).ready(function() {
   function join() {
     // 데이터
     var requestData = {
-      sm_me_id: userId,
+      sm_me_id: userId1,
       sm_st_num: studyNum
     };
     $.ajax({

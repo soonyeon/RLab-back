@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 <mapper namespace="kr.kh.RLab.dao.JoinStudyDAO">
-<select id="selectJoinStudyMember" resultType="kr.kh.RLab.vo.StudyMemberVO">
+<select id="findJoinStudyMember" resultType="kr.kh.RLab.vo.StudyMemberVO">
 	select * from study_member
 	where 
 		sm_me_id = #{sm_me_id} 
@@ -9,24 +9,19 @@
 		sm_st_num =  #{sm_st_num}
 </select>
 <insert id="insertStudyMember">
-	insert into study_member (sm_st_num, sm_me_id,  sm_authority,sm_join_date)
-	values (#{sm_st_num},#{sm_me_id},#{sm_authority},now())
+	insert into study_member (sm_st_num, sm_me_id, sm_authority,sm_join_date)
+	values (#{sm_st_num},#{sm_me_id},1,now())
 </insert>
-<update id="updateJoinStudyMember">
-UPDATE study_member sm
-INNER JOIN study s ON sm.sm_st_num = s.st_num
-SET s.st_now_people = s.st_now_people + 1,
-    sm.sm_authority = #{sm_authority}
-WHERE sm.sm_me_id = #{sm_me_id} AND sm.sm_st_num = #{sm_st_num};
-</update>
 <select id="getJoinCountByStudy" parameterType="int" resultType="int">
 	select count(*) from study_member where sm_st_num = #{st_num} and sm_authority =1
 </select>
-<update id="updateUnJoinStudyMember">
-	update study_member sm
-	INNER JOIN study s ON sm.sm_st_num = s.st_num
-	SET s.st_now_people = s.st_now_people - 1,
-	    sm.sm_authority = #{sm_authority}
-	WHERE sm.sm_me_id = #{sm_me_id} AND sm.sm_st_num = #{sm_st_num};
+<update id="updateStudyNowPeopleUp">
+	update study set st_now_people = st_now_people +1 where st_num = #{st_num};
+</update>
+<delete id="deleteStudyMember">
+	delete from study_member where sm_st_num = #{sm_st_num};
+</delete>
+<update id="updateStudyNowPeopleDown">
+	update study set st_now_people = st_now_people -1 where st_num = #{st_num};
 </update>
 </mapper>

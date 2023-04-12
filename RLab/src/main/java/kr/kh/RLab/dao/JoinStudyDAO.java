@@ -4,11 +4,9 @@ import kr.kh.RLab.vo.StudyMemberVO;
 
 public interface JoinStudyDAO {
 
-	StudyMemberVO selectJoinStudyMember(StudyMemberVO studyMember);
+	StudyMemberVO findJoinStudyMember(StudyMemberVO studyMember);
 
-	void insertStudyMember(StudyMemberVO studyMember);
-
-	void updateJoinStudyMember(StudyMemberVO isJoin);
+	void insertStudyMember(StudyMemberVO studyMember);	
 
 	int getJoinCountByStudy(int st_num);
 
@@ -16,7 +14,11 @@ public interface JoinStudyDAO {
 
 	int getJoinCount();
 
-	void updateUnJoinStudyMember(StudyMemberVO isJoin);
+	void updateStudyNowPeopleUp(int sm_st_num);
+
+	void deleteStudyMember(StudyMemberVO isJoin);
+
+	void updateStudyNowPeopleDown(int sm_st_num);
 
 
 }
