@@ -36,6 +36,8 @@ public class MypageController {
 	private final TemporaryService temporaryService;
 	private final CommentService commtentService;
 	
+	
+	
 	// [나의 게시글 > 작성글 관리]
 	@GetMapping("/mypost_post")
 	public ModelAndView mypost(

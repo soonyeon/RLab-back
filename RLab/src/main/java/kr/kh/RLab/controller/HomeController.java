@@ -3,7 +3,6 @@ package kr.kh.RLab.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,10 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.service.BoardService;
 import kr.kh.RLab.service.MemberService;
-import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.MemberVO;
 
 @Controller
@@ -131,14 +128,44 @@ public class HomeController {
 	}
 
 	@RequestMapping(value="/mypage/user", method=RequestMethod.POST)
-	public ModelAndView editUser(ModelAndView mv, MemberVO member, HttpSession session) {
+	public ModelAndView editUser(ModelAndView mv, MemberVO member, HttpSession session, MultipartFile file) {
 		MemberVO user = (MemberVO)session.getAttribute("user");
-		member.setMe_id(user.getMe_id());
-		System.out.println(member);
+		String userId = user.getMe_id();
+		member.setMe_id(user.getMe_id());	
+		
+		// 프로필 이미지 변경
+		String filePath = "D:/uploadFiles/profile/";
+		String originName = file.getOriginalFilename();
+		String fileName = userId + "_" + originName;
+		File dest = new File(filePath + fileName);
+		
+		if(originName != "") {
+			member.setMe_profile("/" + fileName);
+			try {
+				file.transferTo(dest);
+				boolean isImgEdited = memberService.editImg(member, user); 
+				if(isImgEdited) {
+					user.setMe_profile(member.getMe_profile());
+					mv.setViewName("redirect:/mypage/pwcheck");
+				}else {
+					mv.setViewName("redirect:/mypage/edit_user");
+				}
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+				mv.setViewName("redirect:/");
+			} catch (IOException e) {
+				e.printStackTrace();
+				mv.setViewName("redirect:/");
+			}	
+		}else {
+			System.out.println("파일이 없음");
+			member.setMe_profile(user.getMe_profile());
+		}
+		
+			
 		boolean isEdited = memberService.editUser(member, user); 
 		if(isEdited) {
 			user.setMe_name(member.getMe_name());
-			System.out.println(member.getMe_pw());
 			user.setMe_pw(member.getMe_pw());
 			user.setMe_email(member.getMe_email());
 			session.setAttribute("user", user);
@@ -158,23 +185,25 @@ public class HomeController {
 		mv.setViewName("/mypage/edit_img");
 		return mv;
 	}
-	
-	@RequestMapping(value="/mypage/edit_img", method=RequestMethod.POST)
+
+	/*
+	@RequestMapping(value="/mypage/user", method=RequestMethod.POST)
 	public ModelAndView editImgPost(ModelAndView mv, MemberVO member, HttpSession session, MultipartFile file) {
 		MemberVO user = (MemberVO)session.getAttribute("user");
+		String userId = user.getMe_id();
 		member.setMe_id(user.getMe_id());
-		String filePath = "D:/uploadFiles/";
-		String fileName = file.getOriginalFilename();
+		String filePath = "D:/uploadFiles/profile/";
+		String fileName = userId + "_" + file.getOriginalFilename();
 		File dest = new File(filePath + fileName);
-		member.setMe_profile("/"+fileName);
+		member.setMe_profile("/" + fileName);
 			try {
 				file.transferTo(dest);
 				boolean isEdited = memberService.editImg(member, user); 
 				if(isEdited) {
 					user.setMe_profile(member.getMe_profile());
-					mv.setViewName("redirect:/mypage/edit_img");
+					mv.setViewName("redirect:/mypage/pwcheck");
 				}else {
-					mv.setViewName("redirect:/mypage/edit_img");
+					mv.setViewName("redirect:/mypage/edit_user");
 				}
 			} catch (IllegalStateException e) {
 				e.printStackTrace();
@@ -185,6 +214,7 @@ public class HomeController {
 			}				
 		return mv;
 	}
+	*/
 	
 	
 }
