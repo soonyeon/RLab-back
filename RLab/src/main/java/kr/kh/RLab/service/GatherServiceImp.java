@@ -98,8 +98,6 @@ public class GatherServiceImp implements GatherService {
 	//모집글 
 	@Override
 	public boolean insertGather(MemberVO member, GatherVO gather, StudyVO study) {
-		System.out.println(gather);
-		System.out.println(member);
 		if(member == null)
 			return false;
 		if(!checkGather(gather))
@@ -190,8 +188,6 @@ public class GatherServiceImp implements GatherService {
 	public ArrayList<GatherVO> selectGatherAll() {
 		return gatherDao.selectGatherAll();
 	}
-
-
 
 	}
 
