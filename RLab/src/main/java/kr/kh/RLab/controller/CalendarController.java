@@ -2,6 +2,7 @@ package kr.kh.RLab.controller;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,7 +44,7 @@ public class CalendarController {
 		calendarService.update(ca_num);
 	}
 	
-	@PostMapping("/delete/{ca_num}")
+	@DeleteMapping("/delete/{ca_num}")
 	public void delete(@PathVariable int ca_num) {
 		calendarService.delete(ca_num);
 	}

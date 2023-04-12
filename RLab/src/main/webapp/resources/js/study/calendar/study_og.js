@@ -140,9 +140,10 @@ $(document).ready(function () {
 	    var ca_num = $("#editCa_num").val();
 	    
 	    $.ajax({
-	        url: "/RLab/calendar/delete" + parseInt(ca_num),
+	        url: "/RLab/calendar/delete/" + parseInt(ca_num),
 	        type: "DELETE",
 	        success: function (response) {
+	            alert('일정을 삭제했습니다');
 	            var eventToDelete = calendar.getEventById(ca_num);
 	            eventToDelete.remove();
 	            
