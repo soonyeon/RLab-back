@@ -12,9 +12,10 @@ public interface CalendarService {
 
 	CalendarVO findCaNum(int ca_num);
 
-	void update(int ca_num);
+	void update(CalendarVO calendarVo);
 
 	void delete(int ca_num);
+
 
 
 }

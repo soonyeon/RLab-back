@@ -34,10 +34,11 @@ public class CalendarServiceImp implements CalendarService{
 	}
 
 	@Override
-	public void update(int ca_num) {
-		if(ca_num == 0)
-			return ;
-		calendarDao.update(ca_num);
+	public void update(CalendarVO calendarVo) {
+	    if (calendarVo.getCa_num() == 0) {
+	        return;
+	    }
+	    calendarDao.update(calendarVo);
 	}
 
 	@Override

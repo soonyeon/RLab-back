@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,9 +46,9 @@ public class CalendarController {
 		return calendarService.findCaNum(ca_num);
 	}
 
-	@PostMapping("/update/{ca_num}")
-	public void update(@PathVariable int ca_num) {
-		calendarService.update(ca_num);
+	@PutMapping("/update/{ca_num}")
+	public void update(@PathVariable int ca_num, @RequestBody CalendarVO calendarVo) {
+	    calendarService.update(calendarVo);
 	}
 
 	@DeleteMapping("/delete/{ca_num}")

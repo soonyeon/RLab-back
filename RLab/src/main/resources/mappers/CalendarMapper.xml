@@ -21,7 +21,7 @@
 	
 	<update id="update">
 		UPDATE calendar 
-		SET ca_st_num = #{ca_st_num},ca_title = #{ca_title},ca_start = {ca_start}, ca_end = #{ca_end}, ca_all_day = #{ca_all_day}
+		SET ca_st_num = #{ca_st_num},ca_title = #{ca_title},ca_start = #{ca_start}, ca_end = #{ca_end}, ca_all_day = #{ca_all_day}
 		WHERE ca_num = #{ca_num}
 	</update>
 	
