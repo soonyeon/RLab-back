@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.kh.RLab.pagination.Criteria;
+import kr.kh.RLab.pagination.PageMaker;
 import kr.kh.RLab.service.StudyService;
 import kr.kh.RLab.vo.LikeVO;
 import kr.kh.RLab.vo.MemberVO;
@@ -133,7 +135,7 @@ public class StudyController {
 		    
 	    // StudyService 클래스의 getStudyListById 메서드를 호출하여 사용자가 속한 스터디 리스트를 가져옴
 	    ArrayList<StudyVO> myStudyList = studyService.getStudyListById(memberId);
-	    System.out.println(myStudyList);
+//	    System.out.println(myStudyList);
 	 // "myStudyList" 키와 함께 연구 목록을 ModelAndView 객체에 추가합니다.
 	    mv.addObject("myStudyList", myStudyList);
 
@@ -151,27 +153,35 @@ public class StudyController {
 	
 	
 	@RequestMapping(value = "/management/member/{st_num}", method=RequestMethod.GET)
-	public ModelAndView managementMember(ModelAndView mv, HttpSession session, MemberVO member, StudyVO study, @PathVariable("st_num")int st_num) {
+	public ModelAndView managementMember(ModelAndView mv, HttpSession session, MemberVO member,
+			StudyVO study, @PathVariable("st_num")int st_num,Criteria cri) {
 	    
-	    // 세션에서 "user" 속성을 검색하고 MemberVO 객체로 캐스
+	    // 세션에서 "user" 속성을 검색하고 MemberVO 객체로 캐스팅
 	    MemberVO user = (MemberVO) session.getAttribute("user");
-
 	    // 로그인한 사용자의 ID를 MemberVO 객체에서 가져옴
-	    String memberId = user.getMe_id();	    	    
-		    
+	    String memberId = user.getMe_id();	    	       
 	    // StudyService 클래스의 getStudyListById 메서드를 호출하여 사용자가 속한 스터디 리스트를 가져옴
 	    ArrayList<StudyVO> myStudyList = studyService.getStudyListById(memberId);
+   
+	    cri.setPerPageNum(1);
+	    // StudyService 클래스의 getStudyMemberList메서드를 호출하여 멤버 리스트를 가져옴
+	    ArrayList<StudyMemberVO> memberList = studyService.getStudyMemberList(st_num,cri);	    
+	    int totalCount = studyService.getStudyTotalCount(st_num);	    
+	    System.out.println(totalCount);	    
+	    PageMaker pm = new PageMaker(totalCount,2,cri);
 	    
-	    ArrayList<StudyMemberVO> memberList = studyService.getStudyMemberList(st_num);
-	    System.out.println(memberList);
-	    // "myStudyList" 키와 함께 연구 목록을 ModelAndView 객체에 추가합니다.
+	    
+
+	    // "myStudyList" 키와 함께 연구 목록을 ModelAndView 객체에 추가
 	    mv.addObject("myStudyList", myStudyList);
 	    mv.addObject("memberList",memberList);
+	    mv.addObject("st_num", st_num);
+	    mv.addObject("pm",pm);
 
-	    // 뷰 이름을 "/study/management_member"로 설정합니다.
+	    // 뷰 이름을 "/study/management_member"로 설정
 	    mv.setViewName("/study/management_member");
 
-	    // ModelAndView 객체를 반환합니다.
+	    // ModelAndView 객체를 반환
 	    return mv;
 	}
 	
@@ -185,8 +195,8 @@ public class StudyController {
 		// 로그인한 유저정보를 가져온다
 	    MemberVO user = (MemberVO) session.getAttribute("user");
 	    String memberId = user.getMe_id();	    
-	    System.out.println(user);
-	    
+//	    System.out.println(user);
+//	    
 	    ArrayList<StudyVO> myStudyList = studyService.getStudyListById(memberId);
 	    System.out.println(myStudyList);
 	    

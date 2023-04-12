@@ -70,6 +70,8 @@
   width: 200px;
   border-radius: 5px;
 }
+
+.slect_study_box .btn_choose{width: 100px;}
 /* main */
 main{
   width: 1200px;

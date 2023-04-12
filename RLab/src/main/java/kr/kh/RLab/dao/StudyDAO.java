@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.LikeVO;
 import kr.kh.RLab.vo.PhotoTypeVO;
@@ -34,7 +35,9 @@ public interface StudyDAO {
     
     ArrayList<StudyVO> selectStudyListById(@Param("memberId")String memberId);
 
-	ArrayList<StudyMemberVO> selectStudyMemberList(@Param("st_num")int st_num);
+	ArrayList<StudyMemberVO> selectStudyMemberList(@Param("st_num")int st_num,@Param("cri")Criteria cri);
+
+	int selectStudyTotalCount(@Param("st_num")int st_num);
     
     
 

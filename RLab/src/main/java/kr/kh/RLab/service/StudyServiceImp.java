@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.kh.RLab.dao.StudyDAO;
+import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.utils.UploadFileUtils;
 import kr.kh.RLab.vo.LikeVO;
 import kr.kh.RLab.vo.MemberVO;
@@ -97,9 +98,14 @@ public class StudyServiceImp implements StudyService {
 	}
 
 	@Override
-	public ArrayList<StudyMemberVO> getStudyMemberList(int st_num) {
-			
-		return studyDao.selectStudyMemberList(st_num);
+	public ArrayList<StudyMemberVO> getStudyMemberList(int st_num,Criteria cri) {
+		return studyDao.selectStudyMemberList(st_num,cri); 
+	}
+	
+	@Override
+	public int getStudyTotalCount(int st_num) {
+		return studyDao.selectStudyTotalCount(st_num);			
+		
 	}
 	
 	

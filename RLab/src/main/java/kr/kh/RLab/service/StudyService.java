@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.vo.LikeVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.PhotoTypeVO;
@@ -32,6 +33,8 @@ public interface StudyService {
 
 	ArrayList<StudyVO> getStudyListById(String memberId);
 
-	ArrayList<StudyMemberVO> getStudyMemberList(int st_num);
+	ArrayList<StudyMemberVO> getStudyMemberList(int st_num,Criteria cri);
+
+	int getStudyTotalCount(int st_num);
 
 }

@@ -75,17 +75,28 @@
 	                    <div class="page_area">
 	                    </div>
 	                    <div class="page_box clearfix">
-	                        <i class="btn_prev"></i>
-	                        <span class="page_num selected">1</span>
-	                        <span class="page_num">2</span>
-	                        <span class="page_num">3</span>
-	                        <i class="btn_next"></i>
-	                    </div>
-	                </div>
-	            </div>
-	        </div>
-	    </div>
-	
+	                    <c:if test="${pm.prev}">
+	                        <a class="page-link" herf="<c:url value='/study/management/member/${st_num}?page=${pm.endPage-1}'></c:url>">
+	                        	<i class="btn_prev"></i>
+	                        </a>
+	                    </c:if>
+						<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
+							<span class="page_num">										
+								<a class="page-link <c:if test="${pm.cri.page == i}"> active</c:if>" href="<c:url value='/study/management/member/${st_num}?page=${i}'></c:url>">${i}</a>
+							</span>
+						</c:forEach>
+	                    
+						<c:if test="${pm.next}">										
+							<a class="page-link" href="<c:url value='/study/management/member/${st_num}?page=${pm.endPage+1}'></c:url>">
+	                        	<i class="btn_next"></i>
+	                        </a>
+	                    </c:if>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 	
 	    <!-- 오른쪽 메뉴 -->
 	    <aside>
@@ -197,35 +208,53 @@
 </main>	
 	
 	
-	<script>
-	//icon_info 마우스 hover시 설명창 나타남
-	function toggleInfo(target){
-		$(target).toggleClass("display_none");
-	}
-	
-	$(document).ready(function(){
-		$(".info_1, .info_2").hover(function(){
-			if(this.classList.contains("info_1")){
-				toggleInfo(".info_finish");
-			}else if(this.classList.contains("info_2")){
-				toggleInfo(".info_delete");
-			}
-		})
+<script>
+//icon_info 마우스 hover시 설명창 나타남
+function toggleInfo(target){
+	$(target).toggleClass("display_none");
+}
+
+$(document).ready(function(){
+	$(".info_1, .info_2").hover(function(){
+		if(this.classList.contains("info_1")){
+			toggleInfo(".info_finish");
+		}else if(this.classList.contains("info_2")){
+			toggleInfo(".info_delete");
+		}
 	})
+})
 
 // 버튼 클릭시 스터디 선택 여부에 따라 confirm창 나타남
 function confirmAction(buttonText, action) {
   const selectedOptionValue = $("select.slect_study_list option:selected").val();
-  if (selectedOptionValue === "") {
+/*   if (selectedOptionValue === "") {
     alert("스터디를 선택하세요.");
     return;
-  }
+  } */
   if (confirm(buttonText)) {
     action();
   } else {
     console.log("작업 취소");
   }
 }
+
+/* ajax를 이용 */
+/* $.ajax({
+	//	비동기화 : 사용
+	// 동기화는 ajax 작업이 다 끝난 후 아래 코드가 실행
+	// 비동기화는 ajax가 작업이 끝나든 말든 아래 코그다 실행
+    async:true,
+    type:'POST',
+    data:JSON.stringify(obj),
+    url:"/study/management/member/{st_num}",
+    //서버에서 받는 데이터 타입
+    dataType:"json",
+    //서버에서 보내는 데이터 타입
+    contentType:"application/json; charset=UTF-8",
+    success : function(data){
+        console.log(data);
+    }
+}); */
 
 $(".btn_finish").on("click", function() {
   confirmAction("완료된 스터디로 전환 시 스터디 활동이 일부 제한되며, 자유게시판만 사용가능합니다. 목표를 달성하거나 일정이 모두 완료된 경우에만 전환할 것을 권유드립니다. 정말 완료하시겠습니까?", function() {

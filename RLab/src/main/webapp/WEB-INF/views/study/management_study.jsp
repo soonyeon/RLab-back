@@ -30,18 +30,7 @@
 	        </div>
 	
 	        <div class="my_study_container" id="my_container">
-	            <div class="option_container">
-	                <div class="slect_study_box">
-	                    <h3 class="select_study_title">스터디 선택</h3>
-	                    
-	                     <select name="study" class="slect_study_list">
-	                        <option value="">스터디를 선택하세요</option>
-                        	<c:forEach items="${myStudyList}" var="st" varStatus="vs">
-                             	<option value="${st.st_name}">${st.st_name}</option>
-                        	</c:forEach>
-	                    </select>
-	                    
-	                </div>            
+	            <div class="option_container">          
 	                <div class="finish_box study_box">
 	                    <div class="sb_title">
 	                        <h3>스터디 완료 전환</h3>
