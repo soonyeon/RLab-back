@@ -35,7 +35,7 @@ public class GatherController {
 	private final GatherService gatherService;
 	private final JoinStudyService joinstudyService;
 	
-	//스터디 생성
+	//�뒪�꽣�뵒 �깮�꽦
 	@GetMapping("/insertstudy")
 	public ModelAndView studyInsert(ModelAndView mv,HttpServletRequest request) {
 		MemberVO member = (MemberVO)request.getSession().getAttribute("user");
@@ -52,7 +52,7 @@ public class GatherController {
 		return mv;
 	}
 	
-	//모집글 생성
+	//紐⑥쭛湲� �깮�꽦
 	@GetMapping("/insertgather")
 	public ModelAndView gatherInsert(ModelAndView mv,HttpServletRequest request) {
 		MemberVO member = (MemberVO)request.getSession().getAttribute("user");
@@ -69,17 +69,15 @@ public class GatherController {
 	    mv.setViewName("redirect:/gather/list");
 	    return mv;
 	}
-	//게시글 리스트보기
+	//寃뚯떆湲� 由ъ뒪�듃蹂닿린
 	@GetMapping("/list")
 	public ModelAndView mainlistgather(ModelAndView mv,gatherCriteria gcri,HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		gcri.sortCri();
 		gcri.setPerPageNum(9);
-		System.out.println(gcri);
 		int totalCount = gatherService.getStudyTotalCount(gcri);
 		PageMaker pm = new PageMaker(totalCount, 5, gcri);
-		System.out.println(pm);
 		ArrayList<StudyVO> stList = gatherService.selectStudyAll(gcri);
 		ArrayList<GatherVO> gaList = gatherService.selectGatherAll();
  		ArrayList<FileVO> fileList = gatherService.selectFileList();
@@ -97,7 +95,7 @@ public class GatherController {
 	}
 	
 	
-	//모집글 상세보기
+	//紐⑥쭛湲� �긽�꽭蹂닿린
 	@GetMapping("/detail/{st_num}")
 	public ModelAndView gatherDetail(ModelAndView mv,@PathVariable("st_num")int st_num,HttpServletRequest request) {
 		HttpSession session = request.getSession();

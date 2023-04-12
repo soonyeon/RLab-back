@@ -4,7 +4,7 @@ import kr.kh.RLab.vo.StudyMemberVO;
 
 public interface JoinStudyDAO {
 
-	StudyMemberVO findJoinStudyMember(StudyMemberVO studyMember);
+	StudyMemberVO selectJoinStudyMember(StudyMemberVO studyMember);
 
 	void insertStudyMember(StudyMemberVO studyMember);
 

@@ -75,23 +75,21 @@
 </update>
 <select id="selectStudyTotalCount" resultType="int"> 
 	select count(*) from (
-	select * from gather
-	JOIN study ON st_num = ga_st_num
-
-	left join tag_register on tr_st_num = st_num
-	WHERE st_name LIKE CONCAT('%',#{cri.search},'%')
-	<if test="cri.region != ''">
-		AND st_re_name = #{cri.region}
-	</if>
-	<if test="cri.tagList.size() != 0">
-	and tr_name in 
-	<foreach item="tag" index="index" collection="cri.tagList"
-	      open="(" separator="," close=")">
-	        #{tag}
-	</foreach>
-	</if>
-	
-	group by ga_num
+		select * from gather
+			JOIN study ON st_num = ga_st_num
+			left join tag_register on tr_st_num = st_num
+			WHERE st_name LIKE CONCAT('%',#{cri.search},'%')
+				<if test="cri.region != ''">
+					AND st_re_name = #{cri.region}
+				</if>
+				<if test="cri.tagList.size() != 0">
+				and tr_name in 
+				<foreach item="tag" index="index" collection="cri.tagList"
+				      open="(" separator="," close=")">
+				        #{tag}
+				</foreach>
+				</if>
+			group by ga_num
 	) as t
 </select> 
 <select id="selectWantedStudyList" resultType="Integer">
