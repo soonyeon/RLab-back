@@ -24,6 +24,7 @@ public class CalendarController {
 	
 	@PostMapping("/insert")
 	public void insert(@RequestBody CalendarVO calendarVo) {
+		System.out.println("=========등록값 잘 가져오나 확인"+calendarVo);
 		calendarService.insert(calendarVo);
 	}
 	
@@ -35,5 +36,15 @@ public class CalendarController {
 	@GetMapping("/findByCaNum/{ca_num}")
 	public CalendarVO findByCaNum(@PathVariable int ca_num) {
 		return calendarService.findCaNum(ca_num);
+	}
+	
+	@PostMapping("/update/{ca_num}")
+	public void update(@PathVariable int ca_num) {
+		calendarService.update(ca_num);
+	}
+	
+	@PostMapping("/delete/{ca_num}")
+	public void delete(@PathVariable int ca_num) {
+		calendarService.delete(ca_num);
 	}
 }

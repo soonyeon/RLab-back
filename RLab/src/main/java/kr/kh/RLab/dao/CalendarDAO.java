@@ -12,4 +12,8 @@ public interface CalendarDAO {
 	
 	CalendarVO findByCaNum(int ca_num);
 
+	void update(int ca_num);
+
+	void delete(int ca_num);
+
 }

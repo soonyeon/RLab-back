@@ -18,7 +18,18 @@
     <select id="findByCaNum" resultMap="CalendarResultMap" parameterType="int">
         SELECT * FROM calendar WHERE ca_num = #{ca_num}
     </select>
-
+	
+	<update id="update">
+		UPDATE calendar 
+		SET ca_st_num = #{ca_st_num},ca_title = #{ca_title},ca_start = {ca_start}, ca_end = #{ca_end}, ca_all_day = #{ca_all_day}
+		WHERE ca_num = #{ca_num}
+	</update>
+	
+	<delete id="delete">
+		delete
+		from calendar
+		where ca_num = #{ca_num}
+	</delete>
 
 	<resultMap id="CalendarResultMap" type="kr.kh.RLab.vo.CalendarVO">
 		<id property="ca_num" column="ca_num" />

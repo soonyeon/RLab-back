@@ -4,7 +4,7 @@ $(document).ready(function () {
     // 이벤트 데이터를 가져오는 함수
     function fetchEvents() {
         return $.ajax({
-            url: "/rlab/calendar/findAll",
+            url: "/RLab/calendar/findAll",
             type: "GET",
             dataType: "json",
         });
@@ -25,7 +25,7 @@ $(document).ready(function () {
 
     // ca_num 별로 이벤트를 가져오는 함수
     function fetchEventByCaNum(ca_num) {
-    	var url = "/rlab/calendar/findByCaNum/" + parseInt(ca_num);
+    	var url = "/RLab/calendar/findByCaNum/" + parseInt(ca_num);
         return $.ajax({
             url: url,
             type: "GET",
@@ -112,7 +112,7 @@ $(document).ready(function () {
             };
             console.log(eventData);
             $.ajax({
-                url: "/rlab/calendar/insert",
+                url: "/RLab/calendar/insert",
                 type: "POST",
                 contentType: "application/json",
                 data: JSON.stringify(eventData),
@@ -134,6 +134,26 @@ $(document).ready(function () {
                     alert("이벤트 추가에 실패했습니다.");
                 },
             });
-        });
+        }); // 저장 클릭이벤트
+        //삭제
+      $("#deleteCalendar").click(function() {
+	    var ca_num = $("#editCa_num").val();
+	    
+	    $.ajax({
+	        url: "/RLab/calendar/delete" + parseInt(ca_num),
+	        type: "DELETE",
+	        success: function (response) {
+	            var eventToDelete = calendar.getEventById(ca_num);
+	            eventToDelete.remove();
+	            
+	            var editDialog = document.getElementById("editCalendarDialog");
+	            editDialog.close();
+	        },
+	        error: function (xhr, status, error) {
+	            alert("이벤트 삭제에 실패했습니다.");
+        }
     });
-});
+}); //삭제 클릭 이벤트
+        
+    }); // fetchEvents
+}); // document

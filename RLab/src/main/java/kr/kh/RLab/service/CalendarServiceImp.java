@@ -31,4 +31,18 @@ public class CalendarServiceImp implements CalendarService{
 		return calendarDao.findByCaNum(ca_num);
 	}
 
+	@Override
+	public void update(int ca_num) {
+		if(ca_num == 0)
+			return ;
+		calendarDao.update(ca_num);
+	}
+
+	@Override
+	public void delete(int ca_num) {
+		if(ca_num == 0)
+			return ;
+		calendarDao.delete(ca_num);
+	}
+
 }
