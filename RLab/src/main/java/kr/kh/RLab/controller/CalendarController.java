@@ -1,8 +1,6 @@
 package kr.kh.RLab.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,12 +23,10 @@ public class CalendarController {
 	private final StudyService studyService;
 	private final CalendarService calendarService;
 	
-	@PostMapping("/insert") //맵으로 리턴
-	public Map<String,Object> insert(@RequestBody CalendarVO calendarVo) {
-		Map<String, Object> result = new HashMap<>();
-		result.put("ca_num", calendarVo.getCa_num());
+	@PostMapping("/insert")
+	public void insert(@RequestBody CalendarVO calendarVo) {
+		System.out.println("=========등록값 잘 가져오나 확인"+calendarVo);
 		calendarService.insert(calendarVo);
-		return result;
 	}
 	
 	@GetMapping("/findAll")
