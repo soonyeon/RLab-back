@@ -90,9 +90,9 @@ public class ReservationController {
 		mv.setViewName("/reservation/buy_complete");
 		return mv;
 	}
-	@RequestMapping(value = "/cancel/{receipt_id}", method=RequestMethod.POST) 
-	public ModelAndView ticketBuyPost(ModelAndView mv, @PathVariable("receipt_id")String receiptId) {
-		reservationService.deleteCanceledPayment(receiptId);
+	@RequestMapping(value = "/cancel/?order_id={order_id}", method=RequestMethod.POST) 
+	public ModelAndView ticketBuyPost(ModelAndView mv, @PathVariable("order_id")String orderId) {
+		reservationService.deleteCanceledPayment(orderId);
 		mv.setViewName("");
 		return mv;
 	}

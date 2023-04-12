@@ -31,5 +31,9 @@ public interface ReservationDAO {
 
 	void insertUsedPoint(@Param("pay")PayDTO payDto);
 
+	void deletePayByPaOrderId(@Param("pa_order_id")String orderId);
+
+	void deletePayDetailByPaOrderId(@Param("pa_order_id")String orderId);
+
 
 }

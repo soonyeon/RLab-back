@@ -48,4 +48,10 @@
 		insert into point(po_me_id, po_date, po_amount, po_state)
 		values(#{pay.pa_me_id},now(), #{pay.pa_used_point},0)
 	</insert>
+	<delete id="deletePayByPaOrderId">
+		delete from pay where pa_order_id = #{pa_order_id}
+	</delete>
+	<delete id="deletePayDetailByPaOrderId">
+		delete from paydetail where pd_pa_order_id = #{pa_order_id}
+	</delete>
 </mapper>
