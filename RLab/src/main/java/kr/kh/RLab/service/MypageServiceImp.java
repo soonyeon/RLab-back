@@ -137,6 +137,13 @@ public class MypageServiceImp implements MypageService {
 			int totalCount = mypageDao.selectGatherTotalCount(memberId);
 			return totalCount;
 		}
+		
+		// 내가 쓴 모집글의 찜 여부 가져오기
+		@Override
+		public ArrayList<Integer> selectWantListById(String memberId) {
+			ArrayList<Integer> wantList = mypageDao.selectWantListById(memberId);
+			return wantList;
+		}
 
 
 }

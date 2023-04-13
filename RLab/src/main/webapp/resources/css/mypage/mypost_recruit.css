@@ -18,10 +18,13 @@
   .row_study_card{
     width: 100%;
     display: flex;
+    justify-content: flex-end;
+    padding-right: 5px;
+    box-sizing: border-box;
   }
   .study_card_box{
     position: relative;
-    width: 33%; 
+    width: 260px; 
     height: 300px; 
     border: 2px solid var(--color_black); 
     float: right; 
@@ -36,10 +39,10 @@
   .study_img_box {
     width: 100%; 
     height:40%; 
-    background-size: cover; 
-    background-position: -7px -1px;
-    background-repeat: no-repeat;
-    background-image: url('../../img/recruit_thumb.png');  
+	overflow: hidden; 
+  }
+  .study_img_box img{
+  	width: 100%;
   }
 
   .study_card_container .study_info{
@@ -104,11 +107,16 @@
   font-size:14px; width: 100px; height: 30px; line-height: 28px;
   }
 
-  .study_card_container .study_content .like_img{
+  .like_img{
     width: 30px; height: 30px;
     background-image: url(../../img/like_on_red.png);
     background-size: cover;
-
+  }
+  
+   .unlike_img{
+    width: 30px; height: 30px;
+    background-image: url(../../img/love_off.png);
+    background-size: cover;
   }
   /* 모집완료 */
   .sad_container{

@@ -93,5 +93,4 @@ where st_num = #{st_num}
 	join study on st_num = sm_st_num
 	where sm_authority=1 and sm_me_id = #{me_id}
 </select>
-
 </mapper>

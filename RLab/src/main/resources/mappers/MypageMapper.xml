@@ -16,8 +16,8 @@
 	<id property="st_re_name" column="st_re_name"/>
 	<id property="st_now_people" column="st_now_people"/>
 	<id property="st_total_people" column="st_total_people"/>
-		<collection property="gatherVO" column="{st_num}" select="selectGather" ofType="kr.kh.RLab.vo.GatherVO"></collection>
-		<!-- <collection property="gatherVO" column="{st_num=st_num, st_re_name=st_re_name}" select="selectGather" ofType="kr.kh.RLab.vo.GatherVO"></collection>-->
+	<id property="st_state" column="st_state"/>
+		<collection property="gatherVO" column="st_num" select="selectGather" ofType="kr.kh.RLab.vo.GatherVO"></collection>		
 </resultMap>
 
 	<!-- [개인정보 수정 > 비밀번호 체크 > 개인정보 수정창] -->
@@ -85,7 +85,7 @@
   		<!-- 아이디로 내가 쓴 모집글 가져오기 -->	
   		<select id="selectGatherListById" resultMap="gather">
   			select ga_num, ga_title, ga_me_id, 
-  				st_num, st_re_name, st_now_people, st_total_people
+  				st_num, st_image, st_re_name, st_now_people, st_total_people, st_state
   			from study
   			join gather on ga_st_num = st_num
 			WHERE  
@@ -96,10 +96,12 @@
 		
   		<!-- 내가 쓴 모집글 스터디의 태그들 가져오기 -->		
 		<select id="selectTagListById" resultType="kr.kh.RLab.vo.TagRegisterVO">
-			select tag_register.tr_name
+			select 	* from tag_register
+		<!--select tag_register.tr_name
 			from tag_register
 			join study on tag_register.tr_st_num = study.st_num
-			where st_me_id = #{memberId}
+			where st_me_id = #{memberId}  -->	
+
 		</select>
 		
 		<!-- 로그인한 회원이 작성한 모집글 전체 수 가져오기 -->	
@@ -109,9 +111,18 @@
 				from gather
 				where ga_me_id = #{memberId}
 	  	</select>
+	  	
 		<select id="selectGather" resultType="kr.kh.RLab.vo.GatherVO">
 			select * 
 				from gather
 				where ga_st_num = #{st_num}
+		</select>
+		
+		<!-- 내가 쓴 모집글의 찜 여부 가져오기 -->
+		<select id="selectWantListById" resultType="Integer">
+			SELECT ga_st_num 
+				FROM want 
+				join gather on ga_num = wa_ga_num
+				where wa_state=1 and wa_me_id = #{me_id}
 		</select>
 </mapper>

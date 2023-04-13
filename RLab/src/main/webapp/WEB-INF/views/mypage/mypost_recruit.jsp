@@ -51,8 +51,8 @@
 		                      <!-- 제외 버튼  -->
 		                      <div class="except_container">
 		                        <div class="except_box">
-		                          <label for="ee">모집완료된 스터디 제외</label>
-		                          <input type="checkbox" name="" id="ee">
+		                          <label for="except_btn">모집완료된 스터디 제외</label>
+		                          <input type="checkbox" name="" id="except_btn">
 		                        </div>
 		                      </div>
 		  
@@ -66,20 +66,28 @@
 			                          		<!-- 모집글 하나가 index -->
 			                          		<c:forEach begin="${i}" end="${i+2}" var="index">
 				                          		<c:if test="${myGatherList.size()-1 >= index}">
-					                              <li class="study_card_box add_shadow op">
-					                                  <a href="">
-					                                      <div class="study_img_box"></div>
+				                          		  <c:set var="state" value="${myGatherList.get(index).st_state}"/>
+					                              <li class="study_card_box add_shadow op st_state" value="${state}">
+					                                  <a href="<c:url value='/gather/detail/${myGatherList.get(index).st_num}'></c:url>">
+					                                      <div class="study_img_box">
+					                                      	<c:if test="${myGatherList.get(index).st_image == null}">
+					                                      		<img class="mypage_img" src="<c:url value='/resources/img/recruit_thumb.png'></c:url>">
+					                                      	</c:if>
+					                                      	<c:if test="${myGatherList.get(index).st_image != null}">					                                      	
+						                                      	<img class="" src="<c:url value='/download/study/${myGatherList.get(index).st_image}'></c:url>">					                                      	
+					                                      	</c:if>
+					                                      </div>
 					                                      <div class="study_info">
 					                                      	<!-- tag 리스트 -->
-					                                      	<!--<c:forEach items="${tagList}" var="ta" varStatus="vs">
-					                                      		<c:if test="${ta.tr_st_num == myGatherList.get(index).st_num}">
-						                                          <div class="study_tag_info">
-						                                              <span href="#" class="study_tag">${ta.tr_name}</span>		                          
-						                                          </div>
-						                                        </c:if>
-					                                        </c:forEach>  -->
+				                                      		<div class="study_tag_info">
+																<c:forEach items="${tagList}" var="ta" varStatus="vs">
+																	<c:if test="${ta.tr_st_num == myGatherList.get(index).st_num}">
+																		<span class="study_tag">${ta.tr_name}</span> 
+																	</c:if>
+																</c:forEach>
+															</div>
 					                                          <div class="study_recruit_content_box">
-					                                              <span class="study_recruit_content">${myGatherList.get(index).st_re_name} ${myGatherList.get(index).gatherVO.ga_title} </span>
+					                                              <span class="study_recruit_content">[${myGatherList.get(index).st_re_name}] ${myGatherList.get(index).gatherVO.ga_title} </span>
 					                                          </div>
 					                                      		<!-- 모집중 상태 -->
 					                                          <div class="study_content">
@@ -89,7 +97,20 @@
 					                                                  <span>/</span>
 					                                                  <span>${myGatherList.get(index).st_total_people}</span>
 					                                              </div>
-					                                              <div class="like_img"></div>
+					                                             <!-- like -->
+										                         <div class="want_icon">
+																	<c:if test="${user == null}" >
+																		<div class="unlike_img"></div>
+																	</c:if>
+																	<c:if test="${user != null}">
+																		<c:if test="${wantList.contains(myGatherList.get(index).st_num)}">
+																			<div class="like_img"></div>	
+																		</c:if>
+																		<c:if test="${!wantList.contains(myGatherList.get(index).st_num)}">
+																			<div class="unlike_img"></div>	
+																		</c:if>							
+																	</c:if>
+																</div>
 					                                          </div>
 					                                      </div>
 					                                  </a>
@@ -125,9 +146,23 @@
                   </section> 
 			</div>
 		</main>
-
+${myGatherList}
 	</div>
 <script>	
+	$(document).ready(function(){
+		$('#except_btn').click(function(){
+			if($(this).is(':checked')){
+				$('.st_state').each(function(){
+					if($(this).val() !== 1){
+						$(this).hide();
+					}
+				});
+			} else {
+				$('.study_card_box').show();
+			}
+		})
+	})
+
 	$('#edit_info').submit(function(){
 		event.preventDefault(); // submit 이벤트 막기
 		

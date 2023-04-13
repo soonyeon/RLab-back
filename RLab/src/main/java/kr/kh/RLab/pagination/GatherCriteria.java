@@ -20,6 +20,7 @@ public class GatherCriteria extends Criteria {
 		this.region="";
 		this.searchTag="";
 		this.filter="";
+		this.setPerPageNum(6);
 	}
 	
 	public void sortCri() {

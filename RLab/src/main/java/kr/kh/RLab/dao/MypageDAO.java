@@ -44,5 +44,8 @@ public interface MypageDAO {
 		
 		// 로그인한 회원이 작성한 모집글 전체 수 가져오기
 		int selectGatherTotalCount(String memberId);
+		
+		// 내가 쓴 모집글의 찜 여부 가져오기
+		ArrayList<Integer> selectWantListById(String memberId);
 	
 }

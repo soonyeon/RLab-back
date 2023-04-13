@@ -181,19 +181,27 @@ public class MypageController {
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		String memberId = user.getMe_id();
 		System.out.println(cri.getPerPageNum());
+		
 		// 아이디로 내가 쓴 모집글 가져오기
 		ArrayList<GatherVO> myGatherList = mypageService.getGatherListById(memberId, cri);
 		System.out.println("모집글" + myGatherList);
+		
 		// 내가 쓴 모집글 스터디의 태그들 가져오기
 		ArrayList<TagRegisterVO> tagList = mypageService.selectTagListById(memberId);
+		System.out.println(tagList);
+		
+		// 내가 쓴 모집글의 찜 여부 가져오기
+		ArrayList<Integer> wantList = mypageService.selectWantListById(memberId);
+		System.out.println(wantList);
 		
 		// 페이지 네이션		
 		int totalCount = mypageService.getGatherTotalCount(memberId);
 		System.out.println(totalCount);
-		PageMaker pm = new PageMaker(totalCount, 2, cri);
+		PageMaker pm = new PageMaker(totalCount, 1, cri);
 		
 		mv.addObject("myGatherList", myGatherList);
-		mv.addObject("tagList",tagList);
+		mv.addObject("tagList", tagList);
+		mv.addObject("wantList", wantList);
 		mv.addObject("pm", pm);
 		mv.setViewName("/mypage/mypost_recruit");
 		return mv;
