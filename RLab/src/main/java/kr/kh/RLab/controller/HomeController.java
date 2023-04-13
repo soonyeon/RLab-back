@@ -95,96 +95,17 @@ public class HomeController {
 		return map;
 	}
 	
-	@RequestMapping(value="/mypage/mypage", method=RequestMethod.GET)
-	public ModelAndView mypage(ModelAndView mv) {
-		mv.setViewName("/mypage/mypage");
-		return mv;
-	}
-	
-	@RequestMapping(value="/mypage/pwcheck", method=RequestMethod.GET)
-	public ModelAndView pwCheck(ModelAndView mv) {
-		mv.setViewName("/mypage/pwcheck");
-		return mv;
-	}
-	
-	@RequestMapping(value="/mypage/pwcheck", method=RequestMethod.POST)
-	public ModelAndView pwCheckPost(ModelAndView mv, MemberVO pw,
-			HttpSession session) {
-		MemberVO user = (MemberVO)session.getAttribute("user");
-		boolean res = memberService.checkPw(pw, user);
-		System.out.println(res);
-		if(res) {
-			mv.setViewName("redirect:/mypage/user");
-		}
-		else
-			mv.setViewName("redirect:/mypage/pwcheck");
-		return mv;
-	}
-	
-	@RequestMapping(value="/mypage/user", method=RequestMethod.GET)
-	public ModelAndView editUser(ModelAndView mv) {
-		mv.setViewName("/mypage/edit_user");
-		return mv;
-	}
 
-	@RequestMapping(value="/mypage/user", method=RequestMethod.POST)
-	public ModelAndView editUser(ModelAndView mv, MemberVO member, HttpSession session, MultipartFile file) {
-		MemberVO user = (MemberVO)session.getAttribute("user");
-		String userId = user.getMe_id();
-		member.setMe_id(user.getMe_id());	
-		
-		// 프로필 이미지 변경
-		String filePath = "D:/uploadFiles/profile/";
-		String originName = file.getOriginalFilename();
-		String fileName = userId + "_" + originName;
-		File dest = new File(filePath + fileName);
-		
-		if(originName != "") {
-			member.setMe_profile("/" + fileName);
-			try {
-				file.transferTo(dest);
-				boolean isImgEdited = memberService.editImg(member, user); 
-				if(isImgEdited) {
-					user.setMe_profile(member.getMe_profile());
-					mv.setViewName("redirect:/mypage/pwcheck");
-				}else {
-					mv.setViewName("redirect:/mypage/edit_user");
-				}
-			} catch (IllegalStateException e) {
-				e.printStackTrace();
-				mv.setViewName("redirect:/");
-			} catch (IOException e) {
-				e.printStackTrace();
-				mv.setViewName("redirect:/");
-			}	
-		}else {
-			System.out.println("파일이 없음");
-			member.setMe_profile(user.getMe_profile());
-		}
-		
-			
-		boolean isEdited = memberService.editUser(member, user); 
-		if(isEdited) {
-			user.setMe_name(member.getMe_name());
-			user.setMe_pw(member.getMe_pw());
-			user.setMe_email(member.getMe_email());
-			session.setAttribute("user", user);
-			System.out.println("수정된 세션" + user);
-			System.out.println("수정성공");
-			mv.setViewName("redirect:/");
-		}else {
-			System.out.println("수정실패");
-			mv.setViewName("redirect:/mypage/user");
-			return mv;
-		}
-		return mv;
-	}
 	
+	
+	
+	
+/*	
 	@RequestMapping(value="/mypage/edit_img", method=RequestMethod.GET)
 	public ModelAndView editImg(ModelAndView mv) {
 		mv.setViewName("/mypage/edit_img");
 		return mv;
-	}
+	}*/
 
 	/*
 	@RequestMapping(value="/mypage/user", method=RequestMethod.POST)

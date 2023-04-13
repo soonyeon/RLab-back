@@ -63,7 +63,7 @@
 		                          	<!-- 0부터 myGatherList의 수가 끝날 때까지 row_study_card가 3개씩 반복 -->
 		                          	<c:forEach begin="0" end="${myGatherList.size()-1}" step="3" var="i">
 			                          	<div class="row_study_card clearfix">
-			                          		<!-- 모집글 하나가 row -->
+			                          		<!-- 모집글 하나가 index -->
 			                          		<c:forEach begin="${i}" end="${i+2}" var="index">
 				                          		<c:if test="${myGatherList.size()-1 >= index}">
 					                              <li class="study_card_box add_shadow op">
@@ -72,7 +72,7 @@
 					                                      <div class="study_info">
 					                                      	<!-- tag 리스트 -->
 					                                      	<!--<c:forEach items="${tagList}" var="ta" varStatus="vs">
-					                                      		<c:if test="${ta.tr_st_num == myGatherList.get(index).studyVO.st_num}">
+					                                      		<c:if test="${ta.tr_st_num == myGatherList.get(index).st_num}">
 						                                          <div class="study_tag_info">
 						                                              <span href="#" class="study_tag">${ta.tr_name}</span>		                          
 						                                          </div>
@@ -80,7 +80,7 @@
 					                                        </c:forEach>  -->
 					                                          <div class="study_recruit_content_box">
 					                                              <span class="study_recruit_content">${myGatherList.get(index).st_re_name} ${myGatherList.get(index).gatherVO.ga_title} </span>
-					                                            </div>
+					                                          </div>
 					                                      		<!-- 모집중 상태 -->
 					                                          <div class="study_content">
 					                                              <div class="study_recruiting">
@@ -105,17 +105,17 @@
 		                        <!-- 페이지네이션 -->
 		                        <div class="page_box clearfix">
 		                         <c:if test="${pm.prev}">
-		                     			<a class="page-link" href="<c:url value='/mypage/mypost_post?page=${pm.endPage-1}'></c:url>">
+		                     			<a class="page-link" href="<c:url value='/mypage/mypost_recruit?page=${pm.endPage-1}'></c:url>">
 											<i class="btn_prev"></i>
 										</a>
 									</c:if>
 									<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
 										<span class="page_num">										
-											<a class="page-link <c:if test="${pm.cri.page == i}"> active</c:if>" href="<c:url value='/mypage/mypost_post?page=${i}'></c:url>">${i}</a>
+											<a class="page-link <c:if test="${pm.cri.page == i}"> active</c:if>" href="<c:url value='/mypage/mypost_recruit?page=${i}'></c:url>">${i}</a>
 										</span>
 									</c:forEach>
 									<c:if test="${pm.next}">										
-										<a class="page-link" href="<c:url value='/mypage/mypost_post?page=${pm.endPage+1}'></c:url>">
+										<a class="page-link" href="<c:url value='/mypage/mypost_recruit?page=${pm.endPage+1}'></c:url>">
 											<i class="btn_next"></i>
 										</a>
 									</c:if>

@@ -13,9 +13,4 @@ public interface MemberDAO {
 	Object selectMemberByName(@Param("me_name")String me_name);
 	
 	void updateAuthority(@Param("me_id")String me_id,@Param("me_authority") int i);
-
-	int updateMember(@Param("m")MemberVO member);
-
-	int updateProfile(@Param("m")MemberVO member);
-
 }

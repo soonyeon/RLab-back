@@ -11,11 +11,4 @@ public interface MemberService {
 	boolean checkName(MemberVO user);
 
 	MemberVO login(MemberVO member);
-
-	boolean checkPw(MemberVO pw, MemberVO user);
-
-	boolean editUser(MemberVO member, MemberVO user);
-
-	boolean editImg(MemberVO member, MemberVO user);
-
 }
