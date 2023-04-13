@@ -48,7 +48,6 @@ public class CalendarController {
 
 	@PutMapping("/update/{ca_num}")
 	public void update(@PathVariable int ca_num, @RequestBody CalendarVO calendarVo) {
-		System.out.println(calendarVo);
 	    calendarService.update(calendarVo);
 	}
 

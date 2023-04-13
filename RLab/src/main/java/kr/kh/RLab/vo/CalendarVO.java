@@ -3,6 +3,8 @@ package kr.kh.RLab.vo;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import kr.kh.RLab.utils.CustomDateDeserializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,7 +20,9 @@ public class CalendarVO {
 	private int ca_st_num;
 	private String ca_title;
 	@JsonDeserialize(using = CustomDateDeserializer.class)
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
 	private Date ca_start;
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
 	@JsonDeserialize(using = CustomDateDeserializer.class)
 	private Date ca_end;
 	private int ca_all_day;

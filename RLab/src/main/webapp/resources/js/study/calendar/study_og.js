@@ -110,10 +110,11 @@ $(document).ready(function() {
 	        ca_num: event.id,
 	        ca_st_num: event.extendedProps.ca_st_num, 
 	        ca_title: event.title,
-	        ca_start: event.startStr,
-	        ca_end: event.endStr ? event.endStr : event.startStr,
+	        ca_start: event.startStr+'T00:00',
+	        ca_end: event.endStr ? event.endStr+'T00:00' : event.startStr+'T00:00',
 	        ca_all_day: event.allDay ? 1 : 0,
 	    };
+	    console.log(eventData);
 	    $.ajax({
 	        url: "/RLab/calendar/update/" + eventData.ca_num,
 	        type: "PUT",
@@ -127,6 +128,13 @@ $(document).ready(function() {
 	        },
 	    });
 	}
+		function clearInputFields() {
+		    $("#ca_st_num").val("");
+		    $("#calendarTitle").val("");
+		    $("#calendarStart").val("");
+		    $("#calendarEnd").val("");
+		    $("#calendarAllDay").prop("checked", false);
+		}
 
         // 이벤트 저장 버튼 클릭 이벤트
         $("#savecalendar").click(function() {
@@ -137,7 +145,17 @@ $(document).ready(function() {
                 ca_end: $("#calendarEnd").val(),
                 ca_all_day: $("#calendarAllDay").is(":checked") ? 1 : 0,
             };
-            console.log(eventData);
+             if (!eventData.ca_start) { // 시작 날짜를 입력하지 않은 경우
+		        alert('시작 날짜를 입력해주세요.');
+		        return;
+		     if (eventData.ca_end && eventData.ca_start > eventData.ca_end) { // 종료 날짜가 시작 날짜보다 이전인 경우
+		        alert("종료 날짜가 시작 날짜보다 이전입니다.");
+		        return;
+		    }
+   			 }else if(!eventData.ca_title) {
+   			 	alert('일정 제목을 입력 해주세요.');
+   			 	return;
+   			 }
             $.ajax({
                 url: "/RLab/calendar/insert",
                 type: "POST",
@@ -162,6 +180,7 @@ $(document).ready(function() {
                     calendar.addEvent(convertedEvent); // 변환된 이벤트 데이터를 사용하여 이벤트를 추가함
                     var dialog = document.getElementById("calendarDialog");
                     dialog.close();
+                    clearInputFields(); // 입력 필드 값을 초기화함
                 },
                 error: function(xhr, status, error) {
                     alert("이벤트 추가에 실패했습니다.");
@@ -178,6 +197,11 @@ $(document).ready(function() {
                 ca_end: $("#editCalendarEnd").val(),
                 ca_all_day: $("#editCalendarAllDay").is(":checked") ? 1 : 0,
             };
+            
+              if (eventData.ca_end && eventData.ca_start > eventData.ca_end) { // 종료 날짜가 시작 날짜보다 이전인 경우
+		        alert("종료 날짜가 시작 날짜보다 이전입니다.");
+		        return;
+		    }
 
             $.ajax({
                 url: "/RLab/calendar/update/" + eventData.ca_num,
@@ -193,6 +217,7 @@ $(document).ready(function() {
 
                     var editDialog = document.getElementById("editCalendarDialog");
                     editDialog.close();
+                    location.reload();
                 },
                 error: function(xhr, status, error) {
                     alert("이벤트 수정에 실패했습니다.");
