@@ -154,6 +154,9 @@ $(document).ready(function() {
                         start: eventData.ca_start,
                         end: eventData.ca_end,
                         allDay: eventData.ca_all_day === 1,
+                        extendedProps: {
+                    	ca_st_num: eventData.ca_st_num, // ca_st_num 값을 추가
+                		},
                     };
 
                     calendar.addEvent(convertedEvent); // 변환된 이벤트 데이터를 사용하여 이벤트를 추가함
