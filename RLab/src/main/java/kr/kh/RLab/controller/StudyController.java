@@ -45,11 +45,15 @@ public class StudyController {
 		model.addAttribute("user", user);
 		ArrayList<PhotoTypeVO> phototypeList = studyService.getListPhotoType();
 		MemberVO member = (MemberVO) request.getSession().getAttribute("user");
-		StudyVO study = studyService.getStudyByMemberId(member.getMe_id());
+		ArrayList<StudyVO> study = studyService.getStudyByMemberId(member.getMe_id());
 		if (study == null) {
 			return "redirect:/";
 		}
-		int st_num = study.getSt_num();
+		int st_num = 0;
+		for (StudyVO s : study) {
+			st_num = s.getSt_num();
+			
+		}
 		List<PhotoVO> photos = studyService.getPhotosByStudyNum(st_num);
 		// 좋아요
 		Map<Integer, Integer> likeCounts = new HashMap<>();
@@ -76,11 +80,13 @@ public class StudyController {
 	public String insertCB(@RequestParam("photo") MultipartFile[] files, @RequestParam("content") String content,
 			@RequestParam("ph_pt_num") String ph_pt_num, HttpServletRequest request) {
 		MemberVO member = (MemberVO) request.getSession().getAttribute("user");
-		StudyVO study = studyService.getStudyByMemberId(member.getMe_id());
+		ArrayList<StudyVO>  study = studyService.getStudyByMemberId(member.getMe_id());
 		PhotoVO photoVO = new PhotoVO();
 		photoVO.setPh_content(content);
 		photoVO.setPh_pt_num(Integer.parseInt(ph_pt_num));
-		photoVO.setPh_st_num(study.getSt_num()); // 스터디 번호 가져오기
+		for (StudyVO s : study) {
+			photoVO.setPh_st_num(s.getSt_num()); // 스터디 번호 가져오기
+		}
 
 		if (studyService.insertCB(photoVO, files, member)) {
 			return "success";
@@ -116,12 +122,15 @@ public class StudyController {
 	@RequestMapping(value = "/")
 	public ModelAndView main(ModelAndView mv, HttpSession session) {
 		MemberVO user = (MemberVO) session.getAttribute("user");
-		StudyVO study = studyService.getStudyByMemberId(user.getMe_id());
+		ArrayList<StudyVO>  study = studyService.getStudyByMemberId(user.getMe_id());
 		if (study == null) {
 		  return new ModelAndView("redirect:/"); // 다른 경로로 리다이렉트
 		}
 		// ca_st_num 불러오기
-		int ca_st_num = study.getSt_num(); // 에러떠서 일단 주석처리
+		int ca_st_num = 0;
+		for (StudyVO s : study) {
+			ca_st_num = s.getSt_num(); // 에러떠서 일단 주석처리
+		}
 		mv.addObject("ca_st_num", ca_st_num);
 		mv.setViewName("/study/study_basic");
 		return mv;

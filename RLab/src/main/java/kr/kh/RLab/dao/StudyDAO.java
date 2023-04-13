@@ -20,7 +20,7 @@ public interface StudyDAO {
 
 	void insertFile(FileVO fileVo);
 
-	StudyVO getStudyByMemberId(String st_me_id);
+	ArrayList<StudyVO> getStudyByMemberId(String st_me_id);
 	
 	List<PhotoVO> getPhotosByStudyNum(int st_num);
 	
