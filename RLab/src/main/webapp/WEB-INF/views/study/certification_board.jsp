@@ -12,13 +12,13 @@
                 <!-- 왼쪽 메뉴바 -->
                 <div class="left_menu_container">
                     <nav class="left_menu">
-                        <a href="study_basic.html" class="list_item">스터디홈</a>
+                        <a href="<c:url value='/study/${st_num}'></c:url>" class="list_item">스터디홈</a>
                         <a href="#" class="list_item">스터디 달력</a>
                         <a href="to_do_list.html" class="list_item">투두 리스트</a>
                         <a href="Daily Mission.html" class="list_item">데일리 미션</a>
-                        <a href="certification_board.html" class="list_item">인증 게시판</a>
-                        <a href="#" class="list_item">자유 게시판</a>
-                        <a href="#" class="list_item">스터디 관리</a>
+                        <a href="<c:url value='/study/photo/${st_num}'></c:url>" class="list_item">인증 게시판</a>
+                        <a href="<c:url value='/board/list/${st_num}'></c:url>" class="list_item">자유 게시판</a>
+                        <a href="<c:url value='/study/management/member'></c:url>" class="list_item">스터디 관리</a>
                         <a href="#" class="leave">탈퇴하기</a>
                     </nav>
                 </div>
@@ -230,10 +230,11 @@ const likeOffImageUrl = $("#like_off_image_url").val();
         formData.append('photo', $('#photo')[0].files[0]);
         formData.append('content', $('#content').val());
         formData.append('ph_pt_num', $('#ph_pt_num').val());
+        formData.append('ph_st_num', ${st_num});
         
         $.ajax({
             type: "POST",
-            url: "<c:url value='/study/insertCB'/>",
+            url: "<c:url value='/study/photo/insert'/>",
             data: formData,
             processData: false,
             contentType: false,

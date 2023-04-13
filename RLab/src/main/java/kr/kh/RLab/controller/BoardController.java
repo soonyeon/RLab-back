@@ -47,30 +47,30 @@ public class BoardController {
 	    return mv;
 	}
 	@PostMapping("/insert")
-	public ModelAndView boardInsertPost(ModelAndView mv,BoardVO board,HttpSession session) {
+	public ModelAndView boardInsertPost(ModelAndView mv,BoardVO board,HttpSession session,
+			@PathVariable int st_num) {
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		boolean res = boardService.insertBoard(board, user);
-		mv.setViewName("redirect:/board/list");
+		mv.setViewName("redirect:/board/list/"+st_num);
 		return mv;
 	}
 	
-	@GetMapping("/list")
-	public ModelAndView boardList(
-	        ModelAndView mv,Criteria cri
-	) {
+	@GetMapping("/list/{st_num}")
+	public ModelAndView boardList(ModelAndView mv,Criteria cri, @PathVariable int st_num) {
 		cri.setPerPageNum(10); // 한 페이지당 컨텐츠 갯수
 	    int totalCount = boardService.getCount();
 	    PageMaker pm = new PageMaker(totalCount, 10, cri);
-
 	    ArrayList<BoardVO> boardList = boardService.selectBoardList(cri);
-	    mv.addObject("boardList", boardList);
+	    mv.addObject("st_num", st_num);
 	    mv.addObject("pm", pm);
+	    mv.addObject("boardList", boardList);
 	    mv.setViewName("/board/list");
 	    return mv;
 	}
 	
-	@GetMapping("/detail/{bo_num}")
-	public ModelAndView boardGet(ModelAndView mv, @PathVariable int bo_num,HttpSession session) {
+	@GetMapping("/detail/{st_num}/{bo_num}")
+	public ModelAndView boardGet(ModelAndView mv, @PathVariable int bo_num,HttpSession session,
+			@PathVariable int st_num) {
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		BoardVO board = boardService.getBoard(bo_num);
 		mv.addObject("bd", board);
@@ -83,12 +83,14 @@ public class BoardController {
 	    for (ScrapVO scv : scrapedList) {
 				mv.addObject("scv", scv);
 		}
+	    mv.addObject("st_num", st_num);
 	    mv.setViewName("/board/detail");
 		return mv;
 	}
 	
-	@GetMapping("/update/{bo_num}")
-	public ModelAndView boardUpdate(ModelAndView mv, @PathVariable int bo_num,HttpSession session) {
+	@GetMapping("/update/{st_num}/{bo_num}")
+	public ModelAndView boardUpdate(ModelAndView mv, @PathVariable int bo_num,HttpSession session,
+			@PathVariable int st_num) {
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		mv.addObject("memberId", user.getMe_id());
 		BoardVO board = boardService.getBoard(bo_num);
@@ -96,13 +98,15 @@ public class BoardController {
 		//스터디 가져오기
 		ArrayList<StudyVO> studyList = boardService.selectStudyList();
 		mv.addObject("study", studyList);
+	    mv.addObject("st_num", st_num);
 		mv.setViewName("/board/update");
 		return mv;
 	}
-	@PostMapping("/update/{bo_num}")
-	public ModelAndView boardUpdatePost(ModelAndView mv, @PathVariable int bo_num, BoardVO board) {
+	@PostMapping("/update/{st_num}/{bo_num}")
+	public ModelAndView boardUpdatePost(ModelAndView mv, @PathVariable int st_num,
+			@PathVariable int bo_num, BoardVO board) {
 		boolean res = boardService.updateBoard(board);
-		mv.setViewName("redirect:/board/detail/"+bo_num);
+		mv.setViewName("redirect:/board/detail/"+st_num+"/"+bo_num);
 		return mv;
 	}
 	

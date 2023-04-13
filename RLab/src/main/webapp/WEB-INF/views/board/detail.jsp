@@ -21,13 +21,13 @@
 		<!-- 왼쪽 메뉴바 -->
 		<div class="left_menu_container" style="width:200px;">
  					<nav class="left_menu">
-                        <a href="study_basic.html" class="list_item">스터디홈</a>
+                        <a href="<c:url value='/study/${st_num}'></c:url>" class="list_item">스터디홈</a>
                         <a href="#" class="list_item">스터디 달력</a>
                         <a href="to_do_list.html" class="list_item">투두 리스트</a>
                         <a href="Daily Mission.html" class="list_item">데일리 미션</a>
-                        <a href="certification_board.html" class="list_item">인증 게시판</a>
-                        <a href="#" class="list_item">자유 게시판</a>
-                        <a href="#" class="list_item">스터디 관리</a>
+                        <a href="<c:url value='/study/photo/${st_num}'></c:url>" class="list_item">인증 게시판</a>
+                        <a href="<c:url value='/board/list/${st_num}'></c:url>" class="list_item">자유 게시판</a>
+                        <a href="<c:url value='/study/management/member'></c:url>" class="list_item">스터디 관리</a>
                         <a href="#" class="leave">탈퇴하기</a>
                     </nav>
 		</div>
@@ -625,25 +625,24 @@
         });
     }
 
-        $('#update-btn').click(function() {
-            let bo_num = $(this).data('id');
-            window.location.href = `<c:url value='/board/update/'/>${bo_num}`;
-        });
+    $('#update-btn').click(function() {
+        let bo_num = $(this).data('id');
+        window.location.href = '<c:url value="/board/update/'+${st_num}+'/'+${bo_num}+'"/>';
+    });
 
-        $('#delete-btn').click(function() {
-            if (confirm('게시글을 삭제하시겠습니까?')) {
-                $.ajax({
-                    url: '<c:url value="/board/delete/${bd.bo_num}" />',
-                    type: 'POST',
-                    success: function(response) {
-                        alert('게시글이 삭제되었습니다.');
-                        window.location.href = '<c:url value="/board/list" />';
-                    },
-                    error: function(error) {
-                        alert('게시글 삭제에 실패하였습니다.');
-                    }
-                });
-            }
-        });
+    $('#delete-btn').click(function() {
+        if (confirm('게시글을 삭제하시겠습니까?')) {
+            $.ajax({
+                url: '<c:url value="/board/delete/${bd.bo_num}" />',
+                type: 'POST',
+                success: function(response) {
+                    alert('게시글이 삭제되었습니다.');
+                    window.location.href = '<c:url value="/board/list/'+${st_num}+'" />';
+                },
+                error: function(error) {
+                    alert('게시글 삭제에 실패하였습니다.');
+                }
+            });
+        }
     });
 </script>

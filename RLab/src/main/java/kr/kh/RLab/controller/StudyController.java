@@ -40,8 +40,9 @@ public class StudyController {
 
 	private final StudyService studyService;
 
-	@GetMapping("/certificationBoard")
-	public String certificationBoard(HttpServletRequest request, Model model, HttpSession session
+	@GetMapping("/photo/{st_num}")
+	public String photo(HttpServletRequest request, Model model, HttpSession session,
+			@PathVariable("st_num")int st_num
 			) throws IOException {
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		model.addAttribute("user", user);
@@ -50,11 +51,6 @@ public class StudyController {
 		ArrayList<StudyVO> study = studyService.getStudyByMemberId(member.getMe_id());
 		if (study == null) {
 			return "redirect:/";
-		}
-		int st_num = 0;
-		for (StudyVO s : study) {
-			st_num = s.getSt_num();
-			
 		}
 		List<PhotoVO> photos = studyService.getPhotosByStudyNum(st_num);
 		// 좋아요
@@ -77,19 +73,15 @@ public class StudyController {
 		return "/study/certification_board";
 	}
 
-	@PostMapping("/insertCB")
+	@PostMapping("/photo/insert")
 	@ResponseBody
-	public String insertCB(@RequestParam("photo") MultipartFile[] files, @RequestParam("content") String content,
-			@RequestParam("ph_pt_num") String ph_pt_num, HttpServletRequest request) {
+	public String photoInsert(@RequestParam("photo") MultipartFile[] files, @RequestParam("content") String content,
+			@RequestParam("ph_pt_num") String ph_pt_num, @RequestParam("ph_st_num") int st_num,
+			HttpServletRequest request) {
 		MemberVO member = (MemberVO) request.getSession().getAttribute("user");
-		ArrayList<StudyVO>  study = studyService.getStudyByMemberId(member.getMe_id());
 		PhotoVO photoVO = new PhotoVO();
 		photoVO.setPh_content(content);
 		photoVO.setPh_pt_num(Integer.parseInt(ph_pt_num));
-		for (StudyVO s : study) {
-			photoVO.setPh_st_num(s.getSt_num()); // 스터디 번호 가져오기
-		}
-
 		if (studyService.insertCB(photoVO, files, member)) {
 			return "success";
 		} else {
@@ -102,7 +94,6 @@ public class StudyController {
 	public String toggleLike(@RequestParam("li_ph_num") int li_ph_num, HttpServletRequest request) {
 		MemberVO member = (MemberVO) request.getSession().getAttribute("user");
 		String li_me_id = member.getMe_id();
-
 		LikeVO likeVO = studyService.getLikeByUserIdAndPhotoId(li_me_id, li_ph_num);
 
 		if (likeVO == null) {
@@ -120,20 +111,37 @@ public class StudyController {
 			return new_li_state == 1 ? "updated" : "canceled";
 		}
 	}
-
+	//로그인하지 않고 스터디탭 눌렀을때 도달하는 url
 	@RequestMapping(value = "/")
+	public ModelAndView mainUserNull(ModelAndView mv, HttpSession session) {
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		if(user==null)
+			System.out.println("로그인 후에 사용가능한 기능입니다.");
+		mv.setViewName("/study/study_basic");//알림 페이지로 링크..
+		return mv;
+	}
+	//로그인했지만 가입한 스터디가 없는 경우 도달하는 url
+	@RequestMapping(value = "/0")
 	public ModelAndView main(ModelAndView mv, HttpSession session) {
 		MemberVO user = (MemberVO) session.getAttribute("user");
+		if(user==null)
+			System.out.println("로그인 후에 사용가능한 기능입니다.");
+		else
+			System.out.println("스터디에 가입해보세요.");
+			
+		mv.setViewName("/study/study_basic");//알림 페이지로 링크..
+		return mv;
+	}
+	//로그인O, me_study정보O 이상적으로 동작할때 도달하는 url
+	@RequestMapping(value = "/{st_num}")
+	public ModelAndView main(ModelAndView mv, HttpSession session,@PathVariable("st_num")int st_num) {
+		MemberVO user = (MemberVO) session.getAttribute("user");
 		ArrayList<StudyVO>  study = studyService.getStudyByMemberId(user.getMe_id());
+		//해당 user가 가입한 스터디가 1개도 없으면 다른 경로로 리다이렉트
 		if (study == null) {
-		  return new ModelAndView("redirect:/"); // 다른 경로로 리다이렉트
+		  return new ModelAndView("redirect:/");
 		}
-		// ca_st_num 불러오기
-		int ca_st_num = 0;
-		for (StudyVO s : study) {
-			ca_st_num = s.getSt_num(); // 에러떠서 일단 주석처리
-		}
-		mv.addObject("ca_st_num", ca_st_num);
+		mv.addObject("st_num", st_num);
 		mv.setViewName("/study/study_basic");
 		return mv;
 	}
@@ -156,6 +164,7 @@ public class StudyController {
 	    
 		// "myStudyList" 키와 함께 연구 목록을 ModelAndView 객체에 추가합니다.
 	    mv.addObject("myStudyList", myStudyList);
+	    mv.addObject("user", user);
 		mv.setViewName("/study/management");
 		return mv;
 	}
@@ -190,14 +199,12 @@ public class StudyController {
 	    mv.addObject("memberList",memberList);
 	    mv.addObject("st_num", st_num);
 	    mv.addObject("pm",pm);
+	    mv.addObject("user", user);
 	    // 뷰 이름을 "/study/management_member"로 설정
 	    mv.setViewName("/study/management_member");
 	    // ModelAndView 객체를 반환	    
 	    return mv;
 	}
-	
-
-
 	
 	@ResponseBody
 	@RequestMapping(value = "/management/member/delete", method = RequestMethod.POST)
@@ -212,21 +219,6 @@ public class StudyController {
 	    return map;
 	}
 
-
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 	@RequestMapping(value = "/management/study", method = RequestMethod.GET)
 	public ModelAndView managementStudy(ModelAndView mv, HttpSession session, MemberVO member, StudyVO study) {
 		// HttpSession에서 "user"라는 이름의 속성을 가져와 MemberVO 객체로 형변환하여 변수 user에 저장
@@ -240,6 +232,7 @@ public class StudyController {
 	    System.out.println(myStudyList);
 
 		mv.addObject("myStudyList", myStudyList);
+	    mv.addObject("user", user);
 		mv.setViewName("/study/management_study");
 		return mv;
 	}
