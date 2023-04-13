@@ -3,5 +3,12 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace = "kr.kh.RLab.dao.PetDAO">
-
+<select id="selectPetList" resultType="kr.kh.RLab.vo.PetVO">
+	select * from pet
+</select>
+<select id="selectPetFile" resultType="kr.kh.RLab.vo.EvolutionVO">
+select *
+from evolution
+where ev_level = (select max(ev_level) from evolution as e where e.ev_pe_num = evolution.ev_pe_num);
+</select>
 </mapper>
