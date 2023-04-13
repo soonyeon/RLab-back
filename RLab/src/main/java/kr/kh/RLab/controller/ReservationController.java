@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.bootpay.Bootpay;
+import kr.co.bootpay.model.request.Cancel;
 import kr.kh.RLab.service.ReservationService;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.PayDTO;
@@ -103,4 +104,51 @@ public class ReservationController {
 		reservationService.deleteCanceledPayment(canceledData.getPa_order_id());
 		return map;
 	}
+	
+	/*
+	//결제 서버 승인
+		@RequestMapping(value = "/confirm", method=RequestMethod.POST) 
+		public void confirm() {
+			try {
+			    Bootpay bootpay = new Bootpay("5b8f6a4d396fa665fdc2b5ea", 
+			    		"rm6EYECr6aroQVG2ntW0A6LpWnkTgP4uQ3H18sDDUYw=");
+			    HashMap<String, Object> token = bootpay.getAccessToken();
+			    if(token.get("error_code") != null) { //failed
+			        return;
+			    }
+			    String receiptId = "642d26f2755e27001dad6270";
+			    HashMap<String, Object> res = bootpay.confirm(receiptId);
+			    if(res.get("error_code") == null) { //success
+			        System.out.println("confirm success: " + res);
+			    } else {
+			        System.out.println("confirm false: " + res);
+			    }
+			} catch (Exception e) {
+			    e.printStackTrace();
+			}
+		}
+		//결제 취소
+		@RequestMapping(value = "/cancle", method=RequestMethod.POST) 
+		public void cancle() {
+			try {
+			    Bootpay bootpay = new Bootpay("5b8f6a4d396fa665fdc2b5ea", "rm6EYECr6aroQVG2ntW0A6LpWnkTgP4uQ3H18sDDUYw=");
+			    HashMap<String, Object> token = bootpay.getAccessToken();
+			    if(token.get("error_code") != null) { //failed
+			        return;
+			    }
+			    Cancel cancel = new Cancel();
+			    cancel.receiptId = "628b2206d01c7e00209b6087";
+			    cancel.cancelUsername = "관리자";
+			    cancel.cancelMessage = "테스트 결제";
+
+			    HashMap<String, Object> res = bootpay.receiptCancel(cancel);
+			    if(res.get("error_code") == null) { //success
+			        System.out.println("receiptCancel success: " + res);
+			    } else {
+			        System.out.println("receiptCancel false: " + res);
+			    }
+			} catch (Exception e) {
+			    e.printStackTrace();
+			}
+		}*/
 }
