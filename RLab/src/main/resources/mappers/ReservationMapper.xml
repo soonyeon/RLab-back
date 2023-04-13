@@ -62,6 +62,20 @@
 	</select>
 	<select id="selectAllBranch" resultType="kr.kh.RLab.vo.BranchVO">
 		select * from branch
+		WHERE br_name LIKE CONCAT('%', #{cri.search}, '%')
+		<if test="cri.region != ''">
+			and br_re_name = #{cri.region}
+		</if>
+		group by br_num
+		order by br_name desc
+		limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	<select id="selectBranchTotalCount" resultType="int">
+		select count(*) from branch
+			WHERE br_name LIKE CONCAT('%', #{cri.search}, '%')
+			<if test="cri.region != ''">
+				and br_re_name = #{cri.region}
+			</if>
 	</select>
 	<select id="selectBranchBySearchName" resultType="kr.kh.RLab.vo.BranchVO">
 		select * from branch where br_name like #{search}

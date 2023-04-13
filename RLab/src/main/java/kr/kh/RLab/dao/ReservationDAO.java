@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import kr.kh.RLab.vo.ItemVO;
 import kr.kh.RLab.vo.PayDTO;
-
+import kr.kh.RLab.pagination.ReservationCriteria;
 import kr.kh.RLab.vo.BranchVO;
 import kr.kh.RLab.vo.TicketOwnVO;
 
@@ -40,7 +40,9 @@ public interface ReservationDAO {
 
 	ArrayList<String> selectItemStrList(@Param("pa_order_id")String paOrderId);
 
-	ArrayList<BranchVO> selectAllBranch();
+	ArrayList<BranchVO> selectAllBranch(@Param("cri")ReservationCriteria cri);
+
+	int selectBranchTotalCount(@Param("cri")ReservationCriteria cri);
 
 	ArrayList<BranchVO> selectBranchBySearchName(@Param("search")String search, @Param("region")String region);
 

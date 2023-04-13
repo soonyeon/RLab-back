@@ -16,7 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.bootpay.Bootpay;
-import kr.co.bootpay.model.request.Cancel;
+import kr.kh.RLab.pagination.PageMaker;
+import kr.kh.RLab.pagination.ReservationCriteria;
 import kr.kh.RLab.service.ReservationService;
 import kr.kh.RLab.vo.BranchVO;
 import kr.kh.RLab.vo.MemberVO;
@@ -161,12 +162,19 @@ public class ReservationController {
 		return mv;
 	}
 	@RequestMapping(value = "/reservation/1/spot", method=RequestMethod.GET) 
-	public ModelAndView seatSpot(ModelAndView mv) {
-		ArrayList<BranchVO> brList = reservationService.getAllBranchList();
+	public ModelAndView seatSpot(ModelAndView mv, ReservationCriteria cri, String keyword) {
+		System.out.println(cri);
+		ArrayList<BranchVO> brList = reservationService.getAllBranchList(cri);
+		int totalCount = reservationService.getBranchTotalCount(cri);
+		System.out.println(totalCount);
+		PageMaker pm = new PageMaker(totalCount, 5, cri);
 		mv.addObject("brList", brList);
+		mv.addObject("keyword", keyword);
+		mv.addObject("pm", pm);
 		mv.setViewName("/reservation/seat_spot");
 		return mv;
 	}
+	/*
 	@RequestMapping(value = "/reservation/1/spot", method=RequestMethod.POST) 
 	public ModelAndView seatSpot(ModelAndView mv, BranchVO br) {
 		ArrayList<BranchVO> brList = reservationService.searchBranchList(br);
@@ -176,7 +184,7 @@ public class ReservationController {
 		mv.addObject("brList", brList);
 		mv.setViewName("/reservation/seat_spot");
 		return mv;
-	}
+	}*/
 	@RequestMapping(value = "/reservation/1/{br_num}", method=RequestMethod.GET) 
 	public ModelAndView seatDetail(ModelAndView mv, @PathVariable("br_num")int br_num, HttpSession session) {
 		BranchVO br = reservationService.getBranchByBrNum(br_num);

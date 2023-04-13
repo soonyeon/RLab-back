@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.kh.RLab.dao.ReservationDAO;
+import kr.kh.RLab.pagination.ReservationCriteria;
 import kr.kh.RLab.vo.ItemVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.PayDTO;
@@ -107,10 +108,15 @@ public class ReservationServiceImp implements ReservationService {
 	}
 
 	@Override
-	public ArrayList<BranchVO> getAllBranchList() {
-		return reservationDao.selectAllBranch();
+	public ArrayList<BranchVO> getAllBranchList(ReservationCriteria cri) {
+		return reservationDao.selectAllBranch(cri);
 	}
 
+	@Override
+	public int getBranchTotalCount(ReservationCriteria cri) {
+		return reservationDao.selectBranchTotalCount(cri);
+	}
+	
 	@Override
 	public ArrayList<BranchVO> searchBranchList(BranchVO br) {
 		String search = "%"+br.getBr_name()+"%";
