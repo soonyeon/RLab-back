@@ -65,15 +65,10 @@
 					<table border="1">
 						<tr>
 							<th>구매한 이용권</th>
-							<td>시간 패키지(30시간)  2개, 사물함 이용권(2주) 1개
-								<c:forEach items="${pay.itemList}" var="pd">
-								
-								</c:forEach>
-							</td>
+							<td class="itemList">${itemStr}</td>
 						</tr>
 					</table>
 				</div>
-					</table>
 
 					<!-- 결제 정보 -->
 				<div class="table_container">
@@ -101,7 +96,7 @@
 				</div>
 					</table>
 					<div class="return_box">
-						<a href="./reservation.html"><button class="btn_r btn_return">돌아가기</button></a>
+						<a href="<c:url valur='/reservation/buy'></c:url>"><button class="btn_r btn_return">돌아가기</button></a>
 						<a href="<c:url value='/reservation/book'></c:url>"><button class="btn_r btn_book">예약하기</button></a>
 					</div>
 				</div>
@@ -114,7 +109,6 @@ putNumberComma();
 //숫자를 천단위로 ,(콤마) 찍어주는 함수
 function putNumberComma(){
 	let total_price = ${pay.pa_amount+pay.pa_used_point};
-	console.log(total_price);
 	$('.total_price').text(total_price.toLocaleString());
 	let used_point = ${pay.pa_used_point};
 	$('.used_point').text(used_point.toLocaleString());

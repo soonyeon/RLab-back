@@ -54,4 +54,10 @@
 	<delete id="deletePayDetailByPaOrderId">
 		delete from pay_detail where pd_pa_order_id = #{pa_order_id}
 	</delete>
+	<select id="selectItemStrList" resultType="String">
+		select concat(tt_name, ' (', ti_name, ') ', pd_amount, '개') as item from pay_detail
+		left join ticket on pd_ti_num = ti_num
+		left join ticket_type on ti_tt_num = tt_num
+		where pd_pa_order_id = #{pa_order_id} and pd_state = '결제완료';
+	</select>
 </mapper>

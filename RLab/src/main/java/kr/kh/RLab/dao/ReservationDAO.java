@@ -35,5 +35,7 @@ public interface ReservationDAO {
 
 	void deletePayDetailByPaOrderId(@Param("pa_order_id")String orderId);
 
+	ArrayList<String> selectItemStrList(@Param("pa_order_id")String paOrderId);
+
 
 }

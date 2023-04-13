@@ -91,4 +91,12 @@ public class ReservationServiceImp implements ReservationService {
 		reservationDao.deletePayByPaOrderId(orderId);
 	}
 
+	@Override
+	public String getItemStrList(String paOrderId) {
+		ArrayList<String> itemStrList = reservationDao.selectItemStrList(paOrderId);
+		String itemStr = String.join(", ", itemStrList);
+		System.out.println(itemStr);
+		return itemStr;
+	}
+
 }

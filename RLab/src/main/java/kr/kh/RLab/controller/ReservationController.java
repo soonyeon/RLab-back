@@ -1,5 +1,6 @@
 package kr.kh.RLab.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -80,7 +81,10 @@ public class ReservationController {
 		        reservationService.setPaymentSuccessed(paOrderId, user);
 		        
 		        PayDTO pay = reservationService.getPayDto(paOrderId);
+		        String itemStr = reservationService.getItemStrList(paOrderId);
+		       
 		        mv.addObject("pay", pay);
+		        mv.addObject("itemStr", itemStr);
 		        mv.setViewName("/reservation/buy_complete");
 		    } else {
 		        System.out.println("confirm false: " + res2);

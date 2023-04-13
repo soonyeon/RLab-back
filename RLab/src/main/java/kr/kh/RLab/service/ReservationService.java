@@ -1,5 +1,7 @@
 package kr.kh.RLab.service;
 
+import java.util.ArrayList;
+
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.PayDTO;
 
@@ -14,5 +16,7 @@ public interface ReservationService {
 	PayDTO getPayDto(String paOrderId);
 	
 	void deleteCanceledPayment(String receiptId);
+
+	String getItemStrList(String paOrderId);
 	
 }
