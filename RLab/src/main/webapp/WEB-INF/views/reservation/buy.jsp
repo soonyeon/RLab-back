@@ -2,7 +2,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <link href="<c:url value='/resources/css/reservation/ticket_buy.css'></c:url>" rel="stylesheet">
+<!-- jQuery -->
 <script src="<c:url value='/resources/js/jquery.min.js'></c:url>"></script>
+<!-- bootpay.js -->
+<script src="https://js.bootpay.co.kr/bootpay-4.2.9.min.js" type="application/javascript"></script>
 <main>
 	<div class="main_container">
 		<!-- 주문과정/절차 -->
@@ -43,15 +46,15 @@
 							<div class="times">
 								<div class="ticket_time" data-num="1">
 									<span class="title">2시간</span> 
-									(<span class="price">10,000</span>원)
+									(<span class="price">50</span>원)
 								</div>
 								<div class="ticket_time" data-num="2">
 									<span class="title">3시간</span>
-									(<span class="price">15,000</span>원)
+									(<span class="price">70</span>원)
 								</div>
 								<div class="ticket_time" data-num="3">
 									<span class="title">6시간</span>
-									(<span class="price">30,000</span>원)
+									(<span class="price">100</span>원)
 								</div>
 							</div>
 						</div>
@@ -60,11 +63,11 @@
 							<div class="times">
 								<div class="ticket_time" data-num="4">
 									<span class="title">2주</span>
-									(<span class="price">100,000</span>원)
+									(<span class="price">80</span>원)
 								</div>
 								<div class="ticket_time" data-num="5">
 									<span class="title">4주</span>
-									(<span class="price">200,000</span>원)
+									(<span class="price">90</span>원)
 								</div>
 							</div>
 						</div>
@@ -73,15 +76,15 @@
 							<div class="times">
 								<div class="ticket_time" data-num="6">
 									<span class="title">30시간</span>
-									(<span class="price">150,000</span>원)
+									(<span class="price">110</span>원)
 								</div>
 								<div class="ticket_time" data-num="7">
 									<span class="title">50시간</span>
-									(<span class="price">250,000</span>원)
+									(<span class="price">120</span>원)
 								</div>
 								<div class="ticket_time" data-num="8">
 									<span class="title">100시간</span>
-									(<span class="price">500,000</span>원)
+									(<span class="price">130</span>원)
 								</div>
 							</div>
 						</div>
@@ -96,16 +99,16 @@
 					<div class="times">
 						<div class="ticket_time" data-num="9">
 							<span class="title">2주</span>
-							(<span class="price">100,000</span>원)
+							(<span class="price">140</span>원)
 						</div>
 						<div class="ticket_time" data-num="10">
 							<span class="title">4주</span>
-							(<span class="price">200,000</span>원)
+							(<span class="price">150</span>원)
 						</div>
 					</div>
 				</div>
 			</div>
-			<!-- <form action="#" method="post"> -->
+			<form action="#" method="post">
 				<!-- 선택한 이용권 박스 -->
 				<div class="selected_box box">
 					<!-- 선택한 이용권 -->
@@ -142,14 +145,15 @@
 					</div>
 					<!-- 결제하기 -->
 					<div class="pay_area area">
-						<input type="submit" value="결제하기" id="pay_btn">
+						<input type="button" value="결제하기" id="pay_btn">
 					</div>
 				</div>
 			<!-- </form> -->
 		</div>
 	</div>
 </main>
-<script>
+
+<script> <!-- 화면 구성 -->
 let ticketStrArr = [];
 let ticketArr = [];
 let totalPrice = 0;
@@ -188,7 +192,7 @@ $(document).on('click','.btn-close', function(){
 
 $(document).on('change','[name=ticket_count]',function(){
 	let ticketNum = $(this).parent().parent().data('num');
-	let count = $(this).val();
+	let count = +$(this).val();
 	for(index in ticketArr){
 		if(ticketArr[index].num == ticketNum)
 			ticketArr[index].count = count;
@@ -211,7 +215,7 @@ $('[name=pa_used_point]').change(function(){
 
 //최종 결제금액 구하기
 function calcFinalPrice(totalPrice){
-	let finalPrice = totalPrice - $('[name=pa_used_point]').val();
+	finalPrice = totalPrice - $('[name=pa_used_point]').val();
 	$('[name=final_price]').text(finalPrice.toLocaleString());
 }
 //총 결제금액 구하기
@@ -274,4 +278,223 @@ function addTicket(ticket){
 	showTicketList();
 	return;
 }
+</script>
+<script><!-- 결제 -->
+var today = new Date();   
+var hours = today.getHours(); // 시
+var minutes = today.getMinutes();  // 분
+var seconds = today.getSeconds();  // 초
+var milliseconds = today.getMilliseconds();
+var makeMerchantUid = '${user.me_id}' + hours +  minutes + seconds + milliseconds;
+
+var items = [];
+let finalName = '';
+var finalPrice = 0;
+
+let itemsForDb = [];
+let usedPoint = +$('[name=pa_used_point]').val();
+
+function makeItemList(){
+	items = [];
+	for(i=0; i<ticketArr.length; i++){
+		let item = {
+			 "id": ticketArr[i].num,
+		     "name": ticketArr[i].type +' - ' + ticketArr[i].title,
+		     "qty": ticketArr[i].count,
+		     "price": ticketArr[i].price.replace(/,/g, "")
+		}
+		items.push(item);
+	}
+	if(items.length==1)
+		finalName = items[0].name;
+	else if(items.length > 1)
+		finalName = items[0].name +' 외 '+ (items.length-1) +'건';
+}
+function makeItemVoList(){
+	itemsForDb = [];
+	for(i in items){
+		let a = {
+			"pd_ti_num": items[i].id,
+			"pd_amount": items[i].qty,
+			"pd_price": items[i].price
+		}
+		itemsForDb.push(a);
+	}
+}
+
+let response ;
+/* 결제 진행 */
+$('#pay_btn').click(function(){
+	//console.log(makeMerchantUid);
+	makeItemList();//주문용 리스트 생성
+	makeItemVoList();//DB전달용 VO리스트 생성
+	console.log(itemsForDb);
+	let payDto = {
+			pa_order_id: makeMerchantUid,
+			pa_me_id: "${user.me_id}",
+			pa_amount: finalPrice,
+			pa_order_name: finalName,
+			pa_point: parseInt(finalPrice*0.01),
+			pa_used_point: +$('[name=pa_used_point]').val(),
+			itemList: itemsForDb			
+	}
+	console.log(payDto);
+	//ajax로 어씽크false로 해서 db에 등록하기
+	$.ajax({
+        async:false,
+        type: 'POST',
+        data: JSON.stringify(payDto),
+        url: '<c:url value="/reservation/buy"></c:url>',
+        dataType:"json", //success에 있는 data타입(주는거)
+        contentType:"application/json; charset=UTF-8", //위에있는 data타입(받는거)
+        success : function(data){
+        	console.log('사전데이터 DB저장완료')
+        }
+	});
+	try {
+		response = Bootpay.requestPayment({
+	   		"application_id": "642d26f2755e27001dad6270",
+	   		"price": finalPrice,
+	   		"order_name": finalName,
+	   		"order_id": makeMerchantUid,
+	   		"pg": "이니시스",
+	   		"method": "카드",
+	   		"tax_free": 0,
+	   		"user": {
+	   		  "id": '${user.me_id}',
+	   		  "email": '${user.me_email}'
+	   		},
+	   		"extra": {
+	   		  "open_type": "iframe",
+	   		  "card_quota": "0,2,3",
+	   		  "escrow": false
+	   		}
+	    }).then((response)=>{
+	    	console.log(response);
+			switch (response.event) {
+		        case 'issued':// 가상계좌 입금 완료 처리
+		            break
+		        case 'done':// 결제 완료 처리
+		            //비즈니스 로직을 수행하기 전에 결제 유효성 검증을 하길 추천함!
+					//location.replace("/pay/confirm?receipt_id="+response.receipt_id);
+					//location.replace("/reservation/buy/"+);
+		            console.log('결제완료');
+					location.replace('<c:url value="/receipt/'+response.data.receipt_id+'"></c:url>');
+		            break;
+		        case 'confirm': //payload.extra.separately_confirmed = true; 일 경우 승인 전 해당 이벤트가 호출됨
+		            console.log(response.receipt_id)
+		        	console.log(response);
+		            /* 1. 클라이언트 승인을 하고자 할때
+		             * // validationQuantityFromServer(); //예시) 재고확인과 같은 내부 로직을 처리하기 한다.
+		             */
+		            const confirmedData = Bootpay.confirm() //결제를 승인한다
+		            if(confirmedData.event === 'done') {
+		                //결제 성공
+		            }
+		            /* 2. 서버 승인을 하고자 할때
+		             * // requestServerConfirm(); //예시) 서버 승인을 할 수 있도록  API를 호출한다. 서버에서는 재고확인과 로직 검증 후 서버승인을 요청한다.
+		             * Bootpay.destroy(); //결제창을 닫는다.*/
+		            break;
+		    }
+	    }).catch(function(e){
+	    	console.log(e.message);
+	    	switch (e.event) {
+	        case 'cancel':// 사용자가 결제창을 닫을때 호출
+	            console.log(e.message);
+				console.log('취소');
+	        	let canceledData = {
+	        			pa_order_id : makeMerchantUid
+	        	};
+	        	$.ajax({
+	                async:false,
+	                type: 'POST',
+	                data: JSON.stringify(canceledData),
+	                url: '<c:url value="/cancel"></c:url>',
+	                dataType:"json", //success에 있는 data타입(주는거)
+	                contentType:"application/json; charset=UTF-8", //위에있는 data타입(받는거)
+	                success : function(data){
+	                	console.log('사전데이터 DB삭제완료');
+	                }
+	        	});
+	            break
+	        case 'error':// 결제 승인 중 오류 발생시 호출
+	            console.log(e.error_code);
+				console.log('에러');
+	        	$.ajax({
+	                async:false,
+	                type: 'POST',
+	                data: JSON.stringify(canceledData),
+	                url: '<c:url value="/cancel"></c:url>',
+	                dataType:"json", //success에 있는 data타입(주는거)
+	                contentType:"application/json; charset=UTF-8", //위에있는 data타입(받는거)
+	                success : function(data){
+	                	console.log('사전데이터 DB삭제완료');
+	                }
+	        	});
+	            break
+	    	}
+	    })
+	} catch(e) {// 결제 진행중 오류 발생
+	    // e.error_code - 부트페이 오류 코드
+	    // e.pg_error_code - PG 오류 코드
+	    // e.message - 오류 내용
+	    console.log(e.message);
+      	console.log(1);
+	    switch (e.event) {
+	        case 'cancel':// 사용자가 결제창을 닫을때 호출
+	            console.log(e.message);
+	            break
+	        case 'error':// 결제 승인 중 오류 발생시 호출
+	            console.log(e.error_code);
+	            break
+	    }
+	}
+	/* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+	const response = BootPay.request({
+		price: totalPrice,//실제 결제되는 가격
+		application_id: "642d26f2755e27001dad6270",
+		name : finalName, //결제창에서 보여질 이름
+		pg: "이니시스",
+		method: "card", //결제수단, 입력하지 않으면 결제수단 선택부터 화면이 시작
+		show_agree_window: 0, //부트페이 정보동의창 보이기 여부
+		item: [
+			{
+				item_name: item.name, //상품명 ****
+				qty: 1, //수량
+				unique: item.id.toString(), //해당상품을 구분짓는 primary key
+				price: item.price, //상품단가
+			}
+		],
+		order_id: order.id, //고유 주문번호로, 생성한 값을 넣을 것
+	}).error(function(data){
+		//결제 진행 시 에러가 발생하면 수행
+		console.log(data);
+		location.replace("pay/delete?id="+order.id);//DB값 삭제
+	}).ready(function(data){
+		//가상계좌 입금 계좌번호가 발급되면 호출되는 함수
+		console.log(data);
+	}).confirm(function(data){
+		//결제가 실행되기 전에 수행되며, 주로 재고를 확인하는 로직이 들어감
+		//주의 - 카드 수기결제일 경우 이부분 실행되지 않음.
+		console.log(data);
+		var enable = true; //재고 수량 관리 로직 혹은 다른 처리
+		if(enable){
+			BootPay.transactionConfirm(data);//조건이 맞으면 승인처리함
+		}else{
+			BootPay.removePaymentWindow(); //조건이 맞지 않으면 결제창을 닫고 승인X
+		}
+	}).cancle(function(data){
+		//결제가 취소되면 수행됨
+		console.log(data);
+		location.replace("pay/delete?id="+order.id); //DB값 삭제
+	}).close(function(data){
+		//결제창이 닫힐 때 수행됨(성공,실패,취소에 상관없이 모두 수행됨)
+		console.log(data);
+	}).done(function(data){
+		//결제가 정상적으로 완료되면 수행됨
+		//비즈니스 로직을 수행하기 전에 결제 유효성 검증을 하길 추천함!
+		location.replace("pay/confirm?receipt_id="+data.receipt_id);
+		console.log(data);
+	}); */
+});
 </script>

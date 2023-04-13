@@ -1,0 +1,701 @@
+/* main */
+main{
+    width: var(--body_size);
+    margin: 0;
+    margin-top: 130px;
+}
+main #main_container{
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+}
+/* aside(left_menu) */
+#main_container .left_menu_container{
+    display: flex;
+    justify-content: center;
+    width: 200px;
+    height: 430px;
+    padding: 60px 20px;
+    border: 2px solid #020a17;
+    border-radius: var(--border_radius_2);
+    box-sizing: border-box;
+    background-color: var(--color_beige);
+}
+.left_menu_container .left_menu{
+    display: flex;
+    flex-flow: column;
+    align-items: flex-start;
+    gap: 50px;
+    font-size: 16px;
+    font-weight: 800;
+}
+.left_menu .list_items{
+    display: flex;
+    flex-flow: column;
+    gap: 5px;
+}
+.list_items .list_item{
+    margin-bottom: 8px;
+    white-space: nowrap;
+}
+.list_item:hover{
+    color: var(--color_blue);
+}
+/* .list_items .list_item2{
+    font-size: 14px;
+    font-weight: 400;
+    margin-left: 10px;
+    white-space: nowrap;
+} */
+
+/* articles */
+article{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.article_box{
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-start;
+    align-items: center;
+    border: var(--border_basic);
+    border-radius: var(--border_radius_4);
+    box-shadow: var(--box-shadow);
+    margin: 0 5px 5px 0;
+    padding: 35px;
+    gap: 18px;
+    box-sizing: border-box;
+    background-color: var(--color_beige);
+}
+.articles{
+    display: flex;
+    flex-flow: column;
+    gap: 10px;
+    width: 970px;
+}
+
+/*  article_top(이용시간, 펫 창, 나의 예약) */
+.articles .article_top{
+    height: 350px;
+}
+.user_info{
+    font-size: 20px;
+    height: 25px;
+}
+.article_top #used_hours_container{
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    width: 55%;
+    background-color: var(--color_blue);
+    padding: 45px 35px 50px 35px;
+    box-sizing: border-box;
+}
+.title{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 0 7px;
+}
+#used_hours_container .gauge{
+    width: 450px;
+    height: 23px;
+    border: var(--border_basic);
+    border-radius: var(--border_radius_2);
+    background-color: var(--color_beige);
+    margin-top: 3px;
+    overflow: hidden;
+}
+.gauge_colored{
+    height: 30px;
+}
+.gauge_used_hours .gauge_colored{
+    width: 150px;
+    background-color: var(--color_mint);
+}
+.gauge_pet_exp .gauge_colored{
+    width: 200px;
+    background-color: var(--color_yellow);
+}
+#used_hours_container .property_title{
+    font-size: 20px;
+}
+.info{
+    font-size: 14px;
+}
+#used_hours_container #point_container{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+}
+#point_container .my_point{
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    margin-bottom: -3px;
+}
+.icon_point{
+    width: 55px;
+    height: 55px;
+    background-size: cover;
+    background-image: url(../../img/point.png);
+    background-repeat: no-repeat; 
+    opacity: 40%;
+}
+.my_point .title_point{
+    font-size: 20px;
+    padding-left: 7px;
+}
+.my_point .point_texts .num_point{
+    font-size: 20px;
+    margin-bottom: -8px;
+}
+
+.num_point .p_num{
+    font-size: 40px;
+    font-weight: bold;
+}
+.num_point .p_point{
+    font-size: 20px;
+}
+#point_container .point_btns_container{
+    height: 80px;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+.point_btns_container .btn_point{
+    border: var(--border_basic);
+    border-radius: var(--border_radius_2);
+    width: 140px;
+    height: 38px;
+    font-size: 14px;
+    background-color: var(--color_beige);
+}
+.point_btns_container .btn_info{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.my_point .icon_info{
+    width: 20px;
+    height: 20px;
+    background-size: 20px 20px;
+    background-image: url(../../img/info.png);
+    background-repeat: no-repeat;
+    margin-right: 5px;
+}
+
+/* 펫 창 */
+.article_top .pet_container{
+    width: 25%;
+    border: var(--border_basic);
+    border-radius: var(--border_radius_4);    
+    background-color: var(--color_yellow);
+    padding: 17px;
+    display: flex;
+    flex-flow: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+.pet_container .pet_window{
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    height: 300px;
+    border: var(--border_basic);
+    border-radius: var(--border_radius_4);
+    background-color: var(--color_beige);
+}
+.pet_window .pet_talk{
+    width: 50px;
+}
+.pet_window .pet{
+    width: 100px;
+}
+.pet_container .pet_description{
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    gap: 15px;
+    width: 100%;
+}
+.pet_description .pet_info_container{
+    height: 35px;
+    display: flex;
+    justify-content: space-between;
+}
+.pet_info_container .pet_level{
+    width: 55px;
+    height: 25px;
+    background-color: var(--color_blue);
+    border-radius: var(--border_radius_2);
+    font-weight: 700;
+    font-size: 15px;
+    text-align: center;
+    line-height: 28px;
+    padding: 2px;
+}
+.this_pet .pet_name{
+    font-size: 20px;
+}
+.this_pet .pet_reward{
+    display: flex;
+    gap: 3px;
+    font-size: 12px;
+    font-weight: 600;
+}
+.icon_reward{
+    display: flex;
+    width: 15px;
+    height: 15px;
+    background-size: 15px 15px;
+    background-repeat: no-repeat;
+    background-image: url(../../img/shine.png);
+}
+.pet_description #pet_store_container{
+    width: 97%;
+    height: 35px;
+    background-color: var(--color_mint);
+    border: var(--border_basic);
+    border-radius: var(--border_radius_4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+#pet_store_container:hover{
+    background-color: #18d898;
+}
+.icon_store{
+    display: flex;
+    margin-right: 8px;
+    width: 15px;
+    height: 15px;
+    background-size: 15px 15px;
+    background-repeat: no-repeat;
+    background-image: url(../../img/pet.png);
+    opacity: 60%;
+}
+/* pet_store_popup */
+.pet_store_popup_container{
+    display: none;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #020a1770;
+    z-index: 900;
+}
+.popup_title{
+    display: flex;
+    align-items: center;
+    font-size: 30px;
+    font-weight: 600;
+}
+.popup_title .icon_store{
+    width: 30px;
+    height: 30px;
+    background-size: cover;
+}
+.pet_store_popup_container .pet_store_popup_box{
+    position: relative;
+    width: 900px;
+    height: 500px;
+    padding: 25px 30px;
+    box-sizing: border-box;
+    background-color: var(--color_beige);
+    margin-top: 127px;
+    border-radius: var(--border_radius_3);
+    box-shadow: 5px 5px 20px #18181856;
+}
+.pet_store_popup_container .pet_store_content{
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    gap: 20px;
+}
+.pet_store_content .pets_container{
+    display: flex;
+    gap: 15px;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 40px;
+}
+.pets_container .pet_box{
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 32.1%;
+    height: 99%;
+    padding: 20px;
+    border: var(--border_basic);
+    border-radius: var(--border_radius_3);
+    box-shadow: var(--box-shadow);
+    box-sizing: border-box;
+}
+.pet_box .pet_img{
+    width: 100%;
+    height: 165px;
+    background-position: 19px -10px;
+    background-size: 187px;
+    background-repeat: no-repeat;
+    background-image: url(../../img/rlab_logo.png);
+    margin-bottom: 10px;
+    /* border: 1px solid red; */
+}
+.pet_box .pet_title{
+    display: flex;
+    gap: 3px;
+}
+.pet_title .pet_level{
+    width: 50px;
+    padding: 5px;
+    background-color: var(--color_mint);
+    border-radius: var(--border_radius_3);
+    text-align: center;
+    box-sizing: border-box;
+}
+.pet_box .pet_reward{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.pet_reward p:nth-child(1){
+    font-size: 17px;
+    font-weight: 700;
+    /* background-color: #01f3a3; */
+}
+.pet_box .btn_bring{
+    width: 120px;
+    height: 40px;
+    padding: 5px;
+    border: none;
+    border-radius: var(--border_radius_3);
+    background-color: var(--color_yellow);
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 2px 2px 4px #6262624f;
+    cursor: pointer;
+}
+.pet_box .btn_bring:hover{
+    background-color: #cec937;
+}
+.pet_store_popup_container .btn_remove{
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url(../../img/delete.png);
+    z-index: 10;
+    opacity: 50%;
+    margin: 18px;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}
+
+/* 나의 예약 */
+.article_top .book_container{
+    position: relative;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 147px;
+    height: 315px;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    overflow: hidden;
+    background-color: #ee101000;
+}
+.book_container .title_container{
+   width: 96%;
+   height: 80px;
+   border: var(--border_basic);
+   border-radius: var(--border_radius_4);
+   background-color: var(--color_mint);
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   box-sizing: border-box;
+   box-shadow: var(--box-shadow);
+}
+.title_container h3{
+    margin-bottom: 10px;
+}
+
+.book_container .book_window{
+    position: absolute;
+    top: 55px;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 75%;
+    padding: 30px 0;
+    border: var(--border_basic);
+    border-radius: var(--border_radius_4);
+    background-color: var(--color_beige);
+    box-sizing: border-box;
+    box-shadow: var(--box-shadow);
+}
+.book_window .book_info{
+    display: flex;
+    justify-content: center;
+    white-space: nowrap;
+    gap: 3px
+}
+.book_info .book_title{
+    font-size: 13px;
+    margin-top: 3px;
+}
+.book_window .icon_circle{
+    width: 5px;
+    height: 5px;
+    border-radius: var(--border_radius_1);
+    background-color: var(--color_grey);
+    margin: 15px 0;
+}
+
+/* article_second (d-day)*/
+.articles .article_second {
+    width: 82.8%;
+    height: 70px;
+    padding: 15px;
+    box-sizing: border-box;
+    background-color: var(--color_black);
+    border-radius: var(--border_radius_4);
+}
+.dday_container{
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 84%;
+    align-items: center;
+    overflow: hidden;
+}
+.article_second .list_dday{
+    position: absolute;
+    left: 9px;
+    display: flex;
+    gap: 50px;
+    width: 1300px;
+}
+.list_dday .item_dday{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+    font-weight: 700;
+}
+.item_dday:nth-child(1){
+    color: var(--color_blue);
+}
+.item_dday:nth-child(2){
+    color: var(--color_yellow);
+}
+.item_dday:nth-child(3){
+    color: var(--color_mint);
+}
+.plus_dday{
+    font-size: 14px;
+    margin-top: -5px;
+    color: var(--color_beige);
+    white-space: nowrap;
+}
+.article_second .dday_title{
+    margin-bottom: -14px;
+}
+
+/* article_third (나의 스터디, 나의 스크랩) */
+.articles .article_third{
+    width: 82.8%;
+    display: flex;
+    justify-content: space-between;
+    gap: 0.9%;
+    height: 320px;
+    overflow: hidden;
+}
+.title_background{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+}
+
+/* my_study_container */
+.article_third .my_study_container{
+    position: relative;
+    width: 48.5%;
+    display: flex;
+    flex-flow: column;
+    gap: 50px;
+    justify-content: space-between;
+    align-items: flex-start;
+    overflow: hidden;
+}
+.my_study_container .title_background{
+    background-color: var(--color_blue);
+}
+.my_study_container .title_container{
+    margin-bottom: 10px;
+}
+.my_study_container .list_study{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+}
+.item_study .link_study{
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    font-weight: 500;
+}
+.link_study .icon_study{
+    display: flex;
+    width: 50px;
+    height: 50px;
+    border: var(--border_basic);
+    border-radius: var(--border_radius_1);
+    background-color: var(--color_grey);
+    margin-right: 30px;
+}
+
+/* my_scrab_container */
+.article_third .my_scrab_container{
+    position: relative;
+    width: 48.5%;
+    display: flex;
+    flex-flow: column;
+    gap: 50px;
+    justify-content: space-between;
+    align-items: flex-start;
+    overflow: hidden;
+    padding: 45px 25px;
+}
+.title_container{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    z-index: 10;
+    box-sizing: border-box;
+}
+.my_scrab_container .title_background{
+    background-color: var(--color_yellow);
+}
+.list_container{
+    height: 100%;
+    margin-top: 50px;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    font-size: 17px;
+}
+.list_container .list_item{
+    display: flex;
+    gap: 10px;
+    white-space: nowrap;
+}
+.list_item .icon_scrab{
+ width: 20px;   
+ height: 20px;
+ background-size: 20px 20px;
+ background-image: url(../../img/favorite_tag.png);
+}
+.list_item .title_scrab{
+    width: 100px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.list_item .content_scrab{
+    width: 180px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* footer */
+footer{
+    margin-top: 150px;
+}
+footer .container{
+    width: 1200px; 
+    margin: 0 auto; 
+    padding: 50px;
+}
+.info_container{
+margin-top: 25px;
+}
+.info_container .direct_num_box{
+    float: left;
+    width: 300px;
+    height: 180px;
+}
+.direct_num_box .list_tel{
+    margin-top: 5px;
+}
+.direct_num_box .item_tel{
+    margin-left: 10px;
+}
+.direct_num_box .link_tel{
+    font-size: 18px;
+    margin-top: 3px;
+    display: inline-block;
+}
+.info_container .info_right_container{
+    float: right;
+}
+.info_container .info_box_right{
+    float: left;
+    width: 140px;
+    height: 180px;
+    margin-right: 20px;
+}
+.info_container .info_box_right .info_title{
+    margin-bottom: 5px;
+}
+.info_container .info_box_right li{
+    padding-top: 5px;
+}
+footer .corp_container{
+    margin-top: 10px;
+}
+footer .corp_container .link_corp{
+    padding-left: 7px;
+    font-size: 13px;
+}
+footer .corp_container .link_corp::before{
+    width: 1px;
+    height: 11px;
+    content: '';
+    display: inline-block;
+    margin-right: 10px;
+    background-color: grey;
+}
+footer .corp_container .link_corp:nth-child(1){
+    padding: 0;
+}
+footer .corp_container .link_corp:nth-child(1)::before{
+    display: none;
+}

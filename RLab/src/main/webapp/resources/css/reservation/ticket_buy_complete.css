@@ -114,7 +114,7 @@
 	width: 30px;
 	height: 30px;
 	background-size: 30px 30px;
-	background-image: url(../../img/up_btn.png);
+	background-image: url(../img/up_btn.png);
 	background-repeat: no-repeat;
 	transform: rotateZ(90deg);
 	opacity: 90%;
@@ -195,14 +195,14 @@
 	width: 45px;
 	height: 45px;
 	background-size: 45px 45px;
-	background-image: url(../../img/office-chair_.png);
+	background-image: url(../img/office-chair_.png);
 	background-repeat: no-repeat;
 }
 .icon_info{
 	width: 20px;
 	height: 20px;
 	background-size: 20px 20px;
-	background-image: url(../../img/info.png);
+	background-image: url(../img/info.png);
 	background-repeat: no-repeat;
 	opacity: 60%;
 	cursor: pointer;

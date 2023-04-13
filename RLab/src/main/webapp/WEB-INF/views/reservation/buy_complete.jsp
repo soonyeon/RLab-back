@@ -3,6 +3,7 @@
     pageEncoding="UTF-8"%>
 <link href="<c:url value='/resources/css/reservation/ticket_buy_complete.css'></c:url>" rel="stylesheet">
 <script src="<c:url value='/resources/js/jquery.min.js'></c:url>"></script>
+
 <main>
 	<div class="container">
 		<!-- 주문과정/절차 -->
@@ -43,15 +44,15 @@
 					<table border="1">
 						<tr>
 							<th>구매번호</th>
-							<td>230160</td>
+							<td>${pay.pa_order_id}</td>
 						</tr>
 						<tr>
-							<th>구매자</th>
-							<td>김돌탕</td>
+							<th>구매자 아이디</th>
+							<td>${pay.pa_me_id}</td>
 						</tr>
 						<tr>
 							<th>구매 일자</th>
-							<td>2023-03-23</td>
+							<td>${pay.pa_date_str}</td>
 						</tr>
 					</table>
 				</div>
@@ -64,15 +65,56 @@
 					<table border="1">
 						<tr>
 							<th>구매한 이용권</th>
-							<td>시간 패키지(30시간)</td>
+							<td class="itemList">${itemStr}</td>
 						</tr>
 					</table>
 				</div>
-				<div class="return_box">
-					<a href="./reservation.html"><button class="btn_r btn_return">돌아가기</button></a>
-					<a href="./book.html"><button class="btn_r btn_book">예약하기</button></a>
+
+					<!-- 결제 정보 -->
+				<div class="table_container">
+					<div class="title_area">
+						<h3>결제 정보</h3>
+					</div>
+					<table border="1">
+						<tr>
+							<th>상품 금액</th>
+							<td><span class="total_price">${pay.pa_amount+pay.pa_used_point}</span>원</td>
+						</tr>
+						<tr>
+							<th>상품 할인금액</th>
+							<td><span class="used_point">${pay.pa_used_point}</span>원</td>
+						</tr>
+						<tr>
+							<th>결제 금액</th>
+							<td><span class="final_price">${pay.pa_amount}</span>원</td>
+						</tr>
+						<tr>
+							<th>적립금액</th>
+							<td><span class="point">${pay.pa_point}</span>원</td>
+						</tr>
+					</table>
 				</div>
-			</div>
+					</table>
+					<div class="return_box">
+						<a href="<c:url value='/reservation/buy'></c:url>"><button class="btn_r btn_return">돌아가기</button></a>
+						<a href="<c:url value='/reservation/book'></c:url>"><button class="btn_r btn_book">예약하기</button></a>
+					</div>
+				</div>
 		</div>
 	</div>
 </main>
+<script>
+putNumberComma();
+
+//숫자를 천단위로 ,(콤마) 찍어주는 함수
+function putNumberComma(){
+	let total_price = ${pay.pa_amount+pay.pa_used_point};
+	$('.total_price').text(total_price.toLocaleString());
+	let used_point = ${pay.pa_used_point};
+	$('.used_point').text(used_point.toLocaleString());
+	let final_price = ${pay.pa_amount};
+	$('.final_price').text(final_price.toLocaleString());
+	let point = ${pay.pa_point};
+	$('.point').text(point.toLocaleString());
+}
+</script>

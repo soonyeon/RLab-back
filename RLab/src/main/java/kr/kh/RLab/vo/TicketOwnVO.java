@@ -13,9 +13,9 @@ public class TicketOwnVO {
 	int to_num;
 	String to_me_id;
 	int to_ti_num;
-	int to_pa_num;
+	String to_pa_order_id;
 	int to_rest_time;
-	Date to_valid_date;
+	Date to_valid_time;
 	int to_state;
 	
 	String ti_name;

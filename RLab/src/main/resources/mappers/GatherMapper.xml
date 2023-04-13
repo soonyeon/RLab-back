@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="kr.kh.RLab.dao.GatherDAO">
+<insert id="insertStudy" useGeneratedKeys="true" keyProperty="study.st_num">
+	insert into study(st_name,st_me_id,st_info,st_total_people,st_re_name,st_image)
+	values(#{study.st_name},#{study.st_me_id},#{study.st_info},#{study.st_total_people},#{study.st_re_name},#{study.st_image})
+</insert>
+<insert id="insertFile">
+	insert into file( fi_ori_name, fi_name, fi_table, fi_ex_num)
+	values(#{file.fi_ori_name}, #{file.fi_name}, #{file.fi_table}, #{file.fi_ex_num}) 
+</insert>
+<insert id="insertTag" useGeneratedKeys="true" keyProperty="tag.ta_name" >
+	insert into tag(ta_name)
+	values(#{tag.ta_name})
+</insert>
+<insert id="insertStudyTag">
+	insert into tag_register(tr_st_num,tr_name)
+	values(#{st_num},#{ta_name})
+</insert>
+<insert id="insertGather">
+	insert into gather(ga_title,ga_content,ga_st_num,ga_me_id,ga_reg_date)
+	values(#{gather.ga_title},#{gather.ga_content},#{gather.ga_st_num},#{gather.ga_me_id},DATE(NOW()))
+</insert>
+<select id="selectStudy" resultType="kr.kh.RLab.vo.StudyVO" >
+	select * from study
+</select>
+<select id="selectFileList" resultType="kr.kh.RLab.vo.FileVO">
+	select * from file
+</select>
+<select id="selectTagList" resultType="kr.kh.RLab.vo.TagRegisterVO">
+select 	* from tag_register
+</select>
+<select id="selectGather" resultType="kr.kh.RLab.vo.GatherVO">
+select * from gather
+join study on ga_st_num = st_num
+where ga_st_num = #{st_num}
+</select>
+
+</mapper>

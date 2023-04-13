@@ -322,9 +322,6 @@ input[type=number]:focus{
 	gap: 5px;
 	font-size: 17px;
 }
-.total_container p{
-
-}
 .total_price{
 	font-size: 30px;
 	font-weight: 600;
