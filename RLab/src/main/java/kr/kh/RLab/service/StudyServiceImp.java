@@ -59,8 +59,8 @@ public class StudyServiceImp implements StudyService {
         }
     }
 
-	@Override
-	public StudyVO getStudyByMemberId(String me_id) {
+    @Override
+	public ArrayList<StudyVO> getStudyByMemberId(String me_id) {
 		return studyDao.getStudyByMemberId(me_id);
 	}
 	

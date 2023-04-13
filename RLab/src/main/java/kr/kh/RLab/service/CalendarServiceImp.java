@@ -15,10 +15,12 @@ public class CalendarServiceImp implements CalendarService{
 	private final CalendarDAO calendarDao;
 
 	@Override
-	public void insert(CalendarVO calendarVo) {
-		if(calendarVo == null) 
-			return ;
-		calendarDao.insert(calendarVo);
+	public int insert(CalendarVO calendarVo) {
+	    if (calendarVo == null) {
+	        return -1;
+	    }
+	    calendarDao.insert(calendarVo);
+	    return calendarVo.getCa_num();
 	}
 
 	@Override
@@ -29,6 +31,21 @@ public class CalendarServiceImp implements CalendarService{
 	@Override
 	public CalendarVO findCaNum(int ca_num) {
 		return calendarDao.findByCaNum(ca_num);
+	}
+
+	@Override
+	public void update(CalendarVO calendarVo) {
+	    if (calendarVo.getCa_num() == 0) {
+	        return;
+	    }
+	    calendarDao.update(calendarVo);
+	}
+
+	@Override
+	public void delete(int ca_num) {
+		if(ca_num == 0)
+			return ;
+		calendarDao.delete(ca_num);
 	}
 
 }

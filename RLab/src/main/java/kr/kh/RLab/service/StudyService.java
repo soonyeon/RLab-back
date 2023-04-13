@@ -19,7 +19,7 @@ public interface StudyService {
 
 	boolean insertCB(PhotoVO photo, MultipartFile[] files, MemberVO member);
 
-	StudyVO getStudyByMemberId(String me_id);
+	ArrayList<StudyVO> getStudyByMemberId(String me_id);
 
 	List<PhotoVO> getPhotosByStudyNum(int st_num);
 
