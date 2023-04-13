@@ -112,34 +112,47 @@ public class StudyController {
 		}
 	}
 	//로그인하지 않고 스터디탭 눌렀을때 도달하는 url
-	@RequestMapping(value = "/")
+	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView mainUserNull(ModelAndView mv, HttpSession session) {
 		MemberVO user = (MemberVO) session.getAttribute("user");
-		if(user==null)
-			System.out.println("로그인 후에 사용가능한 기능입니다.");
-		mv.setViewName("/study/study_basic");//알림 페이지로 링크..
+		if(user!=null) {
+			mv.setViewName("redirect:/study/"+user.getMe_study());
+		}
+		String msg = "로그인 후에 사용가능한 기능입니다.";
+		String url = "/";
+		mv.addObject("msg", msg);
+		mv.addObject("url", url);
+		mv.setViewName("/common/message");
 		return mv;
 	}
 	//로그인했지만 가입한 스터디가 없는 경우 도달하는 url
-	@RequestMapping(value = "/0")
+	@RequestMapping(value = "/0", method = RequestMethod.GET)
 	public ModelAndView main(ModelAndView mv, HttpSession session) {
 		MemberVO user = (MemberVO) session.getAttribute("user");
-		if(user==null)
-			System.out.println("로그인 후에 사용가능한 기능입니다.");
-		else
-			System.out.println("스터디에 가입해보세요.");
-			
-		mv.setViewName("/study/study_basic");//알림 페이지로 링크..
+		String msg, url;
+		if(user==null) {
+			msg = "로그인 후에 사용가능한 기능입니다.";
+			url = "/";
+		}			
+		else {
+			msg = "스터디에 가입해보세요.";
+			url = "/gather/list";
+		}
+		mv.addObject("msg", msg);
+		mv.addObject("url", url);
+		mv.setViewName("/common/message");
 		return mv;
 	}
 	//로그인O, me_study정보O 이상적으로 동작할때 도달하는 url
-	@RequestMapping(value = "/{st_num}")
+	@RequestMapping(value = "/{st_num}", method = RequestMethod.GET)
 	public ModelAndView main(ModelAndView mv, HttpSession session,@PathVariable("st_num")int st_num) {
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		ArrayList<StudyVO>  study = studyService.getStudyByMemberId(user.getMe_id());
 		//해당 user가 가입한 스터디가 1개도 없으면 다른 경로로 리다이렉트
 		if (study == null) {
-		  return new ModelAndView("redirect:/");
+		  	mv.addObject("msg", "로그인 후 사용가능한 기능입니다.");
+			mv.addObject("url", "redirect:/");
+			mv.setViewName("/common/message");
 		}
 		mv.addObject("st_num", st_num);
 		mv.setViewName("/study/study_basic");
