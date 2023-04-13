@@ -28,7 +28,7 @@
               <div class="pet_img"></div>
               <div class="pet_title">
                 <div class="pet_name"><h2>냥냥이</h2></div>
-                <div class="pet_level">Lv.4</div>
+                <div class="pet_level">Lv.6</div>
               </div>
               <div class="pet_reward"><p>보상: </p><p>1500원 포인트 지급</p><i class="icon_reward"></i></div>
               <button class="btn_bring" id="pet_1">데려오기</button>
@@ -37,7 +37,7 @@
               <div class="pet_img"></div>
               <div class="pet_title">
                 <div class="pet_name"><h2>곰곰이</h2></div>
-                <div class="pet_level">Lv.5</div>
+                <div class="pet_level">Lv.6</div>
               </div>
               <div class="pet_reward"><p>보상: </p><p>2시간 이용권 지급</p><i class="icon_reward"></i></div>
               <button class="btn_bring" id="pet_2">데려오기</button>
