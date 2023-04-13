@@ -96,7 +96,7 @@
 				</div>
 					</table>
 					<div class="return_box">
-						<a href="<c:url valur='/reservation/buy'></c:url>"><button class="btn_r btn_return">돌아가기</button></a>
+						<a href="<c:url value='/reservation/buy'></c:url>"><button class="btn_r btn_return">돌아가기</button></a>
 						<a href="<c:url value='/reservation/book'></c:url>"><button class="btn_r btn_book">예약하기</button></a>
 					</div>
 				</div>

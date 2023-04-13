@@ -325,11 +325,7 @@ function makeItemVoList(){
 let response ;
 /* 결제 진행 */
 $('#pay_btn').click(function(){
-	//if(${user.me_id==''}){
-	//	alert('로그인 후 결제를 진행해주세요.');
-	//	return;		
-	//}
-	console.log(makeMerchantUid);
+	//console.log(makeMerchantUid);
 	makeItemList();//주문용 리스트 생성
 	makeItemVoList();//DB전달용 VO리스트 생성
 	console.log(itemsForDb);

@@ -55,20 +55,25 @@ public class ReservationServiceImp implements ReservationService {
 				System.out.println("결제완료 변경 실패");
 				return;
 			}
-			//ticket_own 데이터 추가
-			if(reservationDao.insertTicketOwn(pay.getPa_me_id(),paOrderId,pd) == 0) {
-				System.out.println("ticket_own 데이터 입력 실패");
-				return;
+			//ticket_own 테이블에 구매한 티켓 수만큼 데이터 추가
+			for(int i=0; i<pd.getPd_amount(); i++) {
+				if(reservationDao.insertTicketOwn(pay.getPa_me_id(),paOrderId,pd) == 0) {
+					System.out.println("ticket_own 데이터 입력 실패");
+					return;
+				}
 			}
+			
 		}
 		//member 누적적립액 수정
 		if(reservationDao.updateMePoint(pay) == 0) {
 			System.out.println("누적적립액 적용 실패");
 			return;
 		}
-		//point 적립내역 추가
-		reservationDao.insertPoint(pay);
-		reservationDao.insertUsedPoint(pay);
+		//point 적립내역 추가 (적립,사용액이 0이 아닐때만)
+		if(pay.getPa_point()!=0)
+			reservationDao.insertPoint(pay);
+		if(pay.getPa_used_point()!=0)
+			reservationDao.insertUsedPoint(pay);
 		
 	}
 
