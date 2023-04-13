@@ -20,7 +20,7 @@ public class JoinStudyServiceImp implements JoinStudyService{
 	@Override
 	public Map<String, Object> toggleJoin(StudyMemberVO studyMember,MemberVO member) {
 		StudyMemberVO isJoin = joinstudyDao.findJoinStudyMember(studyMember);//select로 고치기
-		int newJoinState;	    
+		int newJoinState;	 
 	    if (isJoin == null) {
 	        if (member == null) {
 	            newJoinState = 0;

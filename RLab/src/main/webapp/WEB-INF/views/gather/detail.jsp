@@ -70,13 +70,13 @@
 					</div>
 					<div class="join_study">
 				   		<c:if test="${user == null }">
-				   		 <button class="apply_btn">스터디 가입</button>
+				   		 	<button class="apply_btn">스터디 가입</button>
 						</c:if>
-						<c:if test="${user != null }">
-							<c:if test="${smList.contains(st_num)}">
+						<c:if test="${user != null}">
+							<c:if test="${smList != null && smList.sm_authority == 1}">
 								<button class="already_apply_btn">스터디 가입 완료</button>
 							</c:if>
-							<c:if test="${!smList.contains(st_num)}">
+							<c:if test="${smList == null}">
 								<button class="apply_btn">스터디 가입</button>
 							</c:if>
 						</c:if>

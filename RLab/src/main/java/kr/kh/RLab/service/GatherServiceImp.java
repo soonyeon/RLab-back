@@ -170,11 +170,10 @@ public class GatherServiceImp implements GatherService {
 	}
 
 	@Override
-	public ArrayList<Integer> selelctJoinStudyMemberList(MemberVO user) {
+	public StudyMemberVO selelctJoinStudyMemberList(MemberVO user, int st_num) {
 		if (user == null)
 			return null;
-
-		return gatherDao.selelctJoinStudyMemberList(user.getMe_id());
+		return gatherDao.selelctJoinStudyMemberList(user.getMe_id(),st_num);
 	}
 
 	@Override

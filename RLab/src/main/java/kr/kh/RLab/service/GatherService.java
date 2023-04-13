@@ -42,11 +42,13 @@ public interface GatherService {
 
 	ArrayList<Integer> selectStudyMemberList(MemberVO user);
 
-	ArrayList<Integer> selelctJoinStudyMemberList(MemberVO user);
+	StudyMemberVO selelctJoinStudyMemberList(MemberVO user, int st_num);
 
 	ArrayList<StudyVO> selectStudyById(MemberVO member);
 
 	ArrayList<GatherVO> selectGatherAll();
+
+
 
 
 	

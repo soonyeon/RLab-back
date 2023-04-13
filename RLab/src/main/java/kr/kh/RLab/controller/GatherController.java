@@ -35,7 +35,7 @@ public class GatherController {
 	private final GatherService gatherService;
 	private final JoinStudyService joinstudyService;
 	
-	//�뒪�꽣�뵒 �깮�꽦
+	//스터디생성
 	@GetMapping("/insertstudy")
 	public ModelAndView studyInsert(ModelAndView mv,HttpServletRequest request) {
 		MemberVO member = (MemberVO)request.getSession().getAttribute("user");
@@ -48,11 +48,11 @@ public class GatherController {
 		MemberVO member = (MemberVO)request.getSession().getAttribute("user");
 		boolean res = gatherService.insertStudy(study,member,
 				region,files,file,tag,tagRegister,studyMember);
-		mv.setViewName("redirect:/gather/insertgather");
+		mv.setViewName("redirect:/gather/list");
 		return mv;
 	}
 	
-	//紐⑥쭛湲� �깮�꽦
+	//모집글생성
 	@GetMapping("/insertgather")
 	public ModelAndView gatherInsert(ModelAndView mv,HttpServletRequest request) {
 		MemberVO member = (MemberVO)request.getSession().getAttribute("user");
@@ -69,7 +69,7 @@ public class GatherController {
 	    mv.setViewName("redirect:/gather/list");
 	    return mv;
 	}
-	//寃뚯떆湲� 由ъ뒪�듃蹂닿린
+	//메인모집글리스트
 	@GetMapping("/list")
 	public ModelAndView mainlistgather(ModelAndView mv,gatherCriteria gcri,HttpServletRequest request) {
 		HttpSession session = request.getSession();
@@ -95,7 +95,7 @@ public class GatherController {
 	}
 	
 	
-	//紐⑥쭛湲� �긽�꽭蹂닿린
+	//모집글 상세보기
 	@GetMapping("/detail/{st_num}")
 	public ModelAndView gatherDetail(ModelAndView mv,@PathVariable("st_num")int st_num,HttpServletRequest request) {
 		HttpSession session = request.getSession();
@@ -104,7 +104,7 @@ public class GatherController {
 		StudyVO study = gatherService.getStudy(st_num);
 		ArrayList<TagRegisterVO> tagList = gatherService.selectTagList();
 		ArrayList<Integer> waList =  gatherService.selectWantedStudyList(user);
-		ArrayList<Integer> smList = gatherService.selelctJoinStudyMemberList(user);
+		StudyMemberVO smList = gatherService.selelctJoinStudyMemberList(user,st_num);
 		int joinCount = joinstudyService.getJoinCount(st_num);
 		mv.addObject("smList",smList);
 		mv.addObject("joinCount",joinCount);
@@ -116,7 +116,7 @@ public class GatherController {
 		mv.setViewName("/gather/detail");
 	    return mv;
 	}
-	
+
 	
 
 }
