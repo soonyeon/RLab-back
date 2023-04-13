@@ -38,6 +38,12 @@ public interface StudyDAO {
 	ArrayList<StudyMemberVO> selectStudyMemberList(@Param("st_num")int st_num,@Param("cri")Criteria cri);
 
 	int selectStudyTotalCount(@Param("st_num")int st_num);
+	
+	Object deleteStudyMember(@Param("st_me_id")String st_me_id);
+	
+	String selectStudyMemberId(@Param("me_name")String me_name);
+
+	void deleteStudyMember(@Param("st_num")int st_num, @Param("me_name")String me_name);
     
     
 

@@ -1,5 +1,6 @@
 package kr.kh.RLab.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,10 +41,16 @@ public class StudyController {
 	private final StudyService studyService;
 
 	@GetMapping("/certificationBoard")
-	public String certificationBoard(HttpServletRequest request, Model model) {
+	public String certificationBoard(HttpServletRequest request, Model model, HttpSession session
+			) throws IOException {
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		model.addAttribute("user", user);
 		ArrayList<PhotoTypeVO> phototypeList = studyService.getListPhotoType();
 		MemberVO member = (MemberVO) request.getSession().getAttribute("user");
 		StudyVO study = studyService.getStudyByMemberId(member.getMe_id());
+		if (study == null) {
+			return "redirect:/";
+		}
 		int st_num = study.getSt_num();
 		List<PhotoVO> photos = studyService.getPhotosByStudyNum(st_num);
 		// 좋아요
@@ -111,23 +119,23 @@ public class StudyController {
 	public ModelAndView main(ModelAndView mv, HttpSession session) {
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		StudyVO study = studyService.getStudyByMemberId(user.getMe_id());
+		if (study == null) {
+		  return new ModelAndView("redirect:/"); // 다른 경로로 리다이렉트
+		}
 		// ca_st_num 불러오기
-		//int ca_st_num = study.getSt_num(); // 에러떠서 일단 주석처리
-		//mv.addObject("ca_st_num", ca_st_num);
+		int ca_st_num = study.getSt_num(); // 에러떠서 일단 주석처리
+		mv.addObject("ca_st_num", ca_st_num);
 		mv.setViewName("/study/study_basic");
 		return mv;
 	}
 
-	
-	
-	@RequestMapping(value = "/management", method=RequestMethod.GET)
+	@RequestMapping(value = "/management", method = RequestMethod.GET)
 	public ModelAndView management(ModelAndView mv, HttpSession session) {
 		// HttpSession에서 "user"라는 이름의 속성을 가져와 MemberVO 객체로 형변환하여 변수 user에 저장
 		// 로그인한 유저정보를 가져온다
-//	    MemberVO user = (MemberVO) session.getAttribute("user");
+	    // MemberVO user = (MemberVO) session.getAttribute("user");
 
-
-		// 세션에서 "user" 속성을 검색하고 MemberVO 객체로 캐스
+		// 세션에서 "user" 속성을 검색하고 MemberVO 객체로 캐스팅
 	    MemberVO user = (MemberVO) session.getAttribute("user");
 
 	    // 로그인한 사용자의 ID를 MemberVO 객체에서 가져옴
@@ -135,22 +143,20 @@ public class StudyController {
 		    
 	    // StudyService 클래스의 getStudyListById 메서드를 호출하여 사용자가 속한 스터디 리스트를 가져옴
 	    ArrayList<StudyVO> myStudyList = studyService.getStudyListById(memberId);
-//	    System.out.println(myStudyList);
-	 // "myStudyList" 키와 함께 연구 목록을 ModelAndView 객체에 추가합니다.
+		// System.out.println(myStudyList);
+	    
+		// "myStudyList" 키와 함께 연구 목록을 ModelAndView 객체에 추가합니다.
 	    mv.addObject("myStudyList", myStudyList);
-
-		
 		mv.setViewName("/study/management");
 		return mv;
 	}
-	
-	@RequestMapping(value = "/management", method=RequestMethod.POST)
+
+	@RequestMapping(value = "/management", method = RequestMethod.POST)
 	public ModelAndView managementPost(ModelAndView mv, StudyVO study) {
 		System.out.println(study);
-		mv.setViewName("redirect:/study/management/member/"+study.getSt_num());
+		mv.setViewName("redirect:/study/management/member/" + study.getSt_num());
 		return mv;
-	}
-	
+	}	
 	
 	@RequestMapping(value = "/management/member/{st_num}", method=RequestMethod.GET)
 	public ModelAndView managementMember(ModelAndView mv, HttpSession session, MemberVO member,
@@ -163,44 +169,68 @@ public class StudyController {
 	    // StudyService 클래스의 getStudyListById 메서드를 호출하여 사용자가 속한 스터디 리스트를 가져옴
 	    ArrayList<StudyVO> myStudyList = studyService.getStudyListById(memberId);
    
-	    cri.setPerPageNum(1);
+	    //cri.setPerPageNum(1);	    
 	    // StudyService 클래스의 getStudyMemberList메서드를 호출하여 멤버 리스트를 가져옴
 	    ArrayList<StudyMemberVO> memberList = studyService.getStudyMemberList(st_num,cri);	    
 	    int totalCount = studyService.getStudyTotalCount(st_num);	    
-	    System.out.println(totalCount);	    
-	    PageMaker pm = new PageMaker(totalCount,2,cri);
-	    
-	    
+	    System.out.println(totalCount);	    	    
+	    PageMaker pm = new PageMaker(totalCount,5,cri);
 
 	    // "myStudyList" 키와 함께 연구 목록을 ModelAndView 객체에 추가
 	    mv.addObject("myStudyList", myStudyList);
 	    mv.addObject("memberList",memberList);
 	    mv.addObject("st_num", st_num);
 	    mv.addObject("pm",pm);
-
 	    // 뷰 이름을 "/study/management_member"로 설정
 	    mv.setViewName("/study/management_member");
-
-	    // ModelAndView 객체를 반환
+	    // ModelAndView 객체를 반환	    
 	    return mv;
 	}
 	
+
+
+	
+	@ResponseBody
+	@RequestMapping(value = "/management/member/delete", method = RequestMethod.POST)
+	public HashMap<String,Object> deleteMember(@RequestBody StudyMemberVO sm) {
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		System.out.println(sm);
+		
+	    // 멤버를 삭제하고, 새로운 멤버 리스트를 가져옴
+	    studyService.deleteStudyMember(sm.getSm_num(),sm.getMe_name());
+	    map.put("result", "success");
+	    
+	    return map;
+	}
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
 
-	@RequestMapping(value = "/management/study", method=RequestMethod.GET)
-	public ModelAndView managementStudy(ModelAndView mv, HttpSession session,MemberVO member,StudyVO study) {
+	@RequestMapping(value = "/management/study", method = RequestMethod.GET)
+	public ModelAndView managementStudy(ModelAndView mv, HttpSession session, MemberVO member, StudyVO study) {
 		// HttpSession에서 "user"라는 이름의 속성을 가져와 MemberVO 객체로 형변환하여 변수 user에 저장
 		// 로그인한 유저정보를 가져온다
+
 	    MemberVO user = (MemberVO) session.getAttribute("user");
 	    String memberId = user.getMe_id();	    
-//	    System.out.println(user);
-//	    
+	    // System.out.println(user);
+    
 	    ArrayList<StudyVO> myStudyList = studyService.getStudyListById(memberId);
 	    System.out.println(myStudyList);
-	    
-	    mv.addObject("myStudyList", myStudyList);
+
+		mv.addObject("myStudyList", myStudyList);
 		mv.setViewName("/study/management_study");
 		return mv;
 	}

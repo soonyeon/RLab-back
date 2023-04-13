@@ -107,6 +107,17 @@ public class StudyServiceImp implements StudyService {
 		return studyDao.selectStudyTotalCount(st_num);			
 		
 	}
+
+	@Override
+	public void deleteStudyMember(int st_num, String me_name) {
+		//me_id 가져오기
+		String me_id = studyDao.selectStudyMemberId(me_name);
+		System.out.println(me_id);
+		//st_num과 me_id를 이용하여 해당 정보를 study_member에서 삭제하기
+		studyDao.deleteStudyMember(st_num, me_id);
+		
+	}
+
 	
 	
 	

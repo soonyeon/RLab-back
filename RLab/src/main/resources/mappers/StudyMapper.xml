@@ -66,5 +66,13 @@
     	SELECT count(*) from study_member
 		WHERE sm_st_num = #{st_num}
     </select>
+    <select id="selectStudyMemberId" resultType="String">
+    	select me_id from member
+    	where me_name = #{me_name}
+    </select>
+    <delete id="deleteStudyMember">
+    	delete from study_member
+    	where sm_st_num = #{st_num} and sm_me_id = #{me_id}
+    </delete>
     
 </mapper>

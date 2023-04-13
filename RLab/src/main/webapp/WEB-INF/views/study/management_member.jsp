@@ -22,6 +22,7 @@
 	            <a href="#" class="leave">탈퇴하기</a>
 	        </nav>
 	    </div>
+	    
 	    <div class="content_container">
 	        <!-- 탭 -->
 	        <div class="tab_container">
@@ -49,12 +50,12 @@
 	                            <tbody>
 	                            	<c:forEach items="${memberList}" var="sm" varStatus="vs" >
 		                                <tr class="board_list">
-		                                    <td class="post_title">
+			                            	<td class="post_title">
 		                                        <div class="profile_box">
 		                                            <div class="img_box">
 		                                                <div class="profile_img"></div>
 		                                            </div>
-		                                            ${sm.me_name}
+		                                            <span name="me_name" class="">${sm.me_name}</span>
 		                                        </div>
 		                                    </td>
 		                                    <td>${sm.sm_join_date}</td>
@@ -71,27 +72,35 @@
 	                            </tbody>
 	                        </table>
 	                    </div>
+	                    
+	                    
+	                    
 	                    <!-- 페이지 이동 -->
 	                    <div class="page_area">
-	                    </div>
-	                    <div class="page_box clearfix">
-	                    <c:if test="${pm.prev}">
-	                        <a class="page-link" herf="<c:url value='/study/management/member/${st_num}?page=${pm.endPage-1}'></c:url>">
-	                        	<i class="btn_prev"></i>
-	                        </a>
-	                    </c:if>
-						<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
-							<span class="page_num">										
-								<a class="page-link <c:if test="${pm.cri.page == i}"> active</c:if>" href="<c:url value='/study/management/member/${st_num}?page=${i}'></c:url>">${i}</a>
-							</span>
-						</c:forEach>
 	                    
-						<c:if test="${pm.next}">										
-							<a class="page-link" href="<c:url value='/study/management/member/${st_num}?page=${pm.endPage+1}'></c:url>">
-	                        	<i class="btn_next"></i>
-	                        </a>
-	                    </c:if>
+	                    <div class="page_box clearfix">
+		                    <c:if test="${pm.prev}">
+		                        <a class="page-link" herf="<c:url value='/study/management/member/${st_num}?page=${pm.endPage-1}'></c:url>">
+		                        	<i class="btn_prev"></i>
+		                        </a>
+		                    </c:if>
+							<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
+								<span class="page_num">										
+									<a class="page-link <c:if test="${pm.cri.page == i}"> active</c:if>" href="<c:url value='/study/management/member/${st_num}?page=${i}'></c:url>">${i}</a>
+								</span>
+							</c:forEach>
+	                    
+							<c:if test="${pm.next}">										
+								<a class="page-link" href="<c:url value='/study/management/member/${st_num}?page=${pm.endPage+1}'></c:url>">
+		                        	<i class="btn_next"></i>
+		                        </a>
+		                    </c:if>
+	                    
+                    	</div>
                     </div>
+                    	
+                    	
+                  
                 </div>
             </div>
         </div>
@@ -203,8 +212,9 @@
 	
 	        </div>
 	    </aside>
-	</div>
 	
+	
+	</div>
 </main>	
 	
 	
@@ -226,11 +236,7 @@ $(document).ready(function(){
 
 // 버튼 클릭시 스터디 선택 여부에 따라 confirm창 나타남
 function confirmAction(buttonText, action) {
-  const selectedOptionValue = $("select.slect_study_list option:selected").val();
-/*   if (selectedOptionValue === "") {
-    alert("스터디를 선택하세요.");
-    return;
-  } */
+	
   if (confirm(buttonText)) {
     action();
   } else {
@@ -239,10 +245,10 @@ function confirmAction(buttonText, action) {
 }
 
 /* ajax를 이용 */
-/* $.ajax({
+/*  $.ajax({
 	//	비동기화 : 사용
 	// 동기화는 ajax 작업이 다 끝난 후 아래 코드가 실행
-	// 비동기화는 ajax가 작업이 끝나든 말든 아래 코그다 실행
+	// 비동기화는 ajax가 작업이 끝나든 말든 아래 코드다 실행
     async:true,
     type:'POST',
     data:JSON.stringify(obj),
@@ -254,25 +260,59 @@ function confirmAction(buttonText, action) {
     success : function(data){
         console.log(data);
     }
-}); */
+}); 
 
-$(".btn_finish").on("click", function() {
-  confirmAction("완료된 스터디로 전환 시 스터디 활동이 일부 제한되며, 자유게시판만 사용가능합니다. 목표를 달성하거나 일정이 모두 완료된 경우에만 전환할 것을 권유드립니다. 정말 완료하시겠습니까?", function() {
-    alert("스터디가 완료처리 되었습니다.")
-		
-  });
+$.ajax({
+    url: "/management/member/delete",
+    type: "POST",
+    data: {st_me_id: st_me_id},
+    success: function(data) {
+        // 새로운 멤버 리스트를 사용하여 화면을 업데이트
+    }
 });
 
-$(".btn_delete").on("click", function() {
-  confirmAction("스터디 삭제 시 스터디에올라온 게시글, 인증내역, 일정, 회원정보 등 모든 정보가 함께 삭제되며 해당 스터디에 접근이 불가합니다. 정말 삭제하시겠습니까?", function() {
-    alert("스터디가 삭제되었습니다.");
-  });
+$.ajax({
+    url: "/management/member/delete",
+    type: "POST",
+    data: {st_me_id: st_me_id},
+    success: function(data) {
+        // 멤버 리스트를 업데이트
+        var memberList = "";
+        $.each(data, function(index, member) {
+            memberList += "<tr><td>" + member.st_me_id + "</td><td>" + member.st_me_name + "</td></tr>";
+        });
+        $("#memberListTable tbody").html(memberList);
+    }
 });
+
+*/
+
+
+
 
 $(".btn_drop").on("click", function() {
-  confirmAction("본 회원을 강퇴시키겠습니까?", function() {
+  /* confirmAction("본 회원을 강퇴시키겠습니까?", function() {
     alert("강퇴처리 되었습니다.");
-  });
+  }); */
+  let me_name = $(this).parents('.board_list').find('[name=me_name]').text();
+  let obj ={
+		  me_name: me_name,
+		  sm_st_num: ${st_num}
+  } 
+  console.log(obj);
+	$.ajax({
+		async:false,
+	    type:'POST',
+	    data:JSON.stringify(obj),
+	    url:"<c:url value='/study/management/member/delete'></c:url>",
+	    //서버에서 받는 데이터 타입
+	    dataType:"json",
+	    //서버에서 보내는 데이터 타입
+	    contentType:"application/json; charset=UTF-8",
+	    success : function(data){
+	        console.log(data);
+	    }
+	});
 });
 
 $(".btn_power").on("click", function() {
@@ -281,9 +321,11 @@ $(".btn_power").on("click", function() {
   });
 });
 
+
+$('btn_drop').click(function() {
+	//조상중에 form태그를 찾아서 action부분을 수정()
+	
+})
+
+
 </script>
-
-
-
-
-
