@@ -110,8 +110,8 @@ $(document).ready(function() {
 	        ca_num: event.id,
 	        ca_st_num: event.extendedProps.ca_st_num, 
 	        ca_title: event.title,
-	        ca_start: event.startStr+'T00:00',
-	        ca_end: event.endStr ? event.endStr+'T00:00' : event.startStr+'T00:00',
+	     	ca_start: new Date(event.startStr),
+			ca_end: event.endStr ? new Date(event.endStr) : new Date(event.startStr),
 	        ca_all_day: event.allDay ? 1 : 0,
 	    };
 	    console.log(eventData);
