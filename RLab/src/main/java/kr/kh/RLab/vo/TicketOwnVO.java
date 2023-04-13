@@ -17,4 +17,7 @@ public class TicketOwnVO {
 	int to_rest_time;
 	Date to_valid_time;
 	int to_state;
+	
+	String ti_name;
+	String tt_name;
 }

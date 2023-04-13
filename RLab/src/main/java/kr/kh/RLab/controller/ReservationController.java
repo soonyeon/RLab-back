@@ -18,8 +18,10 @@ import org.springframework.web.servlet.ModelAndView;
 import kr.co.bootpay.Bootpay;
 import kr.co.bootpay.model.request.Cancel;
 import kr.kh.RLab.service.ReservationService;
+import kr.kh.RLab.vo.BranchVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.PayDTO;
+import kr.kh.RLab.vo.TicketOwnVO;
 
 @Controller
 public class ReservationController {
@@ -151,4 +153,40 @@ public class ReservationController {
 			    e.printStackTrace();
 			}
 		}*/
+	@RequestMapping(value = "/reservation/book", method=RequestMethod.GET) 
+	public ModelAndView book(ModelAndView mv) {
+
+		mv.setViewName("/reservation/book");
+		return mv;
+	}
+	@RequestMapping(value = "/reservation/1/spot", method=RequestMethod.GET) 
+	public ModelAndView seatSpot(ModelAndView mv) {
+		ArrayList<BranchVO> brList = reservationService.getAllBranchList();
+		mv.addObject("brList", brList);
+		mv.setViewName("/reservation/seat_spot");
+		return mv;
+	}
+	@RequestMapping(value = "/reservation/1/spot", method=RequestMethod.POST) 
+	public ModelAndView seatSpot(ModelAndView mv, BranchVO br) {
+		ArrayList<BranchVO> brList = reservationService.searchBranchList(br);
+		mv.addObject("keyword", br.getBr_name());
+		mv.addObject("region", br.getBr_re_name());
+		System.out.println(brList);
+		mv.addObject("brList", brList);
+		mv.setViewName("/reservation/seat_spot");
+		return mv;
+	}
+	@RequestMapping(value = "/reservation/1/{br_num}", method=RequestMethod.GET) 
+	public ModelAndView seatDetail(ModelAndView mv, @PathVariable("br_num")int br_num, HttpSession session) {
+		BranchVO br = reservationService.getBranchByBrNum(br_num);
+		//소유티켓가져와서 넘겨줘야함
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		ArrayList<TicketOwnVO> toList = reservationService.getTicketOwnListById(user.getMe_id());
+		System.out.println(toList);
+		mv.addObject("br", br);
+		mv.addObject("br_num", br_num);
+		mv.addObject("toList", toList);
+		mv.setViewName("/reservation/seat_select");
+		return mv;
+	}
 }

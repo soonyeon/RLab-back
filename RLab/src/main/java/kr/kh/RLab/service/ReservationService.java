@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.PayDTO;
+import kr.kh.RLab.vo.BranchVO;
+import kr.kh.RLab.vo.TicketOwnVO;
 
 public interface ReservationService {
 
@@ -19,4 +21,12 @@ public interface ReservationService {
 
 	String getItemStrList(String paOrderId);
 	
+	ArrayList<BranchVO> getAllBranchList();
+
+	ArrayList<BranchVO> searchBranchList(BranchVO br);
+
+	BranchVO getBranchByBrNum(int br_num);
+
+	ArrayList<TicketOwnVO> getTicketOwnListById(String me_id);
+
 }

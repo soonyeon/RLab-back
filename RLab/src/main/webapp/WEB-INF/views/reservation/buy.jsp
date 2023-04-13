@@ -148,7 +148,7 @@
 						<input type="button" value="결제하기" id="pay_btn">
 					</div>
 				</div>
-			</form>
+			<!-- </form> -->
 		</div>
 	</div>
 </main>
