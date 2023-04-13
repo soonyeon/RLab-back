@@ -1,11 +1,12 @@
 package kr.kh.RLab.service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
 import kr.kh.RLab.dao.CommentDAO;
+import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.vo.CommentVO;
 import kr.kh.RLab.vo.MemberVO;
 import lombok.RequiredArgsConstructor;
@@ -29,8 +30,8 @@ public class CommentServiceImp implements CommentService {
 	}
 
 	@Override
-	public List<CommentVO> getCommentList(Map<String, Object> map) {
-		return commentDao.getCommentList(map);
+	public List<CommentVO> getCommentList(Criteria cri) {
+		return commentDao.getCommentList(cri);
 	}
 
 	@Override
@@ -51,6 +52,18 @@ public class CommentServiceImp implements CommentService {
 		if(dbComment == null || !dbComment.getCo_me_id().equals(user.getMe_id()))
 			return false;
 		return commentDao.updateComment(comment) != 0;
+	}
+
+	@Override
+	public ArrayList<CommentVO> selectCommentByBoNum(int bo_num) {
+		if(bo_num == 0)
+			return null;
+		return commentDao.selectCommentByBoNum(bo_num);
+	}
+
+	@Override
+	public void deleteCommentAll(ArrayList<CommentVO> comment, MemberVO user) {
+		commentDao.deleteCommentAll(comment,user.getMe_id());
 	}
 
 }
