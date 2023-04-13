@@ -42,8 +42,7 @@ public class StudyController {
 
 	@GetMapping("/photo/{st_num}")
 	public String photo(HttpServletRequest request, Model model, HttpSession session,
-			@PathVariable("st_num")int st_num
-			) throws IOException {
+			@PathVariable("st_num")int st_num) throws IOException {
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		model.addAttribute("user", user);
 		ArrayList<PhotoTypeVO> phototypeList = studyService.getListPhotoType();
