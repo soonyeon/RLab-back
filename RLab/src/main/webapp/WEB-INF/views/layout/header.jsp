@@ -42,7 +42,7 @@
           <nav class="top_menu_container">
          	<a href="#" class="list_item">예약하기</a>
             <a href="<c:url value='/study/'></c:url>" class="list_item">스터디</a>
-            <a href="#" class="list_item">모집 게시판</a>
+            <a href="<c:url value='/gather/list'></c:url>" class="list_item">모집 게시판</a>
           </nav>
         </div>
         <div class="header_right">
@@ -56,8 +56,17 @@
 		        <c:if test="${user != null}">		  		       
      				<form action="<c:url value='/logout'></c:url>" method="post">     
 		  				<div class="logout_box">
-		  		    		<a href="#"><i class="icon_mypage"></i><span class="blind">마이페이지</span></a>
-              				<a class="logout_btn"href="<c:url value='/logout'></c:url>">로그아웃</a>
+		  		    		<a href="<c:url value='/mypage/mypage'></c:url>" class="icon_mypage">
+		  		    			<c:if test="${user.me_profile == null}">
+		  		    				<img class="mypage_img" src="<c:url value='/resources/img/user.png'></c:url>" width="auto" height="40">
+		  		    				<span class="blind">마이페이지</span>
+		  		    			</c:if>
+		  		    			<c:if test="${user.me_profile != null}">
+			  		    			<img class="mypage_img" src="<c:url value='/download${user.me_profile}'></c:url>" width="auto" height="40">
+			  		    			<span class="blind">마이페이지</span>
+		  		    			</c:if>
+			  		    	</a>
+              				<a class="logout_btn" href="<c:url value='/logout'></c:url>">로그아웃</a>
             			</div>    
               		</form>
 		        </c:if>

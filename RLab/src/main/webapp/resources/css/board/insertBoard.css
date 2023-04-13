@@ -150,7 +150,6 @@
   z-index: 9998;
 }
 
-/* 수정된 버튼 스타일 */
 .deleteBtn, #deleteAll{
   background-color: #d3d3d3; 
   border: none;

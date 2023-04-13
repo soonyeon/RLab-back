@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="kr.kh.RLab.dao.GatherDAO">
+<insert id="insertStudy" useGeneratedKeys="true" keyProperty="study.st_num">
+	insert into study(st_name,st_me_id,st_info,st_total_people,st_re_name,st_image)
+	values(#{study.st_name},#{study.st_me_id},#{study.st_info},#{study.st_total_people},#{study.st_re_name},#{study.st_image})
+</insert>
+<insert id="insertFile">
+	insert into file( fi_ori_name, fi_name, fi_table, fi_ex_num)
+	values(#{file.fi_ori_name}, #{file.fi_name}, #{file.fi_table}, #{file.fi_ex_num}) 
+</insert>
+<insert id="insertTag" useGeneratedKeys="true" keyProperty="tag.ta_name" >
+	insert into tag(ta_name)
+	values(#{tag.ta_name})
+</insert>
+<insert id="insertStudyTag">
+	insert into tag_register(tr_st_num,tr_name)
+	values(#{st_num},#{ta_name})
+</insert>
+<insert id="insertGather">
+	insert into gather(ga_title,ga_content,ga_st_num,ga_me_id,ga_reg_date)
+	values(#{gather.ga_title},#{gather.ga_content},#{gather.ga_st_num},#{gather.ga_me_id},DATE(NOW()))
+</insert>
+<select id="selectStudyAll" resultType="kr.kh.RLab.vo.StudyVO" >
+SELECT *
+FROM study 
+left join tag_register on tr_st_num = st_num
+WHERE st_name LIKE CONCAT('%',#{cri.search},'%')
+<if test="cri.filter == 'on'">
+	AND st_state = 1
+</if>
+<if test="cri.region != ''">
+	AND st_re_name = #{cri.region}
+</if>
+<if test="cri.tagList.size() != 0">
+	and tr_name in
+	<foreach item="tag" index="index" collection="cri.tagList"
+	open="(" separator="," close=")">
+	#{tag}
+	</foreach>
+</if>
+group by st_num, tr_num, tr_name
+ORDER BY st_num DESC
+LIMIT #{cri.pageStart}, #{cri.perPageNum}
+</select>
+<select id="selectFileList" resultType="kr.kh.RLab.vo.FileVO">
+	select * from file
+</select>
+<select id="selectTagList" resultType="kr.kh.RLab.vo.TagRegisterVO">
+select 	* from tag_register
+</select>
+<select id="selectGather" resultType="kr.kh.RLab.vo.GatherVO">
+select * from gather 
+join member on me_id = ga_me_id
+where ga_st_num = #{st_num}
+</select>
+<select id="selectStudy" resultType="kr.kh.RLab.vo.StudyVO">
+select * from study
+where st_num = #{st_num}
+</select>
+<update id="countViews">
+	update gather
+		set 
+			ga_views = ga_views+1
+		where
+			ga_st_num = #{st_num}
+</update>
+<select id="selectStudyTotalCount" resultType="int"> 
+	select count(*) from (
+	select * from study
+	left join tag_register on tr_st_num = st_num
+	WHERE st_name LIKE CONCAT('%',#{cri.search},'%')
+	<if test="cri.region != ''">
+		AND st_re_name = #{cri.region}
+	</if>
+	<if test="cri.tagList.size() != 0">
+	and tr_name in 
+	<foreach item="tag" index="index" collection="cri.tagList"
+	      open="(" separator="," close=")">
+	        #{tag}
+	</foreach>
+</if>
+	group by st_num, tr_num
+	) as t
+</select> 
+<select id="selectWantedStudyList" resultType="Integer">
+	SELECT ga_st_num FROM want 
+	join gather on ga_num = wa_ga_num
+	where wa_state=1 and wa_me_id = #{me_id}
+</select>
+<select id="selelctJoinStudyMemberList" resultType="Integer">
+	select sm_st_num from study_member
+	join study on st_num = sm_st_num
+	where sm_authority=1 and sm_me_id = #{me_id}
+</select>
+
+</mapper>

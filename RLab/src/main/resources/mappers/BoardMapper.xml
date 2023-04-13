@@ -12,8 +12,8 @@
 	<select id="selectBoardList" parameterType="map" resultMap="BoardResultMap">
 	    SELECT b.*, st.st_name, me.me_name, COUNT(s.sc_bo_num) as scrap_count
 	    FROM board b
-	    LEFT JOIN study st ON b.bo_st_num = st.st_num
-	    LEFT JOIN member me ON b.bo_me_id = me.me_id
+	    LEFT JOIN study AS st ON b.bo_st_num = st.st_num
+	    LEFT JOIN member AS me ON b.bo_me_id = me.me_id
 	    LEFT JOIN scrap s ON b.bo_num = s.sc_bo_num AND s.sc_state = 1
 	    GROUP BY b.bo_num
 	    <if test="orderBy != null">
@@ -79,5 +79,19 @@
 	    <result property="bo_views" column="bo_views" />
 	    <result property="scrap_count" column="scrap_count" />
 	</resultMap>
+	
+  	<select id="selectBoardListById" resultType="kr.kh.RLab.vo.BoardVO">
+ 		SELECT board.bo_num, study.st_name, board.bo_title, member.me_name, board.bo_reg_date 
+ 		FROM board
+ 		JOIN study ON board.bo_st_num = study.st_num
+ 		JOIN member ON board.bo_me_id = member.me_id
+ 		where board.bo_me_id = #{memberId}
+ 		ORDER BY board.bo_reg_date DESC;
+  	</select>
+	  	<select id="selectPostBoardTotalCount" resultType="Integer">
+  		select count(*)
+		from board
+		where bo_me_id = #{memberId}
+  	</select>
   	
 </mapper>

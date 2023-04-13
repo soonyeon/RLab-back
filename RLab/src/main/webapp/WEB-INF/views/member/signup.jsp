@@ -211,7 +211,7 @@
 	});
 	let nameCheck = false; 
 	
-	/*이메일인증*/
+	/* 이메일인증 */
 	 $('#mail_send_btn').on('click', function() {
         var email = $('#useremail').val();
         $.post('<c:url value="/sendEmail"/>', {email: email}, function(response) {

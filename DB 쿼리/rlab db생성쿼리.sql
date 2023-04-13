@@ -8,7 +8,7 @@ DROP TABLE IF EXISTS `member`;
 CREATE TABLE `member` (
 	`me_id`	varchar(13) primary key	NOT NULL,
 	`me_name`	varchar(10)	NOT NULL,
-	`me_pw`	varchar(20)	NOT NULL,
+	`me_pw`	varchar(255)	NOT NULL,
 	`me_email`	varchar(30)	NOT NULL,
 	`me_authority`	int not null default 0,
 	`me_point`	int not null DEFAULT 0,
@@ -36,7 +36,8 @@ CREATE TABLE `study_member` (
 	`sm_num`	int auto_increment primary key NOT NULL,
 	`sm_st_num`	int NOT NULL,
 	`sm_me_id`	varchar(13)	NOT NULL,
-	`sm_authority`	int not null default 0
+	`sm_authority`	int not null default 0,
+    `sm_join_date` datetime not null
 );
 
 DROP TABLE IF EXISTS `calendar`;
@@ -176,7 +177,7 @@ CREATE TABLE `alram` (
 DROP TABLE IF EXISTS `pay`;
 
 CREATE TABLE `pay` (
-	`pa_num`	int auto_increment primary key	NOT NULL,
+	`pa_order_id`	varchar(27) primary key	NOT NULL,
 	`pa_me_id`	varchar(13)	NOT NULL,
 	`pa_date`	datetime NOT NULL default NOW(),
 	`pa_amount`	int	NOT NULL,
@@ -282,7 +283,7 @@ CREATE TABLE `ticket_own` (
 	`to_num`	int auto_increment primary key	NOT NULL,
 	`to_me_id`	varchar(13)	NOT NULL,
 	`to_ti_num`	int	NOT NULL,
-	`to_pa_num`	int	NOT NULL,
+	`to_pa_order_id`	varchar(27)	NOT NULL,
 	`to_rest_time`	int,
 	`to_valid_date`	datetime,
 	`to_state`	tinyint(1) not null default 1
@@ -293,7 +294,8 @@ DROP TABLE IF EXISTS `want`;
 CREATE TABLE `want` (
 	`wa_num`	int auto_increment primary key	NOT NULL,
 	`wa_me_id`	varchar(13)	NOT NULL,
-	`wa_ga_num`	int	NOT NULL
+	`wa_ga_num`	int	NOT NULL,
+    `wa_state` tinyint(1)
 );
 
 DROP TABLE IF EXISTS `session`;
@@ -322,11 +324,11 @@ DROP TABLE IF EXISTS `pay_detail`;
 
 CREATE TABLE `pay_detail` (
 	`pd_num`	int auto_increment primary key	NOT NULL,
-	`pd_pa_num`	int	NOT NULL,
+	`pd_pa_order_id`	varchar(27)	NOT NULL,
 	`pd_ti_num`	int	NOT NULL,
 	`pd_amount`	int	NOT NULL,
 	`pd_price`	int	NOT NULL,
-	`pd_statie`	int	NOT NULL
+	`pd_state`	varchar(10)	NOT NULL
 );
 
 DROP TABLE IF EXISTS `point`;
@@ -627,10 +629,10 @@ REFERENCES `ticket` (
 );
 
 ALTER TABLE `ticket_own` ADD CONSTRAINT `FK_pay_TO_ticket_own_1` FOREIGN KEY (
-	`to_pa_num`
+	`to_pa_order_id`
 )
 REFERENCES `pay` (
-	`pa_num`
+	`pa_order_id`
 );
 
 ALTER TABLE `want` ADD CONSTRAINT `FK_member_TO_want_1` FOREIGN KEY (
@@ -655,10 +657,10 @@ REFERENCES `member` (
 );
 
 ALTER TABLE `pay_detail` ADD CONSTRAINT `FK_pay_TO_pay_detail_1` FOREIGN KEY (
-	`pd_pa_num`
+	`pd_pa_order_id`
 )
 REFERENCES `pay` (
-	`pa_num`
+	`pa_order_id`
 );
 
 ALTER TABLE `pay_detail` ADD CONSTRAINT `FK_ticket_TO_pay_detail_1` FOREIGN KEY (

@@ -1,0 +1,22 @@
+
+table{
+	overflow: hidden;
+	table-layout: fixed;
+}
+td{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	word-break:break-all;
+	padding: 5px;
+	box-sizing: border-box;
+}
+
+
+
+/* 제외 버튼 */
+.except_container{
+	width: 100%;
+  display: flex;
+	justify-content: flex-end;
+}
