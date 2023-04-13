@@ -14,7 +14,8 @@ CREATE TABLE `member` (
 	`me_point`	int not null DEFAULT 0,
 	`me_rest_time`	int	,
 	`me_use_time`	int,
-    `me_profile`	varchar(255)
+    `me_profile`	varchar(255),
+    `me_study`	int
 );
 
 DROP TABLE IF EXISTS `branch`;
@@ -214,7 +215,8 @@ CREATE TABLE `comment` (
     `co_reg_date` datetime not null,
 	`co_ori_num`	int	NOT NULL,
 	`co_table`	varchar(15)	NULL,
-	`co_ex_num`	int	NOT NULL
+	`co_ex_num`	int	NOT NULL,
+    `co_delete` char(1) not null default 'N'
 );
 
 DROP TABLE IF EXISTS `like`;
