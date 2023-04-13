@@ -12,16 +12,17 @@ $(document).ready(function() {
 
     // 이벤트 데이터를 변환하는 함수
     function convertEventData(eventData) {
-        return eventData.map(function(event) {
-            return {
-                id: event.ca_num,
-                title: event.ca_title,
-                start: event.ca_start,
-                end: event.ca_end,
-                allDay: event.ca_all_day === 1,
-            };
-        });
-    }
+    return eventData.map(function(event) {
+        return {
+            id: event.ca_num,
+            title: event.ca_title,
+            start: event.ca_start,
+            end: event.ca_end,
+            allDay: event.ca_all_day === 1,
+            ca_st_num: event.ca_st_num,
+        };
+    });
+}
 
     // ca_num 별로 이벤트를 가져오는 함수
     function fetchEventByCaNum(ca_num) {
@@ -107,12 +108,12 @@ $(document).ready(function() {
      	function updateEvent(event) {
 	    var eventData = {
 	        ca_num: event.id,
+	        ca_st_num: event.extendedProps.ca_st_num, 
 	        ca_title: event.title,
 	        ca_start: event.startStr,
 	        ca_end: event.endStr ? event.endStr : event.startStr,
 	        ca_all_day: event.allDay ? 1 : 0,
 	    };
-	
 	    $.ajax({
 	        url: "/RLab/calendar/update/" + eventData.ca_num,
 	        type: "PUT",
