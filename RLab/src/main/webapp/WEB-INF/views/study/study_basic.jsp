@@ -525,7 +525,4 @@ const generateClear= () => {
 	
 	return span;
 }
-
-
-
 </script>

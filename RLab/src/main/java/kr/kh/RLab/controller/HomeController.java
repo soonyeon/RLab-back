@@ -39,28 +39,21 @@ public class HomeController {
 	}
 	
 	
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ModelAndView loginPost(ModelAndView mv, MemberVO member) {
-		MemberVO user = memberService.login(member);
-		mv.addObject("user",user);
-		if(user != null) {
-			mv.setViewName("redirect:/");			
-			
-		}else {
-			mv.setViewName("redirect:/");
-		}
-//		System.out.println(user);
-		return mv;
-	}
-	
-	
-	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public ModelAndView logoutPost(ModelAndView mv,HttpSession session) {
-		if(session != null)
-			session.removeAttribute("user");
-		mv.setViewName("redirect:/");
-		return mv;
-	}
+	/*
+	 * @RequestMapping(value = "/login", method = RequestMethod.POST) public
+	 * ModelAndView loginPost(ModelAndView mv, MemberVO member) { MemberVO user =
+	 * memberService.login(member); mv.addObject("user",user); if(user != null) {
+	 * mv.setViewName("redirect:/");
+	 * 
+	 * }else { mv.setViewName("redirect:/"); } // System.out.println(user); return
+	 * mv; }
+	 * 
+	 * 
+	 * @RequestMapping(value = "/logout", method = RequestMethod.GET) public
+	 * ModelAndView logoutPost(ModelAndView mv,HttpSession session) { if(session !=
+	 * null) session.removeAttribute("user"); mv.setViewName("redirect:/"); return
+	 * mv; }
+	 */
 	
 	@RequestMapping(value="/signup", method=RequestMethod.GET)
 	public ModelAndView signup(ModelAndView mv) {
