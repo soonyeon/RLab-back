@@ -35,6 +35,7 @@ public class SessionController {
 			sessionVO.setSs_in(LocalDateTime.now()); // 현재 시간을 설정
 			sessionService.login(sessionVO); // 로그인 사용자의 MemberVO 객체와 현재 시간을 전달
 			session.setAttribute("user", user);
+			user.setAutoLogin(member.isAutoLogin());
 			mv.setViewName("redirect:/");
 		} else {
 			mv.addObject("msg", "로그인 실패");
@@ -53,6 +54,8 @@ public class SessionController {
 				sessionVO.setSs_out(LocalDateTime.now());
 				sessionService.logout(sessionVO);
 				session.removeAttribute("user");
+				user.setMe_session_limit(null);
+				memberService.updateSession(user);
 			}
 		}
 		mv.setViewName("redirect:/");
