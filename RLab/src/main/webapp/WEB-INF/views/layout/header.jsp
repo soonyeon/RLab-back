@@ -22,6 +22,7 @@
                 <input type="password" class="form_control" id="pw" name="me_pw" placeholder="비밀번호">
               </div>
               <button class="btn_outline_success col-12">로그인</button>
+              <input type="checkbox" name="autoLogin" value="true"> 자동로그인
               <hr>
               <p class="more_action">
                 <a href="#" class="more_action_item 1">아이디 찾기</a> |

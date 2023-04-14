@@ -13,4 +13,5 @@
         SET ss_out = #{ss_out}
         WHERE ss_me_id = #{ss_me_id}
     </update>
+    
 </mapper>
