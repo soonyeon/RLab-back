@@ -21,5 +21,15 @@ public interface MemberService {
 	void updateSession(MemberVO user);
 
 	MemberVO getMemberBySession(String me_session_id);
+	
+	String findIDByEmail(String email);
+
+	MemberVO findPWByEmail(String id, String email);
+
+	String generateTempPW();
+
+	void updatePW(MemberVO memberVO, String tempPW);
+	
+	boolean checkEmail(MemberVO user);
 
 }

@@ -3,10 +3,10 @@ package kr.kh.RLab.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.service.BoardService;
 import kr.kh.RLab.service.MemberService;
-import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.MemberVO;
 
 @Controller
@@ -165,6 +163,15 @@ public class HomeController {
 				mv.setViewName("redirect:/");
 			}				
 		return mv;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/check/email", method=RequestMethod.POST)
+	public Map<String, Object> nameEmail(@RequestBody MemberVO user) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		boolean res = memberService.checkEmail(user);
+		map.put("res", res);
+		return map;
 	}
 	
 	

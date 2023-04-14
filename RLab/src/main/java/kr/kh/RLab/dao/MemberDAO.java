@@ -21,5 +21,12 @@ public interface MemberDAO {
 	MemberVO selectMemberBySession(String me_session_id);
 
 	void updateSession(MemberVO user);
+	
+	String findIDByEmail(String email);
 
+	MemberVO findPWByEmail(@Param("id") String id, @Param("email") String email);
+
+	void updatePW(MemberVO memberVO);
+	
+	Object selectMemberByEamil(String me_email);
 }

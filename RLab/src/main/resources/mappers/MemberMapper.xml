@@ -17,24 +17,24 @@
 	</select>
 	<update id="updateAuthority">
 		update member
-		set 		
-			me_authority = #{me_authority}
+		set
+		me_authority = #{me_authority}
 		where
-			me_id = #{me_id}
+		me_id = #{me_id}
 	</update>
 	<update id="updateMember">
-		  UPDATE member
-		  SET me_name = #{m.me_name},
-		      me_pw = #{m.me_pw},
-		      me_email = #{m.me_email}
-		  WHERE me_id = #{m.me_id}
+		UPDATE member
+		SET me_name = #{m.me_name},
+		me_pw = #{m.me_pw},
+		me_email = #{m.me_email}
+		WHERE me_id = #{m.me_id}
 	</update>
 	<update id="updateProfile">
-		  UPDATE member
-		  SET me_profile = #{m.me_profile}
-		  WHERE me_id = #{m.me_id}
+		UPDATE member
+		SET me_profile = #{m.me_profile}
+		WHERE me_id = #{m.me_id}
 	</update>
-	
+
 	<select id="selectMemberBySession" resultType="kr.kh.RLab.vo.MemberVO">
  		select 
  			*
@@ -43,8 +43,7 @@
  		where
  			me_session_id = #{me_session_id} and me_session_limit > now() 	
   	</select>
-  	
-	 <update id="updateSession">
+  	  <update id="updateSession">
 	  	update 
 	  		member
 	  	set
@@ -53,5 +52,38 @@
 	  	where
 	  		me_id = #{me_id}
 	  </update>
+
+	  <select id="findIDByEmail" resultType="String">
+	  	select
+	  		me_id
+	  	from
+	  		member
+	  	where
+	  		me_email = #{email}
+	  </select>
+
+	  <select id="findPWByEmail" resultType="kr.kh.RLab.vo.MemberVO">
+	  	select
+	  		*
+	  	from
+	  		member
+	  	where
+	  		me_id = #{id} and me_email = #{email}
+	  </select>
+
+	  <update id="updatePW">
+	    UPDATE
+	        member
+	    SET
+	        me_pw = #{me_pw}
+	    WHERE
+	        me_id = #{me_id}
+	        AND me_email = #{me_email}
+		</update>
+
+	<select id="selectMemberByEamil"
+		resultType="kr.kh.RLab.vo.MemberVO">
+		select * from member where me_email = #{me_email}
+	</select>
 
 </mapper>

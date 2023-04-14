@@ -1,7 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
@@ -13,7 +12,6 @@
 <link rel="stylesheet" href="<c:url value ='/resources/css/signup.css'></c:url>">
 <title>signup</title>
 </head>
-
 <body>
 	<!-- background -->
 	<div class="background_bbls">
@@ -58,10 +56,27 @@
 					<div class="form_group">
 						<label for="email">이메일:</label> <input type="text"
 							class="form_control" id="useremail" name="me_email">
+							<button class="btn btn_outline_success col-12 btn_check_email" type="button" >이메일 중복체크</button>
 					</div>
+
 					<button class="btn btn_outline_success col-12" type="button"  id="mail_send_btn">이메일 인증</button>
 					<div class="mail-check-box">
 						<input class="form_control mail_check_input" disabled="disabled" maxlength="6" placeholder="인증번호 6자리를 입력해주세요!">
+
+    
+          
+            
+    
+
+          
+          
+            
+    
+
+          
+    
+    @@ -129,6 +131,10 @@
+  
 					</div>
 					<button class="btn btn_outline_success col-12" type="button" id="verify_code_btn">인증 번호 확인</button>
 					<button class="btn btn_outline_success col-12 mt-5 btn_signup">회원가입</button>
@@ -69,10 +84,8 @@
 			</div>
 		</main>
 		<!-- ------------------------------------------------------------------------------>
-
 		
 	</div>
-
 <script>
 	$('#signupform').validate({
 		rules : { //유효성검사
@@ -95,7 +108,6 @@
 				required : true,
 				email : true
 			}
-
 			
 		},
 		messages : { //유효성검사하고 메시지
@@ -118,7 +130,6 @@
 				required : '필수항목 입니다',
 				email : '이메일 형식이 아닙니다'
 			}
-
 		},
 		submitHandler: function(form) {
 			if(!idCheck){
@@ -129,9 +140,23 @@
 				alert('닉네임 중복체크를 하세요.');
 				return flase;
 			}
+			if(!emailCheck2){
+				alert('이메일 중복체크를 하세요.');
+				return false;
+			}
 			if(!emailCheck){
 				alert('이메일 인증 하세요.');
 				return false;
+
+    
+        
+          
+    
+
+        
+    
+    @@ -150,6 +156,9 @@
+  
 			}
 			return true;
 		}
@@ -142,7 +167,6 @@
 		return this.optional(element) || re.test(value);
 	}, "Please check your input.");
 	
-
 	
 	$('[name= me_id]').change(function(){
 		idCheck = false;
@@ -150,9 +174,27 @@
 	$('[name= me_name]').change(function(){
 		nameCheck = false;
 	});
+	$('[name= me_email]').change(function(){
+		eamilCheck2 = false;
+	});
 	$('#verify_code_btn').change(function(){
 		emailCheck = false;
 	});
+
+    
+          
+            
+    
+
+          
+          
+            
+    
+
+          
+    
+    @@ -211,6 +220,30 @@
+  
 	/*
 	/*아이디 체크*/
 	$('.btn_check_id').click(function(){
@@ -211,9 +253,43 @@
 	});
 	let nameCheck = false; 
 	
+	/*이메일 체크*/
+	$('.btn_check_email').click(function(){
+		let me_email = $('[name=me_email]').val();
+		let obj = {
+				me_email : me_email
+		}
+		$.ajax({
+			async:true,
+			type:'POST',
+			data: JSON.stringify(obj),
+			url: '<c:url value="/check/email"></c:url>',
+			dataType:"json",
+			contentType:"application/json; charset=UTF-8",
+			success : function(data){
+			    if(data.res){
+			    	alert('사용 가능한 이메일 입니다.');
+			    	nameCheck = true;
+			    }else{
+			    	alert('가입한 이메일 입니다.')
+			    }
+			},
+		});
+	});
+	
 	/* 이메일인증 */
 	 $('#mail_send_btn').on('click', function() {
         var email = $('#useremail').val();
+
+    
+          
+            
+    
+
+          
+    
+    
+  
         $.post('<c:url value="/sendEmail"/>', {email: email}, function(response) {
             alert(response);
             $('.mail_check_input').prop('disabled', false);
@@ -225,7 +301,6 @@
 	        alert('인증번호를 입력해주세요.');
 	        return false;
 	    }
-
 	    $.ajax({
 	        url: '<c:url value="/check"/>',
 	        method: 'POST',
@@ -245,8 +320,5 @@
 	        }
 	    });
 	});
-
 </script>
-
 </body>
-
