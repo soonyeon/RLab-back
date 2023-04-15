@@ -157,8 +157,16 @@ public class StudyController {
 			mv.setViewName("/common/message");
 		}
 		mv.addObject("st_num", st_num);
+		mv.addObject("loginUserId", user.getMe_id());
 		mv.setViewName("/study/study_basic");
 		return mv;
+	}
+	
+	@RequestMapping(value = "/getMembers/{st_num}", method = RequestMethod.GET)
+	@ResponseBody
+	public List<StudyMemberVO> getMembers(@PathVariable("st_num") int st_num) {
+	    List<StudyMemberVO> members = studyService.selectList(st_num);
+	    return members;
 	}
 
 	@RequestMapping(value = "/management", method = RequestMethod.GET)

@@ -461,6 +461,30 @@
 	</div>                                   
 </main>            
 <script>
+const st_num = '${st_num}';
+loadStudyMembers(st_num);
+
+function loadStudyMembers(st_num) {
+  $.ajax({
+    url: '<c:url value="/study/getMembers/"/>${st_num}',
+    type: 'GET',
+    dataType: 'json',
+    success: function (members) {
+      let memberList = "";
+      for (let i = 0; i < members.length; i++) {
+        memberList += '<div class="accessor_container">' +
+          '<div class="study_title">' + members[i].st_name + '</div>' +
+          '<div class="circle_accessor"></div>' +
+          '<div class="study_name">' + members[i].me_name + '</div>' +
+          '</div>';
+      }
+      document.querySelector(".accessor").innerHTML = memberList;
+    }
+  });
+}
+
+
+
 const todoInput = document.querySelector(".input_box");
 const todoList = document.querySelector(".todo_list");
 
@@ -525,4 +549,6 @@ const generateClear= () => {
 	
 	return span;
 }
+
+
 </script>

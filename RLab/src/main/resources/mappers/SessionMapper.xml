@@ -14,4 +14,11 @@
         WHERE ss_me_id = #{ss_me_id}
     </update>
     
+    <select id="getOnlineMembers" resultType="kr.kh.RLab.vo.MemberVO">
+        SELECT m.*
+        FROM member m
+        INNER JOIN session s ON m.me_id = s.ss_me_id
+        WHERE s.ss_out IS NULL
+    </select>
+    
 </mapper>

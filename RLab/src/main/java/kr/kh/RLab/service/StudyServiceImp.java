@@ -21,53 +21,53 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class StudyServiceImp implements StudyService {
 
-    private final StudyDAO studyDao;
-    String uploadPath = "D:\\uploadfiles";
+	private final StudyDAO studyDao;
+	String uploadPath = "D:\\uploadfiles";
 
-    @Override
-    public ArrayList<PhotoTypeVO> getListPhotoType() {
-        return studyDao.getPhotoType();
-    }
+	@Override
+	public ArrayList<PhotoTypeVO> getListPhotoType() {
+		return studyDao.getPhotoType();
+	}
 
-    @Override
-    public boolean insertCB(PhotoVO photo, MultipartFile[] files, MemberVO member) {
-        if (member == null)
-            return false;
-        photo.setPh_me_id(member.getMe_id());
+	@Override
+	public boolean insertCB(PhotoVO photo, MultipartFile[] files, MemberVO member) {
+		if (member == null)
+			return false;
+		photo.setPh_me_id(member.getMe_id());
 
-        if (files != null && files.length > 0) {
-            uploadFiles(files, photo.getPh_num(), photo);
-        }
+		if (files != null && files.length > 0) {
+			uploadFiles(files, photo.getPh_num(), photo);
+		}
 
-        return true;
-    }
+		return true;
+	}
 
-    private void uploadFiles(MultipartFile[] files, int st_num, PhotoVO photo) {
-        if (files == null || files.length == 0)
-            return;
-        for (MultipartFile file : files) {
-            if (file == null || file.getOriginalFilename().length() == 0)
-                continue;
-            String fileName = "";
-            try {
-                fileName = UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes());
-                photo.setPh_img(fileName);
-                studyDao.insertCB(photo);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
+	private void uploadFiles(MultipartFile[] files, int st_num, PhotoVO photo) {
+		if (files == null || files.length == 0)
+			return;
+		for (MultipartFile file : files) {
+			if (file == null || file.getOriginalFilename().length() == 0)
+				continue;
+			String fileName = "";
+			try {
+				fileName = UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes());
+				photo.setPh_img(fileName);
+				studyDao.insertCB(photo);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
-    @Override
+	@Override
 	public ArrayList<StudyVO> getStudyByMemberId(String me_id) {
 		return studyDao.getStudyByMemberId(me_id);
 	}
-	
-	 @Override
+
+	@Override
 	public List<PhotoVO> getPhotosByStudyNum(int st_num) {
-	     return studyDao.getPhotosByStudyNum(st_num);
-	    }
+		return studyDao.getPhotosByStudyNum(st_num);
+	}
 
 	@Override
 	public void insertLike(LikeVO likeVO) {
@@ -91,39 +91,36 @@ public class StudyServiceImp implements StudyService {
 
 	@Override
 	public ArrayList<StudyVO> getStudyListById(String memberId) {
-		if(memberId == null)		
+		if (memberId == null)
 			return null;
 //		System.out.println(memberId+2);
 		return studyDao.selectStudyListById(memberId);
 	}
 
 	@Override
-	public ArrayList<StudyMemberVO> getStudyMemberList(int st_num,Criteria cri) {
-		return studyDao.selectStudyMemberList(st_num,cri); 
+	public ArrayList<StudyMemberVO> getStudyMemberList(int st_num, Criteria cri) {
+		return studyDao.selectStudyMemberList(st_num, cri);
 	}
-	
+
 	@Override
 	public int getStudyTotalCount(int st_num) {
-		return studyDao.selectStudyTotalCount(st_num);			
-		
+		return studyDao.selectStudyTotalCount(st_num);
+
 	}
 
 	@Override
 	public void deleteStudyMember(int st_num, String me_name) {
-		//me_id 가져오기
+		// me_id 가져오기
 		String me_id = studyDao.selectStudyMemberId(me_name);
 		System.out.println(me_id);
-		//st_num과 me_id를 이용하여 해당 정보를 study_member에서 삭제하기
+		// st_num과 me_id를 이용하여 해당 정보를 study_member에서 삭제하기
 		studyDao.deleteStudyMember(st_num, me_id);
-		
+
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
+	@Override
+	public List<StudyMemberVO> selectList(int st_num) {
+		return studyDao.selectList(st_num);
+	}
+
 }

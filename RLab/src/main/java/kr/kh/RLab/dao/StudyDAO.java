@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.LikeVO;
+import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.PhotoTypeVO;
 import kr.kh.RLab.vo.PhotoVO;
 import kr.kh.RLab.vo.StudyMemberVO;
@@ -44,6 +45,8 @@ public interface StudyDAO {
 	String selectStudyMemberId(@Param("me_name")String me_name);
 
 	void deleteStudyMember(@Param("st_num")int st_num, @Param("me_name")String me_name);
+	
+	List<StudyMemberVO> selectList(int st_num);
     
     
 

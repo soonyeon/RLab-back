@@ -28,4 +28,9 @@ public class SessionServiceImp implements SessionService {
 	    sessionDAO.updateSession(session);
 	}
 
+	@Override
+	public List<MemberVO> getOnlineMembers() {
+		return sessionDAO.getOnlineMembers();
+	}
+
 }
