@@ -168,6 +168,12 @@ public class StudyController {
 	    List<StudyMemberVO> members = studyService.selectList(st_num);
 	    return members;
 	}
+	@RequestMapping(value = "/onlineMembers", method = RequestMethod.GET)
+	@ResponseBody
+	public List<StudyMemberVO> getOnlineMembers() {
+		 List<StudyMemberVO> onlineMembers =studyService.getOnlineMembers();
+		 return onlineMembers;
+	}
 
 	@RequestMapping(value = "/management", method = RequestMethod.GET)
 	public ModelAndView management(ModelAndView mv, HttpSession session) {

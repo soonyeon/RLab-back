@@ -41,6 +41,6 @@ public interface StudyService {
 
 	List<StudyMemberVO> selectList(int st_num);
 
-
+	List<StudyMemberVO> getOnlineMembers();
 
 }
