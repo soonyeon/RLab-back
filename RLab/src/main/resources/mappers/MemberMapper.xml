@@ -54,24 +54,6 @@
 	  		me_id = #{me_id}
 	  </update>
 
-	<select id="selectMemberBySession" resultType="kr.kh.RLab.vo.MemberVO">
- 		select 
- 			*
- 		from 
- 			member
- 		where
- 			me_session_id = #{me_session_id} and me_session_limit > now() 	
-  	</select>
-  	  <update id="updateSession">
-	  	update 
-	  		member
-	  	set
-	  		me_session_id = #{me_session_id},
-	  		me_session_limit = #{me_session_limit}
-	  	where
-	  		me_id = #{me_id}
-	  </update>
-
 	  <select id="findIDByEmail" resultType="String">
 	  	select
 	  		me_id

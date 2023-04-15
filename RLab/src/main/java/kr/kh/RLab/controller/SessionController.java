@@ -38,28 +38,27 @@ public class SessionController {
 			user.setAutoLogin(member.isAutoLogin());
 			mv.setViewName("redirect:/");
 		} else {
-			mv.addObject("msg", "로그인 실패");
-			mv.setViewName("redirect:/login");
+			mv.setViewName("redirect:/");
 		}
 		return mv;
 	}
 
-	@GetMapping("/logout")
+	@PostMapping("/logout")
 	public ModelAndView logoutPost(ModelAndView mv, HttpSession session) {
-		if (session != null) {
-			MemberVO user = (MemberVO) session.getAttribute("user");
-			if (user != null) {
-				SessionVO sessionVO = new SessionVO();
-				sessionVO.setSs_me_id(user.getMe_id());
-				sessionVO.setSs_out(LocalDateTime.now());
-				sessionService.logout(sessionVO);
-				session.removeAttribute("user");
-				user.setMe_session_limit(null);
-				memberService.updateSession(user);
-			}
-		}
-		mv.setViewName("redirect:/");
-		return mv;
+	    if (session != null) {
+	        MemberVO user = (MemberVO) session.getAttribute("user");
+	        if (user != null) {
+	            SessionVO sessionVO = new SessionVO();
+	            sessionVO.setSs_me_id(user.getMe_id());
+	            sessionVO.setSs_out(LocalDateTime.now()); // 로그아웃 시간 저장
+	            sessionService.logout(sessionVO);
+	            session.removeAttribute("user");
+	            user.setMe_session_limit(null);
+	            memberService.updateSession(user);
+	        }
+	    }
+	    mv.setViewName("redirect:/");
+	    return mv;
 	}
 
 }

@@ -77,19 +77,6 @@
       <div id="header_container">
         <div class="header_left">
 
-    
-          
-            
-    
-
-          
-          
-            
-    
-
-          
-    
-    @@ -77,13 +113,73 @@
   
           <a href="#" class="btn_home"><i class="icon_home"></i>LAB</a>
           <nav class="top_menu_container">
@@ -119,7 +106,7 @@
 			  		    			<span class="blind">마이페이지</span>
 		  		    			</c:if>
 			  		    	</a>
-              				<a class="logout_btn" href="<c:url value='/logout'></c:url>">로그아웃</a>
+              				<a class="logout_btn">로그아웃</a>
             			</div>    
               		</form>
 		        </c:if>
@@ -194,4 +181,9 @@
             }
         });
     }
+    $('.logout_btn').click(function(e) {
+        e.preventDefault();
+        $(this).closest('form').submit();
+    });
+    
 </script>
