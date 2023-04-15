@@ -465,25 +465,34 @@ const st_num = '${st_num}';
 loadStudyMembers(st_num);
 
 function loadStudyMembers(st_num) {
-  $.ajax({
-    url: '<c:url value="/study/getMembers/"/>${st_num}',
-    type: 'GET',
-    dataType: 'json',
-    success: function (members) {
-      let memberList = "";
-      for (let i = 0; i < members.length; i++) {
-        memberList += '<div class="accessor_container">' +
-          '<div class="study_title">' + members[i].st_name + '</div>' +
-          '<div class="circle_accessor"></div>' +
-          '<div class="study_name">' + members[i].me_name + '</div>' +
-          '</div>';
-      }
-      document.querySelector(".accessor").innerHTML = memberList;
-    }
-  });
-}
+	  $.ajax({
+	    url: '<c:url value="/study/getMembers/"/>${st_num}',
+	    type: 'GET',
+	    dataType: 'json',
+	    success: function (members) {
+	      let memberList = "";
 
+	      // 첫 번째 멤버의 study_title을 가져옴
+	      if (members.length > 0) {
+	        memberList += '<div class="study_title">' + members[0].st_name + '</div>';
+	      }
 
+	      for (let i = 0; i < members.length; i++) {
+	        const defaultImage = '<c:url value="/resources/img/user.png" />';
+	        const userProfileImage = members[i].me_profile ? '<c:url value="/download" />' + members[i].me_profile : defaultImage;
+
+	        memberList += '<div class="accessor_container">' +
+	          '<div class="circle_accessor">' +
+	          '<img class="acc_img" src="' + userProfileImage + '" width="auto" height="40">' +
+	          '<span class="blind">마이페이지</span>' +
+	          '</div>' +
+	          '<div class="study_name">' + members[i].me_name + '</div>' +
+	          '</div>';
+	      }
+	      document.querySelector(".accessor").innerHTML = memberList;
+	    }
+	  });
+	}
 
 const todoInput = document.querySelector(".input_box");
 const todoList = document.querySelector(".todo_list");
