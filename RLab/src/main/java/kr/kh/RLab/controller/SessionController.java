@@ -42,7 +42,11 @@ public class SessionController {
 			user.setAutoLogin(member.isAutoLogin());
 			mv.setViewName("redirect:/");
 		} else {
-			mv.setViewName("redirect:/");
+			String msg = "아이디와 비밀번호가 일치하지 않습니다.";
+			String url = "/";
+			mv.addObject("msg", msg);
+			mv.addObject("url", url);
+			mv.setViewName("/common/message");
 		}
 		return mv;
 	}
