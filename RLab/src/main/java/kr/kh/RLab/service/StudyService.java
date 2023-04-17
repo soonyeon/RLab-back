@@ -39,6 +39,8 @@ public interface StudyService {
 
 	void deleteStudyMember(int st_num, String me_name);
 
+	List<StudyMemberVO> selectList(int st_num);
 
+	List<StudyMemberVO> getOnlineMembers();
 
 }

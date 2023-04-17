@@ -75,4 +75,20 @@
     	where sm_st_num = #{st_num} and sm_me_id = #{me_id}
     </delete>
     
+    <select id="selectList" parameterType="int" resultType="kr.kh.RLab.vo.StudyMemberVO">
+	    SELECT *
+	    FROM study_member
+	    join member on sm_me_id = me_id
+	    join study on sm_st_num = st_num
+	    WHERE sm_st_num = #{st_num}
+	</select>
+	
+	<select id="getOnlineMembers" resultType="kr.kh.RLab.vo.StudyMemberVO">
+        SELECT *
+        FROM study_member
+        join member on sm_me_id = me_id
+        join session ON ss_me_id = me_id
+        WHERE ss_out IS NULL
+    </select>
+    
 </mapper>

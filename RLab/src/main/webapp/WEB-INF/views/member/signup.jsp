@@ -59,6 +59,7 @@
 						<label for="email">이메일:</label> <input type="text"
 							class="form_control" id="useremail" name="me_email">
 					</div>
+					<button class="btn btn_outline_success col-12 btn_check_email" type="button" >이메일 중복체크</button>
 					<button class="btn btn_outline_success col-12" type="button"  id="mail_send_btn">이메일 인증</button>
 					<div class="mail-check-box">
 						<input class="form_control mail_check_input" disabled="disabled" maxlength="6" placeholder="인증번호 6자리를 입력해주세요!">
@@ -95,7 +96,6 @@
 				required : true,
 				email : true
 			}
-
 			
 		},
 		messages : { //유효성검사하고 메시지
@@ -118,7 +118,6 @@
 				required : '필수항목 입니다',
 				email : '이메일 형식이 아닙니다'
 			}
-
 		},
 		submitHandler: function(form) {
 			if(!idCheck){
@@ -128,6 +127,10 @@
 			if(!nameCheck){
 				alert('닉네임 중복체크를 하세요.');
 				return flase;
+			}
+			if(!emailCheck2){
+				alert('이메일 중복체크를 하세요.');
+				return false;
 			}
 			if(!emailCheck){
 				alert('이메일 인증 하세요.');
@@ -142,7 +145,6 @@
 		return this.optional(element) || re.test(value);
 	}, "Please check your input.");
 	
-
 	
 	$('[name= me_id]').change(function(){
 		idCheck = false;
@@ -225,7 +227,6 @@
 	        alert('인증번호를 입력해주세요.');
 	        return false;
 	    }
-
 	    $.ajax({
 	        url: '<c:url value="/check"/>',
 	        method: 'POST',
@@ -245,8 +246,29 @@
 	        }
 	    });
 	});
-
+	/*이메일 체크*/
+	$('.btn_check_email').click(function(){
+		let me_email = $('[name=me_email]').val();
+		let obj = {
+				me_email : me_email
+		}
+		$.ajax({
+			async:true,
+			type:'POST',
+			data: JSON.stringify(obj),
+			url: '<c:url value="/check/email"></c:url>',
+			dataType:"json",
+			contentType:"application/json; charset=UTF-8",
+			success : function(data){
+			    if(data.res){
+			    	alert('사용 가능한 이메일 입니다.');
+			    	nameCheck = true;
+			    }else{
+			    	alert('가입한 이메일 입니다.')
+			    }
+			},
+		});
+	});
 </script>
 
 </body>
-

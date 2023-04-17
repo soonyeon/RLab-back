@@ -860,10 +860,17 @@ cursor: pointer;
   text-align: center;
   font-weight: bold;
 }
+.acc_img {
+    width: 30px;
+    height: 30px;
+    border-radius: var(--border_radius_1);
+    position: relative;
+    display: inline-block;
+}
+
 .circle_accessor {
   width: 30px;
   height: 30px;
-  background-color: white;
   border: var(--border_light);
   border-radius: var(--border_radius_1);
   position: relative;
