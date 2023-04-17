@@ -18,7 +18,7 @@
   .row_study_card{
     width: 100%;
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     padding-right: 5px;
     box-sizing: border-box;
   }

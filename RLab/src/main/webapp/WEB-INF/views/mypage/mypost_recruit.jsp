@@ -10,7 +10,7 @@
 <script src="<c:url value='/resources/js/jquery.min.js'></c:url>"></script>
 <script src="<c:url value='/resources/js/jquery.validate.min.js'></c:url>"></script>
 <script src="<c:url value='/resources/js/additional-methods.min.js'></c:url>"></script>
- <link rel="stylesheet" href="<c:url value ='/resources/css/common.css?after'></c:url>" />
+ <link rel="stylesheet" href="<c:url value ='/resources/css/common.css'></c:url>" />
 <link rel="stylesheet" href="<c:url value ='/resources/css/mypage/mypage_common.css?after'></c:url>" />
 <link rel="stylesheet" href="<c:url value ='/resources/css/tab_common.css?after'></c:url>" />
 <link rel="stylesheet" href="<c:url value ='/resources/css/table_common.css?after'></c:url>" />
@@ -52,7 +52,8 @@
 		                      <div class="except_container">
 		                        <div class="except_box">
 		                          <label for="except_btn">모집완료된 스터디 제외</label>
-		                          <input type="checkbox" name="" id="except_btn">
+		                          
+		                          <input type="checkbox" name="" id="except_btn" value="on" <c:if test="${pm.cri.filter == 'on'}">checked</c:if>> 
 		                        </div>
 		                      </div>
 		  
@@ -126,17 +127,17 @@
 		                        <!-- 페이지네이션 -->
 		                        <div class="page_box clearfix">
 		                         <c:if test="${pm.prev}">
-		                     			<a class="page-link" href="<c:url value='/mypage/mypost_recruit?page=${pm.endPage-1}'></c:url>">
+		                     			<a class="page-link" href="<c:url value='/mypage/mypost_recruit?page=${pm.endPage-1}&filter=${pm.cri.filter}'></c:url>">
 											<i class="btn_prev"></i>
 										</a>
 									</c:if>
 									<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
 										<span class="page_num">										
-											<a class="page-link <c:if test="${pm.cri.page == i}"> active</c:if>" href="<c:url value='/mypage/mypost_recruit?page=${i}'></c:url>">${i}</a>
+											<a class="page-link <c:if test="${pm.cri.page == i}"> active</c:if>" href="<c:url value='/mypage/mypost_recruit?page=${i}&filter=${pm.cri.filter}'></c:url>">${i}</a>
 										</span>
 									</c:forEach>
 									<c:if test="${pm.next}">										
-										<a class="page-link" href="<c:url value='/mypage/mypost_recruit?page=${pm.endPage+1}'></c:url>">
+										<a class="page-link" href="<c:url value='/mypage/mypost_recruit?page=${pm.endPage+1}&filter=${pm.cri.filter}'></c:url>">
 											<i class="btn_next"></i>
 										</a>
 									</c:if>
@@ -146,22 +147,35 @@
                   </section> 
 			</div>
 		</main>
-${myGatherList}
 	</div>
 <script>	
-	$(document).ready(function(){
-		$('#except_btn').click(function(){
-			if($(this).is(':checked')){
-				$('.st_state').each(function(){
-					if($(this).val() !== 1){
-						$(this).hide();
-					}
-				});
-			} else {
-				$('.study_card_box').show();
-			}
-		})
-	})
+/*$('#except_btn').change(function(){
+	if($(this).is(':checked')){
+        location.replace('<c:url value="mypage/mypost_recruit?filter=checked"></c:url>');
+	}
+})*/
+$('#except_btn').change(function(){
+	 //현재 페이지 주소
+	 var url = new URL(window.location.href)
+	//현재 페이지의 param들을 찾아온다. (?page나 &filter=같은것들)
+	 var params = url.searchParams;
+	
+	//#except_btn을 checked로 설정하면
+	if($(this).is(':checked')){
+		//filter의 값을 on으로 변경한다.
+		params.set('filter','on');
+		
+	//#except_btn의 checked를 해제하면
+	}else{
+		//filter의 값을 off로 변경한다.
+		params.set('filter','off');
+	}
+	
+	//http://localhost:8080 + /test/mypage/mypost_recruit + ? + search
+	var fullUrl = url.origin + url.pathname + "?" +params.toString();
+	//fullUrl로 url 변경
+	location.replace(fullUrl);
+})
 
 	$('#edit_info').submit(function(){
 		event.preventDefault(); // submit 이벤트 막기

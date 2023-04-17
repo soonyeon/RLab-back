@@ -21,11 +21,11 @@
 				<!-- aside(left_menu) -->
 				<aside class="left_menu_container">
 					<nav class="left_menu">
-						<a href="./mypage.html" class="list_item">마이페이지 홈</a>
-						<a href="./edit_info.html" class="list_item">개인정보 수정</a>
-						<a href="#" class="list_item">예약 관리</a>
-						<a href="./mystudy.html" class="list_item">스터디 관리</a>
-						<a href="./mypost.html" class="list_item">작성글 관리</a>
+					  <a href="<c:url value='/mypage'></c:url>" class="list_item">마이페이지 홈</a>
+		              <a href="<c:url value='/mypage/pwcheck'></c:url>" class="list_item">개인정보 수정</a>
+		              <a href="./book_info_ticket.html" class="list_item">예약 관리</a>
+		              <a href="./mystudy_favorite.html" class="list_item">스터디 관리</a>
+		              <a href="<c:url value='/mypage/mypost_post'></c:url>" class="list_item">작성글 관리</a>
 					</nav>
 				</aside>
 

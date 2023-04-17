@@ -3,7 +3,10 @@
 <mapper namespace="kr.kh.RLab.dao.MypageDAO">
 <!-- 나의 스크랩 -->
 <resultMap id="scrap" type="kr.kh.RLab.vo.BoardVO">
+	<id property="bo_num" column="bo_title"/>
 	<id property="bo_title" column="bo_title"/>
+	<id property="st_name" column="st_name"/>
+	<id property="bo_me_id" column="bo_me_id"/>
 	<id property="bo_reg_date" column="bo_reg_date"/>
 		<association property="scrapVO" javaType="kr.kh.RLab.vo.ScrapVO">
 			<result property="sc_num" column="sc_num"/>	
@@ -62,7 +65,7 @@
   	<!-- [작성글 관리 > 나의 스크랩] -->
   		<!-- 아이디로 스크랩한 게시글 목록 가져오기  -->	
   		<select id="selectScrapListById" resultMap="scrap">
-		    SELECT sc_num, st_name, bo_title, me_name, bo_reg_date
+		    SELECT sc_num, st_name, bo_title, bo_num, me_name, bo_reg_date
 			FROM board
 			JOIN study ON board.bo_st_num = study.st_num
 		    JOIN member ON board.bo_me_id = member.me_id
@@ -90,6 +93,9 @@
   			join gather on ga_st_num = st_num
 			WHERE  
 				ga_me_id = #{memberId}
+			<if test="gatherCri.filter == 'on'">
+				AND st_state = 1
+			</if>
 			ORDER BY ga_num DESC
 			limit #{gatherCri.pageStart}, #{gatherCri.perPageNum}
 		</select>
