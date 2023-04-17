@@ -1,0 +1,98 @@
+.study_name {
+    display: inline-block;
+    vertical-align: 10px;  
+    margin: 0; 
+    font-weight: bold;
+    padding-top: 16px;
+  }
+  
+  .time_line_title{
+    margin-left: 30px;
+    font-weight: bold;
+    font-size: 28px;
+  }
+  
+  .time_line_container2 {
+    margin-right:120px;
+    border-radius: var(--border_radius_4);
+    border: var(--border_basic);
+    box-shadow: var(--box-shadow);
+    float: right;
+    width: 400px;
+    overflow: auto;
+    height: 600px;
+    background-color: #fff;
+  }
+  
+  .time_line_container2::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  .time_line_container2::-webkit-scrollbar-thumb {
+    background-color: var(--color_black);
+    border-radius: 10px;
+  }
+  
+  .circle_btn {
+    display: inline-block;
+    background-color: var(--color_blue);
+    color: var(--color_black);
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    text-align: center;
+    line-height: 80px;
+    font-weight: bold;
+    cursor: pointer;
+    position: fixed;
+    bottom: 180px;
+    left : 1100px;
+  }
+  .modal {
+  display: none; 
+  position: fixed; 
+  z-index: 1; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.5);
+}
+
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; 
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; 
+  max-width: 500px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-content form button {
+  display: block;
+  margin: 0 auto;
+}
+.no_certification_message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    min-height: 500px; 
+}
+  

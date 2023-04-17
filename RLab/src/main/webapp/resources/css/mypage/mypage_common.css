@@ -1,0 +1,76 @@
+
+/* aside(left_menu) */
+#main_container .left_menu_container{
+	display: flex;
+	justify-content: center;
+	width: 200px;
+	height: 430px;
+	padding: 60px 20px;
+	border: 2px solid #020a17;
+	border-radius: var(--border_radius_2);
+	box-sizing: border-box;
+	background-color: var(--color_beige);
+}
+.left_menu_container .left_menu{
+	display: flex;
+	flex-flow: column;
+	align-items: flex-start;
+	gap: 50px;
+	font-size: 16px;
+	font-weight: 800;
+}
+.left_menu .list_items{
+	display: flex;
+	flex-flow: column;
+	gap: 5px;
+}
+.list_items .list_item{
+	margin-bottom: 8px;
+	white-space: nowrap;
+}
+.list_item:hover{
+	color: var(--color_blue);
+}
+
+/* 탭 컨탠트 부모 */
+main #main_container{
+		display: flex;
+		justify-content: space-between;
+		gap: 30px;
+}
+#my_container {
+	margin-top: -7px; /* 위쪽 마진을 음수값으로 조정하여 보더가 붙어있는 스타일로 변경 */
+	width: 930px;
+	position: relative;
+	border: var(--border_basic); 
+	border-radius: var(--border_radius_4);
+	padding: 50px;
+	background-color: var(--color_beige);
+	box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+
+/* 넘기기 버튼 */
+.page_box{
+display: flex; justify-content: center;
+}
+.study_card_container .page_box>*{float: left; }
+.study_card_container .page_num+.page_num{margin-left: 20px;}
+.study_card_container .page_box .selected{
+  color: var(--color_black); font-weight: 500;
+}
+.study_card_container .page_box span{
+  line-height: 30px; font-size: 25px; color: rgb(62, 62, 62)
+}
+
+.btn_prev{
+  display: inline-block; width: 30px; height: 30px; margin-right: 10px;
+  background-position: -10px -10px; 
+  background-image: url(../../img/page_left.png);  background-size:50px 50px;
+}
+.btn_next{
+  width: 30px; height: 30px; margin-left: 10px;
+  background-position: -10px -10px; display: inline-block;
+  background-image: url(../../img/page_right.png); background-size:50px 50px;
+}

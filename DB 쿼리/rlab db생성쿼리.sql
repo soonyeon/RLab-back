@@ -8,13 +8,14 @@ DROP TABLE IF EXISTS `member`;
 CREATE TABLE `member` (
 	`me_id`	varchar(13) primary key	NOT NULL,
 	`me_name`	varchar(10)	NOT NULL,
-	`me_pw`	varchar(20)	NOT NULL,
-	`me_phone`	varchar(11)	NOT NULL,
+	`me_pw`	varchar(255)	NOT NULL,
 	`me_email`	varchar(30)	NOT NULL,
 	`me_authority`	int not null default 0,
 	`me_point`	int not null DEFAULT 0,
 	`me_rest_time`	int	,
-	`me_use_time`	int
+	`me_use_time`	int,
+    `me_profile`	varchar(255),
+    `me_study`	int
 );
 
 DROP TABLE IF EXISTS `branch`;
@@ -22,11 +23,12 @@ DROP TABLE IF EXISTS `branch`;
 CREATE TABLE `branch` (
 	`br_num`	int auto_increment primary key	NOT NULL,
 	`br_name`	VARCHAR(255) NOT NULL,
-	`br_address`	VARCHAR(255) NOT NULL,
-	`br_road_address`	VARCHAR(255),
+	`br_address`	VARCHAR(255),
+	`br_road_address`	VARCHAR(255) NOT NULL,
 	`br_tel`	VARCHAR(20) NOT NULL,
 	`br_capacity`	INT NOT NULL,
-	`br_re_name`	varchar(10)	NOT NULL
+	`br_re_name`	varchar(10)	NOT NULL,
+    `br_img`	varchar(255)
 );
 
 DROP TABLE IF EXISTS `study_member`;
@@ -35,7 +37,8 @@ CREATE TABLE `study_member` (
 	`sm_num`	int auto_increment primary key NOT NULL,
 	`sm_st_num`	int NOT NULL,
 	`sm_me_id`	varchar(13)	NOT NULL,
-	`sm_authority`	int not null default 0
+	`sm_authority`	int not null default 0,
+    `sm_join_date` datetime not null
 );
 
 DROP TABLE IF EXISTS `calendar`;
@@ -57,7 +60,7 @@ CREATE TABLE `reservation` (
 	`re_start_time`	datetime not null DEFAULT NOW(),
 	`re_valid_time`	datetime not null,
 	`re_register_date`	datetime not null,
-	`re_term`	int
+	`re_to_num`	int
 );
 
 DROP TABLE IF EXISTS `kind`;
@@ -151,7 +154,7 @@ CREATE TABLE `photo` (
 	`ph_pt_num`	int	NOT NULL,
 	`ph_me_id`	varchar(13)	NOT NULL,
 	`ph_register_date`	datetime default now()	NULL,
-	`ph_img`	BLOB NOT NULL,
+	`ph_img`	varchar(255) NOT NULL,
 	`ph_content`	varchar(500),
 	`ph_st_num`	int	NOT NULL
 );
@@ -175,7 +178,7 @@ CREATE TABLE `alram` (
 DROP TABLE IF EXISTS `pay`;
 
 CREATE TABLE `pay` (
-	`pa_num`	int auto_increment primary key	NOT NULL,
+	`pa_order_id`	varchar(27) primary key	NOT NULL,
 	`pa_me_id`	varchar(13)	NOT NULL,
 	`pa_date`	datetime NOT NULL default NOW(),
 	`pa_amount`	int	NOT NULL,
@@ -209,9 +212,11 @@ CREATE TABLE `comment` (
 	`co_num`	int auto_increment primary key	NOT NULL,
 	`co_me_id`	varchar(13)	NOT NULL,
 	`co_content`	varchar(500) NOT NULL,
+    `co_reg_date` datetime not null,
 	`co_ori_num`	int	NOT NULL,
 	`co_table`	varchar(15)	NULL,
-	`co_ex_num`	int	NOT NULL
+	`co_ex_num`	int	NOT NULL,
+    `co_delete` char(1) not null default 'N'
 );
 
 DROP TABLE IF EXISTS `like`;
@@ -250,7 +255,7 @@ CREATE TABLE `evolution` (
 	`ev_pe_num`	int	NOT NULL,
 	`ev_level`	int	NOT NULL,
 	`ev_step`	int not NULL,
-	`ev_img`	blob not NULL
+	`ev_img`	varchar(255) not NULL
 );
 
 DROP TABLE IF EXISTS `temporary`;
@@ -270,7 +275,8 @@ CREATE TABLE `seat` (
 	`se_num`	int auto_increment primary key	NOT NULL,
 	`se_br_num`	int	NOT NULL,
 	`se_ki_num`	int	NOT NULL,
-	`se_name`	varchar(15) not null
+	`se_name`	varchar(15) not null,
+    `se_usable`	int not null default 0
 );
 
 DROP TABLE IF EXISTS `ticket_own`;
@@ -279,7 +285,7 @@ CREATE TABLE `ticket_own` (
 	`to_num`	int auto_increment primary key	NOT NULL,
 	`to_me_id`	varchar(13)	NOT NULL,
 	`to_ti_num`	int	NOT NULL,
-	`to_pa_num`	int	NOT NULL,
+	`to_pa_order_id`	varchar(27)	NOT NULL,
 	`to_rest_time`	int,
 	`to_valid_date`	datetime,
 	`to_state`	tinyint(1) not null default 1
@@ -290,7 +296,8 @@ DROP TABLE IF EXISTS `want`;
 CREATE TABLE `want` (
 	`wa_num`	int auto_increment primary key	NOT NULL,
 	`wa_me_id`	varchar(13)	NOT NULL,
-	`wa_ga_num`	int	NOT NULL
+	`wa_ga_num`	int	NOT NULL,
+    `wa_state` tinyint(1)
 );
 
 DROP TABLE IF EXISTS `session`;
@@ -300,14 +307,6 @@ CREATE TABLE `session` (
 	`ss_me_id`	varchar(13)	NOT NULL,
 	`ss_in`	datetime NOT NULL,
 	`ss_out`	datetime DEFAULT NULL
-);
-
-DROP TABLE IF EXISTS `member_ok`;
-
-CREATE TABLE `member_ok` (
-	`mo_me_id`	varchar(13) primary key	NOT NULL,
-	`mo_num`	CHAR(6) not NULL,
-	`mo_valid_time`	DATETIME not null
 );
 
 DROP TABLE IF EXISTS `region`;
@@ -327,11 +326,11 @@ DROP TABLE IF EXISTS `pay_detail`;
 
 CREATE TABLE `pay_detail` (
 	`pd_num`	int auto_increment primary key	NOT NULL,
-	`pd_pa_num`	int	NOT NULL,
+	`pd_pa_order_id`	varchar(27)	NOT NULL,
 	`pd_ti_num`	int	NOT NULL,
 	`pd_amount`	int	NOT NULL,
 	`pd_price`	int	NOT NULL,
-	`pd_statie`	int	NOT NULL
+	`pd_state`	varchar(10)	NOT NULL
 );
 
 DROP TABLE IF EXISTS `point`;
@@ -352,9 +351,10 @@ CREATE TABLE `study` (
 	`st_me_id`	varchar(13)	NOT NULL,
 	`st_info`	varchar(100)	NULL,
 	`st_now_people`	int(50)  not null default 1,
-	`st_total_people`	int(50)  not null default 1	NULL,
+	`st_total_people`	int(50)  not null default 1,
 	`st_re_name`	varchar(10),
-	`st_image`	BLOB
+	`st_image`	varchar(255),
+    `st_state` int not null default 1
 );
 
 DROP TABLE IF EXISTS `exp`;
@@ -546,13 +546,6 @@ REFERENCES `member` (
 	`me_id`
 );
 
-ALTER TABLE `comment` ADD CONSTRAINT `FK_comment_TO_comment_1` FOREIGN KEY (
-	`co_ori_num`
-)
-REFERENCES `comment` (
-	`co_num`
-);
-
 ALTER TABLE `like` ADD CONSTRAINT `FK_member_TO_like_1` FOREIGN KEY (
 	`li_me_id`
 )
@@ -638,10 +631,10 @@ REFERENCES `ticket` (
 );
 
 ALTER TABLE `ticket_own` ADD CONSTRAINT `FK_pay_TO_ticket_own_1` FOREIGN KEY (
-	`to_pa_num`
+	`to_pa_order_id`
 )
 REFERENCES `pay` (
-	`pa_num`
+	`pa_order_id`
 );
 
 ALTER TABLE `want` ADD CONSTRAINT `FK_member_TO_want_1` FOREIGN KEY (
@@ -665,18 +658,11 @@ REFERENCES `member` (
 	`me_id`
 );
 
-ALTER TABLE `member_ok` ADD CONSTRAINT `FK_member_TO_member_ok_1` FOREIGN KEY (
-	`mo_me_id`
-)
-REFERENCES `member` (
-	`me_id`
-);
-
 ALTER TABLE `pay_detail` ADD CONSTRAINT `FK_pay_TO_pay_detail_1` FOREIGN KEY (
-	`pd_pa_num`
+	`pd_pa_order_id`
 )
 REFERENCES `pay` (
-	`pa_num`
+	`pa_order_id`
 );
 
 ALTER TABLE `pay_detail` ADD CONSTRAINT `FK_ticket_TO_pay_detail_1` FOREIGN KEY (
