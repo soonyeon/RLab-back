@@ -31,6 +31,7 @@ public class SessionController {
 	public ModelAndView loginPost(ModelAndView mv, MemberVO member, HttpServletRequest request, HttpSession session) {
 	    MemberVO user = memberService.login(member);
 	    if (user != null) {
+	        mv.addObject("user", user);
 	        SessionVO sessionVO = new SessionVO();
 	        sessionVO.setMember(user); // 로그인 사용자의 MemberVO 객체를 설정
 	        sessionVO.setSs_in(LocalDateTime.now()); // 현재 시간을 설정
