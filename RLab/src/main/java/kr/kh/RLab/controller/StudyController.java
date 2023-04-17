@@ -203,7 +203,7 @@ public class StudyController {
 	    // StudyService 클래스의 getStudyMemberList메서드를 호출하여 멤버 리스트를 가져옴
 	    ArrayList<StudyMemberVO> memberList = studyService.getStudyMemberList(st_num,cri);	    
 	    int totalCount = studyService.getStudyTotalCount(st_num);	    
-	    System.out.println(totalCount);	    	    
+//	    System.out.println(totalCount);	    	    
 	    PageMaker pm = new PageMaker(totalCount,5,cri);
 
 	    // "myStudyList" 키와 함께 연구 목록을 ModelAndView 객체에 추가
@@ -222,31 +222,49 @@ public class StudyController {
 	@RequestMapping(value = "/management/member/delete", method = RequestMethod.POST)
 	public HashMap<String,Object> deleteMember(@RequestBody StudyMemberVO sm) {
 		HashMap<String,Object> map = new HashMap<String,Object>();
-		System.out.println(sm);
 		
 	    // 멤버를 삭제하고, 새로운 멤버 리스트를 가져옴
-	    studyService.deleteStudyMember(sm.getSm_num(),sm.getMe_name());
-	    map.put("result", "success");
-	    
+	    studyService.deleteStudyMember(sm.getSm_st_num(),sm.getMe_name());
 	    return map;
 	}
+	
 
-	@RequestMapping(value = "/management/study", method = RequestMethod.GET)
-	public ModelAndView managementStudy(ModelAndView mv, HttpSession session, MemberVO member, StudyVO study) {
-		// HttpSession에서 "user"라는 이름의 속성을 가져와 MemberVO 객체로 형변환하여 변수 user에 저장
-		// 로그인한 유저정보를 가져온다
-
+//	@RequestMapping(value = "/management/study", method = RequestMethod.GET)
+//	public ModelAndView managementStudy(ModelAndView mv, HttpSession session, MemberVO member, StudyVO study) {
+//		// HttpSession에서 "user"라는 이름의 속성을 가져와 MemberVO 객체로 형변환하여 변수 user에 저장
+//		// 로그인한 유저정보를 가져온다
+//	    MemberVO user = (MemberVO) session.getAttribute("user");
+//	    String memberId = user.getMe_id();
+//	     System.out.println(user);
+//	     System.out.println("------------");
+//    
+//	    ArrayList<StudyVO> myStudyList = studyService.getStudyListById(memberId);
+//	    System.out.println(myStudyList+"0000");
+//
+//		mv.addObject("myStudyList", myStudyList);
+//	    mv.addObject("user", user);
+//		mv.setViewName("/study/management_study");
+//		return mv;
+//	}
+	
+	@RequestMapping(value = "/management/study/{st_num}", method = RequestMethod.GET)
+	public ModelAndView managementStudy(ModelAndView mv, HttpSession session, MemberVO member, 
+			StudyVO study, @PathVariable("st_num") int st_num) {
+	    // HttpSession에서 "user"라는 이름의 속성을 가져와 MemberVO 객체로 형변환하여 변수 user에 저장
+	    // 로그인한 유저정보를 가져온다
 	    MemberVO user = (MemberVO) session.getAttribute("user");
-	    String memberId = user.getMe_id();	    
-	    // System.out.println(user);
-    
-	    ArrayList<StudyVO> myStudyList = studyService.getStudyListById(memberId);
-	    System.out.println(myStudyList);
+	    String memberId = user.getMe_id();
+	    System.out.println(user);
+	    System.out.println("------------");
 
-		mv.addObject("myStudyList", myStudyList);
+	    ArrayList<StudyVO> myStudyList = studyService.getStudyListById(memberId);
+	    System.out.println(myStudyList + "0000");
+
+	    mv.addObject("myStudyList", myStudyList);
 	    mv.addObject("user", user);
-		mv.setViewName("/study/management_study");
-		return mv;
+	    mv.addObject("st_num", st_num); // 스터디 넘버를 ModelAndView에 추가
+	    mv.setViewName("/study/management_study");
+	    return mv;
 	}
 
 }

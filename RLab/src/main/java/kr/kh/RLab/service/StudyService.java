@@ -38,6 +38,7 @@ public interface StudyService {
 	int getStudyTotalCount(int st_num);
 
 	void deleteStudyMember(int st_num, String me_name);
+	
 
 
 

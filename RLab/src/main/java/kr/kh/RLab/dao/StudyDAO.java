@@ -43,7 +43,7 @@ public interface StudyDAO {
 	
 	String selectStudyMemberId(@Param("me_name")String me_name);
 
-	void deleteStudyMember(@Param("st_num")int st_num, @Param("me_name")String me_name);
+	int deleteStudyMember(@Param("st_num")int st_num, @Param("me_id")String me_id);
     
     
 

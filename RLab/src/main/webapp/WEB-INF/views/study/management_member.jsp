@@ -27,7 +27,7 @@
 	        <!-- 탭 -->
 	        <div class="tab_container">
 	            <a href="<c:url value='/study/management/member'></c:url>" class="item_tab  selected tab1">회원 관리</a>
-	            <a href="<c:url value='/study/management/study'></c:url>" class="item_tab unselected tab2">스터디 관리</a>
+	            <a href="<c:url value='/study/management/study/{st_num}'></c:url>" class="item_tab unselected tab2">스터디 관리</a>
 	        </div>
 	
 	        <div class="my_study_container" id="my_container">
@@ -313,6 +313,7 @@ $(".btn_drop").on("click", function() {
 	        console.log(data);
 	    }
 	});
+	location.replace("<c:url value='/study/management/member/${st_num}'></c:url>");
 });
 
 $(".btn_power").on("click", function() {
