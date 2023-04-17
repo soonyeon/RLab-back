@@ -91,5 +91,6 @@
 		join ticket on ti_num = to_ti_num
 		join ticket_type on ti_tt_num = tt_num
 		where to_me_id = #{me_id} and tt_num != 4
+		order by to_ti_num asc, to_valid_date asc
 	</select>
 </mapper>

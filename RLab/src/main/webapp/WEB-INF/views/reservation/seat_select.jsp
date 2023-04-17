@@ -193,9 +193,8 @@
 					<div class="ticket_area">
 						<select id="ticket_select">
 							<c:forEach items="${toList}" var="to">
-								<option value="${to.to_num}">${to.tt_name}(${to.ti_name})</option>
+								<option value="${to.to_num}">${to.tt_name}(${to.ti_name}) ~${to.to_valid_date_str}</option>
 							</c:forEach>
-							<option value="12">ads(2dsfsfd)</option>
 						</select>
 						<select class="time_select time_30 display_none">
 							<option value="hour_1">1시간</option>

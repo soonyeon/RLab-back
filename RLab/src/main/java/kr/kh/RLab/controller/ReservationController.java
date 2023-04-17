@@ -157,13 +157,11 @@ public class ReservationController {
 	
 	@RequestMapping(value = "/reservation/book", method=RequestMethod.GET) 
 	public ModelAndView book(ModelAndView mv) {
-
 		mv.setViewName("/reservation/book");
 		return mv;
 	}
 	@RequestMapping(value = "/reservation/1/spot", method=RequestMethod.GET) 
 	public ModelAndView seatSpot(ModelAndView mv, ReservationCriteria cri) {
-		System.out.println(cri);
 		ArrayList<BranchVO> brList = reservationService.getAllBranchList(cri);
 		int totalCount = reservationService.getBranchTotalCount(cri);
 		PageMaker pm = new PageMaker(totalCount, 5, cri);
