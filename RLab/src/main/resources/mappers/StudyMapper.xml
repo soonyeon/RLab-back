@@ -74,5 +74,26 @@
     	delete from study_member
     	where sm_st_num = #{st_num} and sm_me_id = #{me_id}
     </delete>
+    <update id="updateStudyMemberAuthority">
+    	update study_member set sm_authority = 9
+    	where sm_me_id = #{sm_me_id}
+    	and sm_st_num = #{sm_st_num}
+    </update>
+    <select id="selectStudyLeaderId" resultType="String">
+    	select st_me_id from study
+    	where st_num = #{sm_st_num}
+    </select>
+    <update id="updateStudyLeaderAuthority">
+		update study_member set sm_authority = 0
+		where sm_st_num = #{sm_st_num} and sm_me_id = #{leaderId}
+    </update>
+    <update id="updateStudyLeader"> 
+		update study set st_me_id = #{sm_me_id}
+		where st_num = #{sm_st_num}
+    </update>
+    
+    
+    
+    
     
 </mapper>

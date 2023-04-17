@@ -183,7 +183,6 @@ public class StudyController {
 
 	@RequestMapping(value = "/management", method = RequestMethod.POST)
 	public ModelAndView managementPost(ModelAndView mv, StudyVO study) {
-		System.out.println(study);
 		mv.setViewName("redirect:/study/management/member/" + study.getSt_num());
 		return mv;
 	}	
@@ -194,10 +193,6 @@ public class StudyController {
 	    
 	    // 세션에서 "user" 속성을 검색하고 MemberVO 객체로 캐스팅
 	    MemberVO user = (MemberVO) session.getAttribute("user");
-	    // 로그인한 사용자의 ID를 MemberVO 객체에서 가져옴
-	    String memberId = user.getMe_id();	    	       
-	    // StudyService 클래스의 getStudyListById 메서드를 호출하여 사용자가 속한 스터디 리스트를 가져옴
-	    ArrayList<StudyVO> myStudyList = studyService.getStudyListById(memberId);
    
 	    //cri.setPerPageNum(1);	    
 	    // StudyService 클래스의 getStudyMemberList메서드를 호출하여 멤버 리스트를 가져옴
@@ -207,7 +202,6 @@ public class StudyController {
 	    PageMaker pm = new PageMaker(totalCount,5,cri);
 
 	    // "myStudyList" 키와 함께 연구 목록을 ModelAndView 객체에 추가
-	    mv.addObject("myStudyList", myStudyList);
 	    mv.addObject("memberList",memberList);
 	    mv.addObject("st_num", st_num);
 	    mv.addObject("pm",pm);
@@ -224,6 +218,16 @@ public class StudyController {
 		HashMap<String,Object> map = new HashMap<String,Object>();
 	    // 멤버를 삭제하고, 새로운 멤버 리스트를 가져옴
 	    studyService.deleteStudyMember(sm.getSm_st_num(),sm.getMe_name());
+	    return map;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/management/member/authorize", method = RequestMethod.POST)
+	public HashMap<String,Object> authorizeMember(@RequestBody StudyMemberVO sm) {
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		System.out.println(sm);
+	    // 멤버를 삭제하고, 새로운 멤버 리스트를 가져옴
+	    studyService.authorizeStudyMember(sm.getSm_st_num(),sm.getMe_name());
 	    return map;
 	}
 	

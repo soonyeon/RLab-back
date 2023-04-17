@@ -44,6 +44,14 @@ public interface StudyDAO {
 	String selectStudyMemberId(@Param("me_name")String me_name);
 
 	int deleteStudyMember(@Param("st_num")int st_num, @Param("me_id")String me_id);
+
+	void updateStudyMemberAuthority(@Param("sm_st_num")int sm_st_num, @Param("sm_me_id")String sm_me_id);
+
+	String selectStudyLeaderId(@Param("sm_st_num")int sm_st_num);
+
+	void updateStudyLeaderAuthority(@Param("sm_st_num")int sm_st_num, @Param("leaderId")String leaderId);
+
+	void updateStudyLeader(@Param("sm_st_num")int sm_st_num, @Param("sm_me_id")String sm_me_id);
     
     
 

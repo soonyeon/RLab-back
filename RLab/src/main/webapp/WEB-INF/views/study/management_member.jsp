@@ -60,9 +60,9 @@
 		                                    </td>
 		                                    <td>${sm.sm_join_date}</td>
 		                                    <td>
-		                                        <div class="btn_container">
-		                                            <button class="btn_member btn_drop">강퇴</button>
-		                                            <button class="btn_member btn_power">스터디장 위임</button>
+		                                        <div class="btn_container" >
+		                                            <button class="btn_member btn_drop<c:if test="${sm.sm_me_id == user.me_id}"> display_none</c:if>">강퇴</button>
+		                                            <button class="btn_member btn_power<c:if test="${sm.sm_me_id == user.me_id}"> display_none</c:if>">스터디장 위임</button>
 		                                        </div>
 		                                    </td>
 		                                </tr>
@@ -319,11 +319,36 @@ $(".btn_drop").on("click", function() {
   }); 
 	  
 });   
+
+
   
 $(".btn_power").on("click", function() {
-  confirmAction("본 회원에게 스터디장을 위임하시겠습니까?", function() {
-    alert("위임처리 되었습니다.");
-  });
+	console.log(1)
+	let me_name  = $(this).parents('.board_list').find('[name=me_name]').text();
+	console.log(me_name);
+	
+	let obj ={
+			me_name: me_name,
+			sm_st_num: ${st_num}
+	}
+	confirmAction("본 회원에게 스터디장을 위임하시겠습니까?", function(){
+		$.ajax({	
+			async:false,
+		    type:'POST',
+		    data:JSON.stringify(obj),
+		    url:"<c:url value='/study/management/member/authorize'></c:url>",
+		    //서버에서 받는 데이터 타입
+		    dataType:"json",
+		    //서버에서 보내는 데이터 타입
+		    contentType:"application/json; charset=UTF-8",
+		    success : function(data){
+		        console.log(data);
+		    }
+		});
+	});
+	  
+	location.replace("<c:url value='/study/management/member/${st_num}'></c:url>");
+    alert("위임처리 되었습니다."); 
 });
 
 
