@@ -27,7 +27,7 @@
 	        <!-- 탭 -->
 	        <div class="tab_container">
 	            <a href="<c:url value='/study/management/member'></c:url>" class="item_tab  selected tab1">회원 관리</a>
-	            <a href="<c:url value='/study/management/study/{st_num}'></c:url>" class="item_tab unselected tab2">스터디 관리</a>
+	            <a href="<c:url value='/study/management/study/${st_num}'></c:url>" class="item_tab unselected tab2">스터디 관리</a>
 	        </div>
 	
 	        <div class="my_study_container" id="my_container">
@@ -291,31 +291,35 @@ $.ajax({
 
 
 $(".btn_drop").on("click", function() {
-  /* confirmAction("본 회원을 강퇴시키겠습니까?", function() {
-    alert("강퇴처리 되었습니다.");
-  }); */
-  let me_name = $(this).parents('.board_list').find('[name=me_name]').text();
-  let obj ={
+	let me_name = $(this).parents('.board_list').find('[name=me_name]').text();
+	let obj ={
 		  me_name: me_name,
 		  sm_st_num: ${st_num}
-  } 
-  console.log(obj);
-	$.ajax({
-		async:false,
-	    type:'POST',
-	    data:JSON.stringify(obj),
-	    url:"<c:url value='/study/management/member/delete'></c:url>",
-	    //서버에서 받는 데이터 타입
-	    dataType:"json",
-	    //서버에서 보내는 데이터 타입
-	    contentType:"application/json; charset=UTF-8",
-	    success : function(data){
-	        console.log(data);
-	    }
-	});
-	location.replace("<c:url value='/study/management/member/${st_num}'></c:url>");
-});
-
+	} 
+	
+	
+  confirmAction("본 회원을 강퇴시키겠습니까?", function() {
+	  console.log($(this));
+	  $.ajax({
+			async:false,
+		    type:'POST',
+		    data:JSON.stringify(obj),
+		    url:"<c:url value='/study/management/member/delete'></c:url>",
+		    //서버에서 받는 데이터 타입
+		    dataType:"json",
+		    //서버에서 보내는 데이터 타입
+		    contentType:"application/json; charset=UTF-8",
+		    success : function(data){
+		        console.log(data);
+		    }
+		});
+	  
+		location.replace("<c:url value='/study/management/member/${st_num}'></c:url>");
+	    alert("강퇴처리 되었습니다.");
+  }); 
+	  
+});   
+  
 $(".btn_power").on("click", function() {
   confirmAction("본 회원에게 스터디장을 위임하시겠습니까?", function() {
     alert("위임처리 되었습니다.");

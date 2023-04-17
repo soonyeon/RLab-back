@@ -25,8 +25,7 @@
 	    <div class="content_container">
 	        <!-- 탭 -->
 	        <div class="tab_container">
-	            <a href="<c:url value='/study/management/member'></c:url>" class="item_tab  selected tab1">회원 관리</a>
-	            <a href="<c:url value='/study/management/study'></c:url>" class="item_tab unselected tab2">스터디 관리</a>
+	            <a href="#" class="item_tab  selected tab1">스터디 선택</a>
 	        </div>
 	        <div class="my_study_container" id="my_container">
 	            <!-- table  -->

@@ -32,7 +32,7 @@
 	        <div class="my_study_container" id="my_container">
 	            <div class="option_container">
 	            	<div>
-	            		<h3>${}</h3>
+
 	            		
 	            	</div>         
 	                <div class="finish_box study_box">
