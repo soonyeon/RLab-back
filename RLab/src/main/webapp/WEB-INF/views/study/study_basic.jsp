@@ -461,6 +461,7 @@
 	</div>                                   
 </main>            
 <script>
+const st_num = '${st_num}';
 const todoInput = document.querySelector(".input_box");
 const todoList = document.querySelector(".todo_list");
 
