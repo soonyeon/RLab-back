@@ -31,13 +31,9 @@ public class HomeController {
 
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView login(ModelAndView mv,HttpServletRequest request) {
-		String url = request.getHeader("Referer");
-		if(url != null && !url.contains("/login")) {
-			request.getSession().setAttribute("prevURL", url);
-		}
-		mv.setViewName("/main/home");
-		return mv;
+	public ModelAndView login(ModelAndView mv) {
+	    mv.setViewName("/main/home");
+	    return mv;
 	}
 	
 	@RequestMapping(value="/signup", method=RequestMethod.GET)
