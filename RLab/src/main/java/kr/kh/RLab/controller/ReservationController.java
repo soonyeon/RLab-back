@@ -162,29 +162,18 @@ public class ReservationController {
 		return mv;
 	}
 	@RequestMapping(value = "/reservation/1/spot", method=RequestMethod.GET) 
-	public ModelAndView seatSpot(ModelAndView mv, ReservationCriteria cri, String keyword) {
+	public ModelAndView seatSpot(ModelAndView mv, ReservationCriteria cri) {
 		System.out.println(cri);
 		ArrayList<BranchVO> brList = reservationService.getAllBranchList(cri);
 		int totalCount = reservationService.getBranchTotalCount(cri);
-		System.out.println(totalCount);
 		PageMaker pm = new PageMaker(totalCount, 5, cri);
+		mv.addObject("cri", cri);
 		mv.addObject("brList", brList);
-		mv.addObject("keyword", keyword);
+		mv.addObject("search", cri.getSearch());
 		mv.addObject("pm", pm);
 		mv.setViewName("/reservation/seat_spot");
 		return mv;
 	}
-	/*
-	@RequestMapping(value = "/reservation/1/spot", method=RequestMethod.POST) 
-	public ModelAndView seatSpot(ModelAndView mv, BranchVO br) {
-		ArrayList<BranchVO> brList = reservationService.searchBranchList(br);
-		mv.addObject("keyword", br.getBr_name());
-		mv.addObject("region", br.getBr_re_name());
-		System.out.println(brList);
-		mv.addObject("brList", brList);
-		mv.setViewName("/reservation/seat_spot");
-		return mv;
-	}*/
 	@RequestMapping(value = "/reservation/1/{br_num}", method=RequestMethod.GET) 
 	public ModelAndView seatDetail(ModelAndView mv, @PathVariable("br_num")int br_num, HttpSession session) {
 		BranchVO br = reservationService.getBranchByBrNum(br_num);

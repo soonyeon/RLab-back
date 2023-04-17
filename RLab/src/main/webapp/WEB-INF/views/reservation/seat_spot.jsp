@@ -31,29 +31,29 @@
 				<div class="search_container">
 					<div class="filter_area">
 						<form action="<c:url value='/reservation/1/spot'></c:url>">
-							<select class="choose_region" name="regoin">
+							<select class="choose_region" name="region">
 								<option value="">지역 선택</option>
-								<option value="지역 미지정">지역 미지정</option>
-								<option value="서울특별시">서울특별시</option>
-								<option value="인천광역시">인천광역시</option>
-								<option value="대구광역시">대구광역시</option>
-								<option value="대전광역시">대전광역시</option>
-								<option value="부산광역시">부산광역시</option>
-								<option value="광주광역시">광주광역시</option>
-								<option value="울산광역시">울산광역시</option>
-								<option value="경기도">경기도</option>
-								<option value="강원도">강원도</option>
-								<option value="경상북도">경상북도</option>
-								<option value="경상남도">경상남도</option>
-								<option value="전라북도">전라북도</option>
-								<option value="전라남도">전라남도</option>
-								<option value="충청북도">충청북도</option>
-								<option value="충청남도">충청남도</option>
-								<option value="제주특별자치도">제주특별자치도</option>
-								<option value="세종특별자치시">세종특별자치시</option>
+								<option value="지역 미지정" <c:if test="${cri.region=='지역 미지정'}">selected</c:if>>지역 미지정</option>
+								<option value="서울특별시" <c:if test="${cri.region=='서울특별시'}">selected</c:if>>서울특별시</option>
+								<option value="인천광역시" <c:if test="${cri.region=='인천광역시'}">selected</c:if>>인천광역시</option>
+								<option value="대구광역시" <c:if test="${cri.region=='대구광역시'}">selected</c:if>>대구광역시</option>
+								<option value="대전광역시" <c:if test="${cri.region=='대전광역시'}">selected</c:if>>대전광역시</option>
+								<option value="부산광역시" <c:if test="${cri.region=='부산광역시'}">selected</c:if>>부산광역시</option>
+								<option value="광주광역시" <c:if test="${cri.region=='광주광역시'}">selected</c:if>>광주광역시</option>
+								<option value="울산광역시" <c:if test="${cri.region=='울산광역시'}">selected</c:if>>울산광역시</option>
+								<option value="경기도" <c:if test="${cri.region=='경기도'}">selected</c:if>>경기도</option>
+								<option value="강원도" <c:if test="${cri.region=='강원도'}">selected</c:if>>강원도</option>
+								<option value="경상북도" <c:if test="${cri.region=='경상북도'}">selected</c:if>>경상북도</option>
+								<option value="경상남도" <c:if test="${cri.region=='경상남도'}">selected</c:if>>경상남도</option>
+								<option value="전라북도" <c:if test="${cri.region=='전라북도'}">selected</c:if>>전라북도</option>
+								<option value="전라남도" <c:if test="${cri.region=='전라남도'}">selected</c:if>>전라남도</option>
+								<option value="충청북도" <c:if test="${cri.region=='충청북도'}">selected</c:if>>충청북도</option>
+								<option value="충청남도" <c:if test="${cri.region=='충청남도'}">selected</c:if>>충청남도</option>
+								<option value="제주특별자치도" <c:if test="${cri.region=='제주특별자치도'}">selected</c:if>>제주특별자치도</option>
+								<option value="세종특별자치시" <c:if test="${cri.region=='세종특별자치시'}">selected</c:if>>세종특별자치시</option>
 							</select>
 							<div class="search_box">
-								<input type="search" class="search" name="search" placeholder="지역, 지점명으로 검색" value="${keyword}">
+								<input type="search" class="search" name="search" placeholder="지역, 지점명으로 검색" value="${search}">
 								<button class="btn_search"><i class="icon_search"></i></button>
 							</div>
 						</form>
@@ -92,13 +92,21 @@
 					</c:if>	
 					</ul>
 					<div class="page_box clearfix">
-						<i class="btn_prev"></i>
-						<span class="page_num selected_num">1</span>
-						<span class="page_num">2</span>
-						<span class="page_num">3</span>
-						<span class="page_num">4</span>
-						<span class="page_num">5</span>
-						<i class="btn_next"></i>
+						<c:if test="${pm.prev}">
+							<i class="btn_prev">
+								<a href="<c:url value='/reservation/1/spot?region=${pm.cri.region}&search=${pm.cri.search}&page=${pm.startPage-1}'></c:url>"></a>
+							</i>
+						</c:if>
+						<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
+							<span class="page_num <c:if test='${pm.cri.page==i}'>selected_num</c:if>">
+								<a href="<c:url value='/reservation/1/spot?region=${pm.cri.region}&search=${pm.cri.search}&page=${i}'></c:url>">${i}</a>
+							</span>
+						</c:forEach>
+						<c:if test="${pm.next}">
+							<i class="btn_next">
+								<a href="<c:url value='/reservation/1/spot?region=${pm.cri.region}&search=${pm.cri.search}&page=${pm.startPage-1}'></c:url>"></a>
+							</i>
+						</c:if>						
 					</div>
 				</div>
 			</section>
@@ -106,5 +114,35 @@
 	</div>
 </main>
 <script>
-
+$('.choose_region').change(function(){
+	let region = $(this).val();
+	let search = $('[name=search]').val();
+	console.log(region);
+	console.log(search);
+	location.replace('<c:url value="/reservation/1/spot?region='+region+'&search='+search+'"></c:url>');
+	/*let cri = {
+			region : region,
+			search : search
+	}
+	$.ajax({
+        async:false,
+        type: 'GET',
+        url: '<c:url value="/reservation/1/spot?region='+region+'&search='+search+'"></c:url>',
+        contentType:"application/json; charset=UTF-8", //위에있는 data타입(받는거)
+        success : function(data){
+        	console.log(data);
+        }
+	});
+	$.ajax({
+        async:false,
+        type: 'POST',
+        data: JSON.stringify(cri),
+        url: '<c:url value="/reservation/1/spot"></c:url>',
+        dataType:"json", //success에 있는 data타입(주는거)
+        contentType:"application/json; charset=UTF-8", //위에있는 data타입(받는거)
+        success : function(data){
+        	console.log(data);
+        }
+	});*/
+});
 </script>
