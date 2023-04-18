@@ -24,6 +24,8 @@
 	<id property="st_state" column="st_state"/>
 		<collection property="gatherVO" column="st_num" select="selectGather" ofType="kr.kh.RLab.vo.GatherVO"></collection>		
 </resultMap>
+
+
 	<!-- [마이페이지 홈] -->
 		<!-- 적립 포인트 -->
 		<select id="selectMyPoint" resultType="int">
@@ -31,6 +33,29 @@
 			FROM member
 			WHERE me_id = #{userId};		
 		</select>
+		
+		<!-- 나의 스터디 -->
+		<select id="selectMainStudyList" resultType="kr.kh.RLab.vo.StudyVO">
+			select * 
+			from study_member
+			join
+			where st_me_id = 
+		</select>
+		
+		<!-- 나의 스크랩 -->
+		<select id="selectMainScrapList" resultMap="scrap">
+			select st_name, bo_title, bo_st_num, bo_num,  sc_num
+  			from board
+  			join study on bo_st_num = st_num
+            join scrap on bo_num = sc_bo_num
+			WHERE  
+				sc_me_id = #{userId} 
+				and sc_state = 1
+			ORDER BY bo_num DESC
+			LIMIT 4		
+		</select>
+		
+		
 
 	<!-- [개인정보 수정 > 비밀번호 체크 > 개인정보 수정창] -->
 		<!-- 프로필 이미지 수정 -->

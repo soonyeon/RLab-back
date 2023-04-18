@@ -1,3 +1,11 @@
+.noPostMsg{
+	width: 332px;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 /* main */
 main{
     width: var(--body_size);
@@ -41,12 +49,7 @@ main #main_container{
 .list_item:hover{
     color: var(--color_blue);
 }
-/* .list_items .list_item2{
-    font-size: 14px;
-    font-weight: 400;
-    margin-left: 10px;
-    white-space: nowrap;
-} */
+
 
 /* articles */
 article{

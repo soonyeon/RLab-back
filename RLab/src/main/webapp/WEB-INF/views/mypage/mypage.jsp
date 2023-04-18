@@ -238,34 +238,21 @@
                 </div>
                 <ul class="list_container">
                   <!-- 스크랩한 게시글 상세로 이동 -->
-                  <a href="#">
-                    <li class="list_item">
-                      <i class="icon_scrab"></i>
-                      <div class="title_scrab">[정처기 준비 스터디]</div>
-                      <p class="content_scrab">필기요약 정리했습니다</p>
-                    </li>
-                  </a>
-                  <a href="">
-                    <li class="list_item">
-                      <i class="icon_scrab"></i>
-                      <div class="title_scrab">[KH 스터디]</div>
-                      <p class="content_scrab">협업 시 규칙사항 공유합니다</p>
-                    </li>
-                  </a>
-                  <a href="">
-                    <li class="list_item">
-                      <i class="icon_scrab"></i>
-                      <div class="title_scrab">[KH 스터디]</div>
-                      <p class="content_scrab">자바 복습 영상1</p>
-                    </li>
-                  </a>
-                  <a href="">
-                    <li class="list_item">
-                      <i class="icon_scrab"></i>
-                      <div class="title_scrab">[KH 스터디]</div>
-                      <p class="content_scrab">자바 복습 영상2</p>
-                    </li>
-                  </a>
+                  <c:if test="${myScrapList == null || myScrapList.size() == 0}">
+	                  <div class="noPostMsg">
+	                  	<p>스크랩한 게시물이 없습니다.</p>
+	                  </div>
+                  </c:if>
+                  <c:forEach items="${myScrapList}" var="ms" varStatus="vs">
+	                  <a onclick="location.href='<c:url value='/board/detail/${ms.bo_st_num}/${ms.bo_num}'/>';">
+	                    <li class="list_item">
+	                      <i class="icon_scrab"></i>
+	                      <div class="title_scrab">[${ms.st_name}]</div>
+	                      <p class="content_scrab">${ms.bo_title}</p>
+	                    </li>
+	                  </a>
+                  </c:forEach>
+                  
                 </ul>
               </div>
             </article>
@@ -274,7 +261,6 @@
       </main>
 
     </div>
-<!--     <script src="<c:url value ='/resources/js/mypage.js'></c:url>"></script> -->
     <script>
 	 // pet_store 모달 열기
 	    $(document).on('click', '#pet_store_container', function(e){
