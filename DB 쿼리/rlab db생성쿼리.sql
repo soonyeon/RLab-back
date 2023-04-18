@@ -183,6 +183,7 @@ DROP TABLE IF EXISTS `pay`;
 CREATE TABLE `pay` (
 	`pa_order_id`	varchar(27) primary key	NOT NULL,
 	`pa_me_id`	varchar(13)	NOT NULL,
+    `pa_order_name` varchar(50) not null,
 	`pa_date`	datetime NOT NULL default NOW(),
 	`pa_amount`	int	NOT NULL,
 	`pa_point`	int	NOT NULL,
