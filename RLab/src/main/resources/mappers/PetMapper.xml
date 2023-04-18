@@ -11,4 +11,15 @@ select *
 from evolution
 where ev_level = (select max(ev_level) from evolution as e where e.ev_pe_num = evolution.ev_pe_num);
 </select>
+<insert id="insertChoosePet">
+	insert into growth(gr_me_id,gr_pe_num,gr_level,gr_exp,gr_ev_num)
+	values (#{gr_me_id},#{gr_pe_num},#{gr_level},#{gr_exp},#{gr_ev_num})
+</insert>
+<select id="selectEvolutionByNum" resultType="kr.kh.RLab.vo.EvolutionVO">
+SELECT ev_num
+FROM evolution
+WHERE (ev_img = 3 AND ev_num = 1)
+   OR (ev_img = 6 AND ev_num = 5)
+   OR (ev_img = 9 AND ev_num = 10)
+</select>
 </mapper>

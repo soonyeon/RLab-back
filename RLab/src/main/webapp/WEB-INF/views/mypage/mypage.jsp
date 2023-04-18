@@ -26,6 +26,7 @@
           <div class="pets_container">
           	<c:forEach	items="${petList}" var="pl">
 	            <div class="pet_box">
+				<input type="hidden" value="${pl.pe_num}" class="petnum">
 	            <c:if test="${files.size() != 0}">
 		            <c:forEach items="${petFile}" var="pf">
 		            	  <c:if test="${pf.ev_level == pl.pe_final_level}">
@@ -276,17 +277,48 @@
     </div>
 <!--     <script src="<c:url value ='/resources/js/mypage.js'></c:url>"></script> -->
     <script>
+    const userId = '${user.me_id}';
+    let pe_num = '${pl.pe_num}';
+    
 	 // pet_store 모달 열기
 	    $(document).on('click', '#pet_store_container', function(e){
 	    	console.log('click');
 	    	$('.pet_store_popup_container').css('display','flex');
-	    })
+	    });
 	
 	    // pet_store 모달 닫기
 	    $(document).on('click', '.btn_remove', function(e){
 	    	console.log('click');
 	    	$('.pet_store_popup_container').css('display','none');
-	    })
+	    });
+	    
+	$(document).ready(function() {    
+		$('.btn_bring').on('click', function() {
+			choosePet($(this));
+		});
+		function choosePet(el){
+			let gr_pe_num = el.parents('.pet_box').find('.petnum').val();
+			let ev_num = el.parents('.pet_box').find('.pet_img').data('ev_num');
+			let obj = {
+			    gr_me_id: userId,
+			    gr_pe_num: gr_pe_num,
+			    gr_ev_num: ev_num
+			};
+		 	
+			$.ajax({
+			    async: true,
+			    type: 'POST',
+			    data: JSON.stringify(obj),
+			    url: '<c:url value="/choosePet" />',
+			    dataType: 'json',
+			    contentType: 'application/json; charset=UTF-8',
+			    success: function(data) {
+			     
+			    }
+			});
+		}
+	});
+    
     </script>
 </body>
 </html>
