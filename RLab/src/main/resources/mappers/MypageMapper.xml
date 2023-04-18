@@ -4,6 +4,7 @@
 <!-- 나의 스크랩 -->
 <resultMap id="scrap" type="kr.kh.RLab.vo.BoardVO">
 	<id property="bo_num" column="bo_num"/>
+	<id property="bo_st_num" column="bo_st_num"/>
 	<id property="bo_title" column="bo_title"/>
 	<id property="st_name" column="st_name"/>
 	<id property="bo_me_id" column="bo_me_id"/>

@@ -71,7 +71,7 @@
 		                          
 		                          <tbody>
 			                         <c:forEach items="${myBoardList}" var="bo" varStatus="vs">
-			                            <tr class="board_list" onclick="location.href='<c:url value='/board/detail/${bo.bo_num}'/>';">	                           
+			                            <tr class="board_list" onclick="location.href='<c:url value='/board/detail/${bo.bo_st_num}/${bo.bo_num}'/>';">	                           
 			                              <td>${bo.bo_num}</td>
 			                              <td>${bo.st_name}</td>
 			                              <td class="post_title">${bo.bo_title}</td>
