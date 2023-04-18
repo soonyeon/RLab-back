@@ -36,9 +36,8 @@
     FROM comment AS c
     LEFT JOIN member AS me ON c.co_me_id = me.me_id
     WHERE co_ex_num = #{co_ex_num}
-    order by
-  			co_ori_num desc, co_num asc
-    LIMIT #{offset}, #{pageSize}
+    order by co_ori_num desc, co_num asc
+    LIMIT #{pageStart}, #{perPageNum}
 </select>
 
 <select id="selectComment" resultType="kr.kh.RLab.vo.CommentVO">
@@ -47,11 +46,11 @@
 	where co_num = #{co_num}
 </select>
 
-<delete id="deleteComment">
-	delete from
-		comment
+<update id="deleteComment">
+	update comment
+	set co_state = 'Y'
 	where co_num = #{co_num}
-</delete>
+</update>
 
 <update id="updateComment">
 	update 
@@ -62,6 +61,16 @@
 		co_num = #{co_num}
 </update>
 
+<select id="selectCommentByBoNum" resultType="kr.kh.RLab.vo.CommentVO">
+	select *
+		from comment
+	where co_ex_num = #{bo_num}
+</select>
 
+<delete id="deleteCommentAll">
+	delete
+	from comment
+	where  co_me_id = #{me_id}
+</delete>
 
 </mapper>

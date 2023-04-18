@@ -13,14 +13,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.pagination.PageMaker;
+import kr.kh.RLab.pagination.gatherCriteria;
 import kr.kh.RLab.service.GatherService;
 import kr.kh.RLab.service.JoinStudyService;
 import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.RegionVO;
+import kr.kh.RLab.vo.StudyMemberVO;
 import kr.kh.RLab.vo.StudyVO;
 import kr.kh.RLab.vo.TagRegisterVO;
 import kr.kh.RLab.vo.TagVO;
@@ -34,7 +35,7 @@ public class GatherController {
 	private final GatherService gatherService;
 	private final JoinStudyService joinstudyService;
 	
-	//스터디 생성
+	//스터디생성
 	@GetMapping("/insertstudy")
 	public ModelAndView studyInsert(ModelAndView mv,HttpServletRequest request) {
 		MemberVO member = (MemberVO)request.getSession().getAttribute("user");
@@ -43,20 +44,19 @@ public class GatherController {
 	}
 	@PostMapping("/insertstudy")
 	public ModelAndView studyInsertPost(ModelAndView mv,StudyVO study,HttpServletRequest request,RegionVO region,MultipartFile [] files,
-			FileVO file,TagVO tag,TagRegisterVO tagRegister) {
+			FileVO file,TagVO tag,TagRegisterVO tagRegister,StudyMemberVO studyMember) {
 		MemberVO member = (MemberVO)request.getSession().getAttribute("user");
-		boolean res = gatherService.insertStudy(study,member,region,files,file,tag,tagRegister);
-		
-		mv.setViewName("redirect:/gather/insertgather");
+		boolean res = gatherService.insertStudy(study,member,
+				region,files,file,tag,tagRegister,studyMember);
+		mv.setViewName("redirect:/gather/list");
 		return mv;
 	}
 	
-	//모집글 생성
+	//모집글생성
 	@GetMapping("/insertgather")
-	public ModelAndView gatherInsert(ModelAndView mv,HttpServletRequest request,Criteria cri) {
+	public ModelAndView gatherInsert(ModelAndView mv,HttpServletRequest request) {
 		MemberVO member = (MemberVO)request.getSession().getAttribute("user");
-		ArrayList<StudyVO> list = gatherService.selectStudyAll(cri);
-		cri.setPerPageNum(999);
+		ArrayList<StudyVO> list = gatherService.selectStudyById(member);
 		mv.addObject("studies",list);
 		mv.setViewName("/gather/insertgather");
 	    return mv;
@@ -69,19 +69,21 @@ public class GatherController {
 	    mv.setViewName("redirect:/gather/list");
 	    return mv;
 	}
-	//게시글 리스트보기
+	//메인모집글리스트
 	@GetMapping("/list")
-	public ModelAndView mainlistgather(ModelAndView mv,Criteria cri,HttpServletRequest request) {
-		 HttpSession session = request.getSession();
-		 MemberVO user = (MemberVO) session.getAttribute("user");
-		cri.sortCri();
-		cri.setPerPageNum(9);
-		int totalCount = gatherService.getStudyTotalCount(cri);
-		PageMaker pm = new PageMaker(totalCount, 5, cri);
-		ArrayList<StudyVO> stList = gatherService.selectStudyAll(cri);
-		ArrayList<FileVO> fileList = gatherService.selectFileList();
+	public ModelAndView mainlistgather(ModelAndView mv,gatherCriteria gcri,HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		gcri.sortCri();
+		gcri.setPerPageNum(9);
+		int totalCount = gatherService.getStudyTotalCount(gcri);
+		PageMaker pm = new PageMaker(totalCount, 5, gcri);
+		ArrayList<StudyVO> stList = gatherService.selectStudyAll(gcri);
+		ArrayList<GatherVO> gaList = gatherService.selectGatherAll();
+ 		ArrayList<FileVO> fileList = gatherService.selectFileList();
 		ArrayList<TagRegisterVO> tagList = gatherService.selectTagList();
 		ArrayList<Integer> waList =  gatherService.selectWantedStudyList(user);
+		mv.addObject("gaList",gaList);
 		mv.addObject("fileList",fileList);
 		mv.addObject("user",user);
 		mv.addObject("waList",waList);
@@ -102,7 +104,7 @@ public class GatherController {
 		StudyVO study = gatherService.getStudy(st_num);
 		ArrayList<TagRegisterVO> tagList = gatherService.selectTagList();
 		ArrayList<Integer> waList =  gatherService.selectWantedStudyList(user);
-		ArrayList<Integer> smList = gatherService.selelctJoinStudyMemberList(user);
+		StudyMemberVO smList = gatherService.selelctJoinStudyMemberList(user,st_num);
 		int joinCount = joinstudyService.getJoinCount(st_num);
 		mv.addObject("smList",smList);
 		mv.addObject("joinCount",joinCount);
@@ -114,7 +116,7 @@ public class GatherController {
 		mv.setViewName("/gather/detail");
 	    return mv;
 	}
-	
+
 	
 
 }

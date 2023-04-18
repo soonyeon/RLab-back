@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import kr.kh.RLab.dao.GatherDAO;
 import kr.kh.RLab.dao.MypageDAO;
 import kr.kh.RLab.pagination.Criteria;
+import kr.kh.RLab.pagination.gatherCriteria;
 import kr.kh.RLab.utils.UploadFileUtils;
 import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.FileVO;
@@ -29,23 +30,38 @@ public class GatherServiceImp implements GatherService {
 
 	@Override
 	public boolean insertStudy(StudyVO study, MemberVO member, RegionVO region, MultipartFile[] files, FileVO file,
-	        TagVO tag, TagRegisterVO tagRegister) {
+	        TagVO tag, TagRegisterVO tagRegister,StudyMemberVO studyMember) {
 	    if (member == null) {
 	        return false;
 	    }
+	    
 	    if (study.getSt_name().trim().length() == 0 || study.getSt_total_people() < 1) {
 	        return false;
 	    }
 	    study.setSt_me_id(member.getMe_id());
 	    gatherDao.insertStudy(study);
+	    studyMember.setSm_me_id(member.getMe_id());
+	    studyMember.setSm_st_num(study.getSt_num());
+	    gatherDao.insertStudyLeader(studyMember);
 
 	    String[] tags = tag.getTa_name().split(",");
+	    ArrayList<TagVO> tagList = new ArrayList<>();
 
 	    // 각 태그 DB에 저장
 	    for (String tagName : tags) {
-	        TagVO tagVO = new TagVO();
-	        tagVO.setTa_name(tagName.trim());
-	        gatherDao.insertTag(tagVO);
+	        tagName = tagName.trim();
+	        if(tagName.isEmpty()) {
+	            continue;
+	        }
+	        ArrayList<TagVO> tagVOList = gatherDao.selectTag(tagName);
+	        if(tagVOList.isEmpty()) {
+	            TagVO tagVO = new TagVO();
+	            tagVO.setTa_name(tagName);
+	            gatherDao.insertTag(tagVO);
+	            tagVOList.add(tagVO);
+	        }
+	        TagVO tagVO = tagVOList.get(0);
+	        tagList.add(tagVO);
 	        gatherDao.insertStudyTag(study.getSt_num(), tagVO.getTa_name());
 	    }
 	    
@@ -53,11 +69,9 @@ public class GatherServiceImp implements GatherService {
 	    if (files != null && files.length > 0) {
 	        uploadFiles(files, study.getSt_num(), file.getFi_table());
 	    }
-	    
-
-	    return true;
+		return false;
 	}
-
+	
 	private void uploadFiles(MultipartFile[] files, int st_num, String fi_table) {
 	    if (files == null || files.length == 0)
 	        return;
@@ -86,8 +100,6 @@ public class GatherServiceImp implements GatherService {
 	//모집글 
 	@Override
 	public boolean insertGather(MemberVO member, GatherVO gather, StudyVO study) {
-		System.out.println(gather);
-		System.out.println(member);
 		if(member == null)
 			return false;
 		if(!checkGather(gather))
@@ -108,8 +120,8 @@ public class GatherServiceImp implements GatherService {
 	}
 
 	@Override
-	public ArrayList<StudyVO> selectStudyAll(Criteria cri) {
-		return gatherDao.selectStudyAll(cri);
+	public ArrayList<StudyVO> selectStudyAll(gatherCriteria gcri) {
+		return gatherDao.selectStudyAll(gcri);
 	}
 
 	@Override
@@ -135,8 +147,8 @@ public class GatherServiceImp implements GatherService {
 	}
 
 	@Override
-	public int getStudyTotalCount(Criteria cri) {
-		Integer totalCount = gatherDao.selectStudyTotalCount(cri);
+	public int getStudyTotalCount(gatherCriteria gcri) {
+		Integer totalCount = gatherDao.selectStudyTotalCount(gcri);
 		return totalCount != null ? totalCount : 0;
 	}
 
@@ -160,21 +172,23 @@ public class GatherServiceImp implements GatherService {
 	}
 
 	@Override
-	public ArrayList<Integer> selelctJoinStudyMemberList(MemberVO user) {
+	public StudyMemberVO selelctJoinStudyMemberList(MemberVO user, int st_num) {
 		if (user == null)
 			return null;
-		return gatherDao.selelctJoinStudyMemberList(user.getMe_id());
+		return gatherDao.selelctJoinStudyMemberList(user.getMe_id(),st_num);
 	}
 
-	/*
-	 * @Override public ArrayList<StudyVO> selectFilteredStudy(Criteria cri) {
-	 * return gatherDao.selectFilteredStudy(cri); }
-	 */
-	
-	
+	@Override
+	public ArrayList<StudyVO> selectStudyById(MemberVO member) {
+		if(member == null)
+			return null;
+		return gatherDao.selectStudyById(member.getMe_id());
+	}
 
-
-	
+	@Override
+	public ArrayList<GatherVO> selectGatherAll() {
+		return gatherDao.selectGatherAll();
+	}
 
 	}
 

@@ -1,0 +1,144 @@
+
+/* 영역분할 및 공통사항 */
+.home_container{
+  background-color: var(--color_beige);
+  border: var(--border_basic);
+  border-radius: var( --border_radius_4);
+  padding: 26px 4px 26px 16px;
+}
+.home_container, .home_container .todo_container{
+  box-sizing: border-box;
+  background-color: var(--color_blue)
+}
+.todo_container_my{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-right: 22px;
+  margin-bottom: 20px;
+}
+.todo_box_member_content{
+  border: 3px solid black;
+}
+.todo_container_my .check,
+.todo_container_member .check{
+  color: rgb(8, 208, 125)
+}
+
+
+/* todo_container_my */
+.todo_container_my .todo_box{
+  width: 45%;
+  border: var(--border_basic);
+  border-radius: var( --border_radius_4);
+}
+.todo_box_content .todo_list li{margin: 14.2px 0;}
+.todo_container_my .todo_box{
+  background-color: var(--color_yellow);
+  border-radius: var(--border_radius_4);
+  padding: 16px;
+  box-sizing: border-box;
+}
+.todo_container_my .input_container{height: 35px;} 
+.todo_container_my .pet_box{
+  width: 52%;
+  border-radius: var( --border_radius_4);
+  padding-top:40px;
+}
+.todo_container_my .pet_box{background-color: rgba(247, 249, 251, 0.151);}
+.todo_container_my .pet_message_container{
+  height: 50px;
+  width: 180px;
+  margin: auto;
+  margin-bottom: 10px;
+  border-radius: 3px;
+  background-color: white
+}
+.pet_message_container .pet_message{
+  text-align: center;
+  padding-top: 16px;
+}
+.todo_container_my .pet_image {
+  background-image: url(../img/egg.png);
+  background-size: cover;
+  height: 150px;
+  background-position: center;
+  width: 150px;
+  margin: auto;
+}
+.todo_container_my .pet_box .progress_container{padding: 16px 50px;}
+.todo_container_my .pet_box .progress_container progress{width: 100%;}
+
+/* todo_container_member */
+  .todo_container_member{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-gap:15px;
+    height: 589px;
+    overflow: auto;
+  }
+  .todo_container_member .todo_box_member_content{
+    width: 187px;
+    padding: 10px;
+    border: 5px solid balck;
+    margin: 10px 0px;
+    border-radius: var(--border_radius_4);
+    background-color: rgba(254, 254, 252, 0.585);
+  }
+  .todo_box_member_content .todo_list li{margin: 10px 0 10px; ;}
+  .todo_box_member_title{padding: 4px 18px;}
+  .todo_box_member_content .todo_list{height: 170px;}
+  .todo_box_member_content .todo_list .todo_content{padding-left: 5px;}
+  .todo_box_member_content .progress_container{margin-top: 10px;}
+  .todo_box_member_content .progress_container progress{width: 100%;}
+
+  .scroll_box ::-webkit-scrollbar {
+    width: 10px;
+  }
+  .scroll_box ::-webkit-scrollbar-track {
+    background-color: rgba(176, 20, 20, 0);
+  }
+  .scroll_box ::-webkit-scrollbar-thumb {
+    background-color: #b8b8b8f0;
+    border-radius: 5px;
+  }
+
+
+
+
+
+
+  /* 왼쪽 메뉴바 */
+.left_menu_container{
+  display: flex;
+  justify-content: center;
+  width: 300px;
+  height: 400px;
+  padding: 40px 0;
+  border: 2px solid #020a17;
+  border-radius: var(--border_radius_2);
+  box-sizing: border-box;
+  background-color: var(--color_beige);
+}
+.left_menu_container .left_menu{
+  display: flex;
+  flex-flow: column;
+  align-items: flex-start;
+  gap: 16px;
+  font-size: 15px;
+  font-weight: 800;
+}
+.leave {
+  position: relative;
+  bottom: -120px;
+  left: 5px;
+} 
+.left_menu a:visited {
+  font-weight: bold; 
+  /*클릭했을때 굵어지면서 검정색으로 바뀌게 나중에 수정 */
+}
+
+
+
+
+

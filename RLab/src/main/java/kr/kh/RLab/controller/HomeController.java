@@ -10,11 +10,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.kh.RLab.service.BoardService;
@@ -23,14 +20,9 @@ import kr.kh.RLab.vo.MemberVO;
 
 @Controller
 public class HomeController {
-	
-	@Autowired
-	MemberService memberService;
-	BoardService boardService;
-
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView login(ModelAndView mv) {
+	public ModelAndView home(ModelAndView mv) {
 		mv.setViewName("/main/home");
 		return mv;
 	}

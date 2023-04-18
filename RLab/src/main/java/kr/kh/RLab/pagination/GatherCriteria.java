@@ -2,10 +2,12 @@ package kr.kh.RLab.pagination;
 
 import java.util.ArrayList;
 
+
 import lombok.Data;
 
+
 @Data
-public class GatherCriteria extends Criteria {
+public class gatherCriteria extends Criteria {
 
 	//지역
 	private String region;
@@ -16,11 +18,11 @@ public class GatherCriteria extends Criteria {
 	//onoff필터
 	private String filter;
 	
-	public GatherCriteria() {
+	public gatherCriteria() {
+		super();
 		this.region="";
 		this.searchTag="";
 		this.filter="";
-		this.setPerPageNum(6);
 	}
 	
 	public void sortCri() {
@@ -29,4 +31,5 @@ public class GatherCriteria extends Criteria {
 				tagList.remove(i);
 		}
 	}
+
 }

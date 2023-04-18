@@ -13,4 +13,7 @@ public interface ScrapService {
 
 	int getScrapCount(int bo_num);
 
+	ArrayList<ScrapVO> findScrap(int bo_num);
+
+
 }

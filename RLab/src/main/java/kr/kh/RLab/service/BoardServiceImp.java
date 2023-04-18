@@ -44,8 +44,8 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public ArrayList<BoardVO> selectBoardList(Map<String, Object> map) {
-		return boardDao.selectBoardList(map);
+	public ArrayList<BoardVO> selectBoardList(Criteria cri) {
+		return boardDao.selectBoardList(cri);
 	}
 
 	@Override
@@ -66,8 +66,22 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public ArrayList<StudyVO> selectStudyList(String st_me_id) {
-		return boardDao.selectStudyList(st_me_id);
+	public ArrayList<StudyVO> selectStudyList() {
+		return boardDao.selectStudyList();
 	}
 
+	@Override
+	public ArrayList<BoardVO> getBoardListById(String memberId) {
+		if(memberId == null)
+			return null;
+		return boardDao.selectBoardListById(memberId);
+	}
+
+	@Override
+	public int getPostBoardTotalCount(String memberId) {
+		System.out.println(memberId);
+		int totalCount = boardDao.selectPostBoardTotalCount(memberId);
+		return totalCount;
+		
+	}
 }

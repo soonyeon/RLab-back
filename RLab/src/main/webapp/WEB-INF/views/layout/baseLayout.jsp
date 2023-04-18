@@ -11,11 +11,11 @@
 	<script src="<c:url value='/resources/js/popper.min.js'></c:url>"></script>
 </head>
 <body>
-    <tiles:insertAttribute name="header"/>   
-    <div style="margin-top:100px" class="clearfix">
-    <tiles:insertAttribute name="body" /> 
+    <tiles:insertAttribute name="header"/> 
       
-    </div>                                         
+    <div style="margin-top:100px" class="clearfix">
+    <tiles:insertAttribute name="body" />  
+    </div>                                             
     <tiles:insertAttribute name="footer" />
 </body>
 </html>

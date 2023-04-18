@@ -13,7 +13,7 @@ public interface BoardService {
 	boolean insertBoard(BoardVO board, MemberVO member);
 	
     //게시글 리스트
-	ArrayList<BoardVO> selectBoardList(Map<String, Object> map);
+	ArrayList<BoardVO> selectBoardList(Criteria cri);
 	
 	//게시글 상세조회
 	BoardVO getBoard(int bo_num);
@@ -28,6 +28,6 @@ public interface BoardService {
 	boolean updateBoard(BoardVO board);
 	
 	//스터디 가져오기
-	ArrayList<StudyVO> selectStudyList(String st_me_id);
+	ArrayList<StudyVO> selectStudyList();
 	
 }

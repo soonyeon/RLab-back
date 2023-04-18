@@ -15,7 +15,7 @@ public interface BoardDAO {
 
 	boolean insertBoard(@Param("board")BoardVO board);
 
-	ArrayList<BoardVO> selectBoardList(Map<String, Object> map);
+	ArrayList<BoardVO> selectBoardList(Criteria cri);
 
 	BoardVO getBoard(@Param("bo_num") int bo_num);
 
@@ -27,7 +27,7 @@ public interface BoardDAO {
 
 	boolean updateBoard(BoardVO board);
 
-	ArrayList<StudyVO> selectStudyList(String st_me_id);
+	ArrayList<StudyVO> selectStudyList();
 
 	ArrayList<BoardVO> selectBoardListById(@Param("memberId")String memberId, @Param("cri")Criteria cri);
 	
