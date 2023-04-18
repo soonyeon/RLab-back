@@ -12,6 +12,12 @@ import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.TagRegisterVO;
 
 public interface MypageDAO {
+	
+	//[마이페이지 홈]
+		// 적립 포인트
+		int selectMyPoint(@Param("userId")String userId);
+		
+		
 	//[개인정보 수정 > 비밀번호 체크 > 개인정보 수정창]
 		// 프로필 이미지 수정
 		int updateProfile(@Param("m")MemberVO member);
@@ -47,5 +53,6 @@ public interface MypageDAO {
 		
 		// 내가 쓴 모집글의 찜 여부 가져오기
 		ArrayList<Integer> selectWantListById(String memberId);
+
 	
 }

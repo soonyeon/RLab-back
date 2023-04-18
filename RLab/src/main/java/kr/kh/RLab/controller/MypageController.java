@@ -45,17 +45,30 @@ public class MypageController {
 	private final CommentService commtentService;
 	private final PetService petService;
 	
-	//[mypage 홈]
+	//[마이페이지 홈]
 	@GetMapping("")
-	public ModelAndView mypage(ModelAndView mv) {
-	    ArrayList<PetVO> petList = petService.selectPetList();
-	    ArrayList<EvolutionVO> petFile = petService.selectPetFile();
-	    mv.addObject("petList",petList);
-	    mv.addObject("petFile",petFile);
+	public ModelAndView mypage(ModelAndView mv, MemberVO member, HttpSession session) {
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		String userId = user.getMe_id();
+		// 펫
+		ArrayList<PetVO> petList = petService.selectPetList();
+		ArrayList<EvolutionVO> petFile = petService.selectPetFile();
+		
+		//적립 포인트 데이터 가져오기
+		int myPoint = mypageService.getMyPoint(userId);
+		
+		//나의 스크랩 데이터 가져오기
+		ArrayList<BoardVO> myScrapList = mypageService.getMainScrapList(userId);
+		
+		System.out.println("mypoint" + myPoint);
 		mv.setViewName("/mypage/mypage");
+		mv.addObject("myPoint", myPoint);
+		mv.addObject("petList",petList);
+		mv.addObject("petFile",petFile);
 		return mv;
 	}
-
+	
+	
 	//[개인정보 수정 > 비밀번호 체크]
 	@GetMapping("/pwcheck")
 	public ModelAndView pwCheck(ModelAndView mv) {
@@ -68,7 +81,6 @@ public class MypageController {
 			HttpSession session) {
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		boolean res = mypageService.checkPw(pw, user);
-		System.out.println(res);
 		if(res) {
 			mv.setViewName("redirect:/mypage/user");
 		}
@@ -163,11 +175,9 @@ public class MypageController {
 		// 세션 정보 가져오기
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		String memberId = user.getMe_id();
-		System.out.println(memberId);
 		
 		// 아이디로 스크랩한 게시글 목록 가져오기
 		ArrayList<BoardVO> myScrapList = mypageService.getScrapListById(memberId, cri);
-		System.out.println(myScrapList);
 		
 		// 페이지 네이션
 		// 로그인한 회원이 스크랩한 게시글 전체 수 가져오기
@@ -187,19 +197,15 @@ public class MypageController {
 		// 세션 정보 가져오기
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		String memberId = user.getMe_id();
-		System.out.println(cri.getPerPageNum());
 		
 		// 아이디로 내가 쓴 모집글 가져오기
 		ArrayList<GatherVO> myGatherList = mypageService.getGatherListById(memberId, cri);
-		System.out.println("모집글" + myGatherList);
 		
 		// 내가 쓴 모집글 스터디의 태그들 가져오기
 		ArrayList<TagRegisterVO> tagList = mypageService.selectTagListById(memberId);
-		System.out.println(tagList);
 		
 		// 내가 쓴 모집글의 찜 여부 가져오기
 		ArrayList<Integer> wantList = mypageService.selectWantListById(memberId);
-		System.out.println(wantList);
 		
 		// 페이지 네이션		
 		int totalCount = mypageService.getGatherTotalCount(memberId);

@@ -118,7 +118,7 @@
                     <div class="point_texts">
                       <!-- <p class="title_point">Point</p> -->
                       <div class="num_point">
-                        <span class="p_num">1,000</span>
+                        <span class="p_num">${user.me_point}</span>
                         <span class="p_point">P</span>
                       </div>
                     </div>

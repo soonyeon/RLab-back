@@ -25,6 +25,22 @@ public class MypageServiceImp implements MypageService {
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
 	
+	//[마이페이지 홈 > 적립 포인트]
+	@Override
+	public int getMyPoint(String userId) {
+		 if (userId == null) {
+		        return 0;
+		    }
+		 return mypageDao.selectMyPoint(userId);
+
+	}
+	
+	//[마이페이지 홈 > 적립 포인트]
+	@Override
+	public ArrayList<BoardVO> getMainScrapList(String userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	//[개인정보 수정 > 비밀번호 체크]
 		@Override
