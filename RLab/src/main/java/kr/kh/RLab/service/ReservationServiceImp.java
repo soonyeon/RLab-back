@@ -10,6 +10,7 @@ import kr.kh.RLab.pagination.ReservationCriteria;
 import kr.kh.RLab.vo.ItemVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.PayDTO;
+import kr.kh.RLab.vo.ReservationVO;
 import kr.kh.RLab.vo.BranchVO;
 import kr.kh.RLab.vo.TicketOwnVO;
 
@@ -131,6 +132,18 @@ public class ReservationServiceImp implements ReservationService {
 	@Override
 	public ArrayList<TicketOwnVO> getTicketOwnListById(String me_id) {
 		return reservationDao.selectAllTicketOwnById(me_id);
+	}
+
+	@Override
+	public void reserveSeat(ReservationVO book) {
+		//reservation에 추가
+		reservationDao.insertReservation(book);
+		//to_rest_time 소유중인 이용권의 잔여시간 감소
+		reservationDao.updateTicketRestTime(book);
+		//me_use_time 누적이용시간 추가
+		reservationDao.updateMemberUseTime(book);
+		//gr_exp 펫 누적경험치 추가
+		//reservationDao.updatePetExp(book);
 	}
 
 }

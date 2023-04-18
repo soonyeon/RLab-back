@@ -3,9 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.kh.RLab.dao.ReservationDAO">
-	<!-- <select id="selectAllPointById" resultType="int">
-		select ifnull(sum(po_amount),0) from point where po_me_id = #{me_id} and po_state = 1
-	</select> -->
+<!-- 결제 -->
 	<select id="selectAllPointById" resultType="int">
 		select me_point from member where me_id = #{me_id}
 	</select>
@@ -60,6 +58,7 @@
 		left join ticket_type on ti_tt_num = tt_num
 		where pd_pa_order_id = #{pa_order_id} and pd_state = '결제완료';
 	</select>
+<!-- 예약 -->
 	<select id="selectAllBranch" resultType="kr.kh.RLab.vo.BranchVO">
 		select * from branch
 		WHERE br_name LIKE CONCAT('%', #{cri.search}, '%')
@@ -93,4 +92,16 @@
 		where to_me_id = #{me_id} and tt_num != 4
 		order by to_ti_num asc, to_valid_date asc
 	</select>
+	<insert id="insertReservation">
+		insert into reservation(re_me_id, re_se_num, re_start_time, re_valid_time, re_register_date, re_to_num)
+		values(#{re_me_id}, (
+			select se_num from seat where se_br_num = #{br_num} and se_name = #{se_name}
+			), now(), (select date_add(now(), interval 1 hour)), now(), #{re_to_num})
+	</insert>
+	<update id="updateTicketRestTime">
+		update ticket_own set to_rest_time = to_rest_time - #{book_time} where to_num = #{re_to_num}
+	</update>
+	<update id="updateMemberUseTime">
+		update member set me_use_time = me_use_time + ${book_time} where me_id = #{re_me_id}
+	</update>
 </mapper>

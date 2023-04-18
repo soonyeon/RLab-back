@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.PayDTO;
+import kr.kh.RLab.vo.ReservationVO;
 import kr.kh.RLab.pagination.ReservationCriteria;
 import kr.kh.RLab.vo.BranchVO;
 import kr.kh.RLab.vo.TicketOwnVO;
@@ -31,5 +32,7 @@ public interface ReservationService {
 	ArrayList<TicketOwnVO> getTicketOwnListById(String me_id);
 
 	int getBranchTotalCount(ReservationCriteria cri);
+
+	void reserveSeat(ReservationVO book);
 
 }

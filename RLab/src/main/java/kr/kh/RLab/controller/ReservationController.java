@@ -22,6 +22,7 @@ import kr.kh.RLab.service.ReservationService;
 import kr.kh.RLab.vo.BranchVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.PayDTO;
+import kr.kh.RLab.vo.ReservationVO;
 import kr.kh.RLab.vo.TicketOwnVO;
 
 @Controller
@@ -77,6 +78,7 @@ public class ReservationController {
 		    if(token.get("error_code") != null) { //failed
 		    	System.out.println("토큰에러발생");
 		    	System.out.println(token.get("error_code"));
+		    	mv.setViewName("redirect:/reservation/buy");
 		        return mv;
 		    }
 		    HashMap<String, Object> res2 = bootpay.getReceipt(receiptId);
@@ -190,5 +192,14 @@ public class ReservationController {
 		mv.addObject("toList", toList);
 		mv.setViewName("/reservation/seat_select");
 		return mv;
+	}
+	@ResponseBody
+	@RequestMapping(value = "/reservation/1/{br_num}", method=RequestMethod.POST) 
+	public HashMap<String,Object> seatDetailPost(@PathVariable("br_num")int br_num,
+			HttpSession session, @RequestBody ReservationVO book) {
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		System.out.println(book);
+		reservationService.reserveSeat(book);
+		return map;
 	}
 }

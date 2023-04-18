@@ -230,7 +230,7 @@
 					<!-- 이용권 구매, 예약하기 버튼 영역 -->
 					<div class="btn_area area">
 						<a href="<c:url value='/reservation/buy'></c:url>" class="b_btn"  id="buy_btn"><input type="button" value="이용권 구매"></a>
-						<a href="<c:url value='/reservation/book/complete'></c:url>" class="b_btn" id="book_btn"><input type="submit" value="예약하기" ></a>
+						<a href="#" class="b_btn" id="book_btn"><input type="submit" value="예약하기" ></a>
 					</div>
 			</div>
 		</div>
@@ -297,20 +297,21 @@ $('#book_btn').click(function(){
 			re_me_id : '${user.me_id}',
 			re_to_num : $('#ticket_select').val(),
 			br_num : ${br_num},
-			se_name : seatNum
+			se_name : seatNum+'',
+			book_time : useTime
 	}
-	//VO에 br_num,se_name 추가하고 데이터 서버로 보내야함
 	$.ajax({
 		async:false,
 		type: 'POST',
 		data: JSON.stringify(book),
-		url: '<c:url value="/reservation/1/spot"></c:url>',
+		url: '<c:url value="/reservation/1/${br_num}"></c:url>',
 		dataType:"json", //success에 있는 data타입(주는거)
 		contentType:"application/json; charset=UTF-8", //위에있는 data타입(받는거)
 		success : function(data){
 			console.log(data);
 		}
 	});
+	location.href("<c:url value='/reservation/book/complete'></c:url>");
 });
 
 //선택된 이용권을 보여주는 함수

@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import kr.kh.RLab.vo.ItemVO;
 import kr.kh.RLab.vo.PayDTO;
+import kr.kh.RLab.vo.ReservationVO;
 import kr.kh.RLab.pagination.ReservationCriteria;
 import kr.kh.RLab.vo.BranchVO;
 import kr.kh.RLab.vo.TicketOwnVO;
@@ -49,5 +50,13 @@ public interface ReservationDAO {
 	BranchVO selectBranchByBr_num(@Param("br_num")int br_num);
 
 	ArrayList<TicketOwnVO> selectAllTicketOwnById(@Param("me_id")String me_id);
+
+	void insertReservation(ReservationVO book);
+
+	void updateTicketRestTime(ReservationVO book);
+
+	void updateMemberUseTime(ReservationVO book);
+
+	void updatePetExp(ReservationVO book);
 
 }
