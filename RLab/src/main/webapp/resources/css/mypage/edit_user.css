@@ -57,7 +57,7 @@ input{
 	outline: 1px solid #01f3a3;
 }
 .form_container {
-	width: 100%;
+	width: 970px;
 	height: 1000px;
 	padding-left: 75px;
 	box-sizing: border-box;
@@ -82,9 +82,10 @@ form .input_container{
 	font-weight: 700;
 }
 .item_container{
+	width: 500px;
+	height: 100%;
 	display: flex;
 	gap: 25px;
-	height: 100%;
 }
 .input_box{
 	width: 340px;
@@ -108,7 +109,7 @@ form .input_container{
 	box-sizing: border-box;
 }
 .check_btn:hover{
-	background-color: var(--mint_hover);
+	background-color: #14c188;
 }
 label.error{
  color : red;

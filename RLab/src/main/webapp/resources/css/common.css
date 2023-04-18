@@ -1,5 +1,5 @@
 :root {
-      /* color */
+/* color */
 --color_blue: #66a0e2;
 --color_yellow: #f0ea58;
 --color_mint: #01f3a3;
@@ -49,13 +49,24 @@ body {
    flex-flow: column;
    align-items: center;
 }
-  .blind {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-  }
+.blind {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+}
+/* 페이지네이션 기본값 */ 
+.study_card_container .page_box .page_num a{
+    line-height: 30px;
+    font-size: 25px;
+    color: var(--color_grey);
+}
+/*  현재 페이지 속성 */
+.active{
+	font-weight: 800;
+	color: var(--color_black)!important;
+}
 /* 추가(세영) 2023-02-10 */
 .display_none{
 	display: none;
@@ -68,100 +79,231 @@ a{color: var(--color_black);}
 	width: 1200px; margin: 0 auto;
 }
 /* 추가(주연): 로고 아이콘 2023-02-10 */
-	.btn_home {
-     display: flex;
-     width: 66px;
-     height: 50px;
-     font-size: 14px;
-     font-weight: 800;
-     line-height: 80px;
-     overflow: hidden;
-   }
+.btn_home {
+    display: flex;
+    width: 66px;
+    height: 50px;
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 80px;
+    overflow: hidden;
+  }
 .btn_home .icon_home {
-     width: 40px;
-     height: 51px;
-     background-size: 60px 60px;
-		background-position: -10px -5px;
-		/* 수정(주연): 로고 아이콘 2023-02-11 */
-		background-size: 58px 58px;
-    background-position: -10px -4px;
-     background-image: url(../img/rlab_logo.png);
-     background-repeat: no-repeat;
+   width: 40px;
+   height: 51px;
+   background-size: 60px 60px;
+   background-position: -10px -5px;
+	/* 수정(주연): 로고 아이콘 2023-02-11 */
+   background-size: 58px 58px;
+   background-position: -10px -4px;
+   background-image: url(../img/rlab_logo.png);
+   background-repeat: no-repeat;
+}
+
+.add_shadow {box-shadow: 5px 5px 0px rgb(7, 7, 7);}
+
+a, button{
+  cursor: pointer;
 }
 
 
 
- /* header */
+/* ----------------------------------------------------------------- */
+
+/* header(기존) */
 header {
-  width: 100%;
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 250px;
-  background-color: var(--color_beige);
-  z-index: 100;
-  top: 0;
+	width: 100%;
+	display: flex;
+	position: fixed;
+	justify-content: center;
+	margin-bottom: 50px;
+	background-color: var(--color_beige);
+	z-index: 100;
+	top: 0;  
 }
 header #header_container {
-  display: flex;
-  justify-content: space-between;
-  width: var(--body_size);
-  padding: 10px 0 10px 10px;
-  border-radius: var(--border_radius_3);
-
-box-sizing: border-box;
-font-weight: 800;
+	display: flex;
+	justify-content: space-between;
+	width: var(--body_size);
+	padding: 10px 0;
+	/*padding: 10px 0 10px 10px;*/
+	border-radius: var(--border_radius_3);
+	box-sizing: border-box;
+	font-weight: 800;
 }
 #header_container .header_left{
-  display: flex;
-  gap: 80px;
+	display: flex;
+	gap: 30px;
 }
 .btn_home {
-display: flex;
-width: 66px;
-height: 50px;
-font-size: 14px;
-font-weight: 800;
-line-height: 80px;
-overflow: hidden;
+	display: flex;
+	width: 66px;
+	height: 50px;
+	font-size: 14px;
+	font-weight: 800;
+	line-height: 80px;
+	overflow: hidden;
 }
 .btn_home .icon_home {
-  width: 40px;
+	width: 40px;
+	height: 51px;
+	background-size: 60px 60px;
+	background-position: -10px -5px;
+	background-image: url(../img/rlab_logo.png);
+	background-repeat: no-repeat;
+	
+ /* width: 40px;
   height: 51px;
   background-size: 58px 58px;
   background-position: -9px -4px;
   background-image: url(../img/rlab_logo.png);
-  background-repeat: no-repeat;
+  background-repeat: no-repeat;*/
 }
 .top_menu_container{
-width: 230px;
-display: flex;
-justify-content: space-between;
-align-items: center;
-font-size: 15px;
+	width: 230px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-size: 15px;
 }
+
+/* 로그인 전 */
 #header_container .header_right{
-display: flex;
-align-items: center;
+	display: flex;
+	align-items: center;
+	width: 200px;
+	flex-direction: row-reverse;
 }
-.mypage_container .mypage .icon_mypage{
+
+.login_modal, .signup_btn{
+  padding: 5px 5px;
+  margin-right: 10px;
+  border-radius: 5px;
+  border: 1px solid darkgray;
+  font-weight: 50;
+}
+
+.icon_mypage{
   display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
   width: 40px;
   height: 40px;
   border: 2px solid var(--color_mint);
-  border-radius: 50%;
-  background-size: 61px 40px;
-  background-position: -9px 0;
-  background-image: url(../img/profile_img.png);
-  background-repeat: no-repeat;
+  border-radius: var(--border_radius_1);
+  margin-right: 10px;
 }
+
+/* 로그인 후 */
+#header_container .header_right{
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  height: 50px;
+}
+
+.logout_box{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+.logout_btn{
+	border: 1px solid black;
+	padding: 5px;
+	box-sizing: border-box;
+	border-radius: var(--border_radius_4);
+	font-size: 14px;
+}
+
+/* login_modal */
+.modal_container{
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.711);
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+.modal_area{
+  width: 400px;
+  height: 300px;
+  text-align: center;
+  font-size: 18px;
+  color: #2d2d2d;
+  border-radius: 10px;
+  background-color: white;
+  margin: auto;
+  margin-top: 150px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0);
+
+}
+.login_box{
+  margin: auto;
+  width: 280px;
+  padding: 25px 0px 25px;
+}
+.modal_area h1{
+  text-align: center;
+  margin-bottom: 10px;
+  color: #2d2d2d;
+}
+.modal_area form{
+  text-align: left;
+  margin: auto;
+}
+.form_group .form_control{
+  width: 273px;
+  height: 40px;
+  margin-bottom:10px;
+  border-style: none;
+  border-radius: 5px;
+  padding-left: 5px;
+  border: 0.5px solid rgba(121, 119, 119, 0.529);
+
+}
+.login_box .btn_outline_success{
+  width: 100%;
+  height: 35px;
+  margin-bottom: 20px;
+  background-color: rgb(198, 197, 197);
+  border-style: none;
+  border-radius: 5px;
+  border: 0.5px solid rgba(121, 119, 119, 0.529);
+}
+.more_action{
+  text-align: center;
+  margin-top: 10px;
+  color: rgba(128, 128, 128, 0.454);
+}
+.more_action_item{
+  text-decoration: none;
+  font-size: 12px;
+  color: rgb(44, 44, 44);
+  padding: 5px;
+
+}
+.close_btn{
+  height: 20px;
+  width: 10px;
+  color: gray;
+  float: right;
+  margin-right:5px;
+  padding: 8px 12px;
+  text-align: center;
+  line-height: 70%;
+  font-size: 27px;
+  font-weight: 50;
+}
+
+/* main */
 main{
   width: var(--body_size);
   margin: 0 auto;
-  margin-top: 100px;
+  margin-top: 130px;
 }
 
- /* footer */
+/* footer */
 footer{
   margin-top: 150px;
 }

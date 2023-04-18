@@ -21,17 +21,26 @@
 				<!-- aside(left_menu) -->
 				<aside class="left_menu_container">
 					<nav class="left_menu">
-						<a href="./mypage.html" class="list_item">마이페이지 홈</a>
-						<a href="./edit_info.html" class="list_item">개인정보 수정</a>
-						<a href="#" class="list_item">예약 관리</a>
-						<a href="./mystudy.html" class="list_item">스터디 관리</a>
-						<a href="./mypost.html" class="list_item">작성글 관리</a>
+					  <a href="<c:url value='/mypage'></c:url>" class="list_item">마이페이지 홈</a>
+		              <a href="<c:url value='/mypage/pwcheck'></c:url>" class="list_item">개인정보 수정</a>
+		              <a href="./book_info_ticket.html" class="list_item">예약 관리</a>
+		              <a href="./mystudy_favorite.html" class="list_item">스터디 관리</a>
+		              <a href="<c:url value='/mypage/mypost_post'></c:url>" class="list_item">작성글 관리</a>
 					</nav>
 				</aside>
 
 				<div class="form_container">
-					<form action="<c:url value ='/mypage/user'></c:url>" method="post" id="edit_info">
+					<form action="<c:url value ='/mypage/user'></c:url>" method="post" id="edit_info" enctype="multipart/form-data">
 						<h1>개인정보 수정</h1>
+						<div class="input_container">
+							<label for="profile_img">프로필 사진 수정</label>
+							<div class="item_container">
+								<div class="input_box">
+									<input type="file" class="input_window" id="profile_img" name="file" value="${user.me_profile}" >
+								</div>
+							</div>
+						</div>
+												
 						<div class="input_container">
 							<label for="nick_name">닉네임 수정</label>
 							<div class="item_container">
@@ -89,6 +98,54 @@
 
 	</div>
 <script>
+	$('#edit_info').submit(function(){
+		event.preventDefault(); // submit 이벤트 막기
+		var modified = false;
+		
+		if($("#profile_img").val() != ''){				
+			var allowedExtensions = ["jpg", "jpeg", "png", "gif"];
+			var fileName = $("#profile_img").val();
+			var fileExtension = "";
+			
+			// 파일 이름에서 확장자 추출
+	        var i = fileName.lastIndexOf('.');
+	        if (i > 0) {
+	        	fileExtension = fileName.substring(i+1);
+	        	// 이미지 파일이 아닌 경우
+		        if ($.inArray(fileExtension.toLowerCase(), allowedExtensions) == -1) {
+		            alert("이미지 파일 형식이 아닙니다.");
+		        	return;
+		        }else{	 
+		        	modified = true;
+		        }	        	
+	        }
+		}
+		  // 닉네임 변경 여부 확인
+		  if ($("#nick_name").val() != '${user.me_name}') {
+
+		    modified = true;
+		  }
+		  
+		  // 비밀번호 변경 여부 확인
+		  if ($("#pw_new").val() != '') {
+		    modified = true;
+		  }
+		  
+		// 이메일 변경 여부 확인
+		  if ($("#email").val() != '${user.me_email}') {
+		    modified = true;
+		  }
+		  
+		  if (modified) {
+		    alert('수정이 완료되었습니다.');
+		    $(this).unbind('submit').submit();
+		  } else {
+		    alert('수정사항이 없습니다.');
+		    return false;
+		  }
+		
+
+	});
 
 	$("#edit_info").validate({
 		// 유효성 검사 규칙

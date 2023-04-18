@@ -2,6 +2,9 @@ package kr.kh.RLab.dao;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.annotations.Param;
+
+import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.ScrapVO;
 
@@ -15,6 +18,7 @@ public interface ScrapDAO {
 	ArrayList<BoardVO> selectScrapListById(String memberId);
 	
 	ArrayList<ScrapVO> findScrap2(int bo_num);
+
 
 
 }

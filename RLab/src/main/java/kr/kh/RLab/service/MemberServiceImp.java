@@ -93,9 +93,6 @@ public class MemberServiceImp implements MemberService {
 			return false;
 		if (passwordEncoder.matches(pw.getMe_pw(), user.getMe_pw()))
 
-			return true;
-		return false;
-	}
 
 	@Override
 	public boolean editUser(MemberVO member, MemberVO user) {

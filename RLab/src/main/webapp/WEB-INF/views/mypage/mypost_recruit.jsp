@@ -10,8 +10,9 @@
 <script src="<c:url value='/resources/js/jquery.min.js'></c:url>"></script>
 <script src="<c:url value='/resources/js/jquery.validate.min.js'></c:url>"></script>
 <script src="<c:url value='/resources/js/additional-methods.min.js'></c:url>"></script>
-  <link rel="stylesheet" href="<c:url value ='/resources/css/mypage/mypage_common.css?after'></c:url>" />
- <link rel="stylesheet" href="<c:url value ='/resources/css/tab_common.css?after'></c:url>" />
+ <link rel="stylesheet" href="<c:url value ='/resources/css/common.css'></c:url>" />
+<link rel="stylesheet" href="<c:url value ='/resources/css/mypage/mypage_common.css?after'></c:url>" />
+<link rel="stylesheet" href="<c:url value ='/resources/css/tab_common.css?after'></c:url>" />
 <link rel="stylesheet" href="<c:url value ='/resources/css/table_common.css?after'></c:url>" />
 <link rel="stylesheet" href="<c:url value ='/resources/css/mypage/mypost_recruit.css?after'></c:url>">
 <title>작성글 관리</title>
@@ -50,200 +51,132 @@
 		                      <!-- 제외 버튼  -->
 		                      <div class="except_container">
 		                        <div class="except_box">
-		                          <label for="ee">모집완료된 스터디 제외</label>
-		                          <input type="checkbox" name="" id="ee">
+		                          <label for="except_btn">모집완료된 스터디 제외</label>
+		                          
+		                          <input type="checkbox" name="" id="except_btn" value="on" <c:if test="${pm.cri.filter == 'on'}">checked</c:if>> 
 		                        </div>
 		                      </div>
 		  
 		                      <!-- 컨텐트 박스 -->
 		                        <div class="content_box">
-		                          <div class="row_study_card clearfix">
-		                              <li class="study_card_box add_shadow op">
-		                                  <a href="">
-		                                      <div class="study_img_box"></div>
-		                                      <div class="study_info">
-		                                          <div class="study_tag_info">
-		                                              <span href="#" class="study_tag">#자격증</span>
-		                                              <span href="#" class="study_tag">#프로젝트</span>
-		                                              <span href="#" class="study_tag">#컴퓨터</span>
-		                                              <span href="#" class="study_tag">#독서토론</span>
-		                                              <span href="#" class="study_tag">#운동</span>
-		                                              <span href="#" class="study_tag">#경제학과</span>
+		                        <!-- myGatherList가 0 이 아니면 실행 -->
+		                          <c:if test="${myGatherList.size() != 0 }">
+		                          	<!-- 0부터 myGatherList의 수가 끝날 때까지 row_study_card가 3개씩 반복 -->
+		                          	<c:forEach begin="0" end="${myGatherList.size()-1}" step="3" var="i">
+			                          	<div class="row_study_card clearfix">
+			                          		<!-- 모집글 하나가 index -->
+			                          		<c:forEach begin="${i}" end="${i+2}" var="index">
+				                          		<c:if test="${myGatherList.size()-1 >= index}">
+				                          		  <c:set var="state" value="${myGatherList.get(index).st_state}"/>
+					                              <li class="study_card_box add_shadow op st_state" value="${state}">
+					                                  <a href="<c:url value='/gather/detail/${myGatherList.get(index).st_num}'></c:url>">
+					                                      <div class="study_img_box">
+					                                      	<c:if test="${myGatherList.get(index).st_image == null}">
+					                                      		<img class="mypage_img" src="<c:url value='/resources/img/recruit_thumb.png'></c:url>">
+					                                      	</c:if>
+					                                      	<c:if test="${myGatherList.get(index).st_image != null}">					                                      	
+						                                      	<img class="" src="<c:url value='/download/study/${myGatherList.get(index).st_image}'></c:url>">					                                      	
+					                                      	</c:if>
+					                                      </div>
+					                                      <div class="study_info">
+					                                      	<!-- tag 리스트 -->
+				                                      		<div class="study_tag_info">
+																<c:forEach items="${tagList}" var="ta" varStatus="vs">
+																	<c:if test="${ta.tr_st_num == myGatherList.get(index).st_num}">
+																		<span class="study_tag">${ta.tr_name}</span> 
+																	</c:if>
+																</c:forEach>
+															</div>
+					                                          <div class="study_recruit_content_box">
+					                                              <span class="study_recruit_content">[${myGatherList.get(index).st_re_name}] ${myGatherList.get(index).gatherVO.ga_title} </span>
+					                                          </div>
+					                                      		<!-- 모집중 상태 -->
+					                                          <div class="study_content">
+					                                              <div class="study_recruiting">
+					                                                  <span>모집중</span>
+					                                                  <span>${myGatherList.get(index).st_now_people}</span>
+					                                                  <span>/</span>
+					                                                  <span>${myGatherList.get(index).st_total_people}</span>
+					                                              </div>
+					                                             <!-- like -->
+										                         <div class="want_icon">
+																	<c:if test="${user == null}" >
+																		<div class="unlike_img"></div>
+																	</c:if>
+																	<c:if test="${user != null}">
+																		<c:if test="${wantList.contains(myGatherList.get(index).st_num)}">
+																			<div class="like_img"></div>	
+																		</c:if>
+																		<c:if test="${!wantList.contains(myGatherList.get(index).st_num)}">
+																			<div class="unlike_img"></div>	
+																		</c:if>							
+																	</c:if>
+																</div>
+					                                          </div>
+					                                      </div>
+					                                  </a>
+					                              </li>
+					                        	</c:if>
+				                          	</c:forEach>
+				                          </div>
+				                     	</c:forEach>
+									</c:if>
 		                          
-		                                          </div>
-		                                          <div class="study_recruit_content_box">
-		                                              <span class="study_recruit_content">[서울] 정처기 같이 공부해요 </span>
-		                                            </div>
-		                                          <div class="study_content">
-		                                              <div class="study_recruiting">
-		                                                  <span>모집중</span>
-		                                                  <span>1</span>
-		                                                  <span>/</span>
-		                                                  <span>5</span>
-		                                              </div>
-		                                              <div class="like_img"></div>
-		                                          </div>
-		                                      </div>
-		                                  </a>
-		                              </li>
-		                              <li class="study_card_box add_shadow">
-		                                  <a href="">
-		                                      <div class="study_img_box"></div>
-		                                      <div class="study_info">
-		                                          <div class="study_tag_info">
-		                                              <span href="#" class="study_tag">#자격증</span>
-		                                              <span href="#" class="study_tag">#PROJECTMAN</span>
-		                                              <span href="#" class="study_tag">#컴퓨터</span>
-		                                              <span href="#" class="study_tag">#독서토론</span>
-		                                              <span href="#" class="study_tag">#운동</span>
-		                                              <span href="#" class="study_tag">#경제학과</span>
-		                                          </div>
-		                                          <div class="study_recruit_content_box">
-		                                          <span class="study_recruit_content">[서울] 정처기 같이 공부해요 만나서반가워요 </span>
-		                                          </div>
-		                                          <div class="study_content">
-		                                              <div class="study_recruiting">
-		                                                  <span>모집중</span>
-		                                                  <span>1</span>
-		                                                  <span>/</span>
-		                                                  <span>5</span>
-		                                              </div>
-		                                              <div class="like_img"></div>
-		                                          </div>
-		                                      </div>
-		                                  </a>
-		                              </li>
-		                              <li class="study_card_box add_shadow">
-		  
-		                                  <a href="">
-		                                      <div class="study_img_box"></div>
-		                                      <div class="study_info">
-		                                          <div class="study_tag_info">
-		                                              <span href="#" class="study_tag">#자격증</span>
-		                                              <span href="#" class="study_tag">#프로젝트</span>
-		                                              <span href="#" class="study_tag">#컴퓨터</span>
-		                                              <span href="#" class="study_tag">#독서토론</span>
-		                                              <span href="#" class="study_tag">#운동</span>
-		                                              <span href="#" class="study_tag">#경제학과</span>
-		                                          </div>
-		                                          <div class="study_recruit_content_box">
-		                                              <span class="study_recruit_content">[서울] 정처기 같이 공부해요 </span>
-		                                            </div>
-		                                          <div class="study_content">
-		                                              <div class="study_recruiting">
-		                                                  <span>모집중</span>
-		                                                  <span>1</span>
-		                                                  <span>/</span>
-		                                                  <span>10</span>
-		                                              </div>
-		                                              <div class="like_img"></div>
-		                                          </div>
-		                                      </div>
-		                                  </a>
-		                              </li>
-		                          </div>
-		                          <div class="row_study_card clearfix">
-		                              <li class="study_card_box add_shadow">
-		                                  <a href="">
-		                                      <div class="study_img_box"></div>
-		                                      <div class="study_info">
-		                                          <div class="study_tag_info">
-		                                              <span href="#" class="study_tag">#자격증</span>
-		                                              <span href="#" class="study_tag">#경제학과</span>
-		                                              <span href="#" class="study_tag">#독서토론</span>
-		                                              <span href="#" class="study_tag">#자격증</span>
-		                                              <span href="#" class="study_tag">#자격증</span>
-		                                              <span href="#" class="study_tag">#자격증</span>
-		                                          </div>
-		                                          <div class="study_recruit_content_box">
-		                                              <span class="study_recruit_content">[서울] 정처기 같이 공부해요 </span>
-		                                            </div>
-		                                          <div class="study_content">
-		                                              <div class="study_recruiting">
-		                                                  <span>모집중</span>
-		                                                  <span>1</span>
-		                                                  <span>/</span>
-		                                                  <span>5</span>
-		                                              </div>
-		                                              <div class="like_img"></div>
-		                                          </div>
-		                                      </div>
-		                                  </a>
-		                              </li>
-		                              <li class="study_card_box add_shadow">
-		                                  <a href="">
-		                                      <div class="study_img_box"></div>
-		                                      <div class="study_info">
-		                                          <div class="study_tag_info">
-		                                              <span href="#" class="study_tag">#자격증</span>
-		                                              <span href="#" class="study_tag">#자격증</span>
-		                                              <span href="#" class="study_tag">#자격증</span>
-		                                              <span href="#" class="study_tag">#자격증</span>
-		                                              <span href="#" class="study_tag">#자격증</span>
-		                                              <span href="#" class="study_tag">#자격증</span>
-		                                          </div>
-		                                          <div class="study_recruit_content_box">
-		                                              <span class="study_recruit_content">[서울] 정처기 같이 공부해요 </span>
-		                                            </div>
-		                                          <div class="study_content">
-		                                              <div class="study_recruiting">
-		                                                  <span>모집중</span>
-		                                                  <span>1</span>
-		                                                  <span>/</span>
-		                                                  <span>5</span>
-		                                              </div>
-		                                              <div class="like_img"></div>
-		                                          </div>
-		                                      </div>
-		                                  </a>
-		                              </li>                   
-		                              <li class="study_card_box add_shadow">
-		                                  <a href="">
-		                                      <div class="study_img_box"></div>
-		                                      <div class="study_info">
-		                                          <div class="study_tag_info">
-		                                              <span href="#" class="study_tag">#자격증</span>
-		                                              <span href="#" class="study_tag">#자격증</span>
-		                                              <span href="#" class="study_tag">#자격증</span>
-		                                              <span href="#" class="study_tag">#자격증</span>
-		                                              <span href="#" class="study_tag">#자격증</span>
-		                                              <span href="#" class="study_tag">#자격증</span>
-		                                          </div>
-		                                          <div class="study_recruit_content_box">
-		                                              <span class="study_recruit_content">[ 서울] 정처기 같이 공부해요 </span>
-		                                            </div>
-		                                          <div class="study_content">
-		                                              <div class="study_recruiting">
-		                                                  <span>모집중</span>
-		                                                  <span>1</span>
-		                                                  <span>/</span>
-		                                                  <span>5</span>
-		                                              </div>
-		                                              <div class="like_img"></div>
-		                                          </div>
-		                                      </div>
-		                                  </a>                               
-		                              </li>
-		                          
-		                          </div>
 		                        </div>
 		  
 		                        <!-- 페이지네이션 -->
 		                        <div class="page_box clearfix">
-		                          <i class="btn_prev"></i>
-		                          <span class="page_num selected">1</span>
-		                          <span class="page_num">2</span>
-		                          <span class="page_num">3</span>
-		                          <i class="btn_next"></i>
+		                         <c:if test="${pm.prev}">
+		                     			<a class="page-link" href="<c:url value='/mypage/mypost_recruit?page=${pm.endPage-1}&filter=${pm.cri.filter}'></c:url>">
+											<i class="btn_prev"></i>
+										</a>
+									</c:if>
+									<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
+										<span class="page_num">										
+											<a class="page-link <c:if test="${pm.cri.page == i}"> active</c:if>" href="<c:url value='/mypage/mypost_recruit?page=${i}&filter=${pm.cri.filter}'></c:url>">${i}</a>
+										</span>
+									</c:forEach>
+									<c:if test="${pm.next}">										
+										<a class="page-link" href="<c:url value='/mypage/mypost_recruit?page=${pm.endPage+1}&filter=${pm.cri.filter}'></c:url>">
+											<i class="btn_next"></i>
+										</a>
+									</c:if>
 		                      </div>
 		                    </div>                                         
 		                </div>
                   </section> 
 			</div>
 		</main>
-
 	</div>
 <script>	
+/*$('#except_btn').change(function(){
+	if($(this).is(':checked')){
+        location.replace('<c:url value="mypage/mypost_recruit?filter=checked"></c:url>');
+	}
+})*/
+$('#except_btn').change(function(){
+	 //현재 페이지 주소
+	 var url = new URL(window.location.href)
+	//현재 페이지의 param들을 찾아온다. (?page나 &filter=같은것들)
+	 var params = url.searchParams;
+	
+	//#except_btn을 checked로 설정하면
+	if($(this).is(':checked')){
+		//filter의 값을 on으로 변경한다.
+		params.set('filter','on');
+		
+	//#except_btn의 checked를 해제하면
+	}else{
+		//filter의 값을 off로 변경한다.
+		params.set('filter','off');
+	}
+	
+	//http://localhost:8080 + /test/mypage/mypost_recruit + ? + search
+	var fullUrl = url.origin + url.pathname + "?" +params.toString();
+	//fullUrl로 url 변경
+	location.replace(fullUrl);
+})
+
 	$('#edit_info').submit(function(){
 		event.preventDefault(); // submit 이벤트 막기
 		

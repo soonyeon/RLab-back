@@ -5,7 +5,8 @@ import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Param;
 
-import kr.kh.RLab.pagination.gatherCriteria;
+import kr.kh.RLab.pagination.Criteria;
+import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.StudyMemberVO;
@@ -46,6 +47,10 @@ public interface GatherDAO {
 	ArrayList<Integer> selectStudyMemberList(@Param("me_id")String me_id);
 
 	StudyMemberVO selelctJoinStudyMemberList(@Param("me_id")String me_id, @Param("st_num")int st_num);
+
+	ArrayList<BoardVO> selectGatherListById(@Param("memberId")String memberId, @Param("cri")Criteria cri);
+
+	int selectGatherTotalCount(String memberId);
 
 	ArrayList<StudyVO> selectStudyById(String me_id);
 

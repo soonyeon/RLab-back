@@ -6,14 +6,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.kh.RLab.dao.GatherDAO;
-
+import kr.kh.RLab.dao.MypageDAO;
+import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.pagination.gatherCriteria;
 import kr.kh.RLab.utils.UploadFileUtils;
+import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.RegionVO;
-import kr.kh.RLab.vo.StudyMemberVO;
 import kr.kh.RLab.vo.StudyVO;
 import kr.kh.RLab.vo.TagRegisterVO;
 import kr.kh.RLab.vo.TagVO;
@@ -24,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 public class GatherServiceImp implements GatherService {
 
 	private final GatherDAO gatherDao;
+	private final MypageDAO mypageDao;
 	String uploadPath = "D:\\uploadfiles";
 
 	@Override

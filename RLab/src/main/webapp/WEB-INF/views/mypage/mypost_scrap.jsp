@@ -10,8 +10,9 @@
 <script src="<c:url value='/resources/js/jquery.min.js'></c:url>"></script>
 <script src="<c:url value='/resources/js/jquery.validate.min.js'></c:url>"></script>
 <script src="<c:url value='/resources/js/additional-methods.min.js'></c:url>"></script>
-  <link rel="stylesheet" href="<c:url value ='/resources/css/mypage/mypage_common.css?after'></c:url>" />
- <link rel="stylesheet" href="<c:url value ='/resources/css/tab_common.css?after'></c:url>" />
+ <link rel="stylesheet" href="<c:url value ='/resources/css/common.css?after'></c:url>" />
+<link rel="stylesheet" href="<c:url value ='/resources/css/mypage/mypage_common.css?after'></c:url>" />
+<link rel="stylesheet" href="<c:url value ='/resources/css/tab_common.css?after'></c:url>" />
 <link rel="stylesheet" href="<c:url value ='/resources/css/table_common.css?after'></c:url>" />
 <link rel="stylesheet" href="<c:url value ='/resources/css/mypage/mypost_scrap.css?after'></c:url>">
 <title>작성글 관리</title>
@@ -43,8 +44,8 @@
               <div class="my_study_container" id="my_container">
                 <div class="study_card_container">
 
-            <!-- table  -->
-                  <div class="table_container">
+            	<!-- table  -->
+                 <div class="table_container">
                     <div class="select_box_area">
                       <select name="select_view">
                         <option value="전체보기">전체보기</option>
@@ -70,7 +71,7 @@
                           <tbody>
                            <c:forEach items="${myScrapList}" var="bo" varStatus="vs">
 	                            <tr class="board_list" onclick="location.href='<c:url value='/board/detail/${bo.bo_num}'/>';">	      
-	                              <td>${bo.bo_num}</td>
+	                              <td>${bo.scrapVO.sc_num}</td>
 	                              <td>${bo.st_name}</td>
 	                              <td class="post_title">${bo.bo_title}</td>
 	                              <td>${bo.me_name}</td>
@@ -81,57 +82,36 @@
                         </table>
                       </div>
                       <!-- 페이지 이동 -->
-                      <div class="page_area">
-                        </div>
-                          <div class="page_box clearfix">
-                            <i class="btn_prev"></i>
-                            <span class="page_num selected">1</span>
-                            <span class="page_num">2</span>
-                            <span class="page_num">3</span>
-                            <i class="btn_next"></i>
-                        </div>
-                      </div>
-                    </div>
+	                      <div class="page_area">
+		                       <div class="page_box clearfix">
+			                        <c:if test="${pm.prev}">
+		                     			<a class="page-link" href="<c:url value='/mypage/mypost_scrap?page=${pm.endPage-1}'></c:url>">
+											<i class="btn_prev"></i>
+										</a>
+									</c:if>
+									<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
+										<span class="page_num">										
+											<a class="page-link <c:if test="${pm.cri.page == i}"> active</c:if>" href="<c:url value='/mypage/mypost_scrap?page=${i}'></c:url>">${i}</a>
+										</span>
+									</c:forEach>
+									<c:if test="${pm.next}">										
+										<a class="page-link" href="<c:url value='/mypage/mypost_scrap?page=${pm.endPage+1}'></c:url>">
+											<i class="btn_next"></i>
+										</a>
+									</c:if>
+		                       </div>
+	                       </div>  <!-- page area end -->
+                      	</div><!-- tab content end -->
+                    </div><!-- table_containert end -->
 
-                  </div>
-                </div>
-              </div>  
+                  </div><!-- study_card_container end -->
+                </div><!-- my_container end -->
+              </div>  <!-- main container end -->
           </section> 
-			</div>
-		</main>
+		</div><!-- total_container end -->
+	</main>
 
-	</div>
 <script>	
-	$('#edit_info').submit(function(){
-		event.preventDefault(); // submit 이벤트 막기
-		
-		if($("#profile_img").val() != ''){	
-			
-			var allowedExtensions = ["jpg", "jpeg", "png", "gif"];
-			var fileName = $("#profile_img").val();
-			var fileExtension = "";
-			
-			// 파일 이름에서 확장자 추출
-	        var i = fileName.lastIndexOf('.');
-	        if (i > 0) {
-	            fileExtension = fileName.substring(i+1);
-	            
-		    	// 이미지 파일이 아닌 경우
-		        if ($.inArray(fileExtension.toLowerCase(), allowedExtensions) == -1) {
-		            alert("이미지 파일 형식이 아닙니다.");
-		            return false;
-		        }else{	    	 
-					alert('이미지가 변경되었습니다.');
-					$(this).unbind('submit').submit(); // submit 이벤트 다시 실행	        	
-		        }
-	        }
-		}else{
-			alert('파일을 선택해주세요.');
-			return false;			
-		}
-	});
-
-
 </script>
 
 </body>
