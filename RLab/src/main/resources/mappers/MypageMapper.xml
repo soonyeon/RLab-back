@@ -3,10 +3,11 @@
 <mapper namespace="kr.kh.RLab.dao.MypageDAO">
 <!-- 나의 스크랩 -->
 <resultMap id="scrap" type="kr.kh.RLab.vo.BoardVO">
-	<id property="bo_num" column="bo_title"/>
+	<id property="bo_num" column="bo_num"/>
 	<id property="bo_title" column="bo_title"/>
 	<id property="st_name" column="st_name"/>
 	<id property="bo_me_id" column="bo_me_id"/>
+	<id property="me_name" column="me_name"/>
 	<id property="bo_reg_date" column="bo_reg_date"/>
 		<association property="scrapVO" javaType="kr.kh.RLab.vo.ScrapVO">
 			<result property="sc_num" column="sc_num"/>	
@@ -59,7 +60,6 @@
 			from board
 			where bo_me_id = #{memberId}
 	  	</select>
-	  
 		
 		
   	<!-- [작성글 관리 > 나의 스크랩] -->
@@ -87,10 +87,11 @@
 	<!-- [작성글 관리 > 나의 모집글] -->
   		<!-- 아이디로 내가 쓴 모집글 가져오기 -->	
   		<select id="selectGatherListById" resultMap="gather">
-  			select ga_num, ga_title, ga_me_id, 
+  			select ga_num, ga_title, ga_me_id, me_name,
   				st_num, st_image, st_re_name, st_now_people, st_total_people, st_state
   			from study
   			join gather on ga_st_num = st_num
+  			join member on me_id = st_me_id
 			WHERE  
 				ga_me_id = #{memberId}
 			<if test="gatherCri.filter == 'on'">

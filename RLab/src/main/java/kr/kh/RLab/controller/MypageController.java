@@ -47,8 +47,7 @@ public class MypageController {
 		mv.setViewName("/mypage/mypage");
 		return mv;
 	}
-	
-	
+
 	//[개인정보 수정 > 비밀번호 체크]
 	@GetMapping("/pwcheck")
 	public ModelAndView pwCheck(ModelAndView mv) {

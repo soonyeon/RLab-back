@@ -93,6 +93,7 @@ public class BoardController {
 	    return mv;
 	}
 	
+	
 	@GetMapping("/detail/{bo_num}")
 	public ModelAndView boardGet(ModelAndView mv, @PathVariable int bo_num) {
 		BoardVO board = boardService.getBoard(bo_num);
