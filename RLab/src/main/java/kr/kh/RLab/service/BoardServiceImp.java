@@ -70,18 +70,4 @@ public class BoardServiceImp implements BoardService {
 		return boardDao.selectStudyList();
 	}
 
-	@Override
-	public ArrayList<BoardVO> getBoardListById(String memberId) {
-		if(memberId == null)
-			return null;
-		return boardDao.selectBoardListById(memberId);
-	}
-
-	@Override
-	public int getPostBoardTotalCount(String memberId) {
-		System.out.println(memberId);
-		int totalCount = boardDao.selectPostBoardTotalCount(memberId);
-		return totalCount;
-		
-	}
 }

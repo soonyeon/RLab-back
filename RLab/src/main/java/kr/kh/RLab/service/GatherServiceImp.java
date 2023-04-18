@@ -7,14 +7,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.kh.RLab.dao.GatherDAO;
 import kr.kh.RLab.dao.MypageDAO;
-import kr.kh.RLab.pagination.Criteria;
-import kr.kh.RLab.pagination.gatherCriteria;
+import kr.kh.RLab.pagination.GatherCriteria;
 import kr.kh.RLab.utils.UploadFileUtils;
-import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.RegionVO;
+import kr.kh.RLab.vo.StudyMemberVO;
 import kr.kh.RLab.vo.StudyVO;
 import kr.kh.RLab.vo.TagRegisterVO;
 import kr.kh.RLab.vo.TagVO;
@@ -120,7 +119,7 @@ public class GatherServiceImp implements GatherService {
 	}
 
 	@Override
-	public ArrayList<StudyVO> selectStudyAll(gatherCriteria gcri) {
+	public ArrayList<StudyVO> selectStudyAll(GatherCriteria gcri) {
 		return gatherDao.selectStudyAll(gcri);
 	}
 
@@ -147,7 +146,7 @@ public class GatherServiceImp implements GatherService {
 	}
 
 	@Override
-	public int getStudyTotalCount(gatherCriteria gcri) {
+	public int getStudyTotalCount(GatherCriteria gcri) {
 		Integer totalCount = gatherDao.selectStudyTotalCount(gcri);
 		return totalCount != null ? totalCount : 0;
 	}

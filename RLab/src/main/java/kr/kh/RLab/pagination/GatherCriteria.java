@@ -7,7 +7,7 @@ import lombok.Data;
 
 
 @Data
-public class gatherCriteria extends Criteria {
+public class GatherCriteria extends Criteria {
 
 	//지역
 	private String region;
@@ -18,7 +18,7 @@ public class gatherCriteria extends Criteria {
 	//onoff필터
 	private String filter;
 	
-	public gatherCriteria() {
+	public GatherCriteria() {
 		super();
 		this.region="";
 		this.searchTag="";

@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.kh.RLab.pagination.GatherCriteria;
 import kr.kh.RLab.pagination.PageMaker;
-import kr.kh.RLab.pagination.gatherCriteria;
 import kr.kh.RLab.service.GatherService;
 import kr.kh.RLab.service.JoinStudyService;
 import kr.kh.RLab.vo.FileVO;
@@ -71,7 +71,7 @@ public class GatherController {
 	}
 	//메인모집글리스트
 	@GetMapping("/list")
-	public ModelAndView mainlistgather(ModelAndView mv,gatherCriteria gcri,HttpServletRequest request) {
+	public ModelAndView mainlistgather(ModelAndView mv,GatherCriteria gcri,HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		gcri.sortCri();

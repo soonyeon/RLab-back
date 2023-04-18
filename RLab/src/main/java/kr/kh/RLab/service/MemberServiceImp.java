@@ -92,6 +92,9 @@ public class MemberServiceImp implements MemberService {
 		if (user == null)
 			return false;
 		if (passwordEncoder.matches(pw.getMe_pw(), user.getMe_pw()))
+			return true;
+		return false;
+	}
 
 
 	@Override
