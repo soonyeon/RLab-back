@@ -193,7 +193,7 @@
 					<div class="ticket_area">
 						<select id="ticket_select">
 							<c:forEach items="${toList}" var="to">
-								<option value="${to.to_num}">${to.tt_name}(${to.ti_name}) ~${to.to_valid_date_str}</option>
+								<option value="${to.to_num}" data-rest="${to.to_rest_time}">${to.tt_name}(${to.ti_name}) ~${to.to_valid_date_str}</option>
 							</c:forEach>
 						</select>
 						<select class="time_select time_30 display_none">
@@ -230,7 +230,7 @@
 					<!-- 이용권 구매, 예약하기 버튼 영역 -->
 					<div class="btn_area area">
 						<a href="<c:url value='/reservation/buy'></c:url>" class="b_btn"  id="buy_btn"><input type="button" value="이용권 구매"></a>
-						<a href="./book_seat_complete.html" class="b_btn" id="book_btn"><input type="submit" value="예약하기" ></a>
+						<a href="<c:url value='/reservation/book/complete'></c:url>" class="b_btn" id="book_btn"><input type="submit" value="예약하기" ></a>
 					</div>
 			</div>
 		</div>
@@ -238,12 +238,13 @@
 </main>
 <script>
 /* 좌석 선택 관련 이벤트 */
+let seatNum = '';
 seatInit();
 $('.seat').click(function(){
-	let num = $(this).text();
+	seatNum = $(this).text();
 	$('.seat_table .seat_selected').removeClass('seat_selected').addClass('seat');
 	$(this).removeClass('seat').addClass('seat_selected');
-	$('.seat_num_box').html('<div class="seat_num_title">선택한 좌석번호 :</div> <div id="seat_num">'+num+'</div><div class="seat_num_title">번</div>');
+	$('.seat_num_box').html('<div class="seat_num_title">선택한 좌석번호 :</div> <div id="seat_num">'+seatNum+'</div><div class="seat_num_title">번</div>');
 })
 
 $('.seat_selected').click(function(){
@@ -262,17 +263,86 @@ $('.ticket_select').click(function(){
 })
 
 /* 이용권 선택 관련 이벤트 */
+let ticket = '';
+let useTime;
+let restTime = '';
+let selectedStr = '';
+
+showSelectedTicket();
+
 $('#ticket_select').change(function(){
+	showSelectedTicket();
+});
+
+$(function(){
+	$('.time_select').change(function(){
+		useTime = $(this).val();
+		if(useTime>restTime){
+			alert('사용가능한 이용권 잔여시간보다 더 많은 시간을 선택하였습니다.');
+			$(this).val(1).prop("selected",true);
+			useTime = 1;
+		}
+		selectedStr = 
+			'<div class="selected_ticket">'
+			+'<div class="selected_title">'+ticket+'</div>'
+			+'<div class="selected_time">'+useTime+'시간 (남은 이용권 시간 : '+(restTime-useTime)+'시간)</div>'
+			+'</div>';
+		$('.selected_area').html(selectedStr);
+	})
+});
+
+//예약하기 ajax-post
+$('#book_btn').click(function(){
+	let book = {
+			re_me_id : '${user.me_id}',
+			re_to_num : $('#ticket_select').val(),
+			br_num : ${br_num},
+			se_name : seatNum
+	}
+	//VO에 br_num,se_name 추가하고 데이터 서버로 보내야함
+	$.ajax({
+		async:false,
+		type: 'POST',
+		data: JSON.stringify(book),
+		url: '<c:url value="/reservation/1/spot"></c:url>',
+		dataType:"json", //success에 있는 data타입(주는거)
+		contentType:"application/json; charset=UTF-8", //위에있는 data타입(받는거)
+		success : function(data){
+			console.log(data);
+		}
+	});
+});
+
+//선택된 이용권을 보여주는 함수
+function showSelectedTicket(){
+	ticket = $('#ticket_select option:checked').text().split(' 이용권)')[0]+')';
+	restTime = $('#ticket_select option:checked').data('rest');
+	
+	
 	let ticketName = $('#ticket_select option:checked').text().substr(0,6);
 	if(ticketName=='시간 패키지'){
-		if($('#ticket_select option:checked').text().substr(7,2)=='30')
+		if($('#ticket_select option:checked').text().substr(7,2)=='30'){
 			$('.time_select.time_30').removeClass('display_none');
-		if($('#ticket_select option:checked').text().substr(7,2)=='50')
+		}
+		if($('#ticket_select option:checked').text().substr(7,2)=='50'){
 			$('.time_select.time_50').removeClass('display_none');
-		if($('#ticket_select option:checked').text().substr(7,3)=='100')
+		}
+		if($('#ticket_select option:checked').text().substr(7,3)=='100'){
 			$('.time_select.time_100').removeClass('display_none');
+		}
+		selectedStr = 
+		'<div class="selected_ticket">'
+		+'<div class="selected_title">'+ticket+'</div>'
+		+'<div class="selected_time">1시간 (남은 이용권 시간 : '+(restTime-1)+'시간)</div>'
+		+'</div>';
+	}else{
+		selectedStr = 
+		'<div class="selected_ticket">'
+		+'<div class="selected_title">'+ticket+'</div>'
+		+'</div>';
 	}
-});
+	$('.selected_area').html(selectedStr);
+}
 
 //좌석 상태를 초기화하는 함수
 function seatInit(){
