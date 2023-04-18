@@ -45,6 +45,9 @@
 	                        </div>
 	                    </div>
 	                    <button class="btn_finish">스터디 완료</button>
+<%-- 	                    <form action="<c:url value='/study/management/study/&{st_num}'></c:url>" method="post">
+	                    	<button class="btn_finish">스터디 완료</button>
+	                    </form> --%>
 	                </div>
 	                <div class="remove_box study_box">
 	                    <div class="sb_title">
@@ -55,7 +58,11 @@
 	                            모든 정보가 함께 삭제되며 해당 스터디에 접근이 불가합니다.
 	                        </div>
 	                    </div>
-	                    <button class="btn_delete">스터디 삭제</button>
+	                    	<button class="btn_delete">스터디 삭제</button>
+<%-- 	                    <form action="<c:url value='/study/management/study/&{st_num}'></c:url>" method="post">
+	                    	<button class="btn_delete">스터디 삭제</button>
+	                    </form> --%>
+	                    
 	                </div>
 	            </div>
 	        </div>
@@ -190,11 +197,6 @@ $(document).ready(function(){
 
 // 버튼 클릭시 스터디 선택 여부에 따라 confirm창 나타남
 function confirmAction(buttonText, action) {
-  const selectedOptionValue = $("select.slect_study_list option:selected").val();
-  if (selectedOptionValue === "") {
-    alert("스터디를 선택하세요.");
-    return;
-  }
   if (confirm(buttonText)) {
     action();
   } else {
@@ -203,29 +205,60 @@ function confirmAction(buttonText, action) {
 }
 
 
+
+
+
+//스터디 완료
 $(".btn_finish").on("click", function() {
+	let obj = {
+			st_num: ${st_num}
+	}
   confirmAction("완료된 스터디로 전환 시 스터디 활동이 일부 제한되며, 자유게시판만 사용가능합니다. 목표를 달성하거나 일정이 모두 완료된 경우에만 전환할 것을 권유드립니다. 정말 완료하시겠습니까?", function() {
-    alert("스터디가 완료처리 되었습니다.")
-		
-  });
+		$.ajax({	
+			async:false,
+		    type:'POST',
+		    data:JSON.stringify(obj),
+		    url:"<c:url value='/study/management/study/update/{st_num}'></c:url>",
+		    //서버에서 받는 데이터 타입
+		    dataType:"json",
+		    //서버에서 보내는 데이터 타입
+		    contentType:"application/json; charset=UTF-8",
+		    success : function(data){
+		        console.log(data);
+		    }
+		});
+	});
+	location.replace("<c:url value='/study/management'></c:url>");	  
+	  alert("스터디가 완료처리 되었습니다.")
 });
 
+
+
+
+// 스터디 삭제 
 $(".btn_delete").on("click", function() {
+	let obj = {
+			st_num: ${st_num}
+	}
+	
   confirmAction("스터디 삭제 시 스터디에올라온 게시글, 인증내역, 일정, 회원정보 등 모든 정보가 함께 삭제되며 해당 스터디에 접근이 불가합니다. 정말 삭제하시겠습니까?", function() {
-    alert("스터디가 삭제되었습니다.");
-  });
+		$.ajax({	
+			async:false,
+		    type:'POST',
+		    data:JSON.stringify(obj),
+		    url:"<c:url value='/study/management/study/delete/{st_num}'></c:url>",
+		    //서버에서 받는 데이터 타입
+		    dataType:"json",
+		    //서버에서 보내는 데이터 타입
+		    contentType:"application/json; charset=UTF-8",
+		    success : function(data){
+		        console.log(data);
+		    }
+		});
+  	});
+	location.replace("<c:url value='/study/management'></c:url>");
+	alert("스터디가 삭제되었습니다.");
 });
 
-$(".btn_drop").on("click", function() {
-  confirmAction("본 회원을 강퇴시키겠습니까?", function() {
-    alert("강퇴처리 되었습니다.");
-  });
-});
-
-$(".btn_power").on("click", function() {
-  confirmAction("본 회원에게 스터디장을 위임하시겠습니까?", function() {
-    alert("위임처리 되었습니다.");
-  });
-});
 
 </script>

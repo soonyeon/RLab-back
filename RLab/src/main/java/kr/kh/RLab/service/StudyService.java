@@ -40,6 +40,11 @@ public interface StudyService {
 	void deleteStudyMember(int st_num, String me_name);
 
 	void authorizeStudyMember(int sm_st_num, String me_name);
+
+	void deleteStudy(int st_num);
+
+	void stateUpdateStudy(int st_num, int st_state);
+	
 	
 
 

@@ -120,9 +120,9 @@ public class StudyServiceImp implements StudyService {
 
 	@Override
 	public void authorizeStudyMember(int sm_st_num, String me_name) {
-		//me_id 구하
+		//me_id 구하고
 		String sm_me_id = studyDao.selectStudyMemberId(me_name);
-		//선택된 스터디원의 sm_authority를 9로 변경 
+		//sm_st_num과 sm_me_id가 일치하는 스터디원의 sm_authority를 9로 변경 
 		studyDao.updateStudyMemberAuthority(sm_st_num, sm_me_id);
 		
 		//스터디장의 id가져오기
@@ -133,6 +133,29 @@ public class StudyServiceImp implements StudyService {
 		
 		//스터디의 st_me_id를 바뀐 스터디장으로 변경
 		studyDao.updateStudyLeader(sm_st_num,sm_me_id);
+	}
+
+	@Override
+	public void deleteStudy(int st_num) {
+		//study테이블에서 해당st_num인 행 삭제
+		studyDao.deleteStudyMemberList(st_num);
+		
+		//해당 스터디의 모집글 삭제
+		studyDao.deleteGatherByStNum(st_num);
+		
+		//해당 스터디로 등록돤 tag_registe 전부 삭제
+		studyDao.deleteTagRegisteStNum(st_num);
+		
+		//study테이블에서 해당st_num인 행 삭제
+		studyDao.deleteStudy(st_num);
+		
+	}
+
+	@Override
+	public void stateUpdateStudy(int st_num, int st_state) {
+		//해당 스터디의st_num을 2에서 0으로 변경
+		studyDao.stateUpdateStudy(st_num,st_state);
+		
 	}
 	
 	

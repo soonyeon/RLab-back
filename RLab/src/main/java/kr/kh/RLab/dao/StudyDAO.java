@@ -52,7 +52,16 @@ public interface StudyDAO {
 	void updateStudyLeaderAuthority(@Param("sm_st_num")int sm_st_num, @Param("leaderId")String leaderId);
 
 	void updateStudyLeader(@Param("sm_st_num")int sm_st_num, @Param("sm_me_id")String sm_me_id);
+
+	
+	void deleteStudyMemberList(@Param("st_num")int st_num);
+
+	void deleteGatherByStNum(@Param("st_num")int st_num);
+
+	void deleteTagRegisteStNum(@Param("st_num")int st_num);
     
-    
+	void deleteStudy(@Param("st_num")int st_num);
+
+	void stateUpdateStudy(@Param("st_num")int st_num, @Param("st_state")int st_state);
 
 }

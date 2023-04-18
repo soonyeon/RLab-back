@@ -91,8 +91,23 @@
 		update study set st_me_id = #{sm_me_id}
 		where st_num = #{sm_st_num}
     </update>
-    
-    
+	<delete id="deleteStudyMemberList">
+  		delete from study_member
+  		where sm_st_num = #{st_num}
+  	</delete>
+    <delete id="deleteGatherByStNum">
+  		delete from study_member
+  		where ga_st_num = #{st_num}
+  	</delete>
+    <delete id="deleteTagRegisteStNum">
+  		delete from study_member
+  		where tr_st_num = #{st_num}
+  	</delete>
+  	<delete id="deleteStudy">
+  		delete from study
+  		where st_num = #{st_num}
+  	</delete>
+
     
     
     
