@@ -14,8 +14,7 @@
 <link rel="stylesheet" href="<c:url value ='/resources/css/mypage/mypage_common.css?after'></c:url>">
 <title>마이 페이지</title>
 </head>
-<body>${petList}
-
+<body>
     <!-- pet_store_popup -->
     <div class="pet_store_popup_container display_none">
       <div class="pet_store_popup_box">
@@ -30,9 +29,10 @@
 	            <c:if test="${files.size() != 0}">
 		            <c:forEach items="${petFile}" var="pf">
 		            	  <c:if test="${pf.ev_level == pl.pe_final_level}">
-		            	 	<img class="pet_img" src="<c:url value='/download${pf.ev_img}'></c:url>">
+		            	 	<img src="<c:url value='/download${pf.ev_img}'></c:url>" class="pet_img">
 		            	  </c:if>
 		            </c:forEach>
+		       
 	            </c:if>
 	              <div class="pet_title">
 	                <div class="pet_name"><h2>${pl.pe_name}</h2></div>
