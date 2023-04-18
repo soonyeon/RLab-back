@@ -100,10 +100,6 @@
 		  let member = $('[name=st_total_people]').val();
 		  let title = $('[name=st_name]').val();
 		  let content = $('[name=st_info]').val();
-		  if(region == '지역미지정'){
-		    alert('지역을 선택하세요.');
-		    return false;
-		  }
 		  if(member == 0){
 			    alert('인원을 입력하세요.');
 			    return false;

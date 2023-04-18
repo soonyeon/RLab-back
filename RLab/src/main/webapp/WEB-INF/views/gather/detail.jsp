@@ -15,7 +15,7 @@
 <!-- main -->
 <main>
 	<div id="main_container">
-		<div class="board_title">${st.st_name}
+		<div class="board_title">${ga.ga_title}
 			<input type="hidden" value="${ga.ga_me_id}">
 			
 		</div>
@@ -41,7 +41,7 @@
 				</div>
 				<div class="rc_info_box">
 					<div class="study_recruit_content_box">
-						<span class="rc_title">${ga.ga_title}</span>
+						<span class="rc_title">${st.st_name}</span>
 					</div>
 					<div class="study_content">
 						<div class="study_recruiting">
@@ -70,13 +70,13 @@
 					</div>
 					<div class="join_study">
 				   		<c:if test="${user == null }">
-				   		 <button class="apply_btn">스터디 가입</button>
+				   		 	<button class="apply_btn">스터디 가입</button>
 						</c:if>
-						<c:if test="${user != null }">
-							<c:if test="${smList.contains(st_num)}">
+						<c:if test="${user != null}">
+							<c:if test="${smList != null && smList.sm_authority == 1}">
 								<button class="already_apply_btn">스터디 가입 완료</button>
 							</c:if>
-							<c:if test="${!smList.contains(st_num)}">
+							<c:if test="${smList == null}">
 								<button class="apply_btn">스터디 가입</button>
 							</c:if>
 						</c:if>
@@ -97,47 +97,14 @@
            
             </div>
             <div class="comment_box">
-                <%--  <div class="cm_main_box">
-                                        <div class="cm_top_box">
-                                            <div class="cm_writer">
-                                                <a href="#" class="cm_mypage"> 
-                                                    <i class="img_mypage"></i> 
-                                                    <span class="nick_name">도라미</span>
-                                                    <span class="write_date">2023.02.28</span>
-                                                </a> 
-                                            </div> 
-                                            <div class="comment_btn_box">
-                                                <button class="cm_plus_btn"> <img class="reply_icon" src="<c:url value='/resources/img/reply.png'></c:url>">답글달기</button>
-                                                <button class="cm_delete_btn">X삭제하기</button>
-                                            </div>
-                                            <div class="already_comment">안녕하세요!언제까지 모집하시나요?제가이번주에는 일이있어서 당장 참여는 불가능해요.</div>
-                                        </div>
-                                    </div> 
-                                    <div class="re_reply_main_box">
-                                        <div class="re_reply_top_box">
-                                            <img class="re_reply_icon src=""<c:url value='/resources/img/reply.png'></c:url>">
-                                            <div class="re_writer">
-                                                <a href="#" class="re_mypage"> 
-                                                    <i class="img_mypage"></i> 
-                                                    <span class="re_nick_name">김돌탕</span>
-                                                    <span class="re_write_date">2023.02.28</span>
-                                                </a> 
-                                            </div>
-                                            <div class="reply_btn_box">
-                                                <button class="re_edit_btn">수정하기</button>
-                                                <button class="re_delete_btn">X삭제하기</button>
-                                            </div>
-                                            <div class="re_reply_comment">안녕하세요!언제까지 모집하시나요?제가이번주에는 일이있어서 당장 참여는 불가능해요.</div>
-                                        </div>
-                                    </div>
-                                     --%>
+              
             </div>
         </div>
     </div>	
 </main>
 
 <script>
-const userId = '${user.me_id}'; 
+const userId1 = '${user.me_id}'; 
 const gatherNum = '${ga.ga_num}';
 const studyNum = '${st_num}';
 let joinCount = '${joinCount}';
@@ -150,7 +117,7 @@ $(document).ready(function() {
   function want() {
     // 데이터
     var requestData = {
-      wa_me_id: userId,
+      wa_me_id: userId1,
       wa_ga_num: gatherNum
     };
     $.ajax({
@@ -165,11 +132,13 @@ $(document).ready(function() {
         } else if (response && response.wantState === 0) {
         	 $('.like_img').removeClass('like_img').addClass('unlike_img');
           alert('스터디 찜을 취소 했습니다.');
+        }
       },
       error: function(error) {
     	  console.log(error)
         alert('찜에 실패하였습니다. 다시 시도해주세요');
       }
+      
     });
   }
 });
@@ -180,12 +149,11 @@ $(document).ready(function() {
     join();
   });
   
-  $('.now_pp').text(joinCount);
   
   function join() {
     // 데이터
     var requestData = {
-      sm_me_id: userId,
+      sm_me_id: userId1,
       sm_st_num: studyNum
     };
     $.ajax({
@@ -203,8 +171,7 @@ $(document).ready(function() {
           alert('스터디 가입 취소했습니다.');
        		location.reload();
           $('.now_pp').text(response.joinCount);
-        }
-		
+        } 		
       },
       error: function(error) {
     	  console.log(error)
@@ -213,8 +180,8 @@ $(document).ready(function() {
     });
   }
 });
-
-
+</script>
+<script>
 /* 댓글 */
 let page = 1; //댓글 페이지
 const boardNum = '${ga.ga_num}';
