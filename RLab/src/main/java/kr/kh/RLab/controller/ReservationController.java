@@ -184,7 +184,6 @@ public class ReservationController {
 	@RequestMapping(value = "/reservation/1/{br_num}", method=RequestMethod.GET) 
 	public ModelAndView seatDetail(ModelAndView mv, @PathVariable("br_num")int br_num, HttpSession session) {
 		BranchVO br = reservationService.getBranchByBrNum(br_num);
-		//소유티켓가져와서 넘겨줘야함
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		ArrayList<TicketOwnVO> toList = reservationService.getTicketOwnListById(user.getMe_id());
 		mv.addObject("br", br);
@@ -198,8 +197,16 @@ public class ReservationController {
 	public HashMap<String,Object> seatDetailPost(@PathVariable("br_num")int br_num,
 			HttpSession session, @RequestBody ReservationVO book) {
 		HashMap<String,Object> map = new HashMap<String,Object>();
-		System.out.println(book);
 		reservationService.reserveSeat(book);
 		return map;
+	}
+	@ResponseBody
+	@RequestMapping(value = "/reservation/1/complete", method=RequestMethod.POST) 
+	public ModelAndView seatComplete(ModelAndView mv, HttpSession session,
+			@RequestBody ReservationVO book) {
+		System.out.println("예약완료 페이지");
+		System.out.println(book);
+		mv.setViewName("/reservation/seat_complete");
+		return mv;
 	}
 }

@@ -95,8 +95,8 @@
 	<insert id="insertReservation">
 		insert into reservation(re_me_id, re_se_num, re_start_time, re_valid_time, re_register_date, re_to_num)
 		values(#{re_me_id}, (
-			select se_num from seat where se_br_num = #{br_num} and se_name = #{se_name}
-			), now(), (select date_add(now(), interval 1 hour)), now(), #{re_to_num})
+			select se_num from seat where se_br_num = #{br_num} and se_name = #{se_name} and se_ki_num = 1
+			), now(), (select date_add(now(), interval ${book_time} hour)), now(), #{re_to_num})
 	</insert>
 	<update id="updateTicketRestTime">
 		update ticket_own set to_rest_time = to_rest_time - #{book_time} where to_num = #{re_to_num}

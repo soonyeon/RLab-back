@@ -291,27 +291,37 @@ $(function(){
 	})
 });
 
-//예약하기 ajax-post
+//예약하기
 $('#book_btn').click(function(){
 	let book = {
-			re_me_id : '${user.me_id}',
-			re_to_num : $('#ticket_select').val(),
-			br_num : ${br_num},
-			se_name : seatNum+'',
-			book_time : useTime
+			're_me_id' : '${user.me_id}',
+			're_to_num' : $('#ticket_select').val(),
+			'br_num' : ${br_num},
+			'se_name' : seatNum+'',
+			'book_time' : useTime
 	}
 	$.ajax({
 		async:false,
 		type: 'POST',
 		data: JSON.stringify(book),
 		url: '<c:url value="/reservation/1/${br_num}"></c:url>',
-		dataType:"json", //success에 있는 data타입(주는거)
-		contentType:"application/json; charset=UTF-8", //위에있는 data타입(받는거)
+		dataType:"json",
+		contentType:"application/json; charset=UTF-8",
 		success : function(data){
 			console.log(data);
 		}
 	});
-	location.href("<c:url value='/reservation/book/complete'></c:url>");
+	$.ajax({
+		async:false,
+		type: 'POST',
+		data: JSON.stringify(book),
+		url: '<c:url value="/reservation/1/complete"></c:url>',
+		dataType:"json",
+		contentType:"application/json; charset=UTF-8",
+		success : function(data){
+			console.log(data);
+		}
+	});
 });
 
 //선택된 이용권을 보여주는 함수
