@@ -185,7 +185,6 @@ public class ReservationController {
 		//소유티켓가져와서 넘겨줘야함
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		ArrayList<TicketOwnVO> toList = reservationService.getTicketOwnListById(user.getMe_id());
-		System.out.println(toList);
 		mv.addObject("br", br);
 		mv.addObject("br_num", br_num);
 		mv.addObject("toList", toList);

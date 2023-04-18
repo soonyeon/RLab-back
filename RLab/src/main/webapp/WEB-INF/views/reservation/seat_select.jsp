@@ -197,192 +197,22 @@
 							</c:forEach>
 						</select>
 						<select class="time_select time_30 display_none">
-							<option value="hour_1">1시간</option>
-							<option value="hour_2">2시간</option>
-							<option value="hour_3">3시간</option>
-							<option value="hour_4">4시간</option>
-							<option value="hour_5">5시간</option>
-							<option value="hour_6">6시간</option>
-							<option value="hour_7">7시간</option>
-							<option value="hour_8">8시간</option>
-							<option value="hour_9">9시간</option>
-							<option value="hour_10">10시간</option>
-							<option value="hour_11">11시간</option>
-							<option value="hour_12">12시간</option>
-							<option value="hour_13">13시간</option>
-							<option value="hour_14">14시간</option>
-							<option value="hour_15">15시간</option>
-							<option value="hour_16">16시간</option>
-							<option value="hour_17">17시간</option>
-							<option value="hour_18">18시간</option>
-							<option value="hour_19">19시간</option>
-							<option value="hour_20">20시간</option>
-							<option value="hour_21">21시간</option>
-							<option value="hour_22">22시간</option>
-							<option value="hour_23">23시간</option>
-							<option value="hour_24">24시간</option>
-							<option value="hour_25">25시간</option>
-							<option value="hour_26">26시간</option>
-							<option value="hour_27">27시간</option>
-							<option value="hour_28">28시간</option>
-							<option value="hour_29">29시간</option>
-							<option value="hour_30">30시간</option>
+							<c:forEach begin="1" end="30" var="i">
+								<option value="${i}">${i}시간</option>
+							</c:forEach>
 						</select>
 						<select class="time_select time_50 display_none">
-							<option value="hour_1">1시간</option>
-							<option value="hour_2">2시간</option>
-							<option value="hour_3">3시간</option>
-							<option value="hour_4">4시간</option>
-							<option value="hour_5">5시간</option>
-							<option value="hour_6">6시간</option>
-							<option value="hour_7">7시간</option>
-							<option value="hour_8">8시간</option>
-							<option value="hour_9">9시간</option>
-							<option value="hour_10">10시간</option>
-							<option value="hour_11">11시간</option>
-							<option value="hour_12">12시간</option>
-							<option value="hour_13">13시간</option>
-							<option value="hour_14">14시간</option>
-							<option value="hour_15">15시간</option>
-							<option value="hour_16">16시간</option>
-							<option value="hour_17">17시간</option>
-							<option value="hour_18">18시간</option>
-							<option value="hour_19">19시간</option>
-							<option value="hour_20">20시간</option>
-							<option value="hour_21">21시간</option>
-							<option value="hour_22">22시간</option>
-							<option value="hour_23">23시간</option>
-							<option value="hour_24">24시간</option>
-							<option value="hour_25">25시간</option>
-							<option value="hour_26">26시간</option>
-							<option value="hour_27">27시간</option>
-							<option value="hour_28">28시간</option>
-							<option value="hour_29">29시간</option>
-							<option value="hour_30">30시간</option>
-							<option value="hour_31">31시간</option>
-							<option value="hour_32">32시간</option>
-							<option value="hour_33">33시간</option>
-							<option value="hour_34">34시간</option>
-							<option value="hour_35">35시간</option>
-							<option value="hour_36">36시간</option>
-							<option value="hour_37">37시간</option>
-							<option value="hour_38">38시간</option>
-							<option value="hour_39">39시간</option>
-							<option value="hour_40">40시간</option>
-							<option value="hour_41">41시간</option>
-							<option value="hour_42">42시간</option>
-							<option value="hour_43">43시간</option>
-							<option value="hour_44">44시간</option>
-							<option value="hour_45">45시간</option>
-							<option value="hour_46">46시간</option>
-							<option value="hour_47">47시간</option>
-							<option value="hour_48">48시간</option>
-							<option value="hour_49">49시간</option>
-							<option value="hour_50">50시간</option>
-						</select>
+							<c:forEach begin="1" end="50" var="i">
+								<option value="${i}">${i}시간</option>
+							</c:forEach>
+						</select> 
 						<select class="time_select time_100 display_none">
-							<option value="hour_1">1시간</option>
-							<option value="hour_2">2시간</option>
-							<option value="hour_3">3시간</option>
-							<option value="hour_4">4시간</option>
-							<option value="hour_5">5시간</option>
-							<option value="hour_6">6시간</option>
-							<option value="hour_7">7시간</option>
-							<option value="hour_8">8시간</option>
-							<option value="hour_9">9시간</option>
-							<option value="hour_10">10시간</option>
-							<option value="hour_11">11시간</option>
-							<option value="hour_12">12시간</option>
-							<option value="hour_13">13시간</option>
-							<option value="hour_14">14시간</option>
-							<option value="hour_15">15시간</option>
-							<option value="hour_16">16시간</option>
-							<option value="hour_17">17시간</option>
-							<option value="hour_18">18시간</option>
-							<option value="hour_19">19시간</option>
-							<option value="hour_20">20시간</option>
-							<option value="hour_21">21시간</option>
-							<option value="hour_22">22시간</option>
-							<option value="hour_23">23시간</option>
-							<option value="hour_24">24시간</option>
-							<option value="hour_25">25시간</option>
-							<option value="hour_26">26시간</option>
-							<option value="hour_27">27시간</option>
-							<option value="hour_28">28시간</option>
-							<option value="hour_29">29시간</option>
-							<option value="hour_30">30시간</option>
-							<option value="hour_31">31시간</option>
-							<option value="hour_32">32시간</option>
-							<option value="hour_33">33시간</option>
-							<option value="hour_34">34시간</option>
-							<option value="hour_35">35시간</option>
-							<option value="hour_36">36시간</option>
-							<option value="hour_37">37시간</option>
-							<option value="hour_38">38시간</option>
-							<option value="hour_39">39시간</option>
-							<option value="hour_40">40시간</option>
-							<option value="hour_41">41시간</option>
-							<option value="hour_42">42시간</option>
-							<option value="hour_43">43시간</option>
-							<option value="hour_44">44시간</option>
-							<option value="hour_45">45시간</option>
-							<option value="hour_46">46시간</option>
-							<option value="hour_47">47시간</option>
-							<option value="hour_48">48시간</option>
-							<option value="hour_49">49시간</option>
-							<option value="hour_50">50시간</option>
-							<option value="hour_51">51시간</option>
-							<option value="hour_52">52시간</option>
-							<option value="hour_53">53시간</option>
-							<option value="hour_54">54시간</option>
-							<option value="hour_55">55시간</option>
-							<option value="hour_56">56시간</option>
-							<option value="hour_57">57시간</option>
-							<option value="hour_58">58시간</option>
-							<option value="hour_59">59시간</option>
-							<option value="hour_60">60시간</option>
-							<option value="hour_61">61시간</option>
-							<option value="hour_62">62시간</option>
-							<option value="hour_63">63시간</option>
-							<option value="hour_64">64시간</option>
-							<option value="hour_65">65시간</option>
-							<option value="hour_66">66시간</option>
-							<option value="hour_67">67시간</option>
-							<option value="hour_68">68시간</option>
-							<option value="hour_69">69시간</option>
-							<option value="hour_70">70시간</option>
-							<option value="hour_71">71시간</option>
-							<option value="hour_72">72시간</option>
-							<option value="hour_73">73시간</option>
-							<option value="hour_74">74시간</option>
-							<option value="hour_75">75시간</option>
-							<option value="hour_76">76시간</option>
-							<option value="hour_77">77시간</option>
-							<option value="hour_78">78시간</option>
-							<option value="hour_79">79시간</option>
-							<option value="hour_80">80시간</option>
-							<option value="hour_81">81시간</option>
-							<option value="hour_82">82시간</option>
-							<option value="hour_83">83시간</option>
-							<option value="hour_84">84시간</option>
-							<option value="hour_85">85시간</option>
-							<option value="hour_86">86시간</option>
-							<option value="hour_87">87시간</option>
-							<option value="hour_88">88시간</option>
-							<option value="hour_89">89시간</option>
-							<option value="hour_90">90시간</option>
-							<option value="hour_91">91시간</option>
-							<option value="hour_92">92시간</option>
-							<option value="hour_93">93시간</option>
-							<option value="hour_94">94시간</option>
-							<option value="hour_95">95시간</option>
-							<option value="hour_96">96시간</option>
-							<option value="hour_97">97시간</option>
-							<option value="hour_98">98시간</option>
-							<option value="hour_99">99시간</option>
-							<option value="hour_100">100시간</option>
+							<c:forEach begin="1" end="100" var="i">
+								<option value="${i}">${i}시간</option>
+							</c:forEach>
 						</select>
 					</div>
+					
 					<!-- 선택한 이용권, 시간 영역 -->
 					<div class="title_area">
 						<h2>선택한 이용권</h2>
@@ -399,7 +229,7 @@
 					</div>
 					<!-- 이용권 구매, 예약하기 버튼 영역 -->
 					<div class="btn_area area">
-						<a href="./ticket_buy.html" class="b_btn"  id="buy_btn"><input type="button" value="이용권 구매"></a>
+						<a href="<c:url value='/reservation/buy'></c:url>" class="b_btn"  id="buy_btn"><input type="button" value="이용권 구매"></a>
 						<a href="./book_seat_complete.html" class="b_btn" id="book_btn"><input type="submit" value="예약하기" ></a>
 					</div>
 			</div>
@@ -407,6 +237,7 @@
 	</div>
 </main>
 <script>
+/* 좌석 선택 관련 이벤트 */
 seatInit();
 $('.seat').click(function(){
 	let num = $(this).text();
@@ -430,7 +261,20 @@ $('.ticket_select').click(function(){
 		$('.time_select.time_100').removeClass('.display_none');
 })
 
+/* 이용권 선택 관련 이벤트 */
+$('#ticket_select').change(function(){
+	let ticketName = $('#ticket_select option:checked').text().substr(0,6);
+	if(ticketName=='시간 패키지'){
+		if($('#ticket_select option:checked').text().substr(7,2)=='30')
+			$('.time_select.time_30').removeClass('display_none');
+		if($('#ticket_select option:checked').text().substr(7,2)=='50')
+			$('.time_select.time_50').removeClass('display_none');
+		if($('#ticket_select option:checked').text().substr(7,3)=='100')
+			$('.time_select.time_100').removeClass('display_none');
+	}
+});
 
+//좌석 상태를 초기화하는 함수
 function seatInit(){
 	$('.seat_table .seat_selected').removeClass('seat_selected').addClass('seat');
 	$('.seat_num_box').html('<div class="seat_num_title">좌석을 선택하세요.</div>');
