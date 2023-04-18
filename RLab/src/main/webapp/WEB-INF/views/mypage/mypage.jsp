@@ -24,36 +24,28 @@
             <i class="icon_store"></i> 펫 스토어
           </div>
           <div class="pets_container">
-            <div class="pet_box">
-              <div class="pet_img"></div>
-              <div class="pet_title">
-                <div class="pet_name"><h2>냥냥이</h2></div>
-                <div class="pet_level">Lv.4</div>
-              </div>
-              <div class="pet_reward"><p>보상: </p><p>1500원 포인트 지급</p><i class="icon_reward"></i></div>
-              <button class="btn_bring" id="pet_1">데려오기</button>
-            </div>
-            <div class="pet_box">
-              <div class="pet_img"></div>
-              <div class="pet_title">
-                <div class="pet_name"><h2>곰곰이</h2></div>
-                <div class="pet_level">Lv.5</div>
-              </div>
-              <div class="pet_reward"><p>보상: </p><p>2시간 이용권 지급</p><i class="icon_reward"></i></div>
-              <button class="btn_bring" id="pet_2">데려오기</button>
-            </div>
-            <div class="pet_box">
-              <div class="pet_img"></div>
-              <div class="pet_title">
-                <div class="pet_name"><h2>용용이</h2></div>
-                <div class="pet_level">Lv.6</div>
-              </div>
-              <div class="pet_reward"><p>보상: </p><p>6시간 이용권 지급</p><i class="icon_reward"></i></div>
-              <button class="btn_bring" id="pet_3">데려오기</button>
-            </div>
+          	<c:forEach	items="${petList}" var="pl">
+	            <div class="pet_box">
+	            <c:if test="${files.size() != 0}">
+		            <c:forEach items="${petFile}" var="pf">
+		            	  <c:if test="${pf.ev_level == pl.pe_final_level}">
+		            	 	<img src="<c:url value='/download${pf.ev_img}'></c:url>" class="pet_img">
+		            	  </c:if>
+		            </c:forEach>
+		       
+	            </c:if>
+	              <div class="pet_title">
+	                <div class="pet_name"><h2>${pl.pe_name}</h2></div>
+	                <div class="pet_level">Lv.${pl.pe_final_level}</div>
+	              </div>
+	              <div class="pet_reward"><p>보상: </p><p>${pl.pe_prize}</p><i class="icon_reward"></i></div>
+	              <button class="btn_bring" id="pet_1">데려오기</button>
+	            </div>
+            </c:forEach>
           </div>
         </div>
       </div>
+      
     </div>
     <!-- background -->
     <div class="background_bbls">

@@ -4,13 +4,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,11 +21,14 @@ import kr.kh.RLab.service.BoardService;
 import kr.kh.RLab.service.CommentService;
 import kr.kh.RLab.service.GatherService;
 import kr.kh.RLab.service.MypageService;
+import kr.kh.RLab.service.PetService;
 import kr.kh.RLab.service.ScrapService;
 import kr.kh.RLab.service.TemporaryService;
 import kr.kh.RLab.vo.BoardVO;
+import kr.kh.RLab.vo.EvolutionVO;
 import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.MemberVO;
+import kr.kh.RLab.vo.PetVO;
 import kr.kh.RLab.vo.TagRegisterVO;
 import lombok.RequiredArgsConstructor;
 
@@ -40,10 +43,15 @@ public class MypageController {
 	private final GatherService gatherService;
 	private final TemporaryService temporaryService;
 	private final CommentService commtentService;
+	private final PetService petService;
 	
 	//[mypage 홈]
 	@GetMapping("")
 	public ModelAndView mypage(ModelAndView mv) {
+	    ArrayList<PetVO> petList = petService.selectPetList();
+	    ArrayList<EvolutionVO> petFile = petService.selectPetFile();
+	    mv.addObject("petList",petList);
+	    mv.addObject("petFile",petFile);
 		mv.setViewName("/mypage/mypage");
 		return mv;
 	}
@@ -205,5 +213,7 @@ public class MypageController {
 		mv.setViewName("/mypage/mypost_recruit");
 		return mv;
 	}
+	
+
 
 }
