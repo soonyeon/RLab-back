@@ -38,11 +38,6 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/mypage")
 public class MypageController {
 	private final MypageService mypageService;
-	private final BoardService boardService;
-	private final ScrapService scrapService;
-	private final GatherService gatherService;
-	private final TemporaryService temporaryService;
-	private final CommentService commtentService;
 	private final PetService petService;
 	
 	//[마이페이지 홈]
