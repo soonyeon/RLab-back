@@ -21,18 +21,18 @@
 		<!-- 왼쪽 메뉴바 -->
 		<div class="left_menu_container" style="width:200px;">
  					<nav class="left_menu">
-                        <a href="study_basic.html" class="list_item">스터디홈</a>
+                        <a href="<c:url value='/study/${st_num}'></c:url>" class="list_item">스터디홈</a>
                         <a href="#" class="list_item">스터디 달력</a>
                         <a href="to_do_list.html" class="list_item">투두 리스트</a>
                         <a href="Daily Mission.html" class="list_item">데일리 미션</a>
-                        <a href="certification_board.html" class="list_item">인증 게시판</a>
-                        <a href="#" class="list_item">자유 게시판</a>
-                        <a href="#" class="list_item">스터디 관리</a>
+                        <a href="<c:url value='/study/photo/${st_num}'></c:url>" class="list_item">인증 게시판</a>
+                        <a href="<c:url value='/board/list/${st_num}'></c:url>" class="list_item">자유 게시판</a>
+                        <a href="<c:url value='/study/management/member'></c:url>" class="list_item">스터디 관리</a>
                         <a href="#" class="leave">탈퇴하기</a>
                     </nav>
 		</div>
 
-		<section>
+		<section class="section">
 			<div class="home_container">
 				   <h2>자유게시판</h2>
     <div class="inner_board_box">
@@ -41,7 +41,12 @@
             <div class="writer_main">
                 <div class="writer_box">
                     <a href="#" class="writer">
-                        <img class="icon_writer" src="<c:url value='/resources/img/profile_img.png'></c:url>">
+                    <c:if test="${user.me_profile == null}">
+                    	 <img class="icon_writer" src="<c:url value='/resources/img/user.png'></c:url>"width="auto" height="40">
+                    </c:if>
+                    <c:if test="${user.me_profile != null}">
+                    	  <img class="icon_writer" src="<c:url value='/download${user.me_profile}'></c:url>" width="auto" height="40">
+                    </c:if>
                         <input type="hidden" id="me_id" value="${bd.bo_me_id}">
                         <input type="hidden" id="current_page" value="1" />
                         <span class="writer_name">${bd.me_name}</span></a>
@@ -54,10 +59,10 @@
             </div>
             <div class="sc_and_mo_main">
                 <div class="scrap_box">
-                    <c:if test="${scrapCount != 0}">
+                    <c:if test="${user.me_id == scv.sc_me_id}">
 						<img class="icon_scrap" src="<c:url value='/resources/img/favorite_tag.png' />">
 					</c:if>
-					<c:if test="${scrapCount == 0}">
+					<c:if test="${user.me_id != scv.sc_me_id}">
 						<img class="icon_scrap" src="<c:url value='/resources/img/favorite_tag_white.png' />">
 					</c:if>
                 </div>
@@ -78,12 +83,12 @@
         </div>
         <div class="scrap_and_comment">
             <div class="scrap_bottom">
-            	<c:if test="${scrapCount != 0}">
-					<img class="icon_scrap" src="<c:url value='/resources/img/favorite_tag.png' />">
-				</c:if>
-				<c:if test="${scrapCount == 0}">
-					<img class="icon_scrap" src="<c:url value='/resources/img/favorite_tag_white.png' />">
-				</c:if>
+					   <c:if test="${user.me_id == scv.sc_me_id}">
+						<img class="icon_scrap" src="<c:url value='/resources/img/favorite_tag.png' />">
+					</c:if>
+					<c:if test="${user.me_id != scv.sc_me_id}">
+						<img class="icon_scrap" src="<c:url value='/resources/img/favorite_tag_white.png' />">
+					</c:if>
                 <span>스크랩</span>
                 <span class="scrap_num"></span>
             </div>
@@ -296,6 +301,7 @@
     function loadComments(page1) {
     
         $.ajax({
+        	async:false,
             url: '<c:url value="/comment/list/' + boardNum + '?page=' + page1 + '" />',
             type: 'POST',
             dataType: 'json',
@@ -312,14 +318,30 @@
 				
                 $.each(comments, function(index, comment) {
                     console.log(comment);
+                    if(comment.co_state == 'Y') {
+                     	 let cmStateHtml = '';
+                        cmStateHtml += '<div class="cm_main_box">';
+                        cmStateHtml += '<div class="cm_top_box">';
+                        cmStateHtml += '<div class="already_comment">' + '삭제된 댓글입니다' + '</div>';
+                        cmStateHtml += '</div>';
+                        cmStateHtml += '</div>';
+                        $('.comment_box').append(cmStateHtml);
+                        return;
+                   } 	
                     if (comment.co_num == comment.co_ori_num) {
+                       
                         let listHtml = '';
 
                         listHtml += '<div class="cm_main_box">';
                         listHtml += '<div class="cm_top_box">';
                         listHtml += '<div class="cm_writer">';
                         listHtml += '<a href="#" class="cm_mypage">';
-                        listHtml += '<i class="img_mypage"></i>';
+                        <c:if test="${user.me_profile == null}">
+                        listHtml += '<img src="<c:url value="/resources/img/user.png"></c:url>" width="auto" height="40">';
+                        </c:if>
+                        <c:if test="${user.me_profile != null}">
+                        listHtml += '<img src="<c:url value="/download${user.me_profile}"></c:url>" width="auto" height="40">';
+                        </c:if>
                         listHtml += '<span class="nick_name">' + comment.me_name + '</span>';
                         listHtml += '<span class="write_date">' + comment.co_reg_date + '</span>';
                         listHtml += '</a>';
@@ -336,7 +358,8 @@
                         listHtml += '</div>';
 
                         $('.comment_box').append(listHtml); // 생성된 HTML 문자열을 댓글 목록 영역에 추가
-                    } else {
+                    }
+                    else {
                         let reReplyHtml = '';
 
                         reReplyHtml += '<div class="re_reply_main_box">';
@@ -344,7 +367,12 @@
                         reReplyHtml += '<img class="re_reply_icon" src="<c:url value="/resources/img/reply.png"></c:url>">';
                         reReplyHtml += '<div class="re_writer">';
                         reReplyHtml += '<a href="#" class="re_mypage">';
-                        reReplyHtml += '<i class="img_mypage"></i>';
+                        <c:if test="${user.me_profile == null}">
+                        reReplyHtml += '<img src="<c:url value="/resources/img/user.png"></c:url>" width="auto" height="40">';
+                        </c:if>
+                        <c:if test="${user.me_profile != null}">
+                        reReplyHtml += '<img src="<c:url value="/download${user.me_profile}"></c:url>" width="auto" height="40">';
+                        </c:if>
                         reReplyHtml += '<span class="re_nick_name">' + comment.me_name + '</span>';
                         reReplyHtml += '<span class="re_write_date">' + comment.co_reg_date + '</span>';
                         reReplyHtml += '</a>';
@@ -413,6 +441,7 @@
                     $('.comment_box').empty()
                     loadComments(1);
                     loadCommentCount();
+                    $(".cm_write").val(''); // 입력창 내용 비우기
                 } else {
                     alert("댓글 등록에 실패했습니다.");
                 }
@@ -517,17 +546,12 @@
                     alert("댓글이 삭제되었습니다.");
                     // 댓글 목록을 다시 불러옴
                     $('.comment_box').empty();
-                    loadComments(page);
+                    loadComments(1); // 현재 페이지가 1인 경우만 댓글을 다시 불러옴
                     loadCommentCount();
                 } else {
                     alert("댓글 삭제에 실패했습니다. 다시 시도해주세요.");
                 }
             },
-            error: function(xhr, status, error) {
-                console.error("Status:", status);
-                console.error("Error:", error);
-                alert("댓글 삭제 중 오류가 발생했습니다. 다시 시도해주세요.");
-            }
         });
     }
     $(document).on('click', '.cm_update_btn, .re_edit_btn', function() {
@@ -578,7 +602,6 @@
     });
 
     function updateComment(comment, page) {
-        $('.comment_box').empty();
         $.ajax({
             url: '<c:url value="/comment/update" />',
             type: 'POST',
@@ -592,10 +615,8 @@
                 if (response.result == "success") {
                     alert("댓글이 수정되었습니다.");
                     // 댓글 목록을 다시 불러옴
-                    for(i=1;i<=page;i++){
-                    loadComments(i);
-                    console.log(i);
-                    }
+                    $('.comment_box').empty();
+                    loadComments(1); // 현재 페이지가 1인 경우만 댓글을 다시 불러옴
                     loadCommentCount(); 
                 } else {
                     alert("댓글 수정에 실패했습니다. 다시 시도해주세요.");
@@ -604,25 +625,24 @@
         });
     }
 
-        $('#update-btn').click(function() {
-            let bo_num = $(this).data('id');
-            window.location.href = `<c:url value='/board/update/'/>${bo_num}`;
-        });
+    $('#update-btn').click(function() {
+        let bo_num = $(this).data('id');
+        window.location.href = '<c:url value="/board/update/'+${st_num}+'/'+${bo_num}+'"/>';
+    });
 
-        $('#delete-btn').click(function() {
-            if (confirm('게시글을 삭제하시겠습니까?')) {
-                $.ajax({
-                    url: '<c:url value="/board/delete/${bd.bo_num}" />',
-                    type: 'POST',
-                    success: function(response) {
-                        alert('게시글이 삭제되었습니다.');
-                        window.location.href = '<c:url value="/board/list" />';
-                    },
-                    error: function(error) {
-                        alert('게시글 삭제에 실패하였습니다.');
-                    }
-                });
-            }
-        });
+    $('#delete-btn').click(function() {
+        if (confirm('게시글을 삭제하시겠습니까?')) {
+            $.ajax({
+                url: '<c:url value="/board/delete/${bd.bo_num}" />',
+                type: 'POST',
+                success: function(response) {
+                    alert('게시글이 삭제되었습니다.');
+                    window.location.href = '<c:url value="/board/list/'+${st_num}+'" />';
+                },
+                error: function(error) {
+                    alert('게시글 삭제에 실패하였습니다.');
+                }
+            });
+        }
     });
 </script>

@@ -7,6 +7,10 @@
  	<select id="findScrap" resultType="kr.kh.RLab.vo.ScrapVO">
         SELECT * FROM scrap WHERE sc_me_id=#{sc_me_id} AND sc_bo_num=#{sc_bo_num}
     </select>
+    
+    <select id="findScrap2" resultType="kr.kh.RLab.vo.ScrapVO">
+    	 SELECT * FROM scrap WHERE sc_bo_num=#{bo_num} and sc_state=1
+    </select>
 
     <insert id="insertScrap">
         INSERT INTO scrap (sc_me_id, sc_bo_num, sc_state)

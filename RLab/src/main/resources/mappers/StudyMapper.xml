@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.kh.RLab.dao.StudyDAO">
+	<select id="getPhotoType" resultType="kr.kh.RLab.vo.PhotoTypeVO">
+		select *
+			from photo_type
+	</select>
+	
+	<insert id="insertCB" useGeneratedKeys="true" keyProperty="ph_num">
+    	insert into photo (ph_pt_num, ph_me_id, ph_register_date, ph_img, ph_content, ph_st_num)
+    	values (#{ph_pt_num}, #{ph_me_id}, now(), #{ph_img}, #{ph_content}, #{ph_st_num})
+	</insert>
+	
+	
+	<insert id="insertFile">
+		insert into file( fi_ori_name, fi_name, fi_table, fi_ex_num)
+		values(#{file.fi_ori_name}, #{file.fi_name}, #{file.fi_table}, #{file.fi_ex_num}) 
+	</insert>
+	
+	 <select id="getStudyByMemberId" parameterType="String" resultType="kr.kh.RLab.vo.StudyVO">
+        SELECT * FROM study WHERE st_me_id = #{st_me_id}
+    </select>
+    
+    <!-- 오늘 해당하는거만 가져오기 -->
+     <select id="getPhotosByStudyNum" resultType="kr.kh.RLab.vo.PhotoVO">
+       SELECT p.*, m.me_name
+	   FROM photo p JOIN member m ON p.ph_me_id = m.me_id  
+	   WHERE ph_st_num = #{st_num} AND DATE(ph_register_date) = DATE(NOW())
+    </select>
+    
+    <!-- 좋아요기능 -->
+	 <insert id="insertLike">
+	    INSERT INTO `like` (li_num, li_me_id, li_ph_num, li_state)
+	    VALUES (#{li_num}, #{li_me_id}, #{li_ph_num}, #{li_state})
+	</insert>
+	
+	<update id="updateLikeStatus">
+	    UPDATE `like`
+	    SET li_state = #{li_state}
+	    WHERE li_me_id = #{li_me_id} AND li_ph_num = #{li_ph_num}
+	</update>
+	
+	<select id="getLikeByUserIdAndPhotoId" resultType="kr.kh.RLab.vo.LikeVO">
+	    SELECT * FROM `like`
+	    WHERE li_me_id = #{li_me_id} AND li_ph_num = #{li_ph_num}
+	</select>
+	
+	<select id="countLikesByPhotoId" parameterType="int" resultType="int">
+	    SELECT COUNT(*) FROM `like` WHERE li_ph_num = #{li_ph_num} AND li_state = 1
+	</select>
+    
+    <select id="selectStudyListById" resultType="kr.kh.RLab.vo.StudyVO">
+    	SELECT st_num, st_name 
+		FROM study 
+		WHERE st_me_id = #{memberId}
+    </select>
+    <select id="selectStudyMemberList" resultType="kr.kh.RLab.vo.StudyMemberVO">
+    	SELECT * FROM study_member
+    	join member on sm_me_id = me_id
+    	WHERE sm_st_num = #{st_num}
+    	LIMIT #{cri.pageStart},#{cri.perPageNum}
+    </select>
+	<select id="selectStudyTotalCount" resultType="int">
+    	SELECT count(*) from study_member
+		WHERE sm_st_num = #{st_num}
+    </select>
+    <select id="selectStudyMemberId" resultType="String">
+    	select me_id from member
+    	where me_name = #{me_name}
+    </select>
+    <delete id="deleteStudyMember">
+    	delete from study_member
+    	where sm_st_num = #{st_num} and sm_me_id = #{me_id}
+    </delete>
+    
+    <select id="selectList" parameterType="int" resultType="kr.kh.RLab.vo.StudyMemberVO">
+	    SELECT *
+	    FROM study_member
+	    join member on sm_me_id = me_id
+	    join study on sm_st_num = st_num
+	    WHERE sm_st_num = #{st_num}
+	</select>
+	
+	<select id="getOnlineMembers" resultType="kr.kh.RLab.vo.StudyMemberVO">
+        SELECT *
+        FROM study_member
+        join member on sm_me_id = me_id
+        join session ON ss_me_id = me_id
+        WHERE ss_out IS NULL
+    </select>
+    
+</mapper>

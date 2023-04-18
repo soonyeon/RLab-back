@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.kh.RLab.dao.SessionDAO">
+	<insert id="insertSession">
+        INSERT INTO session (ss_num, ss_me_id, ss_in, ss_out)
+        VALUES (#{ss_num}, #{ss_me_id}, #{ss_in}, #{ss_out})
+    </insert>
+
+    <update id="updateSession">
+        UPDATE session
+        SET ss_out = #{ss_out}
+        WHERE ss_me_id = #{ss_me_id}
+    </update>
+</mapper>
