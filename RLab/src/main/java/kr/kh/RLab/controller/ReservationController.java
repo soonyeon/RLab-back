@@ -28,6 +28,13 @@ import kr.kh.RLab.vo.TicketOwnVO;
 public class ReservationController {
 	@Autowired
 	ReservationService reservationService;
+
+	@RequestMapping(value = "/reservation", method=RequestMethod.GET) 
+	public ModelAndView reservation(ModelAndView mv, HttpSession session) {
+		mv.setViewName("/reservation/basic");
+		return mv;
+	}
+	
 	
 	@RequestMapping(value = "/reservation/buy", method=RequestMethod.GET) 
 	public ModelAndView ticketBuy(ModelAndView mv, HttpSession session) {
@@ -164,7 +171,7 @@ public class ReservationController {
 	public ModelAndView seatSpot(ModelAndView mv, ReservationCriteria cri) {
 		ArrayList<BranchVO> brList = reservationService.getAllBranchList(cri);
 		int totalCount = reservationService.getBranchTotalCount(cri);
-		PageMaker pm = new PageMaker(totalCount, 5, cri);
+		PageMaker pm = new PageMaker(totalCount, 1, cri);
 		mv.addObject("cri", cri);
 		mv.addObject("brList", brList);
 		mv.addObject("search", cri.getSearch());

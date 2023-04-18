@@ -30,7 +30,7 @@
 			<section>
 				<div class="search_container">
 					<div class="filter_area">
-						<form action="<c:url value='/reservation/1/spot'></c:url>">
+						<form action="<c:url value='/reservation/1/spot'></c:url>" style="display:contents">
 							<select class="choose_region" name="region">
 								<option value="">지역 선택</option>
 								<option value="지역 미지정" <c:if test="${cri.region=='지역 미지정'}">selected</c:if>>지역 미지정</option>
@@ -93,9 +93,9 @@
 					</ul>
 					<div class="page_box clearfix">
 						<c:if test="${pm.prev}">
-							<i class="btn_prev">
-								<a href="<c:url value='/reservation/1/spot?region=${pm.cri.region}&search=${pm.cri.search}&page=${pm.startPage-1}'></c:url>"></a>
-							</i>
+							<a href="<c:url value='/reservation/1/spot?region=${pm.cri.region}&search=${pm.cri.search}&page=${pm.startPage-1}'></c:url>">
+								<i class="btn_prev"></i>
+							</a>
 						</c:if>
 						<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
 							<span class="page_num <c:if test='${pm.cri.page==i}'>selected_num</c:if>">
@@ -103,9 +103,9 @@
 							</span>
 						</c:forEach>
 						<c:if test="${pm.next}">
-							<i class="btn_next">
-								<a href="<c:url value='/reservation/1/spot?region=${pm.cri.region}&search=${pm.cri.search}&page=${pm.startPage-1}'></c:url>"></a>
-							</i>
+							<a href="<c:url value='/reservation/1/spot?region=${pm.cri.region}&search=${pm.cri.search}&page=${pm.endPage+1}'></c:url>">
+								<i class="btn_next"></i>
+							</a>
 						</c:if>						
 					</div>
 				</div>

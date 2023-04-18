@@ -231,10 +231,6 @@ input::-webkit-search-results-decoration{
 	font-weight: 700;
 	cursor: pointer;
 }
-.btn_next:hover{
-	background-color: #4f8dd4;
-}
-
 /* 이용권 선택 섹션 */
 .ticket_list_box{
 	background-color: grey; 
