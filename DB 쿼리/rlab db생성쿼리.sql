@@ -8,7 +8,11 @@ DROP TABLE IF EXISTS `member`;
 CREATE TABLE `member` (
 	`me_id`	varchar(13) primary key	NOT NULL,
 	`me_name`	varchar(10)	NOT NULL,
+<<<<<<< HEAD
+	`me_pw`	varchar(20)	NOT NULL,
+=======
 	`me_pw`	varchar(255)	NOT NULL,
+>>>>>>> 8a04488827335585c4cde8c0c02bef53309ec319
 	`me_email`	varchar(30)	NOT NULL,
 	`me_authority`	int not null default 0,
 	`me_point`	int not null DEFAULT 0,
