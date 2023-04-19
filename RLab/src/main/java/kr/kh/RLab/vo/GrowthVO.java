@@ -15,6 +15,11 @@ public class GrowthVO {
 	private int gr_level;
 	private int gr_exp;
 	private int gr_ev_num;
-
+	private EvolutionVO evolutionVO; // 펫데려오기에서 데이터 한꺼번에 조회할 때 필요
+	
+	public EvolutionVO evolutionVO() {
+		return evolutionVO;
+	}
+	
 
 }

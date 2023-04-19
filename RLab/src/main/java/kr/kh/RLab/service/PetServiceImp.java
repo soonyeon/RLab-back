@@ -29,16 +29,15 @@ public class PetServiceImp implements PetService{
 
 	@Override
 	public int choosePet(GrowthVO growth) {
-	    EvolutionVO evolution = petDao.selectEvolutionByNum(growth.getGr_ev_num());
-	    growth.setGr_ev_num(evolution.getEv_num());
 	    return petDao.insertChoosePet(growth);
 	}
 
 	@Override
 	public EvolutionVO selectEvolutionByNum(int gr_ev_num) {
-		// TODO Auto-generated method stub
-		return null;
+		return petDao.selectEvolutionByNum(gr_ev_num);
 	}
+
+
 
 
 
