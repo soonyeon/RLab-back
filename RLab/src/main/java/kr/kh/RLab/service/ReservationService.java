@@ -37,4 +37,8 @@ public interface ReservationService {
 
 	ReservationVO getReservationByBookInfo(ReservationVO book);
 
+	String getTicketNameByBookInfo(ReservationVO rsv);
+
+	int getRestTime(int re_to_num);
+
 }

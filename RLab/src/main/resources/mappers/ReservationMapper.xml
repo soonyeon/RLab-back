@@ -126,4 +126,13 @@
 		order by re_num desc
 		limit 1
 	</select>
+	<select id="selectTicketName" resultType="String">
+		select concat(tt_name, ' (', substring_index(ti_name, ' 이용권', 1), ')') from ticket_own
+		join ticket on to_ti_num = ti_num
+		join ticket_type on ti_tt_num = tt_num
+		where to_num = #{re_to_num}
+	</select>
+	<select id="selectTicketRestTime" resultType="int">
+		select to_rest_time from ticket_own where to_num = #{re_to_num}
+	</select>
 </mapper>

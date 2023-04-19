@@ -69,4 +69,8 @@ public interface ReservationDAO {
 
 	ReservationVO selectReservationByBook(ReservationVO book);
 
+	String selectTicketName(ReservationVO rsv);
+
+	int selectTicketRestTime(int re_to_num);
+
 }

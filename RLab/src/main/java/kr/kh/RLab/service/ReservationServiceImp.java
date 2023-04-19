@@ -139,7 +139,6 @@ public class ReservationServiceImp implements ReservationService {
 		int tiNum = reservationDao.selectTiNum(book.getRe_to_num());
 		if(tiNum!=6 && tiNum!=7 && tiNum!=8) 
 			book.setRe_hours(reservationDao.selectTiPeriod(tiNum));
-		System.out.println(book); //!!! 시간패키지 아닌 이용권 선택했을때 re_hours제대로 수정되는지 봐야함
 
 		//reservation에 추가
 		if(reservationDao.insertReservation(book)!=0)
@@ -165,6 +164,16 @@ public class ReservationServiceImp implements ReservationService {
 		if(tiNum!=6 && tiNum!=7 && tiNum!=8) 
 			book.setRe_hours(reservationDao.selectTiPeriod(tiNum));
 		return reservationDao.selectReservationByBook(book);
+	}
+
+	@Override
+	public String getTicketNameByBookInfo(ReservationVO rsv) {
+		return reservationDao.selectTicketName(rsv);
+	}
+
+	@Override
+	public int getRestTime(int re_to_num) {
+		return reservationDao.selectTicketRestTime(re_to_num);
 	}
 
 }

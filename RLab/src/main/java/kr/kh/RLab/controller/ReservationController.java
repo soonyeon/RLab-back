@@ -202,28 +202,17 @@ public class ReservationController {
 		
 		BranchVO br  = reservationService.getBranchByBrNum(book.getBr_num());
 		ReservationVO rsv = reservationService.getReservationByBookInfo(book);
+		String ticketName = reservationService.getTicketNameByBookInfo(rsv);
+		int restTime = reservationService.getRestTime(book.getRe_to_num());
 		System.out.println(rsv);
+		System.out.println(ticketName);
+		System.out.println(restTime);
 		mv.addObject("user", user);
 		mv.addObject("br", br);
-		mv.addObject("book", book);
 		mv.addObject("rsv", rsv);
+		mv.addObject("ticketName",ticketName);
+		mv.addObject("restTime",restTime);
 		mv.setViewName("/reservation/seat_complete");
 		return mv;
 	}
-//	@RequestMapping(value = "/reservation/1/complete", method=RequestMethod.GET) 
-//	public ModelAndView seatComplete(ModelAndView mv, int br_num, HttpSession session, ReservationVO book) {
-//		System.out.println("complete-get 이동");
-//		System.out.println(book);
-//		mv.setViewName("/reservation/seat_complete");
-//		return mv;
-//	}
-//	@ResponseBody
-//	@RequestMapping(value = "/reservation/1/complete", method=RequestMethod.POST) 
-//	public ModelAndView seatCompletePost(ModelAndView mv, HttpSession session,
-//			@RequestBody ReservationVO book) {
-//		System.out.println("예약완료 페이지");
-//		System.out.println(book);
-//		mv.setViewName("/reservation/seat_complete");
-//		return mv;
-//	}
 }

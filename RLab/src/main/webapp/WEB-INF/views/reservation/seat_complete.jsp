@@ -43,15 +43,15 @@
 					<table border="1">
 						<tr>
 							<th>예약번호</th>
-							<td>110020</td>
+							<td>${rsv.re_num}</td>
 						</tr>
 						<tr>
 							<th>예약자</th>
-							<td>김돌탕</td>
+							<td>${user.me_id}</td>
 						</tr>
 						<tr>
 							<th>예약등록 일자</th>
-							<td>2023-03-23</td>
+							<td>${rsv.re_register_date_str}</td>
 						</tr>
 					</table>
 				</div>
@@ -64,11 +64,11 @@
 					<table border="1">
 						<tr>
 							<th>카페 지점</th>
-							<td>[서울] 강남역점</td>
+							<td>[${br.br_re_name}] ${br.br_name}</td>
 						</tr>
 						<tr>
 							<th>좌석번호</th>
-							<td>17번</td>
+							<td>${rsv.se_name}번</td>
 						</tr>
 					</table>
 				</div>
@@ -81,15 +81,15 @@
 					<table border="1">
 						<tr>
 							<th>사용한 이용권</th>
-							<td>시간 패키지(30시간)</td>
+							<td>${ticketName}</td>
 						</tr>
 						<tr>
 							<th>사용한 시간</th>
-							<td>1시간</td>
+							<td>${rsv.re_hours}시간</td>
 						</tr>
 						<tr>
 							<th>남은 시간</th>
-							<td>29시간</td>
+							<td>${restTime}시간</td>
 						</tr>
 					</table>
 				</div>
@@ -103,11 +103,11 @@
 					<table border="1">
 						<tr>
 							<th>시작시간</th>
-							<td>2023-03-23 14:25</td>
+							<td>${rsv.re_start_time_str}</td>
 						</tr>
 						<tr>
 							<th>만료시간</th>
-							<td>2023-03-23 15:25</td>
+							<td>${rsv.re_valid_time_str}</td>
 						</tr>
 					</table>
 				</div>
