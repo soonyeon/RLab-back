@@ -223,38 +223,35 @@ $(".btn_finish").on("click", function() {
 		    contentType:"application/json; charset=UTF-8",
 		    success : function(data){
 		        console.log(data);
+		        
+		    	location.replace("<c:url value='/study/management'></c:url>");	  
+		  	  alert("스터디가 완료처리 되었습니다.")
 		    }
 		});
 	});
-	location.replace("<c:url value='/study/management'></c:url>");	  
-	  alert("스터디가 완료처리 되었습니다.")
 });
 
 //스터디 완료 취소
 $(".btn_finish_cancel").on("click", function() {
 	let obj = {
-			st_num: ${st_num}
-	}
-  confirmAction("스터디 완료를 취소시겠습니까?", function() {
+		st_num: ${st_num}
+	};
+	confirmAction("스터디 상태를 복원하시겠습니까?", function() {
 		$.ajax({	
-			async:false,
-		    type:'POST',
-		    data:JSON.stringify(obj),
-		    url:"<c:url value='/study/management/study/update/undo/{st_num}'></c:url>",
-		    //서버에서 받는 데이터 타입
-		    dataType:"json",
-		    //서버에서 보내는 데이터 타입
-		    contentType:"application/json; charset=UTF-8",
-		    success : function(data){
-		        console.log(data);
-		    }
+			async: false,
+			type: 'POST',
+			data: JSON.stringify(obj),
+			url: "<c:url value='/study/management/study/update/undo/{st_num}'></c:url>",
+			dataType: "json",
+			contentType: "application/json; charset=UTF-8",
+			success: function(data) {
+				console.log(data);
+				location.replace("<c:url value='/study/management'></c:url>");
+				alert("스터디가 복원되었습니다.");
+			}
 		});
 	});
-	location.replace("<c:url value='/study/management'></c:url>");	  
-	  alert("스터디 완료처리가 취소되었습니다.")
 });
-
-
 
 // 스터디 삭제 
 $(".btn_delete").on("click", function() {
@@ -274,11 +271,13 @@ $(".btn_delete").on("click", function() {
 		    contentType:"application/json; charset=UTF-8",
 		    success : function(data){
 		        console.log(data);
+				location.replace("<c:url value='/study/management'></c:url>");
+				alert("스터디가 삭제되었습니다.");
 		    }
 		});
   	});
-	location.replace("<c:url value='/study/management'></c:url>");
-	alert("스터디가 삭제되었습니다.");
+	
+	
 	
 });
 
