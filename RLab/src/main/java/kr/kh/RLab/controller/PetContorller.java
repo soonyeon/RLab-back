@@ -24,7 +24,14 @@ public class PetContorller {
 
 	@PostMapping("/choosePet")
 	public Map<String, Object> choosePet(@RequestBody GrowthVO growth) {
-	    petService.insertChoosePet(growth);
+	   int rs = petService.insertChoosePet(growth);
+	    Map<String, Object> map = new HashMap<>();
+	    return map;
+	}
+	
+	@PostMapping("/deletePet")
+	public Map<String, Object> deletePet(@RequestBody GrowthVO growth) {
+	   int rs =  petService.deletePet(growth);
 	    Map<String, Object> map = new HashMap<>();
 	    return map;
 	}

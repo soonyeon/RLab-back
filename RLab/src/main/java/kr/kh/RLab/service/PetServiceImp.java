@@ -32,6 +32,11 @@ public class PetServiceImp implements PetService{
 	    return petDao.insertChoosePet(growth);
 	}
 
+	@Override
+	public int deletePet(GrowthVO growth) {
+		return petDao.deletePet(growth);
+	}
+
 
 
 

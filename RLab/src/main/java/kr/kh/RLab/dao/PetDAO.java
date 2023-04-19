@@ -14,7 +14,7 @@ public interface PetDAO {
 
 	int insertChoosePet(GrowthVO growth);
 
-	EvolutionVO selectEvolutionByNum(int gr_ev_num);
+	int deletePet(GrowthVO growth);
 
 
 }

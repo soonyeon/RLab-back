@@ -22,6 +22,7 @@
         <div class="pet_store_content">
           <div class="popup_title">
             <i class="icon_store"></i> 펫 스토어
+            <button class="btn_return">펫 돌려보내기</button>
           </div>
           <div class="pets_container">
           	<c:forEach	items="${petList}" var="pl">
@@ -134,17 +135,13 @@
 	             	 <c:if test="${myPet == null }">
 		                <div class="pet_window">
 		                  <img src="" alt="" class="pet_talk" />
-		                  <img src="<c:url value="/download/0.png"></c:url>" alt="펫" class="pet" />
+		                  <img src="" alt="펫" class="pet" />
 		                </div>
 		                <div class="pet_description">
 		                  <div class="pet_info_container">
-		                    <div class="this_pet">
-		                      <h2 class="pet_name"></h2>
-		                      <div class="pet_reward">
-		                        ㄴ보상 :  <i class="icon_reward"></i>
-		                      </div>
-		                    </div>
-		                    <div class="pet_level">Lv. </div>
+		 					<span class="txt_new_pet">
+		 						★펫스토어 에서 펫을<br>데려와보세요★
+		 					</span>
 		                  </div>
 		                    <div id="pet_store_container">
 		                      <i class="icon_store"></i> 펫 스토어
@@ -301,6 +298,7 @@
     <script>
     const userId = '${user.me_id}';
     let pe_num = '${pl.pe_num}';
+    let hadPet = '${myPet}';
     
 	 // pet_store 모달 열기
 	    $(document).on('click', '#pet_store_container', function(e){
@@ -316,12 +314,17 @@
 	    
 	$(document).ready(function() {    
 		$('.btn_bring').on('click', function() {
-			//등록된 펫이 있으면 더 못데려오게 막는기능 필요
 			choosePet($(this));
 		});
 		function choosePet(el){
 			let gr_pe_num = el.parents('.pet_box').find('.petnum').val();
 			let ev_num = el.parents('.pet_box').find('.pet_img').data('ev_num');
+			
+		   if (hadPet.length > 0) {
+		        alert('새로운 펫을 데려오려면 펫 돌려보내기를 하세요.');
+		        return;
+		    }
+			
 			let obj = {
 			    gr_me_id: userId,
 			    gr_pe_num: gr_pe_num,
@@ -336,6 +339,7 @@
 			    dataType: 'json',
 			    contentType: 'application/json; charset=UTF-8',
 			    success: function(data) {
+			    	alert('펫 데려오기에 성공하였습니다.');
 			    	location.reload();		
 			      },
 			      error: function(error) {
@@ -347,6 +351,54 @@
 		}
 	});
     
+	
+	$(document).ready(function() {    
+		$('.btn_return').on('click', function() {
+			deletePet($(this));
+		});
+		function deletePet(el){
+			let gr_pe_num = el.parents('.pet_box').find('.petnum').val();
+			let ev_num = el.parents('.pet_box').find('.pet_img').data('ev_num');
+			
+			
+			if(hadPet.length == 0){
+				alert('돌려보낼 펫이 없습니다. 펫을 데려와주세요.');
+				return
+			}
+			
+			if (hadPet.length > 0) {
+			    let confirmMsg = '펫을 돌려보내면 펫은 완전히 사라집니다. 그래도 돌려보내시겠습니까?';
+			    if (!confirm(confirmMsg)) {
+			      return;
+			    }
+			  }
+					
+			let obj = {
+			    gr_me_id: userId,
+			    gr_pe_num: gr_pe_num,
+			    gr_ev_num: ev_num
+			};
+		 	
+			$.ajax({
+			    async: true,
+			    type: 'POST',
+			    data: JSON.stringify(obj),
+			    url: '<c:url value="/deletePet" />',
+			    dataType: 'json',
+			    contentType: 'application/json; charset=UTF-8',
+			    success: function(data) {
+			    	alert('펫 돌려보내기에 성공하였습니다.');
+			    	location.reload();		
+			      },
+			      error: function(error) {
+			    	  console.log(error)
+			        alert('펫 돌려보내기에 실패하였습니다. 다시 시도해주세요');
+			      }
+			    
+			});
+		}
+	});
+	
     </script>
 </body>
 </html>

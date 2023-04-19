@@ -14,6 +14,8 @@ public interface PetService {
 
 	int insertChoosePet(GrowthVO growth);
 
+	int deletePet(GrowthVO growth);
+
 
 	
 

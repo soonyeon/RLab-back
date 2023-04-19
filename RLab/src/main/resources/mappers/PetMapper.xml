@@ -19,7 +19,11 @@
 	insert into growth(gr_me_id,gr_pe_num,gr_level,gr_exp,gr_ev_num)
 	values (#{gr_me_id},#{gr_pe_num},1,0, (select ev_num from evolution where ev_pe_num=#{gr_pe_num} and ev_level=1))
 </insert>
-
+<!-- 펫 돌려보내기 -->
+<delete id="deletePet">
+delete from growth
+where gr_me_id = #{gr_me_id}
+</delete>
 
 
 </mapper>

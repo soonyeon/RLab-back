@@ -75,6 +75,14 @@ article{
     width: 970px;
 }
 
+.article_box .txt_new_pet{
+	font-weight: 600;
+    text-align: center;
+    font-size: 16px;
+    margin-top: 0px;
+    margin-left: 24px;
+}
+
 /*  article_top(이용시간, 펫 창, 나의 예약) */
 .articles .article_top{
     height: 350px;
@@ -373,6 +381,19 @@ article{
     font-size: 17px;
     font-weight: 700;
     /* background-color: #01f3a3; */
+}
+.pet_store_popup_box .btn_return{
+	width: 113px;
+    height: 27px;
+    padding: 5px;
+    border: none;
+    border-radius: var(--border_radius_3);
+    background-color: var(--color_light-grey);
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 2px 2px 4px #6262624f;
+    cursor: pointer;
+    margin-left: 10px;
 }
 .pet_box .btn_bring{
     width: 120px;
