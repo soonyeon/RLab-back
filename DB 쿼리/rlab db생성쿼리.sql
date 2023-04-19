@@ -15,7 +15,9 @@ CREATE TABLE `member` (
 	`me_rest_time`	int	,
 	`me_use_time`	int,
     `me_profile`	varchar(255),
-    `me_study`	int
+    `me_study`	int,
+    `me_session_id` varchar(45),
+    `me_session_limit` date
 );
 
 DROP TABLE IF EXISTS `branch`;
@@ -46,9 +48,10 @@ DROP TABLE IF EXISTS `calendar`;
 CREATE TABLE `calendar` (
 	`ca_num`	int auto_increment primary key	NOT NULL,
 	`ca_st_num`	int	NOT NULL,
-	`ca_content`	varchar(255) not null,
+	`ca_title`	varchar(255) not null,
 	`ca_start`	datetime not null,
-	`ca_end`	datetime not null
+	`ca_end`	datetime not null,
+    `ca_all_day` tinyint default 0
 );
 
 DROP TABLE IF EXISTS `reservation`;
@@ -180,6 +183,7 @@ DROP TABLE IF EXISTS `pay`;
 CREATE TABLE `pay` (
 	`pa_order_id`	varchar(27) primary key	NOT NULL,
 	`pa_me_id`	varchar(13)	NOT NULL,
+    `pa_order_name` varchar(50) not null,
 	`pa_date`	datetime NOT NULL default NOW(),
 	`pa_amount`	int	NOT NULL,
 	`pa_point`	int	NOT NULL,
