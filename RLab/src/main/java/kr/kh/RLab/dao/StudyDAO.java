@@ -64,4 +64,11 @@ public interface StudyDAO {
 
 	void stateUpdateStudy(@Param("st_num")int st_num, @Param("st_state")int st_state);
 
+	int selectStudyState(@Param("st_num")int st_num);
+
+	void stateUpdateStudyUndo(@Param("st_num")int st_num, @Param("st_state")int st_state);
+
+
+
+
 }

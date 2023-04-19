@@ -111,7 +111,14 @@
 		update study set st_state = 0
 		where st_num = #{st_num}
     </update>
-    
+    <select id="selectStudyState" resultType="int">
+    	select st_state from study
+    	where st_num = #{st_num}
+    </select>
+    <update id="stateUpdateStudyUndo"> 
+		update study set st_state = 1
+		where st_num = #{st_num}
+    </update>
     
     
 </mapper>

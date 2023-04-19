@@ -44,10 +44,12 @@
 	                            목표를 달성하거나 일정이 모두 완료된 경우에만 전환할 것을 권유드립니다.
 	                        </div>
 	                    </div>
-	                    <button class="btn_finish">스터디 완료</button>
-<%-- 	                    <form action="<c:url value='/study/management/study/&{st_num}'></c:url>" method="post">
-	                    	<button class="btn_finish">스터디 완료</button>
-	                    </form> --%>
+	                    <c:if test="${st_state ==1}">
+		                    <button class="btn_finish">스터디 완료</button>
+	                    </c:if>
+	                    <c:if test="${st_state ==0}">
+	                    	<button class="btn_finish_cancel">스터디 완료 취소</button>
+	                    </c:if>
 	                </div>
 	                <div class="remove_box study_box">
 	                    <div class="sb_title">
@@ -59,10 +61,6 @@
 	                        </div>
 	                    </div>
 	                    	<button class="btn_delete">스터디 삭제</button>
-<%-- 	                    <form action="<c:url value='/study/management/study/&{st_num}'></c:url>" method="post">
-	                    	<button class="btn_delete">스터디 삭제</button>
-	                    </form> --%>
-	                    
 	                </div>
 	            </div>
 	        </div>
@@ -232,6 +230,29 @@ $(".btn_finish").on("click", function() {
 	  alert("스터디가 완료처리 되었습니다.")
 });
 
+//스터디 완료 취소
+$(".btn_finish_cancel").on("click", function() {
+	let obj = {
+			st_num: ${st_num}
+	}
+  confirmAction("스터디 완료를 취소시겠습니까?", function() {
+		$.ajax({	
+			async:false,
+		    type:'POST',
+		    data:JSON.stringify(obj),
+		    url:"<c:url value='/study/management/study/update/undo/{st_num}'></c:url>",
+		    //서버에서 받는 데이터 타입
+		    dataType:"json",
+		    //서버에서 보내는 데이터 타입
+		    contentType:"application/json; charset=UTF-8",
+		    success : function(data){
+		        console.log(data);
+		    }
+		});
+	});
+	location.replace("<c:url value='/study/management'></c:url>");	  
+	  alert("스터디 완료처리가 취소되었습니다.")
+});
 
 
 
@@ -258,6 +279,7 @@ $(".btn_delete").on("click", function() {
   	});
 	location.replace("<c:url value='/study/management'></c:url>");
 	alert("스터디가 삭제되었습니다.");
+	
 });
 
 

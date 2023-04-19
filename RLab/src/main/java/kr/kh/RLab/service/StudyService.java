@@ -44,6 +44,10 @@ public interface StudyService {
 	void deleteStudy(int st_num);
 
 	void stateUpdateStudy(int st_num, int st_state);
+
+	int getStudyState(int st_num);
+
+	void stateUpdateStudyUndo(int st_num, int st_state);
 	
 	
 

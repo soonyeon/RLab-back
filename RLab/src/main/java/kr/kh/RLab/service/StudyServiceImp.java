@@ -151,6 +151,18 @@ public class StudyServiceImp implements StudyService {
 	public void stateUpdateStudy(int st_num, int st_state) {
 		//해당 스터디의st_num을 1에서 0으로 변경
 		studyDao.stateUpdateStudy(st_num,st_state);
+	}
+
+	@Override
+	public int getStudyState(int st_num) {
+		return studyDao.selectStudyState(st_num);
+
+	}
+
+	@Override
+	public void stateUpdateStudyUndo(int st_num, int st_state) {
+		//해당 스터디의st_num을 0에서 1으로 변경
+		studyDao.stateUpdateStudyUndo(st_num,st_state);
 		
 	}
 	

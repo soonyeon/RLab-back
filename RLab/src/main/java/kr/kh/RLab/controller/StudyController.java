@@ -231,9 +231,10 @@ public class StudyController {
 	    //로그인한 유저정보를 가져온다
 	    MemberVO user = (MemberVO) session.getAttribute("user");
 	    String memberId = user.getMe_id();
-	
+	    int st_state = studyService.getStudyState(st_num);
 	    mv.addObject("user", user);
 	    mv.addObject("st_num", st_num); // 스터디 넘버를 ModelAndView에 추가
+	    mv.addObject("st_state", st_state);
 	    mv.setViewName("/study/management_study");
 	    return mv;
 	}
@@ -248,7 +249,7 @@ public class StudyController {
 	    return map;
 	}
 	
-	//스터디 상태 변경
+	//스터디 상태 변경 1 -> 0
 	@ResponseBody
 	@RequestMapping(value = "/management/study/update/{st_num}", method = RequestMethod.POST)
 	public HashMap<String, Object> stateUpdateStudy(@RequestBody StudyVO st) {
@@ -258,6 +259,18 @@ public class StudyController {
 	    studyService.stateUpdateStudy(st.getSt_num(),st.getSt_state());
 	    return map;
 	}
+	
+	//스터디 상태 변경 0 -> 1
+	@ResponseBody
+	@RequestMapping(value = "/management/study/update/undo/{st_num}", method = RequestMethod.POST)
+	public HashMap<String, Object> stateUpdateStudyUndo(@RequestBody StudyVO st) {
+	    HashMap<String, Object> map = new HashMap<String, Object>();
+	    
+	    // 해당 스터디 상태를 1에서 0으로 변경
+	    studyService.stateUpdateStudyUndo(st.getSt_num(),st.getSt_state());
+	    return map;
+	}
+	
 	
        
 }
