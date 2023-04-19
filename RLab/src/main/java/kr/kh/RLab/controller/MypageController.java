@@ -49,12 +49,14 @@ public class MypageController {
 		
 		//나의 스터디 데이터 가져오기
 		ArrayList<StudyVO> myStudyList = mypageService.getMainStudyList(userId);
+		System.out.println(myStudyList);
 		
 		//나의 스크랩 데이터 가져오기
 		ArrayList<BoardVO> myScrapList = mypageService.getMainScrapList(userId);
 
 		mv.setViewName("/mypage/mypage");
 		mv.addObject("myScrapList", myScrapList);
+		mv.addObject("myStudyList", myStudyList);
 		mv.addObject("myPoint",myPoint);
 		mv.addObject("petList",petList);
 		mv.addObject("petFile",petFile);

@@ -25,6 +25,21 @@
 		<collection property="gatherVO" column="st_num" select="selectGather" ofType="kr.kh.RLab.vo.GatherVO"></collection>		
 </resultMap>
 
+<!-- 마이페이지 홈 > 나의 스터디  -->
+<resultMap id="studyMember" type="kr.kh.RLab.vo.StudyVO">
+	<id property="st_num" column="st_num"/>
+	<id property="st_name" column="st_name"/>
+	<id property="st_re_name" column="st_re_name"/>
+	<id property="st_now_people" column="st_now_people"/>
+	<id property="st_total_people" column="st_total_people"/>
+	<id property="st_image" column="st_image"/>
+	<id property="st_state" column="st_state"/>
+		<association property="studyMemberVO" javaType="kr.kh.RLab.vo.StudyMemberVO">
+			<result property="sm_me_id" column="sm_me_id"/>	
+			<result property="sm_st_num" column="sm_st_num"/>	
+		</association>
+</resultMap>
+
 
 	<!-- [마이페이지 홈] -->
 		<!-- 적립 포인트 -->
@@ -35,11 +50,13 @@
 		</select>
 		
 		<!-- 나의 스터디 -->
-		<select id="selectMainStudyList" resultType="kr.kh.RLab.vo.StudyVO">
-			select * 
+		<select id="selectMainStudyList" resultMap="studyMember">
+			select st_num, sm_st_num, st_name, st_me_id, st_name, st_image
 			from study_member
-			join
-			where st_me_id = 
+			join study on sm_st_num = st_num
+			where sm_me_id = #{userId}
+			ORDER BY sm_num DESC
+			LIMIT 3
 		</select>
 		
 		<!-- 나의 스크랩 -->
@@ -137,11 +154,6 @@
   		<!-- 내가 쓴 모집글 스터디의 태그들 가져오기 -->		
 		<select id="selectTagListById" resultType="kr.kh.RLab.vo.TagRegisterVO">
 			select 	* from tag_register
-		<!--select tag_register.tr_name
-			from tag_register
-			join study on tag_register.tr_st_num = study.st_num
-			where st_me_id = #{memberId}  -->	
-
 		</select>
 		
 		<!-- 로그인한 회원이 작성한 모집글 전체 수 가져오기 -->	

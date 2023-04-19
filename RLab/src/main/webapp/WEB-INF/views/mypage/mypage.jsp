@@ -209,22 +209,29 @@
                   </a>
                 </div>
                 <ul class="list_container">
-                  <li class="item_study">
-                    <!-- 각 스터디 메인으로 이동 -->
-                    <a href="#" class="link_study"
-                      ><i class="icon_study"></i>정처기 준비하는 스터디</a
-                    >
-                  </li>
-                  <li class="item_study">
-                    <a href="#" class="link_study"
-                      ><i class="icon_study"></i>KH 스터디</a
-                    >
-                  </li>
-                  <li class="item_study">
-                    <a href="#" class="link_study"
-                      ><i class="icon_study"></i>토익 만점 스터디</a
-                    >
-                  </li>
+	                <c:if test="${myStudyList == null || myStudyList.size() == 0}">
+	                  <div class="noPostMsg">
+	                  	<p>참여중인 스터디가 없습니다.</p>
+	                  </div>
+	                </c:if>
+	                 <c:forEach items="${myStudyList}" var="mst" varStatus="vs">
+	                      	<c:if test="${mst.st_image == null}">
+		                 		<a class="link_study" onclick="location.href='<c:url value='/study/${mst.st_num}'/>';">
+	                   				<li class="list_item">
+			                      		<i class="icon_study"><img src="<c:url value='/resources/img/recruit_thumb.png'></c:url>" width="auto" height="51"></i>
+			                      		${mst.st_name}
+			                    	</li>
+					            </a>
+		  		    		</c:if>
+		  		    		<c:if test="${mst.st_image != null}">
+			  		    		<a class="link_study" onclick="location.href='<c:url value='/study/${mst.st_num}'/>';">
+			  		    			<li class="list_item">
+			                      		<i class="icon_study"><img src="<c:url value='/download/study/${mst.st_image}'></c:url>" width="auto" height="51"></i>
+					                     ${mst.st_name} 		
+				  		    		</li>
+			  		    		</a>
+		  		    		</c:if>
+                  </c:forEach>
                 </ul>
               </div>
               <!-- my_scrab_container -->
@@ -236,6 +243,7 @@
                     <p class="show_plus">더보기+</p>
                   </a>
                 </div>
+                
                 <ul class="list_container">
                   <!-- 스크랩한 게시글 상세로 이동 -->
                   <c:if test="${myScrapList == null || myScrapList.size() == 0}">
