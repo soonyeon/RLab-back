@@ -129,7 +129,7 @@
 } */
 
 /* main_container */
-.main_container{
+form{
 	display: flex;
 	justify-content: space-between;
 }

@@ -55,6 +55,8 @@ public interface ReservationDAO {
 	
 	int selectTiNum(int re_to_num);
 	
+	int selectTiPeriod(int tiNum);
+	
 	void updateTicketState(int re_to_num);
 
 	int updateTicketRestTime(ReservationVO book);

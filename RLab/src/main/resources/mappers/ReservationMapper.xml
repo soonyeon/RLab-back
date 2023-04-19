@@ -89,7 +89,7 @@
 		select * from ticket_own 
 		join ticket on ti_num = to_ti_num
 		join ticket_type on ti_tt_num = tt_num
-		where to_me_id = #{me_id} and tt_num != 4
+		where to_me_id = #{me_id} and tt_num != 4 and to_state = 1
 		order by to_ti_num asc, to_valid_date asc
 	</select>
 	<insert id="insertReservation">
@@ -100,6 +100,9 @@
 	</insert>
 	<select id="selectTiNum" resultType="int">
 		select to_ti_num from ticket_own where to_num = #{re_to_num}
+	</select>
+	<select id="selectTiPeriod" resultType="int">
+		select ti_period from ticket where ti_num = #{tiNum}
 	</select>
 	<update id="updateTicketState">
 		update ticket_own set to_state = 0 where to_num = #{re_to_num}
