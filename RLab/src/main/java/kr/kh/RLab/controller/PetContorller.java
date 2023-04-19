@@ -24,7 +24,7 @@ public class PetContorller {
 
 	@PostMapping("/choosePet")
 	public Map<String, Object> choosePet(@RequestBody GrowthVO growth) {
-	    petService.choosePet(growth);
+	    petService.insertChoosePet(growth);
 	    Map<String, Object> map = new HashMap<>();
 	    return map;
 	}

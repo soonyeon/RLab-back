@@ -45,6 +45,4 @@ public class WantServiceImp implements WantService{
 		return result;
 	}
 	
-	
-
 }

@@ -14,10 +14,12 @@
 	from evolution
 	where ev_level = (select max(ev_level) from evolution as e where e.ev_pe_num = evolution.ev_pe_num);
 </select>
-<!-- 데려오기 클릭하면 db에 추가 -->
+<!-- 펫 데려오기 -->
 <insert id="insertChoosePet">
 	insert into growth(gr_me_id,gr_pe_num,gr_level,gr_exp,gr_ev_num)
 	values (#{gr_me_id},#{gr_pe_num},1,0, (select ev_num from evolution where ev_pe_num=#{gr_pe_num} and ev_level=1))
 </insert>
+
+
 
 </mapper>

@@ -8,11 +8,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EvolutionVO {
-	private int ev_num  ;
-	private int ev_pe_num ;
-	private int ev_level ;
-	private int ev_step ;
-	private String ev_img ;
+	 int ev_num  ;
+	 int ev_pe_num ;
+	 int ev_level ;
+	 int ev_step ;
+	 String ev_img ;
 
 
 }

@@ -12,9 +12,8 @@ public interface PetService {
 
 	 ArrayList<EvolutionVO> selectPetFile();
 
-	int choosePet(GrowthVO growth);
+	int insertChoosePet(GrowthVO growth);
 
-	EvolutionVO selectEvolutionByNum(int gr_ev_num);
 
 	
 

@@ -28,14 +28,10 @@ public class PetServiceImp implements PetService{
 	}
 
 	@Override
-	public int choosePet(GrowthVO growth) {
+	public int insertChoosePet(GrowthVO growth) {
 	    return petDao.insertChoosePet(growth);
 	}
 
-	@Override
-	public EvolutionVO selectEvolutionByNum(int gr_ev_num) {
-		return petDao.selectEvolutionByNum(gr_ev_num);
-	}
 
 
 

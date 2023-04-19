@@ -130,26 +130,28 @@
 
               </div>
               <!-- pet_container -->
-              <div class="article_box pet_container">
-                <div class="pet_window">
-                  <img src="" alt="" class="pet_talk" />
-                  <img src="" alt="펫" class="pet" />
-                </div>
-                <div class="pet_description">
-                  <div class="pet_info_container">
-                    <div class="this_pet">
-                      <h2 class="pet_name">꼬마돌</h2>
-                      <div class="pet_reward">
-                        ㄴ보상 : 적립금 두 배 <i class="icon_reward"></i>
-                      </div>
-                    </div>
-                    <div class="pet_level">Lv. 20</div>
-                  </div>
-                    <div id="pet_store_container">
-                      <i class="icon_store"></i> 펫 스토어
-                    </div>
-                </div>
-              </div>
+	              <div class="article_box pet_container">
+		              <c:forEach items="${myPet}" var="mp">
+		                <div class="pet_window">
+		                  <img src="" alt="" class="pet_talk" />
+		                  <img src="<c:url value="/download/${mp.ev_img}"></c:url>" alt="펫" class="pet" />
+		                </div>
+		                <div class="pet_description">
+		                  <div class="pet_info_container">
+		                    <div class="this_pet">
+		                      <h2 class="pet_name">${mp.pe_name}</h2>
+		                      <div class="pet_reward">
+		                        ㄴ보상 : ${mp.pe_prize} <i class="icon_reward"></i>
+		                      </div>
+		                    </div>
+		                    <div class="pet_level">Lv. ${mp.gr_level}</div>
+		                  </div>
+		                    <div id="pet_store_container">
+		                      <i class="icon_store"></i> 펫 스토어
+		                    </div>
+		                </div>
+		              </c:forEach>
+	              </div>
               <!-- book_container(나의 예약) -->
               <div class="article_box book_container">
                 <div class="title_container">
@@ -294,6 +296,7 @@
 	    
 	$(document).ready(function() {    
 		$('.btn_bring').on('click', function() {
+			//등록된 펫이 있으면 더 못데려오게 막는기능 필요
 			choosePet($(this));
 		});
 		function choosePet(el){
@@ -313,8 +316,13 @@
 			    dataType: 'json',
 			    contentType: 'application/json; charset=UTF-8',
 			    success: function(data) {
-			     
-			    }
+			    	location.reload();		
+			      },
+			      error: function(error) {
+			    	  console.log(error)
+			        alert('펫 데려오기에 실패하였습니다. 다시 시도해주세요');
+			      }
+			    
 			});
 		}
 	});

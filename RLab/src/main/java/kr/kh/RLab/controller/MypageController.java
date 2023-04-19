@@ -27,6 +27,7 @@ import kr.kh.RLab.service.TemporaryService;
 import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.EvolutionVO;
 import kr.kh.RLab.vo.GatherVO;
+import kr.kh.RLab.vo.GrowthVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.PetVO;
 import kr.kh.RLab.vo.TagRegisterVO;
@@ -60,8 +61,12 @@ public class MypageController {
 		//나의 스크랩 데이터 가져오기
 		ArrayList<BoardVO> myScrapList = mypageService.getMainScrapList(userId);
 		
-		System.out.println("mypoint" + myPoint);
+		//나의 펫 데려오기
+		ArrayList<GrowthVO> myPet = mypageService.selectMyPet(userId);
+		
+		//System.out.println("mypoint" + myPoint);
 		mv.setViewName("/mypage/mypage");
+		mv.addObject("myPet",myPet);
 		mv.addObject("myPoint", myPoint);
 		mv.addObject("petList",petList);
 		mv.addObject("petFile",petFile);
