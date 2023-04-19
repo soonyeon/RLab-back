@@ -249,15 +249,15 @@ public class StudyController {
 	}
 	
 	//스터디 상태 변경
-//	@ResponseBody
-//	@RequestMapping(value = "/management/study/update/{st_num}", method = RequestMethod.POST)
-//	public HashMap<String, Object> stateUpdateStudy(@RequestBody StudyVO st) {
-//	    HashMap<String, Object> map = new HashMap<String, Object>();
-//	    
-//	    // 해당 스터디 상태를 1에서 0으로 변경
-//	    studyService.stateUpdateStudy(st.getSt_num(),st.getSt_state());
-//	    return map;
-//	}
+	@ResponseBody
+	@RequestMapping(value = "/management/study/update/{st_num}", method = RequestMethod.POST)
+	public HashMap<String, Object> stateUpdateStudy(@RequestBody StudyVO st) {
+	    HashMap<String, Object> map = new HashMap<String, Object>();
+	    
+	    // 해당 스터디 상태를 1에서 0으로 변경
+	    studyService.stateUpdateStudy(st.getSt_num(),st.getSt_state());
+	    return map;
+	}
 	
        
 }

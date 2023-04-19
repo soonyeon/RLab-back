@@ -107,7 +107,10 @@
   		delete from study
   		where st_num = #{st_num}
   	</delete>
-
+  	<update id="stateUpdateStudy"> 
+		update study set st_state = 0
+		where st_num = #{st_num}
+    </update>
     
     
     
