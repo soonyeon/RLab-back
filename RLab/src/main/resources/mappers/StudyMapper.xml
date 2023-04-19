@@ -96,11 +96,11 @@
   		where sm_st_num = #{st_num}
   	</delete>
     <delete id="deleteGatherByStNum">
-  		delete from study_member
+  		delete from gather
   		where ga_st_num = #{st_num}
   	</delete>
     <delete id="deleteTagRegisteStNum">
-  		delete from study_member
+  		delete from tag_register
   		where tr_st_num = #{st_num}
   	</delete>
   	<delete id="deleteStudy">

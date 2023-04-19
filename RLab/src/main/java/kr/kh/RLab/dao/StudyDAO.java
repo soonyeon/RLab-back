@@ -62,6 +62,6 @@ public interface StudyDAO {
     
 	void deleteStudy(@Param("st_num")int st_num);
 
-	void stateUpdateStudy(@Param("st_num")int st_num, @Param("st_state")int st_state);
+//	void stateUpdateStudy(@Param("st_num")int st_num, @Param("st_state")int st_state);
 
 }

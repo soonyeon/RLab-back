@@ -43,7 +43,7 @@ public interface StudyService {
 
 	void deleteStudy(int st_num);
 
-	void stateUpdateStudy(int st_num, int st_state);
+//	void stateUpdateStudy(int st_num, int st_state);
 	
 	
 

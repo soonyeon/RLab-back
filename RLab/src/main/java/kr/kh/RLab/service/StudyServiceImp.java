@@ -139,24 +139,20 @@ public class StudyServiceImp implements StudyService {
 	public void deleteStudy(int st_num) {
 		//study테이블에서 해당st_num인 행 삭제
 		studyDao.deleteStudyMemberList(st_num);
-		
 		//해당 스터디의 모집글 삭제
 		studyDao.deleteGatherByStNum(st_num);
-		
 		//해당 스터디로 등록돤 tag_registe 전부 삭제
 		studyDao.deleteTagRegisteStNum(st_num);
-		
 		//study테이블에서 해당st_num인 행 삭제
 		studyDao.deleteStudy(st_num);
-		
 	}
 
-	@Override
-	public void stateUpdateStudy(int st_num, int st_state) {
-		//해당 스터디의st_num을 2에서 0으로 변경
-		studyDao.stateUpdateStudy(st_num,st_state);
-		
-	}
+//	@Override
+//	public void stateUpdateStudy(int st_num, int st_state) {
+//		//해당 스터디의st_num을 2에서 0으로 변경
+//		studyDao.stateUpdateStudy(st_num,st_state);
+//		
+//	}
 	
 	
 	
