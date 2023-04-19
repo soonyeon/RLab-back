@@ -198,11 +198,18 @@ public class ReservationController {
 			HttpSession session, @RequestBody ReservationVO book) {
 		HashMap<String,Object> map = new HashMap<String,Object>();
 		reservationService.reserveSeat(book);
+		
 		return map;
 	}
+//	@RequestMapping(value = "/reservation/1/complete", method=RequestMethod.GET) 
+//	public ModelAndView seatComplete(ModelAndView mv, HttpSession session) {
+//		System.out.println("complete-get 이동");
+//		mv.setViewName("/reservation/seat_complete");
+//		return mv;
+//	}
 	@ResponseBody
 	@RequestMapping(value = "/reservation/1/complete", method=RequestMethod.POST) 
-	public ModelAndView seatComplete(ModelAndView mv, HttpSession session,
+	public ModelAndView seatCompletePost(ModelAndView mv, HttpSession session,
 			@RequestBody ReservationVO book) {
 		System.out.println("예약완료 페이지");
 		System.out.println(book);

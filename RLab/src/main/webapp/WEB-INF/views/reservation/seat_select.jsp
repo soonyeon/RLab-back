@@ -230,7 +230,7 @@
 					<!-- 이용권 구매, 예약하기 버튼 영역 -->
 					<div class="btn_area area">
 						<a href="<c:url value='/reservation/buy'></c:url>" class="b_btn"  id="buy_btn"><input type="button" value="이용권 구매"></a>
-						<a href="#" class="b_btn" id="book_btn"><input type="submit" value="예약하기" ></a>
+						<a href="<c:url value='/reservation/1/complete'></c:url>" class="b_btn" id="book_btn"><input type="submit" value="예약하기" ></a>
 					</div>
 			</div>
 		</div>
@@ -300,6 +300,7 @@ $('#book_btn').click(function(){
 			'se_name' : seatNum+'',
 			'book_time' : useTime
 	}
+	//예약
 	$.ajax({
 		async:false,
 		type: 'POST',
@@ -311,6 +312,7 @@ $('#book_btn').click(function(){
 			console.log(data);
 		}
 	});
+	//예약완료 페이지로 넘어가기
 	$.ajax({
 		async:false,
 		type: 'POST',

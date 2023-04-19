@@ -137,11 +137,14 @@ public class ReservationServiceImp implements ReservationService {
 	@Override
 	public void reserveSeat(ReservationVO book) {
 		//reservation에 추가
-		reservationDao.insertReservation(book);
+		if(reservationDao.insertReservation(book)==0)
+			System.out.println("예약추가 실패");
 		//to_rest_time 소유중인 이용권의 잔여시간 감소
-		reservationDao.updateTicketRestTime(book);
+		if(reservationDao.updateTicketRestTime(book)==0)
+			System.out.println("to 잔여시간 변경 실패");
 		//me_use_time 누적이용시간 추가
-		reservationDao.updateMemberUseTime(book);
+		if(reservationDao.updateMemberUseTime(book)==0)
+			System.out.println("회원 누적사용시간 증가 실패");
 		//gr_exp 펫 누적경험치 추가
 		//reservationDao.updatePetExp(book);
 	}

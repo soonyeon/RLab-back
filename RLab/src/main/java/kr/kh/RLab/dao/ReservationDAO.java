@@ -51,12 +51,12 @@ public interface ReservationDAO {
 
 	ArrayList<TicketOwnVO> selectAllTicketOwnById(@Param("me_id")String me_id);
 
-	void insertReservation(ReservationVO book);
+	int insertReservation(ReservationVO book);
 
-	void updateTicketRestTime(ReservationVO book);
+	int updateTicketRestTime(ReservationVO book);
 
-	void updateMemberUseTime(ReservationVO book);
+	int updateMemberUseTime(ReservationVO book);
 
-	void updatePetExp(ReservationVO book);
+	int updatePetExp(ReservationVO book);
 
 }
