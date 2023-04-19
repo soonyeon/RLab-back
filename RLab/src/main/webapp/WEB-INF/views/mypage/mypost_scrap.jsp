@@ -10,8 +10,9 @@
 <script src="<c:url value='/resources/js/jquery.min.js'></c:url>"></script>
 <script src="<c:url value='/resources/js/jquery.validate.min.js'></c:url>"></script>
 <script src="<c:url value='/resources/js/additional-methods.min.js'></c:url>"></script>
-  <link rel="stylesheet" href="<c:url value ='/resources/css/mypage/mypage_common.css?after'></c:url>" />
- <link rel="stylesheet" href="<c:url value ='/resources/css/tab_common.css?after'></c:url>" />
+ <link rel="stylesheet" href="<c:url value ='/resources/css/common.css?after'></c:url>" />
+<link rel="stylesheet" href="<c:url value ='/resources/css/mypage/mypage_common.css?after'></c:url>" />
+<link rel="stylesheet" href="<c:url value ='/resources/css/tab_common.css?after'></c:url>" />
 <link rel="stylesheet" href="<c:url value ='/resources/css/table_common.css?after'></c:url>" />
 <link rel="stylesheet" href="<c:url value ='/resources/css/mypage/mypost_scrap.css?after'></c:url>">
 <title>작성글 관리</title>
@@ -43,8 +44,8 @@
               <div class="my_study_container" id="my_container">
                 <div class="study_card_container">
 
-            <!-- table  -->
-                  <div class="table_container">
+            	<!-- table  -->
+                 <div class="table_container">
                     <div class="select_box_area">
                       <select name="select_view">
                         <option value="전체보기">전체보기</option>
@@ -68,165 +69,49 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr class="board_list">
-                              <td>24</td>
-                              <td>프론트엔트 공부해요</td>
-                              <td class="post_title">리액트 처음부터 함께 배워요! 당신도 할수있다! 아자아자 화이팅!</td>
-                              <td>매미킴</td>
-                              <td>2023.02.28</td>                             
-                            <tr class="board_list">
-                              <td>23</td>
-                              <td>스프링 박살내기</td>
-                              <td class="post_title">스프링을 이용한 게시판 만들기</td>
-                              <td>매미킴sdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsd</td>
-                              <td>2023.02.28</td>
-                            </tr>
-                            <tr class="board_list">
-                              <td>22</td>
-                              <td>코딩 테스트</td>
-                              <td class="post_title">백엔드 취업을 위한 코딩테스트</td>
-                              <td>보드키</td>
-                              <td>2023.02.28</td>
-                            </tr>
-                            <tr class="board_list">
-                              <td>21</td>
-                              <td>반응형 페이지 만들기</td>
-                              <td class="post_title">html, css, js를 이용한 반응형 웹 만들기</td>
-                              <td>스키야키</td>
-                              <td>2023.02.28</td>
-                            </tr>
-                            <tr class="board_list">
-                              <td>20</td>
-                              <td>java study</td>
-                              <td class="post_title">남궁성: 자바의 정석 책으로 함께 자바 공부해요</td>
-                              <td>다나카</td>
-                              <td>2023.02.28</td>
-                            </tr>
-                            <tr class="board_list">
-                              <td>19</td>
-                              <td>정처기 준비하는 스터디</td>
-                              <td class="post_title">정처기 필기 과목별로 정리했습니다!</td>
-                              <td>김돌탕</td>
-                              <td>2023.02.28</td>
-                            </tr>
-                            <tr class="board_list">
-                              <td>18</td>
-                              <td>정처기 준비하는 스터디</td>
-                              <td class="post_title">정처기 필기 과목별로 정리했습니다!</td>
-                              <td>김돌탕</td>
-                              <td>2023.02.28</td>
-                            </tr>
-                            <tr class="board_list">
-                              <td>17</td>
-                              <td>정처기 준비하는 스터디</td>
-                              <td class="post_title">정처기 필기 과목별로 정리했습니다!</td>
-                              <td>김돌탕</td>
-                              <td>2023.02.28</td>
-                            </tr>
-                            <tr class="board_list">
-                              <td>16</td>
-                              <td>정처기 준비하는 스터디</td>
-                              <td class="post_title">정처기 필기 과목별로 정리했습니다!</td>
-                              <td>김돌탕</td>
-                              <td>2023.02.28</td>
-                            </tr>
-                            <tr class="board_list">
-                              <td>15</td>
-                              <td>정처기 준비하는 스터디</td>
-                              <td class="post_title">정처기 필기 과목별로 정리했습니다!</td>
-                              <td>김돌탕</td>
-                              <td>2023.02.28</td>
-                            </tr>
-                            <tr class="board_list">
-                              <td>14</td>
-                              <td>정처기 준비하는 스터디</td>
-                              <td class="post_title">정처기 필기 과목별로 정리했습니다!</td>
-                              <td>김돌탕</td>
-                              <td>2023.02.28</td>
-                            </tr>
-                            <tr class="board_list">
-                              <td>17</td>
-                              <td>정처기 준비하는 스터디</td>
-                              <td class="post_title">정처기 필기 과목별로 정리했습니다!</td>
-                              <td>김돌탕</td>
-                              <td>2023.02.28</td>
-                            </tr>
-                            <tr class="board_list">
-                              <td>16</td>
-                              <td>정처기 준비하는 스터디</td>
-                              <td class="post_title">정처기 필기 과목별로 정리했습니다!</td>
-                              <td>김돌탕</td>
-                              <td>2023.02.28</td>
-                            </tr>
-                            <tr class="board_list">
-                              <td>15</td>
-                              <td>정처기 준비하는 스터디</td>
-                              <td class="post_title">정처기 필기 과목별로 정리했습니다!</td>
-                              <td>김돌탕</td>
-                              <td>2023.02.28</td>
-                            </tr>
-                            <tr class="board_list">
-                              <td>14</td>
-                              <td>정처기 준비하는 스터디</td>
-                              <td class="post_title">정처기 필기 과목별로 정리했습니다!</td>
-                              <td>김돌탕</td>
-                              <td>2023.02.28</td>
-                            </tr>
+                           <c:forEach items="${myScrapList}" var="bo" varStatus="vs">
+	                            <tr class="board_list" onclick="location.href='<c:url value='/board/detail/${bo.bo_st_num}/${bo.bo_num}'/>';">	      
+	                              <td>${bo.scrapVO.sc_num}</td>
+	                              <td>${bo.st_name}</td>
+	                              <td class="post_title">${bo.bo_title}</td>
+	                              <td>${bo.me_name}</td>
+	                              <td>${bo.bo_reg_date_str}</td>                             
+								</tr>
+							</c:forEach>
                           </tbody>
                         </table>
                       </div>
                       <!-- 페이지 이동 -->
-                      <div class="page_area">
-                        </div>
-                          <div class="page_box clearfix">
-                            <i class="btn_prev"></i>
-                            <span class="page_num selected">1</span>
-                            <span class="page_num">2</span>
-                            <span class="page_num">3</span>
-                            <i class="btn_next"></i>
-                        </div>
-                      </div>
-                    </div>
+	                      <div class="page_area">
+		                       <div class="page_box clearfix">
+			                        <c:if test="${pm.prev}">
+		                     			<a class="page-link" href="<c:url value='/mypage/mypost_scrap?page=${pm.endPage-1}'></c:url>">
+											<i class="btn_prev"></i>
+										</a>
+									</c:if>
+									<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
+										<span class="page_num">										
+											<a class="page-link <c:if test="${pm.cri.page == i}"> active</c:if>" href="<c:url value='/mypage/mypost_scrap?page=${i}'></c:url>">${i}</a>
+										</span>
+									</c:forEach>
+									<c:if test="${pm.next}">										
+										<a class="page-link" href="<c:url value='/mypage/mypost_scrap?page=${pm.endPage+1}'></c:url>">
+											<i class="btn_next"></i>
+										</a>
+									</c:if>
+		                       </div>
+	                       </div>  <!-- page area end -->
+                      	</div><!-- tab content end -->
+                    </div><!-- table_containert end -->
 
-                  </div>
-                </div>
-              </div>  
+                  </div><!-- study_card_container end -->
+                </div><!-- my_container end -->
+              </div>  <!-- main container end -->
           </section> 
-			</div>
-		</main>
+		</div><!-- total_container end -->
+	</main>
 
-	</div>
 <script>	
-	$('#edit_info').submit(function(){
-		event.preventDefault(); // submit 이벤트 막기
-		
-		if($("#profile_img").val() != ''){	
-			
-			var allowedExtensions = ["jpg", "jpeg", "png", "gif"];
-			var fileName = $("#profile_img").val();
-			var fileExtension = "";
-			
-			// 파일 이름에서 확장자 추출
-	        var i = fileName.lastIndexOf('.');
-	        if (i > 0) {
-	            fileExtension = fileName.substring(i+1);
-	            
-		    	// 이미지 파일이 아닌 경우
-		        if ($.inArray(fileExtension.toLowerCase(), allowedExtensions) == -1) {
-		            alert("이미지 파일 형식이 아닙니다.");
-		            return false;
-		        }else{	    	 
-					alert('이미지가 변경되었습니다.');
-					$(this).unbind('submit').submit(); // submit 이벤트 다시 실행	        	
-		        }
-	        }
-		}else{
-			alert('파일을 선택해주세요.');
-			return false;			
-		}
-	});
-
-
 </script>
 
 </body>

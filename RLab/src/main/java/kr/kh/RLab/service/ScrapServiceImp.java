@@ -1,11 +1,14 @@
 package kr.kh.RLab.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
 import kr.kh.RLab.dao.ScrapDAO;
+import kr.kh.RLab.pagination.Criteria;
+import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.ScrapVO;
 import lombok.RequiredArgsConstructor;
 
@@ -56,4 +59,11 @@ public class ScrapServiceImp implements ScrapService{
         return scrapDAO.getScrapCountByBoard(bo_num);
 	}
 
+
+
+
+	@Override
+	public ArrayList<ScrapVO> findScrap(int bo_num) {
+		return scrapDAO.findScrap2(bo_num);
+	}
 }

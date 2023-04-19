@@ -1,13 +1,15 @@
 package kr.kh.RLab.dao;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
 import kr.kh.RLab.pagination.Criteria;
+import kr.kh.RLab.pagination.GatherCriteria;
+import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.GatherVO;
+import kr.kh.RLab.vo.StudyMemberVO;
 import kr.kh.RLab.vo.StudyVO;
 import kr.kh.RLab.vo.TagRegisterVO;
 import kr.kh.RLab.vo.TagVO;
@@ -24,17 +26,49 @@ public interface GatherDAO {
 
 	boolean insertGather(@Param("gather")GatherVO gather);
 
-	ArrayList<StudyVO> selectStudy();
+	ArrayList<StudyVO> selectStudyAll(@Param("cri")GatherCriteria gcri);
 
 	ArrayList<FileVO> selectFileList();
 
 	ArrayList<TagRegisterVO> selectTagList();
 
-	ArrayList<StudyVO> selectStudyList(@Param("cri")Criteria cri);
+	GatherVO selectGather(@Param("st_num")int st_num);
 
-	int selectStudyTotalCount(@Param("cri")Criteria cri);
+	StudyVO selectStudy(@Param("st_num")int st_num);
 
-	GatherVO selectGather(int st_num);
+	void countViews(@Param("st_num")int st_num);
+
+	int selectStudyTotalCount(@Param("cri")GatherCriteria gcri);
+
+	ArrayList<Integer> selectStudyList();
+
+	ArrayList<Integer> selectWantedStudyList(@Param("me_id")String me_id);
+
+	ArrayList<Integer> selectStudyMemberList(@Param("me_id")String me_id);
+
+	StudyMemberVO selelctJoinStudyMemberList(@Param("me_id")String me_id, @Param("st_num")int st_num);
+
+	ArrayList<BoardVO> selectGatherListById(@Param("memberId")String memberId, @Param("cri")Criteria cri);
+
+	int selectGatherTotalCount(String memberId);
+
+	ArrayList<StudyVO> selectStudyById(String me_id);
+
+	ArrayList<TagVO> selectTag(@Param("tagName") String tagName);
+
+	ArrayList<GatherVO> selectGatherAll();
+
+	void insertStudyLeader(@Param("sm")StudyMemberVO studyMember);
+
+
+
+	
+
+	
+
+	
+
+
 
 
 

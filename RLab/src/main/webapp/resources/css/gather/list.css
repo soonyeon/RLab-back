@@ -64,8 +64,11 @@
     color: var(--color_black); 
     font-size: var(--font_size_cont_m); 
     padding: 5px 10px;
-
   }
+  .search_container .search_icon{
+    background-color: transparent;
+    border: transparent;
+   }
 
   /* 모집 부분 */
   .result_container{
@@ -103,36 +106,112 @@
     position: absolute;
     appearance: none;   -webkit-appearance: none;  -moz-appearance: none;
   }
-  .switch_label {
-    height: 15px;
-    width: 60px;
-    cursor: pointer; 
-    /* border: 3px solid var(--color_black);  */
-    border: 2px solid rgba(69, 67, 67, 0.771);
-    background-color: rgba(180, 177, 177, 0.321);
-    border-radius: 20px; 
-    margin-left: 5px; 
-    padding: 5px;
+  input[type="checkbox"] {
+    display: none;
   }
-  .switch_check{
-    font-size: 14px;
-    color: rgb(78, 77, 77);
+  
+  .label__on-off {
+      overflow: hidden;
+      position: relative;
+      display: inline-block;
+      width: 58px;
+      height: 26px;
+      -webkit-border-radius: 13px;
+      -moz-border-radius: 13px;
+      border-radius: 13px;
+      background-color: #ed4956;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      -webkit-transition: all .3s;
+      -moz-transition: all .3s;
+      -ms-transition: all .3s;
+      -o-transition: all .3s;
+      transition: all .3s;
+      margin-left : 11px;
+      margin-top : 3px;
   }
-  .switch_check .btn_on{
-    margin-right: 12px;
+  
+  .label__on-off > * {
+      vertical-align: sub;
+      -webkit-transition: all .3s;
+      -moz-transition: all .3s;
+      -ms-transition: all .3s;
+      -o-transition: all .3s;
+      transition: all .3s;
+      font-size: 14px;
   }
-  .switch_btn { 
-    position: relative;
-    width: 35px;  
-    height: 25.5px;  
-    border-radius: 12px;  
-    background: var(--color_blue);
-    /* border: 2px solid black; */
-    top: -22px;
-    left: -5px;
+  
+  .label__on-off .marble {
+      position: absolute;
+      top: 1px;
+      left: 1px;
+      display: block;
+      width: 24px;
+      height: 24px;
+      background-color: #fff;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      border-radius: 50%;
+      -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+      -moz-box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+      box-shadow: 0 0 10px rgba(0, 0, 0, .3);
   }
-  .switch_btn_on {
-    left: 30px;
+  
+  .label__on-off .on {
+      display: none;
+      padding-left: 12px;
+  }
+  
+  .label__on-off .off {
+      padding-left: 30px;
+      line-height: 25px;
+  }
+  
+  .input__on-off:checked + .label__on-off {
+      background-color: #0bba82;
+  }
+  
+  .input__on-off:checked + .label__on-off .on {
+      display: inline-block;
+  }
+  
+  .input__on-off:checked + .label__on-off .off {
+      display: none;
+  }
+  
+  .input__on-off:checked + .label__on-off .marble {
+      left: 33px;
+  }
+  
+  /* 왼쪽 태그 박스 */
+  .recruit_tag_box{
+    margin-top: 50px; 
+  }
+  #tag_title{
+    font-size: 25px; font-weight: bold;
+  }
+  .selectd_tag {
+    margin-top: 5px;  
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 2px;
+    row-gap: 3px;
+  }
+  .sel_hashTag{  
+    background : var(--color_mint);
+    border-radius: var(--border_radius_2); 
+    text-decoration: none; 
+    text-align: center;
+    color: var(--color_black);  
+    font-weight: bold;  
+    font-size: 12px;
+    padding: 5px 10px;
+    margin-left: 4px;
+  }
+  .delete_tag{
+   all: unset;
+   margin-left: 2px;
   }
   
   /* 왼쪽 태그 박스 */
@@ -214,12 +293,13 @@
     border: none;
     font-size: small;
     font-weight: bold;
+    text-align : center;
   }
 
 
   /* 모집 부분 - study-card-container */
   .study_card_container{
-    width: 960px;  float: right;
+    margin-left: 20px;
   }
   .row_study_card{margin-bottom: 20px;}
   .study_card_box{
@@ -232,12 +312,20 @@
   }
   .study_card_box{
     margin-left: 15px;
+    float : left;
   }
   .study_img_box {
     width: 296px; 
     height: 151px; 
     background-size: cover; 
-    background-image: url('../../img/recruit_thumb.png');
+    /*background-image: url('../../img/recruit_thumb.png');*/
+    border-top-right-radius: var(--border_radius_4);
+    border-top-left-radius: var(--border_radius_4);
+  }
+  .study_img{
+ 	width: 296px; 
+    height: 151px; 
+   /* background-color:white; */
     border-top-right-radius: var(--border_radius_4);
     border-top-left-radius: var(--border_radius_4);
   }
@@ -294,11 +382,17 @@
     font-size:14px; width: 100px; 
     height: 30px; line-height: 28px;
   }
-  .study_card_container .study_content .like_img{
-    width: 30px; height: 30px;
-    background-image: url(../../img/like_on_red\copy.png);
+  .study_card_container .like_img{
+    width: 30px; 
+    height: 30px;
+    background-image: url('../../img/like_on_red.png');
     background-size: cover;
-
+  }
+   .study_card_container .unlike_img{
+    width: 30px; 
+    height: 30px;
+    background-image: url('../../img/love_off.png');
+    background-size: cover;
   }
   .make_recruit{
     float: right;
@@ -310,6 +404,7 @@
     border: none;
     font-weight: bold;
     box-shadow: 3px 3px 3px var(--color_grey);
+    text-align: center;
   }
 
   /* 넘기기 버튼 */

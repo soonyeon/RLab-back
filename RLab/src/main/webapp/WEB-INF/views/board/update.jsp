@@ -17,62 +17,57 @@
 	<div class="main_container">
 		<!-- 왼쪽 메뉴바 -->
 		<div class="left_menu_container">
- 					<nav class="left_menu">
-                        <a href="study_basic.html" class="list_item">스터디홈</a>
-                        <a href="#" class="list_item">스터디 달력</a>
-                        <a href="to_do_list.html" class="list_item">투두 리스트</a>
-                        <a href="Daily Mission.html" class="list_item">데일리 미션</a>
-                        <a href="certification_board.html" class="list_item">인증 게시판</a>
-                        <a href="#" class="list_item">자유 게시판</a>
-                        <a href="#" class="list_item">스터디 관리</a>
-                        <a href="#" class="leave">탈퇴하기</a>
-                    </nav>
+			<nav class="left_menu">
+            	<a href="study_basic.html" class="list_item">스터디홈</a>
+                <a href="#" class="list_item">스터디 달력</a>
+                <a href="to_do_list.html" class="list_item">투두 리스트</a>
+                <a href="Daily Mission.html" class="list_item">데일리 미션</a>
+                <a href="certification_board.html" class="list_item">인증 게시판</a>
+                <a href="#" class="list_item">자유 게시판</a>
+                <a href="#" class="list_item">스터디 관리</a>
+                <a href="#" class="leave">탈퇴하기</a>
+        	</nav>
 		</div>
 
 		<section>
 			<div class="home_container">
-				   
-                          <div class="main_title"> 
-              </div> 
+				<div class="main_title"></div> 
               <div class="temporary_storage_box"> 
-			    <button class="call_temporary_storage" id="openModal">임시저장 불러오기
-			    </button>
+			    <button class="call_temporary_storage" id="openModal">임시저장 불러오기</button>
 			     
 			    <!-- Modal -->
 			    <div id="temporary-list-modal" class="modal-style" style="display: none;">
 			      <h2>임시 게시글<button id="deleteAll">전체 삭제</button></h2>
 			      <ul id="itemList">
-					        <li>
-					            <span class="temp-title" data-title="${temp.te_title}" data-content="${temp.te_content}"></span>
-                				<button class="deleteBtn" data-id="${temp.te_num}">삭제</button>
-					        </li>
+			        <li>
+			            <span class="temp-title" data-title="${temp.te_title}" data-content="${temp.te_content}"></span>
+              				<button class="deleteBtn" data-id="${temp.te_num}">삭제</button>
+			        </li>
 			      </ul>
-			      
 			    </div>
 			    <div id="modal-background" class="modal-background" style="display: none;"></div>
 			  </div>
-              <form action="<c:url value='/board/update/${bd.bo_num}'></c:url>" method="post"> 
-              	 <input type="hidden" name="bo_me_id" value="${memberId}">
+              <form action="<c:url value='/board/update/${st_num}/${bd.bo_num}'></c:url>" method="post"> 
+              	<input type="hidden" name="bo_me_id" value="${memberId}">
                 <h2>스터디명</h2> 
-                <select id="choose_study" name="bo_st_num">
-                <c:forEach var="study" items="${study}">
+                <select id="choose_study" name="bo_st_num" disabled="disabled">
+                	<c:forEach var="study" items="${study}" >
                 		<option value="${study.st_num}" <c:if test="${bd.bo_st_num == study.st_num }">selected</c:if>>${study.st_name}</option>>
            			</c:forEach>
                 </select> 
                 <h2>제목</h2> 
                 <div class="recruit_title_box"> 
                   <input type="text" class="bo_title" name="bo_title" value="${bd.bo_title}" maxlength="10" placeholder="제목 10자 이내"> 
-                  <input type="hidden" id="table" name="bo_table" value="자유게시판"/>
+                  <input type="hidden" id="table" name="bo_table" value="board"/>
                 </div> 
                 <h2>내용</h2> 
-								<textarea id="content" name="bo_content"></textarea>  
-              
-							<div class="btn_box">
-								<button class="ts_btn" type="button">임시저장</button>
-								<button class="write_complete_btn" type="submit">수정완료</button>
-							</div>
-			</form>
-		</div> 
+				  <textarea id="content" name="bo_content"></textarea>  
+					<div class="btn_box">
+						<button class="ts_btn" type="button">임시저장</button>
+						<button class="write_complete_btn" type="submit">수정완료</button>
+					</div>
+				</form>
+			</div> 
 		</section>
 			<!-- Modal -->
 	<div id="temporary-save-modal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; border: 1px solid #ccc; padding: 20px; z-index: 9999;">

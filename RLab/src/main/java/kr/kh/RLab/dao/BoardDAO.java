@@ -5,7 +5,9 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
+import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.vo.BoardVO;
+import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.StudyVO;
 
 public interface BoardDAO {
@@ -13,7 +15,7 @@ public interface BoardDAO {
 
 	boolean insertBoard(@Param("board")BoardVO board);
 
-	ArrayList<BoardVO> selectBoardList(Map<String, Object> map);
+	ArrayList<BoardVO> selectBoardList(Criteria cri);
 
 	BoardVO getBoard(@Param("bo_num") int bo_num);
 
@@ -25,5 +27,9 @@ public interface BoardDAO {
 
 	boolean updateBoard(BoardVO board);
 
-	ArrayList<StudyVO> selectStudyList(String st_me_id);
+	ArrayList<StudyVO> selectStudyList();
+
+	ArrayList<BoardVO> selectBoardListById(@Param("memberId")String memberId, @Param("cri")Criteria cri);
+	
+	int getCountById(String memberId);
 }

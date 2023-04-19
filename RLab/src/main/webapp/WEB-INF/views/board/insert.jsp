@@ -62,7 +62,7 @@
                 <h2>제목</h2> 
                 <div class="recruit_title_box"> 
                   <input type="text" class="bo_title" name="bo_title" placeholder="제목 10자 이내" maxlength="10"> 
-                  <input type="hidden" id="table" name="bo_table" value="자유게시판"/>
+                  <input type="hidden" id="table" name="bo_table" value="board"/>
                 </div> 
                 <h2>내용</h2> 
 					<textarea id="content" name="bo_content"></textarea>  
