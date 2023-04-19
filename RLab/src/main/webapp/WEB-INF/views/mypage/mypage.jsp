@@ -131,26 +131,46 @@
               </div>
               <!-- pet_container -->
 	              <div class="article_box pet_container">
-		              <c:forEach items="${myPet}" var="mp">
+	             	 <c:if test="${myPet == null }">
 		                <div class="pet_window">
 		                  <img src="" alt="" class="pet_talk" />
-		                  <img src="<c:url value="/download/${mp.ev_img}"></c:url>" alt="펫" class="pet" />
+		                  <img src="<c:url value="/download/0.png"></c:url>" alt="펫" class="pet" />
 		                </div>
 		                <div class="pet_description">
 		                  <div class="pet_info_container">
 		                    <div class="this_pet">
-		                      <h2 class="pet_name">${mp.pe_name}</h2>
+		                      <h2 class="pet_name"></h2>
 		                      <div class="pet_reward">
-		                        ㄴ보상 : ${mp.pe_prize} <i class="icon_reward"></i>
+		                        ㄴ보상 :  <i class="icon_reward"></i>
 		                      </div>
 		                    </div>
-		                    <div class="pet_level">Lv. ${mp.gr_level}</div>
+		                    <div class="pet_level">Lv. </div>
 		                  </div>
 		                    <div id="pet_store_container">
 		                      <i class="icon_store"></i> 펫 스토어
 		                    </div>
 		                </div>
-		              </c:forEach>
+		              </c:if>
+		              <c:if test="${myPet != null }">
+		                <div class="pet_window">
+		                  <img src="" alt="" class="pet_talk" />
+		                  <img src="<c:url value="/download/${myPet.ev_img}"></c:url>" alt="펫" class="pet" />
+		                </div>
+		                <div class="pet_description">
+		                  <div class="pet_info_container">
+		                    <div class="this_pet">
+		                      <h2 class="pet_name">${myPet.pe_name}</h2>
+		                      <div class="pet_reward">
+		                        ㄴ보상 : ${myPet.pe_prize} <i class="icon_reward"></i>
+		                      </div>
+		                    </div>
+		                    <div class="pet_level">Lv. ${myPet.gr_level}</div>
+		                  </div>
+		                    <div id="pet_store_container">
+		                      <i class="icon_store"></i> 펫 스토어
+		                    </div>
+		                </div>
+		              </c:if>
 	              </div>
               <!-- book_container(나의 예약) -->
               <div class="article_box book_container">

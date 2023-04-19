@@ -164,7 +164,7 @@ public class MypageServiceImp implements MypageService {
 
 		//내 펫 정보 가져오기
 		@Override
-		public ArrayList<GrowthVO> selectMyPet(String memberId) {
+		public GrowthVO selectMyPet(String memberId) {
 			return mypageDao.selectMyPet(memberId);
 		}
 

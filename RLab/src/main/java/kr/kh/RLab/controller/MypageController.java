@@ -62,7 +62,7 @@ public class MypageController {
 		ArrayList<BoardVO> myScrapList = mypageService.getMainScrapList(userId);
 		
 		//나의 펫 데려오기
-		ArrayList<GrowthVO> myPet = mypageService.selectMyPet(userId);
+		GrowthVO myPet = mypageService.selectMyPet(userId);
 		
 		//System.out.println("mypoint" + myPoint);
 		mv.setViewName("/mypage/mypage");

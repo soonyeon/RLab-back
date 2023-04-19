@@ -56,7 +56,7 @@ public interface MypageDAO {
 		ArrayList<Integer> selectWantListById(String memberId);
 
 		//내 펫 정보 가져오기
-		ArrayList<GrowthVO> selectMyPet(String memberId);
+		GrowthVO selectMyPet(String memberId);
 
 	
 }

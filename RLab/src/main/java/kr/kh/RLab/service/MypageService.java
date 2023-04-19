@@ -61,7 +61,7 @@ public interface MypageService {
 
 		
 	//[마이페이지 > 펫 불러오기]	
-		ArrayList<GrowthVO> selectMyPet(String memberId);
+		GrowthVO selectMyPet(String memberId);
 
 
 }
