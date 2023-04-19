@@ -92,13 +92,26 @@
                   <div class="title">
                     <h2 class="property_title">이용시간</h2>
                     <p class="info time_info">
-                      <strong>12시간 10분 10초</strong> / 30시간
+                      <strong>좌석예약 정보가 없습니다.</strong>
+                      <a class="res_btn" href="<c:url value='/reservation'></c:url>">이용권 예약</a>
+                    </p>
+                  </div>
+                  <div class="gauge gauge_used_hours" style= "background-color:#c1c1c1">
+                  </div>
+                </div>
+                
+                
+               <!--  <div id="used_hours">
+                  <div class="title">
+                    <h2 class="property_title">이용시간</h2>
+                    <p class="info time_info">
+                      <strong>8시 7분</strong> / 30시간
                     </p>
                   </div>
                   <div class="gauge gauge_used_hours">
                     <div class="gauge_colored"></div>
                   </div>
-                </div>
+                </div>  -->
 
 
                 <div id="pet_exp">

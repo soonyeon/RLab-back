@@ -40,6 +40,9 @@ public class MypageController {
 	public ModelAndView mypage(ModelAndView mv, MemberVO member, HttpSession session) {
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		String userId = user.getMe_id();
+		// 이용시간 안내
+		
+		
 		// 펫
 		ArrayList<PetVO> petList = petService.selectPetList();
 		ArrayList<EvolutionVO> petFile = petService.selectPetFile();

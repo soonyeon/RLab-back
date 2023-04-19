@@ -133,7 +133,20 @@ article{
     font-size: 20px;
 }
 .info{
+    display: flex;
+    align-items: center;
     font-size: 14px;
+    gap: 5px;
+}
+.res_btn{
+	padding: 5px 7px;
+	border-radius: var(--border_radius_2);
+	box-sizing: border-box;
+	background-color: var(--color_yellow);
+	font-size: 11px;
+}
+.res_btn:hover{
+	background-color: #e7d743;
 }
 #used_hours_container #point_container{
     width: 100%;
