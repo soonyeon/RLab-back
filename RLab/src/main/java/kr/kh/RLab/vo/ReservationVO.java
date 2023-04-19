@@ -1,5 +1,6 @@
 package kr.kh.RLab.vo;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
@@ -21,4 +22,20 @@ public class ReservationVO {
 	
 	private int br_num;
 	private String se_name;
+	
+	public String getRe_start_time_str() {
+		SimpleDateFormat format = 
+			new SimpleDateFormat("yy년 mm월 dd일 HH:mm:ss");
+		if(re_start_time == null) 
+			return "";
+			return format.format(re_start_time);
+	}
+	
+	public String getRe_valid_time_str() {
+		SimpleDateFormat format = 
+			new SimpleDateFormat("yy년 mm월 dd일 HH:mm:ss");
+		if(re_valid_time == null) 
+			return "";
+			return format.format(re_valid_time);
+	}
 }

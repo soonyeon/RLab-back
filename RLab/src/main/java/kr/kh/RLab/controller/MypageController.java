@@ -23,6 +23,7 @@ import kr.kh.RLab.vo.EvolutionVO;
 import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.PetVO;
+import kr.kh.RLab.vo.ReservationVO;
 import kr.kh.RLab.vo.StudyVO;
 import kr.kh.RLab.vo.TagRegisterVO;
 import lombok.RequiredArgsConstructor;
@@ -41,7 +42,7 @@ public class MypageController {
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		String userId = user.getMe_id();
 		// 이용시간 안내
-		
+		ReservationVO res = mypageService.getRes(userId);
 		
 		// 펫
 		ArrayList<PetVO> petList = petService.selectPetList();
@@ -58,6 +59,7 @@ public class MypageController {
 		ArrayList<BoardVO> myScrapList = mypageService.getMainScrapList(userId);
 
 		mv.setViewName("/mypage/mypage");
+		mv.addObject("res", res);
 		mv.addObject("myScrapList", myScrapList);
 		mv.addObject("myStudyList", myStudyList);
 		mv.addObject("myPoint",myPoint);

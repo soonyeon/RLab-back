@@ -13,6 +13,7 @@ import kr.kh.RLab.pagination.GatherCriteria;
 import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.MemberVO;
+import kr.kh.RLab.vo.ReservationVO;
 import kr.kh.RLab.vo.StudyVO;
 import kr.kh.RLab.vo.TagRegisterVO;
 import lombok.RequiredArgsConstructor;
@@ -26,12 +27,21 @@ public class MypageServiceImp implements MypageService {
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
 	
+	//[마이페이지 홈 > 이용시간]
+	@Override
+	public ReservationVO getRes(String userId) {
+		if (userId == null) {
+			return null;
+	    }
+		return mypageDao.selectRes(userId);
+	}
+	
 	//[마이페이지 홈 > 적립 포인트]
 	@Override
 	public int getMyPoint(String userId) {
 		 if (userId == null) {
 		        return 0;
-		    }
+		  }
 		 return mypageDao.selectMyPoint(userId);
 
 	}
@@ -172,8 +182,6 @@ public class MypageServiceImp implements MypageService {
 			ArrayList<Integer> wantList = mypageDao.selectWantListById(memberId);
 			return wantList;
 		}
-
-
 
 
 }

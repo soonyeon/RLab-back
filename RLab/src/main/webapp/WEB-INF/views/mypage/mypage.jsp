@@ -87,31 +87,31 @@
                   <span><strong>"${user.me_name}"</strong> 님 안녕하세요</span>
                 </div>
                 
-
-                <div id="used_hours">
-                  <div class="title">
-                    <h2 class="property_title">이용시간</h2>
-                    <p class="info time_info">
-                      <strong>좌석예약 정보가 없습니다.</strong>
-                      <a class="res_btn" href="<c:url value='/reservation'></c:url>">이용권 예약</a>
-                    </p>
-                  </div>
-                  <div class="gauge gauge_used_hours" style= "background-color:#c1c1c1">
-                  </div>
-                </div>
-                
-                
-               <!--  <div id="used_hours">
-                  <div class="title">
-                    <h2 class="property_title">이용시간</h2>
-                    <p class="info time_info">
-                      <strong>8시 7분</strong> / 30시간
-                    </p>
-                  </div>
-                  <div class="gauge gauge_used_hours">
-                    <div class="gauge_colored"></div>
-                  </div>
-                </div>  -->
+				<c:if test="${res}">
+	             	<div id="used_hours">
+	                  <div class="title">
+	                    <h2 class="property_title">이용시간</h2>
+	                    <p class="info time_info">
+	                      <strong>좌석예약 정보가 없습니다.</strong>
+	                      <a class="res_btn" href="<c:url value='/reservation'></c:url>">이용권 예약</a>
+	                    </p>
+	                  </div>
+	                  <div class="gauge gauge_used_hours" style= "background-color:#c1c1c1">
+	                  </div>
+	                </div>
+	              </c:if>  
+	                
+	               <div id="used_hours">
+	                  <div class="title">
+	                    <h2 class="property_title">이용시간</h2>
+	                    <p class="info time_info">
+	                      <strong>~ ${res.re_valid_time_str}</strong>
+	                    </p>
+	                  </div>
+	                  <div class="gauge gauge_used_hours">
+	                    <div class="gauge_colored"></div>
+	                  </div>
+	                </div>
 
 
                 <div id="pet_exp">
