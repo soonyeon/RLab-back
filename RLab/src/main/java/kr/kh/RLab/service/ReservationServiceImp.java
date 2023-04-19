@@ -137,16 +137,32 @@ public class ReservationServiceImp implements ReservationService {
 	@Override
 	public void reserveSeat(ReservationVO book) {
 		//reservation에 추가
-		if(reservationDao.insertReservation(book)==0)
-			System.out.println("예약추가 실패");
-		//to_rest_time 소유중인 이용권의 잔여시간 감소
-		if(reservationDao.updateTicketRestTime(book)==0)
-			System.out.println("to 잔여시간 변경 실패");
+		if(reservationDao.insertReservation(book)!=0)
+			System.out.println("예약추가 성공");
+		int tiNum = reservationDao.selectTiNum(book.getRe_to_num());
+		if(tiNum==6 || tiNum==7 ||tiNum==8) {
+			//시간패키지면 to_rest_time 소유중인 이용권의 잔여시간 감소
+			if(reservationDao.updateTicketRestTime(book)==0)
+				System.out.println("to 잔여시간 변경 실패");
+			else {
+				//잔여시간 변경 성공시 잔여시간이 0이면 to_state를 0으로 변경
+				if(reservationDao.selectRestTime(book.getRe_to_num())==0)
+					reservationDao.updateTicketState(book.getRe_to_num());
+			}
+		}else {
+			//시간패키지가 아니면 to_state를 0으로 변경
+			reservationDao.updateTicketState(book.getRe_to_num());
+		}
 		//me_use_time 누적이용시간 추가
 		if(reservationDao.updateMemberUseTime(book)==0)
 			System.out.println("회원 누적사용시간 증가 실패");
 		//gr_exp 펫 누적경험치 추가
 		//reservationDao.updatePetExp(book);
+	}
+
+	@Override
+	public ReservationVO getReservationByBookInfo(ReservationVO book) {
+		return reservationDao.selectReservationByBook(book);
 	}
 
 }

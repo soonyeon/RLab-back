@@ -192,28 +192,38 @@ public class ReservationController {
 		mv.setViewName("/reservation/seat_select");
 		return mv;
 	}
-	@ResponseBody
-	@RequestMapping(value = "/reservation/1/{br_num}", method=RequestMethod.POST) 
-	public HashMap<String,Object> seatDetailPost(@PathVariable("br_num")int br_num,
-			HttpSession session, @RequestBody ReservationVO book) {
-		HashMap<String,Object> map = new HashMap<String,Object>();
+	@RequestMapping(value = "/reservation/1/complete", method=RequestMethod.POST) 
+	public ModelAndView seatDetailPost(ModelAndView mv, /*@PathVariable("br_num")int br_num,*/
+			HttpSession session, ReservationVO book) {
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		book.setRe_me_id(user.getMe_id());
+		System.out.println(book);
 		reservationService.reserveSeat(book);
 		
-		return map;
-	}
-//	@RequestMapping(value = "/reservation/1/complete", method=RequestMethod.GET) 
-//	public ModelAndView seatComplete(ModelAndView mv, HttpSession session) {
-//		System.out.println("complete-get 이동");
-//		mv.setViewName("/reservation/seat_complete");
-//		return mv;
-//	}
-	@ResponseBody
-	@RequestMapping(value = "/reservation/1/complete", method=RequestMethod.POST) 
-	public ModelAndView seatCompletePost(ModelAndView mv, HttpSession session,
-			@RequestBody ReservationVO book) {
-		System.out.println("예약완료 페이지");
-		System.out.println(book);
+		BranchVO br  = reservationService.getBranchByBrNum(book.getBr_num());
+		ReservationVO rsv = reservationService.getReservationByBookInfo(book);
+		System.out.println(rsv);
+		mv.addObject("user", user);
+		mv.addObject("br", br);
+		mv.addObject("book", book);
+		mv.addObject("rsv", rsv);
 		mv.setViewName("/reservation/seat_complete");
 		return mv;
 	}
+//	@RequestMapping(value = "/reservation/1/complete", method=RequestMethod.GET) 
+//	public ModelAndView seatComplete(ModelAndView mv, int br_num, HttpSession session, ReservationVO book) {
+//		System.out.println("complete-get 이동");
+//		System.out.println(book);
+//		mv.setViewName("/reservation/seat_complete");
+//		return mv;
+//	}
+//	@ResponseBody
+//	@RequestMapping(value = "/reservation/1/complete", method=RequestMethod.POST) 
+//	public ModelAndView seatCompletePost(ModelAndView mv, HttpSession session,
+//			@RequestBody ReservationVO book) {
+//		System.out.println("예약완료 페이지");
+//		System.out.println(book);
+//		mv.setViewName("/reservation/seat_complete");
+//		return mv;
+//	}
 }

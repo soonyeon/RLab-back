@@ -35,4 +35,6 @@ public interface ReservationService {
 
 	void reserveSeat(ReservationVO book);
 
+	ReservationVO getReservationByBookInfo(ReservationVO book);
+
 }

@@ -13,6 +13,7 @@ public class ReservationVO {
 	private int re_num;
 	private String re_me_id;
 	private int re_se_num;
+	private int re_hours;
 	private Date re_start_time;
 	private Date re_valid_time;
 	private Date re_register_date;
@@ -20,5 +21,4 @@ public class ReservationVO {
 	
 	private int br_num;
 	private String se_name;
-	private int book_time;
 }

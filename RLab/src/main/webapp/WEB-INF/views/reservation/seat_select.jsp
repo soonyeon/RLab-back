@@ -3,6 +3,8 @@
     pageEncoding="UTF-8"%>
 <link href="<c:url value='/resources/css/reservation/book_seat_select.css'></c:url>" rel="stylesheet">
 <script src="<c:url value='/resources/js/jquery.min.js'></c:url>"></script>
+<!-- 유효성 검사 validate -->
+<script src="<c:url value='/resources/js/jquery.validate.min.js'></c:url>"></script>
 <main>
 	<div class="container">
 		<!-- 주문과정/절차 -->
@@ -28,6 +30,7 @@
 
 
 		<div class="main_container">
+		<form action="<c:url value='/reservation/1/complete'></c:url>" method="post">
 			<!-- 좌석 선택 박스 -->
 			<div class="seat_container main_content">
 				<!-- 타이틀 영역-->
@@ -176,14 +179,15 @@
 				</div>
 				<!-- 선택한 좌석번호 영역 -->
 				<div class="seat_num_area">
-					<h3>${br.br_name}</h3>
+					<h3>${br.br_name}<input type="hidden" name="br_num" value="${br_num}"></h3>
 					<div class="seat_num_box">
-						<div class="seat_num_title">선택한 좌석번호 :</div> <div id="seat_num">17</div><div class="seat_num_title">번</div>
+						<div class="seat_num_title">선택한 좌석번호 :</div> <div id="seat_num"><input type="hidden" name="se_name" value="">17</div><div class="seat_num_title">번</div>
 					</div>
 				</div>
 			</div>
 			<!-- 이용권 선택 박스 -->
 			<div class="ticket_container main_content">
+				
 					<!-- 타이틀 영역 -->
 					<div class="title_area">
 						<h2>이용권 선택</h2>
@@ -191,22 +195,22 @@
 					</div>
 					<!-- 이용권 고르기 영역 -->
 					<div class="ticket_area">
-						<select id="ticket_select">
+						<select id="ticket_select" name="re_to_num">
 							<c:forEach items="${toList}" var="to">
 								<option value="${to.to_num}" data-rest="${to.to_rest_time}">${to.tt_name}(${to.ti_name}) ~${to.to_valid_date_str}</option>
 							</c:forEach>
 						</select>
-						<select class="time_select time_30 display_none">
+						<select class="time_select time_30 display_none" name="re_hours">
 							<c:forEach begin="1" end="30" var="i">
 								<option value="${i}">${i}시간</option>
 							</c:forEach>
 						</select>
-						<select class="time_select time_50 display_none">
+						<select class="time_select time_50 display_none" name="re_hours">
 							<c:forEach begin="1" end="50" var="i">
 								<option value="${i}">${i}시간</option>
 							</c:forEach>
 						</select> 
-						<select class="time_select time_100 display_none">
+						<select class="time_select time_100 display_none" name="re_hours">
 							<c:forEach begin="1" end="100" var="i">
 								<option value="${i}">${i}시간</option>
 							</c:forEach>
@@ -230,11 +234,13 @@
 					<!-- 이용권 구매, 예약하기 버튼 영역 -->
 					<div class="btn_area area">
 						<a href="<c:url value='/reservation/buy'></c:url>" class="b_btn"  id="buy_btn"><input type="button" value="이용권 구매"></a>
-						<a href="<c:url value='/reservation/1/complete'></c:url>" class="b_btn" id="book_btn"><input type="submit" value="예약하기" ></a>
+						<button  class="b_btn" id="book_btn"><input type="submit" value="예약하기" ></button>
 					</div>
+				
 			</div>
 		</div>
 	</div>
+	</form>
 </main>
 <script>
 /* 좌석 선택 관련 이벤트 */
@@ -244,7 +250,8 @@ $('.seat').click(function(){
 	seatNum = $(this).text();
 	$('.seat_table .seat_selected').removeClass('seat_selected').addClass('seat');
 	$(this).removeClass('seat').addClass('seat_selected');
-	$('.seat_num_box').html('<div class="seat_num_title">선택한 좌석번호 :</div> <div id="seat_num">'+seatNum+'</div><div class="seat_num_title">번</div>');
+	$('.seat_num_box').html('<div class="seat_num_title">선택한 좌석번호 :</div> <div id="seat_num"><input type="hidden" name="se_name" value="">'+seatNum+'</div><div class="seat_num_title">번</div>');
+	$('input[name=se_name]').attr('value',seatNum);
 })
 
 $('.seat_selected').click(function(){
@@ -261,6 +268,18 @@ $('.ticket_select').click(function(){
 	if(val==6)
 		$('.time_select.time_100').removeClass('.display_none');
 })
+$('.b_btn').validate({
+	rules : {
+		required : true
+	},
+	message : {
+		required : '좌석을 선택해주세요.'
+	}
+})
+$.validator.addMethod("regex", function(value, element, regexp) {
+		var re = new RegExp(regexp);
+		return this.optional(element) || re.test(value);
+	}, "Please check your input.");
 
 /* 이용권 선택 관련 이벤트 */
 let ticket = '';
@@ -290,7 +309,7 @@ $(function(){
 		$('.selected_area').html(selectedStr);
 	})
 });
-
+/*
 //예약하기
 $('#book_btn').click(function(){
 	let book = {
@@ -298,7 +317,7 @@ $('#book_btn').click(function(){
 			're_to_num' : $('#ticket_select').val(),
 			'br_num' : ${br_num},
 			'se_name' : seatNum+'',
-			'book_time' : useTime
+			're_hours' : useTime
 	}
 	//예약
 	$.ajax({
@@ -325,6 +344,7 @@ $('#book_btn').click(function(){
 		}
 	});
 });
+*/
 
 //선택된 이용권을 보여주는 함수
 function showSelectedTicket(){

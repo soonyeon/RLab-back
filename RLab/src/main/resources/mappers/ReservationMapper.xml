@@ -93,15 +93,34 @@
 		order by to_ti_num asc, to_valid_date asc
 	</select>
 	<insert id="insertReservation">
-		insert into reservation(re_me_id, re_se_num, re_start_time, re_valid_time, re_register_date, re_to_num)
+		insert into reservation(re_me_id, re_se_num, re_hours, re_start_time, re_valid_time, re_register_date, re_to_num)
 		values(#{re_me_id}, (
 			select se_num from seat where se_br_num = #{br_num} and se_name = #{se_name} and se_ki_num = 1
-			), now(), (select date_add(now(), interval ${book_time} hour)), now(), #{re_to_num})
+			), ${re_hours}, now(), (select date_add(now(), interval ${re_hours} hour)), now(), #{re_to_num})
 	</insert>
+	<select id="selectTiNum" resultType="int">
+		select to_ti_num from ticket_own where to_num = #{re_to_num}
+	</select>
+	<update id="updateTicketState">
+		update ticket_own set to_state = 0 where to_num = #{re_to_num}
+	</update>
 	<update id="updateTicketRestTime">
-		update ticket_own set to_rest_time = to_rest_time - #{book_time} where to_num = #{re_to_num}
+		update ticket_own set to_rest_time = to_rest_time - #{re_hours} where to_num = #{re_to_num}
 	</update>
+	<select id="selectRestTime" resultType="int">
+		select to_rest_time from ticket_own where to_num = #{re_to_num}
+	</select>
 	<update id="updateMemberUseTime">
-		update member set me_use_time = me_use_time + ${book_time} where me_id = #{re_me_id}
+		update member set me_use_time = me_use_time + ${re_hours} where me_id = #{re_me_id}
 	</update>
+	<update id="updatePetExp">
+		
+	</update>
+	<select id="selectReservationByBook" resultType="kr.kh.RLab.vo.ReservationVO">
+		select * from reservation
+		join seat on re_se_num = se_num
+		where re_me_id = #{re_me_id} and re_hours = #{re_hours} and re_to_num = #{re_to_num}
+		order by re_num desc
+		limit 1
+	</select>
 </mapper>
