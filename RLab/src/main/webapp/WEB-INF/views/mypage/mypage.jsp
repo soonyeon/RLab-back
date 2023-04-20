@@ -87,7 +87,11 @@
                   <span><strong>"${user.me_name}"</strong> 님 안녕하세요</span>
                 </div>
                 
-				<c:if test="${res}">
+                <!-- 현재 시간 가져오기 -->
+                <%@ page import="java.util.Date" %>
+                <c:set var="now" value="<%= new Date() %>"/>
+                
+				<c:if test="${now.before(res.re_start_time) || now.after(res.re_valid_time)}">
 	             	<div id="used_hours">
 	                  <div class="title">
 	                    <h2 class="property_title">이용시간</h2>
@@ -99,20 +103,21 @@
 	                  <div class="gauge gauge_used_hours" style= "background-color:#c1c1c1">
 	                  </div>
 	                </div>
-	              </c:if>  
-	                
+	             </c:if>  
+	             
+	             <c:if test="${now.after(res.re_start_time) && now.before(res.re_valid_time)}">
 	               <div id="used_hours">
 	                  <div class="title">
 	                    <h2 class="property_title">이용시간</h2>
 	                    <p class="info time_info">
-	                      <strong>~ ${res.re_valid_time_str}</strong>
+	                      <strong>~ ${res.re_valid_time_str2}</strong>
 	                    </p>
 	                  </div>
 	                  <div class="gauge gauge_used_hours">
-	                    <div class="gauge_colored"></div>
+	                    <div class="gauge_colored use_time_colored"></div>
 	                  </div>
 	                </div>
-
+	              </c:if>
 
                 <div id="pet_exp">
                   <div class="title">
@@ -283,17 +288,52 @@
 
     </div>
     <script>
-	 // pet_store 모달 열기
-	    $(document).on('click', '#pet_store_container', function(e){
-	    	console.log('click');
-	    	$('.pet_store_popup_container').css('display','flex');
-	    })
+    // 이용시간
+    	let flag = ${now.before(res.re_start_time) || now.after(res.re_valid_time)};
+    	$(document).ready(function(){
+    		var gaugeWidth = $('.use_time_colored').width();
+    		var resStart = '${res.re_start_time}';
+    		var resValid = '${res.re_valid_time}';
+    		
+    		function updateGauge(){
+    			var now = new Date();
+    			if(now >= resValid){
+    				$('.use_time_colored').width(gaugeWidth + '%')
+    				if(!flag)
+	    			location.reload();
+    				
+    			} else if(now >= resStart){
+    				var elapsedTime = now.getTime() - resStart.getTime();
+    				var totalTime = resValid.getTime() - resStart.getTime();
+    				var percentage = elapsedTime / totalTime * 100;
+    				$('.use_time_colored').width(percentage + '%');
+    			}
+    		}
+    		
+    		setInterval(function(){
+    			$.ajax({
+    				url: '<c:url value="/mypage/timeGauge" />',
+    				type: "GET",
+    				success: function(data){
+    					console.log(1);
+    					resStart = new Date(data.re_start_time);
+    					resValid = new Date(data.re_valid_time);
+    					updateGauge();
+    				}
+    			});
+    		}, 1000); // 1초마다 업데이트
+    	});
+	// pet_store 모달 열기
+	   $(document).on('click', '#pet_store_container', function(e){
+	   	console.log('click');
+	   	$('.pet_store_popup_container').css('display','flex');
+	   })
 	
-	    // pet_store 모달 닫기
-	    $(document).on('click', '.btn_remove', function(e){
-	    	console.log('click');
-	    	$('.pet_store_popup_container').css('display','none');
-	    })
+    // pet_store 모달 닫기
+    $(document).on('click', '.btn_remove', function(e){
+    	console.log('click');
+    	$('.pet_store_popup_container').css('display','none');
+    })
     </script>
 </body>
 </html>

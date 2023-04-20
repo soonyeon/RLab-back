@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -43,6 +44,7 @@ public class MypageController {
 		String userId = user.getMe_id();
 		// 이용시간 안내
 		ReservationVO res = mypageService.getRes(userId);
+		System.out.println(res);
 		
 		// 펫
 		ArrayList<PetVO> petList = petService.selectPetList();
@@ -53,7 +55,6 @@ public class MypageController {
 		
 		//나의 스터디 데이터 가져오기
 		ArrayList<StudyVO> myStudyList = mypageService.getMainStudyList(userId);
-		System.out.println(myStudyList);
 		
 		//나의 스크랩 데이터 가져오기
 		ArrayList<BoardVO> myScrapList = mypageService.getMainScrapList(userId);
@@ -68,6 +69,15 @@ public class MypageController {
 		return mv;
 	}
 	
+	@ResponseBody
+	@GetMapping("/timeGauge")
+	public ReservationVO timeGauge (ModelAndView mv,  HttpSession session) {
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		String userId = user.getMe_id();
+		ReservationVO res = mypageService.getRes(userId);
+		
+		return res;
+	}
 	
 	//[개인정보 수정 > 비밀번호 체크]
 	@GetMapping("/pwcheck")

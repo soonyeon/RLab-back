@@ -122,7 +122,7 @@ article{
     height: 30px;
 }
 .gauge_used_hours .gauge_colored{
-    width: 150px;
+    width: 100%;
     background-color: var(--color_mint);
 }
 .gauge_pet_exp .gauge_colored{
