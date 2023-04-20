@@ -8,12 +8,16 @@ DROP TABLE IF EXISTS `member`;
 CREATE TABLE `member` (
 	`me_id`	varchar(13) primary key	NOT NULL,
 	`me_name`	varchar(10)	NOT NULL,
+<<<<<<< HEAD
+	`me_pw`	varchar(20)	NOT NULL,
+=======
 	`me_pw`	varchar(255)	NOT NULL,
+>>>>>>> 8a04488827335585c4cde8c0c02bef53309ec319
 	`me_email`	varchar(30)	NOT NULL,
 	`me_authority`	int not null default 0,
 	`me_point`	int not null DEFAULT 0,
 	`me_rest_time`	int	,
-	`me_use_time`	int,
+	`me_use_time`	int not null default 0,
     `me_profile`	varchar(255),
     `me_study`	int,
     `me_session_id` varchar(45),
@@ -60,6 +64,7 @@ CREATE TABLE `reservation` (
 	`re_num`	int auto_increment primary key	NOT NULL,
 	`re_me_id`	varchar(13)	NOT NULL,
 	`re_se_num`	int	NOT NULL,
+    `re_hours` int not null,
 	`re_start_time`	datetime not null DEFAULT NOW(),
 	`re_valid_time`	datetime not null,
 	`re_register_date`	datetime not null,

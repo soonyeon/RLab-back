@@ -13,6 +13,7 @@ import kr.kh.RLab.pagination.GatherCriteria;
 import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.MemberVO;
+import kr.kh.RLab.vo.StudyVO;
 import kr.kh.RLab.vo.TagRegisterVO;
 import lombok.RequiredArgsConstructor;
 
@@ -35,12 +36,23 @@ public class MypageServiceImp implements MypageService {
 
 	}
 	
-	//[마이페이지 홈 > 적립 포인트]
+	//[마이페이지 홈 > 나의 스터디]
+	@Override
+	public ArrayList<StudyVO> getMainStudyList(String userId) {
+		if(userId == null)
+			return null;
+		return mypageDao.selectMainStudyList(userId);
+	}
+	
+	
+	//[마이페이지 홈 > 나의 스크랩]
 	@Override
 	public ArrayList<BoardVO> getMainScrapList(String userId) {
-		// TODO Auto-generated method stub
-		return null;
+		if(userId == null)
+			return null;
+		return mypageDao.selectMainScrapList(userId);
 	}
+
 	
 	//[개인정보 수정 > 비밀번호 체크]
 		@Override
@@ -160,6 +172,8 @@ public class MypageServiceImp implements MypageService {
 			ArrayList<Integer> wantList = mypageDao.selectWantListById(memberId);
 			return wantList;
 		}
+
+
 
 
 }

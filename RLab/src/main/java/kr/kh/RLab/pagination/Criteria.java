@@ -10,13 +10,11 @@ public class Criteria {
 	private int perPageNum;
 	//검색어
 	private String search;
-
-	// Criteria 디폴트 생성자 : 현재 페이지를 1페이지로, 한 페이지에 10개의 컨텐츠
+	//Criteria 디폴트 생성자 : 현재 페이지를 1페이지로, 한 페이지에 10개의 컨텐츠
 	public Criteria() {
 		this.page = 1;
-		this.perPageNum= 5;
-		this.search ="";
-		
+		this.perPageNum = 9;
+		this.search = "";
 	}
 
 	/* 쿼리문에서 limit에 사용되는 인덱스를 계산하는 getter */

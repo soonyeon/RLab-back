@@ -1,0 +1,419 @@
+/* background */
+.background_bbls{
+	position: absolute;
+	height: 100%;
+	top: 750px;
+	display: flex;
+	width: 100%;
+	height: 100%;
+	z-index: -10;
+	overflow: hidden;
+}
+.background_bbls .bubble{
+	position: absolute;
+	width: 300px;
+	height: 300px;
+	border-radius: var(--border_radius_1);
+	background-color: var(--color_mint);
+}
+.big_bbls .bubble:nth-child(1){
+	top: 927px;
+	left: -385px;
+	background-color: var(--color_blue);
+	width: 1600px;
+	height: 1600px;
+}
+.big_bbls .bubble:nth-child(2){
+	top: 673px;
+	left: 988px;
+	background-color: var(--color_mint);
+	width: 1080px;
+	height: 1080px;
+	z-index: -20;
+}
+.big_bbls .bubble:nth-child(3){
+	top: 1075px;
+	left: 863px;
+	background-color: var(--color_yellow);
+	width: 1290px;
+	height: 1290px;
+}
+.big_bbls .bubble:nth-child(4){
+	top: 966px;
+	left: 804px;
+	background-color: var(--color_black);
+	width: 300px;
+	height: 300px;
+	z-index: -30;
+	opacity: 30%;
+}
+.small_bbls .bubble:nth-child(1){
+	top: 124px;
+	left: -114px;
+	background-color: var(--color_mint);
+	width: 400px;
+	height: 400px;
+}
+.small_bbls .bubble:nth-child(2){
+	top: 77px;
+	left: 1616px;
+	background-color: var(--color_yellow);
+	width: 250px;
+	height: 250px;
+}
+
+
+/* 이용권 구매 단계 안내 */
+.procedure_container{
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+	gap: 40px;
+	width: 800px;
+	margin: 0 auto;
+}
+.selected{
+	background-color: var(--color_yellow);
+}
+.detail_procedure{
+	display: flex;
+	align-items: center;
+	gap: 60px;
+}
+.procedure_container .procedure_title{
+	text-align: center;
+	height: 40px;
+	line-height: 40px;
+}
+.procedure_container .item_procedure{
+	float: left;
+	border: 1px solid #000;
+	width: 120px;
+	height: 120px;
+	text-align: center;
+	border-radius: 50%;
+	position: relative;
+}
+.item_procedure .numbering{
+	position: absolute;
+	right: 0; left: 0; top: 23px;
+	text-decoration: underline;
+	font-size: 14px;
+	line-height: normal;
+}
+.item_procedure .item_text{
+	line-height: 120px;
+	text-align: center;
+	white-space: nowrap;
+	font-size: 12px;
+}
+.procedure_container .item_procedure+.item_procedure{
+	margin-left: 20px;
+}
+.icon_next{
+	width: 30px;
+	height: 30px;
+	background-size: 30px 30px;
+	background-image: url(../img/up_btn.png);
+	background-repeat: no-repeat;
+	transform: rotateZ(90deg);
+	opacity: 90%;
+}
+/* .procedure_container .item_procedure+.item_procedure::before{
+	content: '';
+	display: inline-block;
+	background-image: url(../img/page_right.png);
+	background-size: 30px 30px;
+	width: 30px;
+	height: 30px;
+} */
+
+/* main_container */
+.main_container{
+	display: flex;
+	justify-content: center
+}
+.main_container .main_content{
+	width: 900px;
+	display: flex;
+	flex-flow: column;
+	align-items: flex-start;
+	gap: 55px;
+	border: 2px solid #020a17;
+	border-radius: var(--border_radius_3);
+	padding: 60px 50px;
+	box-sizing: border-box;
+	background-color: var(--color_beige);
+}
+.table_container{
+	display: flex;
+	flex-flow: column;
+	gap: 10px;
+}
+.table_container:last-child{
+	margin-bottom: 100px;
+}
+.return_box{
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+}
+.return_box .btn_r{
+	width: 120px;
+	height: 50px;
+	border: none;
+	border-radius: var(--border_radius_2);
+	box-shadow: 2px 5px 6px #62626275;
+	cursor: pointer;
+}
+.btn_return{
+	background-color: var(--color_yellow);
+}
+.btn_return:hover{
+	background-color: #dbd756;
+}
+.btn_book{
+	background-color: var(--color_blue);
+}
+.btn_book:hover{
+	background-color: #4c84c4;
+}
+
+/* 타이틀 영역 */
+.title_area{
+	display: flex;
+	justify-content: flex-start;
+	gap: 10px;
+	align-items: center;
+}
+.big_title{
+	width: 100%;
+	justify-content: center;
+}
+.title_area .icon_seat{
+	width: 45px;
+	height: 45px;
+	background-size: 45px 45px;
+	background-image: url(../img/office-chair_.png);
+	background-repeat: no-repeat;
+}
+.icon_info{
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+	background-image: url(../img/info.png);
+	background-repeat: no-repeat;
+	opacity: 60%;
+	cursor: pointer;
+}
+
+table{
+	width: 800px;
+	border-collapse: collapse;
+	border: 2px solid var(--color_yellow);
+	border-left: none;
+	border-right: none;
+}
+th,td{
+	padding: 15px;
+}
+th{
+	background-color: var(--color_yellow);
+
+}
+td{
+	width: 80%;
+	background-color: #fff;
+}
+
+
+/* 이용권 선택 박스 */
+/* 이용권 고르기 영역*/
+.ticket_area{
+	display: flex;
+	gap: 10px;
+}
+select{
+	height: 35px;
+}
+#ticket_select{
+	width: 160px;
+}
+.time_select{
+	width: 70px;
+}
+/* 선택한 이용권, 시간 영역 */
+.selected_area{
+	display: flex;
+	flex-flow: column;
+	gap: 20px;
+}
+.selected_area .selected_ticket{
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	border: 1px solid #020a17;
+	padding: 20px;
+	box-sizing: border-box;
+	white-space: nowrap;
+}
+.selected_title{
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-size: 17px;
+	font-weight: 600;
+}
+.selected_title .dot{
+	width: 10px;
+	height: 10px;
+	border-radius: var(--border_radius_1);
+	background-color: var(--color_yellow);
+}
+
+/* 이용권 구매, 예약하기 버튼 영역 */
+.btn_area{
+	display: flex;
+	justify-content: space-between;
+}
+input{
+	border: none;
+	background-color: #00000000;
+}
+.b_btn{
+	width: 48%;
+	padding: 25px;
+	box-sizing: border-box;
+	border: none;
+	box-shadow: 2px 5px 6px #62626275;
+	border-radius: var(--border_radius_4);
+	cursor: pointer;
+	text-align: center;
+}
+#buy_btn{
+	background-color: var(--color_yellow);
+}
+#buy_btn:hover{
+	background-color: #dbd756;
+}
+#buy_btn input, #book_btn input{
+	font-size: 20px;
+	font-weight: 600;
+}
+#book_btn{
+	background-color: var(--color_blue);
+}
+#book_btn:hover{
+	background-color: #4c84c4;
+}
+/* footer */
+footer{
+	margin-top : 150px
+}
+footer .container{
+	width: 1200px; margin: 0 auto; padding: 50px;
+}
+.info_container{
+margin-top: 25px;
+}
+.info_container .direct_num_box{
+	float: left;
+	width: 300px;
+	height: 180px;
+}
+.direct_num_box .list_tel{
+	margin-top: 5px;
+}
+.direct_num_box .item_tel{
+	margin-left: 10px;
+}
+.direct_num_box .link_tel{
+	font-size: 18px;
+	margin-top: 3px;
+	display: inline-block;
+}
+.info_container .info_right_container{
+	float: right;
+}
+.info_container .info_box_right{
+	float: left;
+	width: 140px;
+	height: 180px;
+	margin-right: 20px;
+}
+.info_container .info_box_right .info_title{
+	margin-bottom: 5px;
+}
+.info_container .info_box_right li{
+	padding-top: 5px;
+}
+footer .corp_container{
+	margin-top: 10px;
+}
+footer .corp_container .link_corp{
+	padding-left: 7px;
+	font-size: 13px;
+}
+footer .corp_container .link_corp::before{
+	width: 1px;
+	height: 11px;
+	content: '';
+	display: inline-block;
+	margin-right: 10px;
+	background-color: grey;
+}
+footer .corp_container .link_corp:nth-child(1){
+	padding: 0;
+}
+footer .corp_container .link_corp:nth-child(1)::before{
+	display: flex;
+}
+
+/* main */
+main .container{
+	width: 1200px;
+	margin: 0 auto;
+}
+.inner_container{
+	margin: 100px auto;
+	padding: 0px 200px;
+}
+main .info_box{
+	width: 100%;
+	height: 80px;
+	line-height: 40px;
+	text-align: center;
+	color: #020a17;
+}
+.button_container .ticket_box, .button_container .reservation_box{
+	width: 374px;
+	height: 400px;
+	background-color: #bfbfbf;
+	float: left;
+	border-radius: 20px;
+	text-align: center; 
+	/* line-height: 300px; */
+	border: var(--border_basic);
+	border-radius: var(--border_radius_2);
+	padding: 120px 20px;
+	box-sizing: border-box;
+}
+.button_container .ticket_box{
+	background-color: var(--color_yellow);
+}
+.button_container .reservation_box{
+	margin-left: 40px;
+	background-color: var(--color_blue);
+}
+.button_container .around_text{
+	display: inline-block;
+	font-size: 18px;
+	font-weight: 600;
+	border: 1px solid #000;
+	padding: 10px 20px;
+	border-radius: 30px;
+}
+.button_container .info_area{
+	margin-top: 50px;
+}
