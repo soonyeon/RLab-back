@@ -192,6 +192,14 @@ public class ReservationController {
 		mv.setViewName("/reservation/seat_select");
 		return mv;
 	}
+	@ResponseBody
+	@RequestMapping(value = "/reservation/1/{br_num}", method=RequestMethod.POST) 
+	public int seatDetailPost(ModelAndView mv, @PathVariable("br_num")int br_num, @RequestBody TicketOwnVO to) {
+		System.out.println(to);
+		int restTime = reservationService.getRestTime(to.getTo_num());
+		System.out.println(restTime);
+		return restTime;
+	}
 	@RequestMapping(value = "/reservation/1/complete", method=RequestMethod.POST) 
 	public ModelAndView seatDetailPost(ModelAndView mv, /*@PathVariable("br_num")int br_num,*/
 			HttpSession session, ReservationVO book) {
@@ -204,9 +212,6 @@ public class ReservationController {
 		ReservationVO rsv = reservationService.getReservationByBookInfo(book);
 		String ticketName = reservationService.getTicketNameByBookInfo(rsv);
 		int restTime = reservationService.getRestTime(book.getRe_to_num());
-		System.out.println(rsv);
-		System.out.println(ticketName);
-		System.out.println(restTime);
 		mv.addObject("user", user);
 		mv.addObject("br", br);
 		mv.addObject("rsv", rsv);

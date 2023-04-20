@@ -200,20 +200,8 @@
 								<option value="${to.to_num}" data-rest="${to.to_rest_time}">${to.tt_name}(${to.ti_name}) ~${to.to_valid_date_str}</option>
 							</c:forEach>
 						</select>
-						<select class="time_select time_30 display_none" name="re_hours">
-							<c:forEach begin="1" end="30" var="i">
-								<option value="${i}">${i}시간</option>
-							</c:forEach>
-						</select>
-						<select class="time_select time_50 display_none" name="re_hours">
-							<c:forEach begin="1" end="50" var="i">
-								<option value="${i}">${i}시간</option>
-							</c:forEach>
-						</select> 
-						<select class="time_select time_100 display_none" name="re_hours">
-							<c:forEach begin="1" end="100" var="i">
-								<option value="${i}">${i}시간</option>
-							</c:forEach>
+						<select class="time_select display_none" name="re_hours">
+						
 						</select>
 					</div>
 					
@@ -258,40 +246,21 @@ $('.seat_selected').click(function(){
 	seatInit();
 })
 
-$('.ticket_select').click(function(){
-	let val = $(this).val();
-	console.log(val);
-	if(val==4)
-		$('.time_select.time_30').removeClass('.display_none');
-	if(val==5)
-		$('.time_select.time_50').removeClass('.display_none');
-	if(val==6)
-		$('.time_select.time_100').removeClass('.display_none');
-})
-$('.b_btn').validate({
-	rules : {
-		required : true
-	},
-	message : {
-		required : '좌석을 선택해주세요.'
-	}
-})
-$.validator.addMethod("regex", function(value, element, regexp) {
-		var re = new RegExp(regexp);
-		return this.optional(element) || re.test(value);
-	}, "Please check your input.");
 
 /* 이용권 선택 관련 이벤트 */
 let ticket = '';
 let useTime;
-let restTime = '';
+let restTime;
 let selectedStr = '';
 
-showSelectedTicket();
+showSelectedTicket('${toList.get(0).to_num}');
 
 $('#ticket_select').change(function(){
-	showSelectedTicket();
+	let re_to_num = $(this).val();
+	showSelectedTicket(re_to_num);
 });
+
+
 
 $(function(){
 	$('.time_select').change(function(){
@@ -321,10 +290,6 @@ $(document).ready(function() {
 });
 /*//예약하기
 $('#book_btn').click(function(){
-	if(seatNum==''){
-		alert('좌석을 선택하세요');
-		location.replace('<c:url value="/reservation/1/${br_num}"></c:url>');		
-	}
 	let book = {
 			're_me_id' : '${user.me_id}',
 			're_to_num' : $('#ticket_select').val(),
@@ -360,28 +325,40 @@ $('#book_btn').click(function(){
 
 
 //선택된 이용권을 보여주는 함수
-function showSelectedTicket(){
+function showSelectedTicket(to_num){
+	//가진 이용권이 없을 때 : toList==null 처리
+	if(${toList==null})
+		$('.ticket_area').html('<span>사용가능한 이용권이 없습니다. 이용권을 새로 구매해보세요.</span>');
 	ticket = $('#ticket_select option:checked').text().split(' 이용권)')[0]+')';
-	restTime = $('#ticket_select option:checked').data('rest');
-	
+	restTime = +$('#ticket_select option:checked').data('rest');
 	
 	let ticketName = $('#ticket_select option:checked').text().substr(0,6);
 	if(ticketName=='시간 패키지'){
-		if($('#ticket_select option:checked').text().substr(7,2)=='30'){
-			$('.time_select.time_30').removeClass('display_none');
-		}
-		if($('#ticket_select option:checked').text().substr(7,2)=='50'){
-			$('.time_select.time_50').removeClass('display_none');
-		}
-		if($('#ticket_select option:checked').text().substr(7,3)=='100'){
-			$('.time_select.time_100').removeClass('display_none');
-		}
+		//시간패키지인 경우 시간고르기
+		$('.time_select').removeClass('display_none');
+		$.ajax({
+	        url: '<c:url value="/reservation/1/${br_num}"></c:url>',
+	        type: 'POST',
+	        data: JSON.stringify({
+	            'to_num': to_num
+	        }),
+	        contentType: 'application/json',
+	        dataType: 'json',
+	        success: function(data) {
+	        	let str ='';
+	        	for(i=1; i<data+1; i++)
+	        		str += '<option value="'+i+'">'+i+'시간</option>';
+        		$('.time_select').html(str);
+	        }
+	    });
+		//이용권 선택창 재구성
 		selectedStr = 
 		'<div class="selected_ticket">'
 		+'<div class="selected_title">'+ticket+'</div>'
 		+'<div class="selected_time">1시간 (남은 이용권 시간 : '+(restTime-1)+'시간)</div>'
 		+'</div>';
 	}else{
+		$('.time_select').addClass('display_none');
 		selectedStr = 
 		'<div class="selected_ticket">'
 		+'<div class="selected_title">'+ticket+'</div>'
