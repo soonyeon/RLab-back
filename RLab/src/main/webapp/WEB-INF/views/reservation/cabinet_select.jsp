@@ -28,7 +28,7 @@
 
 
 		<div class="main_container">
-		<form action="<c:url value='/reservation/1/complete'></c:url>" method="post">
+		<form action="<c:url value='/reservation/2/book'></c:url>" method="post">
 			<!-- 사물함 선택 박스 -->
 			<div class="seat_container main_content">
 				<!-- 타이틀 영역-->
@@ -52,23 +52,23 @@
 								<td class="seat">8</td>
 							</tr>
 							<tr>
-								<td>9</td>
-								<td>10</td>
-								<td>11</td>
-								<td>12</td>
-								<td>13</td>
-								<td>14</td>
-								<td>15</td>
-								<td>16</td>
+								<td class="seat">9</td>
+								<td class="seat">10</td>
+								<td class="seat">11</td>
+								<td class="seat">12</td>
+								<td class="seat">13</td>
+								<td class="seat">14</td>
+								<td class="seat">15</td>
+								<td class="seat">16</td>
 
 							</tr>
 							<tr>
 								<td class="seat">17</td>
-								<td>18</td>
+								<td class="seat">18</td>
 								<td class="seat_unavailable">19</td>
 								<td class="seat_selected">20</td>
-								<td>21</td>
-								<td>22</td>
+								<td class="seat">21</td>
+								<td class="seat">22</td>
 								<td class="seat">23</td>
 								<td class="seat">24</td>
 							</tr>
@@ -76,38 +76,38 @@
 								<td class="seat">25</td>
 								<td class="seat_unavailable">26</td>
 								<td class="seat_unavailable">27</td>
-								<td>28</td>
-								<td>29</td>
+								<td class="seat">28</td>
+								<td class="seat">29</td>
 								<td class="seat_unavailable">30</td>
 								<td class="seat">31</td>
-								<td>32</td>
+								<td class="seat">32</td>
 							</tr>
 							<tr>
-								<td>33</td>
+								<td class="seat">33</td>
 								<td class="seat">34</td>
 								<td class="seat">35</td>
-								<td>36</td>
-								<td>37</td>
+								<td class="seat">36</td>
+								<td class="seat">37</td>
 								<td class="seat">38</td>
 								<td class="seat_unavailable">39</td>
 								<td class="seat">40</td>
 							</tr>
 							<tr>
-								<td>41</td>
+								<td class="seat">41</td>
 								<td class="seat">42</td>
 								<td class="seat">43</td>
-								<td>44</td>
-								<td>45</td>
+								<td class="seat">44</td>
+								<td class="seat">45</td>
 								<td class="seat">46</td>
 								<td class="seat">47</td>
 								<td class="seat">48</td>
 							</tr>
 							<tr>
-								<td>49</td>
+								<td class="seat">49</td>
 								<td class="seat">50</td>
 								<td class="seat">51</td>
-								<td>52</td>
-								<td>53</td>
+								<td class="seat">52</td>
+								<td class="seat">53</td>
 								<td class="seat">54</td>
 								<td class="seat">55</td>
 								<td class="seat">56</td>

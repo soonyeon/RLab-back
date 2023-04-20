@@ -30,7 +30,7 @@
 
 
 		<div class="main_container">
-		<form action="<c:url value='/reservation/1/complete'></c:url>" method="post">
+		<form action="<c:url value='/reservation/1/book'></c:url>" method="post">
 			<!-- 좌석 선택 박스 -->
 			<div class="seat_container main_content">
 				<!-- 타이틀 영역-->

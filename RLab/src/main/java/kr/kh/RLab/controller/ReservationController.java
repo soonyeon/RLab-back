@@ -233,29 +233,17 @@ public class ReservationController {
 		BranchVO br = reservationService.getBranchByBrNum(br_num);
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		ArrayList<TicketOwnVO> toList = reservationService.getCabinetTicketOwnListById(user.getMe_id());
-		System.out.println("toList:"+toList);
 		mv.addObject("br", br);
 		mv.addObject("br_num", br_num);
 		mv.addObject("toList", toList);
 		mv.setViewName("/reservation/cabinet_select");
 		return mv;
 	}
-	@ResponseBody
-	@RequestMapping(value = "/reservation/2/{br_num}", method=RequestMethod.POST) 
-	public int cabinetDetailPost(ModelAndView mv, @PathVariable("br_num")int br_num, @RequestBody TicketOwnVO to) {
-		System.out.println(to);
-		int restTime = reservationService.getRestTime(to.getTo_num());
-		System.out.println(restTime);
-		return restTime;
-	}
-	@RequestMapping(value = "/reservation/2/complete", method=RequestMethod.POST) 
-	public ModelAndView cabinetDetailPost(ModelAndView mv,
+	@RequestMapping(value = "/reservation/2/complete", method=RequestMethod.GET) 
+	public ModelAndView cabinetDetail(ModelAndView mv,
 			HttpSession session, ReservationVO book) {
+		System.out.println("forward성공");
 		MemberVO user = (MemberVO)session.getAttribute("user");
-		book.setRe_me_id(user.getMe_id());
-		System.out.println(book);
-		reservationService.reserveSeat(book);
-		
 		BranchVO br  = reservationService.getBranchByBrNum(book.getBr_num());
 		ReservationVO rsv = reservationService.getReservationByBookInfo(book);
 		String ticketName = reservationService.getTicketNameByBookInfo(rsv);
@@ -266,6 +254,28 @@ public class ReservationController {
 		mv.addObject("ticketName",ticketName);
 		mv.addObject("restTime",restTime);
 		mv.setViewName("/reservation/cabinet_complete");
+		return mv;
+	}
+	@RequestMapping(value = "/reservation/2/book", method=RequestMethod.POST) 
+	public ModelAndView cabinetDetailPost(ModelAndView mv,
+			HttpSession session, ReservationVO book) {
+		System.out.println("post들어옴");
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		book.setRe_me_id(user.getMe_id());
+		System.out.println(book);
+		reservationService.reserveSeat(book);
+		
+//		BranchVO br  = reservationService.getBranchByBrNum(book.getBr_num());
+//		ReservationVO rsv = reservationService.getReservationByBookInfo(book);
+//		String ticketName = reservationService.getTicketNameByBookInfo(rsv);
+//		int restTime = reservationService.getRestTime(book.getRe_to_num());
+//		mv.addObject("user", user);
+//		mv.addObject("br", br);
+//		mv.addObject("rsv", rsv);
+//		mv.addObject("ticketName",ticketName);
+//		mv.addObject("restTime",restTime);
+		mv.setViewName("forward:/reservation/2/complete"); 
+		//완료페이지에서 새로고침하니까 계속 예약되길래 링크 바꿔서 forward시도했는데 post까진되고 forward로 안넘어감!!
 		return mv;
 	}
 }
