@@ -42,6 +42,7 @@ public class PetServiceImp implements PetService{
 	@Override
 	public void getPrize(int gr_pe_num, String gr_me_id) {
 		petDao.deletePet(gr_me_id);
+		System.out.println(gr_pe_num);
 		switch(gr_pe_num){
 	    case 1 : 
 	    	petDao.insertPointPetPrize(gr_me_id);
@@ -55,6 +56,7 @@ public class PetServiceImp implements PetService{
 	        ; 
 	        break; 
 	    case 3:
+	    	petDao.insertPayPrize(gr_me_id);
 	    	petDao.insertTicektOwnPetPrize2(gr_me_id);
 	    	petDao.updateMyTicket2(gr_me_id);
 	    	break;

@@ -312,9 +312,9 @@
     </div>
     <script>
     const userId = '${user.me_id}';
-
+	
     let hadPet = '${myPet}';
-    
+    let petNum =  '${myPet.gr_pe_num}'
 	 // pet_store 모달 열기
 	    $(document).on('click', '#pet_store_container', function(e){
 	    	console.log('click');
@@ -422,17 +422,16 @@
 		});
 		function getPrize(el) {
 			  let gr_pe_num = el.parents('.pet_box').find('.petnum').val();
-			  
+
 			  if (hadPet.length > 0) {
 			    let confirmMessage = '펫 보상을 받으시겠습니까?';
 			    if (!confirm(confirmMessage)) {
 			      return;
 			    }
-			  }
 
 			  let obj = {
 				gr_me_id: userId,
-			    gr_pe_num: gr_pe_num
+			    gr_pe_num: petNum
 			  };
 
 			  $.ajax({
@@ -452,7 +451,9 @@
 			    }
 			  });
 			}
+		}
 		});
+
     </script>
 </body>
 </html>

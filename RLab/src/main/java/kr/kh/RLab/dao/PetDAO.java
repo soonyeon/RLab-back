@@ -15,10 +15,11 @@ public interface PetDAO {
 	int insertChoosePet(GrowthVO growth);
 
 	int deletePet(String gr_me_id);
-
+	
 	void insertPointPetPrize(String gr_me_id);
 
 	void updateMyPoint(String gr_me_id);
+	
 
 	void insertPayPrize(String gr_me_id);
 

@@ -43,7 +43,6 @@ public class PetContorller {
 	@PostMapping("/getPrize")
 	public Map<String, Object> getPrize(@RequestBody GrowthVO growth) {
 	   Map<String, Object> map = new HashMap<>();
-	   System.out.println(growth);
 	   petService.getPrize(growth.getGr_pe_num(),growth.getGr_me_id());   
 	    return map;
 	}

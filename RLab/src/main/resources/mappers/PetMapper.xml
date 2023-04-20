@@ -32,7 +32,7 @@
 <!-- 1번펫 보상 후 멤버테이블 업데이트 -->
 <update id="updateMyPoint">
 	update member 
-	set me_point = +1500
+	set me_point = me_point + 1500
 	where me_id = #{gr_me_id}
 </update>
 
