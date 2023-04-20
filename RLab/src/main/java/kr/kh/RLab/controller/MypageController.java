@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -17,18 +16,14 @@ import org.springframework.web.servlet.ModelAndView;
 import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.pagination.GatherCriteria;
 import kr.kh.RLab.pagination.PageMaker;
-import kr.kh.RLab.service.BoardService;
-import kr.kh.RLab.service.CommentService;
-import kr.kh.RLab.service.GatherService;
 import kr.kh.RLab.service.MypageService;
 import kr.kh.RLab.service.PetService;
-import kr.kh.RLab.service.ScrapService;
-import kr.kh.RLab.service.TemporaryService;
 import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.EvolutionVO;
 import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.PetVO;
+import kr.kh.RLab.vo.StudyVO;
 import kr.kh.RLab.vo.TagRegisterVO;
 import lombok.RequiredArgsConstructor;
 
@@ -38,11 +33,6 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/mypage")
 public class MypageController {
 	private final MypageService mypageService;
-	private final BoardService boardService;
-	private final ScrapService scrapService;
-	private final GatherService gatherService;
-	private final TemporaryService temporaryService;
-	private final CommentService commtentService;
 	private final PetService petService;
 	
 	//[마이페이지 홈]
@@ -50,6 +40,9 @@ public class MypageController {
 	public ModelAndView mypage(ModelAndView mv, MemberVO member, HttpSession session) {
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		String userId = user.getMe_id();
+		// 이용시간 안내
+		
+		
 		// 펫
 		ArrayList<PetVO> petList = petService.selectPetList();
 		ArrayList<EvolutionVO> petFile = petService.selectPetFile();
@@ -57,12 +50,17 @@ public class MypageController {
 		//적립 포인트 데이터 가져오기
 		int myPoint = mypageService.getMyPoint(userId);
 		
+		//나의 스터디 데이터 가져오기
+		ArrayList<StudyVO> myStudyList = mypageService.getMainStudyList(userId);
+		System.out.println(myStudyList);
+		
 		//나의 스크랩 데이터 가져오기
 		ArrayList<BoardVO> myScrapList = mypageService.getMainScrapList(userId);
-		
-		System.out.println("mypoint" + myPoint);
+
 		mv.setViewName("/mypage/mypage");
-		mv.addObject("myPoint", myPoint);
+		mv.addObject("myScrapList", myScrapList);
+		mv.addObject("myStudyList", myStudyList);
+		mv.addObject("myPoint",myPoint);
 		mv.addObject("petList",petList);
 		mv.addObject("petFile",petFile);
 		return mv;
