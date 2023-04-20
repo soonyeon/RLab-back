@@ -288,7 +288,7 @@ input::-webkit-search-results-decoration{
 .spot_card_container .item_card+.item_card{margin-left: 20px;}
 .spot_card_container .img-box{
 	width: 400px; height: 250px; 
-	background-image: url(../../img/study_thumb.jpeg);
+	/*background-image: url(../../img/study_thumb.jpeg);*/
 }
 .spot_card_container .info_area{padding: 20px;}
 .spot_card_container h2{margin-bottom: 10px;}

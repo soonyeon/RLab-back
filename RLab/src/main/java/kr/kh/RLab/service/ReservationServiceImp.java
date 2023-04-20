@@ -178,7 +178,10 @@ public class ReservationServiceImp implements ReservationService {
 
 	@Override
 	public ArrayList<TicketOwnVO> getCabinetTicketOwnListById(String me_id) {
-		return reservationDao.selectCabinetTicketOwnById(me_id);
+		ArrayList<TicketOwnVO> a =reservationDao.selectCabinetTicketOwnById(me_id);
+		System.out.println(a);
+		System.out.println(a==null);
+		return a;
 	}
 
 }

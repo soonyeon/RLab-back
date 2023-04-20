@@ -198,7 +198,8 @@ $('.seat_selected').click(function(){
 let ticket = '';
 let selectedStr = '';
 
-showSelectedTicket('${toList.get(0).to_num}');
+
+showSelectedTicket();
 
 
 $('#ticket_select').change(function(){
@@ -214,16 +215,18 @@ $(document).ready(function() {
             event.preventDefault(); // 폼 제출 방지
             alert('사물함을 선택하세요.');
         }
+    	if( ${toList.size() == 0}){
+    		event.preventDefault();
+    		alert('등록된 이용권이 없을 경우, 이용권 구매를 먼저 진행하세요.');
+    	}
     });
 });
 
 
 //선택된 이용권을 보여주는 함수
-function showSelectedTicket(to_num){
-	//가진 이용권이 없을 때 : toList==null 처리
-	if(to_num==''}){
-		console.log('널처리됨');
-		//$('.ticket_area').html('<div class="no_ticket">사용가능한 이용권이 없습니다. 이용권을 새로 구매해보세요.</div>');
+function showSelectedTicket(){
+	if(${toList.size() == 0}){ //가진 이용권이 없을 때
+		$('.ticket_area').html('<div class="no_ticket">사용가능한 이용권이 없습니다. 이용권을 새로 구매해보세요.</div>');
 		$('.selected_area').html(selectedStr);
 		return;		
 	}else{

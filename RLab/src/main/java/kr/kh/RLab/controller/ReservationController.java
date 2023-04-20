@@ -233,7 +233,7 @@ public class ReservationController {
 		BranchVO br = reservationService.getBranchByBrNum(br_num);
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		ArrayList<TicketOwnVO> toList = reservationService.getCabinetTicketOwnListById(user.getMe_id());
-		System.out.println(toList);
+		System.out.println("toList:"+toList);
 		mv.addObject("br", br);
 		mv.addObject("br_num", br_num);
 		mv.addObject("toList", toList);
@@ -249,7 +249,7 @@ public class ReservationController {
 		return restTime;
 	}
 	@RequestMapping(value = "/reservation/2/complete", method=RequestMethod.POST) 
-	public ModelAndView cabinetDetailPost(ModelAndView mv, /*@PathVariable("br_num")int br_num,*/
+	public ModelAndView cabinetDetailPost(ModelAndView mv,
 			HttpSession session, ReservationVO book) {
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		book.setRe_me_id(user.getMe_id());
