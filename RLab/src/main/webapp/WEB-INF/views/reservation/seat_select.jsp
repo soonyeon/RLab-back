@@ -234,7 +234,7 @@
 					<!-- 이용권 구매, 예약하기 버튼 영역 -->
 					<div class="btn_area area">
 						<a href="<c:url value='/reservation/buy'></c:url>" class="b_btn"  id="buy_btn"><input type="button" value="이용권 구매"></a>
-						<button  class="b_btn" id="book_btn"><input type="submit" value="예약하기" ></button>
+						<button class="b_btn" id="book_btn"><input type="submit" value="예약하기" ></button>
 					</div>
 				
 			</div>
@@ -309,9 +309,22 @@ $(function(){
 		$('.selected_area').html(selectedStr);
 	})
 });
-/*
-//예약하기
+
+//좌석을 선택하지 않았을 때 폼 제출 방지
+$(document).ready(function() {
+    $('form').submit(function(event) {
+        if ( seatNum == '') {
+            event.preventDefault(); // 폼 제출 방지
+            alert('좌석을 선택하세요.');
+        }
+    });
+});
+/*//예약하기
 $('#book_btn').click(function(){
+	if(seatNum==''){
+		alert('좌석을 선택하세요');
+		location.replace('<c:url value="/reservation/1/${br_num}"></c:url>');		
+	}
 	let book = {
 			're_me_id' : '${user.me_id}',
 			're_to_num' : $('#ticket_select').val(),
@@ -343,8 +356,8 @@ $('#book_btn').click(function(){
 			console.log(data);
 		}
 	});
-});
-*/
+});*/
+
 
 //선택된 이용권을 보여주는 함수
 function showSelectedTicket(){

@@ -73,7 +73,7 @@
 									<c:if test="${brList.size()-1 >= index}">
 										<li class="item_card add_shadow">
 											<a href="<c:url value='/reservation/1/${brList.get(index).br_num}'></c:url>">
-												<div class="img-box"></div>
+												<div class="img-box"><img src="<c:url value='/download${brList.get(index).br_img}'></c:url>" class="img-box"></div>
 												<div class="info_area">
 													<h2>${brList.get(index).br_name}</h2>
 													<span class="spot_address">${brList.get(index).br_road_address}</span>
@@ -93,17 +93,17 @@
 					</ul>
 					<div class="page_box clearfix">
 						<c:if test="${pm.prev}">
-							<a href="<c:url value='/reservation/1/spot?region=${pm.cri.region}&search=${pm.cri.search}&page=${pm.startPage-1}'></c:url>">
+							<a href="<c:url value='/reservation/spot/1?region=${pm.cri.region}&search=${pm.cri.search}&page=${pm.startPage-1}'></c:url>">
 								<i class="btn_prev"></i>
 							</a>
 						</c:if>
 						<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
 							<span class="page_num <c:if test='${pm.cri.page==i}'>selected_num</c:if>">
-								<a href="<c:url value='/reservation/1/spot?region=${pm.cri.region}&search=${pm.cri.search}&page=${i}'></c:url>">${i}</a>
+								<a href="<c:url value='/reservation/spot/1?region=${pm.cri.region}&search=${pm.cri.search}&page=${i}'></c:url>">${i}</a>
 							</span>
 						</c:forEach>
 						<c:if test="${pm.next}">
-							<a href="<c:url value='/reservation/1/spot?region=${pm.cri.region}&search=${pm.cri.search}&page=${pm.endPage+1}'></c:url>">
+							<a href="<c:url value='/reservation/spot/1?region=${pm.cri.region}&search=${pm.cri.search}&page=${pm.endPage+1}'></c:url>">
 								<i class="btn_next"></i>
 							</a>
 						</c:if>						

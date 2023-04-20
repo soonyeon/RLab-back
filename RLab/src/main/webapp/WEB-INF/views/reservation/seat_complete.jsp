@@ -46,7 +46,7 @@
 							<td>${rsv.re_num}</td>
 						</tr>
 						<tr>
-							<th>예약자</th>
+							<th>예약자 아이디</th>
 							<td>${user.me_id}</td>
 						</tr>
 						<tr>
