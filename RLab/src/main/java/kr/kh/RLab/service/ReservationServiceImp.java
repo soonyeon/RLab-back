@@ -130,8 +130,8 @@ public class ReservationServiceImp implements ReservationService {
 	}
 
 	@Override
-	public ArrayList<TicketOwnVO> getTicketOwnListById(String me_id) {
-		return reservationDao.selectAllTicketOwnById(me_id);
+	public ArrayList<TicketOwnVO> getSeatTicketOwnListById(String me_id) {
+		return reservationDao.selectSeatTicketOwnById(me_id);
 	}
 
 	@Override
@@ -174,6 +174,11 @@ public class ReservationServiceImp implements ReservationService {
 	@Override
 	public int getRestTime(int re_to_num) {
 		return reservationDao.selectTicketRestTime(re_to_num);
+	}
+
+	@Override
+	public ArrayList<TicketOwnVO> getCabinetTicketOwnListById(String me_id) {
+		return reservationDao.selectCabinetTicketOwnById(me_id);
 	}
 
 }

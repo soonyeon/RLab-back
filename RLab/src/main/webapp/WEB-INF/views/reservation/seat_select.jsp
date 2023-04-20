@@ -179,7 +179,7 @@
 				</div>
 				<!-- 선택한 좌석번호 영역 -->
 				<div class="seat_num_area">
-					<h3>${br.br_name}<input type="hidden" name="br_num" value="${br_num}"></h3>
+					<h3>[${br.br_re_name}] ${br.br_name}<input type="hidden" name="br_num" value="${br_num}"></h3>
 					<div class="seat_num_box">
 						<div class="seat_num_title">선택한 좌석번호 :</div> <div id="seat_num"><input type="hidden" name="se_name" value="">17</div><div class="seat_num_title">번</div>
 					</div>

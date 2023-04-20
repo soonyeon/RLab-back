@@ -29,7 +29,7 @@ public interface ReservationService {
 
 	BranchVO getBranchByBrNum(int br_num);
 
-	ArrayList<TicketOwnVO> getTicketOwnListById(String me_id);
+	ArrayList<TicketOwnVO> getSeatTicketOwnListById(String me_id);
 
 	int getBranchTotalCount(ReservationCriteria cri);
 
@@ -40,5 +40,7 @@ public interface ReservationService {
 	String getTicketNameByBookInfo(ReservationVO rsv);
 
 	int getRestTime(int re_to_num);
+
+	ArrayList<TicketOwnVO> getCabinetTicketOwnListById(String me_id);
 
 }

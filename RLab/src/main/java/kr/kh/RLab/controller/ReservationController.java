@@ -185,7 +185,7 @@ public class ReservationController {
 	public ModelAndView seatDetail(ModelAndView mv, @PathVariable("br_num")int br_num, HttpSession session) {
 		BranchVO br = reservationService.getBranchByBrNum(br_num);
 		MemberVO user = (MemberVO)session.getAttribute("user");
-		ArrayList<TicketOwnVO> toList = reservationService.getTicketOwnListById(user.getMe_id());
+		ArrayList<TicketOwnVO> toList = reservationService.getSeatTicketOwnListById(user.getMe_id());
 		mv.addObject("br", br);
 		mv.addObject("br_num", br_num);
 		mv.addObject("toList", toList);
@@ -195,13 +195,61 @@ public class ReservationController {
 	@ResponseBody
 	@RequestMapping(value = "/reservation/1/{br_num}", method=RequestMethod.POST) 
 	public int seatDetailPost(ModelAndView mv, @PathVariable("br_num")int br_num, @RequestBody TicketOwnVO to) {
+		int restTime = reservationService.getRestTime(to.getTo_num());
+		return restTime;
+	}
+	@RequestMapping(value = "/reservation/1/complete", method=RequestMethod.POST) 
+	public ModelAndView seatDetailPost(ModelAndView mv, /*@PathVariable("br_num")int br_num,*/
+			HttpSession session, ReservationVO book) {
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		book.setRe_me_id(user.getMe_id());
+		reservationService.reserveSeat(book);
+		
+		BranchVO br  = reservationService.getBranchByBrNum(book.getBr_num());
+		ReservationVO rsv = reservationService.getReservationByBookInfo(book);
+		String ticketName = reservationService.getTicketNameByBookInfo(rsv);
+		int restTime = reservationService.getRestTime(book.getRe_to_num());
+		mv.addObject("user", user);
+		mv.addObject("br", br);
+		mv.addObject("rsv", rsv);
+		mv.addObject("ticketName",ticketName);
+		mv.addObject("restTime",restTime);
+		mv.setViewName("/reservation/seat_complete");
+		return mv;
+	}
+	@RequestMapping(value = "/reservation/spot/2", method=RequestMethod.GET) 
+	public ModelAndView cabinetSpot(ModelAndView mv, ReservationCriteria cri) {
+		ArrayList<BranchVO> brList = reservationService.getAllBranchList(cri);
+		int totalCount = reservationService.getBranchTotalCount(cri);
+		PageMaker pm = new PageMaker(totalCount, 1, cri);
+		mv.addObject("cri", cri);
+		mv.addObject("brList", brList);
+		mv.addObject("search", cri.getSearch());
+		mv.addObject("pm", pm);
+		mv.setViewName("/reservation/cabinet_spot");
+		return mv;
+	}@RequestMapping(value = "/reservation/2/{br_num}", method=RequestMethod.GET) 
+	public ModelAndView cabinetDetail(ModelAndView mv, @PathVariable("br_num")int br_num, HttpSession session) {
+		BranchVO br = reservationService.getBranchByBrNum(br_num);
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		ArrayList<TicketOwnVO> toList = reservationService.getCabinetTicketOwnListById(user.getMe_id());
+		System.out.println(toList);
+		mv.addObject("br", br);
+		mv.addObject("br_num", br_num);
+		mv.addObject("toList", toList);
+		mv.setViewName("/reservation/cabinet_select");
+		return mv;
+	}
+	@ResponseBody
+	@RequestMapping(value = "/reservation/2/{br_num}", method=RequestMethod.POST) 
+	public int cabinetDetailPost(ModelAndView mv, @PathVariable("br_num")int br_num, @RequestBody TicketOwnVO to) {
 		System.out.println(to);
 		int restTime = reservationService.getRestTime(to.getTo_num());
 		System.out.println(restTime);
 		return restTime;
 	}
-	@RequestMapping(value = "/reservation/1/complete", method=RequestMethod.POST) 
-	public ModelAndView seatDetailPost(ModelAndView mv, /*@PathVariable("br_num")int br_num,*/
+	@RequestMapping(value = "/reservation/2/complete", method=RequestMethod.POST) 
+	public ModelAndView cabinetDetailPost(ModelAndView mv, /*@PathVariable("br_num")int br_num,*/
 			HttpSession session, ReservationVO book) {
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		book.setRe_me_id(user.getMe_id());
@@ -217,7 +265,7 @@ public class ReservationController {
 		mv.addObject("rsv", rsv);
 		mv.addObject("ticketName",ticketName);
 		mv.addObject("restTime",restTime);
-		mv.setViewName("/reservation/seat_complete");
+		mv.setViewName("/reservation/cabinet_complete");
 		return mv;
 	}
 }

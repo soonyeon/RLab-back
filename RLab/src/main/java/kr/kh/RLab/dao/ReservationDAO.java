@@ -49,7 +49,7 @@ public interface ReservationDAO {
 
 	BranchVO selectBranchByBr_num(@Param("br_num")int br_num);
 
-	ArrayList<TicketOwnVO> selectAllTicketOwnById(@Param("me_id")String me_id);
+	ArrayList<TicketOwnVO> selectSeatTicketOwnById(@Param("me_id")String me_id);
 
 	int insertReservation(ReservationVO book);
 	
@@ -72,5 +72,7 @@ public interface ReservationDAO {
 	String selectTicketName(ReservationVO rsv);
 
 	int selectTicketRestTime(int re_to_num);
+
+	ArrayList<TicketOwnVO> selectCabinetTicketOwnById(String me_id);
 
 }
