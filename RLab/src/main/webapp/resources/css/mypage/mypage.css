@@ -1,3 +1,16 @@
+.noPostMsg{
+	width: 332px;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+.my_study_container .noPostMsg{
+	width: 311px;
+    height: 172px;		
+}
+
 /* main */
 main{
     width: var(--body_size);
@@ -38,15 +51,13 @@ main #main_container{
     margin-bottom: 8px;
     white-space: nowrap;
 }
-.list_item:hover{
+.my_study_container .list_item:hover{
     color: var(--color_blue);
 }
-/* .list_items .list_item2{
-    font-size: 14px;
-    font-weight: 400;
-    margin-left: 10px;
-    white-space: nowrap;
-} */
+.my_scrab_container .list_item:hover{
+    color: #c99821;
+}
+
 
 /* articles */
 article{
@@ -130,7 +141,20 @@ article{
     font-size: 20px;
 }
 .info{
+    display: flex;
+    align-items: center;
     font-size: 14px;
+    gap: 5px;
+}
+.res_btn{
+	padding: 5px 7px;
+	border-radius: var(--border_radius_2);
+	box-sizing: border-box;
+	background-color: var(--color_yellow);
+	font-size: 11px;
+}
+.res_btn:hover{
+	background-color: #e7d743;
 }
 #used_hours_container #point_container{
     width: 100%;
@@ -590,12 +614,15 @@ article{
 }
 .link_study .icon_study{
     display: flex;
+    justify-content: center;
+    align-items: center;
     width: 50px;
     height: 50px;
     border: var(--border_basic);
     border-radius: var(--border_radius_1);
     background-color: var(--color_grey);
     margin-right: 30px;
+    overflow: hidden;
 }
 
 /* my_scrab_container */
@@ -634,14 +661,18 @@ article{
 }
 .list_container .list_item{
     display: flex;
+    align-items: center;
     gap: 10px;
     white-space: nowrap;
 }
+.link_study{
+	font-weight: 800;
+}
 .list_item .icon_scrab{
- width: 20px;   
- height: 20px;
- background-size: 20px 20px;
- background-image: url(../../img/favorite_tag.png);
+	 width: 20px;   
+	 height: 20px;
+	 background-size: 20px 20px;
+	 background-image: url(../../img/favorite_tag.png);
 }
 .list_item .title_scrab{
     width: 100px;

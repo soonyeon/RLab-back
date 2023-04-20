@@ -10,6 +10,7 @@ import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.GrowthVO;
 import kr.kh.RLab.vo.MemberVO;
+import kr.kh.RLab.vo.StudyVO;
 import kr.kh.RLab.vo.TagRegisterVO;
 
 public interface MypageDAO {
@@ -18,6 +19,13 @@ public interface MypageDAO {
 		// 적립 포인트
 		int selectMyPoint(@Param("userId")String userId);
 		
+		// 나의 스터디
+		ArrayList<StudyVO> selectMainStudyList(String userId);
+		
+		// 나의 스크랩
+		ArrayList<BoardVO> selectMainScrapList(String userId);
+		
+
 		
 	//[개인정보 수정 > 비밀번호 체크 > 개인정보 수정창]
 		// 프로필 이미지 수정

@@ -94,13 +94,26 @@
                   <div class="title">
                     <h2 class="property_title">이용시간</h2>
                     <p class="info time_info">
-                      <strong>12시간 10분 10초</strong> / 30시간
+                      <strong>좌석예약 정보가 없습니다.</strong>
+                      <a class="res_btn" href="<c:url value='/reservation'></c:url>">이용권 예약</a>
+                    </p>
+                  </div>
+                  <div class="gauge gauge_used_hours" style= "background-color:#c1c1c1">
+                  </div>
+                </div>
+                
+                
+               <!--  <div id="used_hours">
+                  <div class="title">
+                    <h2 class="property_title">이용시간</h2>
+                    <p class="info time_info">
+                      <strong>8시 7분</strong> / 30시간
                     </p>
                   </div>
                   <div class="gauge gauge_used_hours">
                     <div class="gauge_colored"></div>
                   </div>
-                </div>
+                </div>  -->
 
 
                 <div id="pet_exp">
@@ -229,22 +242,29 @@
                   </a>
                 </div>
                 <ul class="list_container">
-                  <li class="item_study">
-                    <!-- 각 스터디 메인으로 이동 -->
-                    <a href="#" class="link_study"
-                      ><i class="icon_study"></i>정처기 준비하는 스터디</a
-                    >
-                  </li>
-                  <li class="item_study">
-                    <a href="#" class="link_study"
-                      ><i class="icon_study"></i>KH 스터디</a
-                    >
-                  </li>
-                  <li class="item_study">
-                    <a href="#" class="link_study"
-                      ><i class="icon_study"></i>토익 만점 스터디</a
-                    >
-                  </li>
+	                <c:if test="${myStudyList == null || myStudyList.size() == 0}">
+	                  <div class="noPostMsg">
+	                  	<p>참여중인 스터디가 없습니다.</p>
+	                  </div>
+	                </c:if>
+	                 <c:forEach items="${myStudyList}" var="mst" varStatus="vs">
+	                      	<c:if test="${mst.st_image == null}">
+		                 		<a class="link_study" onclick="location.href='<c:url value='/study/${mst.st_num}'/>';">
+	                   				<li class="list_item">
+			                      		<i class="icon_study"><img src="<c:url value='/resources/img/recruit_thumb.png'></c:url>" width="auto" height="51"></i>
+			                      		${mst.st_name}
+			                    	</li>
+					            </a>
+		  		    		</c:if>
+		  		    		<c:if test="${mst.st_image != null}">
+			  		    		<a class="link_study" onclick="location.href='<c:url value='/study/${mst.st_num}'/>';">
+			  		    			<li class="list_item">
+			                      		<i class="icon_study"><img src="<c:url value='/download/study/${mst.st_image}'></c:url>" width="auto" height="51"></i>
+					                     ${mst.st_name} 		
+				  		    		</li>
+			  		    		</a>
+		  		    		</c:if>
+                  </c:forEach>
                 </ul>
               </div>
               <!-- my_scrab_container -->
@@ -256,36 +276,24 @@
                     <p class="show_plus">더보기+</p>
                   </a>
                 </div>
+                
                 <ul class="list_container">
                   <!-- 스크랩한 게시글 상세로 이동 -->
-                  <a href="#">
-                    <li class="list_item">
-                      <i class="icon_scrab"></i>
-                      <div class="title_scrab">[정처기 준비 스터디]</div>
-                      <p class="content_scrab">필기요약 정리했습니다</p>
-                    </li>
-                  </a>
-                  <a href="">
-                    <li class="list_item">
-                      <i class="icon_scrab"></i>
-                      <div class="title_scrab">[KH 스터디]</div>
-                      <p class="content_scrab">협업 시 규칙사항 공유합니다</p>
-                    </li>
-                  </a>
-                  <a href="">
-                    <li class="list_item">
-                      <i class="icon_scrab"></i>
-                      <div class="title_scrab">[KH 스터디]</div>
-                      <p class="content_scrab">자바 복습 영상1</p>
-                    </li>
-                  </a>
-                  <a href="">
-                    <li class="list_item">
-                      <i class="icon_scrab"></i>
-                      <div class="title_scrab">[KH 스터디]</div>
-                      <p class="content_scrab">자바 복습 영상2</p>
-                    </li>
-                  </a>
+                  <c:if test="${myScrapList == null || myScrapList.size() == 0}">
+	                  <div class="noPostMsg">
+	                  	<p>스크랩한 게시물이 없습니다.</p>
+	                  </div>
+                  </c:if>
+                  <c:forEach items="${myScrapList}" var="ms" varStatus="vs">
+	                  <a onclick="location.href='<c:url value='/board/detail/${ms.bo_st_num}/${ms.bo_num}'/>';">
+	                    <li class="list_item">
+	                      <i class="icon_scrab"></i>
+	                      <div class="title_scrab">[${ms.st_name}]</div>
+	                      <p class="content_scrab">${ms.bo_title}</p>
+	                    </li>
+	                  </a>
+                  </c:forEach>
+                  
                 </ul>
               </div>
             </article>
@@ -294,7 +302,6 @@
       </main>
 
     </div>
-<!--     <script src="<c:url value ='/resources/js/mypage.js'></c:url>"></script> -->
     <script>
     const userId = '${user.me_id}';
     let pe_num = '${pl.pe_num}';

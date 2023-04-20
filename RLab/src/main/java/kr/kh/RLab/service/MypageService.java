@@ -8,6 +8,7 @@ import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.GrowthVO;
 import kr.kh.RLab.vo.MemberVO;
+import kr.kh.RLab.vo.StudyVO;
 import kr.kh.RLab.vo.TagRegisterVO;
 
 public interface MypageService {
@@ -15,9 +16,12 @@ public interface MypageService {
 	//[마이페이지 홈 > 적립 포인트]
 		int getMyPoint(String userId);
 		
+	//[마이페이지 홈 > 나의 스터디]		
+		ArrayList<StudyVO> getMainStudyList(String userId);
+		
 	//[마이페이지 홈 > 나의 스크랩]	
 		ArrayList<BoardVO> getMainScrapList(String userId);
-
+		
 	
 	//[개인정보 수정 > 비밀번호 체크]
 		boolean checkPw(MemberVO pw, MemberVO user);
@@ -62,6 +66,8 @@ public interface MypageService {
 		
 	//[마이페이지 > 펫 불러오기]	
 		GrowthVO selectMyPet(String memberId);
+
+
 
 
 }
