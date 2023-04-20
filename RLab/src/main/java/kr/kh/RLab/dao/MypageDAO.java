@@ -8,6 +8,7 @@ import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.pagination.GatherCriteria;
 import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.GatherVO;
+import kr.kh.RLab.vo.GrowthVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.ReservationVO;
 import kr.kh.RLab.vo.StudyVO;
@@ -16,11 +17,19 @@ import kr.kh.RLab.vo.TagRegisterVO;
 public interface MypageDAO {
 	
 	//[마이페이지 홈]
-		//  이용 시간
+		// 이용 시간
 		ReservationVO selectRes(String userId);
+		
+		// 펫 경험치
+		GrowthVO selectPetEx(String userId);	
+		
+		ArrayList<GrowthVO> selectExpList(int i);
 		
 		// 적립 포인트
 		int selectMyPoint(@Param("userId")String userId);
+		
+		// 나의 예약
+		ArrayList<ReservationVO> selectResList(String userId);
 		
 		// 나의 스터디
 		ArrayList<StudyVO> selectMainStudyList(String userId);
@@ -65,5 +74,6 @@ public interface MypageDAO {
 		
 		// 내가 쓴 모집글의 찜 여부 가져오기
 		ArrayList<Integer> selectWantListById(String memberId);
+
 
 }

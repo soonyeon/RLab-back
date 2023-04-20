@@ -86,7 +86,7 @@
                 <div class="user_info">
                   <span><strong>"${user.me_name}"</strong> 님 안녕하세요</span>
                 </div>
-                
+                <!-- 이용 시간 -->
                 <!-- 현재 시간 가져오기 -->
                 <%@ page import="java.util.Date" %>
                 <c:set var="now" value="<%= new Date() %>"/>
@@ -118,17 +118,31 @@
 	                  </div>
 	                </div>
 	              </c:if>
-
-                <div id="pet_exp">
-                  <div class="title">
-                    <h2 class="property_title">펫 경험치</h2>
-                    <p class="info exp_info"><strong>15exp</strong> / 40exp</p>
-                  </div>
-                  <div class="gauge gauge_pet_exp">
-                    <div class="gauge_colored"></div>
-                  </div>
-                </div>
-
+	              
+				<!-- 펫 경험치 -->
+				<c:if test="${petEx  == null}">
+					 <div id="pet_exp">
+	                  <div class="title">
+	                    <h2 class="property_title">펫 경험치</h2>
+	                    <p class="info exp_info"><strong>키우고 있는 펫이 없습니다.</strong> </p>
+	                  </div>
+	                  <div class="gauge gauge_pet_exp">
+	                    <div class="gauge_colored" style= "background-color:#c1c1c1"></div>
+	                  </div>
+	                </div>
+				</c:if>
+				
+				<c:if test="${petEx  != null}">
+	                <div id="pet_exp">
+	                  <div class="title">
+	                    <h2 class="property_title">펫 경험치</h2>
+	                    <p class="info exp_info"><strong>${petEx.gr_exp}exp</strong> / ${petEx.ex_experience}exp</p>
+	                  </div>
+	                  <div class="gauge gauge_pet_exp">
+	                    <div class="gauge_colored pet_ex_colored"></div>
+	                  </div>
+	                </div>
+				</c:if>
 
                 <div id="point_container">
                   <div class="my_point">
@@ -323,6 +337,30 @@
     			});
     		}, 1000); // 1초마다 업데이트
     	});
+    
+    // 펫 경험치
+   /* $(document).ready(function(){
+    	var gaugeWidth = $('.pet_ex_colored').width();
+		var nowEx = '${petEx.gr_exp}';
+		var levelUpEx = '${petEx.ex_experience}';
+		var ratio = nowEx / levelUpEx;
+		
+	    // 현재 레벨의 ex_experience가 되면 게이지가 꽉찬다.
+	    gaugeWidth = ratio * 100 + '%';
+	    $('.pet_ex_colored').width(gaugeWidth);
+	    
+	    // 레벨이 올라가면.. 
+		if(nowEx == levelUpEx){
+			// 게이지가 초기화 된다.
+			gaugeWidth = 0 + '%';
+			$('.pet_ex_colored').width(gaugeWidth);
+			
+			//
+		} else {
+			gaugeWidth = ratio * 100 + '%';
+		}
+    	
+    });*/
 	// pet_store 모달 열기
 	   $(document).on('click', '#pet_store_container', function(e){
 	   	console.log('click');

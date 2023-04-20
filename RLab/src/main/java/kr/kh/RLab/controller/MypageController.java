@@ -22,6 +22,7 @@ import kr.kh.RLab.service.PetService;
 import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.EvolutionVO;
 import kr.kh.RLab.vo.GatherVO;
+import kr.kh.RLab.vo.GrowthVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.PetVO;
 import kr.kh.RLab.vo.ReservationVO;
@@ -44,7 +45,19 @@ public class MypageController {
 		String userId = user.getMe_id();
 		// 이용시간 안내
 		ReservationVO res = mypageService.getRes(userId);
-		System.out.println(res);
+		
+		// 펫 경험치
+		GrowthVO petEx = mypageService.getPetEx(userId);
+		
+		int gr_Level = petEx.getGr_level();
+		ArrayList<GrowthVO> expList; 
+		
+		if(gr_Level == 1) {
+			expList = mypageService.getExpList(petEx.getGr_level());
+		} else {
+			expList = mypageService.getExpList(petEx.getGr_level()-1);
+		}		
+		System.out.println(expList);
 		
 		// 펫
 		ArrayList<PetVO> petList = petService.selectPetList();
@@ -53,6 +66,9 @@ public class MypageController {
 		//적립 포인트 데이터 가져오기
 		int myPoint = mypageService.getMyPoint(userId);
 		
+		//나의 예약 데이터 가져오기
+		ArrayList<ReservationVO> resList = mypageService.getResList(userId);
+		
 		//나의 스터디 데이터 가져오기
 		ArrayList<StudyVO> myStudyList = mypageService.getMainStudyList(userId);
 		
@@ -60,7 +76,10 @@ public class MypageController {
 		ArrayList<BoardVO> myScrapList = mypageService.getMainScrapList(userId);
 
 		mv.setViewName("/mypage/mypage");
+		mv.addObject("petEx", petEx);
+		mv.addObject("expList", expList);
 		mv.addObject("res", res);
+		mv.addObject("resList", resList);
 		mv.addObject("myScrapList", myScrapList);
 		mv.addObject("myStudyList", myStudyList);
 		mv.addObject("myPoint",myPoint);
@@ -74,8 +93,7 @@ public class MypageController {
 	public ReservationVO timeGauge (ModelAndView mv,  HttpSession session) {
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		String userId = user.getMe_id();
-		ReservationVO res = mypageService.getRes(userId);
-		
+		ReservationVO res = mypageService.getRes(userId);		
 		return res;
 	}
 	

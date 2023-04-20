@@ -12,6 +12,7 @@ import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.pagination.GatherCriteria;
 import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.GatherVO;
+import kr.kh.RLab.vo.GrowthVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.ReservationVO;
 import kr.kh.RLab.vo.StudyVO;
@@ -36,6 +37,20 @@ public class MypageServiceImp implements MypageService {
 		return mypageDao.selectRes(userId);
 	}
 	
+	//[마이페이지 홈 > 펫 경험치]
+	@Override
+	public GrowthVO getPetEx(String userId) {
+		if (userId == null) {
+			return null;
+	    }
+		return mypageDao.selectPetEx(userId);
+	}
+	
+	@Override
+	public ArrayList<GrowthVO> getExpList(int i) {
+		return mypageDao.selectExpList(i);
+	}
+	
 	//[마이페이지 홈 > 적립 포인트]
 	@Override
 	public int getMyPoint(String userId) {
@@ -44,6 +59,14 @@ public class MypageServiceImp implements MypageService {
 		  }
 		 return mypageDao.selectMyPoint(userId);
 
+	}
+	
+	//[마이페이지 홈 > 나의 예약]
+	@Override
+	public ArrayList<ReservationVO> getResList(String userId) {
+		if(userId == null)
+			return null;
+		return mypageDao.selectResList(userId);
 	}
 	
 	//[마이페이지 홈 > 나의 스터디]
@@ -182,6 +205,7 @@ public class MypageServiceImp implements MypageService {
 			ArrayList<Integer> wantList = mypageDao.selectWantListById(memberId);
 			return wantList;
 		}
+
 
 
 }

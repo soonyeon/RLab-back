@@ -49,11 +49,31 @@
 			WHERE re_me_id = #{userId};		
 		</select>
 		
+		<!-- 펫 경험치 -->
+		<select id="selectPetEx" resultType="kr.kh.RLab.vo.GrowthVO">
+			SELECT 
+			* FROM growth
+		    join exp on gr_level = ex_level
+		    where gr_me_id = #{userId};
+		</select>
+		
+		<select id="selectExpList" resultType="kr.kh.RLab.vo.GrowthVO">
+			SELECT * FROM exp
+			where ex_level = #{i}
+		</select>
+		
 		<!-- 적립 포인트 -->
 		<select id="selectMyPoint" resultType="int">
 			SELECT me_point
 			FROM member
 			WHERE me_id = #{userId};		
+		</select>
+		
+		<!-- 나의 예약 -->
+		<select id="selectResList" resultType="kr.kh.RLab.vo.ReservationVO">
+			SELECT *
+			FROM reservation
+			WHERE re_me_id = #{userId};		
 		</select>
 		
 		<!-- 나의 스터디 -->
