@@ -177,7 +177,7 @@
 		                    <div class="pet_level">Lv. ${myPet.gr_level}</div>
 		                  </div>
 		                  	<c:if test="${petExp.gr_exp == petExp.ex_experience}">		                    
-				                <div id="pet_getPrize_container">
+				                <div id="pet_getPrize_container" class="pet_getPrize_container">
 			                      <i class="icon_getPrize"></i>펫 보상받기
 			                    </div>
 			                </c:if>
@@ -312,7 +312,7 @@
     </div>
     <script>
     const userId = '${user.me_id}';
-    let pe_num = '${pl.pe_num}';
+
     let hadPet = '${myPet}';
     
 	 // pet_store 모달 열기
@@ -327,6 +327,7 @@
 	    	$('.pet_store_popup_container').css('display','none');
 	    });
 	    
+	// 펫 데려오기
 	$(document).ready(function() {    
 		$('.btn_bring').on('click', function() {
 			choosePet($(this));
@@ -366,7 +367,7 @@
 		}
 	});
     
-	
+	// 펫 돌려보내기
 	$(document).ready(function() {    
 		$('.btn_return').on('click', function() {
 			deletePet($(this));
@@ -414,6 +415,44 @@
 		}
 	});
 	
+	// 펫 보상받기
+	$(document).ready(function() {      
+		$('.pet_getPrize_container').on('click', function() {
+			getPrize($(this));
+		});
+		function getPrize(el) {
+			  let gr_pe_num = el.parents('.pet_box').find('.petnum').val();
+			  
+			  if (hadPet.length > 0) {
+			    let confirmMessage = '펫 보상을 받으시겠습니까?';
+			    if (!confirm(confirmMessage)) {
+			      return;
+			    }
+			  }
+
+			  let obj = {
+				gr_me_id: userId,
+			    gr_pe_num: gr_pe_num
+			  };
+
+			  $.ajax({
+			    async: true,
+			    type: 'POST',
+			    data: JSON.stringify(obj),
+			    url: '<c:url value="/getPrize" />',
+			    dataType: 'json',
+			    contentType: 'application/json; charset=UTF-8',
+			    success: function(data) {
+			      alert('보상받기에 성공하였습니다.');
+			      location.reload();
+			    },
+			    error: function(error) {
+			      console.log(error)
+			      alert('보상받기에 실패하였습니다. 다시 시도해주세요');
+			    }
+			  });
+			}
+		});
     </script>
 </body>
 </html>
