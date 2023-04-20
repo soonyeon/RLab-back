@@ -318,6 +318,16 @@ article{
     background-image: url(../../img/pet.png);
     opacity: 60%;
 }
+.icon_getPrize{
+    display: flex;
+    margin-right: 8px;
+    width: 15px;
+    height: 15px;
+    background-size: 15px 15px;
+    background-repeat: no-repeat;
+    background-image: url(../../img/pet.png);
+    opacity: 60%;
+}
 /* pet_store_popup */
 .pet_store_popup_container{
     display: none;

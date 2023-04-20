@@ -119,7 +119,7 @@
                 <div id="pet_exp">
                   <div class="title">
                     <h2 class="property_title">펫 경험치</h2>
-                    <p class="info exp_info"><strong>15exp</strong> / 40exp</p>
+                    <p class="info exp_info"><strong>${myPet.gr_exp}exp</strong> / 40exp</p>
                   </div>
                   <div class="gauge gauge_pet_exp">
                     <div class="gauge_colored"></div>
@@ -176,9 +176,17 @@
 		                    </div>
 		                    <div class="pet_level">Lv. ${myPet.gr_level}</div>
 		                  </div>
-		                    <div id="pet_store_container">
-		                      <i class="icon_store"></i> 펫 스토어
-		                    </div>
+		                  	<c:if test="${petExp.gr_exp == petExp.ex_experience}">		                    
+				                <div id="pet_store_container">
+			                      <i class="icon_getPrize"></i>펫 보상받기
+			                    </div>
+			                </c:if>
+			                <c:if test="${petExp.gr_exp != petExp.ex_experience}">		
+			                    <div id="pet_store_container">
+			                      <i class="icon_store"></i> 펫 스토어
+			                    </div>
+		                    </c:if>
+		                    
 		                </div>
 		              </c:if>
 	              </div>

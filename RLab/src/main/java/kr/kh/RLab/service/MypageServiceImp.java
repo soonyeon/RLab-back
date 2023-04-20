@@ -180,6 +180,11 @@ public class MypageServiceImp implements MypageService {
 			return mypageDao.selectMyPet(memberId);
 		}
 
+		@Override
+		public GrowthVO selectPetExp(String memberId) {
+			return mypageDao.selectPetExp(memberId);
+		}
+
 
 
 

@@ -65,6 +65,9 @@ public interface MypageDAO {
 
 		//내 펫 정보 가져오기
 		GrowthVO selectMyPet(String memberId);
+		
+		//펫 경험치 가져오기
+		GrowthVO selectPetExp(String memberId);
 
 	
 }

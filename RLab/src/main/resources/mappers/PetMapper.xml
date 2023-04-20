@@ -21,9 +21,8 @@
 </insert>
 <!-- 펫 돌려보내기 -->
 <delete id="deletePet">
-delete from growth
-where gr_me_id = #{gr_me_id}
+	delete from growth
+	where gr_me_id = #{gr_me_id}
 </delete>
-
 
 </mapper>
