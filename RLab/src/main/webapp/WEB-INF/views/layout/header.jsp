@@ -42,7 +42,7 @@
           <nav class="top_menu_container">
          	<a href="#" class="list_item">예약하기</a>
          	<c:if test="${user==null}">
-         		<a href="<c:url value='/study'></c:url>" class="list_item">스터디</a>
+         		<a href="<c:url value='/study/${user.me_study}'></c:url>" class="list_item">스터디</a>
          	</c:if>
          	<c:if test="${user!=null}">
          		<a href="<c:url value='/study/${user.me_study}'></c:url>" class="list_item">스터디</a>

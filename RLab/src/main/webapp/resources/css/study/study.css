@@ -289,10 +289,18 @@ footer .corp_container .link_corp:nth-child(1)::before{
 
 /* main div */
 .main_container{
+	width: 100%;
   display: flex;
   flex-flow: row; 
   height : 1100px;
 }
+
+/* main #main_container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+} */
 
 /* 왼쪽 메뉴바 */
 .left_menu_container{
