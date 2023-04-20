@@ -312,9 +312,9 @@
     </div>
     <script>
     const userId = '${user.me_id}';
-	
     let hadPet = '${myPet}';
     let petNum =  '${myPet.gr_pe_num}'
+    
 	 // pet_store 모달 열기
 	    $(document).on('click', '#pet_store_container', function(e){
 	    	console.log('click');

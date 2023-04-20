@@ -20,7 +20,6 @@ public interface PetDAO {
 
 	void updateMyPoint(String gr_me_id);
 	
-
 	void insertPayPrize(String gr_me_id);
 
 	void insertTicektOwnPetPrize(String gr_me_id);
