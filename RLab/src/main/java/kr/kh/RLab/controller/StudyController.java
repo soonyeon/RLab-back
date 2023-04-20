@@ -183,7 +183,6 @@ public class StudyController {
 
 	@RequestMapping(value = "/management", method = RequestMethod.POST)
 	public ModelAndView managementPost(ModelAndView mv, StudyVO study) {
-		System.out.println(study);
 		mv.setViewName("redirect:/study/management/member/" + study.getSt_num());
 		return mv;
 	}	
@@ -194,20 +193,13 @@ public class StudyController {
 	    
 	    // 세션에서 "user" 속성을 검색하고 MemberVO 객체로 캐스팅
 	    MemberVO user = (MemberVO) session.getAttribute("user");
-	    // 로그인한 사용자의 ID를 MemberVO 객체에서 가져옴
-	    String memberId = user.getMe_id();	    	       
-	    // StudyService 클래스의 getStudyListById 메서드를 호출하여 사용자가 속한 스터디 리스트를 가져옴
-	    ArrayList<StudyVO> myStudyList = studyService.getStudyListById(memberId);
-   
 	    //cri.setPerPageNum(1);	    
 	    // StudyService 클래스의 getStudyMemberList메서드를 호출하여 멤버 리스트를 가져옴
 	    ArrayList<StudyMemberVO> memberList = studyService.getStudyMemberList(st_num,cri);	    
 	    int totalCount = studyService.getStudyTotalCount(st_num);	    
-	    System.out.println(totalCount);	    	    
+//	    System.out.println(totalCount);	    	    
 	    PageMaker pm = new PageMaker(totalCount,5,cri);
-
 	    // "myStudyList" 키와 함께 연구 목록을 ModelAndView 객체에 추가
-	    mv.addObject("myStudyList", myStudyList);
 	    mv.addObject("memberList",memberList);
 	    mv.addObject("st_num", st_num);
 	    mv.addObject("pm",pm);
@@ -217,36 +209,72 @@ public class StudyController {
 	    // ModelAndView 객체를 반환	    
 	    return mv;
 	}
-	
 	@ResponseBody
 	@RequestMapping(value = "/management/member/delete", method = RequestMethod.POST)
 	public HashMap<String,Object> deleteMember(@RequestBody StudyMemberVO sm) {
 		HashMap<String,Object> map = new HashMap<String,Object>();
-		System.out.println(sm);
-		
 	    // 멤버를 삭제하고, 새로운 멤버 리스트를 가져옴
-	    studyService.deleteStudyMember(sm.getSm_num(),sm.getMe_name());
-	    map.put("result", "success");
-	    
+	    studyService.deleteStudyMember(sm.getSm_st_num(),sm.getMe_name());
 	    return map;
 	}
-
-	@RequestMapping(value = "/management/study", method = RequestMethod.GET)
-	public ModelAndView managementStudy(ModelAndView mv, HttpSession session, MemberVO member, StudyVO study) {
-		// HttpSession에서 "user"라는 이름의 속성을 가져와 MemberVO 객체로 형변환하여 변수 user에 저장
-		// 로그인한 유저정보를 가져온다
-
-	    MemberVO user = (MemberVO) session.getAttribute("user");
-	    String memberId = user.getMe_id();	    
-	    // System.out.println(user);
-    
-	    ArrayList<StudyVO> myStudyList = studyService.getStudyListById(memberId);
-	    System.out.println(myStudyList);
-
-		mv.addObject("myStudyList", myStudyList);
-	    mv.addObject("user", user);
-		mv.setViewName("/study/management_study");
-		return mv;
+	@ResponseBody
+	@RequestMapping(value = "/management/member/authorize", method = RequestMethod.POST)
+	public HashMap<String,Object> authorizeMember(@RequestBody StudyMemberVO sm) {
+		HashMap<String,Object> map = new HashMap<String,Object>();
+	    // 멤버를 삭제하고, 새로운 멤버 리스트를 가져옴
+	    studyService.authorizeStudyMember(sm.getSm_st_num(),sm.getMe_name());
+	    return map;
 	}
-
+	@RequestMapping(value = "/management/study/{st_num}", method = RequestMethod.GET)
+	public ModelAndView managementStudy(ModelAndView mv, HttpSession session, @PathVariable("st_num") int st_num) {
+	    //HttpSession에서 "user"라는 이름의 속성을 가져와 MemberVO 객체로 형변환하여 변수 user에 저장
+	    //로그인한 유저정보를 가져온다
+	    MemberVO user = (MemberVO) session.getAttribute("user");
+	    String memberId = user.getMe_id();
+	    int st_state = studyService.getStudyState(st_num);
+	    mv.addObject("user", user);
+	    mv.addObject("st_num", st_num); // 스터디 넘버를 ModelAndView에 추가
+	    mv.addObject("st_state", st_state);
+	    mv.setViewName("/study/management_study");
+	    return mv;
+	}
+	//스터디 삭제
+	@ResponseBody
+	@RequestMapping(value = "/management/study/delete/{st_num}", method = RequestMethod.POST)
+	public HashMap<String, Object> deleteStudy(@RequestBody StudyVO st) {
+	    HashMap<String, Object> map = new HashMap<String, Object>();
+	    
+	    // 해당 스터디를 삭제
+	    studyService.deleteStudy(st.getSt_num());
+	    return map;
+	}
+	
+	//스터디 상태 변경 1 -> 0
+	@ResponseBody
+	@RequestMapping(value = "/management/study/update/{st_num}", method = RequestMethod.POST)
+	public HashMap<String, Object> stateUpdateStudy(@RequestBody StudyVO st) {
+	    HashMap<String, Object> map = new HashMap<String, Object>();
+	    
+	    // 해당 스터디 상태를 1에서 0으로 변경
+	    studyService.stateUpdateStudy(st.getSt_num(),st.getSt_state());
+	    return map;
+	}
+	
+	//스터디 상태 변경 0 -> 1
+	@ResponseBody
+	@RequestMapping(value = "/management/study/update/undo/{st_num}", method = RequestMethod.POST)
+	public HashMap<String, Object> stateUpdateStudyUndo(@RequestBody StudyVO st) {
+	    HashMap<String, Object> map = new HashMap<String, Object>();
+	    
+	    // 해당 스터디 상태를 1에서 0으로 변경
+	    studyService.stateUpdateStudyUndo(st.getSt_num(),st.getSt_state());
+	    return map;
+	}
+	
+	
+       
 }
+
+
+	
+	

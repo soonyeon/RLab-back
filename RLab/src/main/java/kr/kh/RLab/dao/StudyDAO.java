@@ -43,8 +43,32 @@ public interface StudyDAO {
 	
 	String selectStudyMemberId(@Param("me_name")String me_name);
 
-	void deleteStudyMember(@Param("st_num")int st_num, @Param("me_name")String me_name);
+	int deleteStudyMember(@Param("st_num")int st_num, @Param("me_id")String me_id);
+
+	void updateStudyMemberAuthority(@Param("sm_st_num")int sm_st_num, @Param("sm_me_id")String sm_me_id);
+
+	String selectStudyLeaderId(@Param("sm_st_num")int sm_st_num);
+
+	void updateStudyLeaderAuthority(@Param("sm_st_num")int sm_st_num, @Param("leaderId")String leaderId);
+
+	void updateStudyLeader(@Param("sm_st_num")int sm_st_num, @Param("sm_me_id")String sm_me_id);
+
+	
+	void deleteStudyMemberList(@Param("st_num")int st_num);
+
+	void deleteGatherByStNum(@Param("st_num")int st_num);
+
+	void deleteTagRegisteStNum(@Param("st_num")int st_num);
     
-    
+	void deleteStudy(@Param("st_num")int st_num);
+
+	void stateUpdateStudy(@Param("st_num")int st_num, @Param("st_state")int st_state);
+
+	int selectStudyState(@Param("st_num")int st_num);
+
+	void stateUpdateStudyUndo(@Param("st_num")int st_num, @Param("st_state")int st_state);
+
+
+
 
 }
