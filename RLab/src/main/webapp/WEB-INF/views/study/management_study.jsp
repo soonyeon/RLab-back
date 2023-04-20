@@ -3,7 +3,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     
-
+<link rel="stylesheet" href="<c:url value='/resources/css/main.css'></c:url>">
 <link rel="stylesheet" href="<c:url value='/resources/css/study/study.css'></c:url>">
 <link rel="stylesheet" href="<c:url value='/resources/css/study/management_study.css'></c:url>">
 
@@ -25,8 +25,8 @@
 	    <div class="content_container">
 	        <!-- 탭 -->
 	        <div class="tab_container">
-	            <a href="<c:url value='/study/management/member/{st_num}'></c:url>" class="item_tab unselected tab1">회원 관리</a>
-	            <a href="<c:url value='/study/management/study/{st_num}'></c:url>" class="item_tab selected tab2">스터디 관리</a>
+	            <a href="<c:url value='/study/management/member/${st_num}'></c:url>" class="item_tab unselected tab1">회원 관리</a>
+	            <a href="<c:url value='/study/management/study/${st_num}'></c:url>" class="item_tab selected tab2">스터디 관리</a>
 	        </div>
 	
 	        <div class="my_study_container" id="my_container">
@@ -39,6 +39,7 @@
 	                    <div class="sb_title">
 	                        <h3>스터디 완료 전환</h3>
 	                        <i class="icon_info info_1"></i>
+	                        <%-- <img class="icon_info info_1"src="<c:url value="/resources/img/info.png"></c:url>"> --%>
 	                        <div class="info_modal info_finish display_none">
 	                            완료된 스터디로 전환 시 스터디 활동이 일부 제한되며, 자유게시판만 사용가능합니다. <br>
 	                            목표를 달성하거나 일정이 모두 완료된 경우에만 전환할 것을 권유드립니다.
@@ -55,6 +56,7 @@
 	                    <div class="sb_title">
 	                        <h3>스터디 영구 삭제</h3>
 	                        <i class="icon_info info_2"></i>
+	                        <%-- <img class="icon_info info_2"src="<c:url value="/resources/img/info.png"></c:url>"> --%>
 	                        <div class="info_modal info_delete display_none">
 	                            스터디 삭제 시 스터디에올라온 게시글, 인증내역, 일정, 회원정보 등
 	                            모든 정보가 함께 삭제되며 해당 스터디에 접근이 불가합니다.
