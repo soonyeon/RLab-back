@@ -464,6 +464,17 @@
 const st_num = '${st_num}';
 loadStudyMembers(st_num);
 
+const sse = new EventSource("<c:url value='/connect'></c:url>");
+sse.addEventListener('connect', (e) => {
+	const { data: receivedConnectData } = e;
+	console.log('connect event data: ',receivedConnectData);  // "connected!"
+	console.log(new Date())
+});
+sse.addEventListener('count', e => {  
+    const { data: receivedCount } = e;  
+    console.log("count event data",receivedCount);  
+});
+
 function loadStudyMembers(st_num) {
 	  $.ajax({
 	    url: '<c:url value="/study/onlineMembers"/>',
