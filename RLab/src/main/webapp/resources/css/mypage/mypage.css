@@ -305,6 +305,19 @@ article{
     font-weight: 600;
     cursor: pointer;
 }
+.pet_description #pet_getPrize_container{
+    width: 97%;
+    height: 35px;
+    background-color: var(--color_mint);
+    border: var(--border_basic);
+    border-radius: var(--border_radius_4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
 #pet_store_container:hover{
     background-color: #18d898;
 }

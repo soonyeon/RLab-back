@@ -177,7 +177,7 @@
 		                    <div class="pet_level">Lv. ${myPet.gr_level}</div>
 		                  </div>
 		                  	<c:if test="${petExp.gr_exp == petExp.ex_experience}">		                    
-				                <div id="pet_store_container">
+				                <div id="pet_getPrize_container">
 			                      <i class="icon_getPrize"></i>펫 보상받기
 			                    </div>
 			                </c:if>

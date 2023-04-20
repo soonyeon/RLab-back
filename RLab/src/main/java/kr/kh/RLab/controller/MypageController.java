@@ -61,9 +61,7 @@ public class MypageController {
 		GrowthVO myPet = mypageService.selectMyPet(userId);
 		
 		//펫exp가져오기
-		GrowthVO petExp = mypageService.selectPetExp(userId);
-		System.out.println(petExp);
-		
+		GrowthVO petExp = mypageService.selectPetExp(userId);		
 		
 		//System.out.println("mypoint" + myPoint);
 		mv.setViewName("/mypage/mypage");
