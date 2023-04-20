@@ -1,38 +1,72 @@
 package kr.kh.RLab.utils;
+
 import java.io.IOException;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.atomic.AtomicLong;
+import java.time.LocalDateTime;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.BiConsumer;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
-@Component  
-public class SseEmitters {  
 
-  private final List<SseEmitter> emitters = new CopyOnWriteArrayList<SseEmitter>();  
-  private static final AtomicLong counter = new AtomicLong();  
-  public SseEmitter add(SseEmitter emitter) {  
-      this.emitters.add(emitter);  
+@Component
+public class SseEmitters {
 
-      emitter.onCompletion(() -> {  
-          this.emitters.remove(emitter);    // 만료되면 리스트에서 삭제
-      });  
-      emitter.onTimeout(() -> {  
-          emitter.complete();  
-      });  
+    private final Map<String, UserSessionInfo> emitters = new ConcurrentHashMap<>();
 
-      return emitter;  
-  }  
-  public void count() {  
-    long count = emitters.size();  
-    emitters.forEach(emitter -> {  
-        try {  
-            emitter.send(SseEmitter.event()  
-                    .name("count")  
-                    .data(count));  
-        } catch (IOException e) {  
-            throw new RuntimeException(e);  
-        }  
-    });  
-}  
+    public void add(String id, SseEmitter emitter, LocalDateTime sessionExpiryTime) {
+        UserSessionInfo userSessionInfo = new UserSessionInfo(emitter, sessionExpiryTime);
+        this.emitters.put(id, userSessionInfo);
+
+        emitter.onCompletion(() -> {
+            this.emitters.remove(id);
+        });
+
+        emitter.onTimeout(() -> {
+            emitter.complete();
+        });
+    }
+
+    public void forEach(BiConsumer<? super String, ? super UserSessionInfo> action) {
+        emitters.forEach(action);
+    }
+
+    public boolean isUserConnected(String id) {
+        return emitters.containsKey(id);
+    }
+
+    public static class UserSessionInfo {
+        private final SseEmitter emitter;
+        private final LocalDateTime sessionExpiryTime;
+
+        public UserSessionInfo(SseEmitter emitter, LocalDateTime sessionExpiryTime) {
+            this.emitter = emitter;
+            this.sessionExpiryTime = sessionExpiryTime;
+        }
+
+        public SseEmitter getEmitter() {
+            return emitter;
+        }
+
+        public LocalDateTime getSessionExpiryTime() {
+            return sessionExpiryTime;
+        }
+
+        public LocalDateTime getLastActivity() {
+            return sessionExpiryTime;
+        }
+    }
+    
+    public void count() {
+        long count = emitters.size();
+        emitters.forEach((id, userSessionInfo) -> {
+            try {
+                userSessionInfo.getEmitter().send(SseEmitter.event()
+                        .name("count")
+                        .data(count));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
 }

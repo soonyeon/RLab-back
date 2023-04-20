@@ -157,7 +157,7 @@ public class StudyController {
 			mv.setViewName("/common/message");
 		}
 		mv.addObject("st_num", st_num);
-		mv.addObject("loginUserId", user.getMe_id());
+		mv.addObject("userId", user.getMe_name());
 		mv.setViewName("/study/study_basic");
 		return mv;
 	}
