@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kr.kh.RLab.dao.PetDAO;
 import kr.kh.RLab.vo.EvolutionVO;
+import kr.kh.RLab.vo.GrowthVO;
 import kr.kh.RLab.vo.PetVO;
 import lombok.RequiredArgsConstructor;
 
@@ -25,6 +26,21 @@ public class PetServiceImp implements PetService{
 	public  ArrayList<EvolutionVO> selectPetFile() {
 		return petDao.selectPetFile();
 	}
+
+	@Override
+	public int insertChoosePet(GrowthVO growth) {
+	    return petDao.insertChoosePet(growth);
+	}
+
+	@Override
+	public int deletePet(GrowthVO growth) {
+		return petDao.deletePet(growth);
+	}
+
+
+
+
+
 
 	
 

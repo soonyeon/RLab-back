@@ -21,6 +21,7 @@ import kr.kh.RLab.service.PetService;
 import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.EvolutionVO;
 import kr.kh.RLab.vo.GatherVO;
+import kr.kh.RLab.vo.GrowthVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.PetVO;
 import kr.kh.RLab.vo.StudyVO;
@@ -56,11 +57,16 @@ public class MypageController {
 		
 		//나의 스크랩 데이터 가져오기
 		ArrayList<BoardVO> myScrapList = mypageService.getMainScrapList(userId);
-
+		
+		//나의 펫 데려오기
+		GrowthVO myPet = mypageService.selectMyPet(userId);
+		
+		//System.out.println("mypoint" + myPoint);
 		mv.setViewName("/mypage/mypage");
+		mv.addObject("myPet",myPet);
+		mv.addObject("myPoint", myPoint);
 		mv.addObject("myScrapList", myScrapList);
 		mv.addObject("myStudyList", myStudyList);
-		mv.addObject("myPoint",myPoint);
 		mv.addObject("petList",petList);
 		mv.addObject("petFile",petFile);
 		return mv;

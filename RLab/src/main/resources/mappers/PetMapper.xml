@@ -3,12 +3,27 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace = "kr.kh.RLab.dao.PetDAO">
+
+<!-- 펫상점에 보여지는 펫 정보 -->
 <select id="selectPetList" resultType="kr.kh.RLab.vo.PetVO">
 	select * from pet
 </select>
+<!-- 펫상점에 보여지는 펫 사진 -->
 <select id="selectPetFile" resultType="kr.kh.RLab.vo.EvolutionVO">
-select *
-from evolution
-where ev_level = (select max(ev_level) from evolution as e where e.ev_pe_num = evolution.ev_pe_num);
+	select *
+	from evolution
+	where ev_level = (select max(ev_level) from evolution as e where e.ev_pe_num = evolution.ev_pe_num);
 </select>
+<!-- 펫 데려오기 -->
+<insert id="insertChoosePet">
+	insert into growth(gr_me_id,gr_pe_num,gr_level,gr_exp,gr_ev_num)
+	values (#{gr_me_id},#{gr_pe_num},1,0, (select ev_num from evolution where ev_pe_num=#{gr_pe_num} and ev_level=1))
+</insert>
+<!-- 펫 돌려보내기 -->
+<delete id="deletePet">
+delete from growth
+where gr_me_id = #{gr_me_id}
+</delete>
+
+
 </mapper>

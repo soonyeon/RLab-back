@@ -22,10 +22,12 @@
         <div class="pet_store_content">
           <div class="popup_title">
             <i class="icon_store"></i> 펫 스토어
+            <button class="btn_return">펫 돌려보내기</button>
           </div>
           <div class="pets_container">
           	<c:forEach	items="${petList}" var="pl">
 	            <div class="pet_box">
+				<input type="hidden" value="${pl.pe_num}" class="petnum">
 	            <c:if test="${files.size() != 0}">
 		            <c:forEach items="${petFile}" var="pf">
 		            	  <c:if test="${pf.ev_level == pl.pe_final_level}">
@@ -142,26 +144,44 @@
 
               </div>
               <!-- pet_container -->
-              <div class="article_box pet_container">
-                <div class="pet_window">
-                  <img src="" alt="" class="pet_talk" />
-                  <img src="" alt="펫" class="pet" />
-                </div>
-                <div class="pet_description">
-                  <div class="pet_info_container">
-                    <div class="this_pet">
-                      <h2 class="pet_name">꼬마돌</h2>
-                      <div class="pet_reward">
-                        ㄴ보상 : 적립금 두 배 <i class="icon_reward"></i>
-                      </div>
-                    </div>
-                    <div class="pet_level">Lv. 20</div>
-                  </div>
-                    <div id="pet_store_container">
-                      <i class="icon_store"></i> 펫 스토어
-                    </div>
-                </div>
-              </div>
+	              <div class="article_box pet_container">
+	             	 <c:if test="${myPet == null }">
+		                <div class="pet_window">
+		                  <img src="" alt="" class="pet_talk" />
+		                  <img src="" alt="펫" class="pet" />
+		                </div>
+		                <div class="pet_description">
+		                  <div class="pet_info_container">
+		 					<span class="txt_new_pet">
+		 						★펫스토어 에서 펫을<br>데려와보세요★
+		 					</span>
+		                  </div>
+		                    <div id="pet_store_container">
+		                      <i class="icon_store"></i> 펫 스토어
+		                    </div>
+		                </div>
+		              </c:if>
+		              <c:if test="${myPet != null }">
+		                <div class="pet_window">
+		                  <img src="" alt="" class="pet_talk" />
+		                  <img src="<c:url value="/download/${myPet.ev_img}"></c:url>" alt="펫" class="pet" />
+		                </div>
+		                <div class="pet_description">
+		                  <div class="pet_info_container">
+		                    <div class="this_pet">
+		                      <h2 class="pet_name">${myPet.pe_name}</h2>
+		                      <div class="pet_reward">
+		                        ㄴ보상 : ${myPet.pe_prize} <i class="icon_reward"></i>
+		                      </div>
+		                    </div>
+		                    <div class="pet_level">Lv. ${myPet.gr_level}</div>
+		                  </div>
+		                    <div id="pet_store_container">
+		                      <i class="icon_store"></i> 펫 스토어
+		                    </div>
+		                </div>
+		              </c:if>
+	              </div>
               <!-- book_container(나의 예약) -->
               <div class="article_box book_container">
                 <div class="title_container">
@@ -283,17 +303,109 @@
 
     </div>
     <script>
+    const userId = '${user.me_id}';
+    let pe_num = '${pl.pe_num}';
+    let hadPet = '${myPet}';
+    
 	 // pet_store 모달 열기
 	    $(document).on('click', '#pet_store_container', function(e){
 	    	console.log('click');
 	    	$('.pet_store_popup_container').css('display','flex');
-	    })
+	    });
 	
 	    // pet_store 모달 닫기
 	    $(document).on('click', '.btn_remove', function(e){
 	    	console.log('click');
 	    	$('.pet_store_popup_container').css('display','none');
-	    })
+	    });
+	    
+	$(document).ready(function() {    
+		$('.btn_bring').on('click', function() {
+			choosePet($(this));
+		});
+		function choosePet(el){
+			let gr_pe_num = el.parents('.pet_box').find('.petnum').val();
+			let ev_num = el.parents('.pet_box').find('.pet_img').data('ev_num');
+			
+		   if (hadPet.length > 0) {
+		        alert('새로운 펫을 데려오려면 펫 돌려보내기를 하세요.');
+		        return;
+		    }
+			
+			let obj = {
+			    gr_me_id: userId,
+			    gr_pe_num: gr_pe_num,
+			    gr_ev_num: ev_num
+			};
+		 	
+			$.ajax({
+			    async: true,
+			    type: 'POST',
+			    data: JSON.stringify(obj),
+			    url: '<c:url value="/choosePet" />',
+			    dataType: 'json',
+			    contentType: 'application/json; charset=UTF-8',
+			    success: function(data) {
+			    	alert('펫 데려오기에 성공하였습니다.');
+			    	location.reload();		
+			      },
+			      error: function(error) {
+			    	  console.log(error)
+			        alert('펫 데려오기에 실패하였습니다. 다시 시도해주세요');
+			      }
+			    
+			});
+		}
+	});
+    
+	
+	$(document).ready(function() {    
+		$('.btn_return').on('click', function() {
+			deletePet($(this));
+		});
+		function deletePet(el){
+			let gr_pe_num = el.parents('.pet_box').find('.petnum').val();
+			let ev_num = el.parents('.pet_box').find('.pet_img').data('ev_num');
+			
+			
+			if(hadPet.length == 0){
+				alert('돌려보낼 펫이 없습니다. 펫을 데려와주세요.');
+				return
+			}
+			
+			if (hadPet.length > 0) {
+			    let confirmMsg = '펫을 돌려보내면 펫은 완전히 사라집니다. 그래도 돌려보내시겠습니까?';
+			    if (!confirm(confirmMsg)) {
+			      return;
+			    }
+			  }
+					
+			let obj = {
+			    gr_me_id: userId,
+			    gr_pe_num: gr_pe_num,
+			    gr_ev_num: ev_num
+			};
+		 	
+			$.ajax({
+			    async: true,
+			    type: 'POST',
+			    data: JSON.stringify(obj),
+			    url: '<c:url value="/deletePet" />',
+			    dataType: 'json',
+			    contentType: 'application/json; charset=UTF-8',
+			    success: function(data) {
+			    	alert('펫 돌려보내기에 성공하였습니다.');
+			    	location.reload();		
+			      },
+			      error: function(error) {
+			    	  console.log(error)
+			        alert('펫 돌려보내기에 실패하였습니다. 다시 시도해주세요');
+			      }
+			    
+			});
+		}
+	});
+	
     </script>
 </body>
 </html>

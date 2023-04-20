@@ -12,6 +12,7 @@ import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.pagination.GatherCriteria;
 import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.GatherVO;
+import kr.kh.RLab.vo.GrowthVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.StudyVO;
 import kr.kh.RLab.vo.TagRegisterVO;
@@ -171,6 +172,12 @@ public class MypageServiceImp implements MypageService {
 		public ArrayList<Integer> selectWantListById(String memberId) {
 			ArrayList<Integer> wantList = mypageDao.selectWantListById(memberId);
 			return wantList;
+		}
+
+		//내 펫 정보 가져오기
+		@Override
+		public GrowthVO selectMyPet(String memberId) {
+			return mypageDao.selectMyPet(memberId);
 		}
 
 

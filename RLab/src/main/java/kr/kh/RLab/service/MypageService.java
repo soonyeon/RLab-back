@@ -6,6 +6,7 @@ import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.pagination.GatherCriteria;
 import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.GatherVO;
+import kr.kh.RLab.vo.GrowthVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.StudyVO;
 import kr.kh.RLab.vo.TagRegisterVO;
@@ -61,6 +62,10 @@ public interface MypageService {
 		
 		// 내가 쓴 모집글의 찜 여부 가져오기
 		ArrayList<Integer> selectWantListById(String memberId);
+
+		
+	//[마이페이지 > 펫 불러오기]	
+		GrowthVO selectMyPet(String memberId);
 
 
 
