@@ -53,34 +53,7 @@
 			                            	<td class="post_title">
 		                                        <div class="profile_box">
 		                                            <div class="img_box">
-		                                            
-		                                         
-								  		    			
-								  		    			
-		                                                	<%-- <div class="profile_img"></div> --%>
-		                                               
-		                                               
-		                                               
-		                                               
-								
-														<c:if test="${sm.me_profile == null}">
-															<i class="profile_img"><img src="<c:url value='/resources/img/user.png'></c:url>" width="auto" height="40"></i>
-															<%-- <i class="profile_img"><img src="<c:url value='/resources/img/user.png'></c:url>" width="auto" height="51"></i> --%>
-														</c:if>
-														
-														<c:if test="${sm.me_profile != null}">
-															<i class="profile_img"><img src="<c:url value='/download/study/${sm.me_profile}'></c:url>" width="auto" height="51"></i>
-														</c:if>
-							
-												                                               
-		                                               
-		                                               
-		                                               
-		                                               
-		                                               
-		                                               
-		                                               
-		                                               
+		                                                <div><img class="profile_img" src="<c:url value='/download${sm.me_profile}'></c:url>">${sm.me_profile}</div>
 		                                            </div>
 		                                            <span name="me_name" class="">${sm.me_name}</span>
 		                                        </div>
