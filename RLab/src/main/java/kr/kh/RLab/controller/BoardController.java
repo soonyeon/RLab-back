@@ -1,8 +1,6 @@
 package kr.kh.RLab.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -25,7 +23,7 @@ import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.ScrapVO;
 import kr.kh.RLab.vo.StudyVO;
 import lombok.RequiredArgsConstructor;
-
+import lombok.extern.slf4j.Slf4j;
 
 @RequiredArgsConstructor
 @Controller
