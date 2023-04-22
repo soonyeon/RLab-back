@@ -1,8 +1,6 @@
 package kr.kh.RLab.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -47,14 +46,13 @@ public class BoardController {
 	    return mv;
 	}
 	@PostMapping("/insert")
-	public ModelAndView boardInsertPost(ModelAndView mv,BoardVO board,HttpSession session,
-			@PathVariable int st_num) {
-		MemberVO user = (MemberVO) session.getAttribute("user");
-		boolean res = boardService.insertBoard(board, user);
-		mv.setViewName("redirect:/board/list/"+st_num);
-		return mv;
+	public ModelAndView boardInsertPost(ModelAndView mv, BoardVO board, HttpSession session,
+	        @RequestParam int bo_st_num) {
+	    MemberVO user = (MemberVO) session.getAttribute("user");
+	    boolean res = boardService.insertBoard(board, user);
+	    mv.setViewName("redirect:/board/list/" + bo_st_num);
+	    return mv;
 	}
-	
 	@GetMapping("/list/{st_num}")
 	public ModelAndView boardList(ModelAndView mv,Criteria cri, @PathVariable int st_num) {
 		cri.setPerPageNum(10); // 한 페이지당 컨텐츠 갯수
