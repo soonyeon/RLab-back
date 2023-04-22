@@ -175,39 +175,65 @@
 		</div>
 </main>
 <script>	
+$('#switch1').change(function(){
+	if(${pm.cri.filter != 'on'}){
+		location.replace('<c:url value="/gather/list?filter=on"></c:url>');
+	}else{
+		location.replace('<c:url value="/gather/list?filter=off"></c:url>');	
+	}
+})
+//지역검색
+$(document).ready(function(){
+  $('.sel_region a').click(function(e){
+    //e.preventDefault(); // 기본 동작 중지
+    $('.sel_region .selected').removeClass('selected');
+    $(this).addClass('selected');
+  });
+});
 
-	$('#switch1').change(function(){
-		if(${pm.cri.filter != 'on'}){
-			location.replace('<c:url value="/gather/list?filter=on"></c:url>');
-		}else{
-			location.replace('<c:url value="/gather/list?filter=off"></c:url>');	
-		}
+//태그 삭제
+$(document).on('click', '.delete_tag', function(e){
+	e.preventDefault();
+	var tag = $(this).prev().text()
+	console.log(tag)
+	$('.list_tag').each(function(){
+		console.log($(this).val()==tag)
+		if($(this).val()==tag)
+			$(this).remove();
 	})
-	//지역검색
-	$(document).ready(function(){
-	  $('.sel_region a').click(function(e){
-	    //e.preventDefault(); // 기본 동작 중지
-	    $('.sel_region .selected').removeClass('selected');
-	    $(this).addClass('selected');
-	  });
-	});
-	
-	//태그 삭제
-	$(document).on('click', '.delete_tag', function(e){
-		e.preventDefault();
-		var tag = $(this).prev().text()
-		console.log(tag)
-		$('.list_tag').each(function(){
-			console.log($(this).val()==tag)
-			if($(this).val()==tag)
-				$(this).remove();
+  $(this).parent().remove();
+  $('#gather_form').submit();
+});
+//a태그 새로고침 막아주는 스크립트
+$(document).on('click', '.sel_hashTag', function(e){
+	e.preventDefault();
+});
+
+
+//실시간 태그 검색
+var search_var;
+$(document).ready(function(){
+	$('.search_tag').on("propertychange change paste input", function() {
+		let search = $('.search_tag').val();
+		let obj = {
+				'ta_name' : search
+			}
+		$.ajax({
+			async: false,
+	        url: '<c:url value="/gather/search" />',
+	        type: 'POST',
+	        data: JSON.stringify(obj),
+	        contentType: 'application/json',
+	        dataType: 'json',
+	        success: function(data) {
+	        	search_var = data.dataList;
+				console.log(search_var);
+	        	//리턴값 받아서 그걸로 태그리스트 출력하면 됨..
+	        },
+	        error: function( request, status, error ){
+	            console.log("status : " + request.status + ", message : " + request.responseText + ", error : " + error);
+	           }
 		})
-	  $(this).parent().remove();
-	  $('#gather_form').submit();
-	});
-	//a태그 새로고침 막아주는 스크립트
-	$(document).on('click', '.sel_hashTag', function(e){
-		e.preventDefault();
-	});
-	
+	})
+})
 </script>
