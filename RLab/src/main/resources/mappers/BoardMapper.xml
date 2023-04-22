@@ -15,10 +15,11 @@
 		LEFT JOIN study AS st ON b.bo_st_num = st.st_num
 		LEFT JOIN member AS me ON b.bo_me_id = me.me_id
 		LEFT JOIN scrap s ON b.bo_num = s.sc_bo_num AND s.sc_state = 1
+		WHERE b.bo_st_num = #{st_num}
 		GROUP BY b.bo_num
 		ORDER BY b.bo_num DESC
-		LIMIT #{perPageNum}
-		OFFSET #{pageStart}
+		LIMIT #{cri.perPageNum}
+		OFFSET #{cri.pageStart}
 	</select>
 	
 	<select id="getBoard" resultType="kr.kh.RLab.vo.BoardVO">

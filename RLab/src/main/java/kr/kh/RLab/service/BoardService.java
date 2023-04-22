@@ -13,7 +13,7 @@ public interface BoardService {
 	boolean insertBoard(BoardVO board, MemberVO member);
 	
     //게시글 리스트
-	ArrayList<BoardVO> selectBoardList(Criteria cri);
+	ArrayList<BoardVO> selectBoardList(Criteria cri, int st_num);
 	
 	//게시글 상세조회
 	BoardVO getBoard(int bo_num);
@@ -31,5 +31,7 @@ public interface BoardService {
 	ArrayList<StudyVO> selectStudyList();
 
 	BoardVO getBoardByComment(int co_num);
+
+	
 	
 }
