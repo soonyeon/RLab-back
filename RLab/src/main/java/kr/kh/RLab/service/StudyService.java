@@ -52,6 +52,9 @@ public interface StudyService {
 
 	ArrayList<TodoVO> getTodoList(String memberId);
 
+	void createTodo(String td_content, String td_me_id);
+
+
 	
 	
 

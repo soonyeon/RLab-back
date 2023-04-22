@@ -43,13 +43,21 @@
 		                        	<input type="text" class="input_box" placeholder="할 일을 입력하세요">
 	                            </div>
 	                            	
-		                            <ul class="todo_list">
+		                            <ul class="todo_list" id="todo_list">
 		                                <c:forEach items="${tdList}" var="td" varStatus="vs" >
 		                                <li>
-		                                    <span class="todo_check">
-		                                        <i class="material-icons check">check</i>
-		                                    </span>
-		                                    <span class="todo_content">${td.td_content}</span>
+		                                	<c:if test="${td.td_finish == 0}">
+			                                    <span class="todo_check">
+			                                        <i class="material-icons check check_on">check</i>
+			                                    </span>
+		                                    	<span class="todo_content">${td.td_content}</span>
+		                                    </c:if>
+		                                    <c:if test="${td.td_finish == 1}">
+			                                    <span class="todo_check">
+			                                        <i class="material-icons check check_off">check</i>
+			                                    </span>
+		                                    	<span class="todo_content done">${td.td_content}</span>
+		                                    </c:if>
 		                                    <span class="todo_clear">
 		                                        <i class="material-icons clear">clear</i>
 		                                    </span>
@@ -92,7 +100,7 @@
 	                                <ul class="todo_list">
 	                                    <li>
 	                                        <span class="todo_check">
-	                                            <i class="material-icons check">check</i>
+	                                            <i class="material-icons check_on">check</i>
 	                                        </span>
 	                                        <span class="todo_content">바둑대회</span>
 	                                        <span class="todo_clear">
@@ -101,7 +109,7 @@
 	                                    </li>
 	                                    <li>
 	                                        <span class="todo_check">
-	                                            <i class="material-icons check">check</i>
+	                                            <i class="material-icons check_on">check</i>
 	                                        </span>
 	                                        <span class="todo_content">김밥먹기</span>
 	                                        <span class="todo_clear">
@@ -110,7 +118,7 @@
 	                                    </li>
 	                                    <li>
 	                                        <span class="todo_check">
-	                                            <i class="material-icons check">check</i>
+	                                            <i class="material-icons check_on">check</i>
 	                                        </span>
 	                                        <span class="todo_content">바둑대회</span>
 	                                        <span class="todo_clear">
@@ -119,7 +127,7 @@
 	                                    </li>
 	                                    <li>
 	                                        <span class="todo_check">
-	                                            <i class="material-icons check">check</i>
+	                                            <i class="material-icons check_on">check</i>
 	                                        </span>
 	                                        <span class="todo_content">김밥먹기</span>
 	                                        <span class="todo_clear">
@@ -128,7 +136,7 @@
 	                                    </li>
 	                                    <li>
 	                                        <span class="todo_check">
-	                                            <i class="material-icons check">check</i>
+	                                            <i class="material-icons check_on">check</i>
 	                                        </span>
 	                                        <span class="todo_content">바둑대회</span>
 	                                        <span class="todo_clear">
@@ -137,7 +145,7 @@
 	                                    </li>
 	                                    <li>
 	                                        <span class="todo_check">
-	                                            <i class="material-icons check">check</i>
+	                                            <i class="material-icons check_on">check</i>
 	                                        </span>
 	                                        <span class="todo_content">김밥먹기</span>
 	                                        <span class="todo_clear">
@@ -146,7 +154,7 @@
 	                                    </li>
 	                                    <li>
 	                                        <span class="todo_check">
-	                                            <i class="material-icons check">check</i>
+	                                            <i class="material-icons check_on">check</i>
 	                                        </span>
 	                                        <span class="todo_content">바둑대회</span>
 	                                        <span class="todo_clear">
@@ -155,7 +163,7 @@
 	                                    </li>
 	                                    <li>
 	                                        <span class="todo_check">
-	                                            <i class="material-icons check">check</i>
+	                                            <i class="material-icons check_on">check</i>
 	                                        </span>
 	                                        <span class="todo_content">김밥먹기</span>
 	                                        <span class="todo_clear">
@@ -179,7 +187,7 @@
 	                            <ul class="todo_list">
 	                                <li>
 	                                    <span class="todo_check">
-	                                        <i class="material-icons check">check</i>
+	                                        <i class="material-icons check_on">check</i>
 	                                    </span>
 	                                    <span class="todo_content">일기예보</span>
 	                                    <span class="todo_clear">
@@ -188,7 +196,7 @@
 	                                </li>
 	                                <li>
 	                                    <span class="todo_check">
-	                                        <i class="material-icons check">check</i>
+	                                        <i class="material-icons check_on">check</i>
 	                                    </span>
 	                                    <span class="todo_content">쇼핑</span>
 	                                    <span class="todo_clear">
@@ -210,7 +218,7 @@
 	                            <ul class="todo_list">
 	                                <li>
 	                                    <span class="todo_check">
-	                                        <i class="material-icons check">check</i>
+	                                        <i class="material-icons check_on">check</i>
 	                                    </span>
 	                                    <span class="todo_content">할일</span>
 	                                    <span class="todo_clear">
@@ -219,7 +227,7 @@
 	                                </li>
 	                                <li>
 	                                    <span class="todo_check">
-	                                        <i class="material-icons check">check</i>
+	                                        <i class="material-icons check_on">check</i>
 	                                    </span>
 	                                    <span class="todo_content">할일</span>
 	                                    <span class="todo_clear">
@@ -241,7 +249,7 @@
 	                            <ul class="todo_list">
 	                                <li>
 	                                    <span class="todo_check">
-	                                        <i class="material-icons check">check</i>
+	                                        <i class="material-icons check_on">check</i>
 	                                    </span>
 	                                    <span class="todo_content">할일</span>
 	                                    <span class="todo_clear">
@@ -250,7 +258,7 @@
 	                                </li>
 	                                <li>
 	                                    <span class="todo_check">
-	                                        <i class="material-icons check">check</i>
+	                                        <i class="material-icons check_on">check</i>
 	                                    </span>
 	                                    <span class="todo_content">할일</span>
 	                                    <span class="todo_clear">
@@ -272,7 +280,7 @@
 	                            <ul class="todo_list">
 	                                <li>
 	                                    <span class="todo_check">
-	                                        <i class="material-icons check">check</i>
+	                                        <i class="material-icons check_on">check</i>
 	                                    </span>
 	                                    <span class="todo_content">할일</span>
 	                                    <span class="todo_clear">
@@ -281,7 +289,7 @@
 	                                </li>
 	                                <li>
 	                                    <span class="todo_check">
-	                                        <i class="material-icons check">check</i>
+	                                        <i class="material-icons check_on">check</i>
 	                                    </span>
 	                                    <span class="todo_content">할일</span>
 	                                    <span class="todo_clear">
@@ -303,7 +311,7 @@
 	                            <ul class="todo_list">
 	                                <li>
 	                                    <span class="todo_check">
-	                                        <i class="material-icons check">check</i>
+	                                        <i class="material-icons check_on">check</i>
 	                                    </span>
 	                                    <span class="todo_content">할일</span>
 	                                    <span class="todo_clear">
@@ -312,7 +320,7 @@
 	                                </li>
 	                                <li>
 	                                    <span class="todo_check">
-	                                        <i class="material-icons check">check</i>
+	                                        <i class="material-icons check_on">check</i>
 	                                    </span>
 	                                    <span class="todo_content">할일</span>
 	                                    <span class="todo_clear">
@@ -443,35 +451,91 @@
 
 <script>
 
-const todoInput = document.querySelector(".input_box");
-const todoList = document.querySelector(".todo_list");
+/* $(".check").on("click", function() {
+	let obj = {
+			td_num: ${td_num}
+	}
+  confirmAction("완료된 스터디로 전환 시 스터디 활동이 일부 제한되며, 자유게시판만 사용가능합니다. 목표를 달성하거나 일정이 모두 완료된 경우에만 전환할 것을 권유드립니다. 정말 완료하시겠습니까?", function() {
+		$.ajax({	
+			async:false,
+		    type:'POST',
+		    data:JSON.stringify(obj),
+		    url:"<c:url value='/study/management/study/update/{st_num}'></c:url>",
+		    //서버에서 받는 데이터 타입
+		    dataType:"json",
+		    //서버에서 보내는 데이터 타입
+		    contentType:"application/json; charset=UTF-8",
+		    success : function(data){
+		        console.log(data);
+		        
+		    	location.replace("<c:url value='/study/management'></c:url>");	  
+		  	  alert("스터디가 완료처리 되었습니다.")
+		    }
+		});
+	});
+});
+ */
 
+
+
+
+
+
+
+
+
+ //DOM 요소 가져오기
+const todoInput = document.querySelector(".input_box"); // 할 일 입력란
+const todoList = document.querySelector(".todo_list"); // 할 일 목록
+const todo = todoInput.value;
+// 할 일 입력란에서 Enter 키를 눌렀을 때의 이벤트 핸들러
 todoInput.addEventListener("keypress", (e) => {
-    if (e.keyCode === 13 && todoInput.value !== '') {
-        generateTodo(todoInput.value);
-        todoInput.value = "";
+	
+    if (e.keyCode === 13 && todoInput.value !== '') { // Enter 키를 눌렀고, 입력란이 비어있지 않은 경우
+    	generateTodo(todoInput.value); // 입력된 할 일을 추가하는 함수 호출
+        todoInput.value = ""; // 입력란 비우기
+    
+       
     }
+    console.log(1); 
+	
 });
 
+// 할 일을 생성하고 서버에 전송하는 함수
+
 const generateTodo = (todo) => {
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", "<c:url value='/study/todo'></c:url>", true);
-    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-                // 서버에서 전달한 응답에 대한 처리
-                console.log(xhr.responseText);
-            } else {
-                console.error("Error: " + xhr.statusText);
-            }
-        }
-    };
-    const data = JSON.stringify({ todo: todo });
-    xhr.send(data);
+    const obj = {
+    		td_content : todo,
+    		td_me_id : '${user.me_id}'
+    }
+    
+    // 컨트롤러에서 보내주는 값을 확인
+    
+    
+    console.log(obj); //obj에 입력한 값이 제대로 전송되는지 확인
+    
+
+ 	  $.ajax({
+			async:false,
+		    type:'POST',
+		    data:JSON.stringify(obj),
+		    url:"<c:url value='/study/todo/create'></c:url>",
+		    //서버에서 받는 데이터 타입
+		    dataType:"json",
+		    //서버에서 보내는 데이터 타입
+		    contentType:"application/json; charset=UTF-8",
+		    success : function(data){
+		        $('#todo_list').load("<c:url value='/study/todo'></c:url> #todo_list");
+		    }
+		});  
+    
+}  
+    
+    
+/*     const data = JSON.stringify({ todo: todo }); // 요청 데이터를 JSON 형식으로 변환
+    xhr.send(data); // 서버에 요청 데이터 전송 
 } 
-    
-    
+		*/
     
     
     

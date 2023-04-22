@@ -71,6 +71,8 @@ public interface StudyDAO {
 
 	ArrayList<TodoVO> selectTodoList(@Param("memberId")String memberId);
 
+	void insertTodo(@Param("td_content")String td_content,@Param("td_me_id")String td_me_id );
+
 
 
 

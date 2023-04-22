@@ -172,6 +172,15 @@ public class StudyServiceImp implements StudyService {
 		
 		return studyDao.selectTodoList(memberId);
 	}
+
+	@Override
+	public void createTodo(String td_content, String td_me_id) {
+		studyDao.insertTodo(td_content,td_me_id);
+		
+	}
+
+		
+	
 	
 	
 	

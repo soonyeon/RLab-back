@@ -157,7 +157,7 @@ public class StudyController {
 		
 		//유저에 해당하는 투두리스트를 불러온다
 		ArrayList<TodoVO> tdList = studyService.getTodoList(user.getMe_id());
-		System.out.println(tdList+"____");
+//		System.out.println(tdList+"____");
 		
 		mv.addObject("tdList",tdList);
 		mv.addObject("st_num", st_num);
@@ -255,7 +255,7 @@ public class StudyController {
 	@RequestMapping(value = "/management/study/delete/{st_num}", method = RequestMethod.POST)
 	public HashMap<String, Object> deleteStudy(@RequestBody StudyVO st) {
 	    HashMap<String, Object> map = new HashMap<String, Object>();
-	    
+	    System.out.println(map);
 	    // 해당 스터디를 삭제
 	    studyService.deleteStudy(st.getSt_num());
 	    return map;
@@ -283,47 +283,87 @@ public class StudyController {
 	    return map;
 	}
 	
+	
+	//투두리스트 가져오기
 	@ResponseBody
 	@RequestMapping(value = "/todo", method = RequestMethod.GET)
 	public ModelAndView todoList(ModelAndView mv, HttpSession session, MemberVO member) {
 	    // 세션에서 "user" 속성을 검색하고 MemberVO 객체로 캐스팅
 	    MemberVO user = (MemberVO) session.getAttribute("user");
-	    
 	    String memberId = user.getMe_id();	
 //	    System.out.println(memberId);
-	    
 		//유저에 해당하는 투두리스트를 불러온다
 		ArrayList<TodoVO> tdList = studyService.getTodoList(memberId);
 //		System.out.println(tdList);
-	    
-	    
 	    mv.addObject("tdList",tdList);
-	    mv.addObject("user", user);
+	    mv.addObject("user", user); //jsp에서 사용하는값, 컨트롤러에서 정의된값
 		mv.setViewName("/study/to_do_list");
 		return mv;
 	}
+	
+	//투두 인풋 입력값 가져오기
+	@ResponseBody
+    @PostMapping("/todo/create") // POST 요청 처리를 위한 매핑 경로 설정
+    public HashMap<String, Object> insertTodo(ModelAndView mv, @RequestBody TodoVO td) {
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        System.out.println(td);
+        studyService.createTodo(td.getTd_content(),td.getTd_me_id());
+        
+//        // 처리 결과를 map에 담아 반환
+        return map;
+    }
 
-    // 투두 업데이트
+
+	
+	
+	
+
+//    // 투두 인풋 입력값 가져오기
 //	@ResponseBody
-//	@RequestMapping(value = "/todo/update", method = RequestMethod.POST)
-//	public HashMap<String, Object> updateTodo(@RequestBody TodoVO td) {
+//	@RequestMapping(value = "/todo/create", method = RequestMethod.POST)
+//	public HashMap<String,Object> insertTodo(@RequestBody TodoVO td) {
+//		HashMap<String,Object> map = new HashMap<String,Object>();
+//	    // 멤버를 삭제하고, 새로운 멤버 리스트를 가져옴
+////	    studyService.insertTodo(st.getSm_st_num(),sm.getMe_name());
+//		studyService.createTodo(td.getTd_content());
+//	    return map;
+//	}
+//	
+//	//투두 상태 변경 1 -> 0
+//	@ResponseBody
+//	@RequestMapping(value = "/todo/finish", method = RequestMethod.POST)
+//	public HashMap<String, Object> finishTodo(@RequestBody TodoVO td) {
 //	    HashMap<String, Object> map = new HashMap<String, Object>();
 //	    
 //	    // 해당 스터디 상태를 1에서 0으로 변경
-//	    studyService.updateTodo(td.getTd_content());
+//	    studyService.finishTodo(td.getTd_num(),td.getTd_finish());
 //	    return map;
 //	}
-	
-    // 투두 삭제
+//	
+//	//투두 상태 변경 0 -> 1
+//	@ResponseBody
+//	@RequestMapping(value = "/todo/finish/undo", method = RequestMethod.POST)
+//	public HashMap<String, Object> finishTodoUndo(@RequestBody TodoVO td) {
+//	    HashMap<String, Object> map = new HashMap<String, Object>();
+//	    
+//	    // 해당 스터디 상태를 1에서 0으로 변경
+//	    studyService.finishTodoUndo(td.getTd_num(),td.getTd_finish());
+//	    return map;
+//	}
+//	
+////		
+//	//투두 삭제
 //	@ResponseBody
 //	@RequestMapping(value = "/todo/delete", method = RequestMethod.POST)
 //	public HashMap<String, Object> deleteTodo(@RequestBody TodoVO td) {
 //	    HashMap<String, Object> map = new HashMap<String, Object>();
 //	    
 //	    // 해당 스터디를 삭제
-//	    studyService.deleteTodo(td.getTd_content());
+//	    studyService.deleteTodo(st.getSt_num());
 //	    return map;
 //	}
+	
+
 	
        
 }

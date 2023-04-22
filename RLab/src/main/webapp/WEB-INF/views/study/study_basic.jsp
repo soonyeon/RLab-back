@@ -236,20 +236,27 @@
 	                        <div class="input_container">
 	                            <input type="text"class="input_box" placeholder="할 일을 입력하세요">
 	                        </div>
-		                       <ul class="todo_list">
-	                        	 <c:forEach items="${tdList}" var="td" varStatus="vs" >
-		                            <li>
-		                                <span class="todo_check">
-		                                    <i class="material-icons check">check</i>
-		                                </span>
-		                                <%-- <span class="todo_content">${td.td_content }</span> --%>
-		                                <span class="todo_content">${td.td_content}</span>
-		                                <span class="todo_clear">
-		                                    <i class="material-icons clear">clear</i>
-		                                </span>
-		                            </li> 
-		                          </c:forEach>
-		                      </ul>  
+		                    <ul class="todo_list">
+		                       	<c:forEach items="${tdList}" var="td" varStatus="vs" >
+									<li>
+				                        <c:if test="${td.td_finish == 0}">
+					                        <span class="todo_check">
+					                        	<i class="material-icons check check_on">check</i>
+					                        </span>
+					                        <span class="todo_content">${td.td_content}</span>
+				                        </c:if>
+				                        <c:if test="${td.td_finish == 1}">
+					                        <span class="todo_check">
+					                        	<i class="material-icons check check_off">check</i>
+					                        </span>
+					                        <span class="todo_content done">${td.td_content}</span>
+				                        </c:if>
+				                        <span class="todo_clear">
+				                        	<i class="material-icons clear">clear</i>
+				                        </span>
+			                        </li>
+		                        </c:forEach>
+		                    </ul>  
 						
 	                        <!-- 달성률 -->
 	                        <div>

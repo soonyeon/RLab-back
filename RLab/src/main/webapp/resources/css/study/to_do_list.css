@@ -20,11 +20,10 @@
 .todo_box_member_content{
   border: 3px solid black;
 }
-.todo_container_my .check,
-.todo_container_member .check{
-  color: rgb(8, 208, 125)
+ .todo_container_my .check_on, 
+.todo_container_member .check_on{
+  color: rgb(8, 208, 125);
 }
-
 
 /* todo_container_my */
 .todo_container_my .todo_box{
