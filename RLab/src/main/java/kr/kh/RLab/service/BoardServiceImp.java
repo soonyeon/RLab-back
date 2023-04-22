@@ -70,4 +70,11 @@ public class BoardServiceImp implements BoardService {
 		return boardDao.selectStudyList();
 	}
 
+	@Override
+	public BoardVO getBoardByComment(int co_num) {
+		if(co_num == 0)
+			return null;
+		return boardDao.getBoardByComment(co_num);
+	}
+
 }

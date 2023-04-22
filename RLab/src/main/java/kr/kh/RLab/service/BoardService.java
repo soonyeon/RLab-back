@@ -29,5 +29,7 @@ public interface BoardService {
 	
 	//스터디 가져오기
 	ArrayList<StudyVO> selectStudyList();
+
+	BoardVO getBoardByComment(int co_num);
 	
 }
