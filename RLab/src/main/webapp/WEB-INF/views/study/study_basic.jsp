@@ -236,18 +236,21 @@
 	                        <div class="input_container">
 	                            <input type="text"class="input_box" placeholder="할 일을 입력하세요">
 	                        </div>
-	                        <ul class="todo_list">
-	                            <li>
-	                                <span class="todo_check">
-	                                    <i class="material-icons check">check</i>
-	                                </span>
-	                                <span class="todo_content">할일</span>
-	                                <span class="todo_clear">
-	                                    <i class="material-icons clear">clear</i>
-	                                </span>
-	                            </li> 
-	                        </ul>  
-	
+		                       <ul class="todo_list">
+	                        	 <c:forEach items="${tdList}" var="td" varStatus="vs" >
+		                            <li>
+		                                <span class="todo_check">
+		                                    <i class="material-icons check">check</i>
+		                                </span>
+		                                <%-- <span class="todo_content">${td.td_content }</span> --%>
+		                                <span class="todo_content">${td.td_content}</span>
+		                                <span class="todo_clear">
+		                                    <i class="material-icons clear">clear</i>
+		                                </span>
+		                            </li> 
+		                          </c:forEach>
+		                      </ul>  
+						
 	                        <!-- 달성률 -->
 	                        <div>
 	                            <progress class="progress" value="20" max="100"></progress>

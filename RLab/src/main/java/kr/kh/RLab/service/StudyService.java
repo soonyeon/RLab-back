@@ -12,6 +12,7 @@ import kr.kh.RLab.vo.PhotoTypeVO;
 import kr.kh.RLab.vo.PhotoVO;
 import kr.kh.RLab.vo.StudyMemberVO;
 import kr.kh.RLab.vo.StudyVO;
+import kr.kh.RLab.vo.TodoVO;
 
 public interface StudyService {
 
@@ -48,6 +49,9 @@ public interface StudyService {
 	int getStudyState(int st_num);
 
 	void stateUpdateStudyUndo(int st_num, int st_state);
+
+	ArrayList<TodoVO> getTodoList(String memberId);
+
 	
 	
 

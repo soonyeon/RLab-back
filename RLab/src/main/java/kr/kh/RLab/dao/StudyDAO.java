@@ -12,6 +12,7 @@ import kr.kh.RLab.vo.PhotoTypeVO;
 import kr.kh.RLab.vo.PhotoVO;
 import kr.kh.RLab.vo.StudyMemberVO;
 import kr.kh.RLab.vo.StudyVO;
+import kr.kh.RLab.vo.TodoVO;
 
 public interface StudyDAO {
 
@@ -67,6 +68,9 @@ public interface StudyDAO {
 	int selectStudyState(@Param("st_num")int st_num);
 
 	void stateUpdateStudyUndo(@Param("st_num")int st_num, @Param("st_state")int st_state);
+
+	ArrayList<TodoVO> selectTodoList(@Param("memberId")String memberId);
+
 
 
 

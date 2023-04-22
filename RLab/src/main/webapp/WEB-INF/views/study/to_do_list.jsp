@@ -40,28 +40,23 @@
 	                                <h3>My</h3>
 	                            </div>
 	                            <div class="input_container">
-	                                <input type="text" class="input_box" placeholder="할 일을 입력하세요">
+		                        	<input type="text" class="input_box" placeholder="할 일을 입력하세요">
 	                            </div>
-	                            <ul class="todo_list">
-	                                <li>
-	                                    <span class="todo_check">
-	                                        <i class="material-icons check">check</i>
-	                                    </span>
-	                                    <span class="todo_content">할일</span>
-	                                    <span class="todo_clear">
-	                                        <i class="material-icons clear">clear</i>
-	                                    </span>
-	                                </li>
-	                                <li>
-	                                    <span class="todo_check">
-	                                        <i class="material-icons check">check</i>
-	                                    </span>
-	                                    <span class="todo_content">할일</span>
-	                                    <span class="todo_clear">
-	                                        <i class="material-icons clear">clear</i>
-	                                    </span>
-	                                </li>
-	                            </ul>
+	                            	
+		                            <ul class="todo_list">
+		                                <c:forEach items="${tdList}" var="td" varStatus="vs" >
+		                                <li>
+		                                    <span class="todo_check">
+		                                        <i class="material-icons check">check</i>
+		                                    </span>
+		                                    <span class="todo_content">${td.td_content}</span>
+		                                    <span class="todo_clear">
+		                                        <i class="material-icons clear">clear</i>
+		                                    </span>
+		                                </li>
+		                          		</c:forEach>
+		                            </ul>
+		                    	
 	                        </div>
 	                    </div>
 	
@@ -349,7 +344,7 @@
 	                    <div class="now">NOW</div>
 	                </div>
 	                <div class="circle_star cc">
-	                    <img class="star" src="../img/favorite_star_on.png">
+	                    <img class="star" src="<c:url value="/resources/img/favorite_star_on.png"></c:url>">
 	                </div>
 	                <div class="my_study_container">
 	                    <div class="my_list_title">
@@ -447,6 +442,44 @@
 
 
 <script>
+
+const todoInput = document.querySelector(".input_box");
+const todoList = document.querySelector(".todo_list");
+
+todoInput.addEventListener("keypress", (e) => {
+    if (e.keyCode === 13 && todoInput.value !== '') {
+        generateTodo(todoInput.value);
+        todoInput.value = "";
+    }
+});
+
+const generateTodo = (todo) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "<c:url value='/study/todo'></c:url>", true);
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                // 서버에서 전달한 응답에 대한 처리
+                console.log(xhr.responseText);
+            } else {
+                console.error("Error: " + xhr.statusText);
+            }
+        }
+    };
+    const data = JSON.stringify({ todo: todo });
+    xhr.send(data);
+} 
+    
+    
+    
+    
+    
+    
+    
+    
+
+/*  
 const todoInput = document.querySelector(".input_box");
 const todoList = document.querySelector(".todo_list");
 
@@ -510,6 +543,7 @@ const generateClear= () => {
 	span.appendChild(icon);
 	
 	return span;
-}
+} 
+ */
 </script>
 

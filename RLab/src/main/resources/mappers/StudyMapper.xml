@@ -119,6 +119,9 @@
 		update study set st_state = 1
 		where st_num = #{st_num}
     </update>
-    
+    <select id="selectTodoList" resultType="kr.kh.RLab.vo.TodoVO">
+    	select * from todo
+		where td_me_id = #{memberId}
+    </select>
     
 </mapper>

@@ -31,6 +31,7 @@ import kr.kh.RLab.vo.PhotoTypeVO;
 import kr.kh.RLab.vo.PhotoVO;
 import kr.kh.RLab.vo.StudyMemberVO;
 import kr.kh.RLab.vo.StudyVO;
+import kr.kh.RLab.vo.TodoVO;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -153,17 +154,28 @@ public class StudyController {
 			mv.addObject("url", "redirect:/");
 			mv.setViewName("/common/message");
 		}
+		
+		//유저에 해당하는 투두리스트를 불러온다
+		ArrayList<TodoVO> tdList = studyService.getTodoList(user.getMe_id());
+		System.out.println(tdList+"____");
+		
+		mv.addObject("tdList",tdList);
 		mv.addObject("st_num", st_num);
 		mv.setViewName("/study/study_basic");
 		return mv;
 	}
-
+	
+	//jsp에서 컨트롤러로 정보를 보내야함
+			//Ajax이용
+	
+	// obj에 담아서 다시 컨트롤러로 보내야함
+	
+	
+	
 	@RequestMapping(value = "/management", method = RequestMethod.GET)
 	public ModelAndView management(ModelAndView mv, HttpSession session) {
 		// HttpSession에서 "user"라는 이름의 속성을 가져와 MemberVO 객체로 형변환하여 변수 user에 저장
 		// 로그인한 유저정보를 가져온다
-	    // MemberVO user = (MemberVO) session.getAttribute("user");
-
 		// 세션에서 "user" 속성을 검색하고 MemberVO 객체로 캐스팅
 	    MemberVO user = (MemberVO) session.getAttribute("user");
 
@@ -271,31 +283,47 @@ public class StudyController {
 	    return map;
 	}
 	
+	@ResponseBody
 	@RequestMapping(value = "/todo", method = RequestMethod.GET)
-	public ModelAndView todoList(ModelAndView mv, HttpSession session) {
-//		// HttpSession에서 "user"라는 이름의 속성을 가져와 MemberVO 객체로 형변환하여 변수 user에 저장
-//		// 로그인한 유저정보를 가져온다
-//	    // MemberVO user = (MemberVO) session.getAttribute("user");
-//
-//		// 세션에서 "user" 속성을 검색하고 MemberVO 객체로 캐스팅
-//	    MemberVO user = (MemberVO) session.getAttribute("user");
-//
-//	    // 로그인한 사용자의 ID를 MemberVO 객체에서 가져옴
-//	    String memberId = user.getMe_id();	    	    
-//		    
-//	    // StudyService 클래스의 getStudyListById 메서드를 호출하여 사용자가 속한 스터디 리스트를 가져옴
-//	    ArrayList<StudyVO> myStudyList = studyService.getStudyListById(memberId);
-//		// System.out.println(myStudyList);
-//	    
-//		// "myStudyList" 키와 함께 연구 목록을 ModelAndView 객체에 추가합니다.
-//	    mv.addObject("myStudyList", myStudyList);
-//	    mv.addObject("user", user);
+	public ModelAndView todoList(ModelAndView mv, HttpSession session, MemberVO member) {
+	    // 세션에서 "user" 속성을 검색하고 MemberVO 객체로 캐스팅
+	    MemberVO user = (MemberVO) session.getAttribute("user");
+	    
+	    String memberId = user.getMe_id();	
+//	    System.out.println(memberId);
+	    
+		//유저에 해당하는 투두리스트를 불러온다
+		ArrayList<TodoVO> tdList = studyService.getTodoList(memberId);
+//		System.out.println(tdList);
+	    
+	    
+	    mv.addObject("tdList",tdList);
+	    mv.addObject("user", user);
 		mv.setViewName("/study/to_do_list");
 		return mv;
 	}
+
+    // 투두 업데이트
+//	@ResponseBody
+//	@RequestMapping(value = "/todo/update", method = RequestMethod.POST)
+//	public HashMap<String, Object> updateTodo(@RequestBody TodoVO td) {
+//	    HashMap<String, Object> map = new HashMap<String, Object>();
+//	    
+//	    // 해당 스터디 상태를 1에서 0으로 변경
+//	    studyService.updateTodo(td.getTd_content());
+//	    return map;
+//	}
 	
-	
-	
+    // 투두 삭제
+//	@ResponseBody
+//	@RequestMapping(value = "/todo/delete", method = RequestMethod.POST)
+//	public HashMap<String, Object> deleteTodo(@RequestBody TodoVO td) {
+//	    HashMap<String, Object> map = new HashMap<String, Object>();
+//	    
+//	    // 해당 스터디를 삭제
+//	    studyService.deleteTodo(td.getTd_content());
+//	    return map;
+//	}
 	
        
 }

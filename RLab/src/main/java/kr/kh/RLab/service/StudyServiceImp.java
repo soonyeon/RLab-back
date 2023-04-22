@@ -15,6 +15,7 @@ import kr.kh.RLab.vo.PhotoTypeVO;
 import kr.kh.RLab.vo.PhotoVO;
 import kr.kh.RLab.vo.StudyMemberVO;
 import kr.kh.RLab.vo.StudyVO;
+import kr.kh.RLab.vo.TodoVO;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -165,7 +166,12 @@ public class StudyServiceImp implements StudyService {
 		studyDao.stateUpdateStudyUndo(st_num,st_state);
 		
 	}
-	
+
+	@Override
+	public ArrayList<TodoVO> getTodoList(String memberId) {
+		
+		return studyDao.selectTodoList(memberId);
+	}
 	
 	
 	
