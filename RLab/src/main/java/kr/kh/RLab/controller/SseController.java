@@ -53,4 +53,9 @@ public class SseController {
         });
         return ResponseEntity.ok(onlineMembers);
     }
+    
+    @GetMapping("/notify")
+    public void notify(@RequestParam String eventType, @RequestParam String message) {
+        sseEmitters.sendEvent(eventType, message);
+    }
 }

@@ -69,4 +69,16 @@ public class SseEmitters {
             }
         });
     }
+    
+    public void sendEvent(String eventType, String message) {
+        emitters.forEach((id, userSessionInfo) -> {
+            try {
+                userSessionInfo.getEmitter().send(SseEmitter.event()
+                        .name(eventType)
+                        .data(message));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
 }
