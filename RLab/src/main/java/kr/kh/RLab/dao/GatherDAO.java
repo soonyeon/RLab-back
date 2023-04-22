@@ -60,7 +60,9 @@ public interface GatherDAO {
 
 	void insertStudyLeader(@Param("sm")StudyMemberVO studyMember);
 
+	GatherVO getGatherByComment(int co_num);
 
+	
 
 	
 

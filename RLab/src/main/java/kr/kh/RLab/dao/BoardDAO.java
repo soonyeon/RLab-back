@@ -32,4 +32,6 @@ public interface BoardDAO {
 	ArrayList<BoardVO> selectBoardListById(@Param("memberId")String memberId, @Param("cri")Criteria cri);
 	
 	int getCountById(String memberId);
+
+	BoardVO getBoardByComment(int co_num);
 }

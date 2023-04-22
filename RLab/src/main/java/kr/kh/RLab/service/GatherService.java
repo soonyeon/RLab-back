@@ -46,6 +46,8 @@ public interface GatherService {
 
 	ArrayList<GatherVO> selectGatherAll();
 
+	GatherVO getGatherByComment(int co_ori_num);
+
 
 
 
