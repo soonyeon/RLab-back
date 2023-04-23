@@ -5,7 +5,8 @@ import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiConsumer;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
  * 
  */
 public class SseEmitters {
+	private static final Logger logger = LoggerFactory.getLogger(SseEmitters.class);
 
 	private final Map<String, UserSessionInfo> emitters = new ConcurrentHashMap<>();
 
@@ -64,16 +66,15 @@ public class SseEmitters {
 	}
 
 	public void count() {
-		long count = emitters.size();
-		emitters.forEach((id, userSessionInfo) -> {
-			try {
-				userSessionInfo.getEmitter().send(SseEmitter.event().name("count").data(count));
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
-		});
+        long count = emitters.size();
+        emitters.forEach((id, userSessionInfo) -> {
+            try {
+                userSessionInfo.getEmitter().send(SseEmitter.event().name("count").data(count));
+            } catch (IOException e) {
+                logger.error("Error sending count event to user {}", id, e);
+            }
+        });
 	}
-
 	public void add(SseEmitter emitter) {
 		UserSessionInfo userSessionInfo = new UserSessionInfo(emitter, LocalDateTime.now().plusMinutes(30));
 		this.emitters.put(emitter.toString(), userSessionInfo);

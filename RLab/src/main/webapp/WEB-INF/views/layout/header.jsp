@@ -132,100 +132,105 @@
       </div>
     </header>
 <script>
-	$(document).ready(function() {
-	    $('.login_modal').click(function(e) {
-	      e.preventDefault();
-	      $('#loginModal').show();
-	    });
-	
-	    $('.more_action_item.1').click(function(e) {
-	      e.preventDefault();
-	      $('#loginModal').hide();
-	      $('#findIDModal').show();
-	    });
-	    $('.more_action_item.2').click(function(e) {
-	      e.preventDefault();
-	      $('#loginModal').hide();
-	      $('#findPWModal').show();
-	    });
-	
-	    $('.close_btn').click(function(e) {
-	      e.preventDefault();
-	      $('.modal_container').hide();
-	    });
+$(document).ready(function() {
+	  $('.login_modal').click(function(e) {
+	    e.preventDefault();
+	    $('#loginModal').show();
 	  });
-		
-    function findID() {
-        let email = $("#email").val();
-        $.ajax({
-            type: "POST",
-            url: "<c:url value='/findID'/>",
-            data: {
-                email: email
-            },
-            success: function(response) {
-                if (response === "found") {
-                    alert("이메일로 아이디를 보냈습니다.");
-                } else {
-                    alert("해당 이메일로 등록된 아이디가 없습니다.");
-                }
-            },
-            error: function() {
-                alert("이메일로 전송이 실패 했습니다.");
-            }
-        });
-    }
-    
-    function findPW() {
-    	let id = $("#findPW_id").val();
-    	let email = $("#findPW_email").val();
-        $.ajax({
-            type: "POST",
-            url: "<c:url value='/findPW'/>",
-            data: {
-                id: id,
-                email: email
-            },
-            success: function(response) {
-                if (response === "found") {
-                    alert("이메일로 임시번호를 보냈습니다.");
-                } else {
-                    alert("해당 아이디와 이메일로 등록된 정보가 없습니다.");
-                }
-            },
-            error: function() {
-                alert("이메일로 전송이 실패 했습니다.");
-            }
-        });
-    }
-    $('.logout_btn').click(function(e) {
-        e.preventDefault();
-        $(this).closest('form').submit();
-    });
- 	// SSE 이벤트 수신
-    $(document).ready(function() {
-        if (typeof(EventSource) !== "undefined") {
-            const source = new EventSource("<c:url value='/sse'></c:url>");
 
-            source.addEventListener('newComment', function(event) {
-                const data = JSON.parse(event.data);
-                // 알림을 화면에 표시하는 함수 호출
-                showNotification(data.message);
-            });
+	  $('.more_action_item.1').click(function(e) {
+	    e.preventDefault();
+	    $('#loginModal').hide();
+	    $('#findIDModal').show();
+	  });
+	  
+	  $('.more_action_item.2').click(function(e) {
+	    e.preventDefault();
+	    $('#loginModal').hide();
+	    $('#findPWModal').show();
+	  });
+	  
+	  $('.close_btn').click(function(e) {
+	    e.preventDefault();
+	    $('.modal_container').hide();
+	  });
+	});
 
-            source.onerror = function(event) {
-                console.log('SSE error:', event);
-            };
-        } 
-    });
+	function findID() {
+	  let email = $("#email").val();
+	  $.ajax({
+	    type: "POST",
+	    url: "<c:url value='/findID'/>",
+	    data: {
+	      email: email
+	    },
+	    success: function(response) {
+	      if (response === "found") {
+	        alert("이메일로 아이디를 보냈습니다.");
+	      } else {
+	        alert("해당 이메일로 등록된 아이디가 없습니다.");
+	      }
+	    },
+	    error: function() {
+	      alert("이메일로 전송이 실패 했습니다.");
+	    }
+	  });
+	}
 
-    // 알림 화면에 표시
-    function showNotification(message) {
-        const notification = $('<div class="notification"></div>').text(message);
-        $('body').append(notification);
+	function findPW() {
+	  let id = $("#findPW_id").val();
+	  let email = $("#findPW_email").val();
+	  $.ajax({
+	    type: "POST",
+	    url: "<c:url value='/findPW'/>",
+	    data: {
+	      id: id,
+	      email: email
+	    },
+	    success: function(response) {
+	      if (response === "found") {
+	        alert("이메일로 임시번호를 보냈습니다.");
+	      } else {
+	        alert("해당 아이디와 이메일로 등록된 정보가 없습니다.");
+	      }
+	    },
+	    error: function() {
+	      alert("이메일로 전송이 실패 했습니다.");
+	    }
+	  });
+	}
 
-        notification.fadeIn(500).delay(3000).fadeOut(500, function() {
-            $(this).remove();
-        });
-    }
+	$('.logout_btn').click(function(e) {
+	  e.preventDefault();
+	  $(this).closest('form').submit();
+	});
+
+	if (typeof(EventSource) !== "undefined") {
+		const source = new EventSource("<c:url value='/connect?id=${session.id}' />");
+
+	  source.addEventListener('connect', function(event) {
+	    const data = event.data;
+	    console.log('connected:', data);
+	  });
+
+	  source.addEventListener('newComment', function(event) {
+	    const data = JSON.parse(event.data);
+	    // 알림을 화면에 표시하는 함수 호출
+	    showNotification(data.message);
+	  });
+
+	  source.onerror = function(event) {
+	    console.log('SSE error:', event);
+	  };
+	} 
+
+	// 알림 화면에 표시
+	function showNotification(message) {
+	  const notification = $('<div class="notification"></div>').text(message);
+	  $('body').append(notification);
+
+	  notification.fadeIn(500).delay(3000).fadeOut(500, function() {
+	    $(this).remove();
+	  });
+	}
 </script>

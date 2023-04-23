@@ -34,4 +34,5 @@ public interface BoardDAO {
 	int getCountById(String memberId);
 
 	BoardVO getBoardByComment(int co_num);
+
 }

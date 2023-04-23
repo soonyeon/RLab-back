@@ -77,5 +77,4 @@ public class BoardServiceImp implements BoardService {
 		return boardDao.getBoardByComment(co_num);
 	}
 
-
 }

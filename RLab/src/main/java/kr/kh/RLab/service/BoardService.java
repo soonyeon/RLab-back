@@ -31,8 +31,5 @@ public interface BoardService {
 	ArrayList<StudyVO> selectStudyList();
 
 	BoardVO getBoardByComment(int co_num);
-
-	
-	
 	
 }

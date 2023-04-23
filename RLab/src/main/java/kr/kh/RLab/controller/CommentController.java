@@ -1,6 +1,5 @@
 package kr.kh.RLab.controller;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,16 +12,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
-
 
 import kr.kh.RLab.pagination.CommentCriteria;
 import kr.kh.RLab.pagination.PageMaker;
 import kr.kh.RLab.service.BoardService;
 import kr.kh.RLab.service.CommentService;
+import kr.kh.RLab.service.NotificationService;
 import kr.kh.RLab.utils.SseEmitters;
+import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.CommentVO;
-import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.MemberVO;
 import lombok.RequiredArgsConstructor;
 
@@ -32,31 +30,27 @@ import lombok.RequiredArgsConstructor;
 public class CommentController {
 
 	private final CommentService commentService;
+	private final NotificationService notificationService;
+	private final BoardService boardService;
 	private final SseEmitters sseEmitters;
 
 	@PostMapping("/create")
-	public Map<String, Object> createComment(@RequestBody CommentVO comment) {
-	    int result = commentService.createComment(comment);
+    public Map<String, Object> createComment(@RequestBody CommentVO comment) {
+        int result = commentService.createComment(comment);
 
-	    // 새 댓글이 생성되면 SSE 이벤트를 전송
-//	    if (result > 0) {
-//	        SseEmitter.SseEventBuilder eventBuilder = SseEmitter.event()
-//	            .name("newComment")
-//	            .data(comment);
-//	        sseEmitters.forEach((id, userSessionInfo) -> {
-//	            try {
-//	                userSessionInfo.getEmitter().send(eventBuilder);
-//	            } catch (IOException e) {
-//	                throw new RuntimeException(e);
-//	            }
-//	        });
-//	    }
+        // 새 댓글이 생성되면 SSE 이벤트를 전송
+        if (result > 0) {
+            BoardVO board = boardService.getBoardByComment(comment.getCo_ex_num());
+            String userId = board.getBo_me_id();  // 게시물 작성자의 ID를 가져와야 함
+            String message = "새로운 댓글이 작성되었습니다: " + comment.getCo_content();
+            notificationService.sendNotificationToUser(userId, message);
+        }
 
 
-	    Map<String, Object> map = new HashMap<>();
-	    map.put("result", result > 0 ? "success" : "fail");
-	    return map;
-	}
+        Map<String, Object> map = new HashMap<>();
+        map.put("result", result > 0 ? "success" : "fail");
+        return map;
+    }
 	@PostMapping("/list/{co_ex_num}")
 	public Map<String, Object> commentList(CommentCriteria cc, @PathVariable("co_ex_num") int co_ex_num) {
 		cc.setPerPageNum(10); // 한 페이지당 컨텐츠 갯수

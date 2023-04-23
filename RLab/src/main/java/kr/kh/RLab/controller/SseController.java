@@ -25,7 +25,7 @@ import kr.kh.RLab.vo.MemberVO;
 public class SseController {
 
     private final SseEmitters sseEmitters;
-    private static final Logger logger = LoggerFactory.getLogger(SseEmitters.class); 
+    private static final Logger logger = LoggerFactory.getLogger(SseController.class);
 
     
     @Autowired
@@ -33,19 +33,19 @@ public class SseController {
         this.sseEmitters = sseEmitters;
     }
 
-	@GetMapping(value = "/connect", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-	public ResponseEntity<SseEmitter> connect(@RequestParam String id) {
-		SseEmitter emitter = new SseEmitter(60 * 1000L);
-		LocalDateTime sessionExpiryTime = LocalDateTime.now().plusMinutes(30);
-		sseEmitters.add(id, emitter, sessionExpiryTime);
-		try {
-			emitter.send(SseEmitter.event().name("connect").data("connected!"));
-			sseEmitters.count();
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-		return ResponseEntity.ok(emitter);
-	}
+    @GetMapping(value = "/connect", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public ResponseEntity<SseEmitter> connect(@RequestParam String id) {
+        SseEmitter emitter = new SseEmitter(60 * 1000L);
+        LocalDateTime sessionExpiryTime = LocalDateTime.now().plusMinutes(30);
+        sseEmitters.add(id, emitter, sessionExpiryTime);
+        try {
+            emitter.send(SseEmitter.event().name("connect").data("connected!"));
+            sseEmitters.count();
+        } catch (IOException e) {
+            logger.error("Error sending connect event to user {}", id, e);
+        }
+        return ResponseEntity.ok(emitter);
+    }
 
     @GetMapping("/onlineMembers")
     public ResponseEntity<List<String>> getOnlineMembers() {
@@ -58,23 +58,20 @@ public class SseController {
         });
         return ResponseEntity.ok(onlineMembers);
     }
-    @RequestMapping(value = "/subscribe", method = RequestMethod.GET)
-    public SseEmitter subscribe() {
-        SseEmitter sseEmitter = new SseEmitter();
-        sseEmitters.add(sseEmitter);
+    
+    @GetMapping("/sse")
+    public SseEmitter sse() {
+        SseEmitter emitter = new SseEmitter();
+        sseEmitters.add(emitter);
 
-        // SSE 연결 종료 시 이벤트 리스너를 등록
-        sseEmitter.onCompletion(() -> {
-            // 연결 종료 시 sseEmitters에서 해당 SseEmitter를 제거
-            sseEmitters.remove(sseEmitter);
+        emitter.onCompletion(() -> {
+            sseEmitters.remove(emitter);
         });
 
-        // SSE 연결 에러 시 이벤트 리스너를 등록
-        sseEmitter.onError((ex) -> {
-            // SSE 연결 에러 발생 시 로그를 출력
+        emitter.onError((ex) -> {
             logger.error("SSE 연결 중 오류 발생: ", ex);
         });
 
-        return sseEmitter;
+        return emitter;
     }
 }

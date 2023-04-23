@@ -1,12 +1,14 @@
 package kr.kh.RLab.service;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
@@ -14,9 +16,9 @@ import kr.kh.RLab.vo.AlarmVO;
 
 @Service
 public class NotificationServiceImp implements NotificationService {
-
+    private static final Logger logger = LoggerFactory.getLogger(NotificationServiceImp.class);
     private final Map<String, SseEmitter> emitters = new ConcurrentHashMap<>();
-    private List<AlarmVO> alarms = new ArrayList<>();
+    private List<AlarmVO> alarms = new CopyOnWriteArrayList<>();
 
     @Override
     public void registerUser(String userId, SseEmitter emitter) {
@@ -38,7 +40,7 @@ public class NotificationServiceImp implements NotificationService {
             try {
                 emitter.send(SseEmitter.event().name("notification").data(message));
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                logger.error("Error sending notification to user {}", userId, e);
             }
         }
 

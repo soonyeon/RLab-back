@@ -73,6 +73,7 @@
 		select * from board
 		where bo_num =  #{co_ex_num} 
 	</select>
+	
   	
   	<resultMap id="BoardResultMap" type="kr.kh.RLab.vo.BoardVO">
 	    <id property="bo_num" column="bo_num" />
