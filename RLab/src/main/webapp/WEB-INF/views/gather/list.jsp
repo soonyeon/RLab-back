@@ -234,4 +234,13 @@ $(document).ready(function(){
 		})
 	});
 })
+
+//검색된 태크 클릭하면 해당 태그로 필터링
+$(document).on('click','.hashTag', function(){
+	let tag = $(this).text().substring(1);
+	let tagStr = '<input type="hidden" name="tagList[${pm.cri.tagList.size()}]" value="'+tag+'" class="list_tag">';
+	$('.search_content').eq(1).append(tagStr);
+	$('.search_tag').eq(0).remove();
+	$('#gather_form').submit();
+})
 </script>
