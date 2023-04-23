@@ -10,6 +10,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 @Component
+/*
+ * 서버에서 클라이언트로 이벤트를 전송하는 표준기술임 1. 이벤트 구성 : SeeEmitter.event() 메소드를 사용하여 이벤트 구성 할
+ * 수 있음 2. 이벤트 전송 : SeeEmitter.send() 메소드를 사용하여 구성된 이벤트를 클라이언트에게 전송함 3. 타임아웃 및
+ * 완료 처리
+ * 
+ */
 public class SseEmitters {
 
 	private final Map<String, UserSessionInfo> emitters = new ConcurrentHashMap<>();

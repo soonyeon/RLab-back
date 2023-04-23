@@ -2,6 +2,19 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- header -->
+<<style>
+.notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    display: none;
+    z-index: 9999;
+}
+</style>
 <!-- 모달 -->
     <header>
     <!-- 로그인 모달창 -->
@@ -189,5 +202,30 @@
         e.preventDefault();
         $(this).closest('form').submit();
     });
-    
+ 	// SSE 이벤트 수신
+    $(document).ready(function() {
+        if (typeof(EventSource) !== "undefined") {
+            const source = new EventSource("<c:url value='/sse'></c:url>");
+
+            source.addEventListener('newComment', function(event) {
+                const data = JSON.parse(event.data);
+                // 알림을 화면에 표시하는 함수 호출
+                showNotification(data.message);
+            });
+
+            source.onerror = function(event) {
+                console.log('SSE error:', event);
+            };
+        } 
+    });
+
+    // 알림 화면에 표시
+    function showNotification(message) {
+        const notification = $('<div class="notification"></div>').text(message);
+        $('body').append(notification);
+
+        notification.fadeIn(500).delay(3000).fadeOut(500, function() {
+            $(this).remove();
+        });
+    }
 </script>

@@ -116,4 +116,8 @@
 	values(#{sm.sm_st_num},#{sm.sm_me_id},9,NOW())
 </insert>
 
+<select id="getGatherByComment" resultType="kr.kh.RLab.vo.GatherVO">
+	select * from gather
+	where ga_num =  #{co_ex_num} 
+</select>
 </mapper>
