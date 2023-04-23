@@ -6,10 +6,14 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
@@ -20,7 +24,9 @@ import kr.kh.RLab.utils.SseEmitters;
 public class SseController {
 
     private final SseEmitters sseEmitters;
+    private static final Logger logger = LoggerFactory.getLogger(SseEmitters.class); 
 
+    
     @Autowired
     public SseController(SseEmitters sseEmitters) {
         this.sseEmitters = sseEmitters;
@@ -53,9 +59,23 @@ public class SseController {
         });
         return ResponseEntity.ok(onlineMembers);
     }
-    
-    @GetMapping("/notify")
-    public void notify(@RequestParam String eventType, @RequestParam String message) {
-        sseEmitters.sendEvent(eventType, message);
+    @RequestMapping(value = "/subscribe", method = RequestMethod.GET)
+    public SseEmitter subscribe() {
+        SseEmitter sseEmitter = new SseEmitter();
+        sseEmitters.add(sseEmitter);
+
+        // SSE 연결 종료 시 이벤트 리스너를 등록
+        sseEmitter.onCompletion(() -> {
+            // 연결 종료 시 sseEmitters에서 해당 SseEmitter를 제거
+            sseEmitters.remove(sseEmitter);
+        });
+
+        // SSE 연결 에러 시 이벤트 리스너를 등록
+        sseEmitter.onError((ex) -> {
+            // SSE 연결 에러 발생 시 로그를 출력
+            logger.error("SSE 연결 중 오류 발생: ", ex);
+        });
+
+        return sseEmitter;
     }
 }
