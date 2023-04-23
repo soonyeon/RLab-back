@@ -220,12 +220,13 @@ $(document).ready(function(){
 			}
 		$.ajax({
 			async: false,
-	        url: '<c:url value="/gather/search" />',
+	        url: '<c:url value="/gather"></c:url>',
 	        type: 'POST',
 	        data: JSON.stringify(obj),
 	        contentType: 'application/json',
 	        dataType: 'json',
 	        success: function(data) {
+	        	console.log(data);
 	        	search_var = data.dataList;
 				console.log(search_var);
 	        	//리턴값 받아서 그걸로 태그리스트 출력하면 됨..

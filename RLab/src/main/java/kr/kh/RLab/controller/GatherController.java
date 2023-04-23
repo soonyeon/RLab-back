@@ -1,6 +1,7 @@
 package kr.kh.RLab.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -118,15 +119,27 @@ public class GatherController {
 	    return mv;
 	}
 	//실시간 검색 태그리스트 가져오기
-	@PostMapping("/search")
-	public ArrayList<String> getSearchTagList(@RequestBody TagVO tag) {
+	/*@PostMapping("/")
+	public HashMap<String,Object> getSearchTagList(@RequestBody TagVO tag) {
+		HashMap<String,Object> map = new HashMap<String,Object>();
 		ArrayList<String> tagSearch = gatherService.getSearchTagList(tag.getTa_name());
 		if(tag.getTa_name().equals(""))
 	    		tagSearch = new ArrayList<String>();
 		System.out.println(tagSearch);
+		map.put("tagSearch", tagSearch);
+	    return map;
+	}*/
+	//실시간 검색 태그리스트 가져오기
+	@PostMapping("/")
+	public ArrayList<String> getSearchTagList(@RequestBody TagVO tag) {
+//		HashMap<String,Object> map = new HashMap<String,Object>();
+		ArrayList<String> tagSearch = gatherService.getSearchTagList(tag.getTa_name());
+		if(tag.getTa_name().equals(""))
+	    		tagSearch = new ArrayList<String>();
+		System.out.println(tagSearch);
+//		map.put("tagSearch", tagSearch);
 	    return tagSearch;
 	}
-	
 
 	
 
