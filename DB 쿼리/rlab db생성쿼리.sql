@@ -368,6 +368,17 @@ CREATE TABLE `exp` (
 	`ex_experience`	int NOT NULL
 );
 
+DROP TABLE IF EXISTS `notice`;
+
+CREATE TABLE `notice` (
+	`no_num`	int auto_increment primary key	NOT NULL,
+	`no_title`	varchar(20)	not NULL,
+	`no_me_id`	varchar(13)	NOT NULL,
+	`no_content`	longtext	not NULL,
+	`no_register_date`	datetime	NULL,
+	`no_views`	int not null default 0
+);
+
 ALTER TABLE `branch` ADD CONSTRAINT `FK_region_TO_branch_1` FOREIGN KEY (
 	`br_re_name`
 )
@@ -697,3 +708,9 @@ REFERENCES `region` (
 	`re_name`
 );
 
+ALTER TABLE `notice` ADD CONSTRAINT `FK_member_TO_notice_1` FOREIGN KEY (
+	`no_me_id`
+)
+REFERENCES `member` (
+	`me_id`
+);

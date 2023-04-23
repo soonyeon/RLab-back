@@ -1,0 +1,56 @@
+/* 게시판 */
+table { 
+  border-collapse: collapse; 
+	margin-top: 20px;
+}
+
+.board_title_list{
+  box-sizing: border-box;
+  background-color: var(--color_yellow);
+  font-size: 20px;
+  font-weight: bold;
+}
+.board_list {
+  border-bottom: 1px solid var(--color_yellow);
+  height: 50px;
+}
+.board_list:hover{
+  background-color: #f0eb583b;
+  cursor: pointer;
+}
+.board_list a{
+  width: 100px;
+  height: 100px;
+  background-color: aqua;
+}
+.post_title{
+  font-weight:bold;
+  font-size: 15px;
+  color:rgb(67, 66, 66)
+}
+.table_area{
+  width: 100%;
+  font-size: 15px;
+  text-align: center;
+  color: rgb(43, 42, 42);
+}
+
+.fa-solid{margin-left: 5px; margin-right: -10px;}
+
+.border_box{
+  width: 100%;
+}
+
+.border_box .title_list_item{
+  height: 50px;
+  font-size: 17px;
+}
+.border_box [class^=board_list_]{
+  height: 61px;
+  border-bottom: 1px solid black;
+}
+.background_bbls{
+  height: 1253px;
+}
+
+.bd_list_item{padding-left: 5px;}
