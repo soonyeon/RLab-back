@@ -26,10 +26,7 @@
 			</div>
 		</form>
 			<div class="tag_box">
-				<span class="tag_box_name">관련 태그 : </span> 
-				<c:forEach items="tagList" var="tg">
-					<a href="#" class="hashTag">#자격증</a> 
-				</c:forEach>
+				<span class="tag_box_name">관련 태그 : </span>
 			</div>
 		</div>
 	</section>
@@ -211,7 +208,6 @@ $(document).on('click', '.sel_hashTag', function(e){
 
 
 //실시간 태그 검색
-var search_var;
 $(document).ready(function(){
 	$('.search_tag').on("propertychange change paste input", function() {
 		let search = $('.search_tag').val();
@@ -219,22 +215,23 @@ $(document).ready(function(){
 				'ta_name' : search
 			}
 		$.ajax({
-			async: false,
-	        url: '<c:url value="/gather"></c:url>',
+	        url: '<c:url value="/gather/search"></c:url>',
 	        type: 'POST',
 	        data: JSON.stringify(obj),
 	        contentType: 'application/json',
 	        dataType: 'json',
 	        success: function(data) {
-	        	console.log(data);
-	        	search_var = data.dataList;
-				console.log(search_var);
-	        	//리턴값 받아서 그걸로 태그리스트 출력하면 됨..
+	        	let list = data.list;
+	        	let tagStr = '<span class="tag_box_name">관련 태그 : </span>';
+	        	for(i=0;i<list.length;i++){
+        			tagStr += '<a href="#" class="hashTag">#'+list[i]+'</a>';
+	        	}
+	        	$('.tag_box').html(tagStr);
 	        },
 	        error: function( request, status, error ){
 	            console.log("status : " + request.status + ", message : " + request.responseText + ", error : " + error);
 	           }
 		})
-	})
+	});
 })
 </script>
