@@ -89,7 +89,7 @@
       <div id="header_container">
         <div class="header_left">
 
-  
+  			
           <a href="#" class="btn_home"><i class="icon_home"></i>LAB</a>
           <nav class="top_menu_container">
          	<a href="#" class="list_item">예약하기</a>
@@ -133,80 +133,84 @@
     </header>
 <script>
 $(document).ready(function() {
-	  $('.login_modal').click(function(e) {
-	    e.preventDefault();
-	    $('#loginModal').show();
-	  });
+    $('.login_modal').click(function(e) {
+      e.preventDefault();
+      $('#loginModal').show();
+    });
 
-	  $('.more_action_item.1').click(function(e) {
-	    e.preventDefault();
-	    $('#loginModal').hide();
-	    $('#findIDModal').show();
-	  });
-	  
-	  $('.more_action_item.2').click(function(e) {
-	    e.preventDefault();
-	    $('#loginModal').hide();
-	    $('#findPWModal').show();
-	  });
-	  
-	  $('.close_btn').click(function(e) {
-	    e.preventDefault();
-	    $('.modal_container').hide();
-	  });
-	});
+    $('.more_action_item.1').click(function(e) {
+      e.preventDefault();
+      $('#loginModal').hide();
+      $('#findIDModal').show();
+    });
 
-	function findID() {
-	  let email = $("#email").val();
-	  $.ajax({
-	    type: "POST",
-	    url: "<c:url value='/findID'/>",
-	    data: {
-	      email: email
-	    },
-	    success: function(response) {
-	      if (response === "found") {
-	        alert("이메일로 아이디를 보냈습니다.");
-	      } else {
-	        alert("해당 이메일로 등록된 아이디가 없습니다.");
-	      }
-	    },
-	    error: function() {
-	      alert("이메일로 전송이 실패 했습니다.");
-	    }
-	  });
-	}
+    $('.more_action_item.2').click(function(e) {
+      e.preventDefault();
+      $('#loginModal').hide();
+      $('#findPWModal').show();
+    });
 
-	function findPW() {
-	  let id = $("#findPW_id").val();
-	  let email = $("#findPW_email").val();
-	  $.ajax({
-	    type: "POST",
-	    url: "<c:url value='/findPW'/>",
-	    data: {
-	      id: id,
-	      email: email
-	    },
-	    success: function(response) {
-	      if (response === "found") {
-	        alert("이메일로 임시번호를 보냈습니다.");
-	      } else {
-	        alert("해당 아이디와 이메일로 등록된 정보가 없습니다.");
-	      }
-	    },
-	    error: function() {
-	      alert("이메일로 전송이 실패 했습니다.");
-	    }
-	  });
-	}
+    $('.close_btn').click(function(e) {
+      e.preventDefault();
+      $('.modal_container').hide();
+    });
+  });
 
-	$('.logout_btn').click(function(e) {
-	  e.preventDefault();
-	  $(this).closest('form').submit();
-	});
+  function findID() {
+    let email = $("#email").val();
+    $.ajax({
+      type: "POST",
+      url: "<c:url value='/findID'/>",
+      data: {
+        email: email
+      },
+      success: function(response) {
+        if (response === "found") {
+          alert("이메일로 아이디를 보냈습니다.");
+        } else {
+          alert("해당 이메일로 등록된 아이디가 없습니다.");
+        }
+      },
+      error: function() {
+        alert("이메일로 전송이 실패 했습니다.");
+      }
+    });
+  }
 
-	if (typeof(EventSource) !== "undefined") {
-		const source = new EventSource("<c:url value='/connect?id=${session.id}' />");
+  function findPW() {
+    let id = $("#findPW_id").val();
+    let email = $("#findPW_email").val();
+    $.ajax({
+      type: "POST",
+      url: "<c:url value='/findPW'/>",
+      data: {
+        id: id,
+        email: email
+      },
+      success: function(response) {
+        if (response === "found") {
+          alert("이메일로 임시번호를 보냈습니다.");
+        } else {
+          alert("해당 아이디와 이메일로 등록된 정보가 없습니다.");
+        }
+      },
+      error: function() {
+        alert("이메일로 전송이 실패 했습니다.");
+      }
+    });
+  }
+
+  $('.logout_btn').click(function(e) {
+    e.preventDefault();
+    $(this).closest('form').submit();
+  });
+  function showNotification(message) {
+      $('.notification').text(message);
+      $('.notification').fadeIn().delay(3000).fadeOut();
+  }
+
+if(typeof(EventSource) !== "undefined") {
+	  const source = new EventSource("<c:url value='/connect?id=${session.id}' />");
 
 	  source.addEventListener('connect', function(event) {
 	    const data = event.data;
@@ -215,6 +219,7 @@ $(document).ready(function() {
 
 	  source.addEventListener('newComment', function(event) {
 	    const data = JSON.parse(event.data);
+	    console.log("Received newComment event:", data); // 이벤트 수신 로그 추가
 	    // 알림을 화면에 표시하는 함수 호출
 	    showNotification(data.message);
 	  });
@@ -222,15 +227,30 @@ $(document).ready(function() {
 	  source.onerror = function(event) {
 	    console.log('SSE error:', event);
 	  };
-	} 
+	}
 
-	// 알림 화면에 표시
-	function showNotification(message) {
-	  const notification = $('<div class="notification"></div>').text(message);
-	  $('body').append(notification);
-
-	  notification.fadeIn(500).delay(3000).fadeOut(500, function() {
-	    $(this).remove();
+	function createComment(postId, writerId, content) {
+	  $.ajax({
+	    type: "POST",
+	    url: "<c:url value='/comment/create'/>",
+	    contentType: "application/json",
+	    data: JSON.stringify({
+	      postId: postId,
+	      writerId: writerId,
+	      content: content
+	    }),
+	    success: function(response) {
+	      console.log("Comment created:", response);
+	      // SSE 이벤트를 보내서 새로운 댓글 생성 알림을 받을 수 있도록 함
+	      const source = new EventSource("<c:url value='/connect?id=${session.id}' />");
+	      source.onopen = function() {
+	        console.log("SSE connection opened");
+	        source.send('newComment');
+	      };
+	    },
+	    error: function(jqXHR, textStatus, errorThrown) {
+	      console.log("Error creating comment:", jqXHR, textStatus, errorThrown);
+	    }
 	  });
 	}
 </script>

@@ -312,14 +312,12 @@ function loadComments(page1) {
             let comments = response.commentList;
             let pageHandler = response.pageHandler;
             let count = response.commentCount;
-            console.log(response);
             if(response.commentList.length == 0) {
 				page = page-1;
 				return;
 			}
 
             $.each(comments, function(index, comment) {
-                console.log(comment);
                 if(comment.co_state == 'Y') {
                  	 let cmStateHtml = '';
                     cmStateHtml += '<div class="cm_main_box">';
@@ -398,7 +396,6 @@ function loadComments(page1) {
 
         },
         error: function(xhr, textStatus, errorThrown) {
-            console.log('댓글 목록 로딩 실패: ', textStatus);
             isLoading = false;
         }
     });
@@ -530,7 +527,6 @@ $(document).on('click', '.cm_delete_btn, .re_delete_btn', function() {
         co_num: co_num
     }
     deleteComment(comment, page);
-    console.log(comment);
 });
 
 function deleteComment(comment, page) {
