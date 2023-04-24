@@ -118,11 +118,10 @@
         </div>
       </div>
 	     	<div class="alarm_modal" id="alarmModal">
-				  <p>알림 내용</p>
-				  <hr>
-				  <p>다음 줄의 알림</p>
-				  <hr>
-				  <p>또 다른 줄의 알림</p>
+			    <c:forEach var="alarm" items="${alarm}">
+			        <p>${alarm.al_content}</p>
+			        <hr>
+			    </c:forEach>
 			</div>
     </header>
 <script>

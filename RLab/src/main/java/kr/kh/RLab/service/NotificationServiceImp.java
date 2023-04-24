@@ -69,7 +69,7 @@ public class NotificationServiceImp implements NotificationService {
     }
 
     @Override
-    public List<AlarmVO> getUserAlarms(String userId) {
-        return alarms.stream().filter(alarm -> alarm.getAl_me_id().equals(userId)).collect(Collectors.toList());
+    public List<AlarmVO> getUserAlrams(String userid) {
+        return notificationDao.getUserAlrams(userid);
     }
 }

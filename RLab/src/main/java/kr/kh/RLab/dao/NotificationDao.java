@@ -9,5 +9,5 @@ public interface NotificationDao {
 	void createNotificationEvent(AlarmVO alarm);
 
 	// 사용자별 알림 이벤트 조회
-	List<AlarmVO> getNotificationEventsByUserId(String userId);
+	List<AlarmVO> getUserAlrams(String userid);
 }
