@@ -46,6 +46,8 @@ public interface GatherService {
 
 	ArrayList<GatherVO> selectGatherAll();
 
+	ArrayList<String> getSearchTagList(String search);
+
 
 
 

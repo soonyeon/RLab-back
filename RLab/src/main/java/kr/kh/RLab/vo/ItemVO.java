@@ -7,10 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class EvolutionVO {
-	private int ev_num  ;
-	private int ev_pe_num ;
-	private int ev_level ;
-	private int ev_step ;
-	private String ev_img ;
+public class ItemVO {
+	int pd_num;
+	String pd_ti_num;//id
+	int pd_amount;//qty
+	int pd_price;//price
+	String pd_state;
 }

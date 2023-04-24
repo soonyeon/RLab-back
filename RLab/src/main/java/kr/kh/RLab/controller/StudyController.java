@@ -79,6 +79,7 @@ public class StudyController {
 			HttpServletRequest request) {
 		MemberVO member = (MemberVO) request.getSession().getAttribute("user");
 		PhotoVO photoVO = new PhotoVO();
+		photoVO.setPh_st_num(st_num);
 		photoVO.setPh_content(content);
 		photoVO.setPh_pt_num(Integer.parseInt(ph_pt_num));
 		if (studyService.insertCB(photoVO, files, member)) {

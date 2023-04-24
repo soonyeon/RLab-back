@@ -1,6 +1,8 @@
 package kr.kh.RLab.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -9,7 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -116,7 +120,17 @@ public class GatherController {
 		mv.setViewName("/gather/detail");
 	    return mv;
 	}
-
-	
+	//실시간 검색 태그리스트 가져오기
+	@ResponseBody
+	@PostMapping("/search")
+	public Map<String,Object> getSearchTagList(@RequestBody TagVO tag) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		ArrayList<String> tagSearch = gatherService.getSearchTagList(tag.getTa_name());
+		if(tag.getTa_name().equals(""))
+	    		tagSearch = new ArrayList<String>();
+		System.out.println(tagSearch);
+		map.put("list", tagSearch);
+	    return map;
+	}
 
 }

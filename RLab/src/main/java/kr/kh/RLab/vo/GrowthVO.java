@@ -20,7 +20,6 @@ public class GrowthVO {
 	String pe_prize;
 	String ev_img ;
 	int ex_experience;
-	
-	
+	private int ex_level;
 
 }

@@ -42,11 +42,44 @@
 
 
 	<!-- [마이페이지 홈] -->
+		<!-- 이용 시간 -->
+		<select id="selectRes" resultType="kr.kh.RLab.vo.ReservationVO">
+			SELECT *
+			FROM reservation
+			WHERE re_me_id = #{userId};		
+		</select>
+		
+		<!-- 펫 경험치 -->
+		<select id="selectPetEx" resultType="kr.kh.RLab.vo.GrowthVO">
+			SELECT 
+			* FROM growth
+		    join exp on ex_level = gr_level
+		    where gr_me_id = #{userId};
+		</select>
+		
+		<select id="selectExExp" resultType="kr.kh.RLab.vo.GrowthVO">
+			SELECT * FROM exp
+			where ex_level = #{gr_Level}
+		</select>
+		
+		<update id="updateExp">
+			update growth
+			set gr_exp = #{currentEx}
+			where gr_me_id = #{userId};
+		</update>
+		
 		<!-- 적립 포인트 -->
 		<select id="selectMyPoint" resultType="int">
 			SELECT me_point
 			FROM member
 			WHERE me_id = #{userId};		
+		</select>
+		
+		<!-- 나의 예약 -->
+		<select id="selectResList" resultType="kr.kh.RLab.vo.ReservationVO">
+			SELECT *
+			FROM reservation
+			WHERE re_me_id = #{userId};		
 		</select>
 		
 		<!-- 나의 스터디 -->

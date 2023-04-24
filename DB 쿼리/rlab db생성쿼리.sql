@@ -13,9 +13,11 @@ CREATE TABLE `member` (
 	`me_authority`	int not null default 0,
 	`me_point`	int not null DEFAULT 0,
 	`me_rest_time`	int	,
-	`me_use_time`	int,
+	`me_use_time`	int not null default 0,
     `me_profile`	varchar(255),
-    `me_study`	int
+    `me_study`	int,
+    `me_session_id` varchar(45),
+    `me_session_limit` date
 );
 
 DROP TABLE IF EXISTS `branch`;
@@ -46,9 +48,10 @@ DROP TABLE IF EXISTS `calendar`;
 CREATE TABLE `calendar` (
 	`ca_num`	int auto_increment primary key	NOT NULL,
 	`ca_st_num`	int	NOT NULL,
-	`ca_content`	varchar(255) not null,
+	`ca_title`	varchar(255) not null,
 	`ca_start`	datetime not null,
-	`ca_end`	datetime not null
+	`ca_end`	datetime,
+    `ca_all_day` tinyint default 0
 );
 
 DROP TABLE IF EXISTS `reservation`;
@@ -57,6 +60,7 @@ CREATE TABLE `reservation` (
 	`re_num`	int auto_increment primary key	NOT NULL,
 	`re_me_id`	varchar(13)	NOT NULL,
 	`re_se_num`	int	NOT NULL,
+    `re_hours` int not null,
 	`re_start_time`	datetime not null DEFAULT NOW(),
 	`re_valid_time`	datetime not null,
 	`re_register_date`	datetime not null,
@@ -101,7 +105,6 @@ DROP TABLE IF EXISTS `todo`;
 CREATE TABLE `todo` (
 	`td_num`	int auto_increment primary key NOT NULL,
 	`td_date`	date NOT NULL,
-	`td_st_num`	int	NOT NULL,
 	`td_me_id`	varchar(13)	NOT NULL,
 	`td_content`	varchar(50)	NOT NULL,
 	`td_finish`	int	NOT NULL DEFAULT 0
@@ -180,6 +183,7 @@ DROP TABLE IF EXISTS `pay`;
 CREATE TABLE `pay` (
 	`pa_order_id`	varchar(27) primary key	NOT NULL,
 	`pa_me_id`	varchar(13)	NOT NULL,
+    `pa_order_name` varchar(50) not null,
 	`pa_date`	datetime NOT NULL default NOW(),
 	`pa_amount`	int	NOT NULL,
 	`pa_point`	int	NOT NULL,
@@ -362,6 +366,17 @@ DROP TABLE IF EXISTS `exp`;
 CREATE TABLE `exp` (
 	`ex_level`	int NOT NULL,
 	`ex_experience`	int NOT NULL
+);
+
+DROP TABLE IF EXISTS `notice`;
+
+CREATE TABLE `notice` (
+	`no_num`	int auto_increment primary key	NOT NULL,
+	`no_title`	varchar(20)	not NULL,
+	`no_me_id`	varchar(13)	NOT NULL,
+	`no_content`	longtext	not NULL,
+	`no_register_date`	datetime	NULL,
+	`no_views`	int not null default 0
 );
 
 ALTER TABLE `branch` ADD CONSTRAINT `FK_region_TO_branch_1` FOREIGN KEY (
@@ -693,3 +708,9 @@ REFERENCES `region` (
 	`re_name`
 );
 
+ALTER TABLE `notice` ADD CONSTRAINT `FK_member_TO_notice_1` FOREIGN KEY (
+	`no_me_id`
+)
+REFERENCES `member` (
+	`me_id`
+);

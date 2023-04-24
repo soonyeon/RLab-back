@@ -5,7 +5,7 @@
     
 
 <link rel="stylesheet" href="<c:url value='/resources/css/study/certification_board.css'></c:url>">
-<link rel="stylesheet" href="<c:url value='/resources/css/study/study.css'></c:url>">
+<link rel="stylesheet" href="<c:url value='/resources/css/study/study_1.css'></c:url>">
 
  <div class="main_container" style="
     margin-left: 150px;">
@@ -231,7 +231,7 @@ const likeOffImageUrl = $("#like_off_image_url").val();
         formData.append('content', $('#content').val());
         formData.append('ph_pt_num', $('#ph_pt_num').val());
         formData.append('ph_st_num', ${st_num});
-        
+        console.log(formData);
         $.ajax({
             type: "POST",
             url: "<c:url value='/study/photo/insert'/>",

@@ -115,5 +115,12 @@
 	insert into study_member(sm_st_num,sm_me_id,sm_authority,sm_join_date)
 	values(#{sm.sm_st_num},#{sm.sm_me_id},9,NOW())
 </insert>
-
+<select id="selectSearchTagList" resultType="String">
+	select tr_name
+	from (select tr_name, count(*) as count from tag_register 
+		where tr_name LIKE CONCAT('%',#{search},'%') 
+	    group by tr_name)as tag
+	order by count desc
+	limit 5 
+</select>
 </mapper>
