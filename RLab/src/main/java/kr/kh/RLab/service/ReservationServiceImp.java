@@ -177,8 +177,13 @@ public class ReservationServiceImp implements ReservationService {
 		if(reservationDao.updateMemberUseTime(book)==0)
 			System.out.println("회원 누적사용시간 증가 실패");
 		
-		//gr_exp 펫 누적경험치 추가
-		//reservationDao.updatePetExp(book);
+		//gr_exp 펫 누적경험치 추가, 경험치에 따른 펫 레벨업
+		reservationDao.updatePetExp(book);
+		int exp = reservationDao.getMypetExp(book);
+		if(exp<8)
+			reservationDao.updateMypetLevel(1);
+		else if(exp>=8 && exp<27)
+			reservationDao.updateMypetLevel(2);
 	}
 
 	@Override
