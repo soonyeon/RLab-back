@@ -89,7 +89,10 @@
 						</tr>
 						<tr>
 							<th>남은 시간</th>
-							<td>${restTime}시간</td>
+							<td>
+								<c:if test="${restTime!=0}">${restTime}시간</c:if>
+								<c:if test="${restTime==0}">이용권 사용 완료</c:if>
+							</td>
 						</tr>
 					</table>
 				</div>

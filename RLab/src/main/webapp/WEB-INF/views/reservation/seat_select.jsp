@@ -288,40 +288,6 @@ $(document).ready(function() {
         }
     });
 });
-/*//예약하기
-$('#book_btn').click(function(){
-	let book = {
-			're_me_id' : '${user.me_id}',
-			're_to_num' : $('#ticket_select').val(),
-			'br_num' : ${br_num},
-			'se_name' : seatNum+'',
-			're_hours' : useTime
-	}
-	//예약
-	$.ajax({
-		async:false,
-		type: 'POST',
-		data: JSON.stringify(book),
-		url: '<c:url value="/reservation/1/${br_num}"></c:url>',
-		dataType:"json",
-		contentType:"application/json; charset=UTF-8",
-		success : function(data){
-			console.log(data);
-		}
-	});
-	//예약완료 페이지로 넘어가기
-	$.ajax({
-		async:false,
-		type: 'POST',
-		data: JSON.stringify(book),
-		url: '<c:url value="/reservation/1/complete"></c:url>',
-		dataType:"json",
-		contentType:"application/json; charset=UTF-8",
-		success : function(data){
-			console.log(data);
-		}
-	});
-});*/
 
 
 //선택된 이용권을 보여주는 함수
