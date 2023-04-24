@@ -358,27 +358,6 @@
 		} else {
 			gaugeWidth = ratio * 100 + '%';
 		}    
-		/*
-	    function updateExGauge(){
-			if(nowEx >= levelUpEx){
-				gaugeWidth = 0 + '%';
-				$('.pet_ex_colored').width(gaugeWidth);
-				location.reload();
-			} else {
-				gaugeWidth = ratio * 100 + '%';
-			}    	    	
-	    }
-		
-	    $.ajax({
-			url: '<c:url value="/mypage/ExGauge" />',
-			type: "GET",
-			success: function(data){
-				console.log(1);
-				resStart = new Date(data.re_start_time);
-				resValid = new Date(data.re_valid_time);
-				updateExGauge();
-			}
-		});*/
     	
     });
 	// pet_store 모달 열기
