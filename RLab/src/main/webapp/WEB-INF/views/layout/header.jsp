@@ -126,7 +126,14 @@
 		        </c:if>
         	</div>
         </div>
-      </div>
+      </div>	
+      		<div id="notificationModal" style="display:none;">
+				    <div class="notification-content">
+				        <h4 id="notificationTitle">알림</h4>
+				        <p id="notificationMessage">새로운 댓글이 달렸습니다.</p>
+				    </div>
+			</div>
+      			
 	     	<div class="alarm_modal" id="alarmModal">
 			    <c:forEach var="alarm" items="${alarm}">
 			        <p>${alarm.al_content}</p>
@@ -160,6 +167,7 @@ $(document).ready(function() {
         console.log(userId);
         const connectUrl = "<c:url value='/connect' />" + "?id=" + userId;
          source = new EventSource(connectUrl);
+         let bt = "${board.bo_title}"
         
         source.onopen = function() {
             console.log("SSE connection opened");
@@ -174,8 +182,14 @@ $(document).ready(function() {
         };
         source.addEventListener("newComment", function (event) {
         	//이벤트가 일어날 일을 여기밑에다가 쓰기
-        	
-  	      const data = JSON.parse(event.data);
+	  	    const data = JSON.parse(event.data);
+		    const title = "새로운 댓글";
+		    const message = bt+'게시글에 댓글이 달렸습니다.';
+		    showModal(title, message);
+		
+		    setTimeout(function() {
+		        hideModal();
+		    }, 5000); 
   	      console.log("Received newComment event:", data);
   	      showNotification(data.message);
   	    });
@@ -208,6 +222,16 @@ $(document).ready(function() {
       $('.modal_container').hide();
     });
   });
+  
+	function showModal(title, message) {
+	    $("#notificationTitle").text(title);
+	    $("#notificationMessage").text(message);
+	    $("#notificationModal").fadeIn(300);
+	}
+	
+	function hideModal() {
+	    $("#notificationModal").fadeOut(300);
+	}
 
   function findID() {
     let email = $("#email").val();
