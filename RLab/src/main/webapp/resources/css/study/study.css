@@ -560,6 +560,7 @@ cursor: pointer;
   background-image: url(../img/certify_img.jpeg);
   background-size: cover;
   min-height: 270px;
+  width: 370px;
   background-position: center;
   border-radius: var(--border_radius_4);
 }

@@ -10,18 +10,17 @@
  <div class="main_container" style="
     margin-left: 150px;">
                 <!-- 왼쪽 메뉴바 -->
-                <div class="left_menu_container">
-                    <nav class="left_menu">
-                        <a href="<c:url value='/study/${st_num}'></c:url>" class="list_item">스터디홈</a>
-                        <a href="#" class="list_item">스터디 달력</a>
-                        <a href="to_do_list.html" class="list_item">투두 리스트</a>
-                        <a href="Daily Mission.html" class="list_item">데일리 미션</a>
-                        <a href="<c:url value='/study/photo/${st_num}'></c:url>" class="list_item">인증 게시판</a>
-                        <a href="<c:url value='/board/list/${st_num}'></c:url>" class="list_item">자유 게시판</a>
-                        <a href="<c:url value='/study/management/member'></c:url>" class="list_item">스터디 관리</a>
-                        <a href="#" class="leave">탈퇴하기</a>
-                    </nav>
-                </div>
+		<div class="left_menu_container">
+			<nav class="left_menu">
+				<a href="<c:url value='/study/${st_num}'></c:url>" class="list_item">스터디홈</a>
+				<a href="to_do_list.html" class="list_item">투두 리스트</a> 
+				<a href="<c:url value='/study/daily/${st_num}'></c:url>" class="list_item">데일리 미션</a> 
+				<a href="<c:url value='/study/photo/${st_num}'></c:url>" class="list_item">인증 게시판</a> 
+				<a href="<c:url value='/board/list/${st_num}'></c:url>" class="list_item">자유 게시판</a> 
+				<a href="<c:url value='/study/management'></c:url>" class="list_item">스터디 관리</a>
+				<a href="#" class="leave">탈퇴하기</a>
+			</nav>
+		</div>
 
                 <section>
                     <div class="home_container">
@@ -82,7 +81,7 @@
 				                <input type="file" id="photo" name="photo" accept="image/*">
 				                <br>
 				                <label for="content">내용입력:</label>
-				                <textarea id="content" name="content" rows="4" cols="50" maxlength="500" placeholder="내용은 500자 이내"></textarea>
+				                <textarea id="content" name="content" rows="4" cols="50" maxlength="100" placeholder="내용은 100자 이내"></textarea>
 				                <br>
 				                <label for="category">카테고리 선택:</label>
 					                <select id="ph_pt_num" name="ph_pt_num">

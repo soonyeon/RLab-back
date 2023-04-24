@@ -158,6 +158,8 @@ public class StudyController {
 			mv.addObject("url", "redirect:/");
 			mv.setViewName("/common/message");
 		}
+		ArrayList<PhotoVO> photo = studyService.selectPhotoPhNumTwo(st_num);
+		mv.addObject("photo",photo);
 		mv.addObject("st_num", st_num);
 		mv.addObject("loginUserId", user.getMe_id());
 		mv.setViewName("/study/study_basic");
@@ -202,7 +204,6 @@ public class StudyController {
 
 	@RequestMapping(value = "/management", method = RequestMethod.POST)
 	public ModelAndView managementPost(ModelAndView mv, StudyVO study) {
-		System.out.println(study);
 		mv.setViewName("redirect:/study/management/member/" + study.getSt_num());
 		return mv;
 	}
@@ -268,7 +269,7 @@ public class StudyController {
 		return mv;
 	}
 	
-
+	
 	@GetMapping("/daily/{st_num}")
 	public ModelAndView studyInsert(ModelAndView mv,HttpServletRequest request,@PathVariable("st_num") int st_num) {
 		MemberVO user = (MemberVO)request.getSession().getAttribute("user");

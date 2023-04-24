@@ -52,4 +52,6 @@ public interface StudyDAO {
 
 	ArrayList<StudyMemberVO> selectStudyMemberByStNum(int st_num);
 
+	ArrayList<PhotoVO> selectPhotoPhNumTwo(int st_num);
+
 }
