@@ -73,6 +73,10 @@ public interface StudyDAO {
 
 	void insertTodo(@Param("td_content")String td_content,@Param("td_me_id")String td_me_id );
 
+	void deletetTodo(@Param("td_num")int td_num);
+
+//	void updateTodo(@Param("td_num")int td_num, @Param("td_finish") int td_finish);
+
 
 
 

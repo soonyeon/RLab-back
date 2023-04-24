@@ -314,21 +314,6 @@ public class StudyController {
     }
 
 
-	
-	
-	
-
-//    // 투두 인풋 입력값 가져오기
-//	@ResponseBody
-//	@RequestMapping(value = "/todo/create", method = RequestMethod.POST)
-//	public HashMap<String,Object> insertTodo(@RequestBody TodoVO td) {
-//		HashMap<String,Object> map = new HashMap<String,Object>();
-//	    // 멤버를 삭제하고, 새로운 멤버 리스트를 가져옴
-////	    studyService.insertTodo(st.getSm_st_num(),sm.getMe_name());
-//		studyService.createTodo(td.getTd_content());
-//	    return map;
-//	}
-//	
 //	//투두 상태 변경 1 -> 0
 //	@ResponseBody
 //	@RequestMapping(value = "/todo/finish", method = RequestMethod.POST)
@@ -339,7 +324,7 @@ public class StudyController {
 //	    studyService.finishTodo(td.getTd_num(),td.getTd_finish());
 //	    return map;
 //	}
-//	
+////	
 //	//투두 상태 변경 0 -> 1
 //	@ResponseBody
 //	@RequestMapping(value = "/todo/finish/undo", method = RequestMethod.POST)
@@ -352,16 +337,15 @@ public class StudyController {
 //	}
 //	
 ////		
-//	//투두 삭제
-//	@ResponseBody
-//	@RequestMapping(value = "/todo/delete", method = RequestMethod.POST)
-//	public HashMap<String, Object> deleteTodo(@RequestBody TodoVO td) {
-//	    HashMap<String, Object> map = new HashMap<String, Object>();
-//	    
-//	    // 해당 스터디를 삭제
-//	    studyService.deleteTodo(st.getSt_num());
-//	    return map;
-//	}
+	//투두 삭제
+	@ResponseBody
+	@RequestMapping(value = "/todo/delete", method = RequestMethod.POST)
+	public HashMap<String, Object> deleteTodo(@RequestBody TodoVO td) {
+	    HashMap<String, Object> map = new HashMap<String, Object>();
+	    // 해당 스터디를 삭제
+	    studyService.deleteTodo(td.getTd_num());
+	    return map;
+	}
 	
 
 	

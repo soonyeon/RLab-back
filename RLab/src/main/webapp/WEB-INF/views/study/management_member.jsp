@@ -244,51 +244,6 @@ function confirmAction(buttonText, action) {
   }
 }
 
-/* ajax를 이용 */
-/*  $.ajax({
-	//	비동기화 : 사용
-	// 동기화는 ajax 작업이 다 끝난 후 아래 코드가 실행
-	// 비동기화는 ajax가 작업이 끝나든 말든 아래 코드다 실행
-    async:true,
-    type:'POST',
-    data:JSON.stringify(obj),
-    url:"/study/management/member/{st_num}",
-    //서버에서 받는 데이터 타입
-    dataType:"json",
-    //서버에서 보내는 데이터 타입
-    contentType:"application/json; charset=UTF-8",
-    success : function(data){
-        console.log(data);
-    }
-}); 
-
-$.ajax({
-    url: "/management/member/delete",
-    type: "POST",
-    data: {st_me_id: st_me_id},
-    success: function(data) {
-        // 새로운 멤버 리스트를 사용하여 화면을 업데이트
-    }
-});
-
-$.ajax({
-    url: "/management/member/delete",
-    type: "POST",
-    data: {st_me_id: st_me_id},
-    success: function(data) {
-        // 멤버 리스트를 업데이트
-        var memberList = "";
-        $.each(data, function(index, member) {
-            memberList += "<tr><td>" + member.st_me_id + "</td><td>" + member.st_me_name + "</td></tr>";
-        });
-        $("#memberListTable tbody").html(memberList);
-    }
-});
-
-*/
-
-
-
 
 $(".btn_drop").on("click", function() {
 	let me_name = $(this).parents('.board_list').find('[name=me_name]').text();

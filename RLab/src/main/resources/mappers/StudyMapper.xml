@@ -127,5 +127,14 @@
     	insert into todo(td_me_id,td_content,td_finish,td_date)
 		values(#{td_me_id},#{td_content},0,NOW())
     </insert>
+    <delete id="deletetTodo">
+    	delete from todo
+    	where td_num = #{td_num}
+    </delete>
+    
+<!--     <update id="updateTodo">
+    	update todo set td_finish = 1
+    	where td_num = #{td_num}
+    </update> -->
     
 </mapper>

@@ -45,23 +45,23 @@
 	                            	
 		                            <ul class="todo_list" id="todo_list">
 		                                <c:forEach items="${tdList}" var="td" varStatus="vs" >
-		                                <li>
-		                                	<c:if test="${td.td_finish == 0}">
-			                                    <span class="todo_check">
-			                                        <i class="material-icons check check_on">check</i>
+			                                <li>
+			                                	<c:if test="${td.td_finish == 0}">
+				                                    <span class="todo_check">
+				                                        <i class="material-icons check check_on">check</i>
+				                                    </span>
+			                                    	<span class="todo_content">${td.td_content}</span>
+			                                    </c:if>
+			                                    <c:if test="${td.td_finish == 1}">
+				                                    <span class="todo_check">
+				                                        <i class="material-icons check check_off">check</i>
+				                                    </span>
+			                                    	<span class="todo_content done">${td.td_content}</span>
+			                                    </c:if>
+			                                    <span class="todo_clear" data-num="${td.td_num}">
+			                                        <i class="material-icons clear">clear</i>
 			                                    </span>
-		                                    	<span class="todo_content">${td.td_content}</span>
-		                                    </c:if>
-		                                    <c:if test="${td.td_finish == 1}">
-			                                    <span class="todo_check">
-			                                        <i class="material-icons check check_off">check</i>
-			                                    </span>
-		                                    	<span class="todo_content done">${td.td_content}</span>
-		                                    </c:if>
-		                                    <span class="todo_clear">
-		                                        <i class="material-icons clear">clear</i>
-		                                    </span>
-		                                </li>
+			                                </li>
 		                          		</c:forEach>
 		                            </ul>
 		                    	
@@ -451,39 +451,6 @@
 
 <script>
 
-/* $(".check").on("click", function() {
-	let obj = {
-			td_num: ${td_num}
-	}
-  confirmAction("완료된 스터디로 전환 시 스터디 활동이 일부 제한되며, 자유게시판만 사용가능합니다. 목표를 달성하거나 일정이 모두 완료된 경우에만 전환할 것을 권유드립니다. 정말 완료하시겠습니까?", function() {
-		$.ajax({	
-			async:false,
-		    type:'POST',
-		    data:JSON.stringify(obj),
-		    url:"<c:url value='/study/management/study/update/{st_num}'></c:url>",
-		    //서버에서 받는 데이터 타입
-		    dataType:"json",
-		    //서버에서 보내는 데이터 타입
-		    contentType:"application/json; charset=UTF-8",
-		    success : function(data){
-		        console.log(data);
-		        
-		    	location.replace("<c:url value='/study/management'></c:url>");	  
-		  	  alert("스터디가 완료처리 되었습니다.")
-		    }
-		});
-	});
-});
- */
-
-
-
-
-
-
-
-
-
  //DOM 요소 가져오기
 const todoInput = document.querySelector(".input_box"); // 할 일 입력란
 const todoList = document.querySelector(".todo_list"); // 할 일 목록
@@ -494,8 +461,6 @@ todoInput.addEventListener("keypress", (e) => {
     if (e.keyCode === 13 && todoInput.value !== '') { // Enter 키를 눌렀고, 입력란이 비어있지 않은 경우
     	generateTodo(todoInput.value); // 입력된 할 일을 추가하는 함수 호출
         todoInput.value = ""; // 입력란 비우기
-    
-       
     }
     console.log(1); 
 	
@@ -507,14 +472,10 @@ const generateTodo = (todo) => {
     const obj = {
     		td_content : todo,
     		td_me_id : '${user.me_id}'
-    }
-    
+    };
     // 컨트롤러에서 보내주는 값을 확인
+    /* console.log(obj);  *///obj에 입력한 값이 제대로 전송되는지 확인
     
-    
-    console.log(obj); //obj에 입력한 값이 제대로 전송되는지 확인
-    
-
  	  $.ajax({
 			async:false,
 		    type:'POST',
@@ -528,16 +489,88 @@ const generateTodo = (todo) => {
 		        $('#todo_list').load("<c:url value='/study/todo'></c:url> #todo_list");
 		    }
 		});  
-    
-}  
-    
-    
-/*     const data = JSON.stringify({ todo: todo }); // 요청 데이터를 JSON 형식으로 변환
-    xhr.send(data); // 서버에 요청 데이터 전송 
 } 
-		*/
-    
-    
+
+//투두 삭제
+
+/* const clear = document.guerySelector(".clear");
+clear.addEventListener('click', (e) => {
+		const todoList = e.target.parentNode.parentNode;
+        const obj = {
+            td_num: td_num
+        };
+        console.log(todoList);
+       	console.log(obj);
+   	  $.ajax({
+			async:false,
+		    type:'POST',
+		    data:JSON.stringify(obj),
+		    url:"<c:url value='/study/todo/create'></c:url>",
+		    //서버에서 받는 데이터 타입
+		    dataType:"json",
+		    //서버에서 보내는 데이터 타입
+		    contentType:"application/json; charset=UTF-8",
+		    success : function(data){
+		        $('#todo_list').load("<c:url value='/study/todo'></c:url> #todo_list");
+		    }
+		});  
+	}  
+  
+});*/
+
+
+const clearIcons = document.querySelectorAll('.clear');
+clearIcons.forEach(icon => {
+    icon.addEventListener("click", (e) => {
+        const td_num = e.target.parentNode.dataset.num;
+        /* const tdNum = li.querySelector('.td_num').textContent; */  // 할 일 내용 가져오기
+        // Ajax를 이용하여 서버에 할 일 내용을 전송
+/*         const obj = {
+        		td_num = ${td_num}
+        } */
+        console.log(td_num);
+        
+        
+        $.ajax({
+            async: false,
+            type: 'POST',
+            data:JSON.stringify({'td_num': td_num}),
+            url: "<c:url value='/study/todo/delete'></c:url>",
+            // 서버에서 받는 데이터 타입
+            dataType: "json",
+            // 서버에서 보내는 데이터 타입
+            contentType: "application/json; charset=UTF-8",
+            success: function (data) {
+                 $('#todo_list').load("<c:url value='/study/todo'></c:url> #todo_list" );
+            }
+        });
+    });
+});
+
+
+
+/*$(".clear").on("click", function() {
+	let obj = {
+		td_num: ${td_num}
+	};
+		$.ajax({	
+			async: false,
+			type: 'POST',
+			data: JSON.stringify(obj),
+			url: "<c:url value='/study/todo/delete'></c:url>",
+			dataType: "json",
+			contentType: "application/json; charset=UTF-8",
+			success: function(data) {
+				 console.log(data);
+				location.replace("<c:url value='/study/management'></c:url>"); 
+			}
+		});
+	});
+});
+
+*/
+
+
     
     
     

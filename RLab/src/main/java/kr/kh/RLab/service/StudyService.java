@@ -54,6 +54,10 @@ public interface StudyService {
 
 	void createTodo(String td_content, String td_me_id);
 
+	void deleteTodo(int td_num);
+
+//	void finishTodo(int td_num, int td_finish);
+
 
 	
 	
