@@ -47,4 +47,6 @@ public interface StudyService {
 
 	ArrayList<PhotoVO> selectPhotoPhNumTwo(int st_num);
 
+	//ArrayList<Integer> selectStudyMemberLeader(int st_num);
+
 }

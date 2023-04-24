@@ -41,30 +41,34 @@
 					<div class="today_mission_contents">정처기 1과 까지 공부하고 인증하기</div>
 				</div>
 				<div class="today_mission_button">
-					<c:if test="${user.me_authority == 9}">
-						<a href="#" class="mbutton1">등록/수정</a>
-					</c:if> 
+					<c:forEach items="${studyMember}" var="member">
+					   <c:if test="${member.sm_authority > 1}">
+					      <a href="#" class="mbutton1">등록/수정</a>
+					   </c:if> 
+					</c:forEach> 
 					<a href="<c:url value='/study/photo/${user.me_study}'></c:url>" class="mbutton2">인증하기</a>	
 				</div>
 				<!--달성률-->
 				<div>
-					<p class="success_percent2">달성률 20%</p>
+					<p class="success_percent2">달성률 %</p>
 				</div>
 				<div>
 					<progress class="mint" value="20" max="100"></progress>
 				</div>
+				
 				<!--프로필-->
 				<div class="daliy_mission_pro_container">
 					<c:forEach items="${studyMember}" var="sm">
 						<div class="daliy_mission_pro">
-							<div class="pro-img-check"></div>
-								<img  class="pro_img" src="<c:url value='/download/${sm.me_profile}'></c:url>" >
+							<img class="pro-img-check">
+							<img  class="pro_img" src="<c:url value='/download/${sm.me_profile}'></c:url>" >
 							<div class="pro_name">${sm.sm_me_id}</div>
 						</div>
 					</c:forEach>
 				</div>
 			</div>
 		</div>
+		
 		
 
 

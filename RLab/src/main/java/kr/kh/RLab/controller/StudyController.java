@@ -261,7 +261,6 @@ public class StudyController {
 		// System.out.println(user);
 
 		ArrayList<StudyVO> myStudyList = studyService.getStudyListById(memberId);
-		System.out.println(myStudyList);
 
 		mv.addObject("myStudyList", myStudyList);
 		mv.addObject("user", user);
@@ -272,7 +271,7 @@ public class StudyController {
 	
 	@GetMapping("/daily/{st_num}")
 	public ModelAndView studyInsert(ModelAndView mv,HttpServletRequest request,@PathVariable("st_num") int st_num) {
-		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
+		MemberVO user = (MemberVO)request.getSession().getAttribute("user");	
 		ArrayList<StudyMemberVO> studyMember = studyService.selectStudyMemberByStNum(st_num);
 		mv.addObject("studyMember",studyMember);
 	 	mv.setViewName("/study/daily");

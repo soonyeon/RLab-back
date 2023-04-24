@@ -96,8 +96,8 @@
     <select id="selectStudyMemberByStNum" resultType="kr.kh.RLab.vo.StudyMemberVO">
     	select * from study_member
     	join member on me_id = sm_me_id
-    	where sm_st_num = #{st_num} and sm_authority > 0
+    	where sm_st_num = #{st_num} and sm_authority > 0 
     </select>
-
+	
     
 </mapper>

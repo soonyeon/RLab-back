@@ -139,6 +139,8 @@ public class StudyServiceImp implements StudyService {
 		return studyDao.selectPhotoPhNumTwo(st_num);
 	}
 
+	
+
 
 
 }
