@@ -49,9 +49,10 @@
 			  </div>
               <form action="<c:url value='/board/update/${st_num}/${bd.bo_num}'></c:url>" method="post"> 
               	<input type="hidden" name="bo_me_id" value="${memberId}">
+                <input type="hidden" name="bo_st_num" value="${bd.bo_st_num}">
                 <h2>스터디명</h2> 
                 <select id="choose_study" name="bo_st_num" disabled="disabled">
-                	<c:forEach var="study" items="${study}" >
+                	<c:forEach var="study" items="${study}">
                 		<option value="${study.st_num}" <c:if test="${bd.bo_st_num == study.st_num }">selected</c:if>>${study.st_name}</option>>
            			</c:forEach>
                 </select> 
@@ -186,6 +187,7 @@
 
 </main>
 <script>
+
 $(document).ready(function() {
     // 임시 저장 버튼 클릭시
 	$(".ts_btn").on("click", function() {
