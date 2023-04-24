@@ -3,7 +3,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- header -->
 <!-- 모달 -->
+<style>
+	.notification {
+	  position: fixed;
+	  top: 20px;
+	  left: 50%;
+	  transform: translateX(-50%);
+	  z-index: 9999;
+	}
+</style>
     <header>
+      <div class="notification" style="display:none;"></div>
     <!-- 로그인 모달창 -->
       <div class="modal_container" id="loginModal">
         <div class="modal_area">
@@ -125,6 +135,7 @@
 			</div>
     </header>
 <script>
+
 $(document).ready(function() {
     $('.login_modal').click(function(e) {
       e.preventDefault();
@@ -198,6 +209,7 @@ $(document).ready(function() {
     $(this).closest('form').submit();
   });
   function showNotification(message) {
+	  console.log("showNotification called with message:", message);
       $('.notification').text(message);
       $('.notification').fadeIn().delay(3000).fadeOut();
   }
@@ -242,27 +254,40 @@ if(typeof(EventSource) !== "undefined") {
 	  });
 
 	function createComment(postId, writerId, content) {
-	  $.ajax({
-	    type: "POST",
-	    url: "<c:url value='/comment/create'/>",
-	    contentType: "application/json",
-	    data: JSON.stringify({
-	      postId: postId,
-	      writerId: writerId,
-	      content: content
-	    }),
-	    success: function(response) {
-	      console.log("Comment created:", response);
-	      // SSE 이벤트를 보내서 새로운 댓글 생성 알림을 받을 수 있도록 함
-	      const source = new EventSource("<c:url value='/connect?id=${session.id}' />");
-	      source.onopen = function() {
-	        console.log("SSE connection opened");
-	        source.send('newComment');
-	      };
-	    },
-	    error: function(jqXHR, textStatus, errorThrown) {
-	      console.log("Error creating comment:", jqXHR, textStatus, errorThrown);
-	    }
-	  });
-	}
+		  $.ajax({
+		    type: "POST",
+		    url: "<c:url value='/comment/create'/>",
+		    contentType: "application/json",
+		    data: JSON.stringify({
+		      postId: postId,
+		      writerId: writerId,
+		      content: content
+		    }),
+		    success: function (response) {
+		      console.log("Comment created:", response);
+
+		      // 서버에 연결을 요청하고 새로운 댓글 생성 이벤트를 받을 수 있도록 함
+		      const source = new EventSource("<c:url value='/connect?id=${session.id}' />");
+
+		      source.onopen = function () {
+		        console.log("SSE connection opened");
+
+		        // 새로운 댓글 생성 이벤트를 받는 이벤트 리스너를 추가
+		        source.addEventListener("newComment", function (event) {
+		          const data = JSON.parse(event.data);
+		          console.log("Received newComment event:", data); // 이벤트 수신 로그 추가
+		          // 알림을 화면에 표시하는 함수 호출
+		          showNotification(data.message);
+		        });
+		      };
+
+		      source.onerror = function (event) {
+		        console.log("SSE error:", event);
+		      };
+		    },
+		    error: function (jqXHR, textStatus, errorThrown) {
+		      console.log("Error creating comment:", jqXHR, textStatus, errorThrown);
+		    },
+		  });
+		}
 </script>

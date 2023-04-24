@@ -11,10 +11,6 @@
 
     <!-- 사용자별 알림 이벤트 조회 -->
     <select id="getUserAlrams" resultType="kr.kh.RLab.vo.AlarmVO">
-        SELECT * FROM alram WHERE al_me_id = #{userid}
-        SELECT al.*, b.bo_title 
-		FROM alram al
-		JOIN board b ON al.board_id = b.id
-		WHERE al_me_id = #{userid}
+        SELECT * FROM alram WHERE al_me_id = #{al_me_id}
     </select>
 </mapper>
