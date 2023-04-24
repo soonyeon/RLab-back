@@ -35,4 +35,6 @@ public interface BoardDAO {
 
 	BoardVO getBoardByComment(int co_num);
 
+	ArrayList<BoardVO> findBoardById(String me_id);
+
 }

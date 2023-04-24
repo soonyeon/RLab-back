@@ -31,5 +31,7 @@ public interface BoardService {
 	ArrayList<StudyVO> selectStudyList();
 
 	BoardVO getBoardByComment(int co_num);
+
+	ArrayList<BoardVO> findBoardById(String me_id);
 	
 }

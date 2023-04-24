@@ -48,6 +48,8 @@ public interface GatherService {
 
 	GatherVO getGatherByComment(int co_ori_num);
 
+	ArrayList<GatherVO> findGatherdById(String me_id);
+
 
 
 

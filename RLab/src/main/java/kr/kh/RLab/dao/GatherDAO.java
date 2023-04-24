@@ -62,6 +62,8 @@ public interface GatherDAO {
 
 	GatherVO getGatherByComment(int co_num);
 
+	ArrayList<GatherVO> findGatherdById(String me_id);
+
 	
 
 	

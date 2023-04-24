@@ -120,4 +120,9 @@
 	select * from gather
 	where ga_num =  #{co_ex_num} 
 </select>
+
+<select id="findGatherdById" resultType="kr.kh.RLab.vo.GatherVO">
+	select * from gather
+	where ga_me_id = #{me_id}
+</select>
 </mapper>

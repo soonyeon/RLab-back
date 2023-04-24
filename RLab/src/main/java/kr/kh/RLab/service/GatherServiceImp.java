@@ -194,4 +194,9 @@ public class GatherServiceImp implements GatherService {
 		return gatherDao.getGatherByComment(co_num);
 	}
 
+	@Override
+	public ArrayList<GatherVO> findGatherdById(String me_id) {
+		return gatherDao.findGatherdById(me_id);
+	}
+
 }

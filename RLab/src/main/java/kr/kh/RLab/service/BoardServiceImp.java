@@ -77,4 +77,9 @@ public class BoardServiceImp implements BoardService {
 		return boardDao.getBoardByComment(co_num);
 	}
 
+	@Override
+	public ArrayList<BoardVO> findBoardById(String me_id) {
+		return boardDao.findBoardById(me_id);
+	}
+
 }
