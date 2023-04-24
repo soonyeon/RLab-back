@@ -26,6 +26,12 @@ public interface MypageDAO {
 		GrowthVO selectExExp(int gr_Level);
 		
 		int updateExp(@Param("currentEx")int currentEx, @Param("userId")String userId);
+    
+    // 내 펫 정보 가져오기
+		GrowthVO selectMyPet(String memberId);
+		
+		// 펫 경험치 가져오기
+		GrowthVO selectPetExp(String memberId);
 		
 		// 적립 포인트
 		int selectMyPoint(@Param("userId")String userId);
@@ -38,6 +44,9 @@ public interface MypageDAO {
 		
 		// 나의 스크랩
 		ArrayList<BoardVO> selectMainScrapList(String userId);
+    
+    
+  
 		
 
 		

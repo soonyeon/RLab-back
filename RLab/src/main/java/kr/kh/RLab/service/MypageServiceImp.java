@@ -55,6 +55,17 @@ public class MypageServiceImp implements MypageService {
 	public int updateExp(int currentEx, String userId) {
 		return mypageDao.updateExp(currentEx, userId);
 	}
+  
+  	//[마이페이지 홈 > 펫 정보]
+		@Override
+		public GrowthVO selectMyPet(String memberId) {
+			return mypageDao.selectMyPet(memberId);
+		}
+
+		@Override
+		public GrowthVO selectPetExp(String memberId) {
+			return mypageDao.selectPetExp(memberId);
+		}
 	
 	//[마이페이지 홈 > 적립 포인트]
 	@Override
@@ -210,5 +221,7 @@ public class MypageServiceImp implements MypageService {
 			ArrayList<Integer> wantList = mypageDao.selectWantListById(memberId);
 			return wantList;
 		}
+
+
 
 }

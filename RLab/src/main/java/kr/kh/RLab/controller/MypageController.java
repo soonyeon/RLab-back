@@ -83,8 +83,18 @@ public class MypageController {
 		
 		//나의 스크랩 데이터 가져오기
 		ArrayList<BoardVO> myScrapList = mypageService.getMainScrapList(userId);
-
+		
+		//나의 펫 데려오기
+		GrowthVO myPet = mypageService.selectMyPet(userId);
+		
+		//펫exp가져오기
+		GrowthVO petExp = mypageService.selectPetExp(userId);		
+		
+		//System.out.println("mypoint" + myPoint);
 		mv.setViewName("/mypage/mypage");
+		mv.addObject("petExp",petExp);
+		mv.addObject("myPet",myPet);
+		mv.addObject("myPoint", myPoint);
 		mv.addObject("petEx", petEx);
 		mv.addObject("exExp", exExp);
 		mv.addObject("currentEx", currentEx);
@@ -92,7 +102,6 @@ public class MypageController {
 		mv.addObject("resList", resList);
 		mv.addObject("myScrapList", myScrapList);
 		mv.addObject("myStudyList", myStudyList);
-		mv.addObject("myPoint",myPoint);
 		mv.addObject("petList",petList);
 		mv.addObject("petFile",petFile);
 		return mv;

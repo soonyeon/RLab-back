@@ -77,5 +77,13 @@ public interface MypageService {
 		// 내가 쓴 모집글의 찜 여부 가져오기
 		ArrayList<Integer> selectWantListById(String memberId);
 
+		
+	//[마이페이지 > 펫]	
+		//펫 불러오기
+		GrowthVO selectMyPet(String memberId);
+
+		//펫 경험치 가져오기
+		GrowthVO selectPetExp(String memberId);
+
 
 }
