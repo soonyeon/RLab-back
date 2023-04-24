@@ -34,6 +34,8 @@ public interface ReservationService {
 	int getBranchTotalCount(ReservationCriteria cri);
 
 	void reserveSeat(ReservationVO book);
+	
+	void reserveCabinet(ReservationVO book);
 
 	ReservationVO getReservationByBookInfo(ReservationVO book);
 

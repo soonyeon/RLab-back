@@ -147,7 +147,30 @@ public class ReservationServiceImp implements ReservationService {
 		//to_rest_time 소유중인 이용권의 잔여시간 감소(시간패키지면 사용시간만큼, 아니면 ti_period만큼)
 		reservationDao.updateTicketRestTime(book);
 		//잔여시간이 0이면 to_state를 0으로 변경
-		if(reservationDao.selectRestTime(book.getRe_to_num())==0)
+		if(reservationDao.selectRestTime(book.getRe_to_num())<=0)
+			reservationDao.updateTicketState(book.getRe_to_num());
+		
+		//me_use_time 누적이용시간 추가
+		if(reservationDao.updateMemberUseTime(book)==0)
+			System.out.println("회원 누적사용시간 증가 실패");
+		
+		//gr_exp 펫 누적경험치 추가
+		//reservationDao.updatePetExp(book);
+	}
+	
+	@Override
+	public void reserveCabinet(ReservationVO book) {
+		int tiNum = reservationDao.selectTiNum(book.getRe_to_num());
+		book.setRe_hours(reservationDao.selectTiPeriod(tiNum));
+
+		//reservation에 추가
+		if(reservationDao.insertReservation(book)!=0)
+			System.out.println("예약추가 성공");
+		
+		//to_rest_time 소유중인 이용권의 잔여시간 감소(시간패키지면 사용시간만큼, 아니면 ti_period만큼)
+		reservationDao.updateTicketRestTime(book);
+		//잔여시간이 0이면 to_state를 0으로 변경
+		if(reservationDao.selectRestTime(book.getRe_to_num())<=0)
 			reservationDao.updateTicketState(book.getRe_to_num());
 		
 		//me_use_time 누적이용시간 추가
@@ -161,6 +184,7 @@ public class ReservationServiceImp implements ReservationService {
 	@Override
 	public ReservationVO getReservationByBookInfo(ReservationVO book) {
 		int tiNum = reservationDao.selectTiNum(book.getRe_to_num());
+		System.out.println("tiNum: "+tiNum);
 		if(tiNum!=6 && tiNum!=7 && tiNum!=8) 
 			book.setRe_hours(reservationDao.selectTiPeriod(tiNum));
 		return reservationDao.selectReservationByBook(book);
@@ -181,5 +205,6 @@ public class ReservationServiceImp implements ReservationService {
 		return reservationDao.selectCabinetTicketOwnById(me_id);
 		
 	}
+
 
 }

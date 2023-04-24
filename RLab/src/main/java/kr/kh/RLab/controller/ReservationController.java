@@ -239,23 +239,6 @@ public class ReservationController {
 		mv.setViewName("/reservation/cabinet_select");
 		return mv;
 	}
-	@RequestMapping(value = "/reservation/2/complete", method=RequestMethod.GET) 
-	public ModelAndView cabinetDetail(ModelAndView mv,
-			HttpSession session, ReservationVO book) {
-		System.out.println("forward성공");
-		MemberVO user = (MemberVO)session.getAttribute("user");
-		BranchVO br  = reservationService.getBranchByBrNum(book.getBr_num());
-		ReservationVO rsv = reservationService.getReservationByBookInfo(book);
-		String ticketName = reservationService.getTicketNameByBookInfo(rsv);
-		int restTime = reservationService.getRestTime(book.getRe_to_num());
-		mv.addObject("user", user);
-		mv.addObject("br", br);
-		mv.addObject("rsv", rsv);
-		mv.addObject("ticketName",ticketName);
-		mv.addObject("restTime",restTime);
-		mv.setViewName("/reservation/cabinet_complete");
-		return mv;
-	}
 	@RequestMapping(value = "/reservation/2/book", method=RequestMethod.POST) 
 	public ModelAndView cabinetDetailPost(ModelAndView mv,
 			HttpSession session, ReservationVO book) {
@@ -263,19 +246,27 @@ public class ReservationController {
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		book.setRe_me_id(user.getMe_id());
 		System.out.println(book);
-		reservationService.reserveSeat(book);
-		
-//		BranchVO br  = reservationService.getBranchByBrNum(book.getBr_num());
-//		ReservationVO rsv = reservationService.getReservationByBookInfo(book);
-//		String ticketName = reservationService.getTicketNameByBookInfo(rsv);
-//		int restTime = reservationService.getRestTime(book.getRe_to_num());
-//		mv.addObject("user", user);
-//		mv.addObject("br", br);
-//		mv.addObject("rsv", rsv);
-//		mv.addObject("ticketName",ticketName);
-//		mv.addObject("restTime",restTime);
-		mv.setViewName("forward:/reservation/2/complete"); 
-		//완료페이지에서 새로고침하니까 계속 예약되길래 링크 바꿔서 forward시도했는데 post까진되고 forward로 안넘어감!!
+		reservationService.reserveCabinet(book);
+		//book한 reservation의 기본키 받아와서 넘겨줌
+		mv.addObject("reNum", reNum);
+		mv.setViewName("redirect:/reservation/2/complete"); 
+		return mv;
+	}
+	@RequestMapping(value = "/reservation/2/complete", method=RequestMethod.GET) 
+	public ModelAndView cabinetDetail(ModelAndView mv,
+			HttpSession session, ReservationVO book, int reNum) {
+		System.out.println("forward성공");
+		System.out.println("넘어온거: "+book);
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		book.setRe_me_id(user.getMe_id());
+		BranchVO br  = reservationService.getBranchByBrNum(book.getBr_num());
+		ReservationVO rsv = reservationService.getReservationByBookInfo(book);
+		String ticketName = reservationService.getTicketNameByBookInfo(rsv);
+		mv.addObject("user", user);
+		mv.addObject("br", br);
+		mv.addObject("rsv", rsv);
+		mv.addObject("ticketName",ticketName);
+		mv.setViewName("/reservation/cabinet_complete");
 		return mv;
 	}
 }
