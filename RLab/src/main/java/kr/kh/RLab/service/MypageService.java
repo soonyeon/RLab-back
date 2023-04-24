@@ -20,7 +20,9 @@ public interface MypageService {
 	//[마이페이지 홈 > 펫 경험치]
 		GrowthVO getPetEx(String userId);
 		
-		ArrayList<GrowthVO> getExpList(int i);
+		GrowthVO getExExp(int gr_Level);
+		
+		int updateExp(int currentEx, String userId);
 		
 	//[마이페이지 홈 > 적립 포인트]
 		int getMyPoint(String userId);	
@@ -74,9 +76,6 @@ public interface MypageService {
 		
 		// 내가 쓴 모집글의 찜 여부 가져오기
 		ArrayList<Integer> selectWantListById(String memberId);
-
-
-
 
 
 }

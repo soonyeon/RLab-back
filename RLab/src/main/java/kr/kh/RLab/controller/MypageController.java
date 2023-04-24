@@ -46,18 +46,27 @@ public class MypageController {
 		// 이용시간 안내
 		ReservationVO res = mypageService.getRes(userId);
 		
-		// 펫 경험치
+		// 펫 경험치(현재 나의 펫의 경험치)
 		GrowthVO petEx = mypageService.getPetEx(userId);
 		
+		// 펫의 전 레벨의 최대 경험치(레벨 업시, exp 초기화 위함)
 		int gr_Level = petEx.getGr_level();
-		ArrayList<GrowthVO> expList; 
+		GrowthVO exExp; 
 		
 		if(gr_Level == 1) {
-			expList = mypageService.getExpList(petEx.getGr_level());
+			exExp = mypageService.getExExp(gr_Level);
 		} else {
-			expList = mypageService.getExpList(petEx.getGr_level()-1);
-		}		
-		System.out.println(expList);
+			exExp = mypageService.getExExp(gr_Level-1);
+		}	
+		
+		// 레벨이 올라가면 exp값 초기화
+		int currentEx = petEx.getGr_exp();
+		int levelUpEx = petEx.getEx_experience();
+		int exEx = exExp.getEx_experience();
+		if(currentEx >= levelUpEx) {
+			mypageService.updateExp(currentEx -= levelUpEx, userId);
+			petEx.setGr_exp(currentEx);
+		}
 		
 		// 펫
 		ArrayList<PetVO> petList = petService.selectPetList();
@@ -77,7 +86,8 @@ public class MypageController {
 
 		mv.setViewName("/mypage/mypage");
 		mv.addObject("petEx", petEx);
-		mv.addObject("expList", expList);
+		mv.addObject("exExp", exExp);
+		mv.addObject("currentEx", currentEx);
 		mv.addObject("res", res);
 		mv.addObject("resList", resList);
 		mv.addObject("myScrapList", myScrapList);

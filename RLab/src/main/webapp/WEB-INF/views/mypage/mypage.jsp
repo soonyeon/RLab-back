@@ -339,28 +339,48 @@
     	});
     
     // 펫 경험치
-   /* $(document).ready(function(){
+  	$(document).ready(function(){
     	var gaugeWidth = $('.pet_ex_colored').width();
 		var nowEx = '${petEx.gr_exp}';
 		var levelUpEx = '${petEx.ex_experience}';
+		var exLevelUpEx = '${exExp.ex_experience}'
 		var ratio = nowEx / levelUpEx;
 		
 	    // 현재 레벨의 ex_experience가 되면 게이지가 꽉찬다.
 	    gaugeWidth = ratio * 100 + '%';
 	    $('.pet_ex_colored').width(gaugeWidth);
 	    
-	    // 레벨이 올라가면.. 
-		if(nowEx == levelUpEx){
-			// 게이지가 초기화 된다.
+		// 레벨이 올라가면.. 		
+		if(nowEx >= levelUpEx){
 			gaugeWidth = 0 + '%';
 			$('.pet_ex_colored').width(gaugeWidth);
-			
-			//
+			location.reload();
 		} else {
 			gaugeWidth = ratio * 100 + '%';
-		}
+		}    
+		/*
+	    function updateExGauge(){
+			if(nowEx >= levelUpEx){
+				gaugeWidth = 0 + '%';
+				$('.pet_ex_colored').width(gaugeWidth);
+				location.reload();
+			} else {
+				gaugeWidth = ratio * 100 + '%';
+			}    	    	
+	    }
+		
+	    $.ajax({
+			url: '<c:url value="/mypage/ExGauge" />',
+			type: "GET",
+			success: function(data){
+				console.log(1);
+				resStart = new Date(data.re_start_time);
+				resValid = new Date(data.re_valid_time);
+				updateExGauge();
+			}
+		});*/
     	
-    });*/
+    });
 	// pet_store 모달 열기
 	   $(document).on('click', '#pet_store_container', function(e){
 	   	console.log('click');

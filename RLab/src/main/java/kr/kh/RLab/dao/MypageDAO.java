@@ -23,7 +23,9 @@ public interface MypageDAO {
 		// 펫 경험치
 		GrowthVO selectPetEx(String userId);	
 		
-		ArrayList<GrowthVO> selectExpList(int i);
+		GrowthVO selectExExp(int gr_Level);
+		
+		int updateExp(@Param("currentEx")int currentEx, @Param("userId")String userId);
 		
 		// 적립 포인트
 		int selectMyPoint(@Param("userId")String userId);
@@ -74,6 +76,8 @@ public interface MypageDAO {
 		
 		// 내가 쓴 모집글의 찜 여부 가져오기
 		ArrayList<Integer> selectWantListById(String memberId);
+
+
 
 
 }

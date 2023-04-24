@@ -47,8 +47,13 @@ public class MypageServiceImp implements MypageService {
 	}
 	
 	@Override
-	public ArrayList<GrowthVO> getExpList(int i) {
-		return mypageDao.selectExpList(i);
+	public GrowthVO getExExp(int gr_Level) {
+		return mypageDao.selectExExp(gr_Level);
+	}
+	
+	@Override
+	public int updateExp(int currentEx, String userId) {
+		return mypageDao.updateExp(currentEx, userId);
 	}
 	
 	//[마이페이지 홈 > 적립 포인트]
@@ -205,7 +210,5 @@ public class MypageServiceImp implements MypageService {
 			ArrayList<Integer> wantList = mypageDao.selectWantListById(memberId);
 			return wantList;
 		}
-
-
 
 }
