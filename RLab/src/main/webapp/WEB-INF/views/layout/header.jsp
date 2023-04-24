@@ -2,19 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- header -->
-<<style>
-.notification {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 15px;
-    border-radius: 5px;
-    display: none;
-    z-index: 9999;
-}
-</style>
 <!-- 모달 -->
     <header>
     <!-- 로그인 모달창 -->
@@ -130,6 +117,13 @@
         	</div>
         </div>
       </div>
+	     	<div class="alarm_modal" id="alarmModal">
+				  <p>알림 내용</p>
+				  <hr>
+				  <p>다음 줄의 알림</p>
+				  <hr>
+				  <p>또 다른 줄의 알림</p>
+			</div>
     </header>
 <script>
 $(document).ready(function() {
@@ -228,6 +222,25 @@ if(typeof(EventSource) !== "undefined") {
 	    console.log('SSE error:', event);
 	  };
 	}
+	$(document).ready(function() {
+	    $('.alram_img').hover(
+	      function() {
+	        $('#alarmModal').show();
+	      },
+	      function() {
+	        $('#alarmModal').hide();
+	      }
+	    );
+	
+	    $('#alarmModal').hover(
+	      function() {
+	        $('#alarmModal').show();
+	      },
+	      function() {
+	        $('#alarmModal').hide();
+	      }
+	    );
+	  });
 
 	function createComment(postId, writerId, content) {
 	  $.ajax({
