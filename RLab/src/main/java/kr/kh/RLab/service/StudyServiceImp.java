@@ -128,4 +128,10 @@ public class StudyServiceImp implements StudyService {
 		return studyDao.getOnlineMembers();
 	}
 
+	@Override
+	public ArrayList<StudyMemberVO> selectStudyMemberByStNum(int st_num) {
+		
+		return studyDao.selectStudyMemberByStNum(st_num);
+	}
+
 }

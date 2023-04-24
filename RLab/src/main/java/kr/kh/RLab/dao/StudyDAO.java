@@ -50,4 +50,6 @@ public interface StudyDAO {
     
     List<StudyMemberVO> getOnlineMembers();
 
+	ArrayList<StudyMemberVO> selectStudyMemberByStNum(int st_num);
+
 }

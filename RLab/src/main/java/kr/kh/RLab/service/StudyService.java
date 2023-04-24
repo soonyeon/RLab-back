@@ -43,4 +43,6 @@ public interface StudyService {
 
 	List<StudyMemberVO> getOnlineMembers();
 
+	ArrayList<StudyMemberVO> selectStudyMemberByStNum(int st_num);
+
 }

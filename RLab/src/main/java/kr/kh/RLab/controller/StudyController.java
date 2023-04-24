@@ -79,6 +79,7 @@ public class StudyController {
 			HttpServletRequest request) {
 		MemberVO member = (MemberVO) request.getSession().getAttribute("user");
 		PhotoVO photoVO = new PhotoVO();
+		
 		photoVO.setPh_st_num(st_num);
 		photoVO.setPh_content(content);
 		photoVO.setPh_pt_num(Integer.parseInt(ph_pt_num));
@@ -266,5 +267,16 @@ public class StudyController {
 		mv.setViewName("/study/management_study");
 		return mv;
 	}
+	
+
+	@GetMapping("/daily/{st_num}")
+	public ModelAndView studyInsert(ModelAndView mv,HttpServletRequest request,@PathVariable("st_num") int st_num) {
+		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
+		ArrayList<StudyMemberVO> studyMember = studyService.selectStudyMemberByStNum(st_num);
+		mv.addObject("studyMember",studyMember);
+	 	mv.setViewName("/study/daily");
+	    return mv;
+	}
+
 
 }

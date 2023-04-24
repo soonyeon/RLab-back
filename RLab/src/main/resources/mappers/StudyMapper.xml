@@ -90,5 +90,13 @@
         join session ON ss_me_id = me_id
         WHERE ss_out IS NULL
     </select>
+    <select id="selectPhoto" resultType="kr.kh.RLab.vo.PhotoVO">
+    	select * from photo
+		where ph_pt_num = 2 and ph_st_num = #{st_num}
+    </select>
+    <select id="selectStudyMemberByStNum" resultType="kr.kh.RLab.vo.StudyMemberVO">
+    	select * from study_member
+    	where sm_st_num = #{st_num} and sm_authority > 0
+    </select>
     
 </mapper>
