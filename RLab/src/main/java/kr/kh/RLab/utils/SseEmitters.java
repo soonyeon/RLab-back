@@ -91,9 +91,24 @@ public class SseEmitters {
 	    }
 	}
 
-	public void remove(SseEmitter emitter) {
-	    if (emitter != null) {
-	        this.emitters.remove(emitter.toString());
+	public void remove(String id) {
+	    if (id != null) {
+	        this.emitters.remove(id);
 	    }
+	}
+	public void send(String eventName, Object eventData, String targetId) {
+		System.out.println("=");
+		emitters.forEach((id, userSessionInfo) -> {
+			System.out.println(id+"=============");
+			System.out.println(userSessionInfo);
+            try {
+            	if(id.equals(targetId)) {
+            		userSessionInfo.getEmitter().send(SseEmitter.event().name(eventName).data(eventData));
+            		System.out.println("==");
+            	}
+            } catch (IOException e) {
+                logger.error("Error sending count event to user {}", id, e);
+            }
+        });
 	}
 }

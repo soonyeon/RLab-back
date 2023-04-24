@@ -12,20 +12,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import kr.kh.RLab.service.BoardService;
 import kr.kh.RLab.utils.SseEmitters;
-import kr.kh.RLab.vo.MemberVO;
+import kr.kh.RLab.vo.BoardVO;
 
 @RestController
 public class SseController {
 
     private final SseEmitters sseEmitters;
     private static final Logger logger = LoggerFactory.getLogger(SseController.class);
+    
+    @Autowired
+    private BoardService boardService;
 
     
     @Autowired
@@ -41,6 +44,7 @@ public class SseController {
         try {
             emitter.send(SseEmitter.event().name("connect").data("connected!"));
             sseEmitters.count();
+
         } catch (IOException e) {
             logger.error("Error sending connect event to user {}", id, e);
         }
@@ -59,19 +63,17 @@ public class SseController {
         return ResponseEntity.ok(onlineMembers);
     }
     
-    @GetMapping("/sse")
-    public SseEmitter sse() {
-        SseEmitter emitter = new SseEmitter();
-        sseEmitters.add(emitter);
+    @GetMapping(value = "/sse/new/comment/{bo_num}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)//이벤트 형식의 응답을 함
+    public ResponseEntity<SseEmitters> sseNewComment(@PathVariable("bo_num") int bo_num) {
+		//1. 이 게시글에 관한 작성자를 가져옴
+    	BoardVO board = boardService.getBoard(bo_num);
+    	System.out.println(bo_num);
+    	//2. 에미터 send 
+    	sseEmitters.send("newComment", board, board.getBo_me_id());
+    	//3.에미터 생성
+    	
+        //4. 새로운 댓글이 작성된 게시글의 정보를 받음
+        return ResponseEntity.ok(sseEmitters);
 
-        emitter.onCompletion(() -> {
-            sseEmitters.remove(emitter);
-        });
-
-        emitter.onError((ex) -> {
-            logger.error("SSE 연결 중 오류 발생: ", ex);
-        });
-
-        return emitter;
     }
 }

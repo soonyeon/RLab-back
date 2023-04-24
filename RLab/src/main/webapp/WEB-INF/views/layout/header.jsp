@@ -135,8 +135,57 @@
 			</div>
     </header>
 <script>
-
+let source;
 $(document).ready(function() {
+	 $('.alram_img').hover(
+		      function() {
+		        $('#alarmModal').show();
+		      },
+		      function() {
+		        $('#alarmModal').hide();
+		      }
+		    );
+		
+		    $('#alarmModal').hover(
+		      function() {
+		        $('#alarmModal').show();
+		      },
+		      function() {
+		        $('#alarmModal').hide();
+		      }
+		    );
+	
+    function connect() {
+        const userId = "${user.me_id}"; 
+        console.log(userId);
+        const connectUrl = "<c:url value='/connect' />" + "?id=" + userId;
+         source = new EventSource(connectUrl);
+        
+        source.onopen = function() {
+            console.log("SSE connection opened");
+        };
+        
+        source.addEventListener("connect", function(event) {
+            console.log("Received connect event:", event.data);
+        });
+        
+        source.onerror = function(event) {
+            console.log("SSE error:", event);
+        };
+        source.addEventListener("newComment", function (event) {
+        	//이벤트가 일어날 일을 여기밑에다가 쓰기
+        	
+  	      const data = JSON.parse(event.data);
+  	      console.log("Received newComment event:", data);
+  	      showNotification(data.message);
+  	    });
+    }
+
+    connect();
+	
+	
+	
+	
     $('.login_modal').click(function(e) {
       e.preventDefault();
       $('#loginModal').show();
@@ -210,84 +259,26 @@ $(document).ready(function() {
   });
   function showNotification(message) {
 	  console.log("showNotification called with message:", message);
-      $('.notification').text(message);
-      $('.notification').fadeIn().delay(3000).fadeOut();
-  }
-
-if(typeof(EventSource) !== "undefined") {
-	  const source = new EventSource("<c:url value='/connect?id=${session.id}' />");
-
-	  source.addEventListener('connect', function(event) {
-	    const data = event.data;
-	    console.log('connected:', data);
-	  });
-
-	  source.addEventListener('newComment', function(event) {
-	    const data = JSON.parse(event.data);
-	    console.log("Received newComment event:", data); // 이벤트 수신 로그 추가
-	    // 알림을 화면에 표시하는 함수 호출
-	    showNotification(data.message);
-	  });
-
-	  source.onerror = function(event) {
-	    console.log('SSE error:', event);
-	  };
+	  $(".notification").text(message);
+	  $(".notification").fadeIn().delay(3000).fadeOut();
 	}
-	$(document).ready(function() {
-	    $('.alram_img').hover(
-	      function() {
-	        $('#alarmModal').show();
-	      },
-	      function() {
-	        $('#alarmModal').hide();
-	      }
-	    );
-	
-	    $('#alarmModal').hover(
-	      function() {
-	        $('#alarmModal').show();
-	      },
-	      function() {
-	        $('#alarmModal').hide();
-	      }
-	    );
+  $(document).ready(function () {
+	    if ('${board.bo_num}' == '')
+	      return;
+	    const source = new EventSource(`/sse/new/comment/${bo_num}`);
+
+	    source.onopen = function () {
+	      console.log("SSE connection opened");
+	    };
+
+	    source.addEventListener("newComment", function (event) {
+	      const data = JSON.parse(event.data);
+	      console.log("Received newComment event:", data);
+	      showNotification(data.message);
+	    });
+
+	    source.onerror = function (event) {
+	      console.log("SSE error:", event);
+	    };
 	  });
-
-	function createComment(postId, writerId, content) {
-		  $.ajax({
-		    type: "POST",
-		    url: "<c:url value='/comment/create'/>",
-		    contentType: "application/json",
-		    data: JSON.stringify({
-		      postId: postId,
-		      writerId: writerId,
-		      content: content
-		    }),
-		    success: function (response) {
-		      console.log("Comment created:", response);
-
-		      // 서버에 연결을 요청하고 새로운 댓글 생성 이벤트를 받을 수 있도록 함
-		      const source = new EventSource("<c:url value='/connect?id=${session.id}' />");
-
-		      source.onopen = function () {
-		        console.log("SSE connection opened");
-
-		        // 새로운 댓글 생성 이벤트를 받는 이벤트 리스너를 추가
-		        source.addEventListener("newComment", function (event) {
-		          const data = JSON.parse(event.data);
-		          console.log("Received newComment event:", data); // 이벤트 수신 로그 추가
-		          // 알림을 화면에 표시하는 함수 호출
-		          showNotification(data.message);
-		        });
-		      };
-
-		      source.onerror = function (event) {
-		        console.log("SSE error:", event);
-		      };
-		    },
-		    error: function (jqXHR, textStatus, errorThrown) {
-		      console.log("Error creating comment:", jqXHR, textStatus, errorThrown);
-		    },
-		  });
-		}
 </script>

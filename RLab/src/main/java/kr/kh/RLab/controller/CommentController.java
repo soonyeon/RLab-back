@@ -35,7 +35,7 @@ public class CommentController {
 	private final NotificationService notificationService;
 	private final BoardService boardService;
 	private final SseEmitters sseEmitters;
-
+	private final SseController sseController;
 	@PostMapping("/create")
 	public Map<String, Object> createComment(@RequestBody CommentVO comment) {
 		int result = commentService.createComment(comment);
@@ -53,6 +53,7 @@ public class CommentController {
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("result", result > 0 ? "success" : "fail");
+		sseController.sseNewComment(comment.getCo_ex_num());
 		return map;
 	}
 
