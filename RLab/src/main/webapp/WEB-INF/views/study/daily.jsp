@@ -41,11 +41,9 @@
 					<div class="today_mission_contents">정처기 1과 까지 공부하고 인증하기</div>
 				</div>
 				<div class="today_mission_button">
-					<c:forEach items="${studyMember}" var="member">
-					   <c:if test="${member.sm_authority > 1}">
+					   <c:if test="${authority == 9}">
 					      <button class="mbutton1">등록/수정</button>
 					   </c:if> 
-					</c:forEach> 
 					<a href="<c:url value='/study/photo/${user.me_study}'></c:url>" class="mbutton2">인증하기</a>	
 				</div>
 				<!--달성률-->

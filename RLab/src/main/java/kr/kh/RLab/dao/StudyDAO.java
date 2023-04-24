@@ -56,6 +56,6 @@ public interface StudyDAO {
 
 	ArrayList<MemberVO> selectMember(int st_num);
 
-	//ArrayList<Integer> selectStudyMemberLeader(int st_num);
+	int selectSmAuthority(@Param("user")MemberVO user,@Param("st_num")int st_num);
 
 }

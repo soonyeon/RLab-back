@@ -25,7 +25,7 @@ public class MemberVO {
 	private Date me_session_limit;
 	boolean autoLogin;
 	
-	public MemberVO(String me_id, String me_name, String me_pw, String me_email, String me_profile, int me_authority,
+ MemberVO(String me_id, String me_name, String me_pw, String me_email, String me_profile, int me_authority,
 			int me_point) {
 		this.me_id = me_id;
 		this.me_name = me_name;

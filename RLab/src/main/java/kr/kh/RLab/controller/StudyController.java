@@ -273,6 +273,8 @@ public class StudyController {
 	public ModelAndView studyInsert(ModelAndView mv,HttpServletRequest request,@PathVariable("st_num") int st_num) {
 		MemberVO user = (MemberVO)request.getSession().getAttribute("user");	
 		ArrayList<StudyMemberVO> studyMember = studyService.selectStudyMemberByStNum(st_num);
+		int authority = studyService.selectSmAuthority(user,st_num);
+		mv.addObject("authority",authority);
 		mv.addObject("studyMember",studyMember);
 	 	mv.setViewName("/study/daily");
 	    return mv;
