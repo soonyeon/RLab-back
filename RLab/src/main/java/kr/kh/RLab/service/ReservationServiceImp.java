@@ -141,7 +141,7 @@ public class ReservationServiceImp implements ReservationService {
 			book.setRe_hours(reservationDao.selectTiPeriod(tiNum));
 
 		//reservation에 추가
-		if(reservationDao.insertReservation(book)!=0)
+		if(reservationDao.insertReservation(1,book)!=0)
 			System.out.println("예약추가 성공");
 		
 		//to_rest_time 소유중인 이용권의 잔여시간 감소(시간패키지면 사용시간만큼, 아니면 ti_period만큼)
@@ -164,7 +164,7 @@ public class ReservationServiceImp implements ReservationService {
 		book.setRe_hours(reservationDao.selectTiPeriod(tiNum));
 
 		//reservation에 추가
-		if(reservationDao.insertReservation(book)!=0)
+		if(reservationDao.insertReservation(2,book)!=0)
 			System.out.println("예약추가 성공");
 		
 		//to_rest_time 소유중인 이용권의 잔여시간 감소(시간패키지면 사용시간만큼, 아니면 ti_period만큼)
@@ -184,7 +184,6 @@ public class ReservationServiceImp implements ReservationService {
 	@Override
 	public ReservationVO getReservationByBookInfo(ReservationVO book) {
 		int tiNum = reservationDao.selectTiNum(book.getRe_to_num());
-		System.out.println("tiNum: "+tiNum);
 		if(tiNum!=6 && tiNum!=7 && tiNum!=8) 
 			book.setRe_hours(reservationDao.selectTiPeriod(tiNum));
 		return reservationDao.selectReservationByBook(book);
@@ -206,5 +205,14 @@ public class ReservationServiceImp implements ReservationService {
 		
 	}
 
+	@Override
+	public ReservationVO getReservation(int reNum) {
+		return reservationDao.selecetReservation(reNum);
+	}
+
+	@Override
+	public BranchVO getBranchBySeNum(int re_se_num) {
+		return reservationDao.selectBranchBySenum(re_se_num);
+	}
 
 }

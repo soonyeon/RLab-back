@@ -94,9 +94,9 @@
 	</select>
 	<insert id="insertReservation">
 		insert into reservation(re_me_id, re_se_num, re_hours, re_start_time, re_valid_time, re_register_date, re_to_num)
-		values(#{re_me_id}, (
-			select se_num from seat where se_br_num = #{br_num} and se_name = #{se_name} and se_ki_num = 1
-			), ${re_hours}, now(), (select date_add(now(), interval ${re_hours} hour)), now(), #{re_to_num})
+		values(#{book.re_me_id}, (
+			select se_num from seat where se_br_num = #{book.br_num} and se_name = #{book.se_name} and se_ki_num = #{se_ki_num}
+			), ${book.re_hours}, now(), (select date_add(now(), interval ${book.re_hours} hour)), now(), #{book.re_to_num})
 	</insert>
 	<select id="selectTiNum" resultType="int">
 		select to_ti_num from ticket_own where to_num = #{re_to_num}
@@ -141,5 +141,12 @@
 		join ticket_type on ti_tt_num = tt_num
 		where to_me_id = #{me_id} and ti_tt_num = 4 and to_state = 1
 		order by to_ti_num asc, to_valid_date asc
+	</select>
+	<select id="selecetReservation" resultType="kr.kh.RLab.vo.ReservationVO">
+		select * from reservation join seat on re_se_num = se_num where re_num = #{re_num}
+	</select>
+	<select id="selectBranchBySenum" resultType="kr.kh.RLab.vo.BranchVO">
+		select * from branch
+		where br_num = (select se_br_num from seat where se_num = #{re_se_num})
 	</select>
 </mapper>

@@ -83,10 +83,6 @@
 							<th>사용한 이용권</th>
 							<td>${ticketName}</td>
 						</tr>
-						<tr>
-							<th>사용한 시간</th>
-							<td>${rsv.re_hours}시간</td>
-						</tr>
 					</table>
 				</div>
 

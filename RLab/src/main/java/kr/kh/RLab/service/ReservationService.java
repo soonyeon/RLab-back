@@ -45,4 +45,8 @@ public interface ReservationService {
 
 	ArrayList<TicketOwnVO> getCabinetTicketOwnListById(String me_id);
 
+	ReservationVO getReservation(int reNum);
+
+	BranchVO getBranchBySeNum(int re_se_num);
+
 }

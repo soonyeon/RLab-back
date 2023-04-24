@@ -233,6 +233,8 @@ public class ReservationController {
 		BranchVO br = reservationService.getBranchByBrNum(br_num);
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		ArrayList<TicketOwnVO> toList = reservationService.getCabinetTicketOwnListById(user.getMe_id());
+		//이미 등록된 예약정보가 있으면 예약 못하게 막아줘야함
+		//ReservationVO myRsv = reservationService.getMyReservation(user.getMe_id());
 		mv.addObject("br", br);
 		mv.addObject("br_num", br_num);
 		mv.addObject("toList", toList);
@@ -245,26 +247,21 @@ public class ReservationController {
 		System.out.println("post들어옴");
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		book.setRe_me_id(user.getMe_id());
-		System.out.println(book);
 		reservationService.reserveCabinet(book);
-		//book한 reservation의 기본키 받아와서 넘겨줌
-		mv.addObject("reNum", reNum);
+		int reNum = reservationService.getReservationByBookInfo(book).getRe_num();
+		System.out.println("reNum: "+reNum);
 		mv.setViewName("redirect:/reservation/2/complete"); 
 		return mv;
 	}
 	@RequestMapping(value = "/reservation/2/complete", method=RequestMethod.GET) 
-	public ModelAndView cabinetDetail(ModelAndView mv,
-			HttpSession session, ReservationVO book, int reNum) {
-		System.out.println("forward성공");
-		System.out.println("넘어온거: "+book);
+	public ModelAndView cabinetDetail(ModelAndView mv, HttpSession session, int reNum) {
 		MemberVO user = (MemberVO)session.getAttribute("user");
-		book.setRe_me_id(user.getMe_id());
-		BranchVO br  = reservationService.getBranchByBrNum(book.getBr_num());
-		ReservationVO rsv = reservationService.getReservationByBookInfo(book);
+		ReservationVO rsv = reservationService.getReservation(reNum);
+		BranchVO br  = reservationService.getBranchBySeNum(rsv.getRe_se_num());
 		String ticketName = reservationService.getTicketNameByBookInfo(rsv);
 		mv.addObject("user", user);
-		mv.addObject("br", br);
 		mv.addObject("rsv", rsv);
+		mv.addObject("br", br);
 		mv.addObject("ticketName",ticketName);
 		mv.setViewName("/reservation/cabinet_complete");
 		return mv;
