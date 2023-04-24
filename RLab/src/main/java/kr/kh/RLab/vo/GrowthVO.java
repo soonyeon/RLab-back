@@ -19,7 +19,8 @@ public class GrowthVO {
 	String pe_name; // 마이페이지에 펫 뿌려줄 때 필요
 	String pe_prize;
 	String ev_img ;
-
+	int ex_experience;
+	
 	
 
 }

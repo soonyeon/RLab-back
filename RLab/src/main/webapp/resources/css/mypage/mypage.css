@@ -305,10 +305,33 @@ article{
     font-weight: 600;
     cursor: pointer;
 }
+.pet_description #pet_getPrize_container{
+    width: 97%;
+    height: 35px;
+    background-color: var(--color_mint);
+    border: var(--border_basic);
+    border-radius: var(--border_radius_4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
 #pet_store_container:hover{
     background-color: #18d898;
 }
 .icon_store{
+    display: flex;
+    margin-right: 8px;
+    width: 15px;
+    height: 15px;
+    background-size: 15px 15px;
+    background-repeat: no-repeat;
+    background-image: url(../../img/pet.png);
+    opacity: 60%;
+}
+.icon_getPrize{
     display: flex;
     margin-right: 8px;
     width: 15px;

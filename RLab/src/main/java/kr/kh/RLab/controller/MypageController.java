@@ -53,7 +53,6 @@ public class MypageController {
 		
 		//나의 스터디 데이터 가져오기
 		ArrayList<StudyVO> myStudyList = mypageService.getMainStudyList(userId);
-		System.out.println(myStudyList);
 		
 		//나의 스크랩 데이터 가져오기
 		ArrayList<BoardVO> myScrapList = mypageService.getMainScrapList(userId);
@@ -61,8 +60,12 @@ public class MypageController {
 		//나의 펫 데려오기
 		GrowthVO myPet = mypageService.selectMyPet(userId);
 		
+		//펫exp가져오기
+		GrowthVO petExp = mypageService.selectPetExp(userId);		
+		
 		//System.out.println("mypoint" + myPoint);
 		mv.setViewName("/mypage/mypage");
+		mv.addObject("petExp",petExp);
 		mv.addObject("myPet",myPet);
 		mv.addObject("myPoint", myPoint);
 		mv.addObject("myScrapList", myScrapList);

@@ -64,8 +64,12 @@ public interface MypageService {
 		ArrayList<Integer> selectWantListById(String memberId);
 
 		
-	//[마이페이지 > 펫 불러오기]	
+	//[마이페이지 > 펫]	
+		//펫 불러오기
 		GrowthVO selectMyPet(String memberId);
+
+		//펫 경험치 가져오기
+		GrowthVO selectPetExp(String memberId);
 
 
 
