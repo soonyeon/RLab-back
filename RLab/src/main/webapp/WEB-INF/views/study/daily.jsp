@@ -43,7 +43,7 @@
 				<div class="today_mission_button">
 					<c:forEach items="${studyMember}" var="member">
 					   <c:if test="${member.sm_authority > 1}">
-					      <a href="#" class="mbutton1">등록/수정</a>
+					      <button class="mbutton1">등록/수정</button>
 					   </c:if> 
 					</c:forEach> 
 					<a href="<c:url value='/study/photo/${user.me_study}'></c:url>" class="mbutton2">인증하기</a>	
@@ -60,7 +60,8 @@
 				<div class="daliy_mission_pro_container">
 					<c:forEach items="${studyMember}" var="sm">
 						<div class="daliy_mission_pro">
-							<img class="pro-img-check">
+							<!-- c:if로 pro-img-check막아주기 -->
+							<img class="pro-img-check" src="../resoruces/img/stamp_blue.png">
 							<img  class="pro_img" src="<c:url value='/download/${sm.me_profile}'></c:url>" >
 							<div class="pro_name">${sm.sm_me_id}</div>
 						</div>
@@ -68,8 +69,20 @@
 				</div>
 			</div>
 		</div>
-		
-		
+		<div id="modal" class="modal">
+			<div class="modal-content">
+			    <span class="close">&times;</span>
+			    <h2>미션내용 등록하기</h2>
+				    <form>
+				        <label for="content">미션내용입력:</label>
+				        <textarea id="content" name="content" rows="4" cols="50" maxlength="100" placeholder="내용은 100자 이내"></textarea>
+				        <br>
+				     <button class="mission_up">등록하기</button>
+				     <button class="mission_edit">수정하기</button>
+				</form>
+			   </div>
+		</div>
+
 
 
 
@@ -181,3 +194,26 @@
 		</div>
 	</aside>
 </div>
+<script>
+$(document).ready(function() {
+    var modal = $("#modal");
+
+    var btn = $(".mbutton1");
+
+    var span = $(".close");
+
+    btn.click(function() {
+        modal.show();
+    });
+
+    span.click(function() {
+        modal.hide();
+    });
+
+    $(window).click(function(event) {
+        if (event.target == modal[0]) {
+            modal.hide();
+        }
+    });
+});
+</script>
