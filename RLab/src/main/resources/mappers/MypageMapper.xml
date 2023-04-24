@@ -57,7 +57,7 @@
 		    where gr_me_id = #{userId};
 		</select>
 		
-		<select id="selectExExp" resultType="kr.kh.RLab.vo.GrowthVO">
+		<select id="selectLevelUpExp" resultType="int">
 			SELECT * FROM exp
 			where ex_level = #{gr_Level}
 		</select>

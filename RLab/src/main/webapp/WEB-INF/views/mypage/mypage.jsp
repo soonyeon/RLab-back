@@ -139,7 +139,12 @@
 	                <div id="pet_exp">
 	                  <div class="title">
 	                    <h2 class="property_title">펫 경험치</h2>
-	                    <p class="info exp_info"><strong>${petEx.gr_exp}exp</strong> / ${petEx.ex_experience}exp</p>
+	                    <c:if test="${petEx.gr_level  == 1}">
+	                    	<p class="info exp_info"><strong>${petEx.gr_exp}exp</strong> / 8exp</p>
+		                </c:if>
+		                <c:if test="${petEx.gr_level  != 1}">
+	                    	<p class="info exp_info"><strong>${petEx.gr_exp}exp</strong> / ${levelUpEx}exp</p>
+		                </c:if>
 	                  </div>
 	                  <div class="gauge gauge_pet_exp">
 	                    <div class="gauge_colored pet_ex_colored"></div>
@@ -165,7 +170,7 @@
               </div>
               <!-- pet_container -->
 	              <div class="article_box pet_container">
-	             	 <c:if test="${myPet == null }">
+	             	 <c:if test="${myPet == null}">
 		                <div class="pet_window">
 		                  <img src="" alt="" class="pet_talk" />
 		                  <img src="" alt="펫" class="pet" />
@@ -515,7 +520,7 @@
   	$(document).ready(function(){
     	var gaugeWidth = $('.pet_ex_colored').width();
 		var nowEx = '${petEx.gr_exp}';
-		var levelUpEx = '${petEx.ex_experience}';
+		var levelUpEx = '${levelUpEx}';
 		var exLevelUpEx = '${exExp.ex_experience}'
 		var ratio = nowEx / levelUpEx;
 		
@@ -524,10 +529,10 @@
 	    $('.pet_ex_colored').width(gaugeWidth);
 	    
 		// 레벨이 올라가면.. 		
-		if(nowEx >= levelUpEx){
+		if(nowEx >= levelUpEx && levelUpEx != 270){
+			nowEx = 0;
 			gaugeWidth = 0 + '%';
 			$('.pet_ex_colored').width(gaugeWidth);
-			location.reload();
 		} else {
 			gaugeWidth = ratio * 100 + '%';
 		}    

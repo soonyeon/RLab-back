@@ -23,7 +23,7 @@ public interface MypageDAO {
 		// 펫 경험치
 		GrowthVO selectPetEx(String userId);	
 		
-		GrowthVO selectExExp(int gr_Level);
+		int selectLevelUpExp(int currentLevel);
 		
 		int updateExp(@Param("currentEx")int currentEx, @Param("userId")String userId);
     
