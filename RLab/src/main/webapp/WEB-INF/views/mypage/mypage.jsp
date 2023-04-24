@@ -86,44 +86,63 @@
                 <div class="user_info">
                   <span><strong>"${user.me_name}"</strong> 님 안녕하세요</span>
                 </div>
+                <!-- 이용 시간 -->
+                <!-- 현재 시간 가져오기 -->
+                <%@ page import="java.util.Date" %>
+                <c:set var="now" value="<%= new Date() %>"/>
                 
-
-                <div id="used_hours">
-                  <div class="title">
-                    <h2 class="property_title">이용시간</h2>
-                    <p class="info time_info">
-                      <strong>좌석예약 정보가 없습니다.</strong>
-                      <a class="res_btn" href="<c:url value='/reservation'></c:url>">이용권 예약</a>
-                    </p>
-                  </div>
-                  <div class="gauge gauge_used_hours" style= "background-color:#c1c1c1">
-                  </div>
-                </div>
-                
-                
-               <!--  <div id="used_hours">
-                  <div class="title">
-                    <h2 class="property_title">이용시간</h2>
-                    <p class="info time_info">
-                      <strong>8시 7분</strong> / 30시간
-                    </p>
-                  </div>
-                  <div class="gauge gauge_used_hours">
-                    <div class="gauge_colored"></div>
-                  </div>
-                </div>  -->
-
-
-                <div id="pet_exp">
-                  <div class="title">
-                    <h2 class="property_title">펫 경험치</h2>
-                    <p class="info exp_info"><strong>15exp</strong> / 40exp</p>
-                  </div>
-                  <div class="gauge gauge_pet_exp">
-                    <div class="gauge_colored"></div>
-                  </div>
-                </div>
-
+				<c:if test="${now.before(res.re_start_time) || now.after(res.re_valid_time)}">
+	             	<div id="used_hours">
+	                  <div class="title">
+	                    <h2 class="property_title">이용시간</h2>
+	                    <p class="info time_info">
+	                      <strong>좌석예약 정보가 없습니다.</strong>
+	                      <a class="res_btn" href="<c:url value='/reservation'></c:url>">이용권 예약</a>
+	                    </p>
+	                  </div>
+	                  <div class="gauge gauge_used_hours" style= "background-color:#c1c1c1">
+	                  </div>
+	                </div>
+	             </c:if>  
+	             
+	             <c:if test="${now.after(res.re_start_time) && now.before(res.re_valid_time)}">
+	               <div id="used_hours">
+	                  <div class="title">
+	                    <h2 class="property_title">이용시간</h2>
+	                    <p class="info time_info">
+	                      <strong>~ ${res.re_valid_time_str2}</strong>
+	                    </p>
+	                  </div>
+	                  <div class="gauge gauge_used_hours">
+	                    <div class="gauge_colored use_time_colored"></div>
+	                  </div>
+	                </div>
+	              </c:if>
+	              
+				<!-- 펫 경험치 -->
+				<c:if test="${petEx  == null}">
+					 <div id="pet_exp">
+	                  <div class="title">
+	                    <h2 class="property_title">펫 경험치</h2>
+	                    <p class="info exp_info"><strong>키우고 있는 펫이 없습니다.</strong> </p>
+	                  </div>
+	                  <div class="gauge gauge_pet_exp">
+	                    <div class="gauge_colored" style= "background-color:#c1c1c1"></div>
+	                  </div>
+	                </div>
+				</c:if>
+				
+				<c:if test="${petEx  != null}">
+	                <div id="pet_exp">
+	                  <div class="title">
+	                    <h2 class="property_title">펫 경험치</h2>
+	                    <p class="info exp_info"><strong>${petEx.gr_exp}exp</strong> / ${petEx.ex_experience}exp</p>
+	                  </div>
+	                  <div class="gauge gauge_pet_exp">
+	                    <div class="gauge_colored pet_ex_colored"></div>
+	                  </div>
+	                </div>
+				</c:if>
 
                 <div id="point_container">
                   <div class="my_point">
@@ -283,17 +302,75 @@
 
     </div>
     <script>
-	 // pet_store 모달 열기
-	    $(document).on('click', '#pet_store_container', function(e){
-	    	console.log('click');
-	    	$('.pet_store_popup_container').css('display','flex');
-	    })
+    // 이용시간
+    	let flag = ${now.before(res.re_start_time) || now.after(res.re_valid_time)};
+    	$(document).ready(function(){
+    		var gaugeWidth = $('.use_time_colored').width();
+    		var resStart = '${res.re_start_time}';
+    		var resValid = '${res.re_valid_time}';
+    		
+    		function updateGauge(){
+    			var now = new Date();
+    			if(now >= resValid){
+    				$('.use_time_colored').width(gaugeWidth + '%')
+    				if(!flag)
+	    			location.reload();
+    				
+    			} else if(now >= resStart){
+    				var elapsedTime = now.getTime() - resStart.getTime();
+    				var totalTime = resValid.getTime() - resStart.getTime();
+    				var percentage = elapsedTime / totalTime * 100;
+    				$('.use_time_colored').width(percentage + '%');
+    			}
+    		}
+    		
+    		setInterval(function(){
+    			$.ajax({
+    				url: '<c:url value="/mypage/timeGauge" />',
+    				type: "GET",
+    				success: function(data){
+    					console.log(1);
+    					resStart = new Date(data.re_start_time);
+    					resValid = new Date(data.re_valid_time);
+    					updateGauge();
+    				}
+    			});
+    		}, 1000); // 1초마다 업데이트
+    	});
+    
+    // 펫 경험치
+  	$(document).ready(function(){
+    	var gaugeWidth = $('.pet_ex_colored').width();
+		var nowEx = '${petEx.gr_exp}';
+		var levelUpEx = '${petEx.ex_experience}';
+		var exLevelUpEx = '${exExp.ex_experience}'
+		var ratio = nowEx / levelUpEx;
+		
+	    // 현재 레벨의 ex_experience가 되면 게이지가 꽉찬다.
+	    gaugeWidth = ratio * 100 + '%';
+	    $('.pet_ex_colored').width(gaugeWidth);
+	    
+		// 레벨이 올라가면.. 		
+		if(nowEx >= levelUpEx){
+			gaugeWidth = 0 + '%';
+			$('.pet_ex_colored').width(gaugeWidth);
+			location.reload();
+		} else {
+			gaugeWidth = ratio * 100 + '%';
+		}    
+    	
+    });
+	// pet_store 모달 열기
+	   $(document).on('click', '#pet_store_container', function(e){
+	   	console.log('click');
+	   	$('.pet_store_popup_container').css('display','flex');
+	   })
 	
-	    // pet_store 모달 닫기
-	    $(document).on('click', '.btn_remove', function(e){
-	    	console.log('click');
-	    	$('.pet_store_popup_container').css('display','none');
-	    })
+    // pet_store 모달 닫기
+    $(document).on('click', '.btn_remove', function(e){
+    	console.log('click');
+    	$('.pet_store_popup_container').css('display','none');
+    })
     </script>
 </body>
 </html>

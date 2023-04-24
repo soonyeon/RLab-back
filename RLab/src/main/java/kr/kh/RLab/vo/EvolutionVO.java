@@ -13,6 +13,4 @@ public class EvolutionVO {
 	private int ev_level ;
 	private int ev_step ;
 	private String ev_img ;
-
-
 }

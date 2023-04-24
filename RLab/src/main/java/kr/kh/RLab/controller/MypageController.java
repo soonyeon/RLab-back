@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,8 +22,10 @@ import kr.kh.RLab.service.PetService;
 import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.EvolutionVO;
 import kr.kh.RLab.vo.GatherVO;
+import kr.kh.RLab.vo.GrowthVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.PetVO;
+import kr.kh.RLab.vo.ReservationVO;
 import kr.kh.RLab.vo.StudyVO;
 import kr.kh.RLab.vo.TagRegisterVO;
 import lombok.RequiredArgsConstructor;
@@ -41,7 +44,29 @@ public class MypageController {
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		String userId = user.getMe_id();
 		// 이용시간 안내
+		ReservationVO res = mypageService.getRes(userId);
 		
+		// 펫 경험치(현재 나의 펫의 경험치)
+		GrowthVO petEx = mypageService.getPetEx(userId);
+		
+		// 펫의 전 레벨의 최대 경험치(레벨 업시, exp 초기화 위함)
+		int gr_Level = petEx.getGr_level();
+		GrowthVO exExp; 
+		
+		if(gr_Level == 1) {
+			exExp = mypageService.getExExp(gr_Level);
+		} else {
+			exExp = mypageService.getExExp(gr_Level-1);
+		}	
+		
+		// 레벨이 올라가면 exp값 초기화
+		int currentEx = petEx.getGr_exp();
+		int levelUpEx = petEx.getEx_experience();
+		int exEx = exExp.getEx_experience();
+		if(currentEx >= levelUpEx) {
+			mypageService.updateExp(currentEx -= levelUpEx, userId);
+			petEx.setGr_exp(currentEx);
+		}
 		
 		// 펫
 		ArrayList<PetVO> petList = petService.selectPetList();
@@ -50,14 +75,21 @@ public class MypageController {
 		//적립 포인트 데이터 가져오기
 		int myPoint = mypageService.getMyPoint(userId);
 		
+		//나의 예약 데이터 가져오기
+		ArrayList<ReservationVO> resList = mypageService.getResList(userId);
+		
 		//나의 스터디 데이터 가져오기
 		ArrayList<StudyVO> myStudyList = mypageService.getMainStudyList(userId);
-		System.out.println(myStudyList);
 		
 		//나의 스크랩 데이터 가져오기
 		ArrayList<BoardVO> myScrapList = mypageService.getMainScrapList(userId);
 
 		mv.setViewName("/mypage/mypage");
+		mv.addObject("petEx", petEx);
+		mv.addObject("exExp", exExp);
+		mv.addObject("currentEx", currentEx);
+		mv.addObject("res", res);
+		mv.addObject("resList", resList);
 		mv.addObject("myScrapList", myScrapList);
 		mv.addObject("myStudyList", myStudyList);
 		mv.addObject("myPoint",myPoint);
@@ -66,6 +98,14 @@ public class MypageController {
 		return mv;
 	}
 	
+	@ResponseBody
+	@GetMapping("/timeGauge")
+	public ReservationVO timeGauge (ModelAndView mv,  HttpSession session) {
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		String userId = user.getMe_id();
+		ReservationVO res = mypageService.getRes(userId);		
+		return res;
+	}
 	
 	//[개인정보 수정 > 비밀번호 체크]
 	@GetMapping("/pwcheck")

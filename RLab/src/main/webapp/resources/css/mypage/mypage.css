@@ -119,14 +119,16 @@ article{
     overflow: hidden;
 }
 .gauge_colored{
+	width: 100%;
     height: 30px;
 }
+.pet_ex_colored{
+	width: 0%;
+}
 .gauge_used_hours .gauge_colored{
-    width: 150px;
     background-color: var(--color_mint);
 }
 .gauge_pet_exp .gauge_colored{
-    width: 200px;
     background-color: var(--color_yellow);
 }
 #used_hours_container .property_title{
