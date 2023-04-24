@@ -60,6 +60,8 @@ public interface GatherDAO {
 
 	void insertStudyLeader(@Param("sm")StudyMemberVO studyMember);
 
+	ArrayList<String> selectSearchTagList(String search);
+
 
 
 	

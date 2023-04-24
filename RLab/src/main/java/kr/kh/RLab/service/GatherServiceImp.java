@@ -189,6 +189,11 @@ public class GatherServiceImp implements GatherService {
 		return gatherDao.selectGatherAll();
 	}
 
+	@Override
+	public ArrayList<String> getSearchTagList(String search) {
+		return gatherDao.selectSearchTagList(search);
+	}
+
 	}
 
 
