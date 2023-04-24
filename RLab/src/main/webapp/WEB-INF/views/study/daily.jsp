@@ -58,7 +58,11 @@
 					<c:forEach items="${studyMember}" var="sm">
 						<div class="daliy_mission_pro">
 							<div class="pro-img-check"></div>
-							<div class="pro_img"></div>
+							<c:forEach items="${member}" var="me">
+								<c:if test="${me.me_id == sm.sm_me_id}">
+									<img  class="pro_img" src="<c:url value='/download/${me.me_profile}'></c:url>" >
+								</c:if>
+							</c:forEach>
 							<div class="pro_name">${sm.sm_me_id}</div>
 						</div>
 					</c:forEach>

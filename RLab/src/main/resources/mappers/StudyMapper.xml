@@ -97,5 +97,9 @@
     	select * from study_member
     	where sm_st_num = #{st_num} and sm_authority > 0
     </select>
+    <select id="selectMember"  resultType="kr.kh.RLab.vo.MemberVO">
+    	select * from member
+    	join study_member on sm_me_id = me_id
+    </select>
     
 </mapper>
