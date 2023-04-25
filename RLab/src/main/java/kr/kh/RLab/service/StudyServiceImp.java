@@ -190,6 +190,11 @@ public class StudyServiceImp implements StudyService {
 		studyDao.updateTodo(td_num, td_finish);
 	}
 
+	@Override
+	public void finishTodoUndo(int td_num, int td_finish) {
+		studyDao.updateTodoUndo(td_num, td_finish);
+	}
+
 
 
 

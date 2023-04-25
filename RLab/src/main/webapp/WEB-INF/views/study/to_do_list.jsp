@@ -528,8 +528,6 @@ const checkOn = document.querySelectorAll('.check_on');
 checkOn.forEach(icon => {
     icon.addEventListener("click", (e) => {
         var td_num = e.target.parentNode.parentNode.dataset.num;
-        
-        console.log(td_num);
        
         $.ajax({
             async: false,
@@ -541,7 +539,8 @@ checkOn.forEach(icon => {
             // 서버에서 보내는 데이터 타입
             contentType: "application/json; charset=UTF-8",
             success: function (data) { 
-            	location.replace("<c:url value='/study/todo'></c:url>"); 
+            	location.replace("<c:url value='/study/todo'></c:url>");
+            	/* var td_finish = data.td_finish; */
             }
         });
     });
@@ -565,7 +564,7 @@ checkOff.forEach(icon => {
             // 서버에서 보내는 데이터 타입
             contentType: "application/json; charset=UTF-8",
             success: function (data) { 
-            	location.replace("<c:url value='/study/todo'></c:url>"); 
+            	 location.replace("<c:url value='/study/todo'></c:url>");  
             }
         });
     });

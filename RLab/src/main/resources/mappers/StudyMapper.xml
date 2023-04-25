@@ -135,5 +135,9 @@
     	update todo set td_finish = 1
     	where td_num = #{td_num}
     </update>
+    <update id="updateTodoUndo">
+    	update todo set td_finish = 0
+    	where td_num = #{td_num}
+    </update>
     
 </mapper>

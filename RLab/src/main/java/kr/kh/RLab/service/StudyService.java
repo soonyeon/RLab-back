@@ -58,6 +58,9 @@ public interface StudyService {
 
 	void finishTodo(int td_num, int td_finish);
 
+	void finishTodoUndo(int td_num, int td_finish);
+
+
 
 	
 	

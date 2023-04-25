@@ -158,7 +158,6 @@ public class StudyController {
 		//유저에 해당하는 투두리스트를 불러온다
 		ArrayList<TodoVO> tdList = studyService.getTodoList(user.getMe_id());
 //		System.out.println(tdList+"____");
-		
 		mv.addObject("tdList",tdList);
 		mv.addObject("st_num", st_num);
 		mv.setViewName("/study/study_basic");
@@ -293,7 +292,7 @@ public class StudyController {
 //	    System.out.println(memberId);
 		//유저에 해당하는 투두리스트를 불러온다
 		ArrayList<TodoVO> tdList = studyService.getTodoList(memberId);
-//		System.out.println(tdList);
+		System.out.println(tdList+"eeeeeeeeee");
 	    mv.addObject("tdList",tdList);
 	    mv.addObject("user", user); //jsp에서 사용하는값, 컨트롤러에서 정의된값
 		mv.setViewName("/study/to_do_list");
@@ -307,7 +306,6 @@ public class StudyController {
         HashMap<String, Object> map = new HashMap<String, Object>();
         System.out.println(td);
         studyService.createTodo(td.getTd_content(),td.getTd_me_id());
-        
 //        // 처리 결과를 map에 담아 반환
         return map;
     }
@@ -325,7 +323,6 @@ public class StudyController {
 	@RequestMapping(value = "/todo/finish", method = RequestMethod.POST)
 	public HashMap<String, Object> finishTodo(@RequestBody TodoVO td) {
 	    HashMap<String, Object> map = new HashMap<String, Object>();
-	    
 	    // 해당 투두 상태를 0에서 1로 변경
 	    studyService.finishTodo(td.getTd_num(),td.getTd_finish());
 	    return map;
@@ -336,9 +333,8 @@ public class StudyController {
 	@RequestMapping(value = "/todo/finish/undo", method = RequestMethod.POST)
 	public HashMap<String, Object> finishTodoUndo(@RequestBody TodoVO td) {
 	    HashMap<String, Object> map = new HashMap<String, Object>();
-	    System.out.println(td);
 	    // 해당 스터디 상태를 1에서 0으로 변경
-//	    studyService.finishTodoUndo(td.getTd_num(),td.getTd_finish());
+	    studyService.finishTodoUndo(td.getTd_num(),td.getTd_finish());
 	    return map;
 	}
 
