@@ -1,5 +1,6 @@
 
 /* 영역분할 및 공통사항 */
+
 .home_container{
   background-color: var(--color_beige);
   border: var(--border_basic);
@@ -57,13 +58,17 @@
   text-align: center;
   padding-top: 16px;
 }
-.todo_container_my .pet_image {
-  background-image: url(../img/egg.png);
-  background-size: cover;
+.todo_container_my .pet_box .pet_img_container {
   height: 150px;
-  background-position: center;
   width: 150px;
   margin: auto;
+}
+
+.todo_container_my .pet_box .pet_img {
+  background-image: url(../../img/egg.png);
+  background-size: cover;
+  height: 150px;
+  width: 150px;
 }
 .todo_container_my .pet_box .progress_container{padding: 16px 50px;}
 .todo_container_my .pet_box .progress_container progress{width: 100%;}

@@ -131,10 +131,9 @@
     	delete from todo
     	where td_num = #{td_num}
     </delete>
-    
-<!--     <update id="updateTodo">
+    <update id="updateTodo">
     	update todo set td_finish = 1
     	where td_num = #{td_num}
-    </update> -->
+    </update>
     
 </mapper>

@@ -45,7 +45,7 @@
 	                            	
 		                            <ul class="todo_list" id="todo_list">
 		                                <c:forEach items="${tdList}" var="td" varStatus="vs" >
-			                                <li>
+			                                <li data-num="${td.td_num}">
 			                                	<c:if test="${td.td_finish == 0}">
 				                                    <span class="todo_check">
 				                                        <i class="material-icons check check_on">check</i>
@@ -58,7 +58,7 @@
 				                                    </span>
 			                                    	<span class="todo_content done">${td.td_content}</span>
 			                                    </c:if>
-			                                    <span class="todo_clear" data-num="${td.td_num}">
+			                                    <span class="todo_clear">
 			                                        <i class="material-icons clear">clear</i>
 			                                    </span>
 			                                </li>
@@ -74,7 +74,9 @@
 	                        <div class="pet_message_container">
 	                            <div class="pet_message">조금만 더 힘내요!</div>
 	                        </div>
-	                        <div class="pet_image"></div>
+	                        <div class="pet_img_container">
+	                        	<img class="pet_img">
+	                        </div>
 	
 	
 	
@@ -451,7 +453,7 @@
 
 <script>
 
- //DOM 요소 가져오기
+//DOM 요소 가져오기
 const todoInput = document.querySelector(".input_box"); // 할 일 입력란
 const todoList = document.querySelector(".todo_list"); // 할 일 목록
 const todo = todoInput.value;
@@ -486,43 +488,17 @@ const generateTodo = (todo) => {
 		    //서버에서 보내는 데이터 타입
 		    contentType:"application/json; charset=UTF-8",
 		    success : function(data){
-		        $('#todo_list').load("<c:url value='/study/todo'></c:url> #todo_list");
+		    	location.replace("<c:url value='/study/todo'></c:url>");
+		    /*     $('#todo_list').load("<c:url value='/study/todo'></c:url> #todo_list"); */
 		    }
 		});  
 } 
 
 //투두 삭제
-
-/* const clear = document.guerySelector(".clear");
-clear.addEventListener('click', (e) => {
-		const todoList = e.target.parentNode.parentNode;
-        const obj = {
-            td_num: td_num
-        };
-        console.log(todoList);
-       	console.log(obj);
-   	  $.ajax({
-			async:false,
-		    type:'POST',
-		    data:JSON.stringify(obj),
-		    url:"<c:url value='/study/todo/create'></c:url>",
-		    //서버에서 받는 데이터 타입
-		    dataType:"json",
-		    //서버에서 보내는 데이터 타입
-		    contentType:"application/json; charset=UTF-8",
-		    success : function(data){
-		        $('#todo_list').load("<c:url value='/study/todo'></c:url> #todo_list");
-		    }
-		});  
-	}  
-  
-});*/
-
-
 const clearIcons = document.querySelectorAll('.clear');
 clearIcons.forEach(icon => {
     icon.addEventListener("click", (e) => {
-        const td_num = e.target.parentNode.dataset.num;
+        var td_num = e.target.parentNode.parentNode.dataset.num;
         /* const tdNum = li.querySelector('.td_num').textContent; */  // 할 일 내용 가져오기
         // Ajax를 이용하여 서버에 할 일 내용을 전송
 /*         const obj = {
@@ -541,13 +517,59 @@ clearIcons.forEach(icon => {
             // 서버에서 보내는 데이터 타입
             contentType: "application/json; charset=UTF-8",
             success: function (data) {
-                 $('#todo_list').load("<c:url value='/study/todo'></c:url> #todo_list" );
+            	location.replace("<c:url value='/study/todo'></c:url>");
             }
         });
     });
 });
 
+//투두 상태 변경 0->1
+const checkOn = document.querySelectorAll('.check_on');
+checkOn.forEach(icon => {
+    icon.addEventListener("click", (e) => {
+        var td_num = e.target.parentNode.parentNode.dataset.num;
+        
+        console.log(td_num);
+       
+        $.ajax({
+            async: false,
+            type: 'POST',
+            data:JSON.stringify({'td_num': td_num}),
+            url: "<c:url value='/study/todo/finish'></c:url>",
+            // 서버에서 받는 데이터 타입
+            dataType: "json",
+            // 서버에서 보내는 데이터 타입
+            contentType: "application/json; charset=UTF-8",
+            success: function (data) { 
+            	location.replace("<c:url value='/study/todo'></c:url>"); 
+            }
+        });
+    });
+}); 
 
+//투두 상태 변경 1 -> 0
+const checkOff = document.querySelectorAll('.check_off');
+checkOff.forEach(icon => {
+    icon.addEventListener("click", (e) => {
+        var td_num = e.target.parentNode.parentNode.dataset.num;
+        
+        console.log(td_num);
+       
+        $.ajax({
+            async: false,
+            type: 'POST',
+            data:JSON.stringify({'td_num': td_num}),
+            url: "<c:url value='/study/todo/finish/undo'></c:url>",
+            // 서버에서 받는 데이터 타입
+            dataType: "json",
+            // 서버에서 보내는 데이터 타입
+            contentType: "application/json; charset=UTF-8",
+            success: function (data) { 
+            	location.replace("<c:url value='/study/todo'></c:url>"); 
+            }
+        });
+    });
+}); 
 
 /*$(".clear").on("click", function() {
 	let obj = {
@@ -643,4 +665,3 @@ const generateClear= () => {
 } 
  */
 </script>
-

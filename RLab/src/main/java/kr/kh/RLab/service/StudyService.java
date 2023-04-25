@@ -56,7 +56,7 @@ public interface StudyService {
 
 	void deleteTodo(int td_num);
 
-//	void finishTodo(int td_num, int td_finish);
+	void finishTodo(int td_num, int td_finish);
 
 
 	

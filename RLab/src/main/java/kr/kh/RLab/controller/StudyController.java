@@ -255,7 +255,6 @@ public class StudyController {
 	@RequestMapping(value = "/management/study/delete/{st_num}", method = RequestMethod.POST)
 	public HashMap<String, Object> deleteStudy(@RequestBody StudyVO st) {
 	    HashMap<String, Object> map = new HashMap<String, Object>();
-	    System.out.println(map);
 	    // 해당 스터디를 삭제
 	    studyService.deleteStudy(st.getSt_num());
 	    return map;
@@ -312,40 +311,37 @@ public class StudyController {
 //        // 처리 결과를 map에 담아 반환
         return map;
     }
-
-
-//	//투두 상태 변경 1 -> 0
-//	@ResponseBody
-//	@RequestMapping(value = "/todo/finish", method = RequestMethod.POST)
-//	public HashMap<String, Object> finishTodo(@RequestBody TodoVO td) {
-//	    HashMap<String, Object> map = new HashMap<String, Object>();
-//	    
-//	    // 해당 스터디 상태를 1에서 0으로 변경
-//	    studyService.finishTodo(td.getTd_num(),td.getTd_finish());
-//	    return map;
-//	}
-////	
-//	//투두 상태 변경 0 -> 1
-//	@ResponseBody
-//	@RequestMapping(value = "/todo/finish/undo", method = RequestMethod.POST)
-//	public HashMap<String, Object> finishTodoUndo(@RequestBody TodoVO td) {
-//	    HashMap<String, Object> map = new HashMap<String, Object>();
-//	    
-//	    // 해당 스터디 상태를 1에서 0으로 변경
-//	    studyService.finishTodoUndo(td.getTd_num(),td.getTd_finish());
-//	    return map;
-//	}
-//	
-////		
 	//투두 삭제
 	@ResponseBody
 	@RequestMapping(value = "/todo/delete", method = RequestMethod.POST)
 	public HashMap<String, Object> deleteTodo(@RequestBody TodoVO td) {
 	    HashMap<String, Object> map = new HashMap<String, Object>();
-	    // 해당 스터디를 삭제
+	    // 해당 투두를 삭제
 	    studyService.deleteTodo(td.getTd_num());
 	    return map;
 	}
+	//투두 상태 변경 0 -> 1
+	@ResponseBody
+	@RequestMapping(value = "/todo/finish", method = RequestMethod.POST)
+	public HashMap<String, Object> finishTodo(@RequestBody TodoVO td) {
+	    HashMap<String, Object> map = new HashMap<String, Object>();
+	    
+	    // 해당 투두 상태를 0에서 1로 변경
+	    studyService.finishTodo(td.getTd_num(),td.getTd_finish());
+	    return map;
+	}
+
+	//투두 상태 변경 1 -> 0
+	@ResponseBody
+	@RequestMapping(value = "/todo/finish/undo", method = RequestMethod.POST)
+	public HashMap<String, Object> finishTodoUndo(@RequestBody TodoVO td) {
+	    HashMap<String, Object> map = new HashMap<String, Object>();
+	    System.out.println(td);
+	    // 해당 스터디 상태를 1에서 0으로 변경
+//	    studyService.finishTodoUndo(td.getTd_num(),td.getTd_finish());
+	    return map;
+	}
+
 	
 
 	

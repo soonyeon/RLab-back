@@ -184,11 +184,14 @@ public class StudyServiceImp implements StudyService {
 		studyDao.deletetTodo(td_num);
 	}
 
-//	@Override
-//	public void finishTodo(int td_num, int td_finish) {
-//		// 해당 스터디의 td_finish를 0에서 1로 변경
-//		studyDao.updateTodo(td_num, td_finish);
-//	}
+	@Override
+	public void finishTodo(int td_num, int td_finish) {
+		// 해당 스터디의 td_finish를 0에서 1로 변경
+		studyDao.updateTodo(td_num, td_finish);
+	}
+
+
+
 
 		
 	

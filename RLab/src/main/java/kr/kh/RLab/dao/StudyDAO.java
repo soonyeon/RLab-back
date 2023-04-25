@@ -75,7 +75,9 @@ public interface StudyDAO {
 
 	void deletetTodo(@Param("td_num")int td_num);
 
-//	void updateTodo(@Param("td_num")int td_num, @Param("td_finish") int td_finish);
+	void updateTodo(@Param("td_num")int td_num, @Param("td_finish") int td_finish);
+
+	void updateTodoUndo(@Param("td_num")int td_num, @Param("td_finish") int td_finish);
 
 
 
