@@ -3,5 +3,20 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.kh.RLab.dao.NoticeDAO">
-
+<select id="selectAllNotice" resultType="kr.kh.RLab.vo.NoticeVO">
+	SELECT * FROM notice
+	WHERE no_title LIKE CONCAT('%', #{cri.search}, '%')
+	ORDER BY no_num DESC
+	LIMIT #{cri.pageStart}, #{cri.perPageNum}
+</select>
+<select id="selectNoticeTotalCount" resultType="Integer">
+	select count(*) from (
+		select * from notice
+		where no_title LIKE CONCAT('%', #{cri.search}, '%')
+	)
+</select>
+<select id="selectNoticeByNonum" resultType="kr.kh.RLab.vo.NoticeVO">
+	select * from notice
+	where no_num = #{no_num}
+</select>
 </mapper>
