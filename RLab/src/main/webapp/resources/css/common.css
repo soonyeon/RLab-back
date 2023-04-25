@@ -367,10 +367,6 @@ footer .corp_container .link_corp:nth-child(1){
 footer .corp_container .link_corp:nth-child(1)::before{
   display: none;
 }
-.alram_img {
-	position: absolute;
-    right: 500px;
-}
 .alarm_modal {
   position: absolute;
   right: 500px;

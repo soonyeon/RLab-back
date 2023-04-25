@@ -105,10 +105,8 @@
 		        <c:if test="${user != null}">		  		       
      				<form action="<c:url value='/logout'></c:url>" method="post">     
 		  				<div class="logout_box">
-		  					<c:if test="${user != null}">
 			  		    			<img class="alram_img" src="<c:url value='/resources/img/alram.png'></c:url>" width="auto" height="20">
 			  		    			<span class="blind">알림</span>
-		  		    			</c:if>
 		  		    		<a href="<c:url value='/mypage'></c:url>" class="icon_mypage">
 		  		    			<c:if test="${user.me_profile == null}">
 		  		    				<img class="mypage_img" src="<c:url value='/resources/img/user.png'></c:url>" width="auto" height="40">
