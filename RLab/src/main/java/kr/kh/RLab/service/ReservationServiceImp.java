@@ -7,11 +7,12 @@ import org.springframework.stereotype.Service;
 
 import kr.kh.RLab.dao.ReservationDAO;
 import kr.kh.RLab.pagination.ReservationCriteria;
+import kr.kh.RLab.vo.BranchVO;
+import kr.kh.RLab.vo.GrowthVO;
 import kr.kh.RLab.vo.ItemVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.PayDTO;
 import kr.kh.RLab.vo.ReservationVO;
-import kr.kh.RLab.vo.BranchVO;
 import kr.kh.RLab.vo.TicketOwnVO;
 
 @Service
@@ -154,8 +155,15 @@ public class ReservationServiceImp implements ReservationService {
 		if(reservationDao.updateMemberUseTime(book)==0)
 			System.out.println("회원 누적사용시간 증가 실패");
 		
-		//gr_exp 펫 누적경험치 추가
-		//reservationDao.updatePetExp(book);
+		GrowthVO myPet = reservationDao.getMypet(book.getRe_me_id());
+		//pet있을 경우
+		if(myPet != null) {
+			//gr_exp 펫 누적경험치 추가(펫의 최대레벨에 해당하는 경험치를 넘어가면 안됨)
+			reservationDao.updatePetExp(book);
+			int exp = myPet.getGr_exp();
+			//펫의 누적경험치가 올라서 레벨업 필요하면 update
+			reservationDao.updateMypetLevel(book.getRe_me_id());
+		}
 	}
 	
 	@Override
@@ -177,13 +185,15 @@ public class ReservationServiceImp implements ReservationService {
 		if(reservationDao.updateMemberUseTime(book)==0)
 			System.out.println("회원 누적사용시간 증가 실패");
 		
-		//gr_exp 펫 누적경험치 추가, 경험치에 따른 펫 레벨업
-		reservationDao.updatePetExp(book);
-		int exp = reservationDao.getMypetExp(book);
-		if(exp<8)
-			reservationDao.updateMypetLevel(1);
-		else if(exp>=8 && exp<27)
-			reservationDao.updateMypetLevel(2);
+		GrowthVO myPet = reservationDao.getMypet(book.getRe_me_id());
+		//pet있을 경우
+		if(myPet != null) {
+			//gr_exp 펫 누적경험치 추가(펫의 최대레벨에 해당하는 경험치를 넘어가면 안됨)
+			reservationDao.updatePetExp(book);
+			int exp = myPet.getGr_exp();
+			//펫의 누적경험치가 올라서 레벨업 필요하면 update
+			reservationDao.updateMypetLevel(book.getRe_me_id());
+		}
 	}
 
 	@Override

@@ -9,6 +9,7 @@ import kr.kh.RLab.vo.PayDTO;
 import kr.kh.RLab.vo.ReservationVO;
 import kr.kh.RLab.pagination.ReservationCriteria;
 import kr.kh.RLab.vo.BranchVO;
+import kr.kh.RLab.vo.GrowthVO;
 import kr.kh.RLab.vo.TicketOwnVO;
 
 public interface ReservationDAO {
@@ -65,7 +66,11 @@ public interface ReservationDAO {
 
 	int updateMemberUseTime(ReservationVO book);
 
+	GrowthVO getMypet(String re_me_id);
+
 	int updatePetExp(ReservationVO book);
+
+	void updateMypetLevel(String re_me_id);
 
 	ReservationVO selectReservationByBook(ReservationVO book);
 

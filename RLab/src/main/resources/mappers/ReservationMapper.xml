@@ -116,8 +116,65 @@
 	<update id="updateMemberUseTime">
 		update member set me_use_time = me_use_time + ${re_hours} where me_id = #{re_me_id}
 	</update>
+	<select id="getMypet" resultType="kr.kh.RLab.vo.GrowthVO">
+		select * from growth where gr_me_id = #{re_me_id}
+	</select>
 	<update id="updatePetExp">
-		
+	<![CDATA[ 
+		update growth
+		set gr_exp = (
+			select exp from (
+				select
+					case
+						when (gr_exp+#{re_hours})<= (
+							select ex_experience from exp
+							where ex_level = (
+								select pe_final_level from pet
+								join growth on pe_num = gr_pe_num
+								where gr_me_id = #{re_me_id}
+								)
+						) 
+		                then (gr_exp+#{re_hours})
+						when (gr_exp+#{re_hours})> (
+							select ex_experience from exp
+							where ex_level = (
+								select pe_final_level from pet
+								join growth on pe_num = gr_pe_num
+								where gr_me_id = #{re_me_id}
+								)
+						)
+		                then (
+							select ex_experience from exp
+							where ex_level = (
+								select pe_final_level from pet
+								join growth on pe_num = gr_pe_num
+								where gr_me_id = #{re_me_id}
+								)
+						)
+					end as 'exp'
+				from growth
+			) tmp)
+		where gr_me_id = #{re_me_id}
+	]]>
+	</update>
+	<update id="updateMypetLevel">
+	<![CDATA[ 
+	update growth
+	set gr_level = (
+		select level from
+			(select 
+				case
+					when  gr_exp>=0 and gr_exp<8 then 1
+					when  gr_exp>=8 and gr_exp<27 then 2
+					when  gr_exp>=27 and gr_exp<82 then 3
+					when  gr_exp>=82 and gr_exp<178 then 4
+					when  gr_exp>=178 and gr_exp<328 then 5
+					when  gr_exp>=328 and gr_exp<=598 then 6
+				end as 'level'
+			from growth
+		) tmp)
+	where gr_me_id = #{re_me_id};
+	]]>
 	</update>
 	<select id="selectReservationByBook" resultType="kr.kh.RLab.vo.ReservationVO">
 		select * from reservation
