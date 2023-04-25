@@ -91,4 +91,11 @@
         WHERE ss_out IS NULL
     </select>
     
+    <select id="getPhotosByPhNum" resultType="kr.kh.RLab.vo.PhotoVO">
+    	select *
+    	from photo
+    	where ph_num = #{li_ph_num}
+    </select>
+    
+    
 </mapper>

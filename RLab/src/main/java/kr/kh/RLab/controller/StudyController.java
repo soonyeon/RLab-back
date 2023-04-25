@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.pagination.PageMaker;
+import kr.kh.RLab.service.NotificationService;
 import kr.kh.RLab.service.StudyService;
 import kr.kh.RLab.vo.LikeVO;
 import kr.kh.RLab.vo.MemberVO;
@@ -39,6 +40,8 @@ import lombok.RequiredArgsConstructor;
 public class StudyController {
 
 	private final StudyService studyService;
+	private final NotificationService notificationService;
+	private final SseController sseController;
 
 	@GetMapping("/photo/{st_num}")
 	public String photo(HttpServletRequest request, Model model, HttpSession session,
@@ -81,6 +84,7 @@ public class StudyController {
 		PhotoVO photoVO = new PhotoVO();
 		photoVO.setPh_content(content);
 		photoVO.setPh_pt_num(Integer.parseInt(ph_pt_num));
+		photoVO.setPh_st_num(st_num);
 		if (studyService.insertCB(photoVO, files, member)) {
 			return "success";
 		} else {
@@ -95,16 +99,22 @@ public class StudyController {
 		String li_me_id = member.getMe_id();
 		LikeVO likeVO = studyService.getLikeByUserIdAndPhotoId(li_me_id, li_ph_num);
 
-		if (likeVO == null) {
-			// 좋아요가 존재하지않으면,
+		if (likeVO == null) {// 좋아요가 존재하지않으면,
 			LikeVO newLike = new LikeVO();
 			newLike.setLi_me_id(li_me_id);
 			newLike.setLi_ph_num(li_ph_num);
 			newLike.setLi_state(1);
 			studyService.insertLike(newLike);
+			
+			PhotoVO photo = studyService.getPhotoByPhNum(li_ph_num);
+			String photoUser = photo.getPh_me_id();//photo 작성자 id
+			String message = member.getMe_name()+"님이 다음 게시글에 좋아요 표시를 했습니다."+photo.getPh_content();
+			
+			notificationService.sendNotificationToUser(photoUser, message, "like");
+			sseController.sseNewLike(photo.getPh_num());
 			return "inserted";
-		} else {
-			// 좋아요가 존재하면,
+		} else {// 좋아요가 존재하면,
+			
 			int new_li_state = likeVO.getLi_state() == 1 ? 0 : 1;
 			studyService.updateLikeStatus(li_me_id, li_ph_num, new_li_state);
 			return new_li_state == 1 ? "updated" : "canceled";

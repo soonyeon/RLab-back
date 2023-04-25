@@ -50,4 +50,6 @@ public interface StudyDAO {
     
     List<StudyMemberVO> getOnlineMembers();
 
+	PhotoVO getPhotosByPhNum(int li_ph_num);
+
 }

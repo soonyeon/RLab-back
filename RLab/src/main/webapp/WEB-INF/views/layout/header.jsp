@@ -128,7 +128,17 @@
       		<div id="notificationModal" style="display:none;">
 				    <div class="notification-content">
 				        <h4 id="notificationTitle">알림</h4>
-				        <p id="notificationMessage">새로운 댓글이 달렸습니다.</p>
+				        <c:if test="${empty alarm}"><p>새로운 알림이 없습니다.</p></c:if>
+				        <c:if test="${!empty alarm}">
+						        <c:choose>
+						            <c:when test="${notification.al_table == 'comment'}">
+						                <p id="notificationMessage">올리신 게시글에 댓글이 추가되었습니다.</p>
+						            </c:when>
+						            <c:when test="${notification.al_table == 'like'}">
+						                <p id="notificationMessage">올리신 사진에 좋아요가 추가되었습니다.</p>
+						            </c:when>
+						        </c:choose>
+						</c:if>
 				    </div>
 			</div>
       			
@@ -136,8 +146,8 @@
 			    <c:forEach var="alarm" items="${alarm}">
 			        <p>${alarm.al_content}</p>
 			        <hr>
-			    </c:forEach>
-			</div>
+			    </c:forEach> 
+			</div> 
     </header>
 <script>
 let source;
@@ -182,7 +192,7 @@ $(document).ready(function() {
         	//이벤트가 일어날 일을 여기밑에다가 쓰기
 	  	    const data = JSON.parse(event.data);
 		    const title = "새로운 댓글";
-		    const message = bt+'게시글에 댓글이 달렸습니다.';
+		    const message = '게시글에 댓글이 달렸습니다.';
 		    showModal(title, message);
 		
 		    setTimeout(function() {
@@ -301,6 +311,22 @@ $(document).ready(function() {
 
 	    source.onerror = function (event) {
 	      console.log("SSE error:", event);
+	    };
+	    
+	    const sourceNewLike = new EventSource(`/sse/new/photo/${ph_num}`);
+
+	    sourceNewLike.onopen = function () {
+	        console.log("SSE connection for newLike opened");
+	    };
+
+	    sourceNewLike.addEventListener("newLike", function (event) {
+	        const data = JSON.parse(event.data);
+	        console.log("Received newLike event:", data);
+	        showNotification(data.message);
+	    });
+
+	    sourceNewLike.onerror = function (event) {
+	        console.log("SSE error for newLike:", event);
 	    };
 	  });
 </script>

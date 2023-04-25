@@ -34,7 +34,6 @@ public class CommentController {
 	private final CommentService commentService;
 	private final NotificationService notificationService;
 	private final BoardService boardService;
-	private final SseEmitters sseEmitters;
 	private final SseController sseController;
 	@PostMapping("/create")
 	public Map<String, Object> createComment(@RequestBody CommentVO comment) {
@@ -44,11 +43,9 @@ public class CommentController {
 		if (result > 0) {
 			BoardVO board = boardService.getBoardByComment(comment.getCo_ex_num());
 			String userId = board.getBo_me_id(); // 게시물 작성자의 ID를 가져와야 함
-			String message = "새로운 댓글이 작성되었습니다: " + comment.getCo_content();
-			// 이벤트 전송 전 로그에 이벤트 정보 출력
-			System.out.println("Sending event: newComment, user: " + userId + ", message: " + message);
-
-			notificationService.sendNotificationToUser(userId, message);
+			String message = board.getBo_title()+"에 댓글이 달렸습니다";
+			log.info("message 되는가{}?????????",message);
+			notificationService.sendNotificationToUser(userId, message, "comment");
 		}
 
 		Map<String, Object> map = new HashMap<>();

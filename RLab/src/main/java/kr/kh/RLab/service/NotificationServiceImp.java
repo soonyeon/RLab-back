@@ -44,7 +44,7 @@ public class NotificationServiceImp implements NotificationService {
     }
 
     @Override
-    public void sendNotificationToUser(String userId, String message) {
+    public void sendNotificationToUser(String userId, String message,String al_table) {
         SseEmitter emitter = null;
         if (emitters.containsKey(userId)) {
             emitter = emitters.get(userId);

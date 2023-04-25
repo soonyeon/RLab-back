@@ -5,7 +5,7 @@
     
 
 <link rel="stylesheet" href="<c:url value='/resources/css/study/certification_board.css'></c:url>">
-<link rel="stylesheet" href="<c:url value='/resources/css/study/study.css'></c:url>">
+<link rel="stylesheet" href="<c:url value='/resources/css/study/study_1.css'></c:url>">
 
  <div class="main_container" style="
     margin-left: 150px;">

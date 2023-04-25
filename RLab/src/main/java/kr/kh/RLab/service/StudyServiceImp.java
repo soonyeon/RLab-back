@@ -128,4 +128,11 @@ public class StudyServiceImp implements StudyService {
 		return studyDao.getOnlineMembers();
 	}
 
+	@Override
+	public PhotoVO getPhotoByPhNum(int li_ph_num) {
+		if(li_ph_num == 0)
+		return null;
+		return studyDao.getPhotosByPhNum(li_ph_num);
+	}
+
 }
