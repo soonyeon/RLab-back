@@ -166,6 +166,11 @@ public class StudyServiceImp implements StudyService {
 		return studyDao.selectMissionFinishMember(st_num);
 	}
 
+	@Override
+	public boolean updateMission(MissionVO missionVO) {
+		return studyDao.updateMission(missionVO);
+	}
+
 
 
 	

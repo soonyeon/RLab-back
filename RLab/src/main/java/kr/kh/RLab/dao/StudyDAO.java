@@ -68,4 +68,6 @@ public interface StudyDAO {
 
 	ArrayList<String> selectMissionFinishMember(int st_num);
 
+	boolean updateMission(MissionVO missionVO);
+
 }

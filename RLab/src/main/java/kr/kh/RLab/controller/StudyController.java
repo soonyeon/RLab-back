@@ -272,10 +272,10 @@ public class StudyController {
 		return mv;
 	}
 	
-	//데일리미션등록
-	@PostMapping("/daily/{st_num}/mission")
+	//데일리미션 등록
+	@PostMapping("/daily/{st_num}/insertmission")
 	@ResponseBody
-	public String photoInsert( @RequestParam("mi_st_num") int st_num,
+	public String insertMission( @RequestParam("mi_st_num") int st_num,
 			@RequestParam("mi_content") String content, 
 			HttpServletRequest request) {
 		MemberVO user = (MemberVO) request.getSession().getAttribute("user");
@@ -289,6 +289,24 @@ public class StudyController {
 		}
 	}
 	
+	//데일리미션 수정
+	@PostMapping("/daily/{st_num}/updatemission")
+	@ResponseBody
+	public String updateMission( @RequestParam("mi_st_num") int st_num,
+			@RequestParam("mi_content") String content, 
+			HttpServletRequest request) {
+		MemberVO user = (MemberVO) request.getSession().getAttribute("user");
+		MissionVO missionVO = new MissionVO();
+		missionVO.setMi_st_num(st_num);
+		missionVO.setMi_content(content);
+		if (studyService.updateMission(missionVO)) {
+			return "success";
+		} else {
+			return "error";
+		}
+	}
+	
+
 	//데일리미션 페이지
 	@GetMapping("/daily/{st_num}")
 	public ModelAndView studyInsert(ModelAndView mv,HttpServletRequest request,@PathVariable("st_num") int st_num) {

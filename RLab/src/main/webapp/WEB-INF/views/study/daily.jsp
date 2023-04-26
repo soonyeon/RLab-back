@@ -59,7 +59,7 @@
 				</div>
 				<!--달성률-->
 				<div>
-					<p class="success_percent2">달성률${mfList } %</p>
+					<p class="success_percent2">달성률 %</p>
 				</div>
 				<div>
 					<progress class="mint" value="20" max="100"></progress>
@@ -239,7 +239,7 @@ $(".mission_up").click(function(e){
     console.log(formData);
     $.ajax({
         type: "POST",
-        url: "<c:url value='/study/daily/{st_num}/mission'/>",
+        url: "<c:url value='/study/daily/{st_num}/insertmission'/>",
         data: formData,
         processData: false,
         contentType: false,
@@ -257,6 +257,30 @@ $(".mission_up").click(function(e){
     });
 });
 
-
+$(".mission_edit").click(function(e){
+    e.preventDefault();
+    let formData = new FormData();
+    formData.append('mi_content',$('#content').val());
+   	formData.append('mi_st_num',${st_num});
+    console.log(formData);
+    $.ajax({
+        type: "POST",
+        url: "<c:url value='/study/daily/{st_num}/updatemission'/>",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response){
+            if(response === "success"){
+                alert("미션이 수정되었습니다.");
+                location.reload();
+            }else{
+                alert("미션 수정에 실패했습니다.");
+            }
+        },
+        error: function(e){
+            console.log(e);
+        }
+    });
+});
 
 </script>

@@ -119,4 +119,9 @@
     	join mission on mi_num = mf_mi_num
     	where mi_st_num = #{st_num} 
     </select>
+    <update id="updateMission">
+    	update mission
+    	set mi_content = #{mi_content}
+    	where mi_st_num = #{mi_st_num} and mi_date = CURDATE();
+    </update>
 </mapper>
