@@ -67,14 +67,16 @@ public class SseEmitters {
 	}
 
 	public void count() {
-        long count = emitters.size();
-        emitters.forEach((id, userSessionInfo) -> {
-            try {
-                userSessionInfo.getEmitter().send(SseEmitter.event().name("count").data(count));
-            } catch (IOException e) {
-                logger.error("Error sending count event to user {}", id, e);
-            }
-        });
+	    long count = emitters.size();
+	    emitters.forEach((id, userSessionInfo) -> {
+	        if (userSessionInfo != null && userSessionInfo.getEmitter() != null) { // userSessionInfo와 emitter의 null 여부 확인
+	            try {
+	                userSessionInfo.getEmitter().send(SseEmitter.event().name("count").data(count));
+	            } catch (IOException e) {
+	                logger.error("Error sending count event to user {}", id, e);
+	            }
+	        }
+	    });
 	}
 	public void add(SseEmitter emitter) {
 	    if (emitter != null) {
@@ -97,18 +99,16 @@ public class SseEmitters {
 	    }
 	}
 	public void send(String eventName, Object eventData, String targetId) {
-		System.out.println("=");
-		emitters.forEach((id, userSessionInfo) -> {
-			System.out.println(id+"=============");
-			System.out.println(userSessionInfo);
-            try {
-            	if(id.equals(targetId)) {
-            		userSessionInfo.getEmitter().send(SseEmitter.event().name(eventName).data(eventData));
-            		System.out.println("==");
-            	}
-            } catch (IOException e) {
-                logger.error("Error sending count event to user {}", id, e);
-            }
-        });
+	    emitters.forEach((id, userSessionInfo) -> {
+	        if (id != null && userSessionInfo != null && userSessionInfo.getEmitter() != null) {
+	            try {
+	                if (id.equals(targetId)) {
+	                    userSessionInfo.getEmitter().send(SseEmitter.event().name(eventName).data(eventData));
+	                }
+	            } catch (IOException e) {
+	                logger.error("Error sending count event to user {}", id, e);
+	            }
+	        }
+	    });
 	}
 }

@@ -201,6 +201,20 @@ $(document).ready(function() {
   	      console.log("Received newComment event:", data);
   	      showNotification(data.message);
   	    });
+        
+        source.addEventListener("newLike", function (event) {
+            // 이벤트가 발생할 때 여기에 코드 작성
+            const data = JSON.parse(event.data);
+            const title = "좋아요 알림";
+            const message = '게시글에 좋아요가 추가되었습니다.';
+            showModal(title, message);
+
+            setTimeout(function() {
+                hideModal();
+            }, 5000);
+            console.log("Received newLike event:", data);
+            showNotification(data.message);
+        });
     }
 
     connect();
