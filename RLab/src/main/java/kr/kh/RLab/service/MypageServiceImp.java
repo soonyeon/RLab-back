@@ -47,8 +47,8 @@ public class MypageServiceImp implements MypageService {
 	}
 	
 	@Override
-	public GrowthVO getExExp(int gr_Level) {
-		return mypageDao.selectExExp(gr_Level);
+	public int getLevelUpExp(int currentLevel) {
+		return mypageDao.selectLevelUpExp(currentLevel);
 	}
 	
 	@Override

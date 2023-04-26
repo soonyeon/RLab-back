@@ -123,7 +123,7 @@
 	              </c:if>
 	              
 				<!-- 펫 경험치 -->
-				<c:if test="${petEx  == null}">
+				<c:if test="${myPet == null}">
 					 <div id="pet_exp">
 	                  <div class="title">
 	                    <h2 class="property_title">펫 경험치</h2>
@@ -135,11 +135,16 @@
 	                </div>
 				</c:if>
 				
-				<c:if test="${petEx  != null}">
+				<c:if test="${myPet  != null}">
 	                <div id="pet_exp">
 	                  <div class="title">
 	                    <h2 class="property_title">펫 경험치</h2>
-	                    <p class="info exp_info"><strong>${petEx.gr_exp}exp</strong> / ${petEx.ex_experience}exp</p>
+	                    <c:if test="${currentLevel  == 1}">
+	                    	<p class="info exp_info"><strong>${currentExp}</strong>exp / 8exp</p>
+		                </c:if>
+		                <c:if test="${currentLevel  != 1}">
+	                    	<p class="info exp_info"><strong>${currentExp}</strong>exp / ${levelUpExp}&nbsp;exp</p>
+		                </c:if>
 	                  </div>
 	                  <div class="gauge gauge_pet_exp">
 	                    <div class="gauge_colored pet_ex_colored"></div>
@@ -165,10 +170,10 @@
               </div>
               <!-- pet_container -->
 	              <div class="article_box pet_container">
-	             	 <c:if test="${myPet == null }">
+	             	 <c:if test="${myPet == null}">
 		                <div class="pet_window">
 		                  <img src="" alt="" class="pet_talk" />
-		                  <img src="" alt="펫" class="pet" />
+		                  <img src="<c:url value="/download/pet/0.jpg"></c:url>" alt="펫" class="pet" />
 		                </div>
 		                <div class="pet_description">
 		                  <div class="pet_info_container">
@@ -513,26 +518,36 @@
     
     // 펫 경험치
   	$(document).ready(function(){
-    	var gaugeWidth = $('.pet_ex_colored').width();
-		var nowEx = '${petEx.gr_exp}';
-		var levelUpEx = '${petEx.ex_experience}';
-		var exLevelUpEx = '${exExp.ex_experience}'
-		var ratio = nowEx / levelUpEx;
-		
-	    // 현재 레벨의 ex_experience가 되면 게이지가 꽉찬다.
+  		if(${myPet != null}){
+  			var gaugeWidth = $('.pet_ex_colored').width();
+			var currentExp = '${currentExp}';
+			var levelUpExp = '${levelUpExp}';
+			//var levelUpExpOnScreen = '${levelUpExpOnScreen}';
+			var exp =  currentExp >= levelUpExp ? currentExp-levelUpExp : currentExp;
+			var ratio = exp / levelUpExp;
+			gaugeWidth = ratio * 100 + '%';
+			$('.pet_ex_colored').width(gaugeWidth);
+			$('.exp_info strong').text(exp);
+			console.log(exp);
+  		}
+    	
+		/*
+	    // currentExp가 levelUpExpOnScreen값과 같게 되면 게이지가 꽉찬다.
 	    gaugeWidth = ratio * 100 + '%';
 	    $('.pet_ex_colored').width(gaugeWidth);
 	    
 		// 레벨이 올라가면.. 		
-		if(nowEx >= levelUpEx){
+		if(currentExp >= levelUpExpOnScreen && levelUpExpOnScreen != 270){
+			currentExp = 0;
 			gaugeWidth = 0 + '%';
 			$('.pet_ex_colored').width(gaugeWidth);
-			location.reload();
+			$('.currentExp').text(currentExp); 
 		} else {
 			gaugeWidth = ratio * 100 + '%';
-		}    
+		} */   
     	
     });
+    
 	// pet_store 모달 열기
 	   $(document).on('click', '#pet_store_container', function(e){
 	   	console.log('click');
