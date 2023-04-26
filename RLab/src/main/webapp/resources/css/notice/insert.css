@@ -1,0 +1,46 @@
+#no_insert{
+	width: 900px;
+}
+.ns_region_box{
+    margin-top: 3px;
+}
+#choose_type{
+	height: 36px;
+    border-radius: var(--border_radius_4);
+    padding: 8px;
+    font-weight: bold;
+    margin: 10px 0 20px 0;
+}
+.ns_title_box{
+	width: 100%;
+    border-radius: var(--border_radius_4);
+    border: 1px solid black;
+    box-sizing: border-box;
+    height: 40px;
+    padding: 10px 15px;
+    margin: 10px 0 20px 0;
+    background-color: white;
+}
+.ns_title_box .ns_title{
+	width: 100%; 
+    border: none; 
+    outline: none;
+    justify-content: center;
+    font-size: 14px;
+    vertical-align: 2px;
+}
+.btn_insert{
+	width: 130px;
+    height: 45px;
+    background-color: var(--color_beige);
+    border-radius: var(--border_radius_3);
+    border: 1px solid black;
+    display: inline-block;
+    margin: 0 auto;
+    font-size: 18px;
+    padding: 5px;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px var(--color_light-grey);
+    justify-content: center;
+    margin: 15px 0;
+}

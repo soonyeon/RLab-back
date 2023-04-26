@@ -372,11 +372,19 @@ DROP TABLE IF EXISTS `notice`;
 
 CREATE TABLE `notice` (
 	`no_num`	int auto_increment primary key	NOT NULL,
+    `no_nt_num` int not null,
 	`no_title`	varchar(20)	not NULL,
 	`no_me_id`	varchar(13)	NOT NULL,
 	`no_content`	longtext	not NULL,
 	`no_register_date`	datetime	NULL,
 	`no_views`	int not null default 0
+);
+
+DROP TABLE IF EXISTS `notice_type`;
+
+CREATE TABLE `notice_type` (
+	`nt_num` int auto_increment primary key	NOT NULL,
+    `nt_name` varchar(10)
 );
 
 ALTER TABLE `branch` ADD CONSTRAINT `FK_region_TO_branch_1` FOREIGN KEY (
@@ -706,6 +714,13 @@ ALTER TABLE `study` ADD CONSTRAINT `FK_region_TO_study_1` FOREIGN KEY (
 )
 REFERENCES `region` (
 	`re_name`
+);
+
+ALTER TABLE `notice` ADD CONSTRAINT `FK_notice_type_TO_notice_1` FOREIGN KEY (
+	`no_nt_num`
+)
+REFERENCES `notice_type` (
+	`nt_num`
 );
 
 ALTER TABLE `notice` ADD CONSTRAINT `FK_member_TO_notice_1` FOREIGN KEY (

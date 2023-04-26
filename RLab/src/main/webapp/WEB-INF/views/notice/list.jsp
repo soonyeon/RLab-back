@@ -8,10 +8,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="<c:url value='/resources/js/jquery.min.js'></c:url>"></script>
-<link rel="stylesheet"
-	href="<c:url value ='/resources/css/common.css?after'></c:url>" />
-<link rel="stylesheet"
-	href="<c:url value ='/resources/css/notice/list.css'></c:url>" />
+<link rel="stylesheet" href="<c:url value ='/resources/css/tab_common.css'></c:url>" />
+<link rel="stylesheet" href="<c:url value ='/resources/css/notice/list.css'></c:url>" />
+<link rel="stylesheet" href="<c:url value ='/resources/css/mypage/mypage_common.css'></c:url>" />
 <title>RLab</title>
 
 </head>
@@ -23,21 +22,20 @@
 				<!-- aside(left_menu) -->
 				<aside class="left_menu_container">
 					<nav class="left_menu">
-						<a href="#" class="list_item">마이페이지 홈</a>
-						<a href="#" class="list_item">개인정보 수정</a>
-						<a href="#" class="list_item">예약 관리</a>
-						<a href="#" class="list_item">스터디 관리</a>
-						<a href="#" class="list_item">작성글 관리</a>
+						<a href="<c:url value='/notice/list'></c:url>" class="list_item">전체보기</a>
+						<a href="<c:url value='/notice/list?type=1'></c:url>" class="list_item">공지사항</a>
+						<a href="<c:url value='/notice/list?type=2'></c:url>" class="list_item">QnA</a>
+						<a href="<c:url value='/notice/list?type=3'></c:url>" class="list_item">이벤트</a>
 					</nav>
 				</aside>
 
 				<section>
-					<!-- 탭 -->
+					<!-- 탭 
 					<div class="tab-container">
 						<a href="#" class="tab selected_tab tab1"><div>전체보기</div></a>
 						<a href="#" class="tab unselected_tab tab2"><div>공지사항</div></a>
 						<a href="#" class="tab unselected_tab tab3"><div>QnA</div></a>
-					</div>
+					</div>-->
 					<div class="my_study_container" id="my_container">
 						<div class="study_card_container">
 
@@ -77,20 +75,23 @@
 												</c:forEach>
 											</tbody>
 										</table>
+										<c:if test="${user.me_authority >= 9}">
+											<a class="write_btn" href="<c:url value="/notice/insert"></c:url>" style="float: right;">작성하기</a>
+										</c:if>
 									</div>
 									<!-- 페이지 이동 -->
 									<div class="page_area"></div>
 									<div class="page_box clearfix">
 										<c:if test="${pm.prev}">
-											<a href="<c:url value='/notice/list?page=${pm.startPage-1}'></c:url>"><i class="btn_prev"></i></a>
+											<a href="<c:url value='/notice/list?page=${pm.startPage-1}&type=${pm.cri.type}'></c:url>"><i class="btn_prev"></i></a>
 										</c:if>
 										<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
-											<span class="page_num<c:if test="${pm.cri.page == i }"> selected</c:if>">
-												<a href="<c:url value='/notice/list?page=${i}'></c:url>">${i}</a>
+											<span class="page_num<c:if test="${pm.cri.page == i}"> selected</c:if>">
+												<a href="<c:url value='/notice/list?page=${i}&type=${pm.cri.type}'></c:url>">${i}</a>
 											</span>
 										</c:forEach>
 										<c:if test="${pm.next}">
-											<a href="<c:url value='/notice/list?page=${pm.endPage+1}'></c:url>"><i class="btn_next"></i></a>
+											<a href="<c:url value='/notice/list?page=${pm.endPage+1}&type=${pm.cri.type}'></c:url>"><i class="btn_next"></i></a>
 										</c:if>
 									</div>
 								</div>

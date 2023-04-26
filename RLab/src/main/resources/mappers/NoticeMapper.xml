@@ -6,6 +6,9 @@
 <select id="selectAllNotice" resultType="kr.kh.RLab.vo.NoticeVO">
 	SELECT * FROM notice
 	WHERE no_title LIKE CONCAT('%', #{cri.search}, '%')
+	<if test="cri.type != 0">
+		AND no_nt_num = #{cri.type}
+	</if>
 	ORDER BY no_num DESC
 	LIMIT #{cri.pageStart}, #{cri.perPageNum}
 </select>
@@ -13,10 +16,13 @@
 	select count(*) from (
 		select * from notice
 		where no_title LIKE CONCAT('%', #{cri.search}, '%')
-	)
+	)tmp
 </select>
 <select id="selectNoticeByNonum" resultType="kr.kh.RLab.vo.NoticeVO">
 	select * from notice
 	where no_num = #{no_num}
+</select>
+<select id="selectAllNoticeType" resultType="kr.kh.RLab.vo.NoticeTypeVO">
+	select * from notice_type
 </select>
 </mapper>

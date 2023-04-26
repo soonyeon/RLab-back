@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kr.kh.RLab.dao.NoticeDAO;
 import kr.kh.RLab.pagination.Criteria;
+import kr.kh.RLab.vo.NoticeTypeVO;
 import kr.kh.RLab.vo.NoticeVO;
 
 @Service
@@ -28,6 +29,11 @@ public class NoticeServiceImp implements NoticeService {
 	@Override
 	public NoticeVO getNoticeByNonum(int no_num) {
 		return noticeDao.selectNoticeByNonum(no_num);
+	}
+
+	@Override
+	public ArrayList<NoticeTypeVO> getAllNoticeType() {
+		return noticeDao.selectAllNoticeType();
 	}
 
 }
