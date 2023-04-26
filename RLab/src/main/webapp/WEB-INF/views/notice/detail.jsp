@@ -10,9 +10,6 @@
 <script src="<c:url value='/resources/js/jquery.min.js'></c:url>"></script>
 <link rel="stylesheet" href="<c:url value ='/resources/css/notice/insert.css'></c:url>" />
 <link rel="stylesheet" href="<c:url value ='/resources/css/mypage/mypage_common.css'></c:url>" />
-<!-- summernote -->
-<link href="<c:url value='/resources/css/summernote-lite.min.css'></c:url>" rel="stylesheet">
-<script src="<c:url value='/resources/js/summernote-lite.min.js'></c:url>"></script>
 <title>RLab</title>
 
 </head>
@@ -32,12 +29,6 @@
 				</aside>
 
 				<section>
-					<!-- 탭 
-					<div class="tab-container">
-						<a href="#" class="tab selected_tab tab1"><div>전체보기</div></a>
-						<a href="#" class="tab unselected_tab tab2"><div>공지사항</div></a>
-						<a href="#" class="tab unselected_tab tab3"><div>QnA</div></a>
-					</div>-->
 					<div class="notice_container" >
 					<form id="no_insert" action="<c:url value='/notice/insert'></c:url>" method="post" enctype="multipart/form-data">
 						<h3>게시판</h3>

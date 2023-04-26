@@ -24,10 +24,6 @@
 		</if>
 	)tmp
 </select>
-<select id="selectNoticeByNonum" resultType="kr.kh.RLab.vo.NoticeVO">
-	select * from notice
-	where no_num = #{no_num}
-</select>
 <select id="selectAllNoticeType" resultType="kr.kh.RLab.vo.NoticeTypeVO">
 	select * from notice_type
 </select>
@@ -35,4 +31,8 @@
 	insert into notice(no_nt_num, no_title, no_me_id, no_content, no_register_date)
 	values(#{no.no_nt_num}, #{no.no_title}, #{me_id}, #{no.no_content}, now())
 </insert>
+<select id="selectNoticeByNonum" resultType="kr.kh.RLab.vo.NoticeVO">
+	select * from notice
+	where no_num = #{no_num}
+</select>
 </mapper>

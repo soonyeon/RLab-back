@@ -14,10 +14,10 @@ public interface NoticeDAO {
 
 	Integer selectNoticeTotalCount(@Param("cri")Criteria cri);
 
-	NoticeVO selectNoticeByNonum(int no_num);
-
 	ArrayList<NoticeTypeVO> selectAllNoticeType();
 
 	void insertNotice(@Param("me_id")String me_id, @Param("no")NoticeVO notice);
+
+	NoticeVO selectNoticeByNonum(int no_num);
 
 }

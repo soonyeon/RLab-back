@@ -41,15 +41,6 @@ public class NoticeController {
 		mv.setViewName("/notice/list");
 		return mv;
 	}
-	@RequestMapping(value = "/detail/{no_num}", method = RequestMethod.GET)
-	public ModelAndView list(ModelAndView mv, @PathVariable("no_num")int no_num) {
-		NoticeVO no = noticeService.getNoticeByNonum(no_num);
-		//조회수 1 증가
-		
-		mv.addObject("no", no);
-		mv.setViewName("/notice/list");
-		return mv;
-	}
 	@RequestMapping(value = "/insert", method = RequestMethod.GET)
 	public ModelAndView insert(ModelAndView mv, HttpSession session) {
 		ArrayList<NoticeTypeVO> ntList = noticeService.getAllNoticeType();
@@ -63,6 +54,15 @@ public class NoticeController {
 		noticeService.insertNotice(user.getMe_id(),notice);
 		System.out.println(notice);
 		mv.setViewName("redirect:/notice/list");
+		return mv;
+	}
+	@RequestMapping(value = "/detail/{no_num}", method = RequestMethod.GET)
+	public ModelAndView list(ModelAndView mv, @PathVariable("no_num")int no_num) {
+		NoticeVO no = noticeService.getNoticeByNonum(no_num);
+		//조회수 1 증가
+		
+		mv.addObject("no", no);
+		mv.setViewName("/notice/detail");
 		return mv;
 	}
 	

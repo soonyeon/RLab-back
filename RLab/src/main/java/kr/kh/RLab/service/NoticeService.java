@@ -12,10 +12,10 @@ public interface NoticeService {
 
 	int getNoticeTotalCount(Criteria cri);
 
-	NoticeVO getNoticeByNonum(int no_num);
-
 	ArrayList<NoticeTypeVO> getAllNoticeType();
 
 	void insertNotice(String me_id, NoticeVO notice);
+
+	NoticeVO getNoticeByNonum(int no_num);
 
 }

@@ -1,3 +1,12 @@
+.notice_container{
+    width: 930px;
+    position: relative;
+    border: var(--border_basic);
+    border-radius: var(--border_radius_4);
+    padding: 50px;
+    background-color: var(--color_beige);
+    box-sizing: border-box;
+}
 /* 게시판 */
 table { 
   border-collapse: collapse; 
@@ -66,7 +75,7 @@ table {
     line-height: 37px;
     font-size: medium;
     cursor: pointer;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 /* 검색 박스 */
 .search_area{

@@ -36,7 +36,7 @@
 						<a href="#" class="tab unselected_tab tab2"><div>공지사항</div></a>
 						<a href="#" class="tab unselected_tab tab3"><div>QnA</div></a>
 					</div>-->
-					<div class="my_study_container" id="my_container">
+					<div class="notice_container">
 						<div class="study_card_container">
 
 							<!-- table  -->

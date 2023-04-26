@@ -27,11 +27,6 @@ public class NoticeServiceImp implements NoticeService {
 	}
 
 	@Override
-	public NoticeVO getNoticeByNonum(int no_num) {
-		return noticeDao.selectNoticeByNonum(no_num);
-	}
-
-	@Override
 	public ArrayList<NoticeTypeVO> getAllNoticeType() {
 		return noticeDao.selectAllNoticeType();
 	}
@@ -39,6 +34,11 @@ public class NoticeServiceImp implements NoticeService {
 	@Override
 	public void insertNotice(String me_id, NoticeVO notice) {
 		noticeDao.insertNotice(me_id, notice);
+	}
+
+	@Override
+	public NoticeVO getNoticeByNonum(int no_num) {
+		return noticeDao.selectNoticeByNonum(no_num);
 	}
 
 }
