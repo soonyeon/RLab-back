@@ -312,7 +312,7 @@ public class StudyController {
 	public ModelAndView studyInsert(ModelAndView mv,HttpServletRequest request,@PathVariable("st_num") int st_num) {
 		MemberVO user = (MemberVO)request.getSession().getAttribute("user");	
 		ArrayList<StudyMemberVO> studyMember = studyService.selectStudyMemberByStNum(st_num);
-		int authority = studyService.selectSmAuthority(user,st_num);
+		Integer authority = studyService.selectSmAuthority(user,st_num);
 		MissionVO mission = studyService.selectMission(st_num);
 		ArrayList<String> mfList = studyService.selectMissionFinishMember(st_num);
 		mv.addObject("mfList",mfList);
@@ -323,6 +323,20 @@ public class StudyController {
 	    return mv;
 	}
 	
-
+	// 데일리미션 게이지 
+	@GetMapping("/getMissionProgress")
+	@ResponseBody
+	public Map<String, Integer> getMissionProgress(@RequestParam("st_num") int st_num) {
+	    ArrayList<String> finishedMembers = studyService.selectMissionFinishMember(st_num);
+	    ArrayList<StudyMemberVO> studyMembers = studyService.selectStudyMemberByStNum(st_num);
+	    System.out.println("finishmember:" + finishedMembers);
+	    System.out.println("studyMembers:" + studyMembers);
+	    int totalMembers = studyMembers.size();
+	    int finishedMemberCount = finishedMembers.size();
+	    Map<String, Integer> result = new HashMap<>();
+	    result.put("totalMembers", totalMembers);
+	    result.put("finishedMembers", finishedMemberCount);
+	    return result;
+	}
 
 }
