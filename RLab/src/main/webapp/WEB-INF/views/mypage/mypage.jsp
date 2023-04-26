@@ -90,8 +90,6 @@
                 </div>
                 <!-- 이용 시간 -->
                 <!-- 현재 시간 가져오기 -->
-                <%@ page import="java.util.Date" %>
-                <c:set var="now" value="<%= new Date() %>"/>
                 
                 <c:if test="${res == null}">
                 	<div id="used_hours">
@@ -183,52 +181,52 @@
 
               </div>
               <!-- pet_container -->
-	              <div class="article_box pet_container">
-	             	 <c:if test="${myPet == null}">
-		                <div class="pet_window">
-		                  <img src="" alt="" class="pet_talk" />
-		                  <img src="<c:url value="/download/pet/0.jpg"></c:url>" alt="펫" class="pet" />
-		                </div>
-		                <div class="pet_description">
-		                  <div class="pet_info_container">
-		 					<span class="txt_new_pet">
-		 						★펫스토어 에서 펫을<br>데려와보세요★
-		 					</span>
-		                  </div>
+              <div class="article_box pet_container">
+             	 <c:if test="${myPet == null}">
+	                <div class="pet_window">
+	                  <img src="" alt="" class="pet_talk" />
+	                  <img src="<c:url value="/download/pet/0.jpg"></c:url>" alt="펫" class="pet" />
+	                </div>
+	                <div class="pet_description">
+	                  <div class="pet_info_container">
+	 					<span class="txt_new_pet">
+	 						★펫스토어 에서 펫을<br>데려와보세요★
+	 					</span>
+	                  </div>
+	                    <div id="pet_store_container">
+	                      <i class="icon_store"></i> 펫 스토어
+	                    </div>
+	                </div>
+	              </c:if>
+	              <c:if test="${myPet != null }">
+	                <div class="pet_window">
+	                  <img src="" alt="" class="pet_talk" />
+	                  <img src="<c:url value="/download/${myPet.ev_img}"></c:url>" alt="펫" class="pet" />
+	                </div>
+	                <div class="pet_description">
+	                  <div class="pet_info_container">
+	                    <div class="this_pet">
+	                      <h2 class="pet_name">${myPet.pe_name}</h2>
+	                      <div class="pet_reward">
+	                        ㄴ보상 : ${myPet.pe_prize} <i class="icon_reward"></i>
+	                      </div>
+	                    </div>
+	                    <div class="pet_level">Lv. ${myPet.gr_level}</div>
+	                  </div>
+	                  	<c:if test="${petExp.gr_exp == petExp.ex_experience}">		                    
+			                <div id="pet_getPrize_container" class="pet_getPrize_container">
+		                      <i class="icon_getPrize"></i>펫 보상받기
+		                    </div>
+		                </c:if>
+		                <c:if test="${petExp.gr_exp != petExp.ex_experience}">		
 		                    <div id="pet_store_container">
 		                      <i class="icon_store"></i> 펫 스토어
 		                    </div>
-		                </div>
-		              </c:if>
-		              <c:if test="${myPet != null }">
-		                <div class="pet_window">
-		                  <img src="" alt="" class="pet_talk" />
-		                  <img src="<c:url value="/download/${myPet.ev_img}"></c:url>" alt="펫" class="pet" />
-		                </div>
-		                <div class="pet_description">
-		                  <div class="pet_info_container">
-		                    <div class="this_pet">
-		                      <h2 class="pet_name">${myPet.pe_name}</h2>
-		                      <div class="pet_reward">
-		                        ㄴ보상 : ${myPet.pe_prize} <i class="icon_reward"></i>
-		                      </div>
-		                    </div>
-		                    <div class="pet_level">Lv. ${myPet.gr_level}</div>
-		                  </div>
-		                  	<c:if test="${petExp.gr_exp == petExp.ex_experience}">		                    
-				                <div id="pet_getPrize_container" class="pet_getPrize_container">
-			                      <i class="icon_getPrize"></i>펫 보상받기
-			                    </div>
-			                </c:if>
-			                <c:if test="${petExp.gr_exp != petExp.ex_experience}">		
-			                    <div id="pet_store_container">
-			                      <i class="icon_store"></i> 펫 스토어
-			                    </div>
-		                    </c:if>
-		                    
-		                </div>
-		              </c:if>
-	              </div>
+	                    </c:if>
+	                    
+	                </div>
+	              </c:if>
+              </div>
               <!-- book_container(나의 예약) -->
               <div class="article_box book_container">
                 <div class="title_container">
@@ -495,36 +493,39 @@
 </script>
 <script> <!-- 내 정보란 -->
     // 이용시간
-   	//let flag = ${now.before(res.re_start_time) || now.after(res.re_valid_time)};
+   	function updateGauge(resStart, resValid, now){
+		
+		if(now > resValid){
+			location.href = '<c:url value="/mypage"></c:url>';
+			
+		} else if(now >= resStart){
+			var elapsedTime = now.getTime() - resStart.getTime();
+			var totalTime = resValid.getTime() - resStart.getTime();
+			var percentage = elapsedTime / totalTime * 100;
+			$('.use_time_colored').width(percentage + '%');
+		}
+	}
 	$(document).ready(function(){
+		var now = new Date();
+		
 		if(${res == null})
 			console.log(1);
 	   	if(${res != null}){
-    		var gaugeWidth = $('.use_time_colored').width();
     		var resStart = '${res.re_start_time}';
     		var resValid = '${res.re_valid_time}';
     		
-    		function updateGauge(){
-    			var now = new Date();
-    			if(now >= resValid){
-    				$('.use_time_colored').width(gaugeWidth + '%')
-    				//if(!flag)
-	    			location.reload();
-    				
-    			} else if(now >= resStart){
-    				var elapsedTime = now.getTime() - resStart.getTime();
-    				var totalTime = resValid.getTime() - resStart.getTime();
-    				var percentage = elapsedTime / totalTime * 100;
-    				$('.use_time_colored').width(percentage + '%');
-    			}
-    		}
-    		
-    		setInterval(function(){
+    		intervalId = setInterval(function(){
     			$.ajax({
     				url: '<c:url value="/mypage/timeGauge" />',
     				type: "GET",
     				success: function(data){
     					console.log(1);
+    					console.log(data=='');
+    					if(data==''){
+    						clearInterval(intervalId);
+    						location.href = '<c:url value="/mypage"></c:url>';
+    						return;
+    					}
     					resStart = new Date(data.re_start_time);
     					resValid = new Date(data.re_valid_time);
     					updateGauge();
@@ -533,7 +534,7 @@
     		}, 1000); // 1초마다 업데이트
    		}
     });
-    	
+    let intervalId;	
     
     // 펫 경험치
   	$(document).ready(function(){

@@ -91,7 +91,7 @@
 		select * from reservation
 		join ticket_own on re_to_num = to_num
 		join ticket on to_ti_num = ti_num
-		where re_me_id = #{me_id} and (now() between re_start_time and re_valid_time)
+		where re_me_id = #{me_id} and (now() between re_start_time and DATE_sub(re_valid_time, INTERVAL 1 SECOND))
 		<if test="ki_num == 1">
 			and ti_tt_num != 4
 		</if>

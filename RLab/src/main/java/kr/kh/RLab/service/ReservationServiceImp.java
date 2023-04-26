@@ -1,6 +1,7 @@
 package kr.kh.RLab.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -131,6 +132,7 @@ public class ReservationServiceImp implements ReservationService {
 
 	@Override
 	public ReservationVO getMyReservation(int kind, String me_id) {
+		Date date = new Date();
 		return reservationDao.selectMyReservation(kind, me_id);
 	}
 
