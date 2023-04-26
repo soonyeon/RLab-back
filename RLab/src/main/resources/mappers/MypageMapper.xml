@@ -58,8 +58,9 @@
 		</select>
 		
 		<select id="selectLevelUpExp" resultType="int">
-			SELECT * FROM exp
-			where ex_level = #{gr_Level}
+			SELECT ex_experience
+			FROM exp
+			where ex_level = #{currentLevel};
 		</select>
 		
 		<update id="updateExp">

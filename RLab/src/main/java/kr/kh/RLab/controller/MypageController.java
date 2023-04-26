@@ -45,72 +45,56 @@ public class MypageController {
 		String userId = user.getMe_id();
 		// 이용시간 안내
 		ReservationVO res = mypageService.getRes(userId);
-		
-		// 나의 펫 정보
-		GrowthVO petEx = mypageService.getPetEx(userId);
-		System.out.println(petEx);
-		
-		// 레벨업까지의 경험치 정보
-			// 현재 레벨
-			int currentLevel = petEx.getGr_level();
-			// 현재 경험치
-			int currentExp = petEx.getGr_exp();
-			// 레벨업까지의 최대 경험치
-			int	levelUpExp = mypageService.getLevelUpExp(currentLevel);
-			
-			// 전 레벨의 최대 경험치
-				// 레벨 1이면 그대로
-				if(currentLevel == 1) {
-					
-				}else {
-					exExp = mypageService.getExExp(currentLevel-1);
-				}		
-			System.out.println("exExp : " + exExp );
-			// 레벨업까지의 경험치
-			int levelUpEx;
-				// 레벨 1이면 그대로
-				if(currentLevel == 1) {
-					exExp.getEx_experience();
-				}else {
-					levelUpEx = petEx.getEx_experience() - exExp.getEx_experience();
-				}		
-			System.out.println("levelUpEx : " + levelUpEx );
-			
-
-		// 펫의 전 레벨의 최대 경험치(레벨 업시, exp 초기화 위함)
-; 
-		;
-		
-//		if(gr_Level == 1) {
-//			exExp = mypageService.getExExp(gr_Level);
-//			mv.addObject("exExp", exExp);
-//		} else {
-			
-			
-			mv.addObject("levelUpEx", levelUpEx);
-			System.out.println(levelUpEx);
-		//}	
-		
-		
-		// 레벨이 올라가면 exp값 초기화, 레벨 상승
-		
-		//int levelUpEx = petEx.getEx_experience();
-		//int exEx = exExp.getEx_experience();
-		if(currentEx >= levelUpEx) {
-			petEx.setGr_level(gr_Level + 1);
-			mypageService.updateExp(currentEx -= levelUpEx, userId);
-			petEx.setGr_exp(currentEx);
+		//나의 펫 데려오기
+		GrowthVO myPet = mypageService.selectMyPet(userId);
+		if(myPet != null) {
+			// 레벨업까지의 경험치 정보
+				// 현재 레벨
+				int currentLevel = myPet.getGr_level();
+				System.out.println("currentLevel : " + currentLevel);
+				// 현재 경험치
+				int currentExp = myPet.getGr_exp();
+				// 레벨업까지의 최대 경험치
+				int	levelUpExp = mypageService.getLevelUpExp(currentLevel);	
+				System.out.println("levelUpExp : " + levelUpExp );
+				// 전 레벨의 최대 경험치
+				int exExp;
+					// 레벨 1이면 그대로
+					if(currentLevel == 1) {
+						exExp = levelUpExp;
+					}else {
+						exExp = mypageService.getLevelUpExp(currentLevel-1);
+						currentExp -= exExp;
+					}		
+				System.out.println("currentExp : " + currentExp );
+				System.out.println("exExp : " + exExp );
+				
+				// 레벨업까지의 경험치(화면에 뿌려줄 최대 경험치 값)
+				//int levelUpExpOnScreen;
+					// 레벨 1이 아니면..
+					if(currentLevel != 1) {					
+						levelUpExp = levelUpExp - exExp;
+						//mv.addObject("levelUpExpOnScreen", levelUpExp);	
+						System.out.println("levelUpExpOnScreen : " + levelUpExp );
+					}		
+			mv.addObject("currentLevel", currentLevel);
+			mv.addObject("currentExp", currentExp);
+			mv.addObject("levelUpExp", levelUpExp);
+			mv.addObject("exExp", exExp);			
+			//펫exp가져오기
+			GrowthVO petExp = mypageService.selectPetExp(userId);
+			mv.addObject("petExp",petExp);
 		}
+		
+		
 		
 		// 펫
 		ArrayList<PetVO> petList = petService.selectPetList();
 		ArrayList<EvolutionVO> petFile = petService.selectPetFile();
 		
-		//나의 펫 데려오기
-		GrowthVO myPet = mypageService.selectMyPet(userId);
 		
-		//펫exp가져오기
-		GrowthVO petExp = mypageService.selectPetExp(userId);		
+		
+				
 		
 		//적립 포인트 데이터 가져오기
 		int myPoint = mypageService.getMyPoint(userId);
@@ -124,15 +108,11 @@ public class MypageController {
 		//나의 스크랩 데이터 가져오기
 		ArrayList<BoardVO> myScrapList = mypageService.getMainScrapList(userId);
 		
-		
-		//System.out.println("mypoint" + myPoint);
+
 		mv.setViewName("/mypage/mypage");
-		mv.addObject("petExp",petExp);
 		mv.addObject("myPet",myPet);
 		mv.addObject("myPoint", myPoint);
-		mv.addObject("petEx", petEx);
 		
-		//mv.addObject("currentEx", currentEx);
 		mv.addObject("res", res);
 		mv.addObject("resList", resList);
 		mv.addObject("myScrapList", myScrapList);
