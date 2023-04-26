@@ -6,17 +6,36 @@ import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.pagination.GatherCriteria;
 import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.GatherVO;
+import kr.kh.RLab.vo.GrowthVO;
 import kr.kh.RLab.vo.MemberVO;
+import kr.kh.RLab.vo.ReservationVO;
+import kr.kh.RLab.vo.StudyVO;
 import kr.kh.RLab.vo.TagRegisterVO;
 
 public interface MypageService {
 	
+	//[마이페이지 홈 > 이용 시간]
+		ReservationVO getRes(String userId);
+	
+	//[마이페이지 홈 > 펫 경험치]
+		GrowthVO getPetEx(String userId);
+		
+		int getLevelUpExp(int currentLevel);
+		
+		int updateExp(int currentEx, String userId);
+		
 	//[마이페이지 홈 > 적립 포인트]
-		int getMyPoint(String userId);
+		int getMyPoint(String userId);	
+	
+	//[마이페이지 홈 > 나의 예약]
+		ArrayList<ReservationVO> getResList(String userId);
+		
+	//[마이페이지 홈 > 나의 스터디]		
+		ArrayList<StudyVO> getMainStudyList(String userId);
 		
 	//[마이페이지 홈 > 나의 스크랩]	
 		ArrayList<BoardVO> getMainScrapList(String userId);
-
+		
 	
 	//[개인정보 수정 > 비밀번호 체크]
 		boolean checkPw(MemberVO pw, MemberVO user);
@@ -57,6 +76,14 @@ public interface MypageService {
 		
 		// 내가 쓴 모집글의 찜 여부 가져오기
 		ArrayList<Integer> selectWantListById(String memberId);
+
+		
+	//[마이페이지 > 펫]	
+		//펫 불러오기
+		GrowthVO selectMyPet(String memberId);
+
+		//펫 경험치 가져오기
+		GrowthVO selectPetExp(String memberId);
 
 
 }

@@ -12,7 +12,10 @@ import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.pagination.GatherCriteria;
 import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.GatherVO;
+import kr.kh.RLab.vo.GrowthVO;
 import kr.kh.RLab.vo.MemberVO;
+import kr.kh.RLab.vo.ReservationVO;
+import kr.kh.RLab.vo.StudyVO;
 import kr.kh.RLab.vo.TagRegisterVO;
 import lombok.RequiredArgsConstructor;
 
@@ -25,22 +28,80 @@ public class MypageServiceImp implements MypageService {
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
 	
+	//[마이페이지 홈 > 이용시간]
+	@Override
+	public ReservationVO getRes(String userId) {
+		if (userId == null) {
+			return null;
+	    }
+		return mypageDao.selectRes(userId);
+	}
+	
+	//[마이페이지 홈 > 펫 경험치]
+	@Override
+	public GrowthVO getPetEx(String userId) {
+		if (userId == null) {
+			return null;
+	    }
+		return mypageDao.selectPetEx(userId);
+	}
+	
+	@Override
+	public int getLevelUpExp(int currentLevel) {
+		return mypageDao.selectLevelUpExp(currentLevel);
+	}
+	
+	@Override
+	public int updateExp(int currentEx, String userId) {
+		return mypageDao.updateExp(currentEx, userId);
+	}
+  
+  	//[마이페이지 홈 > 펫 정보]
+		@Override
+		public GrowthVO selectMyPet(String memberId) {
+			return mypageDao.selectMyPet(memberId);
+		}
+
+		@Override
+		public GrowthVO selectPetExp(String memberId) {
+			return mypageDao.selectPetExp(memberId);
+		}
+	
 	//[마이페이지 홈 > 적립 포인트]
 	@Override
 	public int getMyPoint(String userId) {
 		 if (userId == null) {
 		        return 0;
-		    }
+		  }
 		 return mypageDao.selectMyPoint(userId);
 
 	}
 	
-	//[마이페이지 홈 > 적립 포인트]
+	//[마이페이지 홈 > 나의 예약]
+	@Override
+	public ArrayList<ReservationVO> getResList(String userId) {
+		if(userId == null)
+			return null;
+		return mypageDao.selectResList(userId);
+	}
+	
+	//[마이페이지 홈 > 나의 스터디]
+	@Override
+	public ArrayList<StudyVO> getMainStudyList(String userId) {
+		if(userId == null)
+			return null;
+		return mypageDao.selectMainStudyList(userId);
+	}
+	
+	
+	//[마이페이지 홈 > 나의 스크랩]
 	@Override
 	public ArrayList<BoardVO> getMainScrapList(String userId) {
-		// TODO Auto-generated method stub
-		return null;
+		if(userId == null)
+			return null;
+		return mypageDao.selectMainScrapList(userId);
 	}
+
 	
 	//[개인정보 수정 > 비밀번호 체크]
 		@Override
@@ -160,6 +221,7 @@ public class MypageServiceImp implements MypageService {
 			ArrayList<Integer> wantList = mypageDao.selectWantListById(memberId);
 			return wantList;
 		}
+
 
 
 }

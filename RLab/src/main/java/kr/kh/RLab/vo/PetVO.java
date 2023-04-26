@@ -9,10 +9,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PetVO {
 
-	private int pe_num;
-	private String pe_name;
-	private int pe_final_level;
-	private String pe_prize;
+	int pe_num;
+	String pe_name;
+	int pe_final_level;
+	String pe_prize;
 
 
 }

@@ -4,31 +4,29 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.pagination.GatherCriteria;
 import kr.kh.RLab.pagination.PageMaker;
-import kr.kh.RLab.service.BoardService;
-import kr.kh.RLab.service.CommentService;
-import kr.kh.RLab.service.GatherService;
 import kr.kh.RLab.service.MypageService;
 import kr.kh.RLab.service.PetService;
-import kr.kh.RLab.service.ScrapService;
-import kr.kh.RLab.service.TemporaryService;
 import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.EvolutionVO;
 import kr.kh.RLab.vo.GatherVO;
+import kr.kh.RLab.vo.GrowthVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.PetVO;
+import kr.kh.RLab.vo.ReservationVO;
+import kr.kh.RLab.vo.StudyVO;
 import kr.kh.RLab.vo.TagRegisterVO;
 import lombok.RequiredArgsConstructor;
 
@@ -38,11 +36,6 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/mypage")
 public class MypageController {
 	private final MypageService mypageService;
-	private final BoardService boardService;
-	private final ScrapService scrapService;
-	private final GatherService gatherService;
-	private final TemporaryService temporaryService;
-	private final CommentService commtentService;
 	private final PetService petService;
 	
 	//[마이페이지 홈]
@@ -50,24 +43,93 @@ public class MypageController {
 	public ModelAndView mypage(ModelAndView mv, MemberVO member, HttpSession session) {
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		String userId = user.getMe_id();
+		// 이용시간 안내
+		ReservationVO res = mypageService.getRes(userId);
+		//나의 펫 데려오기
+		GrowthVO myPet = mypageService.selectMyPet(userId);
+		if(myPet != null) {
+			// 레벨업까지의 경험치 정보
+				// 현재 레벨
+				int currentLevel = myPet.getGr_level();
+				System.out.println("currentLevel : " + currentLevel);
+				// 현재 경험치
+				int currentExp = myPet.getGr_exp();
+				// 레벨업까지의 최대 경험치
+				int	levelUpExp = mypageService.getLevelUpExp(currentLevel);	
+				System.out.println("levelUpExp : " + levelUpExp );
+				// 전 레벨의 최대 경험치
+				int exExp;
+					// 레벨 1이면 그대로
+					if(currentLevel == 1) {
+						exExp = levelUpExp;
+					}else {
+						exExp = mypageService.getLevelUpExp(currentLevel-1);
+						currentExp -= exExp;
+					}		
+				System.out.println("currentExp : " + currentExp );
+				System.out.println("exExp : " + exExp );
+				
+				// 레벨업까지의 경험치(화면에 뿌려줄 최대 경험치 값)
+				//int levelUpExpOnScreen;
+					// 레벨 1이 아니면..
+					if(currentLevel != 1) {					
+						levelUpExp = levelUpExp - exExp;
+						//mv.addObject("levelUpExpOnScreen", levelUpExp);	
+						System.out.println("levelUpExpOnScreen : " + levelUpExp );
+					}		
+			mv.addObject("currentLevel", currentLevel);
+			mv.addObject("currentExp", currentExp);
+			mv.addObject("levelUpExp", levelUpExp);
+			mv.addObject("exExp", exExp);			
+			//펫exp가져오기
+			GrowthVO petExp = mypageService.selectPetExp(userId);
+			mv.addObject("petExp",petExp);
+		}
+		
+		
+		
 		// 펫
 		ArrayList<PetVO> petList = petService.selectPetList();
 		ArrayList<EvolutionVO> petFile = petService.selectPetFile();
 		
+		
+		
+				
+		
 		//적립 포인트 데이터 가져오기
 		int myPoint = mypageService.getMyPoint(userId);
+		
+		//나의 예약 데이터 가져오기
+		ArrayList<ReservationVO> resList = mypageService.getResList(userId);
+		
+		//나의 스터디 데이터 가져오기
+		ArrayList<StudyVO> myStudyList = mypageService.getMainStudyList(userId);
 		
 		//나의 스크랩 데이터 가져오기
 		ArrayList<BoardVO> myScrapList = mypageService.getMainScrapList(userId);
 		
-		System.out.println("mypoint" + myPoint);
+
 		mv.setViewName("/mypage/mypage");
+		mv.addObject("myPet",myPet);
 		mv.addObject("myPoint", myPoint);
+		
+		mv.addObject("res", res);
+		mv.addObject("resList", resList);
+		mv.addObject("myScrapList", myScrapList);
+		mv.addObject("myStudyList", myStudyList);
 		mv.addObject("petList",petList);
 		mv.addObject("petFile",petFile);
 		return mv;
 	}
 	
+	@ResponseBody
+	@GetMapping("/timeGauge")
+	public ReservationVO timeGauge (ModelAndView mv,  HttpSession session) {
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		String userId = user.getMe_id();
+		ReservationVO res = mypageService.getRes(userId);		
+		return res;
+	}
 	
 	//[개인정보 수정 > 비밀번호 체크]
 	@GetMapping("/pwcheck")

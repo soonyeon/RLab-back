@@ -79,6 +79,7 @@ public class StudyController {
 			HttpServletRequest request) {
 		MemberVO member = (MemberVO) request.getSession().getAttribute("user");
 		PhotoVO photoVO = new PhotoVO();
+		photoVO.setPh_st_num(st_num);
 		photoVO.setPh_content(content);
 		photoVO.setPh_pt_num(Integer.parseInt(ph_pt_num));
 		if (studyService.insertCB(photoVO, files, member)) {
@@ -200,7 +201,6 @@ public class StudyController {
 
 	@RequestMapping(value = "/management", method = RequestMethod.POST)
 	public ModelAndView managementPost(ModelAndView mv, StudyVO study) {
-		System.out.println(study);
 		mv.setViewName("redirect:/study/management/member/" + study.getSt_num());
 		return mv;
 	}
@@ -220,7 +220,6 @@ public class StudyController {
 		// StudyService 클래스의 getStudyMemberList메서드를 호출하여 멤버 리스트를 가져옴
 		ArrayList<StudyMemberVO> memberList = studyService.getStudyMemberList(st_num, cri);
 		int totalCount = studyService.getStudyTotalCount(st_num);
-		System.out.println(totalCount);
 		PageMaker pm = new PageMaker(totalCount, 5, cri);
 
 		// "myStudyList" 키와 함께 연구 목록을 ModelAndView 객체에 추가
@@ -239,7 +238,6 @@ public class StudyController {
 	@RequestMapping(value = "/management/member/delete", method = RequestMethod.POST)
 	public HashMap<String, Object> deleteMember(@RequestBody StudyMemberVO sm) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		System.out.println(sm);
 
 		// 멤버를 삭제하고, 새로운 멤버 리스트를 가져옴
 		studyService.deleteStudyMember(sm.getSm_num(), sm.getMe_name());
@@ -258,7 +256,6 @@ public class StudyController {
 		// System.out.println(user);
 
 		ArrayList<StudyVO> myStudyList = studyService.getStudyListById(memberId);
-		System.out.println(myStudyList);
 
 		mv.addObject("myStudyList", myStudyList);
 		mv.addObject("user", user);

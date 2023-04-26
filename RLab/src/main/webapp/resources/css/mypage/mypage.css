@@ -1,3 +1,16 @@
+.noPostMsg{
+	width: 332px;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+.my_study_container .noPostMsg{
+	width: 311px;
+    height: 172px;		
+}
+
 /* main */
 main{
     width: var(--body_size);
@@ -38,15 +51,13 @@ main #main_container{
     margin-bottom: 8px;
     white-space: nowrap;
 }
-.list_item:hover{
+.my_study_container .list_item:hover{
     color: var(--color_blue);
 }
-/* .list_items .list_item2{
-    font-size: 14px;
-    font-weight: 400;
-    margin-left: 10px;
-    white-space: nowrap;
-} */
+.my_scrab_container .list_item:hover{
+    color: #c99821;
+}
+
 
 /* articles */
 article{
@@ -73,6 +84,14 @@ article{
     flex-flow: column;
     gap: 10px;
     width: 970px;
+}
+
+.article_box .txt_new_pet{
+	font-weight: 600;
+    text-align: center;
+    font-size: 16px;
+   	margin-top: 7px;
+    margin-left: 24px;
 }
 
 /*  article_top(이용시간, 펫 창, 나의 예약) */
@@ -108,21 +127,36 @@ article{
     overflow: hidden;
 }
 .gauge_colored{
+	width: 100%;
     height: 30px;
 }
+.pet_ex_colored{
+	width: 0%;
+}
 .gauge_used_hours .gauge_colored{
-    width: 150px;
     background-color: var(--color_mint);
 }
 .gauge_pet_exp .gauge_colored{
-    width: 200px;
     background-color: var(--color_yellow);
 }
 #used_hours_container .property_title{
     font-size: 20px;
 }
 .info{
+    display: flex;
+    align-items: center;
     font-size: 14px;
+    gap: 5px;
+}
+.res_btn{
+	padding: 5px 7px;
+	border-radius: var(--border_radius_2);
+	box-sizing: border-box;
+	background-color: var(--color_yellow);
+	font-size: 11px;
+}
+.res_btn:hover{
+	background-color: #e7d743;
 }
 #used_hours_container #point_container{
     width: 100%;
@@ -204,10 +238,10 @@ article{
 .pet_container .pet_window{
     display: flex;
     flex-flow: column;
-    justify-content: flex-end;
+    
     align-items: center;
     width: 100%;
-    height: 300px;
+    
     border: var(--border_basic);
     border-radius: var(--border_radius_4);
     background-color: var(--color_beige);
@@ -216,7 +250,9 @@ article{
     width: 50px;
 }
 .pet_window .pet{
-    width: 100px;
+    width: 170px;
+    height : 170px;
+    padding: 10px;
 }
 .pet_container .pet_description{
     display: flex;
@@ -226,7 +262,7 @@ article{
     width: 100%;
 }
 .pet_description .pet_info_container{
-    height: 35px;
+    height: 50px;
     display: flex;
     justify-content: space-between;
 }
@@ -271,10 +307,33 @@ article{
     font-weight: 600;
     cursor: pointer;
 }
+.pet_description #pet_getPrize_container{
+    width: 97%;
+    height: 35px;
+    background-color: var(--color_mint);
+    border: var(--border_basic);
+    border-radius: var(--border_radius_4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
 #pet_store_container:hover{
     background-color: #18d898;
 }
 .icon_store{
+    display: flex;
+    margin-right: 8px;
+    width: 15px;
+    height: 15px;
+    background-size: 15px 15px;
+    background-repeat: no-repeat;
+    background-image: url(../../img/pet.png);
+    opacity: 60%;
+}
+.icon_getPrize{
     display: flex;
     margin-right: 8px;
     width: 15px;
@@ -373,6 +432,19 @@ article{
     font-size: 17px;
     font-weight: 700;
     /* background-color: #01f3a3; */
+}
+.pet_store_popup_box .btn_return{
+	width: 113px;
+    height: 27px;
+    padding: 5px;
+    border: none;
+    border-radius: var(--border_radius_3);
+    background-color: var(--color_light-grey);
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 2px 2px 4px #6262624f;
+    cursor: pointer;
+    margin-left: 10px;
 }
 .pet_box .btn_bring{
     width: 120px;
@@ -567,12 +639,15 @@ article{
 }
 .link_study .icon_study{
     display: flex;
+    justify-content: center;
+    align-items: center;
     width: 50px;
     height: 50px;
     border: var(--border_basic);
     border-radius: var(--border_radius_1);
     background-color: var(--color_grey);
     margin-right: 30px;
+    overflow: hidden;
 }
 
 /* my_scrab_container */
@@ -611,14 +686,18 @@ article{
 }
 .list_container .list_item{
     display: flex;
+    align-items: center;
     gap: 10px;
     white-space: nowrap;
 }
+.link_study{
+	font-weight: 800;
+}
 .list_item .icon_scrab{
- width: 20px;   
- height: 20px;
- background-size: 20px 20px;
- background-image: url(../../img/favorite_tag.png);
+	 width: 20px;   
+	 height: 20px;
+	 background-size: 20px 20px;
+	 background-image: url(../../img/favorite_tag.png);
 }
 .list_item .title_scrab{
     width: 100px;

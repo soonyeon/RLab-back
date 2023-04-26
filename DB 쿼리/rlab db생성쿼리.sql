@@ -8,11 +8,7 @@ DROP TABLE IF EXISTS `member`;
 CREATE TABLE `member` (
 	`me_id`	varchar(13) primary key	NOT NULL,
 	`me_name`	varchar(10)	NOT NULL,
-<<<<<<< HEAD
-	`me_pw`	varchar(20)	NOT NULL,
-=======
 	`me_pw`	varchar(255)	NOT NULL,
->>>>>>> 8a04488827335585c4cde8c0c02bef53309ec319
 	`me_email`	varchar(30)	NOT NULL,
 	`me_authority`	int not null default 0,
 	`me_point`	int not null DEFAULT 0,
@@ -54,7 +50,7 @@ CREATE TABLE `calendar` (
 	`ca_st_num`	int	NOT NULL,
 	`ca_title`	varchar(255) not null,
 	`ca_start`	datetime not null,
-	`ca_end`	datetime not null,
+	`ca_end`	datetime,
     `ca_all_day` tinyint default 0
 );
 
@@ -109,7 +105,6 @@ DROP TABLE IF EXISTS `todo`;
 CREATE TABLE `todo` (
 	`td_num`	int auto_increment primary key NOT NULL,
 	`td_date`	date NOT NULL,
-	`td_st_num`	int	NOT NULL,
 	`td_me_id`	varchar(13)	NOT NULL,
 	`td_content`	varchar(50)	NOT NULL,
 	`td_finish`	int	NOT NULL DEFAULT 0
@@ -371,6 +366,17 @@ DROP TABLE IF EXISTS `exp`;
 CREATE TABLE `exp` (
 	`ex_level`	int NOT NULL,
 	`ex_experience`	int NOT NULL
+);
+
+DROP TABLE IF EXISTS `notice`;
+
+CREATE TABLE `notice` (
+	`no_num`	int auto_increment primary key	NOT NULL,
+	`no_title`	varchar(20)	not NULL,
+	`no_me_id`	varchar(13)	NOT NULL,
+	`no_content`	longtext	not NULL,
+	`no_register_date`	datetime	NULL,
+	`no_views`	int not null default 0
 );
 
 ALTER TABLE `branch` ADD CONSTRAINT `FK_region_TO_branch_1` FOREIGN KEY (
@@ -702,3 +708,9 @@ REFERENCES `region` (
 	`re_name`
 );
 
+ALTER TABLE `notice` ADD CONSTRAINT `FK_member_TO_notice_1` FOREIGN KEY (
+	`no_me_id`
+)
+REFERENCES `member` (
+	`me_id`
+);
