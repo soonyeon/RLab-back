@@ -110,4 +110,8 @@
     	select * from mission
     	where mi_st_num = #{st_num} and mi_date = CURDATE();
     </select>
+    <insert id="insertMissionFinishMember" parameterType="map">
+    	insert into mission_finish(mf_mi_num, mf_me_id)
+    	values((select mi_num from mission where mi_st_num = #{st_num} and mi_date = CURDATE()),#{user.me_id})
+    </insert>
 </mapper>

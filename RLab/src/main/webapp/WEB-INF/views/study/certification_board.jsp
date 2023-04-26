@@ -229,6 +229,7 @@ const likeOffImageUrl = $("#like_off_image_url").val();
         formData.append('content', $('#content').val());
         formData.append('ph_pt_num', $('#ph_pt_num').val());
         formData.append('ph_st_num', ${st_num});
+       // formData.append('mi_num',${mi_num});
         console.log(formData);
         $.ajax({
             type: "POST",

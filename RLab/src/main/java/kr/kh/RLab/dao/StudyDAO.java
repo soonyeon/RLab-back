@@ -9,6 +9,7 @@ import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.LikeVO;
 import kr.kh.RLab.vo.MemberVO;
+import kr.kh.RLab.vo.MissionFinishVO;
 import kr.kh.RLab.vo.MissionVO;
 import kr.kh.RLab.vo.PhotoTypeVO;
 import kr.kh.RLab.vo.PhotoVO;
@@ -62,5 +63,7 @@ public interface StudyDAO {
 	boolean insertMission(MissionVO missionVO);
 
 	MissionVO selectMission(int st_num);
+
+	int insertMissionFinishMember(@Param("user")MemberVO member,@Param("st_num")int st_num);
 
 }

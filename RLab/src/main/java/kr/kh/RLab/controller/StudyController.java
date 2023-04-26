@@ -27,6 +27,7 @@ import kr.kh.RLab.pagination.PageMaker;
 import kr.kh.RLab.service.StudyService;
 import kr.kh.RLab.vo.LikeVO;
 import kr.kh.RLab.vo.MemberVO;
+import kr.kh.RLab.vo.MissionFinishVO;
 import kr.kh.RLab.vo.MissionVO;
 import kr.kh.RLab.vo.PhotoTypeVO;
 import kr.kh.RLab.vo.PhotoVO;
@@ -80,15 +81,17 @@ public class StudyController {
 			HttpServletRequest request) {
 		MemberVO member = (MemberVO) request.getSession().getAttribute("user");
 		PhotoVO photoVO = new PhotoVO();
-		
 		photoVO.setPh_st_num(st_num);
 		photoVO.setPh_content(content);
 		photoVO.setPh_pt_num(Integer.parseInt(ph_pt_num));
+		int MissionFinishVO = studyService.insertMissionFinishMember(member,st_num);
 		if (studyService.insertCB(photoVO, files, member)) {
 			return "success";
 		} else {
 			return "error";
 		}
+	
+		
 	}
 
 	@PostMapping("/toggleLike")
@@ -269,20 +272,6 @@ public class StudyController {
 		return mv;
 	}
 	
-	
-	@GetMapping("/daily/{st_num}")
-	public ModelAndView studyInsert(ModelAndView mv,HttpServletRequest request,@PathVariable("st_num") int st_num) {
-		MemberVO user = (MemberVO)request.getSession().getAttribute("user");	
-		ArrayList<StudyMemberVO> studyMember = studyService.selectStudyMemberByStNum(st_num);
-		int authority = studyService.selectSmAuthority(user,st_num);
-		MissionVO mission = studyService.selectMission(st_num);
-		mv.addObject("mission",mission);
-		mv.addObject("authority",authority);
-		mv.addObject("studyMember",studyMember);
-	 	mv.setViewName("/study/daily");
-	    return mv;
-	}
-	
 	//데일리미션등록
 	@PostMapping("/daily/{st_num}/mission")
 	@ResponseBody
@@ -299,5 +288,22 @@ public class StudyController {
 			return "error";
 		}
 	}
+	
+	//데일리미션 페이지
+	@GetMapping("/daily/{st_num}")
+	public ModelAndView studyInsert(ModelAndView mv,HttpServletRequest request,@PathVariable("st_num") int st_num) {
+		MemberVO user = (MemberVO)request.getSession().getAttribute("user");	
+		ArrayList<StudyMemberVO> studyMember = studyService.selectStudyMemberByStNum(st_num);
+		int authority = studyService.selectSmAuthority(user,st_num);
+		MissionVO mission = studyService.selectMission(st_num);
+		
+		mv.addObject("mission",mission);
+		mv.addObject("authority",authority);
+		mv.addObject("studyMember",studyMember);
+	 	mv.setViewName("/study/daily");
+	    return mv;
+	}
+	
+
 
 }
