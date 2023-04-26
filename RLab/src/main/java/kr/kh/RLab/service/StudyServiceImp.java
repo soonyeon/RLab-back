@@ -161,6 +161,11 @@ public class StudyServiceImp implements StudyService {
 		return studyDao.insertMissionFinishMember(member,st_num);
 	}
 
+	@Override
+	public ArrayList<String> selectMissionFinishMember(int st_num) {
+		return studyDao.selectMissionFinishMember(st_num);
+	}
+
 
 
 	

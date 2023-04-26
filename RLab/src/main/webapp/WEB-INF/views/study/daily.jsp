@@ -59,7 +59,7 @@
 				</div>
 				<!--달성률-->
 				<div>
-					<p class="success_percent2">달성률 %</p>
+					<p class="success_percent2">달성률${mfList } %</p>
 				</div>
 				<div>
 					<progress class="mint" value="20" max="100"></progress>
@@ -69,10 +69,15 @@
 				<div class="daliy_mission_pro_container">
 					<c:forEach items="${studyMember}" var="sm">
 						<div class="daliy_mission_pro">
-							<!-- c:if로 pro-img-check막아주기 -->
-							<img class="pro-img-check" src="../resoruces/img/stamp_blue.png">
-							<img  class="pro_img" src="<c:url value='/download/${sm.me_profile}'></c:url>" >
-							<div class="pro_name">${sm.sm_me_id}</div>
+							<c:if test="${!mfList.contains(sm.sm_me_id) || mfList == null}">
+								<img  class="pro_img" src="<c:url value='/download/${sm.me_profile}'></c:url>" >
+								<div class="pro_name">${sm.sm_me_id}</div>
+							</c:if>
+							<c:if test="${mfList.contains(sm.sm_me_id)}"  >
+								<img class="pro-img-check">
+								<img  class="pro_img" src="<c:url value='/download/${sm.me_profile}'></c:url>" >
+								<div class="pro_name">${sm.sm_me_id}</div>
+							</c:if>
 						</div>
 					</c:forEach>
 				</div>

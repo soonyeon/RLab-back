@@ -57,5 +57,7 @@ public interface StudyService {
 	
 	int insertMissionFinishMember(MemberVO member, int st_num);
 
+	ArrayList<String> selectMissionFinishMember(int st_num);
+
 
 }

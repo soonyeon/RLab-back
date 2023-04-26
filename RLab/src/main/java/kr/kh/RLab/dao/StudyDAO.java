@@ -66,4 +66,6 @@ public interface StudyDAO {
 
 	int insertMissionFinishMember(@Param("user")MemberVO member,@Param("st_num")int st_num);
 
+	ArrayList<String> selectMissionFinishMember(int st_num);
+
 }

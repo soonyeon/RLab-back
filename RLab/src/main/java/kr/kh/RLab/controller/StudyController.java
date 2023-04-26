@@ -296,8 +296,8 @@ public class StudyController {
 		ArrayList<StudyMemberVO> studyMember = studyService.selectStudyMemberByStNum(st_num);
 		int authority = studyService.selectSmAuthority(user,st_num);
 		MissionVO mission = studyService.selectMission(st_num);
-		
-		mv.addObject("st_num",st_num);
+		ArrayList<String> mfList = studyService.selectMissionFinishMember(st_num);
+		mv.addObject("mfList",mfList);
 		mv.addObject("mission",mission);
 		mv.addObject("authority",authority);
 		mv.addObject("studyMember",studyMember);

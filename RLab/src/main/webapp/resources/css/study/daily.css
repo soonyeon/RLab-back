@@ -69,9 +69,10 @@
     margin-right: 15px;
     margin-left: 15px;
     margin-bottom: 15px;
+    position : relative;
   }
   .pro_img {
-    background-image: url(../img/profile_img.png);
+    
     width: 80px;
     height: 80px; 
     background-size: cover;
@@ -84,15 +85,16 @@
   }
   
   .pro-img-check {
-    background-image: url('../img/stamp_blue.png'); 
+    background-image: url('../../img/stamp_blue.png'); 
     background-size: cover;
     background-position: center;
     width: 80px;
     height: 80px;
     position: absolute; 
-    top: 62px;
-    left: 49px;
+    top: 30px;
+    left: 30px;
     z-index: 1;
+
   }
   .pro_name{
     font-weight: bold;
