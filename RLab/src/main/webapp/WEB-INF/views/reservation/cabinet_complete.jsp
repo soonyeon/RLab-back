@@ -1,13 +1,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<link href="<c:url value='/resources/css/reservation/book_seat_complete.css'></c:url>" rel="stylesheet">
+<link href="<c:url value='/resources/css/reservation/book_cabinet_complete.css'></c:url>" rel="stylesheet">
 <script src="<c:url value='/resources/js/jquery.min.js'></c:url>"></script>
 <main>
 	<div class="container">
 		<!-- 주문과정/절차 -->
 		<div class="procedure_container clearfix">
-			<h1 class="procedure_title">바로예약 [좌석]</h1>
+			<h1 class="procedure_title">바로예약 [사물함]</h1>
 			<ul class="detail_procedure">
 				<li class="item_procedure">
 					<div class="numbering">01</div>
@@ -16,7 +16,7 @@
 				<i class="icon_next"></i>
 				<li class="item_procedure">
 					<div class="numbering">02</div>
-					<span class="item_text">좌석,이용권 선택</span>
+					<span class="item_text">사물함,이용권 선택</span>
 				</li>
 				<i class="icon_next"></i>
 				<li class="item_procedure  selected">
@@ -67,7 +67,7 @@
 							<td>[${br.br_re_name}] ${br.br_name}</td>
 						</tr>
 						<tr>
-							<th>좌석번호</th>
+							<th>사물함 번호</th>
 							<td>${rsv.se_name}번</td>
 						</tr>
 					</table>
@@ -82,17 +82,6 @@
 						<tr>
 							<th>사용한 이용권</th>
 							<td>${ticketName}</td>
-						</tr>
-						<tr>
-							<th>사용한 시간</th>
-							<td>${rsv.re_hours}시간</td>
-						</tr>
-						<tr>
-							<th>남은 시간</th>
-							<td>
-								<c:if test="${restTime!=0}">${restTime}시간</c:if>
-								<c:if test="${restTime==0}">이용권 사용 완료</c:if>
-							</td>
 						</tr>
 					</table>
 				</div>
@@ -119,6 +108,4 @@
 				</div>
 		</div>
 	</div>
-
-
 </main>

@@ -30,7 +30,7 @@
 
 
 		<div class="main_container">
-		<form action="<c:url value='/reservation/1/complete'></c:url>" method="post">
+		<form action="<c:url value='/reservation/1/book'></c:url>" method="post">
 			<!-- 좌석 선택 박스 -->
 			<div class="seat_container main_content">
 				<!-- 타이틀 영역-->
@@ -179,7 +179,7 @@
 				</div>
 				<!-- 선택한 좌석번호 영역 -->
 				<div class="seat_num_area">
-					<h3>${br.br_name}<input type="hidden" name="br_num" value="${br_num}"></h3>
+					<h3>[${br.br_re_name}] ${br.br_name}<input type="hidden" name="br_num" value="${br_num}"></h3>
 					<div class="seat_num_box">
 						<div class="seat_num_title">선택한 좌석번호 :</div> <div id="seat_num"><input type="hidden" name="se_name" value="">17</div><div class="seat_num_title">번</div>
 					</div>
@@ -200,20 +200,8 @@
 								<option value="${to.to_num}" data-rest="${to.to_rest_time}">${to.tt_name}(${to.ti_name}) ~${to.to_valid_date_str}</option>
 							</c:forEach>
 						</select>
-						<select class="time_select time_30 display_none" name="re_hours">
-							<c:forEach begin="1" end="30" var="i">
-								<option value="${i}">${i}시간</option>
-							</c:forEach>
-						</select>
-						<select class="time_select time_50 display_none" name="re_hours">
-							<c:forEach begin="1" end="50" var="i">
-								<option value="${i}">${i}시간</option>
-							</c:forEach>
-						</select> 
-						<select class="time_select time_100 display_none" name="re_hours">
-							<c:forEach begin="1" end="100" var="i">
-								<option value="${i}">${i}시간</option>
-							</c:forEach>
+						<select class="time_select display_none" name="re_hours">
+						
 						</select>
 					</div>
 					
@@ -234,7 +222,7 @@
 					<!-- 이용권 구매, 예약하기 버튼 영역 -->
 					<div class="btn_area area">
 						<a href="<c:url value='/reservation/buy'></c:url>" class="b_btn"  id="buy_btn"><input type="button" value="이용권 구매"></a>
-						<button  class="b_btn" id="book_btn"><input type="submit" value="예약하기" ></button>
+						<button class="b_btn" id="book_btn"><input type="submit" value="예약하기" ></button>
 					</div>
 				
 			</div>
@@ -258,40 +246,21 @@ $('.seat_selected').click(function(){
 	seatInit();
 })
 
-$('.ticket_select').click(function(){
-	let val = $(this).val();
-	console.log(val);
-	if(val==4)
-		$('.time_select.time_30').removeClass('.display_none');
-	if(val==5)
-		$('.time_select.time_50').removeClass('.display_none');
-	if(val==6)
-		$('.time_select.time_100').removeClass('.display_none');
-})
-$('.b_btn').validate({
-	rules : {
-		required : true
-	},
-	message : {
-		required : '좌석을 선택해주세요.'
-	}
-})
-$.validator.addMethod("regex", function(value, element, regexp) {
-		var re = new RegExp(regexp);
-		return this.optional(element) || re.test(value);
-	}, "Please check your input.");
 
 /* 이용권 선택 관련 이벤트 */
 let ticket = '';
 let useTime;
-let restTime = '';
+let restTime;
 let selectedStr = '';
 
-showSelectedTicket();
+showSelectedTicket('${toList.get(0).to_num}');
 
 $('#ticket_select').change(function(){
-	showSelectedTicket();
+	let re_to_num = $(this).val();
+	showSelectedTicket(re_to_num);
 });
+
+
 
 $(function(){
 	$('.time_select').change(function(){
@@ -309,66 +278,67 @@ $(function(){
 		$('.selected_area').html(selectedStr);
 	})
 });
-/*
-//예약하기
-$('#book_btn').click(function(){
-	let book = {
-			're_me_id' : '${user.me_id}',
-			're_to_num' : $('#ticket_select').val(),
-			'br_num' : ${br_num},
-			'se_name' : seatNum+'',
-			're_hours' : useTime
-	}
-	//예약
-	$.ajax({
-		async:false,
-		type: 'POST',
-		data: JSON.stringify(book),
-		url: '<c:url value="/reservation/1/${br_num}"></c:url>',
-		dataType:"json",
-		contentType:"application/json; charset=UTF-8",
-		success : function(data){
-			console.log(data);
+
+//좌석을 선택하지 않았을 때 폼 제출 방지
+$(document).ready(function() {
+	$('form').submit(function(event) {
+		if(${myRsv != null}){
+			console.log('예약된 정보 없음')
+			event.preventDefault();
+			if(confirm('이미 사용중인 이용권이 존재합니다. 마이페이지로 이동하시겠습니까?'))
+				location.href('<c:url value="/mypage"></c:url>');
+		}else{
+			if ( seatNum == '') {
+	            event.preventDefault(); // 폼 제출 방지
+	            alert('좌석을 선택하세요.');
+	        }
+	    	if( ${toList.size() == 0}){
+	    		event.preventDefault();
+	    		alert('등록된 이용권이 없을 경우, 이용권 구매를 먼저 진행하세요.');
+	    	}
 		}
-	});
-	//예약완료 페이지로 넘어가기
-	$.ajax({
-		async:false,
-		type: 'POST',
-		data: JSON.stringify(book),
-		url: '<c:url value="/reservation/1/complete"></c:url>',
-		dataType:"json",
-		contentType:"application/json; charset=UTF-8",
-		success : function(data){
-			console.log(data);
-		}
-	});
+    });
 });
-*/
+
 
 //선택된 이용권을 보여주는 함수
-function showSelectedTicket(){
+function showSelectedTicket(to_num){
+	//가진 이용권이 없을 때
+	if(${toList.size() == 0}){
+		$('.ticket_area').html('<div class="no_ticket">사용가능한 이용권이 없습니다. 이용권을 새로 구매해보세요.</div>');
+		$('.selected_area').html(selectedStr);
+		return;		
+	}
 	ticket = $('#ticket_select option:checked').text().split(' 이용권)')[0]+')';
-	restTime = $('#ticket_select option:checked').data('rest');
-	
+	restTime = +$('#ticket_select option:checked').data('rest');
 	
 	let ticketName = $('#ticket_select option:checked').text().substr(0,6);
 	if(ticketName=='시간 패키지'){
-		if($('#ticket_select option:checked').text().substr(7,2)=='30'){
-			$('.time_select.time_30').removeClass('display_none');
-		}
-		if($('#ticket_select option:checked').text().substr(7,2)=='50'){
-			$('.time_select.time_50').removeClass('display_none');
-		}
-		if($('#ticket_select option:checked').text().substr(7,3)=='100'){
-			$('.time_select.time_100').removeClass('display_none');
-		}
+		//시간패키지인 경우 시간고르기
+		$('.time_select').removeClass('display_none');
+		$.ajax({
+	        url: '<c:url value="/reservation/1/${br_num}"></c:url>',
+	        type: 'POST',
+	        data: JSON.stringify({
+	            'to_num': to_num
+	        }),
+	        contentType: 'application/json',
+	        dataType: 'json',
+	        success: function(data) {
+	        	let str ='';
+	        	for(i=1; i<data+1; i++)
+	        		str += '<option value="'+i+'">'+i+'시간</option>';
+        		$('.time_select').html(str);
+	        }
+	    });
+		//이용권 선택창 재구성
 		selectedStr = 
 		'<div class="selected_ticket">'
 		+'<div class="selected_title">'+ticket+'</div>'
 		+'<div class="selected_time">1시간 (남은 이용권 시간 : '+(restTime-1)+'시간)</div>'
 		+'</div>';
 	}else{
+		$('.time_select').addClass('display_none');
 		selectedStr = 
 		'<div class="selected_ticket">'
 		+'<div class="selected_title">'+ticket+'</div>'

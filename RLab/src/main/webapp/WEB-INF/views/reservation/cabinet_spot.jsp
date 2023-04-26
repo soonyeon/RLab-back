@@ -1,13 +1,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<link href="<c:url value='/resources/css/reservation/book_seat_spot.css'></c:url>" rel="stylesheet">
+<link href="<c:url value='/resources/css/reservation/book_cabinet_spot.css'></c:url>" rel="stylesheet">
 <script src="<c:url value='/resources/js/jquery.min.js'></c:url>"></script>
 <main>
 	<div class="container">
 		<!-- 주문과정/절차 -->
 		<div class="procedure_container clearfix">
-			<h1 class="procedure_title">바로예약 [좌석]</h1>
+			<h1 class="procedure_title">바로예약 [사물함]</h1>
 			<ul class="detail_procedure">
 				<li class="item_procedure  selected">
 					<div class="numbering">01</div>
@@ -16,7 +16,7 @@
 				<i class="icon_next"></i>
 				<li class="item_procedure">
 					<div class="numbering">02</div>
-					<span class="item_text">좌석,이용권 선택</span>
+					<span class="item_text">사물함,이용권 선택</span>
 				</li>
 				<i class="icon_next"></i>
 				<li class="item_procedure">
@@ -30,7 +30,7 @@
 			<section>
 				<div class="search_container">
 					<div class="filter_area">
-						<form action="<c:url value='/reservation/spot/1'></c:url>" style="display:contents">
+						<form action="<c:url value='/reservation/spot/2'></c:url>" style="display:contents">
 							<select class="choose_region" name="region">
 								<option value="">지역 선택</option>
 								<option value="지역 미지정" <c:if test="${cri.region=='지역 미지정'}">selected</c:if>>지역 미지정</option>
@@ -72,7 +72,7 @@
 								<c:forEach begin="${i}" end="${i+2}" var="index">
 									<c:if test="${brList.size()-1 >= index}">
 										<li class="item_card add_shadow">
-											<a href="<c:url value='/reservation/1/${brList.get(index).br_num}'></c:url>">
+											<a href="<c:url value='/reservation/2/${brList.get(index).br_num}'></c:url>">
 												<div class="img-box"><img src="<c:url value='/download${brList.get(index).br_img}'></c:url>" class="img-box"></div>
 												<div class="info_area">
 													<h2>${brList.get(index).br_name}</h2>
@@ -93,17 +93,17 @@
 					</ul>
 					<div class="page_box clearfix">
 						<c:if test="${pm.prev}">
-							<a href="<c:url value='/reservation/spot/1?region=${pm.cri.region}&search=${pm.cri.search}&page=${pm.startPage-1}'></c:url>">
+							<a href="<c:url value='/reservation/spot/2?region=${pm.cri.region}&search=${pm.cri.search}&page=${pm.startPage-1}'></c:url>">
 								<i class="btn_prev"></i>
 							</a>
 						</c:if>
 						<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
 							<span class="page_num <c:if test='${pm.cri.page==i}'>selected_num</c:if>">
-								<a href="<c:url value='/reservation/spot/1?region=${pm.cri.region}&search=${pm.cri.search}&page=${i}'></c:url>">${i}</a>
+								<a href="<c:url value='/reservation/spot/2?region=${pm.cri.region}&search=${pm.cri.search}&page=${i}'></c:url>">${i}</a>
 							</span>
 						</c:forEach>
 						<c:if test="${pm.next}">
-							<a href="<c:url value='/reservation/spot/1?region=${pm.cri.region}&search=${pm.cri.search}&page=${pm.endPage+1}'></c:url>">
+							<a href="<c:url value='/reservation/spot/2?region=${pm.cri.region}&search=${pm.cri.search}&page=${pm.endPage+1}'></c:url>">
 								<i class="btn_next"></i>
 							</a>
 						</c:if>						
