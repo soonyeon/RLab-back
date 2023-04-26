@@ -78,12 +78,30 @@ public class MypageServiceImp implements MypageService {
 	}
 	
 	//[마이페이지 홈 > 나의 예약]
-	@Override
-	public ArrayList<ReservationVO> getResList(String userId) {
-		if(userId == null)
-			return null;
-		return mypageDao.selectResList(userId);
-	}
+		//좌석 예약 정보 가져오기
+		@Override
+		public ReservationVO getMySeat(String userId) {
+			if (userId == null) {
+		        return null;
+		  }
+			return mypageDao.selectMySeat(userId);
+		}
+		
+		//사물함 예약 정보 가져오기
+		@Override
+		public ReservationVO getMyLocker(String userId) {
+			if (userId == null) {
+		        return null;
+		  }
+			return mypageDao.selectMyLocker(userId);
+		}
+	
+		@Override
+		public ArrayList<ReservationVO> getResList(String userId) {
+			if(userId == null)
+				return null;
+			return mypageDao.selectResList(userId);
+		}
 	
 	//[마이페이지 홈 > 나의 스터디]
 	@Override
@@ -221,6 +239,8 @@ public class MypageServiceImp implements MypageService {
 			ArrayList<Integer> wantList = mypageDao.selectWantListById(memberId);
 			return wantList;
 		}
+
+
 
 
 

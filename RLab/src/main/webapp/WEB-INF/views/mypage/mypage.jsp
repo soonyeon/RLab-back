@@ -228,25 +228,18 @@
 	              </c:if>
               </div>
               <!-- book_container(나의 예약) -->
-              <div class="article_box book_container">
+            <div class="article_box book_container">
                 <div class="title_container">
                   <h3>나의 예약</h3>
                   <div class="book_window">
-                    <h4>강남역점</h4>
-                    <i class="icon_circle"></i>
                     <div class="book_info">
-                      <div class="book_title">좌석</div>
-                      <h4>47번</h4>
+                      <h4>${mySeat.branchVO.br_name}</h4>
+                      <div class="book_title">${mySeat.ki_name}<h4>${mySeat.se_name}번</h4></div>
                     </div>
                     <i class="icon_circle"></i>
                     <div class="book_info">
-                      <div class="book_title">사물함</div>
-                      <h4>45번</h4>
-                    </div>
-                    <i class="icon_circle"></i>
-                    <div class="book_info">
-                      <div class="book_title">미팅룸</div>
-                      <h4>47번</h4>
+	                  <h4>${myLocker.branchVO.br_name}</h4>
+                      <div class="book_title">${myLocker.ki_name}<h4>${myLocker.se_name}번</h4></div>
                     </div>
                   </div>
                 </div>

@@ -39,7 +39,15 @@
 			<result property="sm_st_num" column="sm_st_num"/>	
 		</association>
 </resultMap>
-
+<!-- 마이페이지 홈 > 나의 예약  -->
+<resultMap id="reservation" type="kr.kh.RLab.vo.ReservationVO">
+	<id property="re_me_id" column="re_me_id"/>
+	<id property="se_name" column="se_name"/>
+	<id property="ki_name" column="ki_name"/>
+		<association property="branchVO" javaType="kr.kh.RLab.vo.BranchVO">
+			<result property="br_name" column="br_name"/>	
+		</association>
+</resultMap>
 
 	<!-- [마이페이지 홈] -->
 		<!-- 이용 시간 -->
@@ -77,11 +85,30 @@
 		</select>
 		
 		<!-- 나의 예약 -->
-		<select id="selectResList" resultType="kr.kh.RLab.vo.ReservationVO">
-			SELECT *
-			FROM reservation
-			WHERE re_me_id = #{userId};		
-		</select>
+			<!-- 좌석 예약 정보 가져오기 -->
+			<select id="selectMySeat" resultMap="reservation">
+				SELECT re_me_id, se_name, br_name, ki_name
+				FROM reservation
+				join seat on re_se_num = se_name
+				join branch on se_br_num = br_num
+				join kind on se_ki_num = ki_num
+				where re_me_id = #{userId} and se_ki_num = 1
+			</select>
+			<!-- 사물함 예약 정보 가져오기 -->
+			<select id="selectMyLocker" resultMap="reservation">
+				SELECT re_me_id, se_name, br_name, ki_name
+				FROM reservation
+				join seat on re_se_num = se_num
+				join branch on se_br_num = br_num
+				join kind on se_ki_num = ki_num
+				where re_me_id = #{userId} and se_ki_num = 2
+			</select>
+			
+			<select id="selectResList" resultType="kr.kh.RLab.vo.ReservationVO">
+				SELECT *
+				FROM reservation
+				WHERE re_me_id = #{userId};		
+			</select>
 		
 		<!-- 나의 스터디 -->
 		<select id="selectMainStudyList" resultMap="studyMember">
