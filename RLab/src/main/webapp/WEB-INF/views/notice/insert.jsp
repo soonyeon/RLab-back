@@ -1,118 +1,94 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<link rel="stylesheet"
-	href="<c:url value='/resources/css/gather/insertstudy.css'></c:url>">
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="<c:url value='/resources/js/jquery.min.js'></c:url>"></script>
-<title>스터디 생성</title>
-<main>
-	<div id="rc_new_study_main_container">
-		<div class="main_title">
-			<h1>스터디 만들기</h1>
-		</div>
-		<form id="rc_new_box" action="<c:url value='/gather/insertstudy'></c:url>" method="post" enctype="multipart/form-data">
-			<div class="top_box">
-				<div class="ns_region_box">
-					<h3>지역</h3>
-					<select id="choose_region" name="st_re_name">
-						<option value="지역미지정">지역미지정</option>
-						<option value="서울특별시">서울특별시</option>
-						<option value="부산광역시">부산광역시</option>
-						<option value="경기도">경기도</option>
-						<option value="인천광역시">인천광역시</option>
-						<option value="대구광역시">대구광역시</option>
-						<option value="경상북도">경상북도</option>
-						<option value="경상남도">경상남도</option>
-						<option value="대전광역시">대전광역시</option>
-						<option value="전라북도">전라북도</option>
-						<option value="전라남도">전라남도</option>
-						<option value="충청북도">충청북도</option>
-						<option value="충청남도">충청남도</option>
-						<option value="광주광역시">광주광역시</option>
-						<option value="강원도">강원도</option>
-						<option value="울산광역시">울산광역시</option>
-						<option value="제주특별자치도">제주특별자치도</option>
-						<option value="세종특별자치도">세종특별자치도</option>
-					</select>
-				</div>
-				<div class="ns_people_box">
-					<h3>인원</h3>
-					<input type="number" class="ns_people" placeholder="최대50명" name="st_total_people" oninput="handleOnInput(this, 50)">
-				</div>
-			</div>
-			<h3>스터디명</h3>
-			<div class="ns_title_box">
-				<input type="text" class="ns_title" placeholder="10자 이내로 제목을 작성해보세요" name="st_name" maxlength="10">
-			</div>
-			<h3>배너이미지</h3>
-			<div class="ns_banner_box">
-				<input type="file" class="ns_banner" name="files" >
-				<input name ="fi_table" type="hidden" value="study">
-			</div>
-			<h3>태그</h3>
-			<div class="ns_tag_box">
-				<input type="text" class="ns_tag"
-					placeholder="예시. 정처기, 모각코, 프로젝트 (태그명 최대 10자까지)" name="ta_name">
-			</div>
-			<h3>소개글</h3>
-			<div class="ns_introduce_box">
-				<input type="text" class="ns_introduce"
-					placeholder="100자 이내로 스터디를 소개해보세요" name="st_info" maxlength="100">
-			</div>
+<link rel="stylesheet" href="<c:url value ='/resources/css/notice/insert.css'></c:url>" />
+<link rel="stylesheet" href="<c:url value ='/resources/css/mypage/mypage_common.css'></c:url>" />
+<!-- summernote -->
+<link href="<c:url value='/resources/css/summernote-lite.min.css'></c:url>" rel="stylesheet">
+<script src="<c:url value='/resources/js/summernote-lite.min.js'></c:url>"></script>
+<title>RLab</title>
 
-			<div class="btn_box">
-			<c:if test="${user != null }">
-				<button type="submit" class="make_study_btn">스터디 생성</button>
-			</c:if>
-			</div>
-		</form>
-		</div>
-	
-</main>
+</head>
+<body>
+	<div id="total_container">
+		<!-- main -->
+		<main>
+			<div id="main_container">
+				<!-- aside(left_menu) -->
+				<aside class="left_menu_container">
+					<nav class="left_menu">
+						<a href="<c:url value='/notice/list'></c:url>" class="list_item">전체보기</a>
+						<a href="<c:url value='/notice/list?type=1'></c:url>" class="list_item">공지사항</a>
+						<a href="<c:url value='/notice/list?type=2'></c:url>" class="list_item">QnA</a>
+						<a href="<c:url value='/notice/list?type=3'></c:url>" class="list_item">이벤트</a>
+					</nav>
+				</aside>
 
+				<section>
+					<!-- 탭 
+					<div class="tab-container">
+						<a href="#" class="tab selected_tab tab1"><div>전체보기</div></a>
+						<a href="#" class="tab unselected_tab tab2"><div>공지사항</div></a>
+						<a href="#" class="tab unselected_tab tab3"><div>QnA</div></a>
+					</div>-->
+					<form id="no_insert" action="<c:url value='/notice/insert'></c:url>" method="post" enctype="multipart/form-data">
+						<h3>게시판</h3>
+						<select id="choose_type" name="no_nt_num">
+							<c:forEach items="${ntList}" var="nt">
+								<option value="${nt.nt_num}">${nt.nt_name}</option>
+							</c:forEach>
+						</select>
+						<h3>제목</h3>
+						<div class="title_box">
+							<input type="text" class="title" placeholder="20자 이내로 제목을 작성해보세요" name="no_title" maxlength="20">
+						</div>
+						<!-- 
+						<h3>배너이미지</h3>
+						<div class="ns_banner_box">
+							<input type="file" class="ns_banner" name="files" >
+							<input name ="fi_table" type="hidden" value="study">
+						</div> -->
+						<h3>내용</h3>
+						<textarea id="summernote" name="no_content" ></textarea>
+						<button type="submit" class="btn_insert">작성하기</button>
+					</form>
+				</section>
+		</div>
+		</main>
+	</div>
 <script>
-	$(document).ready(function() {
-		$('.yes_finish').click(function() {
-			$('.datepicker').show();
-			$('.yes_finish').css('background-color', '#66a0e2');
-			$('.no_finish').css('background-color', '');
-		});
+$('form').submit(function(){
+	let title = $('[name=no_title]').val();
+	let content = $('[name=no_content]').val();
+	if(title.trim().length == 0){
+		alert('제목을 입력하세요.');
+		return false;
+	}
+	if(content.trim().length == 0){
+		alert('내용을 입력하세요.');
+		return false;
+	}
 
-		$('.no_finish').on('click', function() {
-			$('.datepicker').hide();
-			$('.no_finish').css('background-color', '#66a0e2');
-			$('.yes_finish').css('background-color', '');
-		});
-
+})
+$('#summernote').summernote(
+	{
+		tabsize : 2,
+		height : 500,
+		toolbar : [ [ 'style', [ 'style' ] ],
+				[ 'font', [ 'bold', 'underline', 'clear' ] ],
+				[ 'color', [ 'color' ] ],
+				[ 'para', [ 'ul', 'ol', 'paragraph' ] ],
+				[ 'table', [ 'table' ] ],
+				[ 'insert', [ 'link', 'picture', 'video' ] ],
+				[ 'view', [ 'fullscreen', 'codeview', 'help' ] ] ]
 	});
-	
-	$(document).ready(function() {
-	    $('input.ns_people').on('input', function() {
-	        var max = 50;
-	        if ($(this).val() > max) {
-	            $(this).val(max);
-	        }
-	    });
-	});
-	
-	$('form').submit(function(){
-		  let region = $('[name=st_re_name]').val();
-		  let member = $('[name=st_total_people]').val();
-		  let title = $('[name=st_name]').val();
-		  let content = $('[name=st_info]').val();
-		  if(member == 0){
-			    alert('인원을 입력하세요.');
-			    return false;
-			  }
-		  if(title.trim().length == 0){
-		    alert('스터디명을 입력하세요.');
-		    return false;
-		  }
-		  if(content.trim().length == 0){
-		    alert('소개글을 입력하세요.');
-		    return false;
-		  }
-		})
-	
-
 </script>
+</body>
+</html>

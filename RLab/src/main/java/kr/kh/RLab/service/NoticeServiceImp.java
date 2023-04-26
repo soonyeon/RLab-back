@@ -36,4 +36,9 @@ public class NoticeServiceImp implements NoticeService {
 		return noticeDao.selectAllNoticeType();
 	}
 
+	@Override
+	public void insertNotice(String me_id, NoticeVO notice) {
+		noticeDao.insertNotice(me_id, notice);
+	}
+
 }

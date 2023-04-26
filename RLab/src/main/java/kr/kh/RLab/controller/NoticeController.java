@@ -29,10 +29,12 @@ public class NoticeController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list(ModelAndView mv, NoticeCriteria cri, HttpSession session) {
 		MemberVO user = (MemberVO)session.getAttribute("user");
-		cri.setPerPageNum(10);
+		cri.setPerPageNum(2);
 		ArrayList<NoticeVO> noList = noticeService.getAllNotice(cri);
 		int totalCount = noticeService.getNoticeTotalCount(cri);
-		PageMaker pm = new PageMaker(totalCount, 5, cri);
+		PageMaker pm = new PageMaker(totalCount,1, cri);
+		ArrayList<NoticeTypeVO> ntList = noticeService.getAllNoticeType();
+		mv.addObject("ntList", ntList);
 		mv.addObject("user", user);
 		mv.addObject("noList", noList);
 		mv.addObject("pm", pm);
@@ -42,6 +44,8 @@ public class NoticeController {
 	@RequestMapping(value = "/detail/{no_num}", method = RequestMethod.GET)
 	public ModelAndView list(ModelAndView mv, @PathVariable("no_num")int no_num) {
 		NoticeVO no = noticeService.getNoticeByNonum(no_num);
+		//조회수 1 증가
+		
 		mv.addObject("no", no);
 		mv.setViewName("/notice/list");
 		return mv;
@@ -50,7 +54,15 @@ public class NoticeController {
 	public ModelAndView insert(ModelAndView mv, HttpSession session) {
 		ArrayList<NoticeTypeVO> ntList = noticeService.getAllNoticeType();
 		mv.addObject("ntList", ntList);
-		mv.setViewName("/notice/insert2");
+		mv.setViewName("/notice/insert");
+		return mv;
+	}
+	@RequestMapping(value = "/insert", method = RequestMethod.POST)
+	public ModelAndView insertPost(ModelAndView mv, HttpSession session,NoticeVO notice) {
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		noticeService.insertNotice(user.getMe_id(),notice);
+		System.out.println(notice);
+		mv.setViewName("redirect:/notice/list");
 		return mv;
 	}
 	

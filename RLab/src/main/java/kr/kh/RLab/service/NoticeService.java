@@ -16,4 +16,6 @@ public interface NoticeService {
 
 	ArrayList<NoticeTypeVO> getAllNoticeType();
 
+	void insertNotice(String me_id, NoticeVO notice);
+
 }

@@ -18,4 +18,6 @@ public interface NoticeDAO {
 
 	ArrayList<NoticeTypeVO> selectAllNoticeType();
 
+	void insertNotice(@Param("me_id")String me_id, @Param("no")NoticeVO notice);
+
 }

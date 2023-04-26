@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class NoticeVO {
 	private int no_num;
+	private int no_nt_num;
 	private String no_title;
 	private String no_me_id;
 	private String no_content;
@@ -23,6 +24,6 @@ public class NoticeVO {
 			new SimpleDateFormat("yyyy.MM.dd");
 		if(no_register_date == null) 
 			return "";
-			return format.format(no_register_date);
+		return format.format(no_register_date);
 	}
 }
