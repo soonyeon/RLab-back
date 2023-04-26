@@ -494,11 +494,7 @@
 <script> <!-- 내 정보란 -->
     // 이용시간
    	function updateGauge(resStart, resValid, now){
-		
-		if(now > resValid){
-			location.href = '<c:url value="/mypage"></c:url>';
-			
-		} else if(now >= resStart){
+		if(now >= resStart){
 			var elapsedTime = now.getTime() - resStart.getTime();
 			var totalTime = resValid.getTime() - resStart.getTime();
 			var percentage = elapsedTime / totalTime * 100;
@@ -508,9 +504,8 @@
 	$(document).ready(function(){
 		var now = new Date();
 		
-		if(${res == null})
-			console.log(1);
-	   	if(${res != null}){
+		//페이지 진입 시 예약권이 있으면 시간을 계산함
+		if(${res != null}){
     		var resStart = '${res.re_start_time}';
     		var resValid = '${res.re_valid_time}';
     		
@@ -520,7 +515,7 @@
     				type: "GET",
     				success: function(data){
     					console.log(1);
-    					console.log(data=='');
+    					//페이지에 있는 도중 예약권이 다 되면 새로고침하며 이용권 만료 메세지 보여줌
     					if(data==''){
     						clearInterval(intervalId);
     						location.href = '<c:url value="/mypage"></c:url>';
