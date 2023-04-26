@@ -123,8 +123,7 @@ public class MypageController {
 	@GetMapping("/timeGauge")
 	public ReservationVO timeGauge (ModelAndView mv,  HttpSession session) {
 		MemberVO user = (MemberVO)session.getAttribute("user");
-		String userId = user.getMe_id();
-		ReservationVO res = reservationService.getMyReservation(1, userId);
+		ReservationVO res = reservationService.getMyReservation(1, user.getMe_id());
 		return res;
 	}
 	

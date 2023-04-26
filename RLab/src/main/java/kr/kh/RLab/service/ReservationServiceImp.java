@@ -132,7 +132,6 @@ public class ReservationServiceImp implements ReservationService {
 
 	@Override
 	public ReservationVO getMyReservation(int kind, String me_id) {
-		Date date = new Date();
 		return reservationDao.selectMyReservation(kind, me_id);
 	}
 
