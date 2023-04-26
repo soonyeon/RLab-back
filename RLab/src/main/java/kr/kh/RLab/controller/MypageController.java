@@ -109,7 +109,6 @@ public class MypageController {
 
 		mv.addObject("myPet",myPet);
 		mv.addObject("myPoint", myPoint);
-		
 		mv.addObject("res", res);
 		mv.addObject("resList", resList);
 		mv.addObject("myScrapList", myScrapList);

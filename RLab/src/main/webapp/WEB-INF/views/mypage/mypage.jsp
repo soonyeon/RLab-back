@@ -496,8 +496,10 @@
 <script> <!-- 내 정보란 -->
     // 이용시간
    	//let flag = ${now.before(res.re_start_time) || now.after(res.re_valid_time)};
-   	if(${res != null}){
-   		$(document).ready(function(){
+	$(document).ready(function(){
+		if(${res == null})
+			console.log(1);
+	   	if(${res != null}){
     		var gaugeWidth = $('.use_time_colored').width();
     		var resStart = '${res.re_start_time}';
     		var resValid = '${res.re_valid_time}';
@@ -529,8 +531,8 @@
     				}
     			});
     		}, 1000); // 1초마다 업데이트
-    	});
-   	}
+   		}
+    });
     	
     
     // 펫 경험치
