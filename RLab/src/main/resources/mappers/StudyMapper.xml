@@ -108,6 +108,6 @@
     </insert>
     <select id="selectMission" resultType="kr.kh.RLab.vo.MissionVO">
     	select * from mission
-    	where mi_st_num = #{st_num}
+    	where mi_st_num = #{st_num} and mi_date = CURDATE();
     </select>
 </mapper>
