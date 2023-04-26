@@ -120,12 +120,6 @@ public class ReservationServiceImp implements ReservationService {
 	}
 	
 	@Override
-	public ArrayList<BranchVO> searchBranchList(BranchVO br) {
-		String search = "%"+br.getBr_name()+"%";
-		return reservationDao.selectBranchBySearchName(search, br.getBr_re_name());
-	}
-
-	@Override
 	public BranchVO getBranchByBrNum(int br_num) {
 		return reservationDao.selectBranchByBr_num(br_num);
 	}
@@ -136,6 +130,11 @@ public class ReservationServiceImp implements ReservationService {
 	}
 
 	@Override
+	public ReservationVO getMyReservation(int kind, String me_id) {
+		return reservationDao.selectMyReservation(2, me_id);
+	}
+
+	@Override
 	public void reserveSeat(ReservationVO book) {
 		int tiNum = reservationDao.selectTiNum(book.getRe_to_num());
 		if(tiNum!=6 && tiNum!=7 && tiNum!=8) 
@@ -143,7 +142,7 @@ public class ReservationServiceImp implements ReservationService {
 
 		//reservation에 추가
 		if(reservationDao.insertReservation(1,book)!=0)
-			System.out.println("예약추가 성공");
+			System.out.println("좌석 예약추가 성공");
 		
 		//to_rest_time 소유중인 이용권의 잔여시간 감소(시간패키지면 사용시간만큼, 아니면 ti_period만큼)
 		reservationDao.updateTicketRestTime(book);
@@ -173,7 +172,7 @@ public class ReservationServiceImp implements ReservationService {
 
 		//reservation에 추가
 		if(reservationDao.insertReservation(2,book)!=0)
-			System.out.println("예약추가 성공");
+			System.out.println("사물함 예약추가 성공");
 		
 		//to_rest_time 소유중인 이용권의 잔여시간 감소(시간패키지면 사용시간만큼, 아니면 ti_period만큼)
 		reservationDao.updateTicketRestTime(book);

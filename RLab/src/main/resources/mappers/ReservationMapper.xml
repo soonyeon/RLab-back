@@ -76,11 +76,6 @@
 				and br_re_name = #{cri.region}
 			</if>
 	</select>
-	<select id="selectBranchBySearchName" resultType="kr.kh.RLab.vo.BranchVO">
-		select * from branch where br_name like #{search}
-		<if test="region == ''"></if>
-		<if test="region != ''"> and br_re_name = #{region}</if>
-	</select>
 	<select id="selectBranchByBr_num" resultType="kr.kh.RLab.vo.BranchVO">
 		select * from branch where br_num = #{br_num}
 	</select>
@@ -91,6 +86,18 @@
 		join ticket_type on ti_tt_num = tt_num
 		where to_me_id = #{me_id} and ti_tt_num != 4 and to_state = 1
 		order by to_ti_num asc, to_valid_date asc
+	</select>
+	<select id="selectMyReservation" resultType="kr.kh.RLab.vo.ReservationVO">
+		select * from reservation
+		join ticket_own on re_to_num = to_num
+		join ticket on to_ti_num = ti_num
+		where re_me_id = #{me_id} and (now() between re_start_time and re_valid_time)
+		<if test="ki_num == 1">
+			and ti_tt_num != 4
+		</if>
+		<if test="ki_num == 2">
+			and ti_tt_num = 4
+		</if>
 	</select>
 	<insert id="insertReservation">
 		insert into reservation(re_me_id, re_se_num, re_hours, re_start_time, re_valid_time, re_register_date, re_to_num)

@@ -281,11 +281,22 @@ $(function(){
 
 //좌석을 선택하지 않았을 때 폼 제출 방지
 $(document).ready(function() {
-    $('form').submit(function(event) {
-        if ( seatNum == '') {
-            event.preventDefault(); // 폼 제출 방지
-            alert('좌석을 선택하세요.');
-        }
+	$('form').submit(function(event) {
+		if(${myRsv != null}){
+			console.log('예약된 정보 없음')
+			event.preventDefault();
+			if(confirm('이미 사용중인 이용권이 존재합니다. 마이페이지로 이동하시겠습니까?'))
+				location.href('<c:url value="/mypage"></c:url>');
+		}else{
+			if ( seatNum == '') {
+	            event.preventDefault(); // 폼 제출 방지
+	            alert('좌석을 선택하세요.');
+	        }
+	    	if( ${toList.size() == 0}){
+	    		event.preventDefault();
+	    		alert('등록된 이용권이 없을 경우, 이용권 구매를 먼저 진행하세요.');
+	    	}
+		}
     });
 });
 
