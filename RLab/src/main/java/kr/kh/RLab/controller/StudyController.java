@@ -27,6 +27,7 @@ import kr.kh.RLab.pagination.PageMaker;
 import kr.kh.RLab.service.StudyService;
 import kr.kh.RLab.vo.LikeVO;
 import kr.kh.RLab.vo.MemberVO;
+import kr.kh.RLab.vo.MissionVO;
 import kr.kh.RLab.vo.PhotoTypeVO;
 import kr.kh.RLab.vo.PhotoVO;
 import kr.kh.RLab.vo.StudyMemberVO;
@@ -274,11 +275,29 @@ public class StudyController {
 		MemberVO user = (MemberVO)request.getSession().getAttribute("user");	
 		ArrayList<StudyMemberVO> studyMember = studyService.selectStudyMemberByStNum(st_num);
 		int authority = studyService.selectSmAuthority(user,st_num);
+		MissionVO mission = studyService.selectMission(st_num);
+		mv.addObject("mission",mission);
 		mv.addObject("authority",authority);
 		mv.addObject("studyMember",studyMember);
 	 	mv.setViewName("/study/daily");
 	    return mv;
 	}
-
+	
+	//데일리미션등록
+	@PostMapping("/daily/{st_num}/mission")
+	@ResponseBody
+	public String photoInsert( @RequestParam("mi_st_num") int st_num,
+			@RequestParam("mi_content") String content, 
+			HttpServletRequest request) {
+		MemberVO user = (MemberVO) request.getSession().getAttribute("user");
+		MissionVO missionVO = new MissionVO();
+		missionVO.setMi_st_num(st_num);
+		missionVO.setMi_content(content);
+		if (studyService.insertMission(missionVO)) {
+			return "success";
+		} else {
+			return "error";
+		}
+	}
 
 }

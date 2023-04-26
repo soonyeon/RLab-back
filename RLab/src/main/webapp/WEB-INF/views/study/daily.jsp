@@ -38,7 +38,9 @@
 				<div class="today_mission">
 					<span class="today_mission_title">오늘의미션</span> <span
 						class="today_mission_date">23.02.28</span>
-					<div class="today_mission_contents">정처기 1과 까지 공부하고 인증하기</div>
+						<!-- c:if로 오늘의미션 처리 -->
+						<div class="today_mission_contents">${mission.mi_content}</div>
+				
 				</div>
 				<div class="today_mission_button">
 					   <c:if test="${authority == 9}">
@@ -214,4 +216,33 @@ $(document).ready(function() {
         }
     });
 });
+
+$(".mission_up").click(function(e){
+    e.preventDefault();
+    let formData = new FormData();
+    formData.append('mi_content',$('#content').val());
+   	formData.append('mi_st_num',${st_num});
+    console.log(formData);
+    $.ajax({
+        type: "POST",
+        url: "<c:url value='/study/daily/{st_num}/mission'/>",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response){
+            if(response === "success"){
+                alert("미션이 등록되었습니다.");
+                location.reload();
+            }else{
+                alert("미션 등록에 실패했습니다.");
+            }
+        },
+        error: function(e){
+            console.log(e);
+        }
+    });
+});
+
+
+
 </script>

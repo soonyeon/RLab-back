@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.vo.LikeVO;
 import kr.kh.RLab.vo.MemberVO;
+import kr.kh.RLab.vo.MissionVO;
 import kr.kh.RLab.vo.PhotoTypeVO;
 import kr.kh.RLab.vo.PhotoVO;
 import kr.kh.RLab.vo.StudyMemberVO;
@@ -48,6 +49,10 @@ public interface StudyService {
 	ArrayList<PhotoVO> selectPhotoPhNumTwo(int st_num);
 
 	int selectSmAuthority(MemberVO user,int st_num);
+
+	boolean insertMission(MissionVO missionVO);
+
+	MissionVO selectMission(int st_num);
 
 
 }

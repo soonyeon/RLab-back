@@ -102,5 +102,12 @@
 		select sm_authority from study_member
 		where sm_me_id=#{user.me_id} and sm_st_num= #{st_num}
 	</select>
-    
+    <insert id="insertMission">
+    	insert into mission(mi_content,mi_date,mi_st_num)
+    	values(#{mi_content},NOW(),#{mi_st_num})
+    </insert>
+    <select id="selectMission" resultType="kr.kh.RLab.vo.MissionVO">
+    	select * from mission
+    	where mi_st_num = #{st_num}
+    </select>
 </mapper>

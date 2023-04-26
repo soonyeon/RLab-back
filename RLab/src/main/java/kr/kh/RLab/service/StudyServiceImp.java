@@ -11,6 +11,7 @@ import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.utils.UploadFileUtils;
 import kr.kh.RLab.vo.LikeVO;
 import kr.kh.RLab.vo.MemberVO;
+import kr.kh.RLab.vo.MissionVO;
 import kr.kh.RLab.vo.PhotoTypeVO;
 import kr.kh.RLab.vo.PhotoVO;
 import kr.kh.RLab.vo.StudyMemberVO;
@@ -142,6 +143,16 @@ public class StudyServiceImp implements StudyService {
 	@Override
 	public int selectSmAuthority(MemberVO user,int st_num) {
 		return studyDao.selectSmAuthority(user,st_num);
+	}
+
+	@Override
+	public boolean insertMission(MissionVO missionVO) {
+		return studyDao.insertMission(missionVO);
+	}
+
+	@Override
+	public MissionVO selectMission(int st_num) {
+		return studyDao.selectMission(st_num);
 	}
 
 	
