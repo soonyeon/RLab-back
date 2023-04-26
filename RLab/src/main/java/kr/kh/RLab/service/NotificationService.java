@@ -13,7 +13,7 @@ public interface NotificationService {
 
     void removeUser(String userId);
 
-	void sendNotificationToUser(String userId, String message, String al_table);
+	void sendNotificationToUser(String userId, String message);
 
     void addAlarm(AlarmVO alarm);
 

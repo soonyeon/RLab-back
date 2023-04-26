@@ -110,7 +110,7 @@ public class StudyController {
 			String photoUser = photo.getPh_me_id();//photo 작성자 id
 			String message = member.getMe_name()+"님이 다음 게시글에 좋아요 표시를 했습니다."+photo.getPh_content();
 			
-			notificationService.sendNotificationToUser(photoUser, message, "like");
+			notificationService.sendNotificationToUser(photoUser, message);
 			sseController.sseNewLike(photo.getPh_num());
 			return "inserted";
 		} else {// 좋아요가 존재하면,

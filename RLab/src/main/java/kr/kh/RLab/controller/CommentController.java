@@ -44,8 +44,7 @@ public class CommentController {
 			BoardVO board = boardService.getBoardByComment(comment.getCo_ex_num());
 			String userId = board.getBo_me_id(); // 게시물 작성자의 ID를 가져와야 함
 			String message = board.getBo_title()+"에 댓글이 달렸습니다";
-			log.info("message 되는가{}?????????",message);
-			notificationService.sendNotificationToUser(userId, message, "comment");
+			notificationService.sendNotificationToUser(userId, message);
 		}
 
 		Map<String, Object> map = new HashMap<>();

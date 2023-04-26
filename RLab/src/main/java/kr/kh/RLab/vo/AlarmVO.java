@@ -13,6 +13,5 @@ public class AlarmVO {
 		private String al_content;
 		private int al_view; //확인여부?
 		private String bo_title;
-		private String al_table;
 
 }
