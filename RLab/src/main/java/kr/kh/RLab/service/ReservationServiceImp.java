@@ -131,7 +131,7 @@ public class ReservationServiceImp implements ReservationService {
 
 	@Override
 	public ReservationVO getMyReservation(int kind, String me_id) {
-		return reservationDao.selectMyReservation(2, me_id);
+		return reservationDao.selectMyReservation(kind, me_id);
 	}
 
 	@Override

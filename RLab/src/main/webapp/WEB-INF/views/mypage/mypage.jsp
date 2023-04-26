@@ -93,35 +93,31 @@
                 <%@ page import="java.util.Date" %>
                 <c:set var="now" value="<%= new Date() %>"/>
                 
-
-				<c:if test="${now.before(res.re_start_time) || now.after(res.re_valid_time)}">
-	             	<div id="used_hours">
-	                  <div class="title">
-	                    <h2 class="property_title">이용시간</h2>
-	                    <p class="info time_info">
-	                      <strong>좌석예약 정보가 없습니다.</strong>
-	                      <a class="res_btn" href="<c:url value='/reservation'></c:url>">이용권 예약</a>
-	                    </p>
-	                  </div>
-	                  <div class="gauge gauge_used_hours" style= "background-color:#c1c1c1">
-	                  </div>
-	                </div>
-	             </c:if>  
-	             
-	             <c:if test="${now.after(res.re_start_time) && now.before(res.re_valid_time)}">
-	               <div id="used_hours">
-	                  <div class="title">
-	                    <h2 class="property_title">이용시간</h2>
-	                    <p class="info time_info">
-	                      <strong>~ ${res.re_valid_time_str2}</strong>
-	                    </p>
-	                  </div>
-	                  <div class="gauge gauge_used_hours">
-	                    <div class="gauge_colored use_time_colored"></div>
-	                  </div>
-	                </div>
-	              </c:if>
-	              
+                <c:if test="${res == null}">
+                	<div id="used_hours">
+		            	<div class="title">
+		                	<h2 class="property_title">이용시간</h2>
+		                    <p class="info time_info">
+		                    	<strong>좌석예약 정보가 없습니다.</strong>
+		                    	<a class="res_btn" href="<c:url value='/reservation'></c:url>">이용권 예약</a>
+		                    </p>
+		       			</div>
+		        		<div class="gauge gauge_used_hours" style= "background-color:#c1c1c1"></div>
+		        	</div>
+                </c:if>
+				<c:if test="${res != null}">
+		        	<div id="used_hours">
+		            	<div class="title">
+		                	<h2 class="property_title">이용시간</h2>
+		                    <p class="info time_info">
+		                      <strong>~ ${res.re_valid_time_str2}</strong>
+		                    </p>
+		        		</div>
+		                	<div class="gauge gauge_used_hours">
+		                	<div class="gauge_colored use_time_colored"></div>
+		               	</div>
+		          	</div>
+	            </c:if>
 				<!-- 펫 경험치 -->
 				<c:if test="${myPet == null}">
 					 <div id="pet_exp">
@@ -136,20 +132,38 @@
 				</c:if>
 				
 				<c:if test="${myPet  != null}">
-	                <div id="pet_exp">
-	                  <div class="title">
-	                    <h2 class="property_title">펫 경험치</h2>
-	                    <c:if test="${currentLevel  == 1}">
-	                    	<p class="info exp_info"><strong>${currentExp}</strong>exp / 8exp</p>
-		                </c:if>
-		                <c:if test="${currentLevel  != 1}">
-	                    	<p class="info exp_info"><strong>${currentExp}</strong>exp / ${levelUpExp}&nbsp;exp</p>
-		                </c:if>
-	                  </div>
-	                  <div class="gauge gauge_pet_exp">
-	                    <div class="gauge_colored pet_ex_colored"></div>
-	                  </div>
-	                </div>
+	                <c:if test="${petExp.gr_exp == petExp.ex_experience}">
+		                <div id="pet_exp">
+		                  <div class="title">
+		                    <h2 class="property_title">펫 경험치</h2>
+		                    <c:if test="${currentLevel  == 1}">
+		                    	<p class="info exp_info"><strong>${currentExp}</strong>exp / 8exp</p>
+			                </c:if>
+			                <c:if test="${currentLevel  != 1}">
+		                    	<p class="info exp_info"><strong> ${levelUpExp}</strong>exp / ${levelUpExp}&nbsp;exp</p>
+			                </c:if>
+		                  </div>
+		                  <div class="gauge gauge_pet_exp">
+		                    <div class="gauge_colored" style= "background-color:yello"></div>
+		                  </div>
+		                </div>
+	                </c:if>
+	                <c:if test="${petExp.gr_exp != petExp.ex_experience}">
+		                <div id="pet_exp">
+		                  <div class="title">
+		                    <h2 class="property_title">펫 경험치</h2>
+		                    <c:if test="${currentLevel  == 1}">
+		                    	<p class="info exp_info"><strong>${currentExp}</strong>exp / 8exp</p>
+			                </c:if>
+			                <c:if test="${currentLevel  != 1}">
+		                    	<p class="info exp_info"><strong>${currentExp}</strong>exp / ${levelUpExp}&nbsp;exp</p>
+			                </c:if>
+		                  </div>
+		                  <div class="gauge gauge_pet_exp">
+		                    <div class="gauge_colored pet_ex_colored"></div>
+		                  </div>
+		                </div>
+	                </c:if>
 				</c:if>
 
                 <div id="point_container">
@@ -481,8 +495,9 @@
 </script>
 <script> <!-- 내 정보란 -->
     // 이용시간
-    	let flag = ${now.before(res.re_start_time) || now.after(res.re_valid_time)};
-    	$(document).ready(function(){
+   	//let flag = ${now.before(res.re_start_time) || now.after(res.re_valid_time)};
+   	if(${res != null}){
+   		$(document).ready(function(){
     		var gaugeWidth = $('.use_time_colored').width();
     		var resStart = '${res.re_start_time}';
     		var resValid = '${res.re_valid_time}';
@@ -491,7 +506,7 @@
     			var now = new Date();
     			if(now >= resValid){
     				$('.use_time_colored').width(gaugeWidth + '%')
-    				if(!flag)
+    				//if(!flag)
 	    			location.reload();
     				
     			} else if(now >= resStart){
@@ -515,6 +530,8 @@
     			});
     		}, 1000); // 1초마다 업데이트
     	});
+   	}
+    	
     
     // 펫 경험치
   	$(document).ready(function(){
@@ -527,7 +544,8 @@
 			var ratio = exp / levelUpExp;
 			gaugeWidth = ratio * 100 + '%';
 			$('.pet_ex_colored').width(gaugeWidth);
-			$('.exp_info strong').text(exp);
+			if(${petExp.gr_exp != petExp.ex_experience})
+				$('.exp_info strong').text(exp);
 			console.log(exp);
   		}
     	

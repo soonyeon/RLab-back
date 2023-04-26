@@ -19,6 +19,7 @@ import kr.kh.RLab.pagination.GatherCriteria;
 import kr.kh.RLab.pagination.PageMaker;
 import kr.kh.RLab.service.MypageService;
 import kr.kh.RLab.service.PetService;
+import kr.kh.RLab.service.ReservationService;
 import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.EvolutionVO;
 import kr.kh.RLab.vo.GatherVO;
@@ -37,6 +38,7 @@ import lombok.RequiredArgsConstructor;
 public class MypageController {
 	private final MypageService mypageService;
 	private final PetService petService;
+	private final ReservationService reservationService;
 	
 	//[마이페이지 홈]
 	@GetMapping("")
@@ -44,7 +46,8 @@ public class MypageController {
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		String userId = user.getMe_id();
 		// 이용시간 안내
-		ReservationVO res = mypageService.getRes(userId);
+		ReservationVO res = reservationService.getMyReservation(1, userId);
+		System.out.println(res);
 		//나의 펫 데려오기
 		GrowthVO myPet = mypageService.selectMyPet(userId);
 		if(myPet != null) {
@@ -86,15 +89,10 @@ public class MypageController {
 			mv.addObject("petExp",petExp);
 		}
 		
-		
-		
 		// 펫
 		ArrayList<PetVO> petList = petService.selectPetList();
 		ArrayList<EvolutionVO> petFile = petService.selectPetFile();
 		
-		
-		
-				
 		
 		//적립 포인트 데이터 가져오기
 		int myPoint = mypageService.getMyPoint(userId);
@@ -109,7 +107,6 @@ public class MypageController {
 		ArrayList<BoardVO> myScrapList = mypageService.getMainScrapList(userId);
 		
 
-		mv.setViewName("/mypage/mypage");
 		mv.addObject("myPet",myPet);
 		mv.addObject("myPoint", myPoint);
 		
@@ -119,6 +116,7 @@ public class MypageController {
 		mv.addObject("myStudyList", myStudyList);
 		mv.addObject("petList",petList);
 		mv.addObject("petFile",petFile);
+		mv.setViewName("/mypage/mypage");
 		return mv;
 	}
 	
@@ -127,7 +125,7 @@ public class MypageController {
 	public ReservationVO timeGauge (ModelAndView mv,  HttpSession session) {
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		String userId = user.getMe_id();
-		ReservationVO res = mypageService.getRes(userId);		
+		ReservationVO res = reservationService.getMyReservation(1, userId);
 		return res;
 	}
 	
