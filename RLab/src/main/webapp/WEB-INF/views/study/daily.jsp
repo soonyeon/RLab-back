@@ -1,3 +1,4 @@
+<%@page import="java.util.Date"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -10,9 +11,9 @@
 	href="<c:url value='/resources/css/study/study.css'></c:url>">
 <link rel="stylesheet"
 	href="<c:url value='/resources/css/study/daily.css'></c:url>">
-
-
-
+<c:set var="now" value="<%=new Date()%>" />
+<c:set var="currentDate2" value="<fmt:formatDate pattern='yyyy.MM.dd' value='${now}'/>" />
+<fmt:formatDate pattern='yyyy.MM.dd' value='${now}' var="currentDate"/>
 <div class="main_container">
 	<!-- 왼쪽 메뉴바 -->
 	    <div class="left_menu_container">
@@ -35,12 +36,20 @@
 			</div>
 			<div class="daliy_mission_container">
 				<!-- 오늘의 미션 -->
+				
 				<div class="today_mission">
 					<span class="today_mission_title">오늘의미션</span> <span
 						class="today_mission_date">23.02.28</span>
-						<!-- c:if로 오늘의미션 처리 -->
-						<div class="today_mission_contents">${mission.mi_content}</div>
-				
+						<c:choose>	
+				            <c:when test="${empty mission}">
+				                <div class="today_mission_contents">
+				                     오늘의 인증미션이 없습니다. 오늘의 미션을 등록해주세요!
+				                </div>
+				            </c:when>
+					        <c:otherwise>
+								<div class="today_mission_contents">${mission.mi_content}</div>
+							</c:otherwise>
+						</c:choose>
 				</div>
 				<div class="today_mission_button">
 					   <c:if test="${authority == 9}">

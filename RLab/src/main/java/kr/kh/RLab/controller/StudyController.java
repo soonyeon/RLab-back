@@ -297,6 +297,7 @@ public class StudyController {
 		int authority = studyService.selectSmAuthority(user,st_num);
 		MissionVO mission = studyService.selectMission(st_num);
 		
+		mv.addObject("st_num",st_num);
 		mv.addObject("mission",mission);
 		mv.addObject("authority",authority);
 		mv.addObject("studyMember",studyMember);
