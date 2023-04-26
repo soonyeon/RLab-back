@@ -139,5 +139,21 @@
     	update todo set td_finish = 0
     	where td_num = #{td_num}
     </update>
+	<select id="selectMyStudyList" resultType="kr.kh.RLab.vo.StudyMemberVO">
+		select sm_st_num from study_member
+		where sm_me_id = #{memberId}
+	</select>
+	<select id="selectMyStudyMember" resultType="kr.kh.RLab.vo.StudyMemberVO">
+		select sm_me_id from study_member
+		where sm_st_num = #{myStudyNum}
+	</select>
+	
+	<select id="selectTodoListByMemberIds" resultType="kr.kh.RLab.vo.TodoVO">
+	    SELECT * FROM todo
+	    WHERE td_me_id IN
+	    <foreach item="item" index="index" collection="stMeIdList" open="(" separator="," close=")">
+	        #{item}
+	    </foreach>
+	</select>
     
 </mapper>

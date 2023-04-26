@@ -79,6 +79,19 @@ public interface StudyDAO {
 
 	void updateTodoUndo(@Param("td_num")int td_num, @Param("td_finish") int td_finish);
 
+	ArrayList<StudyMemberVO> selectMyStudyList(@Param("memberId")String memberId);
+
+	ArrayList<StudyMemberVO> selectMyStudyMember(@Param("myStudyNum")int myStudyNum);
+
+	ArrayList<TodoVO> selectTodoListByMemberIds(@Param("stMeIdList")ArrayList<String> stMeIdList);
+
+
+
+
+
+
+
+
 
 
 

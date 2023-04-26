@@ -83,6 +83,7 @@
   }
   .todo_container_member .todo_box_member_content{
     width: 187px;
+    height: 245px;
     padding: 10px;
     border: 5px solid balck;
     margin: 10px 0px;

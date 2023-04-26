@@ -3,6 +3,7 @@ package kr.kh.RLab.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -283,21 +284,126 @@ public class StudyController {
 	
 	
 	//투두리스트 가져오기
+//	@ResponseBody
+//	@RequestMapping(value = "/todo", method = RequestMethod.GET)
+//	public ModelAndView todoList(ModelAndView mv, HttpSession session, MemberVO member, StudyVO st) {
+//	    // 세션에서 "user" 속성을 가져와 MemberVO 객체로 캐스팅
+//	    MemberVO user = (MemberVO) session.getAttribute("user");
+//	    // MemberVO 객체에서 회원 아이디를 가져옴
+//	    String memberId = user.getMe_id();
+//
+//	    // 회원이 속한 스터디 멤버의 리스트를 가져옴
+//	    ArrayList<StudyMemberVO> myStudyList = studyService.getMyStudyLis(memberId);
+////	    System.out.println("나의 스터디 리스트" + myStudyList);
+//
+//	    ArrayList<StudyMemberVO> myStudyMemberList = new ArrayList<StudyMemberVO>();
+//
+//	    // 스터디 멤버 리스트를 순회하면서 각 스터디 번호를 가져와 출력
+//	    for (StudyMemberVO studyMember : myStudyList) {
+//	        // sm_st_num 값 가져오기
+//	        int myStudyNum = studyMember.getSm_st_num();
+////	        System.out.println("나의 스터디 번호: " + myStudyNum);
+//
+//	        ArrayList<StudyMemberVO> myStudyMember = studyService.getMyStudyMember(myStudyNum);
+////	        System.out.println("나의 스터디 멤버: " + myStudyMember);
+//
+//	        // 스터디 멤버 리스트에서 sm_me_id 필드값만 추출하여 myStudyMemberList에 추가
+//	        for (StudyMemberVO studyMemberId : myStudyMember) {
+//	            myStudyMemberList.add(studyMemberId);
+//	        }
+//	    }
+////	    System.out.println("나의 스터디 멤버: " + myStudyMemberList);
+////
+//	    ArrayList<TodoVO> tdList = studyService.getTodoList(memberId);
+//	    
+//	    ArrayList<String> stMeIdList = new ArrayList<String>();
+//	    
+//	    for (StudyMemberVO studyMemberId : myStudyMemberList) {
+//	        stMeIdList.add(studyMemberId.getSm_me_id());
+//	    }
+//	    
+//	    System.out.println(stMeIdList+"&&&&&&&&&&");
+//
+//	    mv.addObject("myStudyMemberList", stMeIdList);
+//	    mv.addObject("myStudyList", myStudyList);
+//	    mv.addObject("tdList", tdList);
+//	    mv.addObject("user", user);
+//	    mv.setViewName("/study/to_do_list");
+//	    return mv;
+//	}
+	
+
 	@ResponseBody
 	@RequestMapping(value = "/todo", method = RequestMethod.GET)
-	public ModelAndView todoList(ModelAndView mv, HttpSession session, MemberVO member) {
-	    // 세션에서 "user" 속성을 검색하고 MemberVO 객체로 캐스팅
+	public ModelAndView todoList(ModelAndView mv, HttpSession session) {
 	    MemberVO user = (MemberVO) session.getAttribute("user");
-	    String memberId = user.getMe_id();	
-//	    System.out.println(memberId);
-		//유저에 해당하는 투두리스트를 불러온다
-		ArrayList<TodoVO> tdList = studyService.getTodoList(memberId);
-		System.out.println(tdList+"eeeeeeeeee");
-	    mv.addObject("tdList",tdList);
-	    mv.addObject("user", user); //jsp에서 사용하는값, 컨트롤러에서 정의된값
-		mv.setViewName("/study/to_do_list");
-		return mv;
+	    String memberId = user.getMe_id();
+	    
+	    //내가 참여한 스터디 목록 조회
+	    ArrayList<StudyMemberVO> myStudyList = studyService.getMyStudyLis(memberId);
+	    ArrayList<StudyMemberVO> myStudyMemberList = new ArrayList<StudyMemberVO>();
+	    
+	    //내가 참여한 스터디의 멤버 목록 조회
+	    for (StudyMemberVO studyMember : myStudyList) {
+	        int myStudyNum = studyMember.getSm_st_num();
+	        ArrayList<StudyMemberVO> myStudyMember = studyService.getMyStudyMember(myStudyNum);
+	        for (StudyMemberVO studyMemberId : myStudyMember) {
+	            myStudyMemberList.add(studyMemberId);
+	        }
+	    }
+	    ArrayList<TodoVO> tdList = studyService.getTodoList(memberId);
+//	    System.out.println(tdList+"******");
+
+	    ArrayList<String> stMeIdList = new ArrayList<String>();
+	    
+	    //스터디 멤버 목록에서 멤버 아이디를 추출
+	    for (StudyMemberVO studyMemberId : myStudyMemberList) {
+	        stMeIdList.add(studyMemberId.getSm_me_id());
+	    }
+	    //중복된 값 제거
+        HashSet<String> uniqueSet = new HashSet<>(stMeIdList);
+        stMeIdList.clear();
+        stMeIdList.addAll(uniqueSet);
+	    System.out.println(stMeIdList+"&&&&&&&&&&");
+	    
+
+	    ArrayList<TodoVO> mebersTd = studyService.getTodoListByMemberIds(stMeIdList);
+	    System.out.println(mebersTd+"@@@@@@@@@@@@@");
+
+//	    System.out.println(myStudyList+"%%%%%%%%");
+	    
+//	    ArrayList<TodoVO> tdListMember = studyService.getMembersTodoList(stMeIdList);
+	    
+	    mv.addObject("myStudyMemberList", stMeIdList);
+	    mv.addObject("myStudyList", myStudyList);
+	    mv.addObject("tdList", tdList);
+	    mv.addObject("user", user);
+	    mv.setViewName("/study/to_do_list");
+	    return mv;
 	}
+
+
+
+
+
+	    // StudyService 클래스의 getStudyListById 메서드를 호출하여 사용자가 속한 스터디 리스트를 가져옴
+//	    ArrayList<StudyVO> myStudy = studyService.getMyStudy(memberId);
+//	    System.out.println(myStudyNum+"ttttttt");
+	    
+//	    int st_num = studyService.getStudyNum(memberId);	
+//	    System.out.println(st+"++++++");
+//	    System.out.println(myStudyList+"********");
+//	    System.out.println(st.getSt_num()+"======");
+	    //memberId로 st_num을 가져온다
+	    
+	    
+	    //st_num으로 
+	    
+//	    ArrayList<StudyMemberVO> memberList = studyService.getStudyMemberList(st_num);
+	    
+		//유저에 해당하는 투두리스트를 불러온다
+
+//	    mv.addObject("myStudyNum",myStudyNum);
 	
 	//투두 인풋 입력값 가져오기
 	@ResponseBody

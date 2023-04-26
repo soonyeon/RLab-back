@@ -195,6 +195,35 @@ public class StudyServiceImp implements StudyService {
 		studyDao.updateTodoUndo(td_num, td_finish);
 	}
 
+	@Override
+	public ArrayList<StudyMemberVO> getMyStudyLis(String memberId) {
+		
+		return studyDao.selectMyStudyList(memberId);
+	}
+
+	@Override
+	public ArrayList<StudyMemberVO> getMyStudyMember(int myStudyNum) {
+		
+		return studyDao.selectMyStudyMember(myStudyNum);
+	}
+
+	@Override
+	public ArrayList<TodoVO> getTodoListByMemberIds(ArrayList<String> stMeIdList) {
+		
+		return studyDao.selectTodoListByMemberIds(stMeIdList);
+	}
+
+//	@Override
+//	public ArrayList<TodoVO> getMembersTodoList(ArrayList<String> stMeIdList) {
+//		return studyDao.selectMembersTodoList(stMeIdList);
+//	}
+
+
+
+
+
+
+
 
 
 
