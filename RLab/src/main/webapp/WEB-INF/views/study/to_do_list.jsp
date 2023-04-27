@@ -96,6 +96,7 @@
 	                <div class="scroll_box">
 	                    <div class="todo_container_member">
 	                         <c:forEach items="${tdMembersName}" var="mn" varStatus="vs" >
+	                         <c:if test="${mn.me_id ne memberId}">
 		                        <div class="todo_box_member_content add_shadow ">
 		                            <div class="todo_box_member_title ">
 		                                <h3>${mn.me_name}</h3>
@@ -127,6 +128,7 @@
 		                                </div>
 		                            </div>
 		                        </div>
+		                    </c:if>    
 	                       	</c:forEach>
 	                    </div>
 	                </div>
