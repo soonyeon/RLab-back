@@ -19,9 +19,11 @@ public class NoticeVO {
 	private Date no_register_date;
 	private int no_views;
 	
+	private String me_profile;
+	
 	public String getNo_register_date_str() {
 		SimpleDateFormat format = 
-			new SimpleDateFormat("yyyy.MM.dd");
+			new SimpleDateFormat("yyyy.MM.dd hh:mm");
 		if(no_register_date == null) 
 			return "";
 		return format.format(no_register_date);

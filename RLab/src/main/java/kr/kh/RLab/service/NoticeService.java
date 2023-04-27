@@ -18,4 +18,10 @@ public interface NoticeService {
 
 	NoticeVO getNoticeByNonum(int no_num);
 
+	void updateView(int no_num);
+
+	boolean updateNotice(NoticeVO no);
+
+	boolean deleteNotice(int no_num);
+
 }

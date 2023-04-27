@@ -52,17 +52,71 @@ public class NoticeController {
 	public ModelAndView insertPost(ModelAndView mv, HttpSession session,NoticeVO notice) {
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		noticeService.insertNotice(user.getMe_id(),notice);
-		System.out.println(notice);
 		mv.setViewName("redirect:/notice/list");
 		return mv;
 	}
 	@RequestMapping(value = "/detail/{no_num}", method = RequestMethod.GET)
-	public ModelAndView list(ModelAndView mv, @PathVariable("no_num")int no_num) {
+	public ModelAndView list(ModelAndView mv, @PathVariable("no_num")int no_num, HttpSession session) {
 		NoticeVO no = noticeService.getNoticeByNonum(no_num);
-		//조회수 1 증가
-		
+		noticeService.updateView(no_num);
+
+		ArrayList<NoticeTypeVO> ntList = noticeService.getAllNoticeType();
 		mv.addObject("no", no);
+		mv.addObject("ntList", ntList);
+		mv.addObject("no_num", no_num);
 		mv.setViewName("/notice/detail");
+		return mv;
+	}
+	@RequestMapping(value = "/update/{no_num}", method = RequestMethod.GET)
+	public ModelAndView update(ModelAndView mv, @PathVariable("no_num")int no_num, HttpSession session) {
+		ArrayList<NoticeTypeVO> ntList = noticeService.getAllNoticeType();
+		NoticeVO no = noticeService.getNoticeByNonum(no_num);
+		mv.addObject("no", no);
+		mv.addObject("ntList", ntList);
+		mv.setViewName("/notice/update");
+		return mv;
+	}
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public ModelAndView updatePost(ModelAndView mv, NoticeVO no, HttpSession session) {
+		System.out.println(no);
+		String msg, url;
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		if(user==null) {
+			msg = "로그인이 필요한 기능입니다. 로그인을 진행해주세요.";
+			url = "/notice/detail/"+no.getNo_num();
+		}else {
+			if(!noticeService.updateNotice(no)) {
+				msg = "게시글 수정에 실패했습니다.";
+				url = "/notice/detail/"+no.getNo_num();
+			}else {
+				msg = "게시글을 수정했습니다.";
+				url = "/notice/detail/"+no.getNo_num();
+			}
+		}
+		mv.addObject("msg", msg);
+		mv.addObject("url", url);
+		mv.setViewName("/common/message");
+		return mv;
+	}
+	@RequestMapping(value = "/delete/{no_num}", method = RequestMethod.GET)
+	public ModelAndView delete(ModelAndView mv, @PathVariable("no_num")int no_num, HttpSession session) {
+		String msg, url;
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		if(user==null) {
+			msg = "로그인이 필요한 기능입니다. 로그인을 진행해주세요.";
+			url = "/notice/detail/"+no_num;
+		}else {
+			if(!noticeService.deleteNotice(no_num)) {
+				msg = "게시글 삭제에 실패했습니다.";
+				url = "/notice/detail/"+no_num;
+			}else {
+				msg = "게시글을 삭제했습니다.";
+				url = "/notice/list";
+			}
+		}
+		mv.addObject("msg", msg);
+		mv.addObject("url", url);
+		mv.setViewName("/common/message");
 		return mv;
 	}
 	

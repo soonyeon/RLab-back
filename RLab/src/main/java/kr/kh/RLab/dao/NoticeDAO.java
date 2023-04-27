@@ -20,4 +20,10 @@ public interface NoticeDAO {
 
 	NoticeVO selectNoticeByNonum(int no_num);
 
+	void updateView(int no_num);
+
+	int updateNotice(@Param("no")NoticeVO no);
+
+	int deleteNotice(int no_num);
+
 }

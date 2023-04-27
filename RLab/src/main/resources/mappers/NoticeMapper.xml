@@ -33,6 +33,18 @@
 </insert>
 <select id="selectNoticeByNonum" resultType="kr.kh.RLab.vo.NoticeVO">
 	select * from notice
+	join member on no_me_id = me_id
 	where no_num = #{no_num}
 </select>
+<update id="updateView">
+	update notice set no_views = no_views+1  where no_num = #{no_num}
+</update>
+<update id="updateNotice">
+	update notice 
+	set no_nt_num = #{no.no_nt_num}, no_title = #{no.no_title}, no_content = #{no.no_content}
+	where no_num = #{no.no_num}
+</update>
+<delete id="deleteNotice">
+	delete from notice where no_num = #{no_num} 
+</delete>
 </mapper>

@@ -41,4 +41,19 @@ public class NoticeServiceImp implements NoticeService {
 		return noticeDao.selectNoticeByNonum(no_num);
 	}
 
+	@Override
+	public void updateView(int no_num) {
+		noticeDao.updateView(no_num);
+	}
+
+	@Override
+	public boolean updateNotice(NoticeVO no) {
+		return noticeDao.updateNotice(no)!=0;
+	}
+
+	@Override
+	public boolean deleteNotice(int no_num) {
+		return noticeDao.deleteNotice(no_num)!=0;
+	}
+
 }
