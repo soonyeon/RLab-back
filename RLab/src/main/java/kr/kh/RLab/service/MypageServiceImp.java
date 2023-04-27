@@ -14,9 +14,11 @@ import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.GrowthVO;
 import kr.kh.RLab.vo.MemberVO;
+import kr.kh.RLab.vo.PayDTO;
 import kr.kh.RLab.vo.ReservationVO;
 import kr.kh.RLab.vo.StudyVO;
 import kr.kh.RLab.vo.TagRegisterVO;
+import kr.kh.RLab.vo.TicketOwnVO;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -102,6 +104,8 @@ public class MypageServiceImp implements MypageService {
 				return null;
 			return mypageDao.selectResList(userId);
 		}
+
+
 	
 	//[마이페이지 홈 > 나의 스터디]
 	@Override
@@ -174,6 +178,43 @@ public class MypageServiceImp implements MypageService {
 			    }		
 			return true;
 			}
+			
+	//[예약 관리 > 나의 결제 내역]	
+		//결제 정보 가져오기	
+		@Override
+		public ArrayList<PayDTO> getPayList(String memberId, Criteria cri) {
+			if(memberId == null)
+				return null;
+			return mypageDao.selectPayList(memberId);
+		}
+	
+		//결제 전체 수 가져오기
+		@Override
+		public int getPayTotalCount(String memberId) {
+			int totalCount = mypageDao.selectPayTotalCount(memberId);
+			return totalCount;
+		}
+		
+	//[예약 관리 > 나의 결제 내역 > 결제 상세 내역]	
+		//결제번호 가져오기
+		@Override
+		public String getPaOrderId(String memberId) {
+			if(memberId == null)
+				return null;
+			return mypageDao.selectPaOrderId(memberId);
+		}
+		//결제번호로 결제 정보 가져오기
+		@Override
+		public PayDTO getPayDto(String paOrderId) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		// 해당 결제 정보안의 구매목록 가져오기
+		@Override
+		public String getItemStrList(String paOrderId) {
+			// TODO Auto-generated method stub
+			return null;
+		}
 	
 	
 	//[작성글 관리 > 나의 게시글]
@@ -239,9 +280,6 @@ public class MypageServiceImp implements MypageService {
 			ArrayList<Integer> wantList = mypageDao.selectWantListById(memberId);
 			return wantList;
 		}
-
-
-
 
 
 }

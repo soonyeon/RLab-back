@@ -152,7 +152,27 @@
 		  WHERE me_id = #{m.me_id}
 		</update>
 
-
+	<!-- [예약 관리 > 나의 결제 내역] -->
+		<!-- 결제 정보 가져오기 -->
+		<select id="selectPayList" resultType="kr.kh.RLab.vo.PayDTO">
+			SELECT *
+			FROM pay
+			WHERE pa_me_id = #{memberId}
+		</select>
+		<!-- 결제 전체 수 가져오기 -->
+		<select id="selectPayTotalCount" resultType="int">
+			select count(*)
+			from pay
+			where pa_me_id = #{memberId}
+		</select>
+		
+	<!-- [예약 관리 > 나의 결제 내역 > 결제 상세 내역] -->
+		<select id="selectPaOrderId" resultType="kr.kh.RLab.vo.PayDTO">
+			SELECT pa_order_id
+			FROM pay
+			WHERE pa_me_id = #{memberId}
+		</select>
+		
 	<!-- [작성글 관리 > 나의 게시글] -->
 		<!-- 아이디로 작성 게시글 목록 가져오기  -->
 	  	<select id="selectBoardListById" resultType="kr.kh.RLab.vo.BoardVO">

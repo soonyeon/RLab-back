@@ -10,9 +10,11 @@ import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.GrowthVO;
 import kr.kh.RLab.vo.MemberVO;
+import kr.kh.RLab.vo.PayDTO;
 import kr.kh.RLab.vo.ReservationVO;
 import kr.kh.RLab.vo.StudyVO;
 import kr.kh.RLab.vo.TagRegisterVO;
+import kr.kh.RLab.vo.TicketOwnVO;
 
 public interface MypageDAO {
 	
@@ -62,6 +64,19 @@ public interface MypageDAO {
 		// 나머지 개인정보 수정
 		int updateMember(@Param("m")MemberVO member);
 		
+		
+	//[예약 관리 > 나의 결제 내역]	
+		//나의 결제 정보 가져오기	
+		ArrayList<PayDTO> selectPayList(String memberId);
+		
+		//나의 결제 전체 수
+		int selectPayTotalCount(String memberId);
+		
+		
+	//[예약 관리 > 나의 결제 내역 > 결제 상세 내역]		
+		String selectPaOrderId(String memberId);
+		
+		
 	//[작성글 관리 > 나의 게시글]
 		// 아이디로 작성 게시글 목록 가져오기
 		ArrayList<BoardVO> selectBoardListById(@Param("memberId")String memberId, @Param("cri")Criteria cri);
@@ -90,6 +105,8 @@ public interface MypageDAO {
 		
 		// 내가 쓴 모집글의 찜 여부 가져오기
 		ArrayList<Integer> selectWantListById(String memberId);
+
+
 
 
 

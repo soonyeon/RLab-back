@@ -25,6 +25,7 @@ import kr.kh.RLab.vo.EvolutionVO;
 import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.GrowthVO;
 import kr.kh.RLab.vo.MemberVO;
+import kr.kh.RLab.vo.PayDTO;
 import kr.kh.RLab.vo.PetVO;
 import kr.kh.RLab.vo.ReservationVO;
 import kr.kh.RLab.vo.StudyVO;
@@ -90,13 +91,12 @@ public class MypageController {
 		int myPoint = mypageService.getMyPoint(userId);
 		
 		//나의 예약 데이터 가져오기
-			//좌석 예약 정보 가져오기
-		
+			//좌석 예약 정보 가져오기		
 			ReservationVO mySeat = mypageService.getMySeat(userId);
-			System.out.println("seat : " + mySeat);
+
 			//사물함 예약 정보 가져오기
 			ReservationVO myLocker = mypageService.getMyLocker(userId);
-			System.out.println("locker : " + myLocker);
+
 		//나의 스터디 데이터 가져오기
 		ArrayList<StudyVO> myStudyList = mypageService.getMainStudyList(userId);
 		
@@ -202,6 +202,91 @@ public class MypageController {
 		return mv;
 	}
 	
+	//[예약 관리 > 나의 결제 내역]
+	@GetMapping("/myres_pay")
+	public ModelAndView myPay(
+			ModelAndView mv, HttpSession session, MemberVO member, Criteria cri){		
+		// 세션 정보 가져오기
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		String memberId = user.getMe_id();
+		
+		// 아이디로 나의 결제 목록 가져오기
+		ArrayList<PayDTO> myPayList = mypageService.getPayList(memberId, cri);
+
+		// 페이지 네이션
+		// 로그인한 회원이 가진 결제 전체 수 가져오기
+		int totalCount = mypageService.getPayTotalCount(memberId);
+		PageMaker pm = new PageMaker(totalCount, 2, cri);
+		
+		mv.addObject("myPayList", myPayList);
+		mv.addObject("pm", pm);
+		mv.setViewName("/mypage/myres_pay");
+		return mv;
+	}
+	
+	//[예약 관리 > 나의 결제 내역 > 결제 상세 내역]
+	@GetMapping("/myres_pay/{pa_order_id}")
+	public ModelAndView myPayDetail(
+			ModelAndView mv, HttpSession session, MemberVO member, Criteria cri){	
+		// 세션 정보 가져오기
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		String memberId = user.getMe_id();
+		
+		String paOrderId = mypageService.getPaOrderId(memberId);
+        PayDTO pay = mypageService.getPayDto(paOrderId);
+        String itemStr = mypageService.getItemStrList(paOrderId);
+        System.out.println(paOrderId);
+        System.out.println(pay);
+        System.out.println(itemStr);
+        
+		mv.addObject("pay", pay);
+        mv.addObject("itemStr", itemStr);
+        mv.setViewName("/reservation/buy_complete");
+        return mv;
+	}
+	//[예약 관리 > 나의 좌석]
+	@GetMapping("/myres_seat")
+	public ModelAndView mySeat(
+			ModelAndView mv, HttpSession session, MemberVO member, BoardVO board, Criteria cri){		
+		// 세션 정보 가져오기
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		String memberId = user.getMe_id();
+		
+		// 아이디로 작성 게시글 목록 가져오기
+		ArrayList<BoardVO> myBoardList = mypageService.getBoardListById(memberId, cri);
+		
+		// 페이지 네이션
+		// 로그인한 회원이 작성한 게시글 전체 수 가져오기
+		int totalCount = mypageService.getPostBoardTotalCount(memberId);
+		PageMaker pm = new PageMaker(totalCount, 2, cri);
+		
+		mv.addObject("myBoardList", myBoardList);
+		mv.addObject("pm", pm);
+		mv.setViewName("/mypage/myres_seat");
+		return mv;
+	}
+	
+	//[예약 관리 > 나의 사물함]
+		@GetMapping("/myres_locker")
+		public ModelAndView myLocker(
+				ModelAndView mv, HttpSession session, MemberVO member, BoardVO board, Criteria cri){		
+			// 세션 정보 가져오기
+			MemberVO user = (MemberVO)session.getAttribute("user");
+			String memberId = user.getMe_id();
+			
+			// 아이디로 작성 게시글 목록 가져오기
+			ArrayList<BoardVO> myBoardList = mypageService.getBoardListById(memberId, cri);
+			
+			// 페이지 네이션
+			// 로그인한 회원이 작성한 게시글 전체 수 가져오기
+			int totalCount = mypageService.getPostBoardTotalCount(memberId);
+			PageMaker pm = new PageMaker(totalCount, 2, cri);
+			
+			mv.addObject("myBoardList", myBoardList);
+			mv.addObject("pm", pm);
+			mv.setViewName("/mypage/myres_locker");
+			return mv;
+		}
 	
 	//[작성글 관리 > 나의 게시글]
 	@GetMapping("/mypost_post")
