@@ -162,7 +162,7 @@
 							<c:when test="${notification.alarm_type == 'COMMENT'}">
 									올리신 게시글에 댓글이 달렸습니다.
 							</c:when>
-							<c:when test="${notification.alarm_type == 'COMMENT'}">
+							<c:when test="${notification.alarm_type == 'LIKE'}">
 									올리신 게시글이 좋아요를 받았습니다.
 							</c:when>
 						</c:choose>
@@ -218,6 +218,7 @@ $(document).ready(function() {
         source.addEventListener("newComment", function (event) {
         	//이벤트가 일어날 일을 여기밑에다가 쓰기
 	  	    const data = JSON.parse(event.data);
+        	console.log(event);
 		    const title = "새로운 댓글";
 		    const message = '게시글에 댓글이 달렸습니다.';
 		    showModal(title, message);

@@ -64,19 +64,7 @@ public class SseEmitters {
 			return sessionExpiryTime;
 		}
 	}
-    // 현재 연결된 사용자 수를 모든 사용자에게 전송
-	public void count() {
-	    long count = emitters.size();
-	    emitters.forEach((id, userSessionInfo) -> {
-	        if (userSessionInfo != null && userSessionInfo.getEmitter() != null) { // userSessionInfo와 emitter의 null 여부 확인
-	            try {
-	                userSessionInfo.getEmitter().send(SseEmitter.event().name("count").data(count));
-	            } catch (IOException e) {
-	                logger.error("Error sending count event to user {}", id, e);
-	            }
-	        }
-	    });
-	}
+  
 	 // 이벤트 발송기를 사용하여 새 사용자 추가
 	public void add(SseEmitter emitter) {
 	    if (emitter != null) {

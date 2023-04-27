@@ -49,7 +49,6 @@ public class SseController {
         sseEmitters.add(id, emitter, sessionExpiryTime);
         try {
             emitter.send(SseEmitter.event().name("connect").data("connected!"));
-            sseEmitters.count();
 
         } catch (IOException e) {
             logger.error("Error sending connect event to user {}", id, e);
