@@ -20,7 +20,6 @@
 		    <div class="left_menu_container">
 		        <nav class="left_menu">
 		            <a href="<c:url value='/study/${user.me_study}'></c:url>" class="list_item">스터디홈</a>
-		            <a href="#" class="list_item">스터디 달력</a>
 		            <a href="to_do_list.html" class="list_item">투두 리스트</a>
 		            <a href="<c:url value='/study/daily/${user.me_study}'></c:url>" class="list_item">데일리 미션</a>
 		            <a href="<c:url value='/study/photo/${user.me_study}'></c:url>" class="list_item">인증 게시판</a>
