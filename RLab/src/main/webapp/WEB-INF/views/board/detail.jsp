@@ -328,7 +328,7 @@ function loadComments(page1) {
                     $('.comment_box').append(cmStateHtml);
                     return;
                } 	
-                if (comment.co_num == comment.co_ori_num) {
+                if (comment.co_num == comment.co_ori_num && comment.co_table == 'board') {
                    
                     let listHtml = '';
 
@@ -360,6 +360,7 @@ function loadComments(page1) {
                     $('.comment_box').append(listHtml); // 생성된 HTML 문자열을 댓글 목록 영역에 추가
                 }
                 else {
+                	if(comment.co_num != comment.co_ori_num && comment.co_table == 'board'){
                     let reReplyHtml = '';
 
                     reReplyHtml += '<div class="re_reply_main_box">';
@@ -389,6 +390,7 @@ function loadComments(page1) {
 
                     $('.comment_box').append(reReplyHtml); // 생성된 답글 HTML 문자열을 댓글 목록 영역에 추가
                 }
+               		 }
             });
             // 현재 페이지 값을 갱신
             $('#current_page').val(page1);

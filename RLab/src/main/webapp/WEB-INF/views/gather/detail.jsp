@@ -217,6 +217,7 @@ function loadComments(page1) {
 			}
 
             $.each(comments, function(index, comment) {
+            	 if (comment.co_table === 'gather') {
                 console.log(comment);
                 if (comment.co_num == comment.co_ori_num) {
                     let listHtml = '';
@@ -266,7 +267,8 @@ function loadComments(page1) {
                     reReplyHtml += '</div>';
 
                     $('.comment_box').append(reReplyHtml); // 생성된 답글 HTML 문자열을 댓글 목록 영역에 추가
-                }
+                	}
+            	 }
             });
             // 현재 페이지 값을 갱신
             $('#current_page').val(page1);
