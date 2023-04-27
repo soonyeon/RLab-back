@@ -206,6 +206,15 @@
 	</aside>
 </div>
 <script>
+//게이지 채우기
+let totalCount = '${studyMember.size()}';
+let currentCount = '${mfList.size()}';
+var percent = currentCount/totalCount*100;
+$('#progress-bar').val(percent)
+console.log(currentCount)
+
+
+
 $(document).ready(function() {
     var modal = $("#modal");
 
@@ -282,30 +291,5 @@ $(".mission_edit").click(function(e){
 
 
 
-function updateProgressBar(progress) {
-    var progressBar = document.getElementById("progress-bar");
-    progressBar.value = progress;
-  }
-  
-  // 미션 등록이 완료된 스터디 멤버의 수를 가져와서 진행률을 계산하여 업데이트
-function updateProgress() {
-	var stNum = ${st_num}; // 스터디 번호 가져오기
-	var xhr = new XMLHttpRequest();
-	xhr.open('GET', '/getMissionProgress/' + stNum);
-  xhr.onload = function() {
-    if (xhr.status === 200) {
-      var data = JSON.parse(xhr.responseText);
-      var totalMembers = data.totalMembers;
-      var finishedMembers = data.finishedMembers;
-      var progress = Math.round(finishedMembers / totalMembers * 100);
-      updateProgressBar(progress); // 진행률 업데이트
-    } else {
-      console.log('Request failed. Returned status of ' + xhr.status);
-    }
-  };
-  xhr.send();
-}
-
-setInterval(updateProgress, 10000); // 10초마다 업데이트
 
 </script>
