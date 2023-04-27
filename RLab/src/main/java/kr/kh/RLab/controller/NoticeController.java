@@ -78,7 +78,6 @@ public class NoticeController {
 	}
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public ModelAndView updatePost(ModelAndView mv, NoticeVO no, HttpSession session) {
-		System.out.println(no);
 		String msg, url;
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		if(user==null) {

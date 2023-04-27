@@ -7,6 +7,10 @@
     background-color: var(--color_beige);
     box-sizing: border-box;
 }
+.notice_container .select_box_area{
+	display: flex;
+    justify-content: flex-end;
+}
 /* 게시판 */
 table { 
   border-collapse: collapse; 

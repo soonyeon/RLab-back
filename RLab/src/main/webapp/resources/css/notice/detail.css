@@ -70,7 +70,8 @@
 }
 .notice_container .to_list{
     width: 100%;
-
+    display: flex;
+    justify-content: center;
 }
 .notice_container .btn_list{
     width: 130px;
