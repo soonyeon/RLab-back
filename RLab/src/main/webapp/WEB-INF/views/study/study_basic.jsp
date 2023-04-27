@@ -456,47 +456,73 @@ body {
 </main>
 <script>
 const st_num = '${st_num}';
-loadStudyMembers(st_num);
+const userId = '${userId}'; 
+loadStudyMembers(st_num, userId);
 
-function loadStudyMembers(st_num) {
-	  $.ajax({
-	    url: '<c:url value="/study/onlineMembers"/>',
-	    type: 'GET',
-	    dataType: 'json',
-	    success: function (onlineMembers) {
-	      $.ajax({
-	        url: '<c:url value="/study/getMembers/"/>${st_num}',
-	        type: 'GET',
-	        dataType: 'json',
-	        success: function (members) {
-	          let memberList = "";
+const sse = new EventSource("<c:url value='/connect'></c:url>" + "?id=" + userId);
+sse.addEventListener('connect', (e) => {
+    const { data: receivedConnectData } = e;
+    console.log('connect event data: ', receivedConnectData);  // "connected!"
+    console.log(new Date());
+});
+sse.addEventListener('count', e => {
+    const { data: receivedCount } = e;
+    console.log("count event data", receivedCount);
+});
 
-	          // 첫 번째 멤버의 study_title을 가져옴
-	          if (members.length > 0) {
-	            memberList += '<div class="study_title">' + members[0].st_name + '</div>';
-	          }
+function loadStudyMembers(st_num, userId) {
+    $.ajax({
+        url: '<c:url value="/onlineMembers"/>',
+        type: 'GET',
+        dataType: 'json',
+        success: function (onlineMembers) {
+            $.ajax({
+                url: '<c:url value="/study/getMembers/"/>${st_num}',
+                type: 'GET',
+                dataType: 'json',
+                success: function (members) {
+                    let memberList = "";
 
-	          for (let i = 0; i < members.length; i++) {
-	            const defaultImage = '<c:url value="/resources/img/user.png" />';
-	            const userProfileImage = members[i].me_profile ? '<c:url value="/download" />' + members[i].me_profile : defaultImage;
+                    // 첫 번째 멤버의 study_title을 가져옴
+                    if (members.length > 0) {
+                        memberList += '<div class="study_title">' + members[0].st_name + '</div>';
+                    }
 
-	            const isOnline = onlineMembers.some(onlineMember => onlineMember.me_name === members[i].me_name);
+                    // 온라인 회원 목록 처리
+                    members.forEach(member => {
+                        if (onlineMembers.includes(member.me_name)) {
+                            memberList += createMemberListItem(member, userId, true);
+                        }
+                    });
 
-	            memberList += '<div class="accessor_container">' +
-	              '<div class="circle_accessor">' +
-	              '<img class="acc_img" src="' + userProfileImage + '" width="auto" height="40">' +
-	              '<span class="blind">마이페이지</span>' +
-	              (isOnline ? '<div class="accessor_on"></div>' : '') +
-	              '</div>' +
-	              '<div class="study_name">' + members[i].me_name + '</div>' +
-	              '</div>';
-	          }
-	          document.querySelector(".accessor").innerHTML = memberList;
-	        }
-	      });
-	    }
-	  });
-	}
+                    // 오프라인 회원 목록 처리
+                    members.forEach(member => {
+                        if (!onlineMembers.includes(member.me_name)) {
+                            memberList += createMemberListItem(member, userId, false);
+                        }
+                    });
+
+                    document.querySelector(".accessor").innerHTML = memberList;
+                }
+            });
+        }
+    });
+}
+
+function createMemberListItem(member, userId, isOnline) {
+    const defaultImage = '<c:url value="/resources/img/user.png" />';
+    const userProfileImage = member.me_profile ? '<c:url value="/download" />' + member.me_profile : defaultImage;
+
+    return '<div class="accessor_container">' +
+        '<div class="circle_accessor">' +
+        '<img class="acc_img" src="' + userProfileImage + '" width="auto" height="40">' +
+        '<span class="blind">마이페이지</span>' +
+        (isOnline ? '<div class="accessor_on"></div>' : '') +
+        '</div>' +
+        '<div class="study_name">' + member.me_name + '</div>' +
+        (userId === member.me_name ? '<span class="your">YOU</span>' : '') +
+        '</div>';
+}
 
 const todoInput = document.querySelector(".input_box");
 const todoList = document.querySelector(".todo_list");

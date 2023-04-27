@@ -21,7 +21,7 @@ public class ScrapServiceImp implements ScrapService{
 	@Override
 	public Map<String, Object> toggleScrap(ScrapVO scrapVO) {
 		// DB에서 기존 스크랩 정보를 조회
-		ScrapVO isScrap = scrapDAO.findScrap(scrapVO);
+		ScrapVO isScrap = scrapDAO.selectScrapByMeIdAndBoNum(scrapVO);
 		int newScrapState;
 
 		// 기존 스크랩 정보가 없을 경우
@@ -64,6 +64,6 @@ public class ScrapServiceImp implements ScrapService{
 
 	@Override
 	public ArrayList<ScrapVO> findScrap(int bo_num) {
-		return scrapDAO.findScrap2(bo_num);
+		return scrapDAO.selectScrapByBoNumAndState(bo_num);
 	}
 }

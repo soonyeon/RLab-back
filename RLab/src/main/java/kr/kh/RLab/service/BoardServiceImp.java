@@ -44,8 +44,8 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public ArrayList<BoardVO> selectBoardList(Criteria cri) {
-		return boardDao.selectBoardList(cri);
+	public ArrayList<BoardVO> selectBoardList(Criteria cri,int st_num) {
+		return boardDao.selectBoardList(cri,st_num);
 	}
 
 	@Override
@@ -68,6 +68,18 @@ public class BoardServiceImp implements BoardService {
 	@Override
 	public ArrayList<StudyVO> selectStudyList() {
 		return boardDao.selectStudyList();
+	}
+
+	@Override
+	public BoardVO getBoardByComment(int co_num) {
+		if(co_num == 0)
+			return null;
+		return boardDao.getBoardByComment(co_num);
+	}
+
+	@Override
+	public ArrayList<BoardVO> findBoardById(String me_id) {
+		return boardDao.findBoardById(me_id);
 	}
 
 }

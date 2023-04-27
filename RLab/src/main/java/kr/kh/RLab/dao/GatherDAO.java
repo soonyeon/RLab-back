@@ -60,9 +60,13 @@ public interface GatherDAO {
 
 	void insertStudyLeader(@Param("sm")StudyMemberVO studyMember);
 
+	GatherVO getGatherByComment(int co_num);
 	ArrayList<String> selectSearchTagList(String search);
 
+	ArrayList<GatherVO> findGatherdById(String me_id);
 
+
+	
 
 	
 

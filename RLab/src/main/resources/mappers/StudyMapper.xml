@@ -87,6 +87,14 @@
         join session ON ss_me_id = me_id
         WHERE ss_out IS NULL
     </select>
+    
+    <select id="getPhotosByPhNum" resultType="kr.kh.RLab.vo.PhotoVO">
+    	select *
+    	from photo
+    	where ph_num = #{li_ph_num}
+    </select>
+    
+    
     <select id="selectPhotoPhNumTwo" resultType="kr.kh.RLab.vo.PhotoVO">
     	select * from photo
 		where ph_pt_num = 2 and ph_st_num = #{st_num} and Date(ph_register_date) = CURDATE();

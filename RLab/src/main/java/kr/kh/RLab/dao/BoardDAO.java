@@ -15,7 +15,7 @@ public interface BoardDAO {
 
 	boolean insertBoard(@Param("board")BoardVO board);
 
-	ArrayList<BoardVO> selectBoardList(Criteria cri);
+	ArrayList<BoardVO> selectBoardList(@Param("cri") Criteria cri, @Param("st_num") int st_num);
 
 	BoardVO getBoard(@Param("bo_num") int bo_num);
 
@@ -32,4 +32,9 @@ public interface BoardDAO {
 	ArrayList<BoardVO> selectBoardListById(@Param("memberId")String memberId, @Param("cri")Criteria cri);
 	
 	int getCountById(String memberId);
+
+	BoardVO getBoardByComment(int co_num);
+
+	ArrayList<BoardVO> findBoardById(String me_id);
+
 }

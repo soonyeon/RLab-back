@@ -45,6 +45,8 @@ public interface StudyService {
 
 	List<StudyMemberVO> getOnlineMembers();
 
+	PhotoVO getPhotoByPhNum(int li_ph_num);
+
 	ArrayList<StudyMemberVO> selectStudyMemberByStNum(int st_num);
 
 	ArrayList<PhotoVO> selectPhotoPhNumTwo(int st_num);
