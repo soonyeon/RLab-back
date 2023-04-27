@@ -232,15 +232,37 @@
                 <div class="title_container">
                   <h3>나의 예약</h3>
                   <div class="book_window">
-                    <div class="book_info">
-                      <h4>${mySeat.branchVO.br_name}</h4>
-                      <div class="book_title">${mySeat.ki_name}<h4>${mySeat.se_name}번</h4></div>
-                    </div>
-                    <i class="icon_circle"></i>
-                    <div class="book_info">
-	                  <h4>${myLocker.branchVO.br_name}</h4>
-                      <div class="book_title">${myLocker.ki_name}<h4>${myLocker.se_name}번</h4></div>
-                    </div>
+	                  <c:if test="${mySeat != null && myLocker != null}">
+	                    <div class="book_info">
+		                    <h4>${mySeat.branchVO.br_name}</h4>
+		                    <div class="book_title">${mySeat.ki_name}<h4>${mySeat.se_name}번</h4></div>
+                   		</div>
+	                    <i class="icon_circle"></i>
+	                    <div class="book_info">
+	                    	<h4>${myLocker.branchVO.br_name}</h4>
+                        	<div class="book_title">${myLocker.ki_name}<h4>${myLocker.se_name}번</h4></div>
+	                    </div>
+	                  </c:if>
+	                  
+	                  <c:if test="${mySeat == null && myLocker != null}">
+	                    <div class="book_info">
+	                    	<h4>${myLocker.branchVO.br_name}</h4>
+                        	<div class="book_title">${myLocker.ki_name}<h4>${myLocker.se_name}번</h4></div>
+	                    </div>
+	                  </c:if>
+	                  
+	                  <c:if test="${mySeat != null && myLocker == null}">
+	                    <div class="book_info">
+		                    <h4>${mySeat.branchVO.br_name}</h4>
+		                    <div class="book_title">${mySeat.ki_name}<h4>${mySeat.se_name}번</h4></div>
+                   		</div>
+	                  </c:if>
+	                  
+	                  <c:if test="${mySeat == null && myLocker == null}">
+	                    <div class="book_info">
+		                    <h4>예약 정보가 없습니다.</h4>
+                   		</div>
+	                  </c:if>
                   </div>
                 </div>
               </div>
