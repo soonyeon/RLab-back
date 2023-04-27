@@ -78,6 +78,9 @@
 			<mapping path="/board/list"/>
 			<mapping path="/board/detail/*"/>
 			<mapping path="/study/*"/>
+			<mapping path="/reservation/1/*"/>
+			<mapping path="/reservation/2/*"/>
+			<mapping path="/reservation/buy"/>
 			<beans:ref bean="memberInterceptor"/>
 		</interceptor>
 	</interceptors>

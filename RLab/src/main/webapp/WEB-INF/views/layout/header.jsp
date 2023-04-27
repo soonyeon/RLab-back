@@ -116,10 +116,10 @@
       <div id="header_container">
         <div class="header_left">
 
-  			
-          <a href="#" class="btn_home"><i class="icon_home"></i>LAB</a>
+  
+          <a href="<c:url value='/'></c:url>" class="btn_home"><i class="icon_home"></i>LAB</a>
           <nav class="top_menu_container">
-         	<a href="#" class="list_item">예약하기</a>
+         	  <a href="<c:url value='/reservation'></c:url>" class="list_item">예약하기</a>
             <a href="<c:url value='/study/${user.me_study}'></c:url>" class="list_item">스터디</a>
             <a href="<c:url value='/gather/list'></c:url>" class="list_item">모집 게시판</a>
           </nav>

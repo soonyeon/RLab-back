@@ -3,12 +3,62 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace = "kr.kh.RLab.dao.PetDAO">
+
+<!-- 펫상점에 보여지는 펫 정보 -->
 <select id="selectPetList" resultType="kr.kh.RLab.vo.PetVO">
 	select * from pet
 </select>
+<!-- 펫상점에 보여지는 펫 사진 -->
 <select id="selectPetFile" resultType="kr.kh.RLab.vo.EvolutionVO">
-select *
-from evolution
-where ev_level = (select max(ev_level) from evolution as e where e.ev_pe_num = evolution.ev_pe_num);
+	select *
+	from evolution
+	where ev_level = (select max(ev_level) from evolution as e where e.ev_pe_num = evolution.ev_pe_num);
 </select>
+<!-- 펫 데려오기 -->
+<insert id="insertChoosePet">
+	insert into growth(gr_me_id,gr_pe_num,gr_level,gr_exp,gr_ev_num)
+	values (#{gr_me_id},#{gr_pe_num},1,0, (select ev_num from evolution where ev_pe_num=#{gr_pe_num} and ev_level=1))
+</insert>
+<!-- 펫 돌려보내기 -->
+<delete id="deletePet">
+	delete from growth
+	where gr_me_id = #{gr_me_id}
+</delete>
+<!-- 1번펫 보상 -->
+<insert id="insertPointPetPrize">
+	INSERT INTO point (po_me_id, po_date, po_amount, po_state)
+	values (#{gr_me_id}, NOW(), 1500, 1)
+</insert>
+<!-- 1번펫 보상 후 멤버테이블 업데이트 -->
+<update id="updateMyPoint">
+	update member 
+	set me_point = me_point + 1500
+	where me_id = #{gr_me_id}
+</update>
+<insert id="insertPayPrize">
+	insert into pay(pa_order_id,pa_me_id, pa_order_name,pa_date,pa_amount,pa_point)
+	values('prize',#{gr_me_id},'펫 보상',Now(),0,0)
+</insert>
+<!-- 2번펫 보상 -->
+<insert id="insertTicektOwnPetPrize">
+	insert into ticket_own (to_me_id, to_ti_num,to_pa_order_id,to_rest_time,to_valid_date,to_state)
+	values(#{gr_me_id},1,'prize',2,date_add(now(),interval 6 month),1)
+</insert>
+<!-- 2번펫 보상 후 멤버테이블 업데이트 -->
+<update id="updateMyTicket">
+	update member
+	set me_rest_time = me_rest_time + 2
+	where me_id = #{gr_me_id}
+</update>
+<!-- 3번펫 보상 -->
+<insert id="insertTicektOwnPetPrize2">
+	insert into ticket_own (to_me_id, to_ti_num,to_pa_order_id,to_rest_time,to_valid_date,to_state)
+	values(#{gr_me_id},3,'prize',6,date_add(now(),interval 6 month),1)
+</insert>
+<!-- 3번펫 보상 후 멤버테이블 업데이트 -->
+<update id="updateMyTicket2">
+	update member
+	set me_rest_time = me_rest_time + 6
+	where me_id = #{gr_me_id}
+</update>
 </mapper>

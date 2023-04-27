@@ -24,13 +24,89 @@
 	<id property="st_state" column="st_state"/>
 		<collection property="gatherVO" column="st_num" select="selectGather" ofType="kr.kh.RLab.vo.GatherVO"></collection>		
 </resultMap>
+
+<!-- 마이페이지 홈 > 나의 스터디  -->
+<resultMap id="studyMember" type="kr.kh.RLab.vo.StudyVO">
+	<id property="st_num" column="st_num"/>
+	<id property="st_name" column="st_name"/>
+	<id property="st_re_name" column="st_re_name"/>
+	<id property="st_now_people" column="st_now_people"/>
+	<id property="st_total_people" column="st_total_people"/>
+	<id property="st_image" column="st_image"/>
+	<id property="st_state" column="st_state"/>
+		<association property="studyMemberVO" javaType="kr.kh.RLab.vo.StudyMemberVO">
+			<result property="sm_me_id" column="sm_me_id"/>	
+			<result property="sm_st_num" column="sm_st_num"/>	
+		</association>
+</resultMap>
+
+
 	<!-- [마이페이지 홈] -->
+		<!-- 이용 시간 -->
+		<select id="selectRes" resultType="kr.kh.RLab.vo.ReservationVO">
+			SELECT *
+			FROM reservation
+			WHERE re_me_id = #{userId};		
+		</select>
+		
+		<!-- 펫 경험치 -->
+		<select id="selectPetEx" resultType="kr.kh.RLab.vo.GrowthVO">
+			SELECT 
+			* FROM growth
+		    join exp on ex_level = gr_level
+		    where gr_me_id = #{userId};
+		</select>
+		
+		<select id="selectLevelUpExp" resultType="int">
+			SELECT ex_experience
+			FROM exp
+			where ex_level = #{currentLevel};
+		</select>
+		
+		<update id="updateExp">
+			update growth
+			set gr_exp = #{currentEx}
+			where gr_me_id = #{userId};
+		</update>
+		
 		<!-- 적립 포인트 -->
 		<select id="selectMyPoint" resultType="int">
 			SELECT me_point
 			FROM member
 			WHERE me_id = #{userId};		
 		</select>
+		
+		<!-- 나의 예약 -->
+		<select id="selectResList" resultType="kr.kh.RLab.vo.ReservationVO">
+			SELECT *
+			FROM reservation
+			WHERE re_me_id = #{userId};		
+		</select>
+		
+		<!-- 나의 스터디 -->
+		<select id="selectMainStudyList" resultMap="studyMember">
+			select st_num, sm_st_num, st_name, st_me_id, st_name, st_image
+			from study_member
+			join study on sm_st_num = st_num
+			where sm_me_id = #{userId}
+			ORDER BY sm_num DESC
+			LIMIT 3
+		</select>
+		
+		<!-- 나의 스크랩 -->
+		<select id="selectMainScrapList" resultMap="scrap">
+			select st_name, bo_title, bo_st_num, bo_num,  sc_num
+  			from board
+  			join study on bo_st_num = st_num
+            join scrap on bo_num = sc_bo_num
+			WHERE  
+				sc_me_id = #{userId} 
+				and sc_state = 1
+			ORDER BY bo_num DESC
+			LIMIT 4		
+		</select>
+		
+		
 
 	<!-- [개인정보 수정 > 비밀번호 체크 > 개인정보 수정창] -->
 		<!-- 프로필 이미지 수정 -->
@@ -112,11 +188,6 @@
   		<!-- 내가 쓴 모집글 스터디의 태그들 가져오기 -->		
 		<select id="selectTagListById" resultType="kr.kh.RLab.vo.TagRegisterVO">
 			select 	* from tag_register
-		<!--select tag_register.tr_name
-			from tag_register
-			join study on tag_register.tr_st_num = study.st_num
-			where st_me_id = #{memberId}  -->	
-
 		</select>
 		
 		<!-- 로그인한 회원이 작성한 모집글 전체 수 가져오기 -->	
@@ -139,5 +210,21 @@
 				FROM want 
 				join gather on ga_num = wa_ga_num
 				where wa_state=1 and wa_me_id = #{me_id}
+		</select>
+		
+		<!--  내 펫 정보가져오기 -->
+		<select id="selectMyPet" resultType="kr.kh.RLab.vo.GrowthVO">
+			select * from growth
+				join pet on  pe_num = gr_pe_num
+				join evolution on ev_num = gr_ev_num
+				where gr_me_id = #{me_id};
+		</select>
+		
+		<!-- 내 펫 경험치가져오기 -->
+		<select id="selectPetExp" resultType="kr.kh.RLab.vo.GrowthVO">
+			select * from growth 
+				join pet on gr_pe_num = pe_num
+				join exp on pe_final_level = ex_level
+				where gr_me_id = #{me_id};
 		</select>
 </mapper>

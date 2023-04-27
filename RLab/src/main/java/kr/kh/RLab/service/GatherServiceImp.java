@@ -192,6 +192,9 @@ public class GatherServiceImp implements GatherService {
 		if (co_num == 0)
 			return null;
 		return gatherDao.getGatherByComment(co_num);
+	@Override
+	public ArrayList<String> getSearchTagList(String search) {
+		return gatherDao.selectSearchTagList(search);
 	}
 
 	@Override

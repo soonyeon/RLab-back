@@ -12,8 +12,6 @@
     	insert into photo (ph_pt_num, ph_me_id, ph_register_date, ph_img, ph_content, ph_st_num)
     	values (#{ph_pt_num}, #{ph_me_id}, now(), #{ph_img}, #{ph_content}, #{ph_st_num})
 	</insert>
-	
-	
 	<insert id="insertFile">
 		insert into file( fi_ori_name, fi_name, fi_table, fi_ex_num)
 		values(#{file.fi_ori_name}, #{file.fi_name}, #{file.fi_table}, #{file.fi_ex_num}) 
@@ -27,11 +25,10 @@
      <select id="getPhotosByStudyNum" resultType="kr.kh.RLab.vo.PhotoVO">
        SELECT p.*, m.me_name
 	   FROM photo p JOIN member m ON p.ph_me_id = m.me_id  
-	   WHERE ph_st_num = #{st_num} AND DATE(ph_register_date) = DATE(NOW())
+	   WHERE ph_st_num = #{st_num} AND DATE(ph_register_date) = DATE(NOW()) 
     </select>
-    
     <!-- 좋아요기능 -->
-	 <insert id="insertLike">
+	<insert id="insertLike">
 	    INSERT INTO `like` (li_num, li_me_id, li_ph_num, li_state)
 	    VALUES (#{li_num}, #{li_me_id}, #{li_ph_num}, #{li_state})
 	</insert>
@@ -98,4 +95,39 @@
     </select>
     
     
+    <select id="selectPhotoPhNumTwo" resultType="kr.kh.RLab.vo.PhotoVO">
+    	select * from photo
+		where ph_pt_num = 2 and ph_st_num = #{st_num} and Date(ph_register_date) = CURDATE();
+    </select>
+    <select id="selectStudyMemberByStNum" resultType="kr.kh.RLab.vo.StudyMemberVO">
+    	select * from study_member
+    	join member on me_id = sm_me_id
+    	where sm_st_num = #{st_num}
+    </select>
+	<select id="selectSmAuthority" resultType="Integer">
+		select sm_authority from study_member
+		where sm_me_id=#{user.me_id} and sm_st_num= #{st_num}
+	</select>
+    <insert id="insertMission">
+    	insert into mission(mi_content,mi_date,mi_st_num)
+    	values(#{mi_content},NOW(),#{mi_st_num})
+    </insert>
+    <select id="selectMission" resultType="kr.kh.RLab.vo.MissionVO">
+    	select * from mission
+    	where mi_st_num = #{st_num} and mi_date = CURDATE();
+    </select>
+    <insert id="insertMissionFinishMember" parameterType="map">
+    	insert into mission_finish(mf_mi_num, mf_me_id)
+    	values((select mi_num from mission where mi_st_num = #{st_num} and mi_date = CURDATE() ),#{user.me_id}) 
+    </insert>
+    <select id="selectMissionFinishMember" resultType="String">
+    	select mf_me_id from mission_finish
+    	join mission on mi_num = mf_mi_num
+    	where mi_st_num = #{st_num} and mi_date = CURDATE();
+    </select>
+    <update id="updateMission">
+    	update mission
+    	set mi_content = #{mi_content}
+    	where mi_st_num = #{mi_st_num} and mi_date = CURDATE();
+    </update>
 </mapper>

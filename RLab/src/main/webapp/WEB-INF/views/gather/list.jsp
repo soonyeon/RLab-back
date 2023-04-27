@@ -26,10 +26,7 @@
 			</div>
 		</form>
 			<div class="tag_box">
-				<span class="tag_box_name">관련 태그 : </span> 
-				<c:forEach items="tagList" var="tg">
-					<a href="#" class="hashTag">#자격증</a> 
-				</c:forEach>
+				<span class="tag_box_name">관련 태그 : </span>
 			</div>
 		</div>
 	</section>
@@ -175,39 +172,75 @@
 		</div>
 </main>
 <script>	
+$('#switch1').change(function(){
+	if(${pm.cri.filter != 'on'}){
+		location.replace('<c:url value="/gather/list?filter=on"></c:url>');
+	}else{
+		location.replace('<c:url value="/gather/list?filter=off"></c:url>');	
+	}
+})
+//지역검색
+$(document).ready(function(){
+  $('.sel_region a').click(function(e){
+    //e.preventDefault(); // 기본 동작 중지
+    $('.sel_region .selected').removeClass('selected');
+    $(this).addClass('selected');
+  });
+});
 
-	$('#switch1').change(function(){
-		if(${pm.cri.filter != 'on'}){
-			location.replace('<c:url value="/gather/list?filter=on"></c:url>');
-		}else{
-			location.replace('<c:url value="/gather/list?filter=off"></c:url>');	
-		}
+//태그 삭제
+$(document).on('click', '.delete_tag', function(e){
+	e.preventDefault();
+	var tag = $(this).prev().text()
+	console.log(tag)
+	$('.list_tag').each(function(){
+		console.log($(this).val()==tag)
+		if($(this).val()==tag)
+			$(this).remove();
 	})
-	//지역검색
-	$(document).ready(function(){
-	  $('.sel_region a').click(function(e){
-	    //e.preventDefault(); // 기본 동작 중지
-	    $('.sel_region .selected').removeClass('selected');
-	    $(this).addClass('selected');
-	  });
-	});
-	
-	//태그 삭제
-	$(document).on('click', '.delete_tag', function(e){
-		e.preventDefault();
-		var tag = $(this).prev().text()
-		console.log(tag)
-		$('.list_tag').each(function(){
-			console.log($(this).val()==tag)
-			if($(this).val()==tag)
-				$(this).remove();
+  $(this).parent().remove();
+  $('#gather_form').submit();
+});
+//a태그 새로고침 막아주는 스크립트
+$(document).on('click', '.sel_hashTag', function(e){
+	e.preventDefault();
+});
+
+
+//실시간 태그 검색
+$(document).ready(function(){
+	$('.search_tag').on("propertychange change paste input", function() {
+		let search = $('.search_tag').val();
+		let obj = {
+				'ta_name' : search
+			}
+		$.ajax({
+	        url: '<c:url value="/gather/search"></c:url>',
+	        type: 'POST',
+	        data: JSON.stringify(obj),
+	        contentType: 'application/json',
+	        dataType: 'json',
+	        success: function(data) {
+	        	let list = data.list;
+	        	let tagStr = '<span class="tag_box_name">관련 태그 : </span>';
+	        	for(i=0;i<list.length;i++){
+        			tagStr += '<a href="#" class="hashTag">#'+list[i]+'</a>';
+	        	}
+	        	$('.tag_box').html(tagStr);
+	        },
+	        error: function( request, status, error ){
+	            console.log("status : " + request.status + ", message : " + request.responseText + ", error : " + error);
+	           }
 		})
-	  $(this).parent().remove();
-	  $('#gather_form').submit();
 	});
-	//a태그 새로고침 막아주는 스크립트
-	$(document).on('click', '.sel_hashTag', function(e){
-		e.preventDefault();
-	});
-	
+})
+
+//검색된 태크 클릭하면 해당 태그로 필터링
+$(document).on('click','.hashTag', function(){
+	let tag = $(this).text().substring(1);
+	let tagStr = '<input type="hidden" name="tagList[${pm.cri.tagList.size()}]" value="'+tag+'" class="list_tag">';
+	$('.search_content').eq(1).append(tagStr);
+	$('.search_tag').eq(0).remove();
+	$('#gather_form').submit();
+})
 </script>
