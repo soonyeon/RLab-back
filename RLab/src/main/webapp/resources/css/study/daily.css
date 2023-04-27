@@ -1,14 +1,12 @@
-.daliy_mission_container {
+  .daliy_mission_container {
     border: var(--border_basic);
     border-radius: var(--border_radius_4);
+    padding : 30px;
   }
   .today_mission {
     border: var(--border_basic);
     border-radius: var(--border_radius_4);
     background-color: var(--color_mint);
-    margin-left: 30px;
-    margin-right: 30px;
-    margin-top: 30px;
     padding: 20px 20px;
     box-shadow: var(--box-shadow);
   }
@@ -25,13 +23,15 @@
   
   .today_mission_contents {
     font-weight: bold;
-    margin-left: 350px;
+    margin-left: 370px;
   }
-  
+  .main_today_mission_button{
+
+  }
   .today_mission_button {
-   margin-left: 510px;
-   margin-top: 20px;
+   padding: 20px;
    font-weight: bold;
+   float:right;
   }
   
   .mbutton1 {
@@ -50,7 +50,7 @@
   }
   
   .success_percent2, .mint{
-    margin-left: 30px;
+
   }
   
   .daliy_mission_pro_container {
@@ -98,10 +98,10 @@
   }
   .pro_name{
     font-weight: bold;
-    margin-left: 43px;
-    margin-top: 30px;
+    text-align: center;
+    margin-top: 16px;
   }
   
-  .progress_container {
-    margin-left: 25px;
+  .mint {
+	width : 100%;
   }

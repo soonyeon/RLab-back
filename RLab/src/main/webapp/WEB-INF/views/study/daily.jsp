@@ -52,15 +52,17 @@
 								</c:otherwise>
 							</c:choose>
 					</div>
-					<div class="today_mission_button">
-						   <c:if test="${authority == 9}">
-						      <button class="mbutton1">등록/수정</button>
-						   </c:if> 
-						<a href="<c:url value='/study/photo/${user.me_study}'></c:url>" class="mbutton2">인증하기</a>	
+					<div class="main_today_mission_button clearfix">
+						<div class="today_mission_button">
+							   <c:if test="${authority == 9}">
+							      <button class="mbutton1">등록/수정</button>
+							   </c:if> 
+							<a href="<c:url value='/study/photo/${user.me_study}'></c:url>" class="mbutton2">인증하기</a>	
+						</div>
 					</div>
 					<!--달성률-->
 					<div>
-						<p class="success_percent2">달성률 %</p>
+						<p class="success_percent2">달성률 <span class="percent"></span>%</p>
 					</div>
 					<div>
 						<progress id="progress-bar" class="mint" value="0" max="100"></progress>
@@ -213,8 +215,7 @@ let totalCount = '${studyMember.size()}';
 let currentCount = '${mfList.size()}';
 var percent = currentCount/totalCount*100;
 $('#progress-bar').val(percent)
-console.log(currentCount)
-
+$('.percent').text(percent);
 
 
 $(document).ready(function() {
