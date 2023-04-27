@@ -154,12 +154,12 @@ body {
 							<label for="tab1" class="tab1">달력</label>
 						</div>
 						<div class="tab">
-							<input type="radio" id="tab2" name="tab_control"> <label
-								for="tab2" class="tab2">일정 리스트</label>
+							<input type="radio" id="tab2" name="tab_control"> 
+							<label for="tab2" class="tab2">일정 리스트</label>
 						</div>
 						<div class="tab">
-							<input type="radio" id="tab3" name="tab_control"> <label
-								for="tab3" class="tab3">스탬프</label>
+							<input type="radio" id="tab3" name="tab_control"> 
+							<label for="tab3" class="tab3">스탬프</label>
 						</div>
 					</div>
 				</div>
@@ -180,21 +180,20 @@ body {
 				<form id="calendarForm">
 					<input type="hidden" value="${ca_st_num}" id="ca_st_num">
 					<div class="mb-3">
-						<label for="calendarTitle" class="form-label">제목</label> <input
-							type="text" class="form-control" id="calendarTitle">
+						<label for="calendarTitle" class="form-label">제목</label> 
+						<input type="text" class="form-control" id="calendarTitle">
 					</div>
 					<div class="mb-3">
-						<label for="calendarStart" class="form-label">시작일</label> <input
-							type="datetime-local" class="form-control" id="calendarStart">
+						<label for="calendarStart" class="form-label">시작일</label>
+						<input type="datetime-local" class="form-control" id="calendarStart">
 					</div>
 					<div class="mb-3">
-						<label for="calendarEnd" class="form-label">종료일</label> <input
-							type="datetime-local" class="form-control" id="calendarEnd">
+						<label for="calendarEnd" class="form-label">종료일</label> 
+						<input type="datetime-local" class="form-control" id="calendarEnd">
 					</div>
 					<div class="mb-3 form-check">
-						<input type="checkbox" class="form-check-input"
-							id="calendarAllDay"> <label class="form-check-label"
-							for="calendarAllDay">하루종일</label>
+						<input type="checkbox" class="form-check-input" id="calendarAllDay"> 
+						<label class="form-check-label"	for="calendarAllDay">하루종일</label>
 					</div>
 					<menu>
 						<button type="button" id="closecalendar">닫기</button>
@@ -204,39 +203,35 @@ body {
 				</dialog>
 
 				<dialog id="editCalendarDialog">
-				<form id="editCalendarForm">
-					<input type="hidden" id="editCa_num"> <input type="hidden"
-						id="editCa_st_num">
-					<h3>일정 수정 및 삭제</h3>
-					<div class="mb-3">
-						<label for="editCalendarTitle" class="form-label">제목</label> <input
-							type="text" class="form-control" id="editCalendarTitle">
-					</div>
-					<div class="mb-3">
-						<label for="editCalendarStart" class="form-label">시작일</label> <input
-							type="datetime-local" class="form-control" id="editCalendarStart">
-					</div>
-					<div class="mb-3">
-						<label for="editCalendarEnd" class="form-label">종료일</label> <input
-							type="datetime-local" class="form-control" id="editCalendarEnd">
-					</div>
-					<div class="mb-3 form-check">
-						<input type="checkbox" class="form-check-input"
-							id="editCalendarAllDay"> <label class="form-check-label"
-							for="editCalendarAllDay">하루종일</label>
-					</div>
-					<menu>
-						<button type="button" id="closeEditCalendar">닫기</button>
-						<button type="button" id="updateCalendar">수정</button>
-						<button type="button" id="deleteCalendar">삭제</button>
-					</menu>
-				</form>
+					<form id="editCalendarForm">
+						<input type="hidden" id="editCa_num"> 
+						<input type="hidden" id="editCa_st_num">
+						<h3>일정 수정 및 삭제</h3>
+						<div class="mb-3">
+							<label for="editCalendarTitle" class="form-label">제목</label>
+							<input type="text" class="form-control" id="editCalendarTitle">
+						</div>
+						<div class="mb-3">
+							<label for="editCalendarStart" class="form-label">시작일</label> 
+							<input type="datetime-local" class="form-control" id="editCalendarStart">
+						</div>
+						<div class="mb-3">
+							<label for="editCalendarEnd" class="form-label">종료일</label> <input
+								type="datetime-local" class="form-control" id="editCalendarEnd">
+						</div>
+						<div class="mb-3 form-check">
+							<input type="checkbox" class="form-check-input" id="editCalendarAllDay"> 
+							<label class="form-check-label" for="editCalendarAllDay">하루종일</label>
+						</div>
+						<menu>
+							<button type="button" id="closeEditCalendar">닫기</button>
+							<button type="button" id="updateCalendar">수정</button>
+							<button type="button" id="deleteCalendar">삭제</button>
+						</menu>
+					</form>
 				</dialog>
 
-
 				<div class="middle_container clearfix">
-
-
 					<!-- TO-DO LIST -->
 					<div class="todo_container">
 						<!-- 제목 -->
@@ -250,23 +245,26 @@ body {
 								<input type="text" class="input_box" placeholder="할 일을 입력하세요">
 							</div>
 							<ul class="todo_list">
-								<li><span class="todo_check"> <i
-										class="material-icons check">check</i>
-								</span> <span class="todo_content">할일</span> <span class="todo_clear">
-										<i class="material-icons clear">clear</i>
-								</span></li>
+								<li>
+									<span class="todo_check"> 
+										<i class="material-icons check">check</i>
+									</span> 
+									<span class="todo_content">할일</span> 
+									<span class="todo_clear">
+											<i class="material-icons clear">clear</i>
+									</span>
+								</li>
 							</ul>
 
 							<!-- 달성률 -->
 							<div>
-								<progress class="progress" value="20" max="100"></progress>
+								<p class="success_percent">달성률 20%</p>
 							</div>
 							<div>
-								<p class="success_percent">달성률 20%</p>
+								<progress class="progress" value="20" max="100"></progress>
 							</div>
 						</div>
 					</div>
-
 
 					<!-- 타임라인 -->
 					<div class="time_line_container">
@@ -300,8 +298,6 @@ body {
 							</c:forEach> 
 						</div>
 					</div>
-				</div>
-			</div>
 			<!-- 자유게시판 최신글 -->
 			<div class="free_board">
 				<!-- 제목 -->
@@ -350,7 +346,7 @@ body {
 					</div>
 				</div>
 			</div>
-	</div>
+		</div>
 	</div>
 	</section>
 	<!-- 오른쪽 메뉴 -->
