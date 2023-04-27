@@ -90,7 +90,6 @@ public class StudyController {
 		photoVO.setPh_content(content);
 		photoVO.setPh_pt_num(Integer.parseInt(ph_pt_num));
 		if(photoVO.getPh_pt_num() == 2) {
-			System.out.println("미션완료");
 			studyService.insertMissionFinishMember(member,st_num);
 		}
 		if (studyService.insertCB(photoVO, files, member)) {

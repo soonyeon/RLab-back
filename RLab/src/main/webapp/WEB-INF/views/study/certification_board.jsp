@@ -25,7 +25,7 @@
                 <section>
                     <div class="home_container">
                         <div class="time_line_container_top">
-                            <div class="time_line_title"> 인증 게시판</div>${mf}
+                            <div class="time_line_title"> 인증 게시판</div>
 	                           <div class="time_line_container2">
 							        <c:choose>
 							            <c:when test="${empty photos}">
