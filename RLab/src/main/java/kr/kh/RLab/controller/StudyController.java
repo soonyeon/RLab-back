@@ -54,6 +54,7 @@ public class StudyController {
 		ArrayList<PhotoTypeVO> phototypeList = studyService.getListPhotoType();
 		MemberVO member = (MemberVO) request.getSession().getAttribute("user");
 		ArrayList<StudyVO> study = studyService.getStudyByMemberId(member.getMe_id());
+		MissionFinishVO mf = studyService.selectTodayMissionFinsh(member.getMe_id());
 		if (study == null) {
 			return "redirect:/";
 		}
@@ -69,7 +70,7 @@ public class StudyController {
 			likeCounts.put(li_ph_num, likeCount);
 			userLikes.put(li_ph_num, userLike != null && userLike.getLi_state() == 1);
 		}
-
+		model.addAttribute("mf", mf);
 		model.addAttribute("memberId", member);
 		model.addAttribute("ptList", phototypeList);
 		model.addAttribute("photos", photos);
@@ -88,7 +89,8 @@ public class StudyController {
 		photoVO.setPh_st_num(st_num);
 		photoVO.setPh_content(content);
 		photoVO.setPh_pt_num(Integer.parseInt(ph_pt_num));
-		if(ph_pt_num == "2") {
+		if(photoVO.getPh_pt_num() == 2) {
+			System.out.println("미션완료");
 			studyService.insertMissionFinishMember(member,st_num);
 		}
 		if (studyService.insertCB(photoVO, files, member)) {

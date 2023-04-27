@@ -72,4 +72,6 @@ public interface StudyDAO {
 
 	boolean updateMission(MissionVO missionVO);
 
+	MissionFinishVO selectTodayMissionFinsh(String me_id);
+
 }

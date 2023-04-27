@@ -130,4 +130,9 @@
     	set mi_content = #{mi_content}
     	where mi_st_num = #{mi_st_num} and mi_date = CURDATE();
     </update>
+    <select id="selectTodayMissionFinsh" resultType="kr.kh.RLab.vo.MissionFinishVO">
+    	  	select * from mission_finish
+			join mission on mi_num = mf_mi_num
+		    where mf_me_id = #{me_id} and mi_date = CURDATE();
+    </select>
 </mapper>

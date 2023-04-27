@@ -131,13 +131,6 @@ public class StudyServiceImp implements StudyService {
 	}
 
 	@Override
-	public PhotoVO getPhotoByPhNum(int li_ph_num) {
-		if(li_ph_num == 0)
-		return null;
-		return studyDao.getPhotosByPhNum(li_ph_num);
-	}
-
-	@Override
 	public ArrayList<StudyMemberVO> selectStudyMemberByStNum(int st_num) {
 		
 		return studyDao.selectStudyMemberByStNum(st_num);
@@ -149,9 +142,8 @@ public class StudyServiceImp implements StudyService {
 	}
 
 	@Override
-	public int selectSmAuthority(MemberVO user, int st_num) {
-	    Integer result = studyDao.selectSmAuthority(user, st_num);
-	    return (result != null) ? result : 0;
+	public int selectSmAuthority(MemberVO user,int st_num) {
+		return studyDao.selectSmAuthority(user,st_num);
 	}
 
 	@Override
@@ -177,6 +169,18 @@ public class StudyServiceImp implements StudyService {
 	@Override
 	public boolean updateMission(MissionVO missionVO) {
 		return studyDao.updateMission(missionVO);
+	}
+
+	@Override
+	public PhotoVO getPhotoByPhNum(int li_ph_num) {
+		if(li_ph_num == 0)
+		return null;
+		return studyDao.getPhotosByPhNum(li_ph_num);
+	}
+
+	@Override
+	public MissionFinishVO selectTodayMissionFinsh(String me_id) {
+		return studyDao.selectTodayMissionFinsh(me_id);
 	}
 
 

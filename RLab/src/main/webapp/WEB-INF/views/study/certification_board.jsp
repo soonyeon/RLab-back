@@ -25,7 +25,7 @@
                 <section>
                     <div class="home_container">
                         <div class="time_line_container_top">
-                            <div class="time_line_title"> 인증 게시판</div>
+                            <div class="time_line_title"> 인증 게시판</div>${mf}
 	                           <div class="time_line_container2">
 							        <c:choose>
 							            <c:when test="${empty photos}">
@@ -200,79 +200,86 @@
 <script>
 const likeclickedImageUrl = $("#like_clicked_image_url").val();
 const likeOffImageUrl = $("#like_off_image_url").val();
-    $(document).ready(function() {
-        var modal = $("#modal");
+$(document).ready(function() {
+    var modal = $("#modal");
 
-        var btn = $(".circle_btn");
+    var btn = $(".circle_btn");
 
-        var span = $(".close");
+    var span = $(".close");
 
-        btn.click(function() {
-            modal.show();
-        });
+    btn.click(function() {
+        modal.show();
+    });
 
-        span.click(function() {
+    span.click(function() {
+        modal.hide();
+    });
+
+    $(window).click(function(event) {
+        if (event.target == modal[0]) {
             modal.hide();
-        });
+        }
+    });
+});
 
-        $(window).click(function(event) {
-            if (event.target == modal[0]) {
-                modal.hide();
+$("button").click(function(e){
+	if(${mf == null}){
+		 e.preventDefault();
+		    let formData = new FormData();
+		    formData.append('photo', $('#photo')[0].files[0]);
+		    formData.append('content', $('#content').val());
+		    formData.append('ph_pt_num', $('#ph_pt_num').val());
+		    formData.append('ph_st_num', ${st_num});
+		   // formData.append('mi_num',${mi_num});
+		    console.log(formData);
+		    $.ajax({
+		        type: "POST",
+		        url: "<c:url value='/study/photo/insert'/>",
+		        data: formData,
+		        processData: false,
+		        contentType: false,
+		        success: function(response){
+		            if(response === "success"){
+		                alert("인증이 등록되었습니다.");
+		                location.reload();
+		            }else{
+		                alert("인증 등록에 실패했습니다.");
+		            }
+		        },
+		        error: function(e){
+		            console.log(e);
+		        }
+		    });
+		   
+		}else{
+			alert("이미 오늘의 인증을 완료하였습니다.");
+			modal.hide();
+		}
+});
+
+
+$(".feed_like_img").on("click", function () {
+    const li_ph_num = $(this).data("photo-id");
+    const $likeCount = $(this).siblings(".feed_like_count");
+    const $likeImg = $(this).children(".feed_like_img");
+
+    $.ajax({
+    	url: '<c:url value="/study/toggleLike" />',
+        type: "POST",
+        data: {
+            li_ph_num: li_ph_num
+        },
+        success: function (response) {
+            if (response === "inserted" || response === "updated") {
+                $likeImg.attr("src", likeclickedImageUrl);
+                $likeCount.text(parseInt($likeCount.text()) + 1);
+                location.reload();
+            } else if (response === "canceled") {
+                $likeImg.attr("src", likeOffImageUrl);
+                $likeCount.text(parseInt($likeCount.text()) - 1);
+                location.reload();
             }
-        });
+        },
     });
-
-    $("button").click(function(e){
-        e.preventDefault();
-        let formData = new FormData();
-        formData.append('photo', $('#photo')[0].files[0]);
-        formData.append('content', $('#content').val());
-        formData.append('ph_pt_num', $('#ph_pt_num').val());
-        formData.append('ph_st_num', ${st_num});
-       // formData.append('mi_num',${mi_num});
-        console.log(formData);
-        $.ajax({
-            type: "POST",
-            url: "<c:url value='/study/photo/insert'/>",
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function(response){
-                if(response === "success"){
-                    alert("인증이 등록되었습니다.");
-                    location.reload();
-                }else{
-                    alert("인증 등록에 실패했습니다.");
-                }
-            },
-            error: function(e){
-                console.log(e);
-            }
-        });
-    });
-    
-    $(".feed_like_img").on("click", function () {
-        const li_ph_num = $(this).data("photo-id");
-        const $likeCount = $(this).siblings(".feed_like_count");
-        const $likeImg = $(this).children(".feed_like_img");
-
-        $.ajax({
-        	url: '<c:url value="/study/toggleLike" />',
-            type: "POST",
-            data: {
-                li_ph_num: li_ph_num
-            },
-            success: function (response) {
-                if (response === "inserted" || response === "updated") {
-                    $likeImg.attr("src", likeclickedImageUrl);
-                    $likeCount.text(parseInt($likeCount.text()) + 1);
-                    location.reload();
-                } else if (response === "canceled") {
-                    $likeImg.attr("src", likeOffImageUrl);
-                    $likeCount.text(parseInt($likeCount.text()) - 1);
-                    location.reload();
-                }
-            },
-        });
-    });
+});
 </script>

@@ -45,8 +45,6 @@ public interface StudyService {
 
 	List<StudyMemberVO> getOnlineMembers();
 
-	PhotoVO getPhotoByPhNum(int li_ph_num);
-
 	ArrayList<StudyMemberVO> selectStudyMemberByStNum(int st_num);
 
 	ArrayList<PhotoVO> selectPhotoPhNumTwo(int st_num);
@@ -62,6 +60,10 @@ public interface StudyService {
 	ArrayList<String> selectMissionFinishMember(int st_num);
 
 	boolean updateMission(MissionVO missionVO);
+
+	PhotoVO getPhotoByPhNum(int li_ph_num);
+
+	MissionFinishVO selectTodayMissionFinsh(String me_id);
 
 
 }
