@@ -91,12 +91,12 @@
     </select>
     <select id="selectPhotoPhNumTwo" resultType="kr.kh.RLab.vo.PhotoVO">
     	select * from photo
-		where ph_pt_num = 2 and ph_st_num = #{st_num}
+		where ph_pt_num = 2 and ph_st_num = #{st_num} and Date(ph_register_date) = CURDATE();
     </select>
     <select id="selectStudyMemberByStNum" resultType="kr.kh.RLab.vo.StudyMemberVO">
     	select * from study_member
     	join member on me_id = sm_me_id
-    	where sm_st_num = #{st_num} 
+    	where sm_st_num = #{st_num}
     </select>
 	<select id="selectSmAuthority" resultType="Integer">
 		select sm_authority from study_member
