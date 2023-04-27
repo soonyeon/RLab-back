@@ -35,13 +35,11 @@
 	    INSERT INTO `like` (li_num, li_me_id, li_ph_num, li_state)
 	    VALUES (#{li_num}, #{li_me_id}, #{li_ph_num}, #{li_state})
 	</insert>
-	
 	<update id="updateLikeStatus">
 	    UPDATE `like`
 	    SET li_state = #{li_state}
 	    WHERE li_me_id = #{li_me_id} AND li_ph_num = #{li_ph_num}
 	</update>
-	
 	<select id="getLikeByUserIdAndPhotoId" resultType="kr.kh.RLab.vo.LikeVO">
 	    SELECT * FROM `like`
 	    WHERE li_me_id = #{li_me_id} AND li_ph_num = #{li_ph_num}
@@ -147,13 +145,18 @@
 		select sm_me_id from study_member
 		where sm_st_num = #{myStudyNum}
 	</select>
-	
-	<select id="selectTodoListByMemberIds" resultType="kr.kh.RLab.vo.TodoVO">
+	<select id="selectTodoListByMemberId" resultType="kr.kh.RLab.vo.TodoVO">
 	    SELECT * FROM todo
 	    WHERE td_me_id IN
 	    <foreach item="item" index="index" collection="stMeIdList" open="(" separator="," close=")">
 	        #{item}
 	    </foreach>
 	</select>
-    
+	<select id="selectTodoMembersName" resultType="kr.kh.RLab.vo.MemberVO">
+	    SELECT me_name, me_id FROM member
+	    WHERE me_id IN
+	    <foreach item="item" index="index" collection="stMeIdList" open="(" separator="," close=")">
+	        #{item}
+	    </foreach>
+	</select>
 </mapper>

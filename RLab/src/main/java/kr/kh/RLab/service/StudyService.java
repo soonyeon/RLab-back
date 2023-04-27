@@ -60,17 +60,13 @@ public interface StudyService {
 
 	void finishTodoUndo(int td_num, int td_finish);
 
-//	ArrayList<StudyVO> getMyStudy(String memberId);
-
 	ArrayList<StudyMemberVO> getMyStudyLis(String memberId);
 
 	ArrayList<StudyMemberVO> getMyStudyMember(int myStudyNum);
 
-	ArrayList<TodoVO> getTodoListByMemberIds(ArrayList<String> stMeIdList);
+	ArrayList<TodoVO> getTodoListByMemberId(ArrayList<String> stMeIdList);
 
-
-//	ArrayList<TodoVO> getMembersTodoList(ArrayList<String> stMeIdList);
-
+	ArrayList<MemberVO> getTdMembersName(ArrayList<String> stMeIdList);
 
 
 

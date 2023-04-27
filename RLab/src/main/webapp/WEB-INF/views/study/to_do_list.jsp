@@ -95,24 +95,31 @@
 	                <!-- 투두 컨테이너 멤버 -->
 	                <div class="scroll_box">
 	                    <div class="todo_container_member">
-	                    
-	                        <c:forEach items="${mebersTd}" var="mt" varStatus="vs" >
+	                         <c:forEach items="${tdMembersName}" var="mn" varStatus="vs" >
 		                        <div class="todo_box_member_content add_shadow ">
 		                            <div class="todo_box_member_title ">
-		                                <h3>mt.td_me_id</h3>
+		                                <h3>${mn.me_name}</h3>
 		                            </div>
-		                                <ul class="todo_list">
-		                                    <li>
-		                                        <span class="todo_check">
-		                                            <i class="material-icons check_on">check</i>
-		                                        </span>
-		                                        <span class="todo_content">mt.td_content</span>
-<!-- 		                                        <span class="todo_clear">
-		                                            <i class="material-icons clear">clear</i>
-		                                        </span> -->
-		                                    </li>
-		                                </ul>
-		
+	                                <ul class="todo_list">
+		                                <c:forEach items="${mebersTd}" var="mt" varStatus="vs" >
+	                                		<c:if test="${mn.me_id == mt.td_me_id}">
+			                                    <li>
+				                                    <c:if test="${mt.td_finish == 0}">
+					                                    <span class="todo_check">
+					                                        <i class="material-icons check check_on">check</i>
+					                                    </span>
+				                                    	<span class="todo_content">${mt.td_content}</span>
+				                                    </c:if>
+				                                    <c:if test="${mt.td_finish == 1}">
+					                                    <span class="todo_check">
+					                                        <i class="material-icons check check_off">check</i>
+					                                    </span>
+				                                    	<span class="todo_content done">${mt.td_content}</span>
+				                                    </c:if>
+				                                </li>
+	                                		</c:if>
+		                                </c:forEach>
+	                                </ul>
 		                            <div class="progress_container">
 		                                <progress value="20" max="100"></progress>
 		                                <div>
@@ -120,164 +127,7 @@
 		                                </div>
 		                            </div>
 		                        </div>
-	                        </c:forEach>  
-	                        
-<!-- 	                        <div class="todo_box_member_content add_shadow ">
-	
-	                            <div class="todo_box_member_title ">
-	                                <h3>박연진</h3>
-	                            </div>
-	                            <ul class="todo_list">
-	                                <li>
-	                                    <span class="todo_check">
-	                                        <i class="material-icons check_on">check</i>
-	                                    </span>
-	                                    <span class="todo_content">일기예보</span>
-	                                    <span class="todo_clear">
-	                                        <i class="material-icons clear">clear</i>
-	                                    </span>
-	                                </li>
-	                                <li>
-	                                    <span class="todo_check">
-	                                        <i class="material-icons check_on">check</i>
-	                                    </span>
-	                                    <span class="todo_content">쇼핑</span>
-	                                    <span class="todo_clear">
-	                                        <i class="material-icons clear">clear</i>
-	                                    </span>
-	                                </li>
-	                            </ul>                       
-	                            <div class="progress_container">
-	                                <progress value="20" max="100"></progress>
-	                                <div>
-	                                    <p class="success_percent">달성률 20%</p>
-	                                </div>
-	                            </div>
-	                        </div>
-	                        <div class="todo_box_member_content add_shadow ">
-	                            <div class="todo_box_member_title ">
-	                                <h3>전재준</h3>
-	                            </div>
-	                            <ul class="todo_list">
-	                                <li>
-	                                    <span class="todo_check">
-	                                        <i class="material-icons check_on">check</i>
-	                                    </span>
-	                                    <span class="todo_content">할일</span>
-	                                    <span class="todo_clear">
-	                                        <i class="material-icons clear">clear</i>
-	                                    </span>
-	                                </li>
-	                                <li>
-	                                    <span class="todo_check">
-	                                        <i class="material-icons check_on">check</i>
-	                                    </span>
-	                                    <span class="todo_content">할일</span>
-	                                    <span class="todo_clear">
-	                                        <i class="material-icons clear">clear</i>
-	                                    </span>
-	                                </li>
-	                            </ul>
-	                            <div class="progress_container">
-	                                <progress value="20" max="100"></progress>
-	                                <div>
-	                                    <p class="success_percent">달성률 20%</p>
-	                                </div>
-	                            </div>
-	                        </div>
-	                        <div class="todo_box_member_content add_shadow ">
-	                            <div class="todo_box_member_title ">
-	                                <h3>차무식</h3>
-	                            </div>
-	                            <ul class="todo_list">
-	                                <li>
-	                                    <span class="todo_check">
-	                                        <i class="material-icons check_on">check</i>
-	                                    </span>
-	                                    <span class="todo_content">할일</span>
-	                                    <span class="todo_clear">
-	                                        <i class="material-icons clear">clear</i>
-	                                    </span>
-	                                </li>
-	                                <li>
-	                                    <span class="todo_check">
-	                                        <i class="material-icons check_on">check</i>
-	                                    </span>
-	                                    <span class="todo_content">할일</span>
-	                                    <span class="todo_clear">
-	                                        <i class="material-icons clear">clear</i>
-	                                    </span>
-	                                </li>
-	                            </ul>
-	                            <div class="progress_container">
-	                                <progress value="20" max="100"></progress>
-	                                <div>
-	                                    <p class="success_percent">달성률 20%</p>
-	                                </div>
-	                            </div>
-	                        </div>
-	                        <div class="todo_box_member_content add_shadow ">
-	                            <div class="todo_box_member_title ">
-	                                <h3>남행선</h3>
-	                            </div>
-	                            <ul class="todo_list">
-	                                <li>
-	                                    <span class="todo_check">
-	                                        <i class="material-icons check_on">check</i>
-	                                    </span>
-	                                    <span class="todo_content">할일</span>
-	                                    <span class="todo_clear">
-	                                        <i class="material-icons clear">clear</i>
-	                                    </span>
-	                                </li>
-	                                <li>
-	                                    <span class="todo_check">
-	                                        <i class="material-icons check_on">check</i>
-	                                    </span>
-	                                    <span class="todo_content">할일</span>
-	                                    <span class="todo_clear">
-	                                        <i class="material-icons clear">clear</i>
-	                                    </span>
-	                                </li>
-	                            </ul>
-	                            <div class="progress_container">
-	                                <progress value="20" max="100"></progress>
-	                                <div>
-	                                    <p class="success_percent">달성률 20%</p>
-	                                </div>
-	                            </div>
-	                        </div>
-	                        <div class="todo_box_member_content add_shadow ">
-	                            <div class="todo_box_member_title ">
-	                                <h3>민소희</h3>
-	                            </div>
-	                            <ul class="todo_list">
-	                                <li>
-	                                    <span class="todo_check">
-	                                        <i class="material-icons check_on">check</i>
-	                                    </span>
-	                                    <span class="todo_content">할일</span>
-	                                    <span class="todo_clear">
-	                                        <i class="material-icons clear">clear</i>
-	                                    </span>
-	                                </li>
-	                                <li>
-	                                    <span class="todo_check">
-	                                        <i class="material-icons check_on">check</i>
-	                                    </span>
-	                                    <span class="todo_content">할일</span>
-	                                    <span class="todo_clear">
-	                                        <i class="material-icons clear">clear</i>
-	                                    </span>
-	                                </li>
-	                            </ul>
-	                            <div class="progress_container">
-	                                <progress value="20" max="100"></progress>
-	                                <div>
-	                                    <p class="success_percent">달성률 20%</p>
-	                                </div>
-	                            </div>
-	                        </div> -->
+	                       	</c:forEach>
 	                    </div>
 	                </div>
 	                <!-- 투두 컨테이너 멤버 끝 -->

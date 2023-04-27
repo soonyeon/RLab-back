@@ -208,15 +208,16 @@ public class StudyServiceImp implements StudyService {
 	}
 
 	@Override
-	public ArrayList<TodoVO> getTodoListByMemberIds(ArrayList<String> stMeIdList) {
+	public ArrayList<TodoVO> getTodoListByMemberId(ArrayList<String> stMeIdList) {
 		
-		return studyDao.selectTodoListByMemberIds(stMeIdList);
+		return studyDao.selectTodoListByMemberId(stMeIdList);
 	}
 
-//	@Override
-//	public ArrayList<TodoVO> getMembersTodoList(ArrayList<String> stMeIdList) {
-//		return studyDao.selectMembersTodoList(stMeIdList);
-//	}
+	@Override
+	public ArrayList<MemberVO> getTdMembersName(ArrayList<String> stMeIdList) {
+
+		return studyDao.selectTodoMembersName(stMeIdList);
+	}
 
 
 
