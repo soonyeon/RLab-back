@@ -15,10 +15,11 @@
 		LEFT JOIN study AS st ON b.bo_st_num = st.st_num
 		LEFT JOIN member AS me ON b.bo_me_id = me.me_id
 		LEFT JOIN scrap s ON b.bo_num = s.sc_bo_num AND s.sc_state = 1
+		WHERE b.bo_st_num = #{st_num}
 		GROUP BY b.bo_num
 		ORDER BY b.bo_num DESC
-		LIMIT #{perPageNum}
-		OFFSET #{pageStart}
+		LIMIT #{cri.perPageNum}
+		OFFSET #{cri.pageStart}
 	</select>
 	
 	<select id="getBoard" resultType="kr.kh.RLab.vo.BoardVO">
@@ -68,14 +69,24 @@
   		select * from study
   	</select>
   	
+  	<select id="getBoardByComment" resultType="kr.kh.RLab.vo.BoardVO">
+		select * from board
+		where bo_num =  #{co_ex_num} 
+	</select>
+	
+	<select id="findBoardById" resultType="kr.kh.RLab.vo.BoardVO">
+		select * from board
+		where bo_me_id = #{me_id}
+	</select>
+  	
   	<resultMap id="BoardResultMap" type="kr.kh.RLab.vo.BoardVO">
 	    <id property="bo_num" column="bo_num" />
-	    <result property="st_name" column="st_name" />
-	    <result property="bo_title" column="bo_title" />
-	    <result property="me_name" column="me_name" />
-	    <result property="bo_reg_date_str" column="bo_reg_date_str" />
-	    <result property="bo_views" column="bo_views" />
-	    <result property="scrap_count" column="scrap_count" />
+	    <id property="st_name" column="st_name" />
+	    <id property="bo_title" column="bo_title" />
+	    <id property="me_name" column="me_name" />
+	    <id property="bo_reg_date_str" column="bo_reg_date_str" />
+	    <id property="bo_views" column="bo_views" />
+	    <id property="scrap_count" column="scrap_count" />
 	</resultMap>
   	
 </mapper>

@@ -116,4 +116,21 @@
 	values(#{sm.sm_st_num},#{sm.sm_me_id},9,NOW())
 </insert>
 
+<select id="getGatherByComment" resultType="kr.kh.RLab.vo.GatherVO">
+	select * from gather
+	where ga_num =  #{co_ex_num} 
+</select>
+
+<select id="findGatherdById" resultType="kr.kh.RLab.vo.GatherVO">
+	select * from gather
+	where ga_me_id = #{me_id}
+</select>
+<select id="selectSearchTagList" resultType="String">
+	select tr_name
+	from (select tr_name, count(*) as count from tag_register 
+		where tr_name LIKE CONCAT('%',#{search},'%') 
+	    group by tr_name)as tag
+	order by count desc
+	limit 5 
+</select>
 </mapper>

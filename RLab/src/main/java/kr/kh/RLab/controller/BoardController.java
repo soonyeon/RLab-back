@@ -58,7 +58,7 @@ public class BoardController {
 		cri.setPerPageNum(10); // 한 페이지당 컨텐츠 갯수
 	    int totalCount = boardService.getCount();
 	    PageMaker pm = new PageMaker(totalCount, 10, cri);
-	    ArrayList<BoardVO> boardList = boardService.selectBoardList(cri);
+	    ArrayList<BoardVO> boardList = boardService.selectBoardList(cri,st_num);
 	    mv.addObject("st_num", st_num);
 	    mv.addObject("pm", pm);
 	    mv.addObject("boardList", boardList);

@@ -312,14 +312,12 @@ function loadComments(page1) {
             let comments = response.commentList;
             let pageHandler = response.pageHandler;
             let count = response.commentCount;
-            console.log(response);
             if(response.commentList.length == 0) {
 				page = page-1;
 				return;
 			}
 
             $.each(comments, function(index, comment) {
-                console.log(comment);
                 if(comment.co_state == 'Y') {
                  	 let cmStateHtml = '';
                     cmStateHtml += '<div class="cm_main_box">';
@@ -330,7 +328,7 @@ function loadComments(page1) {
                     $('.comment_box').append(cmStateHtml);
                     return;
                } 	
-                if (comment.co_num == comment.co_ori_num) {
+                if (comment.co_num == comment.co_ori_num && comment.co_table == 'board') {
                    
                     let listHtml = '';
 
@@ -362,6 +360,7 @@ function loadComments(page1) {
                     $('.comment_box').append(listHtml); // 생성된 HTML 문자열을 댓글 목록 영역에 추가
                 }
                 else {
+                	if(comment.co_num != comment.co_ori_num && comment.co_table == 'board'){
                     let reReplyHtml = '';
 
                     reReplyHtml += '<div class="re_reply_main_box">';
@@ -391,6 +390,7 @@ function loadComments(page1) {
 
                     $('.comment_box').append(reReplyHtml); // 생성된 답글 HTML 문자열을 댓글 목록 영역에 추가
                 }
+               		 }
             });
             // 현재 페이지 값을 갱신
             $('#current_page').val(page1);
@@ -398,7 +398,6 @@ function loadComments(page1) {
 
         },
         error: function(xhr, textStatus, errorThrown) {
-            console.log('댓글 목록 로딩 실패: ', textStatus);
             isLoading = false;
         }
     });
@@ -530,7 +529,6 @@ $(document).on('click', '.cm_delete_btn, .re_delete_btn', function() {
         co_num: co_num
     }
     deleteComment(comment, page);
-    console.log(comment);
 });
 
 function deleteComment(comment, page) {

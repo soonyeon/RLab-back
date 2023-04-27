@@ -9,6 +9,7 @@ import kr.kh.RLab.vo.PayDTO;
 import kr.kh.RLab.vo.ReservationVO;
 import kr.kh.RLab.pagination.ReservationCriteria;
 import kr.kh.RLab.vo.BranchVO;
+import kr.kh.RLab.vo.GrowthVO;
 import kr.kh.RLab.vo.TicketOwnVO;
 
 public interface ReservationDAO {
@@ -49,11 +50,15 @@ public interface ReservationDAO {
 
 	BranchVO selectBranchByBr_num(@Param("br_num")int br_num);
 
-	ArrayList<TicketOwnVO> selectAllTicketOwnById(@Param("me_id")String me_id);
+	ArrayList<TicketOwnVO> selectSeatTicketOwnById(@Param("me_id")String me_id);
 
-	int insertReservation(ReservationVO book);
+	ReservationVO selectMyReservation(@Param("ki_num")int kind,@Param("me_id") String me_id);
+
+	int insertReservation(@Param("se_ki_num")int se_ki_num, @Param("book")ReservationVO book);
 	
 	int selectTiNum(int re_to_num);
+	
+	int selectTiPeriod(int tiNum);
 	
 	void updateTicketState(int re_to_num);
 
@@ -63,8 +68,22 @@ public interface ReservationDAO {
 
 	int updateMemberUseTime(ReservationVO book);
 
+	GrowthVO getMypet(String re_me_id);
+
 	int updatePetExp(ReservationVO book);
 
+	void updateMypetLevel(String re_me_id);
+
 	ReservationVO selectReservationByBook(ReservationVO book);
+
+	String selectTicketName(ReservationVO rsv);
+
+	int selectTicketRestTime(int re_to_num);
+
+	ArrayList<TicketOwnVO> selectCabinetTicketOwnById(String me_id);
+
+	ReservationVO selecetReservation(@Param("re_num")int reNum);
+
+	BranchVO selectBranchBySenum(int re_se_num);
 
 }

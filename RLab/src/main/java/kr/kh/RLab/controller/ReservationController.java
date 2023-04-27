@@ -169,7 +169,7 @@ public class ReservationController {
 		mv.setViewName("/reservation/book");
 		return mv;
 	}
-	@RequestMapping(value = "/reservation/1/spot", method=RequestMethod.GET) 
+	@RequestMapping(value = "/reservation/spot/1", method=RequestMethod.GET) 
 	public ModelAndView seatSpot(ModelAndView mv, ReservationCriteria cri) {
 		ArrayList<BranchVO> brList = reservationService.getAllBranchList(cri);
 		int totalCount = reservationService.getBranchTotalCount(cri);
@@ -185,45 +185,97 @@ public class ReservationController {
 	public ModelAndView seatDetail(ModelAndView mv, @PathVariable("br_num")int br_num, HttpSession session) {
 		BranchVO br = reservationService.getBranchByBrNum(br_num);
 		MemberVO user = (MemberVO)session.getAttribute("user");
-		ArrayList<TicketOwnVO> toList = reservationService.getTicketOwnListById(user.getMe_id());
+		ArrayList<TicketOwnVO> toList = reservationService.getSeatTicketOwnListById(user.getMe_id());
+		ReservationVO myRsv = reservationService.getMyReservation(2, user.getMe_id());
 		mv.addObject("br", br);
 		mv.addObject("br_num", br_num);
 		mv.addObject("toList", toList);
+		mv.addObject("myRsv", myRsv);
 		mv.setViewName("/reservation/seat_select");
 		return mv;
 	}
-	@RequestMapping(value = "/reservation/1/complete", method=RequestMethod.POST) 
-	public ModelAndView seatDetailPost(ModelAndView mv, /*@PathVariable("br_num")int br_num,*/
-			HttpSession session, ReservationVO book) {
+	@ResponseBody
+	@RequestMapping(value = "/reservation/1/{br_num}", method=RequestMethod.POST) 
+	public int seatDetailPost(ModelAndView mv, @PathVariable("br_num")int br_num, @RequestBody TicketOwnVO to) {
+		int restTime = reservationService.getRestTime(to.getTo_num());
+		return restTime;
+	}
+	@RequestMapping(value = "/reservation/1/book", method=RequestMethod.POST) 
+	public ModelAndView seatDetailPost(ModelAndView mv, HttpSession session, 
+			ReservationVO book) {
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		book.setRe_me_id(user.getMe_id());
-		System.out.println(book);
 		reservationService.reserveSeat(book);
-		
-		BranchVO br  = reservationService.getBranchByBrNum(book.getBr_num());
-		ReservationVO rsv = reservationService.getReservationByBookInfo(book);
-		System.out.println(rsv);
+		int reNum = reservationService.getReservationByBookInfo(book).getRe_num();
+		mv.addObject("reNum", reNum);
+		mv.setViewName("redirect:/reservation/1/complete");
+		return mv;
+	}
+	@RequestMapping(value = "/reservation/1/complete", method=RequestMethod.GET) 
+	public ModelAndView seatDetail(ModelAndView mv, HttpSession session, int reNum) {
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		ReservationVO rsv = reservationService.getReservation(reNum);
+		BranchVO br  = reservationService.getBranchBySeNum(rsv.getRe_se_num());
+		String ticketName = reservationService.getTicketNameByBookInfo(rsv);
+		int restTime = reservationService.getRestTime(rsv.getRe_to_num());
 		mv.addObject("user", user);
-		mv.addObject("br", br);
-		mv.addObject("book", book);
 		mv.addObject("rsv", rsv);
+		mv.addObject("br", br);
+		mv.addObject("ticketName",ticketName);
+		mv.addObject("restTime",restTime);
 		mv.setViewName("/reservation/seat_complete");
 		return mv;
 	}
-//	@RequestMapping(value = "/reservation/1/complete", method=RequestMethod.GET) 
-//	public ModelAndView seatComplete(ModelAndView mv, int br_num, HttpSession session, ReservationVO book) {
-//		System.out.println("complete-get 이동");
-//		System.out.println(book);
-//		mv.setViewName("/reservation/seat_complete");
-//		return mv;
-//	}
-//	@ResponseBody
-//	@RequestMapping(value = "/reservation/1/complete", method=RequestMethod.POST) 
-//	public ModelAndView seatCompletePost(ModelAndView mv, HttpSession session,
-//			@RequestBody ReservationVO book) {
-//		System.out.println("예약완료 페이지");
-//		System.out.println(book);
-//		mv.setViewName("/reservation/seat_complete");
-//		return mv;
-//	}
+	@RequestMapping(value = "/reservation/spot/2", method=RequestMethod.GET) 
+	public ModelAndView cabinetSpot(ModelAndView mv, ReservationCriteria cri) {
+		ArrayList<BranchVO> brList = reservationService.getAllBranchList(cri);
+		int totalCount = reservationService.getBranchTotalCount(cri);
+		PageMaker pm = new PageMaker(totalCount, 1, cri);
+		mv.addObject("cri", cri);
+		mv.addObject("brList", brList);
+		mv.addObject("search", cri.getSearch());
+		mv.addObject("pm", pm);
+		mv.setViewName("/reservation/cabinet_spot");
+		return mv;
+	}@RequestMapping(value = "/reservation/2/{br_num}", method=RequestMethod.GET) 
+	public ModelAndView cabinetDetail(ModelAndView mv, @PathVariable("br_num")int br_num,
+			HttpSession session) {
+		BranchVO br = reservationService.getBranchByBrNum(br_num);
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		ArrayList<TicketOwnVO> toList = reservationService.getCabinetTicketOwnListById(user.getMe_id());
+		//이미 등록된 예약정보가 있으면 예약 못하게 막아줘야함
+		ReservationVO myRsv = reservationService.getMyReservation(2, user.getMe_id());
+		System.out.println("myRsv: "+myRsv);
+		mv.addObject("br", br);
+		mv.addObject("br_num", br_num);
+		mv.addObject("toList", toList);
+		mv.addObject("myRsv", myRsv);
+		mv.setViewName("/reservation/cabinet_select");
+		return mv;
+	}
+	@RequestMapping(value = "/reservation/2/book", method=RequestMethod.POST) 
+	public ModelAndView cabinetDetailPost(ModelAndView mv,
+			HttpSession session, ReservationVO book) {
+		System.out.println("post들어옴");
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		book.setRe_me_id(user.getMe_id());
+		reservationService.reserveCabinet(book);
+		int reNum = reservationService.getReservationByBookInfo(book).getRe_num();
+		mv.addObject("reNum", reNum);
+		mv.setViewName("redirect:/reservation/2/complete"); 
+		return mv;
+	}
+	@RequestMapping(value = "/reservation/2/complete", method=RequestMethod.GET) 
+	public ModelAndView cabinetDetail(ModelAndView mv, HttpSession session, int reNum) {
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		ReservationVO rsv = reservationService.getReservation(reNum);
+		BranchVO br  = reservationService.getBranchBySeNum(rsv.getRe_se_num());
+		String ticketName = reservationService.getTicketNameByBookInfo(rsv);
+		mv.addObject("user", user);
+		mv.addObject("rsv", rsv);
+		mv.addObject("br", br);
+		mv.addObject("ticketName",ticketName);
+		mv.setViewName("/reservation/cabinet_complete");
+		return mv;
+	}
 }

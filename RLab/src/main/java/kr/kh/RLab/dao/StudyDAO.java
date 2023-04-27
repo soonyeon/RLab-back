@@ -9,6 +9,8 @@ import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.LikeVO;
 import kr.kh.RLab.vo.MemberVO;
+import kr.kh.RLab.vo.MissionFinishVO;
+import kr.kh.RLab.vo.MissionVO;
 import kr.kh.RLab.vo.PhotoTypeVO;
 import kr.kh.RLab.vo.PhotoVO;
 import kr.kh.RLab.vo.StudyMemberVO;
@@ -49,5 +51,25 @@ public interface StudyDAO {
 	List<StudyMemberVO> selectList(int st_num);
     
     List<StudyMemberVO> getOnlineMembers();
+
+	PhotoVO getPhotosByPhNum(int li_ph_num);
+
+	ArrayList<StudyMemberVO> selectStudyMemberByStNum(int st_num);
+
+	ArrayList<PhotoVO> selectPhotoPhNumTwo(int st_num);
+
+	ArrayList<MemberVO> selectMember(int st_num);
+
+	int selectSmAuthority(@Param("user")MemberVO user,@Param("st_num")int st_num);
+
+	boolean insertMission(MissionVO missionVO);
+
+	MissionVO selectMission(int st_num);
+
+	int insertMissionFinishMember(@Param("user")MemberVO member,@Param("st_num")int st_num);
+
+	ArrayList<String> selectMissionFinishMember(int st_num);
+
+	boolean updateMission(MissionVO missionVO);
 
 }

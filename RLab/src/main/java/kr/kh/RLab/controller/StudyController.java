@@ -24,9 +24,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.pagination.PageMaker;
+import kr.kh.RLab.service.NotificationService;
 import kr.kh.RLab.service.StudyService;
+import kr.kh.RLab.vo.AlarmVO.AlarmType;
 import kr.kh.RLab.vo.LikeVO;
 import kr.kh.RLab.vo.MemberVO;
+import kr.kh.RLab.vo.MissionFinishVO;
+import kr.kh.RLab.vo.MissionVO;
 import kr.kh.RLab.vo.PhotoTypeVO;
 import kr.kh.RLab.vo.PhotoVO;
 import kr.kh.RLab.vo.StudyMemberVO;
@@ -39,6 +43,8 @@ import lombok.RequiredArgsConstructor;
 public class StudyController {
 
 	private final StudyService studyService;
+	private final NotificationService notificationService;
+	private final SseController sseController;
 
 	@GetMapping("/photo/{st_num}")
 	public String photo(HttpServletRequest request, Model model, HttpSession session,
@@ -82,11 +88,16 @@ public class StudyController {
 		photoVO.setPh_st_num(st_num);
 		photoVO.setPh_content(content);
 		photoVO.setPh_pt_num(Integer.parseInt(ph_pt_num));
+		if(ph_pt_num == "2") {
+			studyService.insertMissionFinishMember(member,st_num);
+		}
 		if (studyService.insertCB(photoVO, files, member)) {
 			return "success";
 		} else {
 			return "error";
 		}
+	
+		
 	}
 
 	@PostMapping("/toggleLike")
@@ -96,16 +107,22 @@ public class StudyController {
 		String li_me_id = member.getMe_id();
 		LikeVO likeVO = studyService.getLikeByUserIdAndPhotoId(li_me_id, li_ph_num);
 
-		if (likeVO == null) {
-			// 좋아요가 존재하지않으면,
+		if (likeVO == null) {// 좋아요가 존재하지않으면,
 			LikeVO newLike = new LikeVO();
 			newLike.setLi_me_id(li_me_id);
 			newLike.setLi_ph_num(li_ph_num);
 			newLike.setLi_state(1);
 			studyService.insertLike(newLike);
+			
+			PhotoVO photo = studyService.getPhotoByPhNum(li_ph_num);
+			String photoUser = photo.getPh_me_id();//photo 작성자 id
+			String message = member.getMe_name()+"님이 다음 게시글에 좋아요 표시를 했습니다."+photo.getPh_content();
+			
+			notificationService.sendNotificationToUser(photoUser, message,AlarmType.LIKE);
+			sseController.sseNewLike(photo.getPh_num());
 			return "inserted";
-		} else {
-			// 좋아요가 존재하면,
+		} else {// 좋아요가 존재하면,
+			
 			int new_li_state = likeVO.getLi_state() == 1 ? 0 : 1;
 			studyService.updateLikeStatus(li_me_id, li_ph_num, new_li_state);
 			return new_li_state == 1 ? "updated" : "canceled";
@@ -157,8 +174,10 @@ public class StudyController {
 			mv.addObject("url", "redirect:/");
 			mv.setViewName("/common/message");
 		}
+		ArrayList<PhotoVO> photo = studyService.selectPhotoPhNumTwo(st_num);
+		mv.addObject("photo",photo);
 		mv.addObject("st_num", st_num);
-		mv.addObject("loginUserId", user.getMe_id());
+		mv.addObject("userId", user.getMe_name());
 		mv.setViewName("/study/study_basic");
 		return mv;
 	}
@@ -201,7 +220,6 @@ public class StudyController {
 
 	@RequestMapping(value = "/management", method = RequestMethod.POST)
 	public ModelAndView managementPost(ModelAndView mv, StudyVO study) {
-		System.out.println(study);
 		mv.setViewName("redirect:/study/management/member/" + study.getSt_num());
 		return mv;
 	}
@@ -221,7 +239,6 @@ public class StudyController {
 		// StudyService 클래스의 getStudyMemberList메서드를 호출하여 멤버 리스트를 가져옴
 		ArrayList<StudyMemberVO> memberList = studyService.getStudyMemberList(st_num, cri);
 		int totalCount = studyService.getStudyTotalCount(st_num);
-		System.out.println(totalCount);
 		PageMaker pm = new PageMaker(totalCount, 5, cri);
 
 		// "myStudyList" 키와 함께 연구 목록을 ModelAndView 객체에 추가
@@ -240,7 +257,6 @@ public class StudyController {
 	@RequestMapping(value = "/management/member/delete", method = RequestMethod.POST)
 	public HashMap<String, Object> deleteMember(@RequestBody StudyMemberVO sm) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		System.out.println(sm);
 
 		// 멤버를 삭제하고, 새로운 멤버 리스트를 가져옴
 		studyService.deleteStudyMember(sm.getSm_num(), sm.getMe_name());
@@ -259,12 +275,63 @@ public class StudyController {
 		// System.out.println(user);
 
 		ArrayList<StudyVO> myStudyList = studyService.getStudyListById(memberId);
-		System.out.println(myStudyList);
 
 		mv.addObject("myStudyList", myStudyList);
 		mv.addObject("user", user);
 		mv.setViewName("/study/management_study");
 		return mv;
 	}
+	
+	//데일리미션 등록
+	@PostMapping("/daily/{st_num}/insertmission")
+	@ResponseBody
+	public String insertMission( @RequestParam("mi_st_num") int st_num,
+			@RequestParam("mi_content") String content, 
+			HttpServletRequest request) {
+		MemberVO user = (MemberVO) request.getSession().getAttribute("user");
+		MissionVO missionVO = new MissionVO();
+		missionVO.setMi_st_num(st_num);
+		missionVO.setMi_content(content);
+		if (studyService.insertMission(missionVO)) {
+			return "success";
+		} else {
+			return "error";
+		}
+	}
+	
+	//데일리미션 수정
+	@PostMapping("/daily/{st_num}/updatemission")
+	@ResponseBody
+	public String updateMission( @RequestParam("mi_st_num") int st_num,
+			@RequestParam("mi_content") String content, 
+			HttpServletRequest request) {
+		MemberVO user = (MemberVO) request.getSession().getAttribute("user");
+		MissionVO missionVO = new MissionVO();
+		missionVO.setMi_st_num(st_num);
+		missionVO.setMi_content(content);
+		if (studyService.updateMission(missionVO)) {
+			return "success";
+		} else {
+			return "error";
+		}
+	}
+	
+
+	//데일리미션 페이지
+	@GetMapping("/daily/{st_num}")
+	public ModelAndView studyInsert(ModelAndView mv,HttpServletRequest request,@PathVariable("st_num") int st_num) {
+		MemberVO user = (MemberVO)request.getSession().getAttribute("user");	
+		ArrayList<StudyMemberVO> studyMember = studyService.selectStudyMemberByStNum(st_num);
+		Integer authority = studyService.selectSmAuthority(user,st_num);
+		MissionVO mission = studyService.selectMission(st_num);
+		ArrayList<String> mfList = studyService.selectMissionFinishMember(st_num);
+		mv.addObject("mfList",mfList);
+		mv.addObject("mission",mission);
+		mv.addObject("authority",authority);
+		mv.addObject("studyMember",studyMember);
+	 	mv.setViewName("/study/daily");
+	    return mv;
+	}
+	
 
 }

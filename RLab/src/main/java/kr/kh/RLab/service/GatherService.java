@@ -46,6 +46,10 @@ public interface GatherService {
 
 	ArrayList<GatherVO> selectGatherAll();
 
+	GatherVO getGatherByComment(int co_ori_num);
+	ArrayList<String> getSearchTagList(String search);
+
+	ArrayList<GatherVO> findGatherdById(String me_id);
 
 
 

@@ -25,16 +25,28 @@ public interface ReservationService {
 	
 	ArrayList<BranchVO> getAllBranchList(ReservationCriteria cri);
 
-	ArrayList<BranchVO> searchBranchList(BranchVO br);
+	int getBranchTotalCount(ReservationCriteria cri);
 
 	BranchVO getBranchByBrNum(int br_num);
 
-	ArrayList<TicketOwnVO> getTicketOwnListById(String me_id);
+	ArrayList<TicketOwnVO> getSeatTicketOwnListById(String me_id);
 
-	int getBranchTotalCount(ReservationCriteria cri);
+	ReservationVO getMyReservation(int kind, String me_id);
 
 	void reserveSeat(ReservationVO book);
+	
+	void reserveCabinet(ReservationVO book);
 
 	ReservationVO getReservationByBookInfo(ReservationVO book);
+
+	String getTicketNameByBookInfo(ReservationVO rsv);
+
+	int getRestTime(int re_to_num);
+
+	ArrayList<TicketOwnVO> getCabinetTicketOwnListById(String me_id);
+
+	ReservationVO getReservation(int reNum);
+
+	BranchVO getBranchBySeNum(int re_se_num);
 
 }

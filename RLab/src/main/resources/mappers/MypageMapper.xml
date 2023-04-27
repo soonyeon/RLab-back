@@ -42,11 +42,45 @@
 
 
 	<!-- [마이페이지 홈] -->
+		<!-- 이용 시간 -->
+		<select id="selectRes" resultType="kr.kh.RLab.vo.ReservationVO">
+			SELECT *
+			FROM reservation
+			WHERE re_me_id = #{userId};		
+		</select>
+		
+		<!-- 펫 경험치 -->
+		<select id="selectPetEx" resultType="kr.kh.RLab.vo.GrowthVO">
+			SELECT 
+			* FROM growth
+		    join exp on ex_level = gr_level
+		    where gr_me_id = #{userId};
+		</select>
+		
+		<select id="selectLevelUpExp" resultType="int">
+			SELECT ex_experience
+			FROM exp
+			where ex_level = #{currentLevel};
+		</select>
+		
+		<update id="updateExp">
+			update growth
+			set gr_exp = #{currentEx}
+			where gr_me_id = #{userId};
+		</update>
+		
 		<!-- 적립 포인트 -->
 		<select id="selectMyPoint" resultType="int">
 			SELECT me_point
 			FROM member
 			WHERE me_id = #{userId};		
+		</select>
+		
+		<!-- 나의 예약 -->
+		<select id="selectResList" resultType="kr.kh.RLab.vo.ReservationVO">
+			SELECT *
+			FROM reservation
+			WHERE re_me_id = #{userId};		
 		</select>
 		
 		<!-- 나의 스터디 -->
@@ -176,5 +210,21 @@
 				FROM want 
 				join gather on ga_num = wa_ga_num
 				where wa_state=1 and wa_me_id = #{me_id}
+		</select>
+		
+		<!--  내 펫 정보가져오기 -->
+		<select id="selectMyPet" resultType="kr.kh.RLab.vo.GrowthVO">
+			select * from growth
+				join pet on  pe_num = gr_pe_num
+				join evolution on ev_num = gr_ev_num
+				where gr_me_id = #{me_id};
+		</select>
+		
+		<!-- 내 펫 경험치가져오기 -->
+		<select id="selectPetExp" resultType="kr.kh.RLab.vo.GrowthVO">
+			select * from growth 
+				join pet on gr_pe_num = pe_num
+				join exp on pe_final_level = ex_level
+				where gr_me_id = #{me_id};
 		</select>
 </mapper>
