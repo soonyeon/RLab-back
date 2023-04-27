@@ -63,8 +63,12 @@
 						<div class="info_box_right help_box">
 							<h3 class="info_title">HELP</h3>
 							<ul>
-								<li class="item_help">1:1 문의</li>
-								<li class="item_help">공지사항</li>
+								<li class="item_help">
+									<a href="<c:url value='/inquiry/list'></c:url>">1:1 문의</a>
+								</li>
+								<li class="item_help">
+									<a href="<c:url value='/notice/list'></c:url>">공지사항</a>
+								</li>
 								<li class="item_help">F&Q</li>
 								<li class="item_help">가맹점 문의</li>
 							</ul>

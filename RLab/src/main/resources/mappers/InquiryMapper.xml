@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.kh.RLab.dao.InquiryDAO">
+<select id="selectAllInquiry" resultType="kr.kh.RLab.vo.InquiryVO">
+	SELECT * FROM inquiry
+	WHERE in_title LIKE CONCAT('%', #{cri.search}, '%')
+	<if test="cri.type != 0">
+		AND in_it_num = #{cri.type}
+	</if>
+	ORDER BY 
+		<if test="cri.sort == ''">in_num DESC</if>
+		<if test="cri.sort == 'date'">in_register_date DESC</if>
+	LIMIT #{cri.pageStart}, #{cri.perPageNum}
+</select>
+<select id="selectInquiryTotalCount" resultType="Integer">
+	select count(*) from (
+		select * from inquiry
+		where in_title LIKE CONCAT('%', #{cri.search}, '%')
+		<if test="cri.type != 0">
+			AND in_it_num = #{cri.type}
+		</if>
+	)tmp
+</select>
+<select id="selectAllInquiryType" resultType="kr.kh.RLab.vo.InquiryTypeVO">
+	select * from inquiry_type
+</select>
+<insert id="insertInquiry">
+	insert into inquiry(in_it_num, in_title, in_me_id, in_content, in_reg_date)
+	values(#{in.in_it_num}, #{in.in_title}, #{me_id}, #{in.in_content}, now())
+</insert>
+<select id="selectNoticeByNonum" resultType="kr.kh.RLab.vo.NoticeVO">
+	select * from notice
+	join member on no_me_id = me_id
+	where no_num = #{no_num}
+</select>
+<update id="updateView">
+	update notice set no_views = no_views+1  where no_num = #{no_num}
+</update>
+<update id="updateNotice">
+	update notice 
+	set no_nt_num = #{no.no_nt_num}, no_title = #{no.no_title}, no_content = #{no.no_content}
+	where no_num = #{no.no_num}
+</update>
+<delete id="deleteNotice">
+	delete from notice where no_num = #{no_num} 
+</delete>
+</mapper>

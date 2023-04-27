@@ -24,10 +24,8 @@
 				<!-- aside(left_menu) -->
 				<aside class="left_menu_container">
 					<nav class="left_menu">
-						<a href="<c:url value='/notice/list'></c:url>" class="list_item">전체보기</a>
-						<a href="<c:url value='/notice/list?type=1'></c:url>" class="list_item">공지사항</a>
-						<a href="<c:url value='/notice/list?type=2'></c:url>" class="list_item">QnA</a>
-						<a href="<c:url value='/notice/list?type=3'></c:url>" class="list_item">이벤트</a>
+						<a href="<c:url value='/notice/list'></c:url>" class="list_item">공지사항</a>
+						<a href="<c:url value='/inquiry/list'></c:url>" class="list_item">QnA</a>
 					</nav>
 				</aside>
 
