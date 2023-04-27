@@ -84,7 +84,9 @@ public class StudyController {
 		photoVO.setPh_st_num(st_num);
 		photoVO.setPh_content(content);
 		photoVO.setPh_pt_num(Integer.parseInt(ph_pt_num));
-		int MissionFinishVO = studyService.insertMissionFinishMember(member,st_num);
+		if(ph_pt_num == "2") {
+			studyService.insertMissionFinishMember(member,st_num);
+		}
 		if (studyService.insertCB(photoVO, files, member)) {
 			return "success";
 		} else {

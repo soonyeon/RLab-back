@@ -12,8 +12,6 @@
     	insert into photo (ph_pt_num, ph_me_id, ph_register_date, ph_img, ph_content, ph_st_num)
     	values (#{ph_pt_num}, #{ph_me_id}, now(), #{ph_img}, #{ph_content}, #{ph_st_num})
 	</insert>
-	
-	
 	<insert id="insertFile">
 		insert into file( fi_ori_name, fi_name, fi_table, fi_ex_num)
 		values(#{file.fi_ori_name}, #{file.fi_name}, #{file.fi_table}, #{file.fi_ex_num}) 
@@ -30,7 +28,7 @@
 	   WHERE ph_st_num = #{st_num} AND DATE(ph_register_date) = DATE(NOW()) 
     </select>
     <!-- 좋아요기능 -->
-	 <insert id="insertLike">
+	<insert id="insertLike">
 	    INSERT INTO `like` (li_num, li_me_id, li_ph_num, li_state)
 	    VALUES (#{li_num}, #{li_me_id}, #{li_ph_num}, #{li_state})
 	</insert>
@@ -112,7 +110,7 @@
     </select>
     <insert id="insertMissionFinishMember" parameterType="map">
     	insert into mission_finish(mf_mi_num, mf_me_id)
-    	values((select mi_num from mission where mi_st_num = #{st_num} and mi_date = CURDATE()),#{user.me_id})
+    	values((select mi_num from mission where mi_st_num = #{st_num} and mi_date = CURDATE() ),#{user.me_id}) 
     </insert>
     <select id="selectMissionFinishMember" resultType="String">
     	select mf_me_id from mission_finish

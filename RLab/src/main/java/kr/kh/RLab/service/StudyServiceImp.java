@@ -142,8 +142,9 @@ public class StudyServiceImp implements StudyService {
 	}
 
 	@Override
-	public int selectSmAuthority(MemberVO user,int st_num) {
-		return studyDao.selectSmAuthority(user,st_num);
+	public int selectSmAuthority(MemberVO user, int st_num) {
+	    Integer result = studyDao.selectSmAuthority(user, st_num);
+	    return (result != null) ? result : 0;
 	}
 
 	@Override
