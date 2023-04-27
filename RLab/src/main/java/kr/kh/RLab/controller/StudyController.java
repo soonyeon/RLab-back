@@ -27,6 +27,8 @@ import kr.kh.RLab.pagination.PageMaker;
 import kr.kh.RLab.service.StudyService;
 import kr.kh.RLab.vo.LikeVO;
 import kr.kh.RLab.vo.MemberVO;
+import kr.kh.RLab.vo.MissionFinishVO;
+import kr.kh.RLab.vo.MissionVO;
 import kr.kh.RLab.vo.PhotoTypeVO;
 import kr.kh.RLab.vo.PhotoVO;
 import kr.kh.RLab.vo.StudyMemberVO;
@@ -82,11 +84,14 @@ public class StudyController {
 		photoVO.setPh_st_num(st_num);
 		photoVO.setPh_content(content);
 		photoVO.setPh_pt_num(Integer.parseInt(ph_pt_num));
+		int MissionFinishVO = studyService.insertMissionFinishMember(member,st_num);
 		if (studyService.insertCB(photoVO, files, member)) {
 			return "success";
 		} else {
 			return "error";
 		}
+	
+		
 	}
 
 	@PostMapping("/toggleLike")
@@ -157,6 +162,8 @@ public class StudyController {
 			mv.addObject("url", "redirect:/");
 			mv.setViewName("/common/message");
 		}
+		ArrayList<PhotoVO> photo = studyService.selectPhotoPhNumTwo(st_num);
+		mv.addObject("photo",photo);
 		mv.addObject("st_num", st_num);
 		mv.addObject("loginUserId", user.getMe_id());
 		mv.setViewName("/study/study_basic");
@@ -262,5 +269,57 @@ public class StudyController {
 		mv.setViewName("/study/management_study");
 		return mv;
 	}
+	
+	//데일리미션 등록
+	@PostMapping("/daily/{st_num}/insertmission")
+	@ResponseBody
+	public String insertMission( @RequestParam("mi_st_num") int st_num,
+			@RequestParam("mi_content") String content, 
+			HttpServletRequest request) {
+		MemberVO user = (MemberVO) request.getSession().getAttribute("user");
+		MissionVO missionVO = new MissionVO();
+		missionVO.setMi_st_num(st_num);
+		missionVO.setMi_content(content);
+		if (studyService.insertMission(missionVO)) {
+			return "success";
+		} else {
+			return "error";
+		}
+	}
+	
+	//데일리미션 수정
+	@PostMapping("/daily/{st_num}/updatemission")
+	@ResponseBody
+	public String updateMission( @RequestParam("mi_st_num") int st_num,
+			@RequestParam("mi_content") String content, 
+			HttpServletRequest request) {
+		MemberVO user = (MemberVO) request.getSession().getAttribute("user");
+		MissionVO missionVO = new MissionVO();
+		missionVO.setMi_st_num(st_num);
+		missionVO.setMi_content(content);
+		if (studyService.updateMission(missionVO)) {
+			return "success";
+		} else {
+			return "error";
+		}
+	}
+	
+
+	//데일리미션 페이지
+	@GetMapping("/daily/{st_num}")
+	public ModelAndView studyInsert(ModelAndView mv,HttpServletRequest request,@PathVariable("st_num") int st_num) {
+		MemberVO user = (MemberVO)request.getSession().getAttribute("user");	
+		ArrayList<StudyMemberVO> studyMember = studyService.selectStudyMemberByStNum(st_num);
+		Integer authority = studyService.selectSmAuthority(user,st_num);
+		MissionVO mission = studyService.selectMission(st_num);
+		ArrayList<String> mfList = studyService.selectMissionFinishMember(st_num);
+		mv.addObject("mfList",mfList);
+		mv.addObject("mission",mission);
+		mv.addObject("authority",authority);
+		mv.addObject("studyMember",studyMember);
+	 	mv.setViewName("/study/daily");
+	    return mv;
+	}
+	
 
 }

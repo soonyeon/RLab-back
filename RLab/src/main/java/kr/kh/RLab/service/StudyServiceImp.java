@@ -11,6 +11,8 @@ import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.utils.UploadFileUtils;
 import kr.kh.RLab.vo.LikeVO;
 import kr.kh.RLab.vo.MemberVO;
+import kr.kh.RLab.vo.MissionFinishVO;
+import kr.kh.RLab.vo.MissionVO;
 import kr.kh.RLab.vo.PhotoTypeVO;
 import kr.kh.RLab.vo.PhotoVO;
 import kr.kh.RLab.vo.StudyMemberVO;
@@ -127,5 +129,52 @@ public class StudyServiceImp implements StudyService {
 	public List<StudyMemberVO> getOnlineMembers() {
 		return studyDao.getOnlineMembers();
 	}
+
+	@Override
+	public ArrayList<StudyMemberVO> selectStudyMemberByStNum(int st_num) {
+		
+		return studyDao.selectStudyMemberByStNum(st_num);
+	}
+
+	@Override
+	public ArrayList<PhotoVO> selectPhotoPhNumTwo(int st_num) {
+		return studyDao.selectPhotoPhNumTwo(st_num);
+	}
+
+	@Override
+	public int selectSmAuthority(MemberVO user,int st_num) {
+		return studyDao.selectSmAuthority(user,st_num);
+	}
+
+	@Override
+	public boolean insertMission(MissionVO missionVO) {
+		return studyDao.insertMission(missionVO);
+	}
+
+	@Override
+	public MissionVO selectMission(int st_num) {
+		return studyDao.selectMission(st_num);
+	}
+
+	@Override
+	public int insertMissionFinishMember(MemberVO member,int st_num) {
+		return studyDao.insertMissionFinishMember(member,st_num);
+	}
+
+	@Override
+	public ArrayList<String> selectMissionFinishMember(int st_num) {
+		return studyDao.selectMissionFinishMember(st_num);
+	}
+
+	@Override
+	public boolean updateMission(MissionVO missionVO) {
+		return studyDao.updateMission(missionVO);
+	}
+
+
+
+	
+
+
 
 }
