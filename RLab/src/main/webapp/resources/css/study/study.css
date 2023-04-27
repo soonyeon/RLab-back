@@ -291,7 +291,6 @@ footer .corp_container .link_corp:nth-child(1)::before{
 .main_container{
   display: flex;
   flex-flow: row; 
-  height : 1100px;
 }
 
 /* 왼쪽 메뉴바 */
