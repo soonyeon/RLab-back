@@ -26,6 +26,7 @@ import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.pagination.PageMaker;
 import kr.kh.RLab.service.NotificationService;
 import kr.kh.RLab.service.StudyService;
+import kr.kh.RLab.vo.AlarmVO.AlarmType;
 import kr.kh.RLab.vo.LikeVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.PhotoTypeVO;
@@ -110,7 +111,7 @@ public class StudyController {
 			String photoUser = photo.getPh_me_id();//photo 작성자 id
 			String message = member.getMe_name()+"님이 다음 게시글에 좋아요 표시를 했습니다."+photo.getPh_content();
 			
-			notificationService.sendNotificationToUser(photoUser, message);
+			notificationService.sendNotificationToUser(photoUser, message,AlarmType.LIKE);
 			sseController.sseNewLike(photo.getPh_num());
 			return "inserted";
 		} else {// 좋아요가 존재하면,

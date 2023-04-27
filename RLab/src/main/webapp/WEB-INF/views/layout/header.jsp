@@ -11,6 +11,36 @@
 	  transform: translateX(-50%);
 	  z-index: 9999;
 	}
+	
+	body {
+    font-family: Arial, sans-serif;
+	}
+
+	.notification-modal {
+	    position: fixed;
+	    bottom: 20px;
+	    right: 20px;
+	    display: none;
+	    width: 300px;
+	    background-color: white;
+	    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	    border-radius: 8px;
+	    padding: 20px;
+	    z-index: 1000;
+	}
+	
+	.notification-content {
+	    display: flex;
+	    flex-direction: column;
+	}
+	
+	.notification-content h4 {
+	    margin-bottom: 8px;
+	}
+	
+	.notification-content p {
+	    margin: 0;
+	}
 </style>
     <header>
       <div class="notification" style="display:none;"></div>
@@ -125,22 +155,19 @@
         	</div>
         </div>
       </div>	
-      		<div id="notificationModal" style="display:none;">
-				    <div class="notification-content">
-				        <h4 id="notificationTitle">알림</h4>
-				        <c:if test="${empty alarm}"><p>새로운 알림이 없습니다.</p></c:if>
-				        <c:if test="${!empty alarm}">
-						        <c:choose>
-						            <c:when test="${notification.al_table == 'comment'}">
-						                <p id="notificationMessage">올리신 게시글에 댓글이 추가되었습니다.</p>
-						            </c:when>
-						            <c:when test="${notification.al_table == 'like'}">
-						                <p id="notificationMessage">올리신 사진에 좋아요가 추가되었습니다.</p>
-						            </c:when>
-						        </c:choose>
-						</c:if>
-				    </div>
-			</div>
+      		   <div id="notificationModal" class="notification-modal">
+			        <div class="notification-content">
+			            <h4 id="notificationTitle">알림</h4>
+						<c:choose>
+							<c:when test="${notification.alarm_type == 'COMMENT'}">
+									올리신 게시글에 댓글이 달렸습니다.
+							</c:when>
+							<c:when test="${notification.alarm_type == 'COMMENT'}">
+									올리신 게시글이 좋아요를 받았습니다.
+							</c:when>
+						</c:choose>
+			        </div>
+			    </div>
       			
 	     	<div class="alarm_modal" id="alarmModal">
 			    <c:forEach var="alarm" items="${alarm}">

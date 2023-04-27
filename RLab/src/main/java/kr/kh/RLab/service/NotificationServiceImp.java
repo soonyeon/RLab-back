@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +13,7 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import kr.kh.RLab.dao.NotificationDao;
 import kr.kh.RLab.vo.AlarmVO;
+import kr.kh.RLab.vo.AlarmVO.AlarmType;
 
 @Service
 public class NotificationServiceImp implements NotificationService {
@@ -44,7 +44,7 @@ public class NotificationServiceImp implements NotificationService {
     }
 
     @Override
-    public void sendNotificationToUser(String userId, String message) {
+    public void sendNotificationToUser(String userId, String message,AlarmType alarm_type) {
         SseEmitter emitter = null;
         if (emitters.containsKey(userId)) {
             emitter = emitters.get(userId);
@@ -59,6 +59,7 @@ public class NotificationServiceImp implements NotificationService {
         alarm.setAl_me_id(userId);
         alarm.setAl_content(message);
         alarm.setAl_view(0); // 0: 확인하지 않음, 1: 확인함
+        alarm.setAlarm_type(alarm_type);
         addAlarm(alarm);
         notificationDao.createNotificationEvent(alarm);
     }

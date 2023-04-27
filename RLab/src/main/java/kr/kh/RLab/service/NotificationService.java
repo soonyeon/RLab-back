@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import kr.kh.RLab.vo.AlarmVO;
+import kr.kh.RLab.vo.AlarmVO.AlarmType;
 
 public interface NotificationService {
 	
@@ -13,11 +14,12 @@ public interface NotificationService {
 
     void removeUser(String userId);
 
-	void sendNotificationToUser(String userId, String message);
+    void sendNotificationToUser(String userId, String message, AlarmType alarm_type);
 
     void addAlarm(AlarmVO alarm);
 
     List<AlarmVO> getUserAlrams(String userId);
+
 
 
 

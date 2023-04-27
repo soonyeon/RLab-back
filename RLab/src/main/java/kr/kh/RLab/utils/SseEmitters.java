@@ -12,17 +12,16 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 
 /*
- * 서버에서 클라이언트로 이벤트를 전송하는 표준기술임 1. 이벤트 구성 : SeeEmitter.event() 메소드를 사용하여 이벤트 구성 할
- * 수 있음 2. 이벤트 전송 : SeeEmitter.send() 메소드를 사용하여 구성된 이벤트를 클라이언트에게 전송함 3. 타임아웃 및
- * 완료 처리
- * 
+ * 서버에서 클라이언트로 이벤트를 전송하는 표준기술임 
  */
 @Component
 public class SseEmitters {
 	private static final Logger logger = LoggerFactory.getLogger(SseEmitters.class);
-
+	
+	// 연결된 사용자의 이벤트 발송기 및 세션 정보를 저장
 	private final Map<String, UserSessionInfo> emitters = new ConcurrentHashMap<>();
-
+	
+	// 새 사용자를 추가하고 이벤트 발송기와 세션 만료 시간 설정
 	public void add(String id, SseEmitter emitter, LocalDateTime sessionExpiryTime) {
 		UserSessionInfo userSessionInfo = new UserSessionInfo(emitter, sessionExpiryTime);
 		this.emitters.put(id, userSessionInfo);
@@ -35,15 +34,15 @@ public class SseEmitters {
 			emitter.complete();
 		});
 	}
-
+    // 모든 사용자에 대해 주어진 작업을 수행
 	public void forEach(BiConsumer<? super String, ? super UserSessionInfo> action) {
 		emitters.forEach(action);
 	}
-
+    // 사용자가 연결되어 있는지 확인
 	public boolean isUserConnected(String id) {
 		return emitters.containsKey(id);
 	}
-
+	// 사용자 세션 정보를 저장하는 클래스
 	public static class UserSessionInfo {
 		private final SseEmitter emitter;
 		private final LocalDateTime sessionExpiryTime;
@@ -65,7 +64,7 @@ public class SseEmitters {
 			return sessionExpiryTime;
 		}
 	}
-
+    // 현재 연결된 사용자 수를 모든 사용자에게 전송
 	public void count() {
 	    long count = emitters.size();
 	    emitters.forEach((id, userSessionInfo) -> {
@@ -78,6 +77,7 @@ public class SseEmitters {
 	        }
 	    });
 	}
+	 // 이벤트 발송기를 사용하여 새 사용자 추가
 	public void add(SseEmitter emitter) {
 	    if (emitter != null) {
 	        UserSessionInfo userSessionInfo = new UserSessionInfo(emitter, LocalDateTime.now().plusMinutes(30));
@@ -92,12 +92,13 @@ public class SseEmitters {
 	        });
 	    }
 	}
-
+    // 사용자 제거
 	public void remove(String id) {
 	    if (id != null) {
 	        this.emitters.remove(id);
 	    }
 	}
+	 // 특정 사용자에게 이벤트 데이터를 전송
 	public void send(String eventName, Object eventData, String targetId) {
 	    emitters.forEach((id, userSessionInfo) -> {
 	        if (id != null && userSessionInfo != null && userSessionInfo.getEmitter() != null) {

@@ -19,6 +19,7 @@ import kr.kh.RLab.service.BoardService;
 import kr.kh.RLab.service.CommentService;
 import kr.kh.RLab.service.NotificationService;
 import kr.kh.RLab.utils.SseEmitters;
+import kr.kh.RLab.vo.AlarmVO.AlarmType;
 import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.CommentVO;
 import kr.kh.RLab.vo.MemberVO;
@@ -44,7 +45,7 @@ public class CommentController {
 			BoardVO board = boardService.getBoardByComment(comment.getCo_ex_num());
 			String userId = board.getBo_me_id(); // 게시물 작성자의 ID를 가져와야 함
 			String message = board.getBo_title()+"에 댓글이 달렸습니다";
-			notificationService.sendNotificationToUser(userId, message);
+			notificationService.sendNotificationToUser(userId, message, AlarmType.COMMENT);
 		}
 
 		Map<String, Object> map = new HashMap<>();
