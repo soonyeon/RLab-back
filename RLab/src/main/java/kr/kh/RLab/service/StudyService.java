@@ -63,5 +63,7 @@ public interface StudyService {
 
 	boolean updateMission(MissionVO missionVO);
 
+	void deleteLike(String li_me_id, int li_ph_num);
+
 
 }

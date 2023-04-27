@@ -72,4 +72,6 @@ public interface StudyDAO {
 
 	boolean updateMission(MissionVO missionVO);
 
+	void deleteLike(@Param("li_me_id")String li_me_id, @Param("li_ph_num")int li_ph_num);
+
 }

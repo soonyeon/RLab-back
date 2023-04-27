@@ -106,7 +106,9 @@ public class StudyController {
 		MemberVO member = (MemberVO) request.getSession().getAttribute("user");
 		String li_me_id = member.getMe_id();
 		LikeVO likeVO = studyService.getLikeByUserIdAndPhotoId(li_me_id, li_ph_num);
-
+		PhotoVO photo;
+		String photoUser;
+		String message;
 		if (likeVO == null) {// 좋아요가 존재하지않으면,
 			LikeVO newLike = new LikeVO();
 			newLike.setLi_me_id(li_me_id);
@@ -114,17 +116,30 @@ public class StudyController {
 			newLike.setLi_state(1);
 			studyService.insertLike(newLike);
 			
-			PhotoVO photo = studyService.getPhotoByPhNum(li_ph_num);
-			String photoUser = photo.getPh_me_id();//photo 작성자 id
-			String message = member.getMe_name()+"님이 다음 게시글에 좋아요 표시를 했습니다."+photo.getPh_content();
+			photo = studyService.getPhotoByPhNum(li_ph_num);
+			photoUser = photo.getPh_me_id();//photo 작성자 id
+			message = member.getMe_name()+"님이 다음 게시글에 좋아요 표시를 했습니다."+photo.getPh_content();
 			
 			notificationService.sendNotificationToUser(photoUser, message,AlarmType.LIKE);
 			sseController.sseNewLike(photo.getPh_num());
 			return "inserted";
 		} else {// 좋아요가 존재하면,
-			
 			int new_li_state = likeVO.getLi_state() == 1 ? 0 : 1;
-			studyService.updateLikeStatus(li_me_id, li_ph_num, new_li_state);
+			if(likeVO.getLi_state() == 1) { //좋아요를 다시 눌렀을 때 
+				studyService.updateLikeStatus(li_me_id, li_ph_num, new_li_state);
+				photo = studyService.getPhotoByPhNum(li_ph_num);
+				photoUser = photo.getPh_me_id();//photo 작성자 id
+				message = member.getMe_name()+"님이 다음 게시글에 좋아요 표시를 했습니다."+photo.getPh_content();
+				
+				notificationService.sendNotificationToUser(photoUser, message,AlarmType.LIKE);
+				sseController.sseNewLike(photo.getPh_num());
+			}else { // 좋아요를 취소 했을 때
+				// 좋아요 기록 삭제
+				System.out.println("좋아요 취소============================");
+				System.out.println(li_me_id + "+" + li_ph_num);
+				studyService.deleteLike(li_me_id, li_ph_num);
+			}
+			
 			return new_li_state == 1 ? "updated" : "canceled";
 		}
 	}
@@ -332,6 +347,4 @@ public class StudyController {
 	 	mv.setViewName("/study/daily");
 	    return mv;
 	}
-	
-
 }

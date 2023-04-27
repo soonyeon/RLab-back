@@ -179,6 +179,11 @@ public class StudyServiceImp implements StudyService {
 		return studyDao.updateMission(missionVO);
 	}
 
+	@Override
+	public void deleteLike(String li_me_id, int li_ph_num) {
+		studyDao.deleteLike(li_me_id,li_ph_num);
+	}
+
 
 
 	
