@@ -68,6 +68,10 @@ public interface StudyService {
 
 	ArrayList<MemberVO> getTdMembersName(ArrayList<String> stMeIdList);
 
+	double getTodoProgressRate(String memberId);
+
+
+
 
 
 

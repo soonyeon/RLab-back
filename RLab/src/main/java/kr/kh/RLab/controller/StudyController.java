@@ -288,7 +288,10 @@ public class StudyController {
 	    ArrayList<StudyMemberVO> myStudyList = studyService.getMyStudyLis(memberId);
 	    
 	    //유저의 투두 진척도
-//	    ArrayList<TodoVO> todoProgressRate = studyService.getTodoProgressRate(memberId);
+	    double todoProgressRate = studyService.getTodoProgressRate(memberId);
+	    int todoProgressRateint= (int) Math.round(todoProgressRate);
+//	    System.out.println("투두 진척도 : " + todoProgressRate+"%");
+	    
 	    
 	    //studyMemberVO에서 유저가 참여한 스터디의 멤버 리스트 가져오기 (sm_me_id)
 	    ArrayList<StudyMemberVO> myStudyMemberList = new ArrayList<StudyMemberVO>();
@@ -323,6 +326,7 @@ public class StudyController {
 	    mv.addObject("tdList", tdList);
 	    mv.addObject("memberId",memberId);
 	    mv.addObject("tdMembersName", tdMembersName);
+	    mv.addObject("todoProgressRateint",todoProgressRateint);
 	    mv.setViewName("/study/to_do_list");
 	    return mv;
 	}

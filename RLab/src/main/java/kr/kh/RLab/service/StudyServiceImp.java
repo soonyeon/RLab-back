@@ -219,6 +219,35 @@ public class StudyServiceImp implements StudyService {
 		return studyDao.selectTodoMembersName(stMeIdList);
 	}
 
+	@Override
+	public double getTodoProgressRate(String memberId) {
+		//1. memberId에 td_me_id와 일치하는 투두 개수 구하기
+		int totalTodo = studyDao.selectTodoCount(memberId);
+		
+		//2. memberId가 td_me_id와 일치하고 td_finish가 1인 투두 개수 구하기
+		int finishTodo = studyDao.selectTodoFinishCount(memberId);
+		
+//		//3. 2의 값/ 1의 값 * 100을 해서 진척률 구하기
+		double todoProgressRate = ((double) finishTodo / totalTodo) * 100;
+		
+		return todoProgressRate;
+	}
+
+//	@Override
+//	public ArrayList<TodoVO> getTodoProgressRate(String memberId) {
+//
+//		//1. memberId에 td_me_id와 일치하는 투두 개수 구하기
+//		int totalTodo =studyDao.selectTodoCount(memberId);
+//		
+//		//2. memberId가 td_me_id와 일치하고 td_finish가 1인 투두 개수 구하기
+//		int finishTodo = studyDao.selectTodoFinishCount(memberId);
+//		
+////		//3. 2의 값/ 1의 값 * 100을 해서 진척률 구하기
+//		double todoProgressRate = ((double) finishTodo / totalTodo) * 100;
+//		
+//		return todoProgressRate;
+//	}
+
 
 
 

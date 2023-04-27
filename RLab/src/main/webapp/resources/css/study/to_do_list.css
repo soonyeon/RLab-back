@@ -71,7 +71,17 @@
   width: 150px;
 }
 .todo_container_my .pet_box .progress_container{padding: 16px 50px;}
-.todo_container_my .pet_box .progress_container progress{width: 100%;}
+.todo_container_my .pet_box .progress_container canvas{
+	/* width: 100%; */
+   border: 0.7px solid rgb(136, 135, 135);
+   width: 243.7px;
+   height: 10px;
+   background-color: white;
+   border-radius: 10px;
+ }
+	
+	
+
 
 /* todo_container_member */
   .todo_container_member{

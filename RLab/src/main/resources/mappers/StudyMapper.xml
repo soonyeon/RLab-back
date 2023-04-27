@@ -159,4 +159,13 @@
 	        #{item}
 	    </foreach>
 	</select>
+ 	<select id="selectTodoCount" resultType="int">
+		SELECT count(*) FROM todo
+		WHERE td_me_id = #{memberId}
+	</select>
+	<select id="selectTodoFinishCount" resultType="int">
+		SELECT count(*) FROM todo
+		WHERE td_me_id = #{memberId} AND td_finish = 1
+	</select>
+	
 </mapper>

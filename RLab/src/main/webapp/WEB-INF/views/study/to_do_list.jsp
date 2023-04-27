@@ -82,9 +82,10 @@
 	
 	                        <!-- 달성률 -->
 	                        <div class="progress_container">
-	                            <progress value="20" max="100"></progress>
+	                            <!-- <progress value="20" max="100"></progress> -->
+	                            <canvas id="gauge" width="100" height="20"></canvas>
 	                            <div>
-	                                <p class="success_percent">달성률 20%</p>
+	                                <p class="success_percent">달성률 ${todoProgressRateint}%</p>
 	                            </div>
 	                        </div>
 	                    </div>
@@ -245,6 +246,26 @@
 
 
 <script>
+
+const canvas = document.getElementById("gauge");
+const ctx = canvas.getContext("2d");
+
+const value = ${todoProgressRateint}; // 게이지바 값
+const max = 100; // 게이지바 최대값
+const barWidth = 100; // 게이지바 너비
+const barHeight = 20; // 게이지바 높이
+const centerX = canvas.width / 2 - barWidth/2;
+const centerY = canvas.height / 2;
+
+// 게이지바 그리기
+const fillWidth = (value / max) * barWidth;
+ctx.fillStyle = "rgb(0, 128, 255)";
+ctx.fillRect(centerX, centerY - barHeight/2, fillWidth, barHeight);
+
+
+
+
+
 
 //DOM 요소 가져오기
 const todoInput = document.querySelector(".input_box"); // 할 일 입력란
