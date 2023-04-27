@@ -387,6 +387,25 @@ CREATE TABLE `notice_type` (
     `nt_name` varchar(10)
 );
 
+DROP TABLE IF EXISTS `inquiry`;
+
+CREATE TABLE `inquiry` (
+	`in_num`	int auto_increment	NOT NULL primary key,
+	`in_it_num`	int	NOT NULL,
+	`in_title`	varchar(20)	not null,
+	`in_me_id`	varchar(13)	NOT NULL,
+	`in_content`	longtext	not NULL,
+	`in_reg_date`	datetime	not NULL,
+	`in_ori_num`	int not null default 0
+);
+
+DROP TABLE IF EXISTS `inquiry_type`;
+
+CREATE TABLE `inquiry_type` (
+	`it_num`	int auto_increment	NOT NULL primary key,
+	`it_name`	varchar(10)	NULL
+);
+
 ALTER TABLE `branch` ADD CONSTRAINT `FK_region_TO_branch_1` FOREIGN KEY (
 	`br_re_name`
 )
@@ -725,6 +744,20 @@ REFERENCES `notice_type` (
 
 ALTER TABLE `notice` ADD CONSTRAINT `FK_member_TO_notice_1` FOREIGN KEY (
 	`no_me_id`
+)
+REFERENCES `member` (
+	`me_id`
+);
+
+ALTER TABLE `inquiry` ADD CONSTRAINT `FK_inquiry_type_TO_inquiry_1` FOREIGN KEY (
+	`in_it_num`
+)
+REFERENCES `inquiry_type` (
+	`it_num`
+);
+
+ALTER TABLE `inquiry` ADD CONSTRAINT `FK_member_TO_inquiry_1` FOREIGN KEY (
+	`in_me_id`
 )
 REFERENCES `member` (
 	`me_id`
