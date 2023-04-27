@@ -27,7 +27,7 @@
      <select id="getPhotosByStudyNum" resultType="kr.kh.RLab.vo.PhotoVO">
        SELECT p.*, m.me_name
 	   FROM photo p JOIN member m ON p.ph_me_id = m.me_id  
-	   WHERE ph_st_num = #{st_num} AND DATE(ph_register_date) = DATE(NOW()) and ph_pt_num = 2
+	   WHERE ph_st_num = #{st_num} AND DATE(ph_register_date) = DATE(NOW()) 
     </select>
     <!-- 좋아요기능 -->
 	 <insert id="insertLike">
