@@ -124,25 +124,11 @@ public class StudyController {
 			sseController.sseNewLike(photo.getPh_num());
 			return "inserted";
 		} else {// 좋아요가 존재하면,
-			int new_li_state = likeVO.getLi_state() == 1 ? 0 : 1;
-			if(likeVO.getLi_state() == 1) { //좋아요를 다시 눌렀을 때 
-				studyService.updateLikeStatus(li_me_id, li_ph_num, new_li_state);
-				photo = studyService.getPhotoByPhNum(li_ph_num);
-				photoUser = photo.getPh_me_id();//photo 작성자 id
-				message = member.getMe_name()+"님이 다음 게시글에 좋아요 표시를 했습니다."+photo.getPh_content();
-				
-				notificationService.sendNotificationToUser(photoUser, message,AlarmType.LIKE);
-				sseController.sseNewLike(photo.getPh_num());
-			}else { // 좋아요를 취소 했을 때
-				// 좋아요 기록 삭제
-				System.out.println("좋아요 취소============================");
-				System.out.println(li_me_id + "+" + li_ph_num);
 				studyService.deleteLike(li_me_id, li_ph_num);
 			}
 			
-			return new_li_state == 1 ? "updated" : "canceled";
+			return "canceled";
 		}
-	}
 
 	// 로그인하지 않고 스터디탭 눌렀을때 도달하는 url
 	@RequestMapping(value = "", method = RequestMethod.GET)
