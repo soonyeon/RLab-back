@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.kh.RLab.dao.NotificationDao">
+	 <!-- 알림 이벤트 생성 -->
+    <insert id="createNotificationEvent" parameterType="kr.kh.RLab.vo.AlarmVO">
+        INSERT INTO alram (al_me_id, al_content, alarm_type)
+        VALUES (#{al_me_id}, #{al_content}, #{alarm_type})
+    </insert>
+
+    <!-- 사용자별 알림 이벤트 조회 -->
+    <select id="getUserAlrams" resultType="kr.kh.RLab.vo.AlarmVO">
+        SELECT * FROM alram WHERE al_me_id = #{al_me_id}
+    </select>
+</mapper>

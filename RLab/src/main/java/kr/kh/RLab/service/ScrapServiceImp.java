@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import kr.kh.RLab.dao.ScrapDAO;
+import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.ScrapVO;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,7 @@ public class ScrapServiceImp implements ScrapService{
 	@Override
 	public Map<String, Object> toggleScrap(ScrapVO scrapVO) {
 		// DB에서 기존 스크랩 정보를 조회
-		ScrapVO isScrap = scrapDAO.findScrap(scrapVO);
+		ScrapVO isScrap = scrapDAO.selectScrapByMeIdAndBoNum(scrapVO);
 		int newScrapState;
 
 		// 기존 스크랩 정보가 없을 경우
@@ -58,15 +59,11 @@ public class ScrapServiceImp implements ScrapService{
         return scrapDAO.getScrapCountByBoard(bo_num);
 	}
 
-	@Override
-	public ArrayList<BoardVO> getScrapListById(String memberId) {
-		if(memberId == null)
-			return null;
-		return scrapDAO.selectScrapListById(memberId);
-	}
+
+
 
 	@Override
 	public ArrayList<ScrapVO> findScrap(int bo_num) {
-		return scrapDAO.findScrap2(bo_num);
+		return scrapDAO.selectScrapByBoNumAndState(bo_num);
 	}
 }

@@ -87,7 +87,6 @@ footer .corp_container .link_corp:nth-child(1)::before{
 	width: 100%;
   display: flex;
   flex-flow: row; 
-  height : 1100px;
 }
 
 /* main #main_container {
@@ -366,6 +365,7 @@ cursor: pointer;
   background-image: url(../img/certify_img.jpeg);
   background-size: cover;
   min-height: 270px;
+  width: 370px;
   background-position: center;
   border-radius: var(--border_radius_4);
 }
@@ -666,10 +666,17 @@ cursor: pointer;
   text-align: center;
   font-weight: bold;
 }
+.acc_img {
+    width: 30px;
+    height: 30px;
+    border-radius: var(--border_radius_1);
+    position: relative;
+    display: inline-block;
+}
+
 .circle_accessor {
   width: 30px;
   height: 30px;
-  background-color: white;
   border: var(--border_light);
   border-radius: var(--border_radius_1);
   position: relative;

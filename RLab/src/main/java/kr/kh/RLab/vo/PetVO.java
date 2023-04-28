@@ -8,16 +8,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PetVO {
+
+	int pe_num;
 	String pe_name;
-	String me_name;
-	String me_pw;
-	String me_email;
-	String me_profile;
-	int me_authority;
-	int me_point;
-	int me_rest_time;
-	int me_use_time;
-	
+	int pe_final_level;
+	String pe_prize;
 
 
 }

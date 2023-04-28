@@ -13,7 +13,7 @@ public interface BoardService {
 	boolean insertBoard(BoardVO board, MemberVO member);
 	
     //게시글 리스트
-	ArrayList<BoardVO> selectBoardList(Criteria cri);
+	ArrayList<BoardVO> selectBoardList(Criteria cri, int st_num);
 	
 	//게시글 상세조회
 	BoardVO getBoard(int bo_num);
@@ -29,14 +29,9 @@ public interface BoardService {
 	
 	//스터디 가져오기
 	ArrayList<StudyVO> selectStudyList();
-	
-	// 아이디로 작성게시글 목록 가져오기
-	ArrayList<BoardVO> getBoardListById(String memberId);
-	
-	// 로그인한 회원이 작성한 게시글 전체 수
-	int getPostBoardTotalCount(String memberId);
-	
 
-	
+	BoardVO getBoardByComment(int co_num);
+
+	ArrayList<BoardVO> findBoardById(String me_id);
 	
 }

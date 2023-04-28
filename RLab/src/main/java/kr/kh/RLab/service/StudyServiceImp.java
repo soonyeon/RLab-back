@@ -11,6 +11,8 @@ import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.utils.UploadFileUtils;
 import kr.kh.RLab.vo.LikeVO;
 import kr.kh.RLab.vo.MemberVO;
+import kr.kh.RLab.vo.MissionFinishVO;
+import kr.kh.RLab.vo.MissionVO;
 import kr.kh.RLab.vo.PhotoTypeVO;
 import kr.kh.RLab.vo.PhotoVO;
 import kr.kh.RLab.vo.StudyMemberVO;
@@ -22,53 +24,53 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class StudyServiceImp implements StudyService {
 
-    private final StudyDAO studyDao;
-    String uploadPath = "D:\\uploadfiles";
+	private final StudyDAO studyDao;
+	String uploadPath = "D:\\uploadfiles";
 
-    @Override
-    public ArrayList<PhotoTypeVO> getListPhotoType() {
-        return studyDao.getPhotoType();
-    }
+	@Override
+	public ArrayList<PhotoTypeVO> getListPhotoType() {
+		return studyDao.getPhotoType();
+	}
 
-    @Override
-    public boolean insertCB(PhotoVO photo, MultipartFile[] files, MemberVO member) {
-        if (member == null)
-            return false;
-        photo.setPh_me_id(member.getMe_id());
+	@Override
+	public boolean insertCB(PhotoVO photo, MultipartFile[] files, MemberVO member) {
+		if (member == null)
+			return false;
+		photo.setPh_me_id(member.getMe_id());
 
-        if (files != null && files.length > 0) {
-            uploadFiles(files, photo.getPh_num(), photo);
-        }
+		if (files != null && files.length > 0) {
+			uploadFiles(files, photo.getPh_num(), photo);
+		}
 
-        return true;
-    }
+		return true;
+	}
 
-    private void uploadFiles(MultipartFile[] files, int st_num, PhotoVO photo) {
-        if (files == null || files.length == 0)
-            return;
-        for (MultipartFile file : files) {
-            if (file == null || file.getOriginalFilename().length() == 0)
-                continue;
-            String fileName = "";
-            try {
-                fileName = UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes());
-                photo.setPh_img(fileName);
-                studyDao.insertCB(photo);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
+	private void uploadFiles(MultipartFile[] files, int st_num, PhotoVO photo) {
+		if (files == null || files.length == 0)
+			return;
+		for (MultipartFile file : files) {
+			if (file == null || file.getOriginalFilename().length() == 0)
+				continue;
+			String fileName = "";
+			try {
+				fileName = UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes());
+				photo.setPh_img(fileName);
+				studyDao.insertCB(photo);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
-    @Override
+	@Override
 	public ArrayList<StudyVO> getStudyByMemberId(String me_id) {
 		return studyDao.getStudyByMemberId(me_id);
 	}
-	
-	 @Override
+
+	@Override
 	public List<PhotoVO> getPhotosByStudyNum(int st_num) {
-	     return studyDao.getPhotosByStudyNum(st_num);
-	    }
+		return studyDao.getPhotosByStudyNum(st_num);
+	}
 
 	@Override
 	public void insertLike(LikeVO likeVO) {
@@ -92,31 +94,45 @@ public class StudyServiceImp implements StudyService {
 
 	@Override
 	public ArrayList<StudyVO> getStudyListById(String memberId) {
-		if(memberId == null)		
+		if (memberId == null)
 			return null;
 //		System.out.println(memberId+2);
 		return studyDao.selectStudyListById(memberId);
 	}
 
 	@Override
-	public ArrayList<StudyMemberVO> getStudyMemberList(int st_num,Criteria cri) {
-		return studyDao.selectStudyMemberList(st_num,cri); 
+	public ArrayList<StudyMemberVO> getStudyMemberList(int st_num, Criteria cri) {
+		return studyDao.selectStudyMemberList(st_num, cri);
 	}
-	
+
 	@Override
 	public int getStudyTotalCount(int st_num) {
-		return studyDao.selectStudyTotalCount(st_num);			
-		
+		return studyDao.selectStudyTotalCount(st_num);
+
 	}
 
 	@Override
 	public void deleteStudyMember(int st_num, String me_name) {
-		//me_id 가져오기
+		// me_id 가져오기
 		String me_id = studyDao.selectStudyMemberId(me_name);
 		//st_num과 me_id를 이용하여 해당 정보를 study_member에서 삭제하기
 		if(studyDao.deleteStudyMember(st_num, me_id)==0)
 			return;
-		
+	}
+
+	@Override
+	public List<StudyMemberVO> selectList(int st_num) {
+		return studyDao.selectList(st_num);
+	}
+
+	@Override
+	public List<StudyMemberVO> getOnlineMembers() {
+		return studyDao.getOnlineMembers();
+	}
+
+	@Override
+	public ArrayList<StudyMemberVO> selectStudyMemberByStNum(int st_num) {
+		return studyDao.selectStudyMemberByStNum(st_num);
 	}
 
 	@Override
@@ -233,37 +249,51 @@ public class StudyServiceImp implements StudyService {
 		return todoProgressRate;
 	}
 
-//	@Override
-//	public ArrayList<TodoVO> getTodoProgressRate(String memberId) {
-//
-//		//1. memberId에 td_me_id와 일치하는 투두 개수 구하기
-//		int totalTodo =studyDao.selectTodoCount(memberId);
-//		
-//		//2. memberId가 td_me_id와 일치하고 td_finish가 1인 투두 개수 구하기
-//		int finishTodo = studyDao.selectTodoFinishCount(memberId);
-//		
-////		//3. 2의 값/ 1의 값 * 100을 해서 진척률 구하기
-//		double todoProgressRate = ((double) finishTodo / totalTodo) * 100;
-//		
-//		return todoProgressRate;
-//	}
+	@Override
+	public ArrayList<PhotoVO> selectPhotoPhNumTwo(int st_num) {
+		return studyDao.selectPhotoPhNumTwo(st_num);
+	}
 
+	@Override
+	public int selectSmAuthority(MemberVO user,int st_num) {
+		return studyDao.selectSmAuthority(user,st_num);
+	}
 
+	@Override
+	public boolean insertMission(MissionVO missionVO) {
+		return studyDao.insertMission(missionVO);
+	}
 
+	@Override
+	public MissionVO selectMission(int st_num) {
+		return studyDao.selectMission(st_num);
+	}
 
+	@Override
+	public int insertMissionFinishMember(MemberVO member,int st_num) {
+		return studyDao.insertMissionFinishMember(member,st_num);
+	}
 
+	@Override
+	public ArrayList<String> selectMissionFinishMember(int st_num) {
+		return studyDao.selectMissionFinishMember(st_num);
+	}
 
+	@Override
+	public boolean updateMission(MissionVO missionVO) {
+		return studyDao.updateMission(missionVO);
+	}
 
+	@Override
+	public PhotoVO getPhotoByPhNum(int li_ph_num) {
+		if(li_ph_num == 0)
+		return null;
+		return studyDao.getPhotosByPhNum(li_ph_num);
+	}
 
+	@Override
+	public MissionFinishVO selectTodayMissionFinsh(String me_id) {
+		return studyDao.selectTodayMissionFinsh(me_id);
+	}
 
-
-		
-	
-	
-	
-	
-	
-	
-	
-	
 }

@@ -9,6 +9,8 @@ import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.LikeVO;
 import kr.kh.RLab.vo.MemberVO;
+import kr.kh.RLab.vo.MissionFinishVO;
+import kr.kh.RLab.vo.MissionVO;
 import kr.kh.RLab.vo.PhotoTypeVO;
 import kr.kh.RLab.vo.PhotoVO;
 import kr.kh.RLab.vo.StudyMemberVO;
@@ -54,7 +56,6 @@ public interface StudyDAO {
 	void updateStudyLeaderAuthority(@Param("sm_st_num")int sm_st_num, @Param("leaderId")String leaderId);
 
 	void updateStudyLeader(@Param("sm_st_num")int sm_st_num, @Param("sm_me_id")String sm_me_id);
-
 	
 	void deleteStudyMemberList(@Param("st_num")int st_num);
 
@@ -92,15 +93,32 @@ public interface StudyDAO {
 
 	int selectTodoFinishCount(@Param("memberId")String memberId);
 
+	//void deleteStudyMember(@Param("st_num")int st_num, @Param("me_name")String me_name);
+	
+	List<StudyMemberVO> selectList(int st_num);
+    
+  List<StudyMemberVO> getOnlineMembers();
 
+	PhotoVO getPhotosByPhNum(int li_ph_num);
 
+	ArrayList<StudyMemberVO> selectStudyMemberByStNum(int st_num);
 
+	ArrayList<PhotoVO> selectPhotoPhNumTwo(int st_num);
 
+	ArrayList<MemberVO> selectMember(int st_num);
 
+	int selectSmAuthority(@Param("user")MemberVO user,@Param("st_num")int st_num);
 
+	boolean insertMission(MissionVO missionVO);
 
+	MissionVO selectMission(int st_num);
 
+	int insertMissionFinishMember(@Param("user")MemberVO member,@Param("st_num")int st_num);
 
+	ArrayList<String> selectMissionFinishMember(int st_num);
 
+	boolean updateMission(MissionVO missionVO);
+
+	MissionFinishVO selectTodayMissionFinsh(String me_id);
 
 }

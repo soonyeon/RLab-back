@@ -1,5 +1,7 @@
 package kr.kh.RLab.vo;
 
+import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,8 +21,11 @@ public class MemberVO {
 	private int me_use_time;
 	private String me_profile;
 	private int me_study;
+	private String me_session_id;
+	private Date me_session_limit;
+	boolean autoLogin;
 	
-	public MemberVO(String me_id, String me_name, String me_pw, String me_email, String me_profile, int me_authority,
+ MemberVO(String me_id, String me_name, String me_pw, String me_email, String me_profile, int me_authority,
 			int me_point) {
 		this.me_id = me_id;
 		this.me_name = me_name;
@@ -30,5 +35,6 @@ public class MemberVO {
 		this.me_authority = me_authority;
 		this.me_point = me_point;
 	}
-
+	
+	
 }

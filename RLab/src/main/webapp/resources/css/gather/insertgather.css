@@ -3,6 +3,7 @@
   width: var(--body_size);
   margin: 0;
   margin-top: 100px;
+  display: contents;
   }
   #main_container{
     display: flex;

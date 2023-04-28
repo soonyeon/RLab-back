@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.kh.RLab.dao.ReservationDAO">
+<!-- 결제 -->
+	<select id="selectAllPointById" resultType="int">
+		select me_point from member where me_id = #{me_id}
+	</select>
+	<insert id="insertPay" useGeneratedKeys="true" keyProperty="pa.pa_num">
+		insert into pay(pa_order_id,pa_me_id, pa_order_name, pa_date, pa_amount, pa_point, pa_used_point)
+		values(#{pa.pa_order_id},#{pa.pa_me_id},#{pa.pa_order_name},now(),#{pa.pa_amount},#{pa.pa_point},#{pa.pa_used_point})
+	</insert>
+	<insert id="insertPayDetail">
+		insert into pay_detail(pd_pa_order_id, pd_ti_num, pd_amount, pd_price, pd_state)
+		values
+		<foreach collection="items" item="i" separator=",">
+			(#{pa_order_id}, #{i.pd_ti_num}, #{i.pd_amount}, #{i.pd_price}, '결제중')
+		</foreach>
+	</insert>
+	<select id="selectPayDetailByPaOrderId" resultType="kr.kh.RLab.vo.ItemVO">
+		select * from pay_detail where pd_pa_order_id = #{pa_order_id}
+	</select>
+	<update id="updatePayDetailState">
+		update pay_detail set pd_state = '결제완료' where pd_num = #{pd.pd_num}
+	</update>
+	<select id="selectPayByPaOrderId" resultType="kr.kh.RLab.vo.PayDTO">
+		select * from pay where pa_order_id = #{pa_order_id}
+	</select>
+	<insert id="insertTicketOwn">
+		insert into ticket_own(to_me_id, to_ti_num, to_pa_order_id, to_rest_time, to_valid_date, to_state)
+		values(#{pa_me_id},#{pd.pd_ti_num},#{pa_order_id}, (
+			select ti_period from ticket where ti_num = #{pd.pd_ti_num}
+		), date_add(now(),interval 6 month),1)
+	</insert>
+	<update id="updateMePoint">
+		update member 
+		set me_point = me_point + #{pay.pa_point} - #{pay.pa_used_point} 
+		where me_id = #{pay.pa_me_id}
+	</update>
+	<insert id="insertPoint">
+		insert into point(po_me_id, po_date, po_amount, po_state)
+		values(#{pay.pa_me_id},now(), #{pay.pa_point},1)
+	</insert>
+	<insert id="insertUsedPoint">
+		insert into point(po_me_id, po_date, po_amount, po_state)
+		values(#{pay.pa_me_id},now(), #{pay.pa_used_point},0)
+	</insert>
+	<delete id="deletePayByPaOrderId">
+		delete from pay where pa_order_id = #{pa_order_id}
+	</delete>
+	<delete id="deletePayDetailByPaOrderId">
+		delete from pay_detail where pd_pa_order_id = #{pa_order_id}
+	</delete>
+	<select id="selectItemStrList" resultType="String">
+		select concat(tt_name, ' (', ti_name, ') ', pd_amount, '개') as item from pay_detail
+		left join ticket on pd_ti_num = ti_num
+		left join ticket_type on ti_tt_num = tt_num
+		where pd_pa_order_id = #{pa_order_id} and pd_state = '결제완료';
+	</select>
+<!-- 예약 -->
+	<select id="selectAllBranch" resultType="kr.kh.RLab.vo.BranchVO">
+		select * from branch
+		WHERE br_name LIKE CONCAT('%', #{cri.search}, '%')
+		<if test="cri.region != ''">
+			and br_re_name = #{cri.region}
+		</if>
+		group by br_num
+		order by br_name desc
+		limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	<select id="selectBranchTotalCount" resultType="int">
+		select count(*) from branch
+			WHERE br_name LIKE CONCAT('%', #{cri.search}, '%')
+			<if test="cri.region != ''">
+				and br_re_name = #{cri.region}
+			</if>
+	</select>
+	<select id="selectBranchByBr_num" resultType="kr.kh.RLab.vo.BranchVO">
+		select * from branch where br_num = #{br_num}
+	</select>
+	<resultMap type="hashMap" id="selectMap"></resultMap>
+	<select id="selectSeatTicketOwnById" resultType="kr.kh.RLab.vo.TicketOwnVO">
+		select * from ticket_own 
+		join ticket on ti_num = to_ti_num
+		join ticket_type on ti_tt_num = tt_num
+		where to_me_id = #{me_id} and ti_tt_num != 4 and to_state = 1
+		order by to_ti_num asc, to_valid_date asc
+	</select>
+	<select id="selectMyReservation" resultType="kr.kh.RLab.vo.ReservationVO">
+		select * from reservation
+		join ticket_own on re_to_num = to_num
+		join ticket on to_ti_num = ti_num
+		where re_me_id = #{me_id} and (now() between re_start_time and re_valid_time)
+		<if test="ki_num == 1">
+			and ti_tt_num != 4
+		</if>
+		<if test="ki_num == 2">
+			and ti_tt_num = 4
+		</if>
+	</select>
+	<insert id="insertReservation">
+		insert into reservation(re_me_id, re_se_num, re_hours, re_start_time, re_valid_time, re_register_date, re_to_num)
+		values(#{book.re_me_id}, (
+			select se_num from seat where se_br_num = #{book.br_num} and se_name = #{book.se_name} and se_ki_num = #{se_ki_num}
+			), ${book.re_hours}, now(), (select date_add(now(), interval ${book.re_hours} hour)), now(), #{book.re_to_num})
+	</insert>
+	<select id="selectTiNum" resultType="int">
+		select to_ti_num from ticket_own where to_num = #{re_to_num}
+	</select>
+	<select id="selectTiPeriod" resultType="int">
+		select ti_period from ticket where ti_num = #{tiNum}
+	</select>
+	<update id="updateTicketState">
+		update ticket_own set to_state = 0 where to_num = #{re_to_num}
+	</update>
+	<update id="updateTicketRestTime">
+		update ticket_own set to_rest_time = to_rest_time - #{re_hours} where to_num = #{re_to_num}
+	</update>
+	<select id="selectRestTime" resultType="int">
+		select to_rest_time from ticket_own where to_num = #{re_to_num}
+	</select>
+	<update id="updateMemberUseTime">
+		update member set me_use_time = me_use_time + ${re_hours} where me_id = #{re_me_id}
+	</update>
+	<select id="getMypet" resultType="kr.kh.RLab.vo.GrowthVO">
+		select * from growth where gr_me_id = #{re_me_id}
+	</select>
+	<update id="updatePetExp">
+	<![CDATA[ 
+		update growth
+		set gr_exp = (
+			select exp from (
+				select
+					case
+						when (gr_exp+#{re_hours})<= (
+							select ex_experience from exp
+							where ex_level = (
+								select pe_final_level from pet
+								join growth on pe_num = gr_pe_num
+								where gr_me_id = #{re_me_id}
+								)
+						) 
+		                then (gr_exp+#{re_hours})
+						when (gr_exp+#{re_hours})> (
+							select ex_experience from exp
+							where ex_level = (
+								select pe_final_level from pet
+								join growth on pe_num = gr_pe_num
+								where gr_me_id = #{re_me_id}
+								)
+						)
+		                then (
+							select ex_experience from exp
+							where ex_level = (
+								select pe_final_level from pet
+								join growth on pe_num = gr_pe_num
+								where gr_me_id = #{re_me_id}
+								)
+						)
+					end as 'exp'
+				from growth
+			) tmp)
+		where gr_me_id = #{re_me_id}
+	]]>
+	</update>
+	<update id="updateMypetLevel">
+	<![CDATA[ 
+	update growth
+	set gr_level = (
+		select level from
+			(select 
+				case
+					when  gr_exp>=0 and gr_exp<8 then 1
+					when  gr_exp>=8 and gr_exp<27 then 2
+					when  gr_exp>=27 and gr_exp<82 then 3
+					when  gr_exp>=82 and gr_exp<178 then 4
+					when  gr_exp>=178 and gr_exp<328 then 5
+					when  gr_exp>=328 and gr_exp<=598 then 6
+				end as 'level'
+			from growth
+		) tmp)
+	where gr_me_id = #{re_me_id};
+	]]>
+	</update>
+	<select id="selectReservationByBook" resultType="kr.kh.RLab.vo.ReservationVO">
+		select * from reservation
+		join seat on re_se_num = se_num
+		where re_me_id = #{re_me_id} and re_hours = #{re_hours} and re_to_num = #{re_to_num}
+		order by re_num desc
+		limit 1
+	</select>
+	<select id="selectTicketName" resultType="String">
+		select concat(tt_name, ' (', substring_index(ti_name, ' 이용권', 1), ')') from ticket_own
+		join ticket on to_ti_num = ti_num
+		join ticket_type on ti_tt_num = tt_num
+		where to_num = #{re_to_num}
+	</select>
+	<select id="selectTicketRestTime" resultType="int">
+		select to_rest_time from ticket_own where to_num = #{re_to_num}
+	</select>
+	<select id="selectCabinetTicketOwnById" resultType="kr.kh.RLab.vo.TicketOwnVO">
+		select * from ticket_own 
+		join ticket on ti_num = to_ti_num
+		join ticket_type on ti_tt_num = tt_num
+		where to_me_id = #{me_id} and ti_tt_num = 4 and to_state = 1
+		order by to_ti_num asc, to_valid_date asc
+	</select>
+	<select id="selecetReservation" resultType="kr.kh.RLab.vo.ReservationVO">
+		select * from reservation join seat on re_se_num = se_num where re_num = #{re_num}
+	</select>
+	<select id="selectBranchBySenum" resultType="kr.kh.RLab.vo.BranchVO">
+		select * from branch
+		where br_num = (select se_br_num from seat where se_num = #{re_se_num})
+	</select>
+</mapper>

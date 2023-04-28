@@ -6,11 +6,19 @@ public interface JoinStudyDAO {
 
 	StudyMemberVO findJoinStudyMember(StudyMemberVO studyMember);
 
-	void insertStudyMember(StudyMemberVO studyMember);
-
-	void updateJoinStudyMember(StudyMemberVO isJoin);
+	void insertStudyMember(StudyMemberVO studyMember);	
 
 	int getJoinCountByStudy(int st_num);
+
+	void updateNowPeople(int sm_st_num);
+
+	int getJoinCount();
+
+	void updateStudyNowPeopleUp(int sm_st_num);
+
+	void deleteStudyMember(StudyMemberVO isJoin);
+
+	void updateStudyNowPeopleDown(int sm_st_num);
 
 
 
