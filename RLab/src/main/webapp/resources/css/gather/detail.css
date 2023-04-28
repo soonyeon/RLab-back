@@ -1,193 +1,202 @@
-   /* main */
-    main{
-    width: var(--body_size);
-    margin: 0;
-    margin-top: 100px;
-    }
-    #main_container{
-      display: flex;
-      flex-direction: column;
-    }
-    .board_title{
-      display: flex;
-      justify-content: center;
-      font-size: x-large
-    }
-    .title_bottom{
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      column-gap: 20px;
-      font-size: small;
-      line-height: 50px;
-    }
-    .writer_box .icon_writer {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      background-size: 70px 40px;
-      background-position: -20px 0;
-      background-image: url(../img/profile_img.png);
-      background-repeat: no-repeat;
-    }
-    .writer_box .writer_name{
-      vertical-align: 10px;
-    }
-    .view_box .icon_view{
-      width: 20px;
-      height: 20px;
-      vertical-align: -5px;
-    }
+/* main */
+main{
+width: var(--body_size);
+margin: 0;
+margin-top: 100px;
+}
+#main_container{
+  display: flex;
+  flex-direction: column;
+}
+.board_title{
+  display: flex;
+  justify-content: center;
+  font-size: x-large
+}
+.title_bottom{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  column-gap: 20px;
+  font-size: small;
+  line-height: 50px;
+}
+.writer_box .icon_writer {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-size: 70px 40px;
+  background-position: -20px 0;
+  background-image: url(../img/profile_img.png);
+  background-repeat: no-repeat;
+}
+.writer_box .writer_name{
+  vertical-align: 10px;
+}
+.view_box .icon_view{
+  width: 20px;
+  height: 20px;
+  vertical-align: -5px;
+}
 
 
-    /*내용*/
-    .main_total_box{
-      display: flex;
-      justify-content: space-between;
-      margin-top: 5px;
-     
-    }
-    .main_total_box .main_left_box{
-      border: 1px solid black;
-      width: 700px ;
-      height: 600px;
-      padding: 50px;
-      border-radius: var(--border_radius_3);
-      box-shadow: 5px 5px 0px rgb(7, 7, 7);
-      overflow: auto;
-    
-    }
-    .main_total_box .main_right_box{
-      border: 1px solid black;
-      width: 300px;
-      height: 500px;
-      border-radius: var(--border_radius_3);
-    }
-    .main_right_box .rc_img_box{
-      display: grid;
-      place-items: center;
-      height: 200px;
-      background-color: var(--color_blue);
-      border-top-left-radius : var(--border_radius_3);
-      border-top-right-radius : var(--border_radius_3);
-     
-    }
-    .main_right_box .rc_img{
-      margin-top: 25px;
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      background-image: url(../../img/study_img.jpeg);
-      border: 1px solid black;
-      place-items: center;
-    }
-    .main_right_box .rc_info_box{
-      width: 260px;
-      height: 241px;
-      background-color: #fff;
-      border-bottom-left-radius: var(--border_radius_3);
-      border-bottom-right-radius: var(--border_radius_3);
-      padding: 39px 20px 20px 20px;
-    }
-    .study_recruit_content_box{
-     display: flex; 
-     font-size: 25px;
-     margin-bottom: 20px;
+/*내용*/
+.main_total_box{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+ 
+}
+.main_total_box .main_left_box{
+  border: 1px solid black;
+  width: 700px ;
+  height: 600px;
+  padding: 50px;
+  border-radius: var(--border_radius_3);
+  box-shadow: 5px 5px 0px rgb(7, 7, 7);
+  overflow: auto;
 
-     justify-content: center;
-    }
-    .study_content{
-      display: flex; 
-      justify-content: space-between;
-    
-    }
-    .study_content .study_recruiting{
-      border: 2px solid var(--color_black);
-      background-color: var(--color_yellow);
-      text-align: center;
-      border-radius: var(--border_radius_4);
-      color: var(--color_black);
-      font-size: 16px;
-      width: 116px;
-      height: 37px;
-      line-height: 38px;
-    }
-    
-    .study_content .unlike_img{
-     width: 30px; 
-      height: 30px;
-      background-image: url('../../img/love_off.png');
-      background-size: cover;
-    }
-    .study_content .like_img {
-	   	width : 30px;
-	   	height:30px;
-	   	background-image: url('../../img/like_on_red.png');
-	   	background-size: cover;
-    }
-    .study_tag_info{
-      display: flex;
-      column-gap: 5px;
-      row-gap: 5px;
-      flex-wrap: wrap;
-      margin-top:20px;
-      overflow: hidden;
-      box-sizing: border-box;
-    }
-    .main_right_box .study_tag{
-      border-radius: var(--border_radius_2); 
-      text-decoration: none; 
-      background-color: var(--color_blue);
-      color: var(--color_black); 
-      text-align :center;
-      font-size: 13px;
-      padding: 5px 10px;
-    }
-    .main_right_box .study_tag_info :nth-child(2n){
-      background-color: var(--color_mint);
-    }
-    .main_right_box .apply_btn{
-      margin-top: 18px;
-      width: 260px;
-      height: 50px;
-      font-size: 25px;
-      border-radius: var(--border_radius_4);
-      background-color: var(--color_yellow);
-      cursor: pointer;
-    }
-    
-    .main_right_box .already_apply_btn{
-      margin-top: 18px;
-      width: 260px;
-      height: 50px;
-      font-size: 25px;
-      border-radius: var(--border_radius_4);
-      background-color: var(--color_yellow);
-      cursor: pointer;
-    }
-    .main_bottom_box{
-      margin-top: 40px;
-    }
-    
-    .btns_leader{
-     margin-top : 20px;
-     display : flex;
-	justify-content: end;
-    column-gap: 15px;
-    }
-    
-    .btn_edit{
-    width: 88px;
-    height: 30px;
-    border-radius: 10px;
-    background-color: white;
-    }
-    .btn_delete{
-    width: 88px;
-    height: 30px;
-    border-radius: 10px;
-    background-color: white;
-    }
+}
+.main_total_box .main_right_box{
+  border: 1px solid black;
+  width: 300px;
+  height: 500px;
+  border-radius: var(--border_radius_3);
+}
+.main_right_box .rc_img_box{
+  display: grid;
+  place-items: center;
+  height: 200px;
+  background-color: var(--color_blue);
+  border-top-left-radius : var(--border_radius_3);
+  border-top-right-radius : var(--border_radius_3);
+ 
+}
+.main_right_box .rc_img{
+  margin-top: 25px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background-image: url(../../img/study_img.jpeg);
+  border: 1px solid black;
+  place-items: center;
+}
+.main_right_box .rc_info_box{
+  width: 260px;
+  height: 241px;
+  background-color: #fff;
+  border-bottom-left-radius: var(--border_radius_3);
+  border-bottom-right-radius: var(--border_radius_3);
+  padding: 39px 20px 20px 20px;
+}
+.study_recruit_content_box{
+ display: flex; 
+ font-size: 25px;
+ margin-bottom: 20px;
+
+ justify-content: center;
+}
+.study_content{
+  display: flex; 
+  justify-content: space-between;
+
+}
+.study_content .study_recruiting{
+  border: 2px solid var(--color_black);
+  background-color: var(--color_yellow);
+  text-align: center;
+  border-radius: var(--border_radius_4);
+  color: var(--color_black);
+  font-size: 16px;
+  width: 116px;
+  height: 37px;
+  line-height: 38px;
+}
+
+.study_content .unlike_img{
+ width: 30px; 
+  height: 30px;
+  background-image: url('../../img/love_off.png');
+  background-size: cover;
+}
+.study_content .like_img {
+	width : 30px;
+	height:30px;
+	background-image: url('../../img/like_on_red.png');
+	background-size: cover;
+}
+.study_tag_info{
+  display: flex;
+  column-gap: 5px;
+  row-gap: 5px;
+  flex-wrap: wrap;
+  margin-top:20px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.main_right_box .study_tag{
+  border-radius: var(--border_radius_2); 
+  text-decoration: none; 
+  background-color: var(--color_blue);
+  color: var(--color_black); 
+  text-align :center;
+  font-size: 13px;
+  padding: 5px 10px;
+}
+.main_right_box .study_tag_info :nth-child(2n){
+  background-color: var(--color_mint);
+}
+.main_right_box .apply_btn{
+  margin-top: 18px;
+  width: 260px;
+  height: 50px;
+  font-size: 25px;
+  border-radius: var(--border_radius_4);
+  background-color: var(--color_yellow);
+  cursor: pointer;
+}
+
+.main_right_box .already_apply_btn{
+  margin-top: 18px;
+  width: 260px;
+  height: 50px;
+  font-size: 25px;
+  border-radius: var(--border_radius_4);
+  background-color: var(--color_yellow);
+  cursor: pointer;
+}
+.main_bottom_box{
+  margin-top: 40px;
+}
+  
+.btns_leader{
+ margin-top : 20px;
+ display : flex;
+ justify-content: end;
+ column-gap: 15px;
+}
+  
+ .btn_edit{
+ width: 98px;
+ height: 33px;
+ border-radius: var(--border_radius_2);
+ background-color: var(--color_blue);
+ text-align: center;
+ cursor: pointer;
+ border: 2px solid;
+ line-height: 2.3; 
+ }
+  
+ .btn_delete{
+	width: 98px;
+ height: 37px;
+ font-size: 15px;
+ padding: 5px;
+ border: 1px sold;
+ border-radius: var(--border_radius_2);
+ background-color: var(--color_blue);
+ }
+  
    /*댓글*/
 .main_bottom_box{
   margin-top: 40px;

@@ -39,7 +39,7 @@
 			    </div>
 			    <div id="modal-background" class="modal-background" style="display: none;"></div>
 			  </div>
-		</div>
+		
 		<form action="<c:url value='/gather/update/${ga.ga_num}'></c:url>" method="post">			
 			<h2>모집할스터디</h2>
 			<select id="choose_study" name="ga_st_num">
@@ -60,6 +60,7 @@
 			</div>
 		</form>
 	</div>
+
 </main>
 
 	<!-- Modal -->
