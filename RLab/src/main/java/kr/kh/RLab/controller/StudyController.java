@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,7 +30,6 @@ import kr.kh.RLab.service.StudyService;
 import kr.kh.RLab.vo.AlarmVO.AlarmType;
 import kr.kh.RLab.vo.LikeVO;
 import kr.kh.RLab.vo.MemberVO;
-import kr.kh.RLab.vo.MissionFinishVO;
 import kr.kh.RLab.vo.MissionVO;
 import kr.kh.RLab.vo.PhotoTypeVO;
 import kr.kh.RLab.vo.PhotoVO;
@@ -333,11 +333,19 @@ public class StudyController {
 	    return mv;
 	}
 	//스터디 탈퇴하기
-	@PostMapping("/leaveStudy/{st_num}")
+	@PostMapping("/leave/{st_num}")
+	@ResponseBody
 	public String leaveStudy(HttpSession session, @PathVariable("st_num") int st_num) {
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		studyService.leaveStudy(user,st_num);
-		return "redirect:/";
 		
+		//스터디 정보
+		StudyVO study = studyService.getStudy(st_num);
+		study.setSt_now_people(study.getSt_now_people()-1);
+		
+		//스터디 정보 업데이트
+	    studyService.updateStudy(study);
+
+		return "success";
 	}
 }

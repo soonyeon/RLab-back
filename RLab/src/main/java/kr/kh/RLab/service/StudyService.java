@@ -68,6 +68,9 @@ public interface StudyService {
 	void leaveStudy(MemberVO user, int st_num);
 
 	StudyVO getStudy(int st_num);
+	
+	void updateStudy(StudyVO study);
+
 
 
 }

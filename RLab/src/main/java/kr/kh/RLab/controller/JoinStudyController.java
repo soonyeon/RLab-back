@@ -23,7 +23,7 @@ public class JoinStudyController {
 	private final StudyService studyService;
 
 	
-	 @PostMapping("/join")
+	    @PostMapping("/join")
 	    public Map<String, Object> join(@RequestBody StudyMemberVO studyMember,HttpServletRequest request) {
 		 MemberVO member = (MemberVO)request.getSession().getAttribute("user"); 
 		 

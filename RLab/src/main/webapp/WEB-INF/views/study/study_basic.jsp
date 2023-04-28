@@ -470,6 +470,23 @@ sse.addEventListener('count', e => {
     console.log("count event data", receivedCount);
 });
 
+$('.leave').click(function() {
+	if(confirm('스터디를 탈퇴 하시겠습니까?')) {
+		  $.ajax({
+	            url: '<c:url value="/study/leave/${st_num}" />',
+	            type: 'POST',
+	            success: function(response) {
+	                alert('해당 스터디를 탈퇴했습니다.');
+	                window.location.href = '<c:url value="/" />';
+	            },
+	            error: function(error) {
+	                alert('해당 스터디 탈퇴에 실패하였습니다.');
+	            }
+	        });
+	}
+})
+
+
 function loadStudyMembers(st_num, userId) {
     $.ajax({
         url: '<c:url value="/onlineMembers"/>',

@@ -145,4 +145,10 @@
     	from study
     	where st_num = #{st_num}
     </select>
+    
+    <update id="updateStudy" parameterType="kr.kh.RLab.vo.StudyVO">
+    UPDATE study
+    SET st_now_people = #{st_now_people}
+    WHERE st_num = #{st_num}
+	</update>
 </mapper>
