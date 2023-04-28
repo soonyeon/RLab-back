@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -227,21 +228,26 @@ public class MypageController {
 	//[예약 관리 > 나의 결제 내역 > 결제 상세 내역]
 	@GetMapping("/myres_pay/{pa_order_id}")
 	public ModelAndView myPayDetail(
-			ModelAndView mv, HttpSession session, MemberVO member, Criteria cri){	
+			ModelAndView mv, HttpSession session, @PathVariable String pa_order_id, MemberVO member, Criteria cri){	
 		// 세션 정보 가져오기
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		String memberId = user.getMe_id();
 		
+		//결제번호 가져오기
 		String paOrderId = mypageService.getPaOrderId(memberId);
+		//결제번호로 결제 정보 가져오기
         PayDTO pay = mypageService.getPayDto(paOrderId);
-        String itemStr = mypageService.getItemStrList(paOrderId);
-        System.out.println(paOrderId);
-        System.out.println(pay);
-        System.out.println(itemStr);
+        //해당 결제 정보안의 구매목록 가져오기
+        ArrayList<String> itemList = mypageService.getItemList(paOrderId);
         
+        System.out.println("결제번호 : " + paOrderId);
+        System.out.println("결제정보 : " + pay);
+        System.out.println("구매목록 : " + itemList);
+        
+        mv.addObject("pa_order_id", pa_order_id);
 		mv.addObject("pay", pay);
-        mv.addObject("itemStr", itemStr);
-        mv.setViewName("/reservation/buy_complete");
+        mv.addObject("itemList", itemList);
+        mv.setViewName("/mypage/pay_detail");
         return mv;
 	}
 	//[예약 관리 > 나의 좌석]

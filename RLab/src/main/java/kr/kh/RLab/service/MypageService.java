@@ -12,7 +12,6 @@ import kr.kh.RLab.vo.PayDTO;
 import kr.kh.RLab.vo.ReservationVO;
 import kr.kh.RLab.vo.StudyVO;
 import kr.kh.RLab.vo.TagRegisterVO;
-import kr.kh.RLab.vo.TicketOwnVO;
 
 public interface MypageService {
 	
@@ -51,6 +50,7 @@ public interface MypageService {
 		//결제 전체 수 가져오기
 		int getPayTotalCount(String memberId);
 		
+		
 	//[예약 관리 > 나의 결제 내역 > 결제 상세 내역]
 		//결제번호 가져오기
 		String getPaOrderId(String memberId);
@@ -59,7 +59,7 @@ public interface MypageService {
 		PayDTO getPayDto(String paOrderId);
 		
 		// 해당 결제 정보안의 구매목록 가져오기
-		String getItemStrList(String paOrderId);
+		ArrayList<String> getItemList(String paOrderId);
 		
 		
 	//[개인정보 수정 > 비밀번호 체크]

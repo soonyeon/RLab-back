@@ -23,7 +23,7 @@ table {
   border-collapse: collapse; 
 }
 td:nth-child(1){
-	width: 20px;
+	width: 50px;
 }
 td:nth-child(2){
 	width: 50px;

@@ -28,7 +28,7 @@
 					<nav class="left_menu">
 					  <a href="<c:url value='/mypage'></c:url>" class="list_item">마이페이지 홈</a>
 		              <a href="<c:url value='/mypage/pwcheck'></c:url>" class="list_item">개인정보 수정</a>
-		              <a href="<c:url value='/mypage/myres_ticket'></c:url>" class="list_item">예약 관리</a>
+		              <a href="<c:url value='/mypage/myres_pay'></c:url>" class="list_item">예약 관리</a>
 		              <a href="./mystudy_favorite.html" class="list_item">스터디 관리</a>
 		              <a href="<c:url value='/mypage/mypost_post'></c:url>" class="list_item">작성글 관리</a>
 					</nav>
@@ -37,9 +37,8 @@
 				<section>
 		            <!-- 탭 -->
 		            <div class="tab-container">
-		            	<a href="<c:url value='/mypage/mypost_post'></c:url>"  class="tab selected_tab tab1"><div>나의 이용권</div></a>
-			            <a href="<c:url value='/mypage/mypost_recruit'></c:url>" class="tab unselected_tab tab2"><div>나의 좌석</div></a>
-			            <a href="<c:url value='/mypage/mypost_scrap'></c:url>"  class="tab unselected_tab tab3"><div>나의 사물함</div></a>
+		            	<a href="<c:url value='/mypage/myres_pay'></c:url>"  class="tab selected_tab tab1"><div>결제 내역</div></a>
+			            <a href="<c:url value='/mypage/myres_book'></c:url>" class="tab unselected_tab tab2"><div>예약 내역</div></a>
 		            </div>
 		            <div class="my_study_container" id="my_container">
 		               <div class="study_card_container">
@@ -69,12 +68,12 @@
 		                          </thead>
 		                          
 		                          <tbody>
-			                         <c:forEach items="${myPayList}" var="mp" varStatus="vs">
-			                            <tr class="board_list" onclick="location.href='<c:url value='/receipt/${mp.pa_order_id}'/>';">	                           
+			                         <c:forEach items="${myPayList}" var="mp" varStatus="vs">						
+			                            <tr class="board_list" onclick="location.href='<c:url value='/mypage/myres_pay/${mp.pa_order_id}'></c:url>'">	                           
 			                              <td>${mp.pa_order_id}</td>
 			                              <td>${mp.pa_date_str2}</td>
 			                              <td class="post_title">${mp.pa_order_name}</td>			                 
-			                              <td>${mp.pa_amount}</td>                 
+			                              <td>${mp.pa_amount}</td>                
 			                            </tr>
 									</c:forEach>
 		                          </tbody>

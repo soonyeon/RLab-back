@@ -167,11 +167,26 @@
 		</select>
 		
 	<!-- [예약 관리 > 나의 결제 내역 > 결제 상세 내역] -->
-		<select id="selectPaOrderId" resultType="kr.kh.RLab.vo.PayDTO">
+		<!-- 결제번호 가져오기 -->
+		<select id="selectPaOrderId" resultType="String">
 			SELECT pa_order_id
 			FROM pay
 			WHERE pa_me_id = #{memberId}
 		</select>
+		<!-- 결제번호로 결제 정보 가져오기 -->
+		<select id="selectPayDto" resultType="kr.kh.RLab.vo.PayDTO">
+			SELECT *
+			FROM pay
+			WHERE pa_order_id = #{paOrderId}
+		</select>
+		<!-- 해당 결제 정보안의 구매목록 가져오기 -->
+		<select id="selectItemList" resultType="String">
+			select concat(tt_name, ' (', ti_name, ') ', pd_amount, '개') as item from pay_detail
+			left join ticket on pd_ti_num = ti_num
+			left join ticket_type on ti_tt_num = tt_num
+	        where pd_pa_order_id = #{paOrderId} and pd_state = '결제완료';
+		</select>
+		
 		
 	<!-- [작성글 관리 > 나의 게시글] -->
 		<!-- 아이디로 작성 게시글 목록 가져오기  -->

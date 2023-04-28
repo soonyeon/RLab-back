@@ -14,7 +14,6 @@ import kr.kh.RLab.vo.PayDTO;
 import kr.kh.RLab.vo.ReservationVO;
 import kr.kh.RLab.vo.StudyVO;
 import kr.kh.RLab.vo.TagRegisterVO;
-import kr.kh.RLab.vo.TicketOwnVO;
 
 public interface MypageDAO {
 	
@@ -73,8 +72,15 @@ public interface MypageDAO {
 		int selectPayTotalCount(String memberId);
 		
 		
-	//[예약 관리 > 나의 결제 내역 > 결제 상세 내역]		
+	//[예약 관리 > 나의 결제 내역 > 결제 상세 내역]	
+		//결제번호 가져오기
 		String selectPaOrderId(String memberId);
+		
+		//결제번호로 결제 정보 가져오기
+		PayDTO selectPayDto(String paOrderId);
+		
+		//해당 결제 정보안의 구매목록 가져오기
+		ArrayList<String> selectItemList(String paOrderId);
 		
 		
 	//[작성글 관리 > 나의 게시글]
@@ -105,10 +111,6 @@ public interface MypageDAO {
 		
 		// 내가 쓴 모집글의 찜 여부 가져오기
 		ArrayList<Integer> selectWantListById(String memberId);
-
-
-
-
 
 
 }

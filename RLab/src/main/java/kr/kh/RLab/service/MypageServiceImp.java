@@ -18,7 +18,6 @@ import kr.kh.RLab.vo.PayDTO;
 import kr.kh.RLab.vo.ReservationVO;
 import kr.kh.RLab.vo.StudyVO;
 import kr.kh.RLab.vo.TagRegisterVO;
-import kr.kh.RLab.vo.TicketOwnVO;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -206,14 +205,16 @@ public class MypageServiceImp implements MypageService {
 		//결제번호로 결제 정보 가져오기
 		@Override
 		public PayDTO getPayDto(String paOrderId) {
-			// TODO Auto-generated method stub
-			return null;
+			if(paOrderId == null)
+				return null;
+			return mypageDao.selectPayDto(paOrderId);
 		}
 		// 해당 결제 정보안의 구매목록 가져오기
 		@Override
-		public String getItemStrList(String paOrderId) {
-			// TODO Auto-generated method stub
-			return null;
+		public ArrayList<String> getItemList(String paOrderId) {
+			if(paOrderId == null)
+				return null;
+			return mypageDao.selectItemList(paOrderId);
 		}
 	
 	
