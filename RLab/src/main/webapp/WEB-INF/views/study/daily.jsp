@@ -39,7 +39,7 @@
 					
 					<div class="today_mission">
 						<span class="today_mission_title">오늘의미션</span> <span
-							class="today_mission_date">23.02.28</span>
+							class="today_mission_date">${mission.mi_date}</span>
 							<c:choose>	
 					            <c:when test="${empty mission}">
 					                <div class="today_mission_contents">

@@ -17,6 +17,7 @@ public class StudyVO {
 	private String st_re_name;
 	private String st_image;
 	private int st_state;
+  
 	private GatherVO gatherVO; // 모집글 관리에서 데이터 한꺼번에 조회할 때 필요
 	private StudyMemberVO studyMemberVO; // 나의 스터디 목록 띄울 때 필요
 	
