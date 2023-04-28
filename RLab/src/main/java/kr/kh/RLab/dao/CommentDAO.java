@@ -27,6 +27,8 @@ public interface CommentDAO {
 	ArrayList<CommentVO> selectCommentByBoNum(int bo_num);
 
 	void deleteCommentAll(ArrayList<CommentVO> comment, @Param("me_id")String me_id);
+
+	ArrayList<CommentVO> selectCommentByGaNum(int ga_num);
 	
 
 }

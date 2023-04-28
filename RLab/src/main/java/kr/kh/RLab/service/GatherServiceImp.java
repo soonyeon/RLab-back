@@ -216,4 +216,10 @@ public class GatherServiceImp implements GatherService {
 		return gatherDao.updateGather(gather);
 	}
 
+	@Override
+	public void deleteGather(int ga_num) {
+		gatherDao.deleteGather(ga_num);
+		
+	}
+
 }

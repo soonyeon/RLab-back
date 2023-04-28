@@ -85,7 +85,7 @@
 				<c:if test="${user != null && user.me_id == ga.ga_me_id}">
 					<div class="btns_leader">
 						<a class="btn_edit" href="<c:url value='/gather/update/${ga.ga_num}'></c:url>" >스터디 수정</a>
-						<button class="btn_delete">스터디 삭제</button>
+						<button class="btn_delete" type="button">스터디 삭제</button>
 					</div>
 				</c:if>
 			</div>
@@ -185,6 +185,22 @@ $(document).ready(function() {
       }
     });
   }
+});
+
+$('.btn_delete').click(function() {
+    if (confirm('게시글을 삭제하시겠습니까?')) {
+        $.ajax({
+            url: '<c:url value="/gather/delete/${ga.ga_num}" />',
+            type: 'POST',
+            success: function(response) {
+                alert('게시글이 삭제되었습니다.');
+                window.location.href = '<c:url value="/gather/list/"/>';
+            },
+            error: function(error) {
+                alert('게시글 삭제에 실패하였습니다.');
+            }
+        });
+    }
 });
 </script>
 <script>

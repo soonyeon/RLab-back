@@ -55,6 +55,8 @@ public interface GatherService {
 
 	boolean updateGather(GatherVO gather);
 
+	void deleteGather(int ga_num);
+
 
 
 	

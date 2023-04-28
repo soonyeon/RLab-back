@@ -70,6 +70,8 @@ public interface GatherDAO {
 
 	boolean updateGather(GatherVO gather);
 
+	void deleteGather(int ga_num);
+
 
 	
 
