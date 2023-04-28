@@ -283,6 +283,11 @@ public class StudyServiceImp implements StudyService {
 	public boolean updateMission(MissionVO missionVO) {
 		return studyDao.updateMission(missionVO);
 	}
+  
+	@Override
+	public MissionFinishVO selectTodayMissionFinsh(String me_id) {
+		return studyDao.selectTodayMissionFinsh(me_id);
+	}
 
 	@Override
 	public PhotoVO getPhotoByPhNum(int li_ph_num) {
@@ -290,10 +295,30 @@ public class StudyServiceImp implements StudyService {
 		return null;
 		return studyDao.getPhotosByPhNum(li_ph_num);
 	}
+  
+	@Override
+	public void deleteLike(String li_me_id, int li_ph_num) {
+		studyDao.deleteLike(li_me_id,li_ph_num);
+	}
 
 	@Override
-	public MissionFinishVO selectTodayMissionFinsh(String me_id) {
-		return studyDao.selectTodayMissionFinsh(me_id);
+	public void leaveStudy(MemberVO user, int st_num) {
+		studyDao.leaveStudy(user.getMe_id(),st_num);
 	}
+
+	@Override
+	public StudyVO getStudy(int st_num) {
+		if(st_num == 0) {
+			return null;
+		}
+		return studyDao.getStudy(st_num);
+	}
+
+	@Override
+	public void updateStudy(StudyVO study) {
+        studyDao.updateStudy(study);
+	}
+
+
 
 }

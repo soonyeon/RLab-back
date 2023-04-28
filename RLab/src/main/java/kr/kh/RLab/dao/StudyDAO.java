@@ -119,6 +119,15 @@ public interface StudyDAO {
 
 	boolean updateMission(MissionVO missionVO);
 
-	MissionFinishVO selectTodayMissionFinsh(String me_id);
+  MissionFinishVO selectTodayMissionFinsh(String me_id);
+  
+	void deleteLike(@Param("li_me_id")String li_me_id, @Param("li_ph_num")int li_ph_num);
+
+	void leaveStudy(@Param("me_id")String me_id, @Param("st_num")int st_num);
+
+	StudyVO getStudy(int st_num);
+	
+	void updateStudy(StudyVO study);
+
 
 }

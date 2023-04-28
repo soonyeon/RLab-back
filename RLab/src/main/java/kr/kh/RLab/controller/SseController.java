@@ -24,6 +24,7 @@ import kr.kh.RLab.service.StudyService;
 import kr.kh.RLab.utils.SseEmitters;
 import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.PhotoVO;
+import kr.kh.RLab.vo.StudyVO;
 
 @RestController
 public class SseController {
@@ -86,6 +87,14 @@ public class SseController {
     	PhotoVO photo = studyService.getPhotoByPhNum(ph_num);
     	sseEmitters.send("newLike", photo, photo.getPh_me_id());
     	
+        return ResponseEntity.ok(sseEmitters);
+
+    }
+    
+    @GetMapping(value = "/sse/new/study/{st_num}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)//이벤트 형식의 응답을 함
+    public ResponseEntity<SseEmitters> sseJoinStudy(@PathVariable("st_num") int st_num) {
+    	StudyVO study = studyService.getStudy(st_num);
+    	sseEmitters.send("joinStudy", study, study.getSt_me_id());
         return ResponseEntity.ok(sseEmitters);
 
     }

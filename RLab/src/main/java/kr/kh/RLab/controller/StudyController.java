@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,7 +31,6 @@ import kr.kh.RLab.service.StudyService;
 import kr.kh.RLab.vo.AlarmVO.AlarmType;
 import kr.kh.RLab.vo.LikeVO;
 import kr.kh.RLab.vo.MemberVO;
-import kr.kh.RLab.vo.MissionFinishVO;
 import kr.kh.RLab.vo.MissionVO;
 import kr.kh.RLab.vo.PhotoTypeVO;
 import kr.kh.RLab.vo.PhotoVO;
@@ -109,7 +109,9 @@ public class StudyController {
 		MemberVO member = (MemberVO) request.getSession().getAttribute("user");
 		String li_me_id = member.getMe_id();
 		LikeVO likeVO = studyService.getLikeByUserIdAndPhotoId(li_me_id, li_ph_num);
-
+		PhotoVO photo;
+		String photoUser;
+		String message;
 		if (likeVO == null) {// 좋아요가 존재하지않으면,
 			LikeVO newLike = new LikeVO();
 			newLike.setLi_me_id(li_me_id);
@@ -117,20 +119,19 @@ public class StudyController {
 			newLike.setLi_state(1);
 			studyService.insertLike(newLike);
 			
-			PhotoVO photo = studyService.getPhotoByPhNum(li_ph_num);
-			String photoUser = photo.getPh_me_id();//photo 작성자 id
-			String message = member.getMe_name()+"님이 다음 게시글에 좋아요 표시를 했습니다."+photo.getPh_content();
+			photo = studyService.getPhotoByPhNum(li_ph_num);
+			photoUser = photo.getPh_me_id();//photo 작성자 id
+			message = member.getMe_name()+"님이 다음 게시글에 좋아요 표시를 했습니다."+photo.getPh_content();
 			
 			notificationService.sendNotificationToUser(photoUser, message,AlarmType.LIKE);
 			sseController.sseNewLike(photo.getPh_num());
 			return "inserted";
 		} else {// 좋아요가 존재하면,
+				studyService.deleteLike(li_me_id, li_ph_num);
+			}
 			
-			int new_li_state = likeVO.getLi_state() == 1 ? 0 : 1;
-			studyService.updateLikeStatus(li_me_id, li_ph_num, new_li_state);
-			return new_li_state == 1 ? "updated" : "canceled";
+			return "canceled";
 		}
-	}
 
 	// 로그인하지 않고 스터디탭 눌렀을때 도달하는 url
 	@RequestMapping(value = "", method = RequestMethod.GET)
@@ -445,7 +446,6 @@ public class StudyController {
 			return "error";
 		}
 	}
-	
 
 	//데일리미션 페이지
 	@GetMapping("/daily/{st_num}")
@@ -462,7 +462,22 @@ public class StudyController {
 	 	mv.setViewName("/study/daily");
 	    return mv;
 	}
-	
+	//스터디 탈퇴하기
+	@PostMapping("/leave/{st_num}")
+	@ResponseBody
+	public String leaveStudy(HttpSession session, @PathVariable("st_num") int st_num) {
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		studyService.leaveStudy(user,st_num);
+		
+		//스터디 정보
+		StudyVO study = studyService.getStudy(st_num);
+		study.setSt_now_people(study.getSt_now_people()-1);
+		
+		//스터디 정보 업데이트
+	    studyService.updateStudy(study);
+
+		return "success";
+	}
 }
 
 
