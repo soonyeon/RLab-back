@@ -135,4 +135,14 @@
     	from `like`
     	where li_me_id = #{li_me_id} and li_ph_num = #{li_ph_num}
     </delete>
+    <delete id="leaveStudy">
+    	delete
+    	from study_member
+    	where sm_me_id = #{me_id} and  sm_st_num = #{st_num}
+    </delete>
+    <select id="getStudy" resultType="kr.kh.RLab.vo.StudyVO">
+    	select *
+    	from study
+    	where st_num = #{st_num}
+    </select>
 </mapper>

@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import kr.kh.RLab.service.JoinStudyService;
+import kr.kh.RLab.service.StudyService;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.StudyMemberVO;
+import kr.kh.RLab.vo.StudyVO;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -18,12 +20,12 @@ import lombok.RequiredArgsConstructor;
 public class JoinStudyController {
 	
 	private final JoinStudyService joinstudyService;
+	private final StudyService studyService;
+
 	
 	 @PostMapping("/join")
 	    public Map<String, Object> join(@RequestBody StudyMemberVO studyMember,HttpServletRequest request) {
 		 MemberVO member = (MemberVO)request.getSession().getAttribute("user"); 
-		 
-		 //study 조장 
 		 
 		 return joinstudyService.toggleJoin(studyMember,member);
 	 }

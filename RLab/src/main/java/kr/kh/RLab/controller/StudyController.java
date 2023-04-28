@@ -316,7 +316,6 @@ public class StudyController {
 			return "error";
 		}
 	}
-	
 
 	//데일리미션 페이지
 	@GetMapping("/daily/{st_num}")
@@ -332,5 +331,13 @@ public class StudyController {
 		mv.addObject("studyMember",studyMember);
 	 	mv.setViewName("/study/daily");
 	    return mv;
+	}
+	//스터디 탈퇴하기
+	@PostMapping("/leaveStudy/{st_num}")
+	public String leaveStudy(HttpSession session, @PathVariable("st_num") int st_num) {
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		studyService.leaveStudy(user,st_num);
+		return "redirect:/";
+		
 	}
 }

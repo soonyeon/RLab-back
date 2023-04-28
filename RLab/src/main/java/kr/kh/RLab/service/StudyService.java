@@ -65,5 +65,9 @@ public interface StudyService {
 
 	void deleteLike(String li_me_id, int li_ph_num);
 
+	void leaveStudy(MemberVO user, int st_num);
+
+	StudyVO getStudy(int st_num);
+
 
 }

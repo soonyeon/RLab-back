@@ -74,4 +74,8 @@ public interface StudyDAO {
 
 	void deleteLike(@Param("li_me_id")String li_me_id, @Param("li_ph_num")int li_ph_num);
 
+	void leaveStudy(String me_id, int st_num);
+
+	StudyVO getStudy(int st_num);
+
 }

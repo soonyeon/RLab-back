@@ -184,6 +184,19 @@ public class StudyServiceImp implements StudyService {
 		studyDao.deleteLike(li_me_id,li_ph_num);
 	}
 
+	@Override
+	public void leaveStudy(MemberVO user, int st_num) {
+		studyDao.leaveStudy(user.getMe_id(),st_num);
+	}
+
+	@Override
+	public StudyVO getStudy(int st_num) {
+		if(st_num == 0) {
+			return null;
+		}
+		return studyDao.getStudy(st_num);
+	}
+
 
 
 	
