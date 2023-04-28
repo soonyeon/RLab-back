@@ -17,12 +17,14 @@ public interface InquiryService {
 
 	void insertInquiry(String me_id, InquiryVO inquiry);
 
-	NoticeVO getNoticeByNonum(int no_num);
+	InquiryVO getInquiryByInnum(int in_num);
 
 	void updateView(int no_num);
 
 	boolean updateNotice(NoticeVO no);
 
 	boolean deleteNotice(int no_num);
+
+	ArrayList<Integer> getAnsweredInNum();
 
 }

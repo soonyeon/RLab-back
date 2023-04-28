@@ -19,9 +19,11 @@ public class InquiryVO {
 	private Date in_reg_date;
 	private int in_ori_num;
 	
+	private String me_profile;   
+	
 	public String getIn_reg_date_str() {
 		SimpleDateFormat format = 
-			new SimpleDateFormat("yyyy.MM.dd hh:mm");
+			new SimpleDateFormat("yyyy.MM.dd");
 		if(in_reg_date == null) 
 			return "";
 		return format.format(in_reg_date);

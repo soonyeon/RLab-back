@@ -30,8 +30,8 @@
 	insert into inquiry(in_it_num, in_title, in_me_id, in_content, in_reg_date)
 	values(#{in.in_it_num}, #{in.in_title}, #{me_id}, #{in.in_content}, now())
 </insert>
-<select id="selectNoticeByNonum" resultType="kr.kh.RLab.vo.NoticeVO">
-	select * from notice
+<select id="selectInquiryByInnum" resultType="kr.kh.RLab.vo.InquiryVO">
+	select * from inquiry
 	join member on no_me_id = me_id
 	where no_num = #{no_num}
 </select>
@@ -46,4 +46,7 @@
 <delete id="deleteNotice">
 	delete from notice where no_num = #{no_num} 
 </delete>
+<select id="selectAnsweredInNum" resultType="Integer">
+	select in_ori_num from inquiry where in_ori_num > 0
+</select>
 </mapper>

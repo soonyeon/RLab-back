@@ -38,8 +38,8 @@ public class InquiryServiceImp implements InquiryService {
 	}
 
 	@Override
-	public NoticeVO getNoticeByNonum(int no_num) {
-		return inquiryDao.selectNoticeByNonum(no_num);
+	public InquiryVO getInquiryByInnum(int in_num) {
+		return inquiryDao.selectInquiryByInnum(in_num);
 	}
 
 	@Override
@@ -55,6 +55,11 @@ public class InquiryServiceImp implements InquiryService {
 	@Override
 	public boolean deleteNotice(int no_num) {
 		return inquiryDao.deleteNotice(no_num)!=0;
+	}
+
+	@Override
+	public ArrayList<Integer> getAnsweredInNum() {
+		return inquiryDao.selectAnsweredInNum();
 	}
 
 }

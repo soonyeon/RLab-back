@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,6 +18,8 @@ import kr.kh.RLab.service.InquiryService;
 import kr.kh.RLab.vo.InquiryTypeVO;
 import kr.kh.RLab.vo.InquiryVO;
 import kr.kh.RLab.vo.MemberVO;
+import kr.kh.RLab.vo.NoticeTypeVO;
+import kr.kh.RLab.vo.NoticeVO;
 import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Controller
@@ -35,10 +38,13 @@ public class InquiryController {
 		PageMaker pm = new PageMaker(totalCount,1, cri);
 		ArrayList<InquiryTypeVO> itList = inquiryService.getAllInquiryType();
 		//답변완료된 리스트를 가져와서 화면에 보내줘야함~~
+		ArrayList<Integer> answered = inquiryService.getAnsweredInNum();
+		System.out.println("답변완료된 게시글 번호:"+answered);
 		mv.addObject("user", user);
 		mv.addObject("inList", inList);
 		mv.addObject("pm", pm);
 		mv.addObject("itList", itList);
+		mv.addObject("answered", answered);
 		mv.setViewName("/inquiry/list");
 		return mv;
 	}
@@ -55,23 +61,23 @@ public class InquiryController {
 		inquiryService.insertInquiry(user.getMe_id(), inquiry);
 		mv.setViewName("redirect:/inquiry/list");
 		return mv;
-	}/*
-	@RequestMapping(value = "/detail/{no_num}", method = RequestMethod.GET)
-	public ModelAndView list(ModelAndView mv, @PathVariable("no_num")int no_num, HttpSession session) {
-		NoticeVO no = noticeService.getNoticeByNonum(no_num);
-		noticeService.updateView(no_num);
+	}
+	@RequestMapping(value = "/detail/{in_num}", method = RequestMethod.GET)
+	public ModelAndView list(ModelAndView mv, @PathVariable("in_num")int in_num, HttpSession session) {
+		InquiryVO in = inquiryService.getInquiryByInnum(in_num);
+		//inquiryService.updateView(no_num);
 
-		ArrayList<NoticeTypeVO> ntList = noticeService.getAllNoticeType();
-		mv.addObject("no", no);
-		mv.addObject("ntList", ntList);
-		mv.addObject("no_num", no_num);
+		//ArrayList<NoticeTypeVO> ntList = inquiryService.getAllNoticeType();
+		mv.addObject("in", in);
+		//mv.addObject("ntList", ntList);
+		mv.addObject("in_num", in_num);
 		mv.setViewName("/notice/detail");
 		return mv;
-	}
+	}/*
 	@RequestMapping(value = "/update/{no_num}", method = RequestMethod.GET)
 	public ModelAndView update(ModelAndView mv, @PathVariable("no_num")int no_num, HttpSession session) {
-		ArrayList<NoticeTypeVO> ntList = noticeService.getAllNoticeType();
-		NoticeVO no = noticeService.getNoticeByNonum(no_num);
+		ArrayList<NoticeTypeVO> ntList = inquiryService.getAllNoticeType();
+		NoticeVO no = inquiryService.getNoticeByNonum(no_num);
 		mv.addObject("no", no);
 		mv.addObject("ntList", ntList);
 		mv.setViewName("/notice/update");
@@ -85,7 +91,7 @@ public class InquiryController {
 			msg = "로그인이 필요한 기능입니다. 로그인을 진행해주세요.";
 			url = "/notice/detail/"+no.getNo_num();
 		}else {
-			if(!noticeService.updateNotice(no)) {
+			if(!inquiryService.updateNotice(no)) {
 				msg = "게시글 수정에 실패했습니다.";
 				url = "/notice/detail/"+no.getNo_num();
 			}else {
@@ -106,7 +112,7 @@ public class InquiryController {
 			msg = "로그인이 필요한 기능입니다. 로그인을 진행해주세요.";
 			url = "/notice/detail/"+no_num;
 		}else {
-			if(!noticeService.deleteNotice(no_num)) {
+			if(!inquiryService.deleteNotice(no_num)) {
 				msg = "게시글 삭제에 실패했습니다.";
 				url = "/notice/detail/"+no_num;
 			}else {

@@ -19,12 +19,14 @@ public interface InquiryDAO {
 
 	void insertInquiry(@Param("me_id")String me_id, @Param("in")InquiryVO inquiry);
 
-	NoticeVO selectNoticeByNonum(int no_num);
+	InquiryVO selectInquiryByInnum(int in_num);
 
 	void updateView(int no_num);
 
 	int updateNotice(@Param("no")NoticeVO no);
 
 	int deleteNotice(int no_num);
+
+	ArrayList<Integer> selectAnsweredInNum();
 
 }

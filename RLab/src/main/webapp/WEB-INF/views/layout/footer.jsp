@@ -64,7 +64,7 @@
 							<h3 class="info_title">HELP</h3>
 							<ul>
 								<li class="item_help">
-									<a href="<c:url value='/inquiry/list'></c:url>">1:1 문의</a>
+									<a href="/RLab/inquiry/list">1:1 문의</a>
 								</li>
 								<li class="item_help">
 									<a href="<c:url value='/notice/list'></c:url>">공지사항</a>

@@ -59,14 +59,19 @@
 												<tbody>
 													<c:forEach items="${inList}" var="in">
 														<tr class="board_list">
-															<td><c:forEach items="${itList}" var="it">
+															<td>
+																<c:forEach items="${itList}" var="it">
 																	<c:if test="${in.in_it_num == it.it_num}">${it.it_name}</c:if>
-																</c:forEach></td>
+																</c:forEach>
+															</td>
 															<td>${in.in_num}</td>
 															<td class="post_title"><a href="<c:url value='/inquiry/detail/${in.in_num}'></c:url>"> ${in.in_title}</a></td>
 															<td>${in.in_me_id}</td>
 															<td>${in.in_reg_date_str}</td>
-															<td>답변완료</td>
+															<td>
+																<c:if test="${answered.contains(in.in_num)}">답변완료</c:if>
+																<c:if test="${!answered.contains(in.in_num)}">답변대기중</c:if>
+															</td>
 														</tr>
 													</c:forEach>
 												</tbody>
