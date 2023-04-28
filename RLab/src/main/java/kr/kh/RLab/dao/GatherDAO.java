@@ -9,6 +9,7 @@ import kr.kh.RLab.pagination.GatherCriteria;
 import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.GatherVO;
+import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.StudyMemberVO;
 import kr.kh.RLab.vo.StudyVO;
 import kr.kh.RLab.vo.TagRegisterVO;
@@ -64,6 +65,10 @@ public interface GatherDAO {
 	ArrayList<String> selectSearchTagList(String search);
 
 	ArrayList<GatherVO> findGatherdById(String me_id);
+
+	GatherVO selectGatherByGaNum(@Param("ga_num")int ga_num,@Param("user")MemberVO user);
+
+	boolean updateGather(GatherVO gather);
 
 
 	

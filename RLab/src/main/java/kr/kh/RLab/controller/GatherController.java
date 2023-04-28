@@ -21,6 +21,7 @@ import kr.kh.RLab.pagination.GatherCriteria;
 import kr.kh.RLab.pagination.PageMaker;
 import kr.kh.RLab.service.GatherService;
 import kr.kh.RLab.service.JoinStudyService;
+import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.MemberVO;
@@ -132,5 +133,24 @@ public class GatherController {
 		map.put("list", tagSearch);
 	    return map;
 	}
+	
+	//모집글 수정
+	@GetMapping("/update/{ga_num}")
+	public ModelAndView gatherUpdate(ModelAndView mv,HttpServletRequest request,@PathVariable("ga_num")int ga_num) {
+		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
+		GatherVO ga = gatherService.selectGather(ga_num,user);
+		ArrayList<StudyVO> studyList = gatherService.selectStudyById(user);
+		mv.addObject("studies",studyList);
+		mv.addObject("ga",ga);
+		mv.setViewName("/gather/update");
+		return mv;
+	}
 
+	@PostMapping("/update/{ga_num}")
+	public ModelAndView boardUpdatePost(ModelAndView mv, @PathVariable int ga_num, 
+			GatherVO gather) {
+		boolean res = gatherService.updateGather(gather);
+		mv.setViewName("redirect:/gather/detail/"+gather.getGa_st_num());
+		return mv;
+	}
 }

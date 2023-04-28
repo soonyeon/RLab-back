@@ -34,7 +34,7 @@
 		</div>
 		<h2>내용</h2>
 		<div class="main_total_box">
-			<div class="main_left_box">${ga.ga_content}</div>
+			<div class="main_left_box">${ga.ga_content}</div>	
 			<div class="main_right_box">
 				<div class="rc_img_box">
 					<div class="rc_img"></div>
@@ -82,6 +82,12 @@
 						</c:if>
 					</div>
 				</div>
+				<c:if test="${user != null && user.me_id == ga.ga_me_id}">
+					<div class="btns_leader">
+						<a class="btn_edit" href="<c:url value='/gather/update/${ga.ga_num}'></c:url>" >스터디 수정</a>
+						<button class="btn_delete">스터디 삭제</button>
+					</div>
+				</c:if>
 			</div>
 		</div>
 	  <!-- 정현 댓글 작업 -->

@@ -133,4 +133,18 @@
 	order by count desc
 	limit 5 
 </select>
+<select id="selectGatherByGaNum" resultType="kr.kh.RLab.vo.GatherVO">
+	select * from gather
+	where ga_num = #{ga_num} and ga_me_id = #{user.me_id}
+</select>
+<update id="updateGather">
+	update gather
+	set
+		ga_st_num = #{ga_st_num},
+		ga_title = #{ga_title},
+		ga_content = #{ga_content},
+		ga_upd_date = now()
+	where
+		ga_num = #{ga_num}
+</update>
 </mapper>

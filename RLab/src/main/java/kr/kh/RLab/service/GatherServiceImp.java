@@ -204,4 +204,16 @@ public class GatherServiceImp implements GatherService {
 		return gatherDao.findGatherdById(me_id);
 	}
 
+	@Override
+	public GatherVO selectGather(int ga_num, MemberVO user) {
+		return gatherDao.selectGatherByGaNum(ga_num,user);
+	}
+
+	@Override
+	public boolean updateGather(GatherVO gather) {
+		if(!checkGather(gather))
+			return false;
+		return gatherDao.updateGather(gather);
+	}
+
 }
