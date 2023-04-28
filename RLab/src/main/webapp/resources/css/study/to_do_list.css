@@ -1,5 +1,6 @@
 
 /* 영역분할 및 공통사항 */
+
 .home_container{
   background-color: var(--color_beige);
   border: var(--border_basic);
@@ -20,11 +21,10 @@
 .todo_box_member_content{
   border: 3px solid black;
 }
-.todo_container_my .check,
-.todo_container_member .check{
-  color: rgb(8, 208, 125)
+.todo_container_my .check_on, 
+.todo_container_member .check_on{
+  color: rgb(8, 208, 125);
 }
-
 
 /* todo_container_my */
 .todo_container_my .todo_box{
@@ -58,16 +58,30 @@
   text-align: center;
   padding-top: 16px;
 }
-.todo_container_my .pet_image {
-  background-image: url(../img/egg.png);
-  background-size: cover;
+.todo_container_my .pet_box .pet_img_container {
   height: 150px;
-  background-position: center;
   width: 150px;
   margin: auto;
 }
+
+.todo_container_my .pet_box .pet_img {
+  background-image: url(../../img/egg.png);
+  background-size: cover;
+  height: 150px;
+  width: 150px;
+}
 .todo_container_my .pet_box .progress_container{padding: 16px 50px;}
-.todo_container_my .pet_box .progress_container progress{width: 100%;}
+.todo_container_my .pet_box .progress_container canvas{
+	/* width: 100%; */
+   border: 0.7px solid rgb(136, 135, 135);
+   width: 243.7px;
+   height: 10px;
+   background-color: white;
+   border-radius: 10px;
+ }
+	
+	
+
 
 /* todo_container_member */
   .todo_container_member{
@@ -79,6 +93,7 @@
   }
   .todo_container_member .todo_box_member_content{
     width: 187px;
+    height: 245px;
     padding: 10px;
     border: 5px solid balck;
     margin: 10px 0px;
@@ -109,7 +124,7 @@
 
 
   /* 왼쪽 메뉴바 */
-.left_menu_container{
+/* .left_menu_container{
   display: flex;
   justify-content: center;
   width: 300px;
@@ -127,7 +142,7 @@
   gap: 16px;
   font-size: 15px;
   font-weight: 800;
-}
+} */
 .leave {
   position: relative;
   bottom: -120px;

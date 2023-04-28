@@ -14,6 +14,7 @@ import kr.kh.RLab.vo.PhotoTypeVO;
 import kr.kh.RLab.vo.PhotoVO;
 import kr.kh.RLab.vo.StudyMemberVO;
 import kr.kh.RLab.vo.StudyVO;
+import kr.kh.RLab.vo.TodoVO;
 
 public interface StudyService {
 
@@ -41,6 +42,36 @@ public interface StudyService {
 
 	void deleteStudyMember(int st_num, String me_name);
 
+	void authorizeStudyMember(int sm_st_num, String me_name);
+
+	void deleteStudy(int st_num);
+
+	void stateUpdateStudy(int st_num, int st_state);
+
+	int getStudyState(int st_num);
+
+	void stateUpdateStudyUndo(int st_num, int st_state);
+
+	ArrayList<TodoVO> getTodoList(String memberId);
+
+	void createTodo(String td_content, String td_me_id);
+
+	void deleteTodo(int td_num);
+
+	void finishTodo(int td_num, int td_finish);
+
+	void finishTodoUndo(int td_num, int td_finish);
+
+	ArrayList<StudyMemberVO> getMyStudyLis(String memberId);
+
+	ArrayList<StudyMemberVO> getMyStudyMember(int myStudyNum);
+
+	ArrayList<TodoVO> getTodoListByMemberId(ArrayList<String> stMeIdList);
+
+	ArrayList<MemberVO> getTdMembersName(ArrayList<String> stMeIdList);
+
+	double getTodoProgressRate(String memberId);
+  
 	List<StudyMemberVO> selectList(int st_num);
 
 	List<StudyMemberVO> getOnlineMembers();
@@ -64,6 +95,5 @@ public interface StudyService {
 	PhotoVO getPhotoByPhNum(int li_ph_num);
 
 	MissionFinishVO selectTodayMissionFinsh(String me_id);
-
 
 }

@@ -13,6 +13,7 @@
 	
 	<select id="findAll" resultMap="CalendarResultMap">
 		SELECT * FROM calendar
+		WHERE ca_st_num = #{st_num}
 	</select>
 	
     <select id="findByCaNum" resultMap="CalendarResultMap" parameterType="int">

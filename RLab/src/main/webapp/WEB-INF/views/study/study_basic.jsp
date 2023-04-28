@@ -202,69 +202,50 @@ body {
 				</form>
 				</dialog>
 
-				<dialog id="editCalendarDialog">
-					<form id="editCalendarForm">
-						<input type="hidden" id="editCa_num"> 
-						<input type="hidden" id="editCa_st_num">
-						<h3>일정 수정 및 삭제</h3>
-						<div class="mb-3">
-							<label for="editCalendarTitle" class="form-label">제목</label>
-							<input type="text" class="form-control" id="editCalendarTitle">
-						</div>
-						<div class="mb-3">
-							<label for="editCalendarStart" class="form-label">시작일</label> 
-							<input type="datetime-local" class="form-control" id="editCalendarStart">
-						</div>
-						<div class="mb-3">
-							<label for="editCalendarEnd" class="form-label">종료일</label> <input
-								type="datetime-local" class="form-control" id="editCalendarEnd">
-						</div>
-						<div class="mb-3 form-check">
-							<input type="checkbox" class="form-check-input" id="editCalendarAllDay"> 
-							<label class="form-check-label" for="editCalendarAllDay">하루종일</label>
-						</div>
-						<menu>
-							<button type="button" id="closeEditCalendar">닫기</button>
-							<button type="button" id="updateCalendar">수정</button>
-							<button type="button" id="deleteCalendar">삭제</button>
-						</menu>
-					</form>
-				</dialog>
-
 				<div class="middle_container clearfix">
 					<!-- TO-DO LIST -->
-					<div class="todo_container">
-						<!-- 제목 -->
-						<div class="todo_box_title">
-							<h3>TODO</h3>
-							<a href="#" class="plus1">+더보기</a>
-						</div>
-						<!-- 내용 -->
-						<div class="todo_box_content">
-							<div class="input_container">
-								<input type="text" class="input_box" placeholder="할 일을 입력하세요">
-							</div>
-							<ul class="todo_list">
-								<li>
-									<span class="todo_check"> 
-										<i class="material-icons check">check</i>
-									</span> 
-									<span class="todo_content">할일</span> 
-									<span class="todo_clear">
-											<i class="material-icons clear">clear</i>
-									</span>
-								</li>
-							</ul>
+          <div class="todo_container">
+              <!-- 제목 -->
+              <div class="todo_box_title">
+                  <h3>TODO</h3>
+                  <a href="#" class="plus1">+더보기</a>
+              </div>
+              <!-- 내용 -->
+              <div class="todo_box_content">
+                  <div class="input_container">
+                      <input type="text"class="input_box" placeholder="할 일을 입력하세요">
+                  </div>
+                <ul class="todo_list">
+                    <c:forEach items="${tdList}" var="td" varStatus="vs" >
+                      <li>
+                        <c:if test="${td.td_finish == 0}">
+                          <span class="todo_check">
+                            <i class="material-icons check check_on">check</i>
+                          </span>
+                          <span class="todo_content">${td.td_content}</span>
+                        </c:if>
+                        <c:if test="${td.td_finish == 1}">
+                          <span class="todo_check">
+                            <i class="material-icons check check_off">check</i>
+                          </span>
+                          <span class="todo_content done">${td.td_content}</span>
+                        </c:if>
+                        <span class="todo_clear">
+                          <i class="material-icons clear">clear</i>
+                        </span>
+                      </li>
+                    </c:forEach>
+                </ul>  
 
-							<!-- 달성률 -->
-							<div>
-								<p class="success_percent">달성률 20%</p>
-							</div>
-							<div>
-								<progress class="progress" value="20" max="100"></progress>
-							</div>
-						</div>
-					</div>
+                  <!-- 달성률 -->
+                  <div>
+                      <progress class="progress" value="20" max="100"></progress>
+                  </div>
+                  <div>
+                      <p class="success_percent">달성률 20%</p>
+                  </div>
+              </div>
+          </div>
 
 					<!-- 타임라인 -->
 					<div class="time_line_container">
