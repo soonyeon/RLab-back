@@ -17,16 +17,14 @@ public interface InquiryDAO {
 
 	ArrayList<InquiryTypeVO> selectAllInquiryType();
 
+	ArrayList<Integer> selectAnsweredInNum();
+
 	void insertInquiry(@Param("me_id")String me_id, @Param("in")InquiryVO inquiry);
 
 	InquiryVO selectInquiryByInnum(int in_num);
 
-	void updateView(int no_num);
+	int updateInquiry(@Param("in")InquiryVO in);
 
-	int updateNotice(@Param("no")NoticeVO no);
-
-	int deleteNotice(int no_num);
-
-	ArrayList<Integer> selectAnsweredInNum();
+	int deleteInquiry(int in_num);
 
 }

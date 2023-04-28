@@ -31,20 +31,20 @@
 
 				<section>
 				<div class="notice_container" >
-					<form id="no_insert" action="<c:url value='/notice/update'></c:url>" method="post" enctype="multipart/form-data">
-						<input type="hidden" name="no_num" value="${no.no_num}">
+					<form id="in_insert" action="<c:url value='/inquiry/update'></c:url>" method="post" enctype="multipart/form-data">
+						<input type="hidden" name="in_num" value="${in.in_num}">
 						<h3>게시판</h3>
-						<select id="choose_type" name="no_nt_num">
-							<c:forEach items="${ntList}" var="nt">
-								<option value="${nt.nt_num}" <c:if test="${no.no_nt_num == nt.nt_num}">selected</c:if>>${nt.nt_name}</option>
+						<select id="choose_type" name="in_it_num">
+							<c:forEach items="${itList}" var="it">
+								<option value="${it.it_num}" <c:if test="${in.in_it_num == it.it_num}">selected</c:if>>${it.it_name}</option>
 							</c:forEach>
 						</select>
 						<h3>제목</h3>
 						<div class="title_box">
-							<input type="text" class="title" value="${no.no_title}" placeholder="20자 이내로 제목을 작성해보세요" name="no_title" maxlength="20">
+							<input type="text" class="title" value="${in.in_title}" placeholder="20자 이내로 제목을 작성해보세요" name="in_title" maxlength="20">
 						</div>
 						<h3 class="content">내용</h3>
-						<textarea id="summernote" name="no_content">${no.no_content}</textarea>
+						<textarea id="summernote" name="in_content">${in.in_content}</textarea>
 						<button type="submit" class="btn_insert">수정하기</button>
 					</form>
 				</div>

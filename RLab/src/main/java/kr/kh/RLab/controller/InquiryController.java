@@ -37,7 +37,6 @@ public class InquiryController {
 		int totalCount = inquiryService.getInquiryTotalCount(cri);
 		PageMaker pm = new PageMaker(totalCount,1, cri);
 		ArrayList<InquiryTypeVO> itList = inquiryService.getAllInquiryType();
-		//답변완료된 리스트를 가져와서 화면에 보내줘야함~~
 		ArrayList<Integer> answered = inquiryService.getAnsweredInNum();
 		System.out.println("답변완료된 게시글 번호:"+answered);
 		mv.addObject("user", user);
@@ -65,38 +64,45 @@ public class InquiryController {
 	@RequestMapping(value = "/detail/{in_num}", method = RequestMethod.GET)
 	public ModelAndView list(ModelAndView mv, @PathVariable("in_num")int in_num, HttpSession session) {
 		InquiryVO in = inquiryService.getInquiryByInnum(in_num);
-		//inquiryService.updateView(no_num);
-
-		//ArrayList<NoticeTypeVO> ntList = inquiryService.getAllNoticeType();
+		ArrayList<InquiryTypeVO> itList = inquiryService.getAllInquiryType();
+		ArrayList<Integer> answered = inquiryService.getAnsweredInNum();
 		mv.addObject("in", in);
-		//mv.addObject("ntList", ntList);
+		mv.addObject("itList", itList);
 		mv.addObject("in_num", in_num);
-		mv.setViewName("/notice/detail");
+		mv.addObject("answered", answered);
+		mv.setViewName("/inquiry/detail");
 		return mv;
-	}/*
-	@RequestMapping(value = "/update/{no_num}", method = RequestMethod.GET)
-	public ModelAndView update(ModelAndView mv, @PathVariable("no_num")int no_num, HttpSession session) {
-		ArrayList<NoticeTypeVO> ntList = inquiryService.getAllNoticeType();
-		NoticeVO no = inquiryService.getNoticeByNonum(no_num);
-		mv.addObject("no", no);
-		mv.addObject("ntList", ntList);
-		mv.setViewName("/notice/update");
+	}
+	@RequestMapping(value = "/update/{in_num}", method = RequestMethod.GET)
+	public ModelAndView update(ModelAndView mv, @PathVariable("in_num")int in_num, HttpSession session) {
+		InquiryVO in = inquiryService.getInquiryByInnum(in_num);
+		ArrayList<InquiryTypeVO> itList = inquiryService.getAllInquiryType();
+		mv.addObject("in", in);
+		mv.addObject("itList", itList);
+		mv.setViewName("/inquiry/update");
 		return mv;
 	}
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public ModelAndView updatePost(ModelAndView mv, NoticeVO no, HttpSession session) {
+	public ModelAndView updatePost(ModelAndView mv, InquiryVO in, HttpSession session) {
 		String msg, url;
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		if(user==null) {
 			msg = "로그인이 필요한 기능입니다. 로그인을 진행해주세요.";
-			url = "/notice/detail/"+no.getNo_num();
+			url = "/inquiry/detail/"+in.getIn_num();
 		}else {
-			if(!inquiryService.updateNotice(no)) {
-				msg = "게시글 수정에 실패했습니다.";
-				url = "/notice/detail/"+no.getNo_num();
+			
+			InquiryVO pastIn = inquiryService.getInquiryByInnum(in.getIn_num());
+			if(pastIn.getIn_ori_num()!=0) {
+				msg = "이미 답변이 달려 수정이 불가한 게시글입니다. 답변을 확인한 후 새로운 문의글을 남겨주세요.";
+				url = "/inquiry/detail/"+in.getIn_num();
 			}else {
-				msg = "게시글을 수정했습니다.";
-				url = "/notice/detail/"+no.getNo_num();
+				if(!inquiryService.updateInquiry(in)) {
+					msg = "게시글 수정에 실패했습니다.";
+					url = "/inquiry/detail/"+in.getIn_num();
+				}else {
+					msg = "게시글을 수정했습니다.";
+					url = "/inquiry/detail/"+in.getIn_num();
+				}
 			}
 		}
 		mv.addObject("msg", msg);
@@ -104,20 +110,20 @@ public class InquiryController {
 		mv.setViewName("/common/message");
 		return mv;
 	}
-	@RequestMapping(value = "/delete/{no_num}", method = RequestMethod.GET)
-	public ModelAndView delete(ModelAndView mv, @PathVariable("no_num")int no_num, HttpSession session) {
+	@RequestMapping(value = "/delete/{in_num}", method = RequestMethod.GET)
+	public ModelAndView delete(ModelAndView mv, @PathVariable("in_num")int in_num, HttpSession session) {
 		String msg, url;
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		if(user==null) {
 			msg = "로그인이 필요한 기능입니다. 로그인을 진행해주세요.";
-			url = "/notice/detail/"+no_num;
+			url = "/inquiry/detail/"+in_num;
 		}else {
-			if(!inquiryService.deleteNotice(no_num)) {
+			if(!inquiryService.deleteInquiry(in_num)) {
 				msg = "게시글 삭제에 실패했습니다.";
-				url = "/notice/detail/"+no_num;
+				url = "/inquiry/detail/"+in_num;
 			}else {
 				msg = "게시글을 삭제했습니다.";
-				url = "/notice/list";
+				url = "/inquiry/list";
 			}
 		}
 		mv.addObject("msg", msg);
@@ -125,6 +131,6 @@ public class InquiryController {
 		mv.setViewName("/common/message");
 		return mv;
 	}
-	
+	/*
 	*/
 }

@@ -15,16 +15,14 @@ public interface InquiryService {
 
 	ArrayList<InquiryTypeVO> getAllInquiryType();
 
+	ArrayList<Integer> getAnsweredInNum();
+
 	void insertInquiry(String me_id, InquiryVO inquiry);
 
 	InquiryVO getInquiryByInnum(int in_num);
 
-	void updateView(int no_num);
+	boolean updateInquiry(InquiryVO in);
 
-	boolean updateNotice(NoticeVO no);
-
-	boolean deleteNotice(int no_num);
-
-	ArrayList<Integer> getAnsweredInNum();
+	boolean deleteInquiry(int in_num);
 
 }

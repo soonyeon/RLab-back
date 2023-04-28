@@ -26,27 +26,24 @@
 <select id="selectAllInquiryType" resultType="kr.kh.RLab.vo.InquiryTypeVO">
 	select * from inquiry_type
 </select>
+<select id="selectAnsweredInNum" resultType="Integer">
+	select in_ori_num from inquiry where in_ori_num > 0
+</select>
 <insert id="insertInquiry">
 	insert into inquiry(in_it_num, in_title, in_me_id, in_content, in_reg_date)
 	values(#{in.in_it_num}, #{in.in_title}, #{me_id}, #{in.in_content}, now())
 </insert>
 <select id="selectInquiryByInnum" resultType="kr.kh.RLab.vo.InquiryVO">
 	select * from inquiry
-	join member on no_me_id = me_id
-	where no_num = #{no_num}
+	join member on in_me_id = me_id
+	where in_num = #{in_num}
 </select>
-<update id="updateView">
-	update notice set no_views = no_views+1  where no_num = #{no_num}
+<update id="updateInquiry">
+	update inquiry
+	set in_it_num = #{in.in_it_num}, in_title = #{in.in_title}, in_content = #{in.in_content}
+	where in_num = #{in.in_num}
 </update>
-<update id="updateNotice">
-	update notice 
-	set no_nt_num = #{no.no_nt_num}, no_title = #{no.no_title}, no_content = #{no.no_content}
-	where no_num = #{no.no_num}
-</update>
-<delete id="deleteNotice">
-	delete from notice where no_num = #{no_num} 
+<delete id="deleteInquiry">
+	delete from inquiry where in_num = #{in_num} 
 </delete>
-<select id="selectAnsweredInNum" resultType="Integer">
-	select in_ori_num from inquiry where in_ori_num > 0
-</select>
 </mapper>

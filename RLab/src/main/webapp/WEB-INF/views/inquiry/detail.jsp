@@ -30,32 +30,32 @@
 					<div class="notice_container" >
                         <div class="inner_container">
                             <div class="title_container">
-                            	<c:forEach items="${ntList}" var="nt">
-                                	<c:if test="${no.no_nt_num == nt.nt_num}"><span class="type">> ${nt.nt_name}</span></c:if>
+                            	<c:forEach items="${itList}" var="it">
+                                	<c:if test="${in.in_it_num == it.it_num}"><span class="type">> ${it.it_name}</span></c:if>
                                 </c:forEach>
-                                <h1 class="title">${no.no_title}</h1>
+                                <h1 class="title">${in.in_title}</h1>
                             </div>
                             <div class="info_container clearfix">
                                 <div class="info_box">
-                                   	<img class="profile_box" src="<c:url value='/download${no.me_profile}'></c:url>">
-                                    <span class="writer">${no.no_me_id}</span>
-                                    <span class="date">${no.no_register_date_str}</span>
-                                    <img class="icon_view" src="<c:url value='/resources/img/view.png'></c:url>">
-                                    <span class="views">${no.no_views}</span>
+                                   	<img class="profile_box" src="<c:url value='/download${in.me_profile}'></c:url>">
+                                    <span class="writer">${in.in_me_id}</span>
+                                    <span class="date">${in.in_reg_date_str}</span>
                                 </div>
-                                <c:if test="${no.no_me_id == user.me_id}">
+                                <c:if test="${in.in_me_id == user.me_id}">
 	                                <div class="setting_box">
-	                                    <a href="<c:url value='/notice/update/${no_num}'></c:url>" class="update">수정</a>
-	                                    <a href="<c:url value='/notice/delete/${no_num}'></c:url>" class="delete">삭제</a>
+	                                	<c:if test="${!answered.contains(in.in_num)}">
+	                                  		<a href="<c:url value='/inquiry/update/${in_num}'></c:url>" class="update">수정</a>
+	                                	</c:if>
+	                                    <a href="<c:url value='/inquiry/delete/${in_num}'></c:url>" class="delete">삭제</a>
 	                                </div>
                                 </c:if>
                             </div>
                             
                         </div>
 						<hr>
-                        <div class="content_container">${no.no_content}</div>
+                        <div class="content_container">${in.in_content}</div>
                         <div class="to_list">
-                            <a href="<c:url value='/notice/list'></c:url>" class="btn_list">목록으로</a>
+                            <a href="<c:url value='/inquiry/list'></c:url>" class="btn_list">목록으로</a>
                         </div>
                         
 					</div>

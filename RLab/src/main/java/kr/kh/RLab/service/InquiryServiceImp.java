@@ -33,6 +33,11 @@ public class InquiryServiceImp implements InquiryService {
 	}
 
 	@Override
+	public ArrayList<Integer> getAnsweredInNum() {
+		return inquiryDao.selectAnsweredInNum();
+	}
+
+	@Override
 	public void insertInquiry(String me_id, InquiryVO inquiry) {
 		inquiryDao.insertInquiry(me_id, inquiry);
 	}
@@ -43,23 +48,13 @@ public class InquiryServiceImp implements InquiryService {
 	}
 
 	@Override
-	public void updateView(int no_num) {
-		inquiryDao.updateView(no_num);
+	public boolean updateInquiry(InquiryVO in) {
+		return inquiryDao.updateInquiry(in)!=0;
 	}
 
 	@Override
-	public boolean updateNotice(NoticeVO no) {
-		return inquiryDao.updateNotice(no)!=0;
-	}
-
-	@Override
-	public boolean deleteNotice(int no_num) {
-		return inquiryDao.deleteNotice(no_num)!=0;
-	}
-
-	@Override
-	public ArrayList<Integer> getAnsweredInNum() {
-		return inquiryDao.selectAnsweredInNum();
+	public boolean deleteInquiry(int in_num) {
+		return inquiryDao.deleteInquiry(in_num)!=0;
 	}
 
 }
