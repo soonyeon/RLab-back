@@ -82,7 +82,7 @@
     	where st_num = #{sm_st_num}
     </select>
     <update id="updateStudyLeaderAuthority">
-		update study_member set sm_authority = 0
+		update study_member set sm_authority = 1
 		where sm_st_num = #{sm_st_num} and sm_me_id = #{leaderId}
     </update>
     <update id="updateStudyLeader"> 

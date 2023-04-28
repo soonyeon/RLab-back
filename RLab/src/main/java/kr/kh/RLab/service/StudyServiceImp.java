@@ -129,7 +129,7 @@ public class StudyServiceImp implements StudyService {
 		//스터디장의 id가져오기
 		String leaderId = studyDao.selectStudyLeaderId(sm_st_num); 
 		
-		//기존 스터디장의 sm_authority를 0으로 변경
+		//기존 스터디장의 sm_authority를 1으로 변경
 		studyDao.updateStudyLeaderAuthority(sm_st_num, leaderId);
 		
 		//스터디의 st_me_id를 바뀐 스터디장으로 변경

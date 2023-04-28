@@ -224,7 +224,6 @@ public class StudyController {
 	@RequestMapping(value = "/management/member/authorize", method = RequestMethod.POST)
 	public HashMap<String,Object> authorizeMember(@RequestBody StudyMemberVO sm) {
 		HashMap<String,Object> map = new HashMap<String,Object>();
-	    // 멤버를 삭제하고, 새로운 멤버 리스트를 가져옴
 	    studyService.authorizeStudyMember(sm.getSm_st_num(),sm.getMe_name());
 	    return map;
 	}

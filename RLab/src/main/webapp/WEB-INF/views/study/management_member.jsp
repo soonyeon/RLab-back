@@ -302,7 +302,7 @@ $(".btn_power").on("click", function() {
 		});
 	});
 	  
-	location.replace("<c:url value='/study/management/member/${st_num}'></c:url>");
+	location.replace("<c:url value='/study/management/'></c:url>");
     alert("위임처리 되었습니다."); 
 });
 
