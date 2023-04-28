@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="<c:url value ='/resources/css/tab_common.css?after'></c:url>" />
 <link rel="stylesheet" href="<c:url value ='/resources/css/mypage/mypage_common.css?after'></c:url>" />
 <link rel="stylesheet" href="<c:url value ='/resources/css/table_common.css?after'></c:url>" />
-<link rel="stylesheet" href="<c:url value ='/resources/css/mypage/mypost_post.css?after'></c:url>">
+<link rel="stylesheet" href="<c:url value ='/resources/css/mypage/myres_book.css?after'></c:url>">
 <title>작성글 관리</title>
 
 </head>
@@ -37,8 +37,8 @@
 				<section>
 		            <!-- 탭 -->
 		            <div class="tab-container">
-		            	<a href="<c:url value='/mypage/myres_pay'></c:url>"  class="tab selected_tab tab1"><div>결제 내역</div></a>
-			            <a href="<c:url value='/mypage/myres_book'></c:url>" class="tab unselected_tab tab2"><div>예약 내역</div></a>
+		            	<a href="<c:url value='/mypage/myres_pay'></c:url>"  class="tab unselected_tab tab1"><div>결제 내역</div></a>
+			            <a href="<c:url value='/mypage/myres_book'></c:url>" class="tab selected_tab tab2"><div>예약 내역</div></a>
 		            </div>
 		            <div class="my_study_container" id="my_container">
 		               <div class="study_card_container">
@@ -60,21 +60,33 @@
 		                        <table class="border_box">
 		                          <thead>
 		                            <tr class="board_title_list">
-		                              <td class="title_list_item">구매번호</td>
-		                              <td class="title_list_item">구매일자</td>
-		                              <td class="title_list_item">상품명</td>
-		                              <td class="title_list_item">총 결제액</td>
+		                              <td class="title_list_item">예약등록일자</td>
+									  <td class="title_list_item">카페지점</td>
+									  <td class="title_list_item">상품명</td>
+									  <td class="title_list_item">상품번호</td>
 		                            </tr>
 		                          </thead>
 		                          
 		                          <tbody>
-			                         <c:forEach items="${myPayList}" var="mp" varStatus="vs">						
-			                            <tr class="board_list" onclick="location.href='<c:url value='/mypage/myres_pay/${mp.pa_order_id}'></c:url>'">	                           
-			                              <td>${mp.pa_order_id}</td>
-			                              <td>${mp.pa_date_str2}</td>
-			                              <td class="post_title">${mp.pa_order_name}</td>			                 
-			                              <td>${mp.pa_amount}</td>                
-			                            </tr>
+			                         <c:forEach items="${myBookList}" var="mb" varStatus="vs">	
+			                         	<!-- 좌석일 경우 -->
+			                         	<c:if test="${mb.ki_num == 1}">					
+				                            <tr class="board_list" onclick="location.href='<c:url value='/mypage/myres_book/1/${mb.re_num}'></c:url>'">	                           
+				                              <td>${mb.re_register_date_str2}</td>
+				                              <td>${mb.br_name}</td>
+				                              <td class="post_title">${mb.ki_name}</td>			                 
+				                              <td>${mb.se_name}</td>                
+				                            </tr>
+			                            </c:if>
+			                            <!-- 캐비넷일 경우 -->
+			                         	<c:if test="${mb.ki_num == 2}">					
+				                            <tr class="board_list" onclick="location.href='<c:url value='/mypage/myres_book/2/${mb.re_num}'></c:url>'">	                           
+				                              <td>${mb.re_register_date_str2}</td>
+				                              <td>${mb.br_name}</td>
+				                              <td class="post_title">${mb.ki_name}</td>			                 
+				                              <td>${mb.se_name}</td>                
+				                            </tr>
+			                            </c:if>
 									</c:forEach>
 		                          </tbody>
 		                        </table>

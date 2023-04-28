@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="<c:url value ='/resources/css/tab_common.css?after'></c:url>" />
 <link rel="stylesheet" href="<c:url value ='/resources/css/mypage/mypage_common.css?after'></c:url>" />
 <link rel="stylesheet" href="<c:url value ='/resources/css/table_common.css?after'></c:url>" />
-<link rel="stylesheet" href="<c:url value ='/resources/css/mypage/mypost_post.css?after'></c:url>">
+<link rel="stylesheet" href="<c:url value ='/resources/css/mypage/myres_pay.css?after'></c:url>">
 <title>작성글 관리</title>
 
 </head>

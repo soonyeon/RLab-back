@@ -22,6 +22,7 @@ import kr.kh.RLab.service.MypageService;
 import kr.kh.RLab.service.PetService;
 import kr.kh.RLab.service.ReservationService;
 import kr.kh.RLab.vo.BoardVO;
+import kr.kh.RLab.vo.BranchVO;
 import kr.kh.RLab.vo.EvolutionVO;
 import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.GrowthVO;
@@ -240,59 +241,69 @@ public class MypageController {
         //해당 결제 정보안의 구매목록 가져오기
         ArrayList<String> itemList = mypageService.getItemList(paOrderId);
         
-        System.out.println("결제번호 : " + paOrderId);
-        System.out.println("결제정보 : " + pay);
-        System.out.println("구매목록 : " + itemList);
-        
         mv.addObject("pa_order_id", pa_order_id);
 		mv.addObject("pay", pay);
         mv.addObject("itemList", itemList);
         mv.setViewName("/mypage/pay_detail");
         return mv;
 	}
-	//[예약 관리 > 나의 좌석]
-	@GetMapping("/myres_seat")
-	public ModelAndView mySeat(
-			ModelAndView mv, HttpSession session, MemberVO member, BoardVO board, Criteria cri){		
-		// 세션 정보 가져오기
-		MemberVO user = (MemberVO)session.getAttribute("user");
-		String memberId = user.getMe_id();
-		
-		// 아이디로 작성 게시글 목록 가져오기
-		ArrayList<BoardVO> myBoardList = mypageService.getBoardListById(memberId, cri);
-		
-		// 페이지 네이션
-		// 로그인한 회원이 작성한 게시글 전체 수 가져오기
-		int totalCount = mypageService.getPostBoardTotalCount(memberId);
-		PageMaker pm = new PageMaker(totalCount, 2, cri);
-		
-		mv.addObject("myBoardList", myBoardList);
-		mv.addObject("pm", pm);
-		mv.setViewName("/mypage/myres_seat");
-		return mv;
-	}
 	
-	//[예약 관리 > 나의 사물함]
-		@GetMapping("/myres_locker")
-		public ModelAndView myLocker(
-				ModelAndView mv, HttpSession session, MemberVO member, BoardVO board, Criteria cri){		
+	//[예약 관리 > 나의 예약 내역]
+		@GetMapping("/myres_book")
+		public ModelAndView myBook(
+				ModelAndView mv, HttpSession session, MemberVO member, Criteria cri){		
 			// 세션 정보 가져오기
 			MemberVO user = (MemberVO)session.getAttribute("user");
 			String memberId = user.getMe_id();
 			
-			// 아이디로 작성 게시글 목록 가져오기
-			ArrayList<BoardVO> myBoardList = mypageService.getBoardListById(memberId, cri);
-			
+			// 아이디로 나의 예약 목록 가져오기
+			ArrayList<ReservationVO> myBookList = mypageService.getBookList(memberId, cri);
+			System.out.println(myBookList);
 			// 페이지 네이션
-			// 로그인한 회원이 작성한 게시글 전체 수 가져오기
-			int totalCount = mypageService.getPostBoardTotalCount(memberId);
+			// 로그인한 회원이 가진 예약 전체 수 가져오기
+			int totalCount = mypageService.getBookTotalCount(memberId);
+			System.out.println(totalCount);
 			PageMaker pm = new PageMaker(totalCount, 2, cri);
 			
-			mv.addObject("myBoardList", myBoardList);
+			mv.addObject("myBookList", myBookList);
 			mv.addObject("pm", pm);
-			mv.setViewName("/mypage/myres_locker");
+			mv.setViewName("/mypage/myres_book");
 			return mv;
 		}
+		
+	//[예약 관리 > 나의 예약 내역 > 좌석 예약 상세 내역]	
+		@GetMapping("/myres_book/1/{re_num}")
+		public ModelAndView myBookSeatDetail(
+				ModelAndView mv, HttpSession session, @PathVariable int re_num, MemberVO member, Criteria cri){	
+			MemberVO user = (MemberVO)session.getAttribute("user");
+			ReservationVO rsv = reservationService.getReservation(re_num);
+			BranchVO br  = reservationService.getBranchBySeNum(rsv.getRe_se_num());
+			String ticketName = reservationService.getTicketNameByBookInfo(rsv);
+			int restTime = reservationService.getRestTime(rsv.getRe_to_num());
+			mv.addObject("user", user);
+			mv.addObject("rsv", rsv);
+			mv.addObject("br", br);
+			mv.addObject("ticketName",ticketName);
+			mv.addObject("restTime",restTime);
+	        mv.setViewName("/mypage/book_seat_detail");
+	        return mv;
+		}
+		
+	//[예약 관리 > 나의 예약 내역 > 캐비넷 예약 상세 내역]	
+			@GetMapping("/myres_book/2/{re_num}")
+			public ModelAndView myBookLockerDetail(
+					ModelAndView mv, HttpSession session, @PathVariable int re_num, MemberVO member, Criteria cri){	
+				MemberVO user = (MemberVO)session.getAttribute("user");
+				ReservationVO rsv = reservationService.getReservation(re_num);
+				BranchVO br  = reservationService.getBranchBySeNum(rsv.getRe_se_num());
+				String ticketName = reservationService.getTicketNameByBookInfo(rsv);
+				mv.addObject("user", user);
+				mv.addObject("rsv", rsv);
+				mv.addObject("br", br);
+				mv.addObject("ticketName",ticketName);
+		        mv.setViewName("/mypage/book_locker_detail");
+		        return mv;
+			}
 	
 	//[작성글 관리 > 나의 게시글]
 	@GetMapping("/mypost_post")

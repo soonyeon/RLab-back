@@ -158,6 +158,8 @@
 			SELECT *
 			FROM pay
 			WHERE pa_me_id = #{memberId}
+			ORDER BY pa_date DESC 
+	 		limit #{cri.pageStart}, #{cri.perPageNum}
 		</select>
 		<!-- 결제 전체 수 가져오기 -->
 		<select id="selectPayTotalCount" resultType="int">
@@ -186,7 +188,25 @@
 			left join ticket_type on ti_tt_num = tt_num
 	        where pd_pa_order_id = #{paOrderId} and pd_state = '결제완료';
 		</select>
-		
+	
+	<!-- [예약 관리 > 나의 결제 내역] -->
+		<!-- 나의 예약 목록 가져오기	 -->	
+		<select id="selectBookList" resultType="kr.kh.RLab.vo.ReservationVO">
+			select re_num, re_register_date, br_name, ki_name, se_name, ki_num
+			from reservation
+			join seat on se_num = re_se_num
+			join kind on ki_num = se_ki_num
+			join branch on br_num = se_br_num
+			where  re_me_id = #{memberId}
+			ORDER BY re_register_date DESC 
+	 		limit #{cri.pageStart}, #{cri.perPageNum}
+		</select>
+		<!-- 예약 전체 수 가져오기 -->
+		<select id="selectBookTotalCount" resultType="int">
+			select count(*)
+			from reservation
+			where re_me_id = #{memberId}
+		</select>
 		
 	<!-- [작성글 관리 > 나의 게시글] -->
 		<!-- 아이디로 작성 게시글 목록 가져오기  -->

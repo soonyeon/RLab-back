@@ -1,3 +1,4 @@
+
 /* 나의 게시글, 나의 스크랩에서만 헤더가 이상함*/
 .top_menu_container{
   line-height: 50px;
@@ -7,6 +8,9 @@
   height:60px;
 }
 
+#my_container{
+  padding: 50px;
+}
 .select_box_area{
   height: 29.5px;
   margin-bottom: 10px;
@@ -17,39 +21,47 @@
   width: 200px;
   border-radius: 5px;
 }
+/* 게시판, 페이지네이션 부모 */
+.tab_content{
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  gap: 40px;
+}
 
-/* 게시판 */
+/* 결제내역 표 */
 table { 
   border-collapse: collapse; 
 }
+
 td:nth-child(1){
-	width: 20px;
-}
-td:nth-child(2){
-	width: 50px;
-}
-td:nth-child(3){
-	width: 80px;
-}
-td:nth-child(4){
 	width: 35px;
 }
-td:nth-child(5){
-	width: 40px;
+td:nth-child(2){
+	width: 20px;
 }
-
+td:nth-child(3){
+	width: 50px;
+}
+td:nth-child(4){
+	width: 30px;
+}
+td:nth-child(5){
+	width: 20px;
+}
+td:nth-child(6){
+	width: 20px;
+}
 .board_title_list{
   box-sizing: border-box;
-  background-color: var(--color_yellow);
-  font-size: 20px;
-  font-weight: bold;
+  background-color: var(--color_blue);
 }
 .board_list {
-  border-bottom: 1px solid var(--color_yellow);
+  border-bottom: 1px solid var(--color_blue);
   height: 50px;
 }
 .board_list:hover{
-  background-color: #f0eb583b;
+  background-color: #66a0e228;
   cursor: pointer;
 }
 .board_list a{
@@ -68,13 +80,15 @@ td:nth-child(5){
   text-align: center;
   color: rgb(43, 42, 42);
 }
-
 .fa-solid{margin-left: 5px; margin-right: -10px;}
 
 .border_box{
   width: 100%;
 }
-
+.board_title_list{
+  font-size: 20px;
+  font-weight: bold;
+}
 .border_box .title_list_item{
   height: 50px;
   font-size: 17px;
@@ -86,5 +100,3 @@ td:nth-child(5){
 .background_bbls{
   height: 1253px;
 }
-
-.bd_list_item{padding-left: 5px;}

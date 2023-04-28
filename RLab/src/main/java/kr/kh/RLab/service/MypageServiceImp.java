@@ -184,7 +184,7 @@ public class MypageServiceImp implements MypageService {
 		public ArrayList<PayDTO> getPayList(String memberId, Criteria cri) {
 			if(memberId == null)
 				return null;
-			return mypageDao.selectPayList(memberId);
+			return mypageDao.selectPayList(memberId, cri);
 		}
 	
 		//결제 전체 수 가져오기
@@ -215,6 +215,21 @@ public class MypageServiceImp implements MypageService {
 			if(paOrderId == null)
 				return null;
 			return mypageDao.selectItemList(paOrderId);
+		}
+	//[예약 관리 > 나의 예약 내역]	
+		//나의 예약 목록 가져오기
+		@Override
+		public ArrayList<ReservationVO> getBookList(String memberId, Criteria cri) {
+			if(memberId == null)
+				return null;
+			return mypageDao.selectBookList(memberId, cri);
+		}
+		
+		//예약 전체 수 가져오기
+		@Override
+		public int getBookTotalCount(String memberId) {
+			int totalCount = mypageDao.selectBookTotalCount(memberId);
+			return totalCount;	
 		}
 	
 	
@@ -257,7 +272,6 @@ public class MypageServiceImp implements MypageService {
 		public ArrayList<GatherVO> getGatherListById(String memberId, GatherCriteria cri) {
 			if(memberId == null)
 				return null;
-			System.out.println("me_id" + memberId);
 			return mypageDao.selectGatherListById(memberId, cri);
 		}
 		
@@ -281,6 +295,8 @@ public class MypageServiceImp implements MypageService {
 			ArrayList<Integer> wantList = mypageDao.selectWantListById(memberId);
 			return wantList;
 		}
+
+
 
 
 }

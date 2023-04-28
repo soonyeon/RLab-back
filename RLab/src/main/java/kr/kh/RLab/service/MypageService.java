@@ -61,6 +61,13 @@ public interface MypageService {
 		// 해당 결제 정보안의 구매목록 가져오기
 		ArrayList<String> getItemList(String paOrderId);
 		
+	//[예약 관리 > 나의 예약 내역]
+		//나의 예약 목록 가져오기
+		ArrayList<ReservationVO> getBookList(String memberId, Criteria cri);
+		
+		//예약 전체 수 가져오기
+		int getBookTotalCount(String memberId);
+		
 		
 	//[개인정보 수정 > 비밀번호 체크]
 		boolean checkPw(MemberVO pw, MemberVO user);
@@ -109,6 +116,8 @@ public interface MypageService {
 
 		//펫 경험치 가져오기
 		GrowthVO selectPetExp(String memberId);
+
+
 
 
 }

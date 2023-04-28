@@ -66,7 +66,7 @@ public interface MypageDAO {
 		
 	//[예약 관리 > 나의 결제 내역]	
 		//나의 결제 정보 가져오기	
-		ArrayList<PayDTO> selectPayList(String memberId);
+		ArrayList<PayDTO> selectPayList(@Param("memberId")String memberId,  @Param("cri")Criteria cri);
 		
 		//나의 결제 전체 수
 		int selectPayTotalCount(String memberId);
@@ -81,6 +81,13 @@ public interface MypageDAO {
 		
 		//해당 결제 정보안의 구매목록 가져오기
 		ArrayList<String> selectItemList(String paOrderId);
+		
+	//[예약 관리 > 나의 예약 내역]	
+		//나의 예약 목록 가져오기	
+		ArrayList<ReservationVO> selectBookList(@Param("memberId")String memberId, @Param("cri")Criteria cri);
+		
+		//예약 전체 수 가져오기
+		int selectBookTotalCount(String memberId);
 		
 		
 	//[작성글 관리 > 나의 게시글]
@@ -111,6 +118,10 @@ public interface MypageDAO {
 		
 		// 내가 쓴 모집글의 찜 여부 가져오기
 		ArrayList<Integer> selectWantListById(String memberId);
+
+
+
+
 
 
 }

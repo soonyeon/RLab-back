@@ -17,25 +17,29 @@
   width: 200px;
   border-radius: 5px;
 }
+/* 게시판, 페이지네이션 부모 */
+.tab_content{
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  gap: 40px;
+}
 
-/* 게시판 */
+/* 결제내역 표 */
 table { 
   border-collapse: collapse; 
 }
 td:nth-child(1){
-	width: 20px;
-}
-td:nth-child(2){
 	width: 50px;
 }
+td:nth-child(2){
+	width: 20px;
+}
 td:nth-child(3){
-	width: 80px;
+	width: 70px;
 }
 td:nth-child(4){
-	width: 35px;
-}
-td:nth-child(5){
-	width: 40px;
+	width: 30px;
 }
 
 .board_title_list{
@@ -44,6 +48,7 @@ td:nth-child(5){
   font-size: 20px;
   font-weight: bold;
 }
+
 .board_list {
   border-bottom: 1px solid var(--color_yellow);
   height: 50px;
@@ -51,11 +56,6 @@ td:nth-child(5){
 .board_list:hover{
   background-color: #f0eb583b;
   cursor: pointer;
-}
-.board_list a{
-  width: 100px;
-  height: 100px;
-  background-color: aqua;
 }
 .post_title{
   font-weight:bold;
@@ -68,13 +68,11 @@ td:nth-child(5){
   text-align: center;
   color: rgb(43, 42, 42);
 }
-
 .fa-solid{margin-left: 5px; margin-right: -10px;}
 
 .border_box{
   width: 100%;
 }
-
 .border_box .title_list_item{
   height: 50px;
   font-size: 17px;
@@ -86,5 +84,3 @@ td:nth-child(5){
 .background_bbls{
   height: 1253px;
 }
-
-.bd_list_item{padding-left: 5px;}
