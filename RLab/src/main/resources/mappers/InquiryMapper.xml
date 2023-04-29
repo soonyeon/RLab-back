@@ -9,6 +9,7 @@
 	<if test="cri.type != 0">
 		AND in_it_num = #{cri.type}
 	</if>
+		and in_ori_num = 0
 	ORDER BY 
 		<if test="cri.sort == ''">in_num DESC</if>
 		<if test="cri.sort == 'date'">in_register_date DESC</if>
@@ -21,6 +22,7 @@
 		<if test="cri.type != 0">
 			AND in_it_num = #{cri.type}
 		</if>
+		and in_ori_num = 0
 	)tmp
 </select>
 <select id="selectAllInquiryType" resultType="kr.kh.RLab.vo.InquiryTypeVO">

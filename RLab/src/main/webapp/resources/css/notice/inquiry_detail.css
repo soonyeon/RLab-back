@@ -137,9 +137,14 @@ textarea{
   justify-content: space-between;
   margin-bottom: 10px;
 }
-.reply_container .title_container .replier_info .writer,
 .reply_container .title_container .replier_info .date{
-  color: #777;
+	margin-right: 5px;
+	color: #777;
+}
+.reply_container .title_container .replier_info .re_update,
+.reply_container .title_container .replier_info .re_delete{
+  color: #ddd;
+  cursor: pointer;
 }
 .reply_container .reply_content{
   margin-top: 15px;
@@ -155,7 +160,7 @@ textarea{
     font-size: 18px;
     padding: 5px;
     cursor: pointer;
-    margin: 20px auto 0;
+    margin: 25px auto 0;
     box-shadow: 2px 2px 5px var(--color_light-grey);
     text-align: center;
     line-height: 35px;

@@ -67,19 +67,21 @@
 		                            </div>
 		                        </div>
 	                        </c:if>
-	                        <c:if test="${ans != null}">
-		                        <div class="reply_container">
-		                            <div class="title_container">
-	                                    <h3 class="reply_title">문의 답변</h3>
-		                                <div class="replier_info">
-		                                    <span class="date">${ans.in_reg_date_str2}</span>
-		                                </div>
-		                                
-		                            </div>
-		                            <hr>
-		                            <div class="reply_content">${ans.in_content}</div>
-		                        </div>
-	                        </c:if>
+                        </c:if>
+                        <c:if test="${ans != null}">
+	                        <div class="reply_container">
+	                            <div class="title_container">
+                                    <h3 class="reply_title">문의 답변</h3>
+	                                <div class="replier_info">
+	                                    <span class="date">${ans.in_reg_date_str2}</span>
+	                                    <span class="re_update">수정</span>
+	                                    <a href="<c:url value='/inquiry/delete/${ans.in_num}'></c:url>" class="re_delete">삭제</a>
+	                                </div>
+	                                
+	                            </div>
+	                            <hr>
+	                            <div class="reply_content">${ans.in_content}</div>
+	                        </div>
                         </c:if>
                         <div class="to_list">
                             <a href="<c:url value='/inquiry/list'></c:url>" class="btn_list">목록으로</a>
@@ -96,7 +98,7 @@ $('.btn_reply').click(function(){
 	var replyContent = $('[name=reply_content]').val();
 	var inquiry = {
 		'in_num': ${in_num},
-		'in_title': '문의글 답변입니다.',
+		'in_title': '문의답변',
 		'in_content': replyContent
 	}
 	console.log(inquiry);
@@ -106,12 +108,18 @@ $('.btn_reply').click(function(){
 		url: '<c:url value="/inquiry/insert/answer"></c:url>',
 		dataType:"json",
         contentType:"application/json; charset=UTF-8",
-        success :function(){
-        	location.href = "<c:url value='/inquiry/detail/${in_num}'></c:url>";
+        success :function(data){
+        	//location.href = "<c:url value='/inquiry/detail/${in_num}'></c:url>";
+        	location.replace("<c:url value='/inquiry/detail/${in_num}'></c:url>");
+        },
+        error: function(data){
+        	console.log(data);
         }
 	})
-	
 });
+$('.re_delete').click(function(){
+	location.href = "<c:url value='/inquiry/detail/${in_num}'></c:url>";
+})
 
 </script>
 </body>

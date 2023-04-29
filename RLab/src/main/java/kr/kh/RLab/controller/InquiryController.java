@@ -2,6 +2,7 @@ package kr.kh.RLab.controller;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -66,9 +67,7 @@ public class InquiryController {
 		InquiryVO in = inquiryService.getInquiryByInnum(in_num);
 		ArrayList<InquiryTypeVO> itList = inquiryService.getAllInquiryType();
 		ArrayList<Integer> answered = inquiryService.getAnsweredInNum();
-		//해당 in_num을 ori_num으로하는 게시글 가져와서 답변으로 보내줌
 		InquiryVO ans = inquiryService.getInquiryAnswer(in_num);
-		System.out.println("답변:"+ans);
 		mv.addObject("in", in);
 		mv.addObject("itList", itList);
 		mv.addObject("in_num", in_num);
@@ -116,18 +115,34 @@ public class InquiryController {
 	}
 	@RequestMapping(value = "/delete/{in_num}", method = RequestMethod.GET)
 	public ModelAndView delete(ModelAndView mv, @PathVariable("in_num")int in_num, HttpSession session) {
-		String msg, url;
+		String msg, url; 
+		InquiryVO in = inquiryService.getInquiryByInnum(in_num);
 		MemberVO user = (MemberVO)session.getAttribute("user");
-		if(user==null) {
-			msg = "로그인이 필요한 기능입니다. 로그인을 진행해주세요.";
-			url = "/inquiry/detail/"+in_num;
-		}else {
-			if(!inquiryService.deleteInquiry(in_num)) {
-				msg = "게시글 삭제에 실패했습니다.";
+		if(in.getIn_ori_num()==0) {//문의글 삭제 시
+			if(user==null) {
+				msg = "로그인이 필요한 기능입니다. 로그인을 진행해주세요.";
 				url = "/inquiry/detail/"+in_num;
 			}else {
-				msg = "게시글을 삭제했습니다.";
-				url = "/inquiry/list";
+				if(!inquiryService.deleteInquiry(in_num)) {
+					msg = "게시글 삭제에 실패했습니다.";
+					url = "/inquiry/detail/"+in_num;
+				}else {
+					msg = "게시글을 삭제했습니다.";
+					url = "/inquiry/list";
+				}
+			}
+		}else { //문의답변 삭제 시
+			if(user==null) {
+				msg = "로그인이 필요한 기능입니다. 로그인을 진행해주세요.";
+				url = "/inquiry/detail/"+in.getIn_ori_num();
+			}else {
+				if(!inquiryService.deleteInquiry(in_num)) {
+					msg = "답변 삭제에 실패했습니다.";
+					url = "/inquiry/detail/"+in.getIn_ori_num();
+				}else {
+					msg = "문의 답변을 삭제했습니다.";
+					url = "/inquiry/detail/"+in.getIn_ori_num();
+				}
 			}
 		}
 		mv.addObject("msg", msg);
@@ -137,12 +152,12 @@ public class InquiryController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/insert/answer", method = RequestMethod.POST)
-	public ModelAndView insertAnswerPost(ModelAndView mv, HttpSession session, @RequestBody InquiryVO inquiry) {
+	public HashMap<String,Object> insertAnswerPost(HttpSession session, @RequestBody InquiryVO inquiry) {
+		HashMap<String,Object> map = new HashMap<String,Object>();
 		System.out.println(inquiry);
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		inquiryService.insertInquiryAnswer(user.getMe_id(), inquiry);
-		return mv;
+		//mv.setViewName("redirect:/inquiry/detail/"+inquiry.getIn_num());
+		return map;
 	}
-	/*
-	*/
 }
