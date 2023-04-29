@@ -111,7 +111,8 @@ public class SseController {
     
     @GetMapping(value = "/sse/authorize/study", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public ResponseEntity<SseEmitters> sseauthorizeStudy(StudyMemberVO sm){
-    	StudyMemberVO stm = studyService.findStudyMember(sm.getSm_st_num(), sm.getSm_me_id());
+    	StudyVO sv = studyService.getStudy(sm.getSm_st_num()); 
+    	StudyMemberVO stm = studyService.findStudyMember(sm.getSm_st_num(), sv.getSt_me_id());
     	sseEmitters.send("authorizeStudy", stm, stm.getSm_me_id());
         return ResponseEntity.ok(sseEmitters);
 

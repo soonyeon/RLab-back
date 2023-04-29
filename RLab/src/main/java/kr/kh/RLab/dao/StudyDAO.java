@@ -129,7 +129,8 @@ public interface StudyDAO {
 	
 	void updateStudy(StudyVO study);
 
-	StudyMemberVO findStudyMember(@Param("st_num")int st_num, @Param("me_id")String me_id);
+	StudyMemberVO findStudyMember(@Param("st_num")int st_num,@Param("me_id")String me_id);
+
 
 
 }

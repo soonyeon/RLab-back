@@ -320,14 +320,10 @@ public class StudyServiceImp implements StudyService {
 	}
 
 	@Override
-	public StudyMemberVO findStudyMember(int st_num, String me_id) {
-		System.out.println("st_num" + st_num);
-		System.out.println("me_id" + me_id);
-
-		StudyMemberVO stm = studyDao.findStudyMember(st_num,me_id);
-		System.out.println("stm================="+stm);
-		return stm;
+	public StudyMemberVO findStudyMember(int st_num,String me_id) {
+		return studyDao.findStudyMember(st_num,me_id);
 	}
+
 
 
 

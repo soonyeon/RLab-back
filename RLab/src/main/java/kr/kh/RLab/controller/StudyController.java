@@ -260,7 +260,6 @@ public class StudyController {
 		studyService.deleteStudyMember(sm.getSm_st_num(), sm.getMe_name());
 		return map;
 	}
-
 	@RequestMapping(value = "/management/member/authorize", method = RequestMethod.POST)
 	public HashMap<String, Object> authorizeMember(@RequestBody StudyMemberVO sm) {
 	    HashMap<String, Object> map = new HashMap<String, Object>();
@@ -271,7 +270,6 @@ public class StudyController {
 	    System.out.println(newLeaderId);
 	    if (newLeaderId != null) {
 	        String message = "스터디장을 위임 받았습니다.";
-	        System.out.println("------------------------------------------------------------");
 	        notificationService.sendNotificationToUser(newLeaderId, message, AlarmType.STUDY);
 	    }
 

@@ -244,10 +244,9 @@ values(#{td_me_id},#{td_content},0,NOW())
   join mission on mi_num = mf_mi_num
     where mf_me_id = #{me_id} and mi_date = CURDATE();
 </select>
-	<select id="findStudyMember" resultType="kr.kh.RLab.vo.StudyMemberVO">
-		select *
-		from study_member
-		where sm_st_num = #{st_num} and sm_me_id = #{me_id}
-	</select>
-
+<select id="findStudyMember" resultType="kr.kh.RLab.vo.StudyMemberVO">
+	select *
+	from study_member
+	where sm_st_num = #{st_num} and sm_me_id = #{me_id}
+</select>
 </mapper>
