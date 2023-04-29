@@ -13,13 +13,13 @@
 	    <!-- 왼쪽 메뉴바 -->
 	    <div class="left_menu_container">
 	        <nav class="left_menu">
-	            <a href="study_basic.html" class="list_item">스터디홈</a>
+	            <a href="<c:url value='/study/${st_num}'></c:url>" class="list_item">스터디홈</a>
 	            <a href="#" class="list_item">스터디 달력</a>
-	            <a href="to_do_list.html" class="list_item">투두 리스트</a>
-	            <a href="Daily Mission.html" class="list_item">데일리 미션</a>
-	            <a href="certification_board.html" class="list_item">인증 게시판</a>
-	            <a href="board.html" class="list_item">자유 게시판</a>
-	            <a href="<c:url value='/study/management/study'></c:url>" class="list_item">스터디 관리</a>
+	            <a href="<c:url value='/study/todo'></c:url>" class="list_item">투두 리스트</a>
+	            <a href="<c:url value='/study/daily/${st_num}'></c:url>" class="list_item">데일리 미션</a>
+	            <a href="<c:url value='/study/photo/${st_num}'></c:url>" class="list_item">인증 게시판</a>
+	            <a href="<c:url value='/board/list/${st_num}'></c:url>" class="list_item">자유 게시판</a>
+	            <a href="<c:url value='/study/management'></c:url>" class="list_item">스터디 관리</a>
 	            <a href="#" class="leave">탈퇴하기</a>
 	        </nav>
 	    </div>
@@ -96,41 +96,46 @@
 	                <!-- 투두 컨테이너 멤버 -->
 	                <div class="scroll_box">
 	                    <div class="todo_container_member">
-	                         <c:forEach items="${tdMembersName}" var="mn" varStatus="vs" >
-	                         <c:if test="${mn.me_id ne memberId}">
+ 	                         
+	                      	<c:forEach items="${stMember}" var="sm" varStatus="vs" >
+	                      	<c:if test="${sm.sm_me_id ne memberId}">
+	                      	
 		                        <div class="todo_box_member_content add_shadow ">
 		                            <div class="todo_box_member_title ">
-		                                <h3>${mn.me_name}</h3>
+		                                <h3>${sm.me_name}</h3>
 		                            </div>
 	                                <ul class="todo_list">
-		                                <c:forEach items="${mebersTd}" var="mt" varStatus="vs" >
-	                                		<c:if test="${mn.me_id == mt.td_me_id}">
+	                                
+		                              <c:forEach items="${stMemberTodo}" var="td" varStatus="vs" >
+		                                   <c:if test="${sm.sm_me_id == td.td_me_id}">
 			                                    <li>
-				                                    <c:if test="${mt.td_finish == 0}">
+				                                  <c:if test="${td.td_finish == 0}">
 					                                    <span class="todo_check">
 					                                        <i class="material-icons check check_on">check</i>
 					                                    </span>
-				                                    	<span class="todo_content">${mt.td_content}</span>
-				                                    </c:if>
-				                                    <c:if test="${mt.td_finish == 1}">
+				                                    	<span class="todo_content">${td.td_content}</span>
+				                                   </c:if>
+				                                   <c:if test="${td.td_finish == 1}">
 					                                    <span class="todo_check">
 					                                        <i class="material-icons check check_off">check</i>
 					                                    </span>
-				                                    	<span class="todo_content done">${mt.td_content}</span>
+				                                    	<span class="todo_content done">${td.td_content}</span>
 				                                    </c:if>
 				                                </li>
-	                                		</c:if>
-		                                </c:forEach>
-	                                </ul>
+			                                </c:if>
+		                              </c:forEach>
+	                                </ul>                                                         
 		                            <div class="progress_container">
 		                                <progress value="20" max="100"></progress>
 		                                <div>
 		                                    <p class="success_percent">달성률 20%</p>
 		                                </div>
-		                            </div>
-		                        </div>
-		                    </c:if>    
-	                       	</c:forEach>
+		                        	</div>
+			                    </div>
+			                    
+			                </c:if>    
+							</c:forEach>
+							
 	                    </div>
 	                </div>
 	                <!-- 투두 컨테이너 멤버 끝 -->
@@ -302,7 +307,7 @@ const generateTodo = (todo) => {
 		    //서버에서 보내는 데이터 타입
 		    contentType:"application/json; charset=UTF-8",
 		    success : function(data){
-		    	location.replace("<c:url value='/study/todo'></c:url>");
+		    	location.replace("<c:url value='/study/todo/${st_num}'></c:url>");
 		    /*     $('#todo_list').load("<c:url value='/study/todo'></c:url> #todo_list"); */
 		    }
 		});  
@@ -313,14 +318,7 @@ const clearIcons = document.querySelectorAll('.clear');
 clearIcons.forEach(icon => {
     icon.addEventListener("click", (e) => {
         var td_num = e.target.parentNode.parentNode.dataset.num;
-        /* const tdNum = li.querySelector('.td_num').textContent; */  // 할 일 내용 가져오기
-        // Ajax를 이용하여 서버에 할 일 내용을 전송
-/*         const obj = {
-        		td_num = ${td_num}
-        } */
-        console.log(td_num);
-        
-        
+        /* console.log(td_num); */
         $.ajax({
             async: false,
             type: 'POST',
@@ -331,7 +329,7 @@ clearIcons.forEach(icon => {
             // 서버에서 보내는 데이터 타입
             contentType: "application/json; charset=UTF-8",
             success: function (data) {
-            	location.replace("<c:url value='/study/todo'></c:url>");
+            	location.replace("<c:url value='/study/todo/${st_num}'></c:url>");
             }
         });
     });
@@ -353,7 +351,7 @@ checkOn.forEach(icon => {
             // 서버에서 보내는 데이터 타입
             contentType: "application/json; charset=UTF-8",
             success: function (data) { 
-            	location.replace("<c:url value='/study/todo'></c:url>");
+            	location.replace("<c:url value='/study/todo/${st_num}'></c:url>");
             	/* var td_finish = data.td_finish; */
             }
         });
@@ -378,103 +376,9 @@ checkOff.forEach(icon => {
             // 서버에서 보내는 데이터 타입
             contentType: "application/json; charset=UTF-8",
             success: function (data) { 
-            	 location.replace("<c:url value='/study/todo'></c:url>");  
+            	 location.replace("<c:url value='/study/todo/${st_num}'></c:url>");  
             }
         });
     });
 }); 
-
-/*$(".clear").on("click", function() {
-	let obj = {
-		td_num: ${td_num}
-	};
-		$.ajax({	
-			async: false,
-			type: 'POST',
-			data: JSON.stringify(obj),
-			url: "<c:url value='/study/todo/delete'></c:url>",
-			dataType: "json",
-			contentType: "application/json; charset=UTF-8",
-			success: function(data) {
-				 console.log(data);
-				location.replace("<c:url value='/study/management'></c:url>"); 
-			}
-		});
-	});
-});
-
-*/
-
-
-    
-    
-    
-    
-
-/*  
-const todoInput = document.querySelector(".input_box");
-const todoList = document.querySelector(".todo_list");
-
-todoInput.addEventListener("keypress",(e) => {
-		if(e.keyCode === 13 && todoInput.value !== ''){
-    generateTodo(todoInput.value);
-		todoInput.value = "";
-		}
-});
-
-const generateTodo = (todo) => {
-	const li = document.createElement("li");
-	const checkSpan  = generateCheck(); 
-	const contentSpan = generateContent(todo); 
-	const clearSpan = generateClear();
-	li.appendChild(checkSpan);
-	li.appendChild(contentSpan);
-	li.appendChild(clearSpan);
-	todoList.appendChild(li);
-	console.log(li);
-	
-}
-
-//체크 생성 메서드
-const generateCheck= () => {
-	const span = document.createElement("span");
-	span.classList.add("todo_check")
-	const icon = document.createElement("i");
-	icon.classList.add("material-icons");
-	icon.classList.add("check")
-	icon.innerText = "check"
-	icon.addEventListener("click",(e) => {
-		const li = e.target.parentNode.parentNode;
-		li.classList.add('done');
-		icon.remove();
-	});
-	span.appendChild(icon);
-	return span;
-}
-
-//컨텐트 생성 메서드
-const generateContent = (todo) => {
-	const span = document.createElement("span");//스팬을 생성, span변수에 할당
-	span.classList.add("todo_content");
-	span.innerText = todo;
-	return span;
-}
-
-// x버튼
-const generateClear= () => {
-	const span = document.createElement("span");
-	span.classList.add("todo_clear")
-	const icon = document.createElement("i");
-	icon.classList.add("material-icons");
-	icon.classList.add("clear")
-	icon.innerText = "clear"
-	icon.addEventListener("click",(e) => {
-		const li = e.target.parentNode.parentNode;
-		todoList.removeChild(li);
-	});
-	span.appendChild(icon);
-	
-	return span;
-} 
- */
 </script>

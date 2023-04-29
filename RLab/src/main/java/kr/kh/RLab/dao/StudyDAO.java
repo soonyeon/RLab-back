@@ -83,11 +83,11 @@ public interface StudyDAO {
 
 	ArrayList<StudyMemberVO> selectMyStudyList(@Param("memberId")String memberId);
 
-	ArrayList<StudyMemberVO> selectMyStudyMember(@Param("myStudyNum")int myStudyNum);
+//	ArrayList<StudyMemberVO> selectMyStudyMember(@Param("myStudyNum")int myStudyNum);
 
-	ArrayList<TodoVO> selectTodoListByMemberId(@Param("stMeIdList")ArrayList<String> stMeIdList);
+//	ArrayList<TodoVO> selectTodoListByMemberId(@Param("stMeIdList")ArrayList<String> stMeIdList);
 
-	ArrayList<MemberVO> selectTodoMembersName(@Param("stMeIdList")ArrayList<String> stMeIdList);
+//	ArrayList<MemberVO> selectTodoMembersName(@Param("stMeIdList")ArrayList<String> stMeIdList);
 
 	int selectTodoCount(@Param("memberId")String memberId);
 
@@ -120,5 +120,14 @@ public interface StudyDAO {
 	boolean updateMission(MissionVO missionVO);
 
 	MissionFinishVO selectTodayMissionFinsh(String me_id);
+
+	ArrayList<TodoVO> selectStudyMemberTodo(@Param("st_num")int st_num);
+
+	ArrayList<StudyMemberVO> selectStudyMember(@Param("st_num")int st_num);
+
+	int selectMemberTodoCount(@Param("td_me_id")String td_me_id);
+
+	int selectMemberFinishTodoCount(@Param("td_me_id")String td_me_id);
+
 
 }

@@ -300,10 +300,10 @@ $(".btn_power").on("click", function() {
 		        console.log(data);
 		    }
 		});
-	});
-	  
 	location.replace("<c:url value='/study/management/'></c:url>");
     alert("위임처리 되었습니다."); 
+	});
+	  
 });
 
 

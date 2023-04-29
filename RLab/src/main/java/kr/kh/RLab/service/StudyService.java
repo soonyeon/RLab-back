@@ -62,13 +62,7 @@ public interface StudyService {
 
 	void finishTodoUndo(int td_num, int td_finish);
 
-	ArrayList<StudyMemberVO> getMyStudyLis(String memberId);
-
-	ArrayList<StudyMemberVO> getMyStudyMember(int myStudyNum);
-
-	ArrayList<TodoVO> getTodoListByMemberId(ArrayList<String> stMeIdList);
-
-	ArrayList<MemberVO> getTdMembersName(ArrayList<String> stMeIdList);
+	ArrayList<StudyMemberVO> getMyStudyList(String memberId);
 
 	double getTodoProgressRate(String memberId);
   
@@ -95,5 +89,14 @@ public interface StudyService {
 	PhotoVO getPhotoByPhNum(int li_ph_num);
 
 	MissionFinishVO selectTodayMissionFinsh(String me_id);
+
+	ArrayList<TodoVO> getStudyMemberTodo(int st_num);
+
+	ArrayList<StudyMemberVO> getStudyMember(int st_num);
+
+	double membersTdProgRate(String td_me_id);
+
+
+	
 
 }
