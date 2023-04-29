@@ -133,24 +133,6 @@
 		select sm_st_num from study_member
 		where sm_me_id = #{memberId}
 	</select>
-	<!-- <select id="selectMyStudyMember" resultType="kr.kh.RLab.vo.StudyMemberVO">
-		select sm_me_id from study_member
-		where sm_st_num = #{myStudyNum}
-	</select> -->
-	<!-- <select id="selectTodoListByMemberId" resultType="kr.kh.RLab.vo.TodoVO">
-		SELECT * FROM todo
-		WHERE td_me_id IN
-		<foreach item="item" index="index" collection="stMeIdList" open="(" separator="," close=")">
-	    	#{item}
-		</foreach>
-	</select>
-	<select id="selectTodoMembersName" resultType="kr.kh.RLab.vo.MemberVO">
-		SELECT me_name, me_id FROM member
-		WHERE me_id IN
-		<foreach item="item" index="index" collection="stMeIdList" open="(" separator="," close=")">
-	    	#{item}
-		</foreach>
-	</select> -->
 	<select id="selectTodoCount" resultType="int">
 		SELECT count(*) FROM todo
 		WHERE td_me_id = #{memberId}

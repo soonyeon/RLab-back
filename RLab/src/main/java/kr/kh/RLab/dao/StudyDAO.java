@@ -83,12 +83,6 @@ public interface StudyDAO {
 
 	ArrayList<StudyMemberVO> selectMyStudyList(@Param("memberId")String memberId);
 
-//	ArrayList<StudyMemberVO> selectMyStudyMember(@Param("myStudyNum")int myStudyNum);
-
-//	ArrayList<TodoVO> selectTodoListByMemberId(@Param("stMeIdList")ArrayList<String> stMeIdList);
-
-//	ArrayList<MemberVO> selectTodoMembersName(@Param("stMeIdList")ArrayList<String> stMeIdList);
-
 	int selectTodoCount(@Param("memberId")String memberId);
 
 	int selectTodoFinishCount(@Param("memberId")String memberId);
