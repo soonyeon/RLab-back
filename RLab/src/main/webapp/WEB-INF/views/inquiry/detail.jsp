@@ -78,7 +78,6 @@
 		                                    <a href="<c:url value='/inquiry/delete/${ans.in_num}'></c:url>" class="re_delete">삭제</a>
 	                                    </c:if>
 	                                </div>
-	                                
 	                            </div>
 	                            <hr>
 	                            <div class="reply_content">${ans.in_content}</div>
@@ -144,9 +143,14 @@ $(document).on('click','.btn_update_reply',function(){
 		alert('로그인이 필요한 기능입니다.');
 		return;
 	}
+	let in_num;
+	if(${ans == null})
+		in_num=0;
+	else
+		in_num='${ans.in_num}';
 	let updateContent = $('[name=update_reply]').val();
 	let inquiry = {
-			'in_num': ${ans.in_num},
+			'in_num': in_num,
 			'in_content': updateContent
 		}
 	$.ajax({
@@ -160,7 +164,6 @@ $(document).on('click','.btn_update_reply',function(){
         }
 	})
 });
-
 </script>
 </body>
 </html>
