@@ -31,4 +31,6 @@ public interface InquiryDAO {
 
 	void insertInquiryAnswer(@Param("me_id")String me_id, @Param("in")InquiryVO inquiry);
 
+	void updateInquiryAnswer(InquiryVO inquiry);
+
 }

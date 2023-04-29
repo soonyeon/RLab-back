@@ -111,7 +111,8 @@ textarea{
   outline: none;
   box-sizing: border-box;
 }
-.input_container .reply_box .btn_reply{
+.input_container .reply_box .btn_reply,
+.input_container .reply_box .btn_update_reply{
   position: absolute;
   top: 0;
   right: 0px;

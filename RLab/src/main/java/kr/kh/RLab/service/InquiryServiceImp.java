@@ -67,4 +67,9 @@ public class InquiryServiceImp implements InquiryService {
 		inquiryDao.insertInquiryAnswer(me_id, inquiry);
 	}
 
+	@Override
+	public void updateInquiryAnswer(InquiryVO inquiry) {
+		inquiryDao.updateInquiryAnswer(inquiry);
+	}
+
 }

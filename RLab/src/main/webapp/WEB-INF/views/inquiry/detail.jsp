@@ -50,7 +50,6 @@
 	                                </div>
                                 </c:if>
                             </div>
-                            
                         </div>
 						<hr>
                         <div class="content_container">${in.in_content}</div>
@@ -74,8 +73,10 @@
                                     <h3 class="reply_title">문의 답변</h3>
 	                                <div class="replier_info">
 	                                    <span class="date">${ans.in_reg_date_str2}</span>
-	                                    <span class="re_update">수정</span>
-	                                    <a href="<c:url value='/inquiry/delete/${ans.in_num}'></c:url>" class="re_delete">삭제</a>
+	                                    <c:if test="${ans.in_me_id == user.me_id}">
+		                                    <span class="re_update">수정</span>
+		                                    <a href="<c:url value='/inquiry/delete/${ans.in_num}'></c:url>" class="re_delete">삭제</a>
+	                                    </c:if>
 	                                </div>
 	                                
 	                            </div>
@@ -86,7 +87,6 @@
                         <div class="to_list">
                             <a href="<c:url value='/inquiry/list'></c:url>" class="btn_list">목록으로</a>
                         </div>
-                        
 					</div>
 				</section>
 			</div>
@@ -95,6 +95,10 @@
 </body>
 <script>
 $('.btn_reply').click(function(){
+	if(${user == null}){
+		alert('로그인이 필요한 기능입니다.');
+		return;
+	}
 	var replyContent = $('[name=reply_content]').val();
 	var inquiry = {
 		'in_num': ${in_num},
@@ -109,7 +113,6 @@ $('.btn_reply').click(function(){
 		dataType:"json",
         contentType:"application/json; charset=UTF-8",
         success :function(data){
-        	//location.href = "<c:url value='/inquiry/detail/${in_num}'></c:url>";
         	location.replace("<c:url value='/inquiry/detail/${in_num}'></c:url>");
         },
         error: function(data){
@@ -120,6 +123,43 @@ $('.btn_reply').click(function(){
 $('.re_delete').click(function(){
 	location.href = "<c:url value='/inquiry/detail/${in_num}'></c:url>";
 })
+$(document).on('click','.re_update',function(){
+	if(${user == null}){
+		alert('로그인이 필요한 기능입니다.');
+		return;
+	}
+	$('.reply_container').hide();
+	updateStr =
+		'<div class="input_container">'
+		    +'<div class="reply_box">'
+		        +'<textarea class="reply_input" name="update_reply">${ans.in_content}</textarea>'
+		        +'<button class="btn_update_reply">답변 등록</button>'
+		    +'</div>'
+		+'</div>';
+	$('.content_container').after(updateStr);
+	console.log(2);
+});
+$(document).on('click','.btn_update_reply',function(){
+	if(${user == null}){
+		alert('로그인이 필요한 기능입니다.');
+		return;
+	}
+	let updateContent = $('[name=update_reply]').val();
+	let inquiry = {
+			'in_num': ${ans.in_num},
+			'in_content': updateContent
+		}
+	$.ajax({
+		type:'POST',
+		data: JSON.stringify(inquiry),
+		url: '<c:url value="/inquiry/update/answer"></c:url>',
+		dataType:"json",
+        contentType:"application/json; charset=UTF-8",
+        success :function(data){
+        	location.replace("<c:url value='/inquiry/detail/${in_num}'></c:url>");
+        }
+	})
+});
 
 </script>
 </body>

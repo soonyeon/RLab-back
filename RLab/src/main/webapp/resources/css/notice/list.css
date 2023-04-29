@@ -11,13 +11,13 @@ display: flex; justify-content: center;
 .notice_container .btn_prev{
   display: inline-block; width: 15px; height: 20px;
   margin-right: 10px;
-  background-position: -10px -7px; 
+  background-position: -10px -6px; 
   background-image: url(../../img/page_left.png);  background-size:35px 35px;
 }
 .notice_container .btn_next{
   display: inline-block; width: 15px; height: 20px; 
   margin-left: 10px;
-  background-position: -10px -7px; 
+  background-position: -10px -6px; 
   background-image: url(../../img/page_right.png); background-size:35px 35px;
 }
 

@@ -157,7 +157,14 @@ public class InquiryController {
 		System.out.println(inquiry);
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		inquiryService.insertInquiryAnswer(user.getMe_id(), inquiry);
-		//mv.setViewName("redirect:/inquiry/detail/"+inquiry.getIn_num());
+		return map;
+	}
+	@ResponseBody
+	@RequestMapping(value = "/update/answer", method = RequestMethod.POST)
+	public HashMap<String,Object> updateAnswerPost(HttpSession session, @RequestBody InquiryVO inquiry) {
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		System.out.println(inquiry);
+		inquiryService.updateInquiryAnswer(inquiry);
 		return map;
 	}
 }

@@ -29,4 +29,6 @@ public interface InquiryService {
 
 	void insertInquiryAnswer(String me_id, InquiryVO inquiry);
 
+	void updateInquiryAnswer(InquiryVO inquiry);
+
 }

@@ -47,7 +47,6 @@
 											<thead>
 												<tr class="board_title_list">
 													<td class="title_list_item">분류</td>
-													<td class="title_list_item">번호</td>
 													<td class="title_list_item">제목</td>
 													<td class="title_list_item">작성자</td>
 													<td class="title_list_item">작성일</td>
@@ -62,7 +61,6 @@
 																<c:if test="${in.in_it_num == it.it_num}">${it.it_name}</c:if>
 															</c:forEach>
 														</td>
-														<td>${in.in_num}</td>
 														<td class="post_title"><a href="<c:url value='/inquiry/detail/${in.in_num}'></c:url>"> ${in.in_title}</a></td>
 														<td>${in.in_me_id}</td>
 														<td>${in.in_reg_date_str}</td>

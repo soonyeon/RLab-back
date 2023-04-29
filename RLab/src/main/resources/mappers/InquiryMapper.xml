@@ -56,4 +56,7 @@
 	insert into inquiry(in_it_num, in_title, in_me_id, in_content, in_reg_date, in_ori_num)
 	value(1, #{in.in_title}, #{me_id}, #{in.in_content}, now(), #{in.in_num})
 </insert>
+<update id="updateInquiryAnswer">
+	update inquiry set in_content = #{in_content} where in_num = #{in_num}
+</update>
 </mapper>
