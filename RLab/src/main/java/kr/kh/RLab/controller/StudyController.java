@@ -31,6 +31,7 @@ import kr.kh.RLab.service.StudyService;
 import kr.kh.RLab.vo.AlarmVO.AlarmType;
 import kr.kh.RLab.vo.LikeVO;
 import kr.kh.RLab.vo.MemberVO;
+import kr.kh.RLab.vo.MissionFinishVO;
 import kr.kh.RLab.vo.MissionVO;
 import kr.kh.RLab.vo.PhotoTypeVO;
 import kr.kh.RLab.vo.PhotoVO;
@@ -38,10 +39,12 @@ import kr.kh.RLab.vo.StudyMemberVO;
 import kr.kh.RLab.vo.StudyVO;
 import kr.kh.RLab.vo.TodoVO;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/study")
+@Slf4j
 public class StudyController {
 
 	private final StudyService studyService;
@@ -466,17 +469,25 @@ public class StudyController {
 	@PostMapping("/leave/{st_num}")
 	@ResponseBody
 	public String leaveStudy(HttpSession session, @PathVariable("st_num") int st_num) {
-		MemberVO user = (MemberVO) session.getAttribute("user");
-		studyService.leaveStudy(user,st_num);
-		
-		//스터디 정보
-		StudyVO study = studyService.getStudy(st_num);
-		study.setSt_now_people(study.getSt_now_people()-1);
-		
-		//스터디 정보 업데이트
+	    MemberVO user = (MemberVO) session.getAttribute("user");
+
+	    // 스터디 정보
+	    StudyVO study = studyService.getStudy(st_num);
+	    StudyMemberVO stMember = studyService.findStudyMember(st_num, user.getMe_id());
+	    
+	    if (stMember != null && stMember.getSm_authority() == 9) {
+	        return "leader";
+	    }
+	    
+	    if (stMember != null) {
+	        study.setSt_now_people(study.getSt_now_people() - 1);
+	    }
+
+	    // 스터디 정보 업데이트
+	    studyService.leaveStudy(user, st_num);
 	    studyService.updateStudy(study);
 
-		return "success";
+	    return "success";
 	}
 }
 
