@@ -1,8 +1,8 @@
 .notice_container{
     width: 930px;
     position: relative;
-    border: var(--border_basic);
-    border-radius: var(--border_radius_4);
+    border: 2px solid #020a17;
+    border-radius: var(--border_radius_2);
     padding: 40px 50px;
     background-color: var(--color_beige);
     box-sizing: border-box;
@@ -76,9 +76,8 @@
 .notice_container .btn_list{
     width: 130px;
     height: 35px;
-    background-color: #fff;
-    border-radius: var(--border_radius_3);
-    border: 1px solid black;
+    background-color: #252525;
+    border-radius: 35px;
     display: inline-block;
     font-size: 18px;
     padding: 5px;
@@ -87,5 +86,7 @@
     box-shadow: 2px 2px 5px var(--color_light-grey);
     text-align: center;
     line-height: 35px;
-    
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
 }

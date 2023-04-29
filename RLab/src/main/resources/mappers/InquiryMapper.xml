@@ -29,6 +29,10 @@
 <select id="selectAnsweredInNum" resultType="Integer">
 	select in_ori_num from inquiry where in_ori_num > 0
 </select>
+<select id="selectInquiryAnswer" resultType="kr.kh.RLab.vo.InquiryVO">
+	select * from inquiry
+	where in_ori_num = #{in_num}
+</select>
 <insert id="insertInquiry">
 	insert into inquiry(in_it_num, in_title, in_me_id, in_content, in_reg_date)
 	values(#{in.in_it_num}, #{in.in_title}, #{me_id}, #{in.in_content}, now())
@@ -46,4 +50,8 @@
 <delete id="deleteInquiry">
 	delete from inquiry where in_num = #{in_num} 
 </delete>
+<insert id="insertInquiryAnswer">
+	insert into inquiry(in_it_num, in_title, in_me_id, in_content, in_reg_date, in_ori_num)
+	value(1, #{in.in_title}, #{me_id}, #{in.in_content}, now(), #{in.in_num})
+</insert>
 </mapper>

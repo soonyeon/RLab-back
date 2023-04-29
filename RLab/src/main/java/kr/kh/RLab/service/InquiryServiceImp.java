@@ -38,6 +38,11 @@ public class InquiryServiceImp implements InquiryService {
 	}
 
 	@Override
+	public InquiryVO getInquiryAnswer(int in_num) {
+		return inquiryDao.selectInquiryAnswer(in_num);
+	}
+
+	@Override
 	public void insertInquiry(String me_id, InquiryVO inquiry) {
 		inquiryDao.insertInquiry(me_id, inquiry);
 	}
@@ -55,6 +60,11 @@ public class InquiryServiceImp implements InquiryService {
 	@Override
 	public boolean deleteInquiry(int in_num) {
 		return inquiryDao.deleteInquiry(in_num)!=0;
+	}
+
+	@Override
+	public void insertInquiryAnswer(String me_id, InquiryVO inquiry) {
+		inquiryDao.insertInquiryAnswer(me_id, inquiry);
 	}
 
 }

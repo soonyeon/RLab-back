@@ -8,8 +8,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.kh.RLab.pagination.NoticeCriteria;
@@ -18,8 +20,6 @@ import kr.kh.RLab.service.InquiryService;
 import kr.kh.RLab.vo.InquiryTypeVO;
 import kr.kh.RLab.vo.InquiryVO;
 import kr.kh.RLab.vo.MemberVO;
-import kr.kh.RLab.vo.NoticeTypeVO;
-import kr.kh.RLab.vo.NoticeVO;
 import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Controller
@@ -66,10 +66,14 @@ public class InquiryController {
 		InquiryVO in = inquiryService.getInquiryByInnum(in_num);
 		ArrayList<InquiryTypeVO> itList = inquiryService.getAllInquiryType();
 		ArrayList<Integer> answered = inquiryService.getAnsweredInNum();
+		//해당 in_num을 ori_num으로하는 게시글 가져와서 답변으로 보내줌
+		InquiryVO ans = inquiryService.getInquiryAnswer(in_num);
+		System.out.println("답변:"+ans);
 		mv.addObject("in", in);
 		mv.addObject("itList", itList);
 		mv.addObject("in_num", in_num);
 		mv.addObject("answered", answered);
+		mv.addObject("ans", ans);
 		mv.setViewName("/inquiry/detail");
 		return mv;
 	}
@@ -129,6 +133,14 @@ public class InquiryController {
 		mv.addObject("msg", msg);
 		mv.addObject("url", url);
 		mv.setViewName("/common/message");
+		return mv;
+	}
+	@ResponseBody
+	@RequestMapping(value = "/insert/answer", method = RequestMethod.POST)
+	public ModelAndView insertAnswerPost(ModelAndView mv, HttpSession session, @RequestBody InquiryVO inquiry) {
+		System.out.println(inquiry);
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		inquiryService.insertInquiryAnswer(user.getMe_id(), inquiry);
 		return mv;
 	}
 	/*

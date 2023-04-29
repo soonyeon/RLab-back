@@ -17,6 +17,8 @@ public interface InquiryService {
 
 	ArrayList<Integer> getAnsweredInNum();
 
+	InquiryVO getInquiryAnswer(int in_num);
+
 	void insertInquiry(String me_id, InquiryVO inquiry);
 
 	InquiryVO getInquiryByInnum(int in_num);
@@ -24,5 +26,7 @@ public interface InquiryService {
 	boolean updateInquiry(InquiryVO in);
 
 	boolean deleteInquiry(int in_num);
+
+	void insertInquiryAnswer(String me_id, InquiryVO inquiry);
 
 }

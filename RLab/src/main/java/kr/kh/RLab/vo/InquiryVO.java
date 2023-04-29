@@ -28,4 +28,11 @@ public class InquiryVO {
 			return "";
 		return format.format(in_reg_date);
 	}
+	public String getIn_reg_date_str2() {
+		SimpleDateFormat format = 
+			new SimpleDateFormat("yyyy.MM.dd hh:mm");
+		if(in_reg_date == null) 
+			return "";
+		return format.format(in_reg_date);
+	}
 }

@@ -34,7 +34,7 @@
 					<form id="in_insert" action="<c:url value='/inquiry/insert'></c:url>" method="post" enctype="multipart/form-data">
 						<h3>게시판</h3>
 						<select id="choose_type" name="in_it_num">
-							<c:forEach items="${itList}" var="it">
+							<c:forEach items="${itList}" var="it" begin="1">
 								<option value="${it.it_num}">${it.it_name}</option>
 							</c:forEach>
 						</select>
