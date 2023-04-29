@@ -106,5 +106,4 @@ public interface StudyService {
 
 	StudyMemberVO findStudyMember(int st_num, String me_id);
 
-
 }

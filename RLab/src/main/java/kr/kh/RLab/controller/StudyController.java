@@ -53,7 +53,7 @@ public class StudyController {
 
 	@GetMapping("/photo/{st_num}")
 	public String photo(HttpServletRequest request, Model model, HttpSession session,
-			@PathVariable("st_num")int st_num) throws IOException {
+			@PathVariable("st_num") int st_num) throws IOException {
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		model.addAttribute("user", user);
 		ArrayList<PhotoTypeVO> phototypeList = studyService.getListPhotoType();
@@ -94,16 +94,15 @@ public class StudyController {
 		photoVO.setPh_st_num(st_num);
 		photoVO.setPh_content(content);
 		photoVO.setPh_pt_num(Integer.parseInt(ph_pt_num));
-		if(photoVO.getPh_pt_num() == 2) {
-			studyService.insertMissionFinishMember(member,st_num);
+		if (photoVO.getPh_pt_num() == 2) {
+			studyService.insertMissionFinishMember(member, st_num);
 		}
 		if (studyService.insertCB(photoVO, files, member)) {
 			return "success";
 		} else {
 			return "error";
 		}
-	
-		
+
 	}
 
 	@PostMapping("/toggleLike")
@@ -121,20 +120,20 @@ public class StudyController {
 			newLike.setLi_ph_num(li_ph_num);
 			newLike.setLi_state(1);
 			studyService.insertLike(newLike);
-			
+
 			photo = studyService.getPhotoByPhNum(li_ph_num);
-			photoUser = photo.getPh_me_id();//photo 작성자 id
-			message = member.getMe_name()+"님이 다음 게시글에 좋아요 표시를 했습니다."+photo.getPh_content();
-			
-			notificationService.sendNotificationToUser(photoUser, message,AlarmType.LIKE);
+			photoUser = photo.getPh_me_id();// photo 작성자 id
+			message = member.getMe_name() + "님이 다음 게시글에 좋아요 표시를 했습니다." + photo.getPh_content();
+
+			notificationService.sendNotificationToUser(photoUser, message, AlarmType.LIKE);
 			sseController.sseNewLike(photo.getPh_num());
 			return "inserted";
 		} else {// 좋아요가 존재하면,
-				studyService.deleteLike(li_me_id, li_ph_num);
-			}
-			
-			return "canceled";
+			studyService.deleteLike(li_me_id, li_ph_num);
 		}
+
+		return "canceled";
+	}
 
 	// 로그인하지 않고 스터디탭 눌렀을때 도달하는 url
 	@RequestMapping(value = "", method = RequestMethod.GET)
@@ -182,26 +181,27 @@ public class StudyController {
 			mv.setViewName("/common/message");
 		}
 		ArrayList<TodoVO> tdList = studyService.getTodoList(user.getMe_id());
-		mv.addObject("tdList",tdList);
+		mv.addObject("tdList", tdList);
 		ArrayList<PhotoVO> photo = studyService.selectPhotoPhNumTwo(st_num);
-		mv.addObject("photo",photo);
+		mv.addObject("photo", photo);
 		mv.addObject("st_num", st_num);
 		mv.addObject("userId", user.getMe_name());
 		mv.setViewName("/study/study_basic");
 		return mv;
 	}
-	
+
 	@RequestMapping(value = "/getMembers/{st_num}", method = RequestMethod.GET)
 	@ResponseBody
 	public List<StudyMemberVO> getMembers(@PathVariable("st_num") int st_num) {
-	    List<StudyMemberVO> members = studyService.selectList(st_num);
-	    return members;
+		List<StudyMemberVO> members = studyService.selectList(st_num);
+		return members;
 	}
+
 	@RequestMapping(value = "/onlineMembers", method = RequestMethod.GET)
 	@ResponseBody
 	public List<StudyMemberVO> getOnlineMembers() {
-		 List<StudyMemberVO> onlineMembers =studyService.getOnlineMembers();
-		 return onlineMembers;
+		List<StudyMemberVO> onlineMembers = studyService.getOnlineMembers();
+		return onlineMembers;
 	}
 
 	@RequestMapping(value = "/management", method = RequestMethod.GET)
@@ -229,179 +229,196 @@ public class StudyController {
 	public ModelAndView managementPost(ModelAndView mv, StudyVO study) {
 		mv.setViewName("redirect:/study/management/member/" + study.getSt_num());
 		return mv;
-	}	
-	
-	@RequestMapping(value = "/management/member/{st_num}", method=RequestMethod.GET)
-	public ModelAndView managementMember(ModelAndView mv, HttpSession session, MemberVO member,
-			StudyVO study, @PathVariable("st_num")int st_num,Criteria cri) {
-	    
-	    // 세션에서 "user" 속성을 검색하고 MemberVO 객체로 캐스팅
-	    MemberVO user = (MemberVO) session.getAttribute("user");    
-	    // StudyService 클래스의 getStudyMemberList메서드를 호출하여 멤버 리스트를 가져옴
-	    ArrayList<StudyMemberVO> memberList = studyService.getStudyMemberList(st_num,cri);	    
-	    int totalCount = studyService.getStudyTotalCount(st_num);	      	    
-	    PageMaker pm = new PageMaker(totalCount,5,cri);
-	    // "myStudyList" 키와 함께 연구 목록을 ModelAndView 객체에 추가
-	    mv.addObject("memberList",memberList);
-	    mv.addObject("st_num", st_num);
-	    mv.addObject("pm",pm);
-	    mv.addObject("user", user);
-	    // 뷰 이름을 "/study/management_member"로 설정
-	    mv.setViewName("/study/management_member");
-	    // ModelAndView 객체를 반환	    
-	    return mv;
 	}
+
+	@RequestMapping(value = "/management/member/{st_num}", method = RequestMethod.GET)
+	public ModelAndView managementMember(ModelAndView mv, HttpSession session, MemberVO member, StudyVO study,
+			@PathVariable("st_num") int st_num, Criteria cri) {
+
+		// 세션에서 "user" 속성을 검색하고 MemberVO 객체로 캐스팅
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		// StudyService 클래스의 getStudyMemberList메서드를 호출하여 멤버 리스트를 가져옴
+		ArrayList<StudyMemberVO> memberList = studyService.getStudyMemberList(st_num, cri);
+		int totalCount = studyService.getStudyTotalCount(st_num);
+		PageMaker pm = new PageMaker(totalCount, 5, cri);
+		// "myStudyList" 키와 함께 연구 목록을 ModelAndView 객체에 추가
+		mv.addObject("memberList", memberList);
+		mv.addObject("st_num", st_num);
+		mv.addObject("pm", pm);
+		mv.addObject("user", user);
+		// 뷰 이름을 "/study/management_member"로 설정
+		mv.setViewName("/study/management_member");
+		// ModelAndView 객체를 반환
+		return mv;
+	}
+
 	@ResponseBody
 	@RequestMapping(value = "/management/member/delete", method = RequestMethod.POST)
-	public HashMap<String,Object> deleteMember(@RequestBody StudyMemberVO sm) {
-		HashMap<String,Object> map = new HashMap<String,Object>();
-	    // 멤버를 삭제하고, 새로운 멤버 리스트를 가져옴
-	    studyService.deleteStudyMember(sm.getSm_st_num(),sm.getMe_name());
-	    return map;
+	public HashMap<String, Object> deleteMember(@RequestBody StudyMemberVO sm) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		// 멤버를 삭제하고, 새로운 멤버 리스트를 가져옴
+		studyService.deleteStudyMember(sm.getSm_st_num(), sm.getMe_name());
+		return map;
 	}
-	@ResponseBody
+
 	@RequestMapping(value = "/management/member/authorize", method = RequestMethod.POST)
-	public HashMap<String,Object> authorizeMember(@RequestBody StudyMemberVO sm) {
-		HashMap<String,Object> map = new HashMap<String,Object>();
-	    studyService.authorizeStudyMember(sm.getSm_st_num(),sm.getMe_name());
+	public HashMap<String, Object> authorizeMember(@RequestBody StudyMemberVO sm) {
+	    HashMap<String, Object> map = new HashMap<String, Object>();
+
+	    studyService.authorizeStudyMember(sm.getSm_st_num(), sm.getMe_name());
+
+	    String newLeaderId = sm.getSm_me_id();
+	    System.out.println(newLeaderId);
+	    if (newLeaderId != null) {
+	        String message = "스터디장을 위임 받았습니다.";
+	        System.out.println("------------------------------------------------------------");
+	        notificationService.sendNotificationToUser(newLeaderId, message, AlarmType.STUDY);
+	    }
+
+	    sseController.sseauthorizeStudy(sm);
+
 	    return map;
 	}
+	
 	@RequestMapping(value = "/management/study/{st_num}", method = RequestMethod.GET)
 	public ModelAndView managementStudy(ModelAndView mv, HttpSession session, @PathVariable("st_num") int st_num) {
-	    //HttpSession에서 "user"라는 이름의 속성을 가져와 MemberVO 객체로 형변환하여 변수 user에 저장
-	    //로그인한 유저정보를 가져온다
-	    MemberVO user = (MemberVO) session.getAttribute("user");
-	    String memberId = user.getMe_id();
-	    int st_state = studyService.getStudyState(st_num);
-	    mv.addObject("user", user);
-	    mv.addObject("st_num", st_num); // 스터디 넘버를 ModelAndView에 추가
-	    mv.addObject("st_state", st_state);
-	    mv.setViewName("/study/management_study");
-	    return mv;
+		// HttpSession에서 "user"라는 이름의 속성을 가져와 MemberVO 객체로 형변환하여 변수 user에 저장
+		// 로그인한 유저정보를 가져온다
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		String memberId = user.getMe_id();
+		int st_state = studyService.getStudyState(st_num);
+		mv.addObject("user", user);
+		mv.addObject("st_num", st_num); // 스터디 넘버를 ModelAndView에 추가
+		mv.addObject("st_state", st_state);
+		mv.setViewName("/study/management_study");
+		return mv;
 	}
-	//스터디 삭제
+
+	// 스터디 삭제
 	@ResponseBody
 	@RequestMapping(value = "/management/study/delete/{st_num}", method = RequestMethod.POST)
 	public HashMap<String, Object> deleteStudy(@RequestBody StudyVO st) {
-	    HashMap<String, Object> map = new HashMap<String, Object>();
-	    // 해당 스터디를 삭제
-	    studyService.deleteStudy(st.getSt_num());
-	    return map;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		// 해당 스터디를 삭제
+		studyService.deleteStudy(st.getSt_num());
+		return map;
 	}
-	
-	//스터디 상태 변경 1 -> 0
+
+	// 스터디 상태 변경 1 -> 0
 	@ResponseBody
 	@RequestMapping(value = "/management/study/update/{st_num}", method = RequestMethod.POST)
 	public HashMap<String, Object> stateUpdateStudy(@RequestBody StudyVO st) {
-	    HashMap<String, Object> map = new HashMap<String, Object>();
-	    
-	    // 해당 스터디 상태를 1에서 0으로 변경
-	    studyService.stateUpdateStudy(st.getSt_num(),st.getSt_state());
-	    return map;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+
+		// 해당 스터디 상태를 1에서 0으로 변경
+		studyService.stateUpdateStudy(st.getSt_num(), st.getSt_state());
+		return map;
 	}
-	
-	//스터디 상태 변경 0 -> 1
+
+	// 스터디 상태 변경 0 -> 1
 	@ResponseBody
 	@RequestMapping(value = "/management/study/update/undo/{st_num}", method = RequestMethod.POST)
 	public HashMap<String, Object> stateUpdateStudyUndo(@RequestBody StudyVO st) {
-	    HashMap<String, Object> map = new HashMap<String, Object>();
-	    
-	    // 해당 스터디 상태를 1에서 0으로 변경
-	    studyService.stateUpdateStudyUndo(st.getSt_num(),st.getSt_state());
-	    return map;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+
+		// 해당 스터디 상태를 1에서 0으로 변경
+		studyService.stateUpdateStudyUndo(st.getSt_num(), st.getSt_state());
+		return map;
 	}
 
 	@ResponseBody
 	@RequestMapping(value = "/todo", method = RequestMethod.GET)
 	public ModelAndView todoList(ModelAndView mv, HttpSession session) {
-	    MemberVO user = (MemberVO) session.getAttribute("user");
-	    String memberId = user.getMe_id();
-	    
-	    //유저의 투두 리스트 
-	    ArrayList<TodoVO> tdList = studyService.getTodoList(memberId);
-	    
-	    //유저가 참여한 스터디 목록 조회
-	    ArrayList<StudyMemberVO> myStudyList = studyService.getMyStudyLis(memberId);
-	    
-	    //유저의 투두 진척도
-	    double todoProgressRate = studyService.getTodoProgressRate(memberId);
-	    int todoProgressRateint= (int) Math.round(todoProgressRate);
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		String memberId = user.getMe_id();
+
+		// 유저의 투두 리스트
+		ArrayList<TodoVO> tdList = studyService.getTodoList(memberId);
+
+		// 유저가 참여한 스터디 목록 조회
+		ArrayList<StudyMemberVO> myStudyList = studyService.getMyStudyLis(memberId);
+
+		// 유저의 투두 진척도
+		double todoProgressRate = studyService.getTodoProgressRate(memberId);
+		int todoProgressRateint = (int) Math.round(todoProgressRate);
 //	    System.out.println("투두 진척도 : " + todoProgressRate+"%");
-	    
-	    
-	    //studyMemberVO에서 유저가 참여한 스터디의 멤버 리스트 가져오기 (sm_me_id)
-	    ArrayList<StudyMemberVO> myStudyMemberList = new ArrayList<StudyMemberVO>();
-	    //내가 참여한 스터디의 멤버 목록 조회
-	    for (StudyMemberVO studyMember : myStudyList) {
-	        int myStudyNum = studyMember.getSm_st_num();
-	        ArrayList<StudyMemberVO> myStudyMember = studyService.getMyStudyMember(myStudyNum);
-	        for (StudyMemberVO studyMemberId : myStudyMember) {
-	            myStudyMemberList.add(studyMemberId);
-	        }
-	    }
-	    
-	    //myStudyMemberList에서 스터디 멤버의 아이디만 가져와서 중복된 값은 제거하기
-	    ArrayList<String> stMeIdList = new ArrayList<String>();
-	    //스터디 멤버 목록에서 멤버 아이디를 추출
-	    for (StudyMemberVO studyMemberId : myStudyMemberList) {
-	        stMeIdList.add(studyMemberId.getSm_me_id());
-	    }
-	    //가져온 스터디 멤버 아이디에서 중복된 값 제거
-        HashSet<String> uniqueSet = new HashSet<>(stMeIdList);
-        stMeIdList.clear();
-        stMeIdList.addAll(uniqueSet);
 
-        //투두 멤버 닉네임과 아이디 가져오기
-	    ArrayList<MemberVO>tdMembersName = studyService.getTdMembersName(stMeIdList);
-	    //투두 멤버의 투두 리스트 가져오기
-	    ArrayList<TodoVO> mebersTd = studyService.getTodoListByMemberId(stMeIdList);
+		// studyMemberVO에서 유저가 참여한 스터디의 멤버 리스트 가져오기 (sm_me_id)
+		ArrayList<StudyMemberVO> myStudyMemberList = new ArrayList<StudyMemberVO>();
+		// 내가 참여한 스터디의 멤버 목록 조회
+		for (StudyMemberVO studyMember : myStudyList) {
+			int myStudyNum = studyMember.getSm_st_num();
+			ArrayList<StudyMemberVO> myStudyMember = studyService.getMyStudyMember(myStudyNum);
+			for (StudyMemberVO studyMemberId : myStudyMember) {
+				myStudyMemberList.add(studyMemberId);
+			}
+		}
 
-	    mv.addObject("myStudyMemberList", stMeIdList);
-	    mv.addObject("myStudyList", myStudyList);
-	    mv.addObject("mebersTd", mebersTd);
-	    mv.addObject("tdList", tdList);
-	    mv.addObject("memberId",memberId);
-	    mv.addObject("tdMembersName", tdMembersName);
-	    mv.addObject("todoProgressRateint",todoProgressRateint);
-	    mv.setViewName("/study/to_do_list");
-	    return mv;
+		// myStudyMemberList에서 스터디 멤버의 아이디만 가져와서 중복된 값은 제거하기
+		ArrayList<String> stMeIdList = new ArrayList<String>();
+		// 스터디 멤버 목록에서 멤버 아이디를 추출
+		for (StudyMemberVO studyMemberId : myStudyMemberList) {
+			stMeIdList.add(studyMemberId.getSm_me_id());
+		}
+		// 가져온 스터디 멤버 아이디에서 중복된 값 제거
+		HashSet<String> uniqueSet = new HashSet<>(stMeIdList);
+		stMeIdList.clear();
+		stMeIdList.addAll(uniqueSet);
+
+		// 투두 멤버 닉네임과 아이디 가져오기
+		ArrayList<MemberVO> tdMembersName = studyService.getTdMembersName(stMeIdList);
+		// 투두 멤버의 투두 리스트 가져오기
+		ArrayList<TodoVO> mebersTd = studyService.getTodoListByMemberId(stMeIdList);
+
+		mv.addObject("myStudyMemberList", stMeIdList);
+		mv.addObject("myStudyList", myStudyList);
+		mv.addObject("mebersTd", mebersTd);
+		mv.addObject("tdList", tdList);
+		mv.addObject("memberId", memberId);
+		mv.addObject("tdMembersName", tdMembersName);
+		mv.addObject("todoProgressRateint", todoProgressRateint);
+		mv.setViewName("/study/to_do_list");
+		return mv;
 	}
-	
-	//투두 인풋 입력값 가져오기
+
+	// 투두 인풋 입력값 가져오기
 	@ResponseBody
-    @PostMapping("/todo/create") // POST 요청 처리를 위한 매핑 경로 설정
-    public HashMap<String, Object> insertTodo(ModelAndView mv, @RequestBody TodoVO td) {
-        HashMap<String, Object> map = new HashMap<String, Object>();
-        System.out.println(td);
-        studyService.createTodo(td.getTd_content(),td.getTd_me_id());
-        return map;
-    }
-	//투두 삭제
+	@PostMapping("/todo/create") // POST 요청 처리를 위한 매핑 경로 설정
+	public HashMap<String, Object> insertTodo(ModelAndView mv, @RequestBody TodoVO td) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		System.out.println(td);
+		studyService.createTodo(td.getTd_content(), td.getTd_me_id());
+		return map;
+	}
+
+	// 투두 삭제
 	@ResponseBody
 	@RequestMapping(value = "/todo/delete", method = RequestMethod.POST)
 	public HashMap<String, Object> deleteTodo(@RequestBody TodoVO td) {
-	    HashMap<String, Object> map = new HashMap<String, Object>();
-	    // 해당 투두를 삭제
-	    studyService.deleteTodo(td.getTd_num());
-	    return map;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		// 해당 투두를 삭제
+		studyService.deleteTodo(td.getTd_num());
+		return map;
 	}
-	//투두 상태 변경 0 -> 1
+
+	// 투두 상태 변경 0 -> 1
 	@ResponseBody
 	@RequestMapping(value = "/todo/finish", method = RequestMethod.POST)
 	public HashMap<String, Object> finishTodo(@RequestBody TodoVO td) {
-	    HashMap<String, Object> map = new HashMap<String, Object>();
-	    // 해당 투두 상태를 0에서 1로 변경
-	    studyService.finishTodo(td.getTd_num(),td.getTd_finish());
-	    return map;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		// 해당 투두 상태를 0에서 1로 변경
+		studyService.finishTodo(td.getTd_num(), td.getTd_finish());
+		return map;
 	}
-	//투두 상태 변경 1 -> 0
+
+	// 투두 상태 변경 1 -> 0
 	@ResponseBody
 	@RequestMapping(value = "/todo/finish/undo", method = RequestMethod.POST)
 	public HashMap<String, Object> finishTodoUndo(@RequestBody TodoVO td) {
-	    HashMap<String, Object> map = new HashMap<String, Object>();
-	    // 해당 스터디 상태를 1에서 0으로 변경
-	    studyService.finishTodoUndo(td.getTd_num(),td.getTd_finish());
-	    return map;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		// 해당 스터디 상태를 1에서 0으로 변경
+		studyService.finishTodoUndo(td.getTd_num(), td.getTd_finish());
+		return map;
 	}
 
 //		MemberVO user = (MemberVO) session.getAttribute("user");
@@ -415,12 +432,11 @@ public class StudyController {
 //		mv.setViewName("/study/management_study");
 //		return mv;
 //	}
-	
-	//데일리미션 등록
+
+	// 데일리미션 등록
 	@PostMapping("/daily/{st_num}/insertmission")
 	@ResponseBody
-	public String insertMission( @RequestParam("mi_st_num") int st_num,
-			@RequestParam("mi_content") String content, 
+	public String insertMission(@RequestParam("mi_st_num") int st_num, @RequestParam("mi_content") String content,
 			HttpServletRequest request) {
 		MemberVO user = (MemberVO) request.getSession().getAttribute("user");
 		MissionVO missionVO = new MissionVO();
@@ -432,12 +448,11 @@ public class StudyController {
 			return "error";
 		}
 	}
-	
-	//데일리미션 수정
+
+	// 데일리미션 수정
 	@PostMapping("/daily/{st_num}/updatemission")
 	@ResponseBody
-	public String updateMission( @RequestParam("mi_st_num") int st_num,
-			@RequestParam("mi_content") String content, 
+	public String updateMission(@RequestParam("mi_st_num") int st_num, @RequestParam("mi_content") String content,
 			HttpServletRequest request) {
 		MemberVO user = (MemberVO) request.getSession().getAttribute("user");
 		MissionVO missionVO = new MissionVO();
@@ -450,52 +465,49 @@ public class StudyController {
 		}
 	}
 
-	//데일리미션 페이지
+	// 데일리미션 페이지
 	@GetMapping("/daily/{st_num}")
-	public ModelAndView studyInsert(ModelAndView mv,HttpServletRequest request,@PathVariable("st_num") int st_num) {
-		MemberVO user = (MemberVO)request.getSession().getAttribute("user");	
+	public ModelAndView studyInsert(ModelAndView mv, HttpServletRequest request, @PathVariable("st_num") int st_num) {
+		MemberVO user = (MemberVO) request.getSession().getAttribute("user");
 		ArrayList<StudyMemberVO> studyMember = studyService.selectStudyMemberByStNum(st_num);
-		Integer authority = studyService.selectSmAuthority(user,st_num);
+		Integer authority = studyService.selectSmAuthority(user, st_num);
 		MissionVO mission = studyService.selectMission(st_num);
 		ArrayList<String> mfList = studyService.selectMissionFinishMember(st_num);
-		mv.addObject("mfList",mfList);
-		mv.addObject("mission",mission);
-		mv.addObject("authority",authority);
-		mv.addObject("studyMember",studyMember);
-	 	mv.setViewName("/study/daily");
-	    return mv;
+		mv.addObject("mfList", mfList);
+		mv.addObject("mission", mission);
+		mv.addObject("authority", authority);
+		mv.addObject("studyMember", studyMember);
+		mv.setViewName("/study/daily");
+		return mv;
 	}
-	//스터디 탈퇴하기
+
+	// 스터디 탈퇴하기
 	@PostMapping("/leave/{st_num}")
 	@ResponseBody
 	public String leaveStudy(HttpSession session, @PathVariable("st_num") int st_num) {
-	    MemberVO user = (MemberVO) session.getAttribute("user");
+		MemberVO user = (MemberVO) session.getAttribute("user");
 
-	    // 스터디 정보
-	    StudyVO study = studyService.getStudy(st_num);
-	    StudyMemberVO stMember = studyService.findStudyMember(st_num, user.getMe_id());
-	    
-	    if (stMember != null && stMember.getSm_authority() == 9) {
-	        return "leader";
-	    }
-	    
-	    if (stMember != null) {
-	        study.setSt_now_people(study.getSt_now_people() - 1);
-	    }
+		// 스터디 정보
+		StudyVO study = studyService.getStudy(st_num);
+		StudyMemberVO stMember = studyService.findStudyMember(st_num, user.getMe_id());
+
+		if (stMember != null && stMember.getSm_authority() == 9) {
+			return "leader";
+		}
+
+		if (stMember != null) {
+			study.setSt_now_people(study.getSt_now_people() - 1);
+		}
 		String studyLeader = study.getSt_me_id();// 리더 id
-		String message = user.getMe_name()+"님이 스터디를 탈퇴했습니다.";
-		
-		notificationService.sendNotificationToUser(studyLeader, message,AlarmType.STUDY);
+		String message = user.getMe_name() + "님이 스터디를 탈퇴했습니다.";
+
+		notificationService.sendNotificationToUser(studyLeader, message, AlarmType.STUDY);
 		sseController.sseLeaveStudy(st_num);
-	    
-	    // 스터디 정보 업데이트
-	    studyService.leaveStudy(user, st_num);
-	    studyService.updateStudy(study);
-	    
-	    return "success";
+
+		// 스터디 정보 업데이트
+		studyService.leaveStudy(user, st_num);
+		studyService.updateStudy(study);
+
+		return "success";
 	}
 }
-
-
-	
-	

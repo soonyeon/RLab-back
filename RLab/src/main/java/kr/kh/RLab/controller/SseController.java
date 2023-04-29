@@ -24,6 +24,7 @@ import kr.kh.RLab.service.StudyService;
 import kr.kh.RLab.utils.SseEmitters;
 import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.PhotoVO;
+import kr.kh.RLab.vo.StudyMemberVO;
 import kr.kh.RLab.vo.StudyVO;
 
 @RestController
@@ -107,4 +108,14 @@ public class SseController {
         return ResponseEntity.ok(sseEmitters);
 
     }
+    
+    @GetMapping(value = "/sse/authorize/study", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public ResponseEntity<SseEmitters> sseauthorizeStudy(StudyMemberVO sm){
+    	StudyMemberVO stm = studyService.findStudyMember(sm.getSm_st_num(), sm.getSm_me_id());
+    	sseEmitters.send("authorizeStudy", stm, stm.getSm_me_id());
+        return ResponseEntity.ok(sseEmitters);
+
+    }
+
+	
 }
