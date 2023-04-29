@@ -256,6 +256,19 @@ $(document).ready(function() {
             console.log("Received joinStudy event:", data);
             showNotification(data.message);
         });
+        source.addEventListener("leaveStudy", function (event) {
+            // 이벤트가 발생할 때 여기에 코드 작성
+            const data = JSON.parse(event.data);
+            const title = "스터디 탈퇴 알림";
+            const message = '스터디관리로 이동하여 확인해주세요.';
+            showModal(title, message);
+
+            setTimeout(function() {
+                hideModal();
+            }, 5000);
+            console.log("Received leaveStudy event:", data);
+            showNotification(data.message);
+        });
     }
 
     connect();

@@ -482,11 +482,16 @@ public class StudyController {
 	    if (stMember != null) {
 	        study.setSt_now_people(study.getSt_now_people() - 1);
 	    }
-
+		String studyLeader = study.getSt_me_id();// 리더 id
+		String message = user.getMe_name()+"님이 스터디를 탈퇴했습니다.";
+		
+		notificationService.sendNotificationToUser(studyLeader, message,AlarmType.STUDY);
+		sseController.sseLeaveStudy(st_num);
+	    
 	    // 스터디 정보 업데이트
 	    studyService.leaveStudy(user, st_num);
 	    studyService.updateStudy(study);
-
+	    
 	    return "success";
 	}
 }

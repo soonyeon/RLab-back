@@ -91,10 +91,19 @@ public class SseController {
 
     }
     
-    @GetMapping(value = "/sse/new/study/{st_num}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)//이벤트 형식의 응답을 함
+    @GetMapping(value = "/sse/join/study/{st_num}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public ResponseEntity<SseEmitters> sseJoinStudy(@PathVariable("st_num") int st_num) {
     	StudyVO study = studyService.getStudy(st_num);
     	sseEmitters.send("joinStudy", study, study.getSt_me_id());
+        return ResponseEntity.ok(sseEmitters);
+
+    }
+    
+    
+    @GetMapping(value = "/sse/leave/study/{st_num}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public ResponseEntity<SseEmitters> sseLeaveStudy(@PathVariable("st_num") int st_num) {
+    	StudyVO study = studyService.getStudy(st_num);
+    	sseEmitters.send("leaveStudy", study, study.getSt_me_id());
         return ResponseEntity.ok(sseEmitters);
 
     }
