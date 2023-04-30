@@ -249,4 +249,9 @@ values(#{td_me_id},#{td_content},0,NOW())
 	from study_member
 	where sm_st_num = #{st_num} and sm_me_id = #{me_id}
 </select>
+<update id="updateMemberStNum">
+	update member
+	set me_study = #{new_st_num}
+	where me_id =#{me_id} and  me_study = #{st_num}
+</update>
 </mapper>

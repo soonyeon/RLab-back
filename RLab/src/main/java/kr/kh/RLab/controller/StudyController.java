@@ -488,7 +488,8 @@ public class StudyController {
 		// 스터디 정보
 		StudyVO study = studyService.getStudy(st_num);
 		StudyMemberVO stMember = studyService.findStudyMember(st_num, user.getMe_id());
-
+		ArrayList<StudyVO> findStudy = studyService.getStudyByMemberId(user.getMe_id());
+		
 		if (stMember != null && stMember.getSm_authority() == 9) {
 			return "leader";
 		}
@@ -505,7 +506,12 @@ public class StudyController {
 		// 스터디 정보 업데이트
 		studyService.leaveStudy(user, st_num);
 		studyService.updateStudy(study);
-
+		
+		for (StudyVO st : findStudy) {
+			
+			studyService.updateMemberStNum(user.getMe_id(),st_num,st.getSt_num());
+		}
+		//st_num , me_id 일치하는 멤버
 		return "success";
 	}
 }
