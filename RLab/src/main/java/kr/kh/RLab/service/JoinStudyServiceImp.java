@@ -18,9 +18,17 @@ public class JoinStudyServiceImp implements JoinStudyService{
 	private final JoinStudyDAO joinstudyDao;
 	
 	@Override
-	public Map<String, Object> toggleJoin(StudyMemberVO studyMember,MemberVO member) {
-		StudyMemberVO isJoin = joinstudyDao.findJoinStudyMember(studyMember);//select로 고치기
-		int newJoinState;	 
+	public Map<String, Object> toggleJoin(StudyMemberVO studyMember, MemberVO member) {
+	    if (member != null && member.getMe_study() != 0) {
+	        // 이미 가입된 스터디가 있으면 메시지를 반환
+	        Map<String, Object> result = new HashMap<>();
+	        result.put("joinState", -1);
+	        result.put("message", "이미 가입된 스터디가 있습니다.기존 스터디를 탈퇴하고 가입해주세요.");
+	        return result;
+	    }
+
+	    StudyMemberVO isJoin = joinstudyDao.findJoinStudyMember(studyMember);
+	    int newJoinState;
 	    if (isJoin == null) {
 	        if (member == null) {
 	            newJoinState = 0;
@@ -37,15 +45,15 @@ public class JoinStudyServiceImp implements JoinStudyService{
 	        joinstudyDao.deleteStudyMember(isJoin);
 	        // study st_now_people 감소
 	        joinstudyDao.updateStudyNowPeopleDown(studyMember.getSm_st_num());
-	        newJoinState=0;
+	        newJoinState = 0;
 	    }
-	
-		// 게시글에 대한 현재 스크랩 개수를 가져옴
-		int currentJoinCount = joinstudyDao.getJoinCountByStudy(studyMember.getSm_st_num());
-		
-		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("joinState", newJoinState);
-		return result;
+
+	    // 게시글에 대한 현재 스크랩 개수를 가져옴
+	    int currentJoinCount = joinstudyDao.getJoinCountByStudy(studyMember.getSm_st_num());
+
+	    Map<String, Object> result = new HashMap<>();
+	    result.put("joinState", newJoinState);
+	    return result;
 	}
 
 	@Override

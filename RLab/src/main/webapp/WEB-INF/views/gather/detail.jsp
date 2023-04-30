@@ -168,17 +168,19 @@ $(document).ready(function() {
       contentType: "application/json",
       data: JSON.stringify(requestData),
       success: function(response) {
-        if (response.joinState === 1) {
-        	 $('.apply_btn').removeClass('apply_btn').addClass('already_apply_btn').text('스터디 가입 완료');
-          alert('스터디를 가입했습니다.');
-          location.reload();
-        } else if (response.joinState === 0) {
-        	 $('.already_apply_btn').removeClass('already_apply_btn').addClass('apply_btn').text('스터디 가입');
-          alert('스터디 가입 취소했습니다.');
-       		location.reload();
-          $('.now_pp').text(response.joinCount);
-        } 		
-      },
+    	  if (response.joinState === 1) {
+    	    $('.apply_btn').removeClass('apply_btn').addClass('already_apply_btn').text('스터디 가입 완료');
+    	    alert('스터디를 가입했습니다.');
+    	    location.reload();
+    	  } else if (response.joinState === 0) {
+    	    $('.already_apply_btn').removeClass('already_apply_btn').addClass('apply_btn').text('스터디 가입');
+    	    alert('스터디 가입 취소했습니다.');
+    	    location.reload();
+    	    $('.now_pp').text(response.joinCount);
+    	  } else if (response.joinState === -1) {
+    	    alert(response.message);
+    	  }
+    	},
       error: function(error) {
     	  console.log(error)
         alert('스터디 가입에 실패하였습니다. 다시 시도해주세요');
