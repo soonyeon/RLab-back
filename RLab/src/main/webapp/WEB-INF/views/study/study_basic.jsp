@@ -2,122 +2,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-    
 
 <link rel="stylesheet" href="<c:url value='/resources/css/study/study.css'></c:url>">
-<link rel="stylesheet" href="<c:url value='/resources/css/common.css'></c:url>">
 <link rel="stylesheet" href="<c:url value='/resources/css/study/calendar_main.css'></c:url>">
+<script src="<c:url value='/resources/js/study/study.js'/>"></script>
 <script src="<c:url value='/resources/js/study/calendar/calendar.js'/>"></script>
 <script src="<c:url value='/resources/js/study/calendar/study_og.js'/>"></script>
 
-
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
- <style>
- 	  dialog {
-	  position: fixed;
-	  top: 50%;
-	  left: 50%;
-	  transform: translate(-50%, -50%);
-	  z-index: 9999;
-	  border: none;
-	  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-	}
- 		#calendarDialog {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 9999;
-    }
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-        .form-control {
-            margin-bottom: 10px;
-        }
-        
-            body {
-        font-family: Arial, sans-serif;
-    }
-	    .overlay {
-	        position: fixed;
-	        top: 0;
-	        left: 0;
-	        width: 100%;
-	        height: 100%;
-	        background-color: rgba(0, 0, 0, 0.5);
-	        display: flex;
-	        justify-content: center;
-	        align-items: center;
-	        z-index: 1000;
-	    }
-	    .modal {
-	        background-color: white;
-	        padding: 20px;
-	        border-radius: 4px;
-	        width: 80%;
-	        max-width: 500px;
-	        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-	    }
-	    .modal menu {
-	        display: flex;
-	        justify-content: flex-end;
-	    }
-	    
-	    #calendarDialog button {
-		  background-color: #007bff;
-		  border: none;
-		  color: white;
-		  cursor: pointer;
-		  font-size: 16px;
-		  margin-right: 10px;
-		  padding: 8px 16px;
-		}
-		
-		#calendarDialog button:hover {
-		  background-color: #0056b3;
-		  color: white;
-		}
-		
-		#calendarDialog #closecalendar {
-		  background-color: #6c757d;
-		}
-		
-		#calendarDialog #deletecalendar {
-		  background-color: #dc3545;
-		}
-		
-		#calendarDialog #savecalendar {
-		  background-color: #28a745;
-		}
-		#editCalendarDialog button {
-		  background-color: #007bff;
-		  border: none;
-		  color: white;
-		  cursor: pointer;
-		  font-size: 16px;
-		  margin-right: 10px;
-		  padding: 8px 16px;
-		}
-		
-		#editCalendarDialog button:hover {
-		  background-color: #0056b3;
-		  color: white;
-		}
-		
-		#editCalendarDialog #closeEditCalendar {
-		  background-color: #6c757d;
-		}
-		
-		#editCalendarDialog #deleteCalendar {
-		  background-color: #dc3545;
-		}
-		
-		#editCalendarDialog #updateCalendar {
-		  background-color: #28a745;
-		}
-    </style>
 
 <main>
 	<div class="main_container">
@@ -362,44 +254,42 @@
 	            <!-- 메뉴바 3개 -->
 	            <div class="study_link_container">
 	                <div class="circle_now cc">
-	                    <div class="now">NOW</div>
+	                    <div class="icon_now">NOW</div>
+	                    <div class="study_name display_none">정처기하자정처기하자</div>
 	                </div>
 	                <div class="circle_star cc">
-	                    <img class="star" src="<c:url value='/resources/img/favorite_star_on.png'></c:url>">
+	                    <img class="icon_star" src="<c:url value='/resources/img/favorite_star_on.png'></c:url>">
+	                    <div class="study_name display_none">정처기하자</div>
 	                </div>
 	                <div class="my_study_container">
 	                    <div class="my_list_title">
-	                        <div class="my">MY</div>
-	                        <!-- <div class="my_study" >나의 스터디<button id="dropdown_btn">▼</button></div> -->
+	                        <div class="icon_my">MY</div>
+	                        <div class="my_study ">나의 스터디<button class="btn_dropdown">▼</button></div>
 	                    </div>
-	                    <div id="dropdown_list" style="display: none;">
-	                        <ul class="dropdown_list_ul">
-	                            <li class="dropdown_list_li">
-	                                <div class="dropdown_list_contents">
-	                                    <p class="dropdown_list_contents_title">정보처리기사 스터디</p>
-	                                    <div class="dropdown_list_contents_on_img"></div>
-	                                    <div class="dropdown_hr"></div>
+	                    <div id="dropdown_list" class="">
+	                        <ul class="dropdown_list">
+	                            <li class="dropdown_item">
+	                                <div class="item_container">
+	                                    <p class="item_name">정보처리기사 스터디</p>
+	                                    <div class="star_on"></div>
 	                                </div>
 	                            </li>
-	                            <li class="dropdown_list_li">
-	                                <div class="dropdown_list_contents">
-	                                    <p class="dropdown_list_contents_title">정보처리기사 스터디</p>
-	                                    <div class="dropdown_list_contents_off_img"></div>
-	                                    <div class="dropdown_hr"></div>
+	                            <li class="dropdown_item">
+	                                <div class="item_container">
+	                                    <p class="item_name">정보처리기사 스터디</p>
+	                                    <div class="star_off"></div>
 	                                </div>
 	                            </li>
-	                            <li class="dropdown_list_li">
-	                                <div class="dropdown_list_contents">
-	                                    <p class="dropdown_list_contents_title">정보처리기사 스터디</p>
-	                                    <div class="dropdown_list_contents_off_img"></div>
-	                                    <div class="dropdown_hr"></div>
+	                            <li class="dropdown_item">
+	                                <div class="item_container">
+	                                    <p class="item_name">정보처리기사 스터디</p>
+	                                    <div class="star_off"></div>
 	                                </div>
 	                            </li>
-	                            <li class="dropdown_list_li">
-	                                <div class="dropdown_list_contents">
-	                                    <p class="dropdown_list_contents_title">정보처리기사 스터디</p>
-	                                    <div class="dropdown_list_contents_off_img"></div>
-	                                    <div class="dropdown_hr"></div>
+	                            <li class="dropdown_item">
+	                                <div class="item_container">
+	                                    <p class="item_name">정보처리기사 스터디</p>
+	                                    <div class="star_off"></div>
 	                                </div>
 	                            </li>
 	                        </ul>
@@ -414,47 +304,47 @@
 	                <div class="circle_accessor">
 	                    <div class="accessor_on"></div>
 	                </div>
-	                <div class="study_name">김돌탕</div><span class="your">YOU</span>
+	                <div class="member_name">김돌탕</div><span class="your">YOU</span>
 	            </div>
 	            <div class="accessor_container">
 	                <div class="circle_accessor"></div>
-	                <div class="study_name">김순연</div>
+	                <div class="member_name">김순연</div>
 	            </div>
 	            <div class="accessor_container">
 	                <div class="circle_accessor"></div>
-	                <div class="study_name">김세영</div>
+	                <div class="member_name">김세영</div>
 	            </div>
 	            <div class="accessor_container">
 	                <div class="circle_accessor"></div>
-	                <div class="study_name">김도현</div>
+	                <div class="member_name">김도현</div>
 	            </div>
 	            <div class="accessor_container">
 	                <div class="circle_accessor"></div>
-	                <div class="study_name">이정현</div>
+	                <div class="member_name">이정현</div>
 	            </div>
 	            <div class="accessor_container">
 	                <div class="circle_accessor"></div>
-	                <div class="study_name">가나다</div>
+	                <div class="member_name">가나다</div>
 	            </div>
 	            <div class="accessor_container">
 	                <div class="circle_accessor"></div>
-	                <div class="study_name">라마바</div>
+	                <div class="member_name">라마바</div>
 	            </div>
 	            <div class="accessor_container">
 	                <div class="circle_accessor"></div>
-	                <div class="study_name">사아나</div>
+	                <div class="member_name">사아나</div>
 	            </div>
 	            <div class="accessor_container">
 	                <div class="circle_accessor"></div>
-	                <div class="study_name">s아나</div>
+	                <div class="member_name">s아나</div>
 	            </div>
 	            <div class="accessor_container">
 	                <div class="circle_accessor"></div>
-	                <div class="study_name">s아나</div>
+	                <div class="member_name">s아나</div>
 	            </div>
 	            <div class="accessor_container">
 	                <div class="circle_accessor"></div>
-	                <div class="study_name">s아나</div>
+	                <div class="member_name">s아나</div>
 	            </div>
 	        </div>
 	    </aside>
@@ -494,7 +384,7 @@ function loadStudyMembers(st_num) {
 	              '<span class="blind">마이페이지</span>' +
 	              (isOnline ? '<div class="accessor_on"></div>' : '') +
 	              '</div>' +
-	              '<div class="study_name">' + members[i].me_name + '</div>' +
+	              '<div class="member_name">' + members[i].me_name + '</div>' +
 	              '</div>';
 	          }
 	          document.querySelector(".accessor").innerHTML = memberList;
