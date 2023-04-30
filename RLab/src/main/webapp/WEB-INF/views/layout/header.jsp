@@ -196,6 +196,21 @@ $(document).ready(function() {
 		        $('#alarmModal').hide();
 		      }
 		    );
+		    // 로그아웃 버튼 클릭 이벤트
+		    $("#logout_btn").on("click", function() {
+		        // 로그아웃 POST 요청
+		        $.ajax({
+		            url: '/logout',
+		            type: 'POST',
+		            success: function() {
+		                // 로그아웃 성공 후 페이지 새로고침
+		                location.reload();
+		            },
+		            error: function() {
+		                console.log("Logout request failed");
+		            }
+		        });
+		    });
 	
     function connect() {
         const userId = "${user.me_id}"; 

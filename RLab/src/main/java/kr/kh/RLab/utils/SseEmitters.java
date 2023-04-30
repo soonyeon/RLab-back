@@ -2,6 +2,8 @@ package kr.kh.RLab.utils;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiConsumer;
@@ -99,5 +101,9 @@ public class SseEmitters {
 	            }
 	        }
 	    });
+	}
+	
+	public List<String> getOnlineUserIds() {
+	    return new ArrayList<>(emitters.keySet());
 	}
 }

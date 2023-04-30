@@ -58,15 +58,9 @@ public class SseController {
         return ResponseEntity.ok(emitter);
     }
     // 온라인 사용자 목록을 반환
-    @GetMapping("/onlineMembers")
+    @GetMapping(value = "/onlineMembers")
     public ResponseEntity<List<String>> getOnlineMembers() {
-        List<String> onlineMembers = new ArrayList<>();
-        sseEmitters.forEach((id, userSessionInfo) -> {
-            // 현재 시간과 마지막 활동 시간을 비교하여 5분 이내의 활동이 있는 사용자를 온라인으로 간주함
-            if (Duration.between(userSessionInfo.getLastActivity(), LocalDateTime.now()).toMinutes() <= 5) {
-                onlineMembers.add(id);
-            }
-        });
+        List<String> onlineMembers = sseEmitters.getOnlineUserIds();
         return ResponseEntity.ok(onlineMembers);
     }
     // 새로운 댓글이 작성된 게시글에 대한 이벤트를 전송 게시글의 작성자에게 알림을 보냄
