@@ -90,6 +90,11 @@ public interface MypageDAO {
 		int selectBookTotalCount(String memberId);
 		
 		
+	//[예약 관리 > 나의 예약 내역 > 예약 상세 내역]
+		//캐비넷 이용권 이름 가져오기	
+		String selectTicketName(ReservationVO rsv);
+		
+		
 	//[작성글 관리 > 나의 게시글]
 		// 아이디로 작성 게시글 목록 가져오기
 		ArrayList<BoardVO> selectBoardListById(@Param("memberId")String memberId, @Param("cri")Criteria cri);
@@ -118,6 +123,8 @@ public interface MypageDAO {
 		
 		// 내가 쓴 모집글의 찜 여부 가져오기
 		ArrayList<Integer> selectWantListById(String memberId);
+
+
 
 
 

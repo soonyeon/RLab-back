@@ -296,7 +296,8 @@ public class MypageController {
 				MemberVO user = (MemberVO)session.getAttribute("user");
 				ReservationVO rsv = reservationService.getReservation(re_num);
 				BranchVO br  = reservationService.getBranchBySeNum(rsv.getRe_se_num());
-				String ticketName = reservationService.getTicketNameByBookInfo(rsv);
+				String ticketName = mypageService.getTicketNameByBookInfo(rsv);
+				System.out.println(ticketName);
 				mv.addObject("user", user);
 				mv.addObject("rsv", rsv);
 				mv.addObject("br", br);

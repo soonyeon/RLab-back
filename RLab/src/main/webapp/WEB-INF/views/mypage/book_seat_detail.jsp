@@ -19,6 +19,44 @@
 				<!-- 예약정보 -->
 				<div class="table_container">
 					<div class="title_area">
+						<h3>예약 정보</h3>
+					</div>
+					<table border="1">
+						<tr>
+							<th>예약번호</th>
+							<td>${rsv.re_num}</td>
+						</tr>
+						<tr>
+							<th>예약자 아이디</th>
+							<td>${user.me_id}</td>
+						</tr>
+						<tr>
+							<th>예약등록 일자</th>
+							<td>${rsv.re_register_date_str}</td>
+						</tr>
+					</table>
+				</div>
+
+				<!-- 좌석정보 -->
+				<div class="table_container">
+					<div class="title_area">
+						<h3>좌석 정보</h3>
+					</div>
+					<table border="1">
+						<tr>
+							<th>카페 지점</th>
+							<td>[${br.br_re_name}] ${br.br_name}</td>
+						</tr>
+						<tr>
+							<th>좌석번호</th>
+							<td>${rsv.se_name}번</td>
+						</tr>
+					</table>
+				</div>
+
+				<!-- 이용권 정보 -->
+				<div class="table_container">
+					<div class="title_area">
 						<h3>이용권 정보</h3>
 					</div>
 					<table border="1">
@@ -57,7 +95,6 @@
 						</tr>
 					</table>
 				</div>
-					</table>
 					<div class="return_box">
 						<a href="<c:url value='/mypage/myres_book'></c:url>"><button class="btn_r btn_return">돌아가기</button></a>
 					</div>

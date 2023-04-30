@@ -67,6 +67,10 @@ public interface MypageService {
 		
 		//예약 전체 수 가져오기
 		int getBookTotalCount(String memberId);
+	
+	//[예약 관리 > 나의 예약 내역 >  예약 상세 내역]
+		//캐비넷 이용권 이름 가져오기
+		String getTicketNameByBookInfo(ReservationVO rsv);
 		
 		
 	//[개인정보 수정 > 비밀번호 체크]
@@ -116,8 +120,5 @@ public interface MypageService {
 
 		//펫 경험치 가져오기
 		GrowthVO selectPetExp(String memberId);
-
-
-
 
 }

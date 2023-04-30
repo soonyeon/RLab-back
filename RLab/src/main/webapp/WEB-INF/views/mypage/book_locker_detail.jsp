@@ -6,8 +6,6 @@
 
 <main>
 	<div class="container">
-
-
 		<div class="main_container">
 			<!-- 좌석 선택 박스 -->
 			<div class="main_content">
@@ -19,23 +17,50 @@
 				<!-- 예약정보 -->
 				<div class="table_container">
 					<div class="title_area">
+						<h3>예약 정보</h3>
+					</div>
+					<table border="1">
+						<tr>
+							<th>예약번호</th>
+							<td>${rsv.re_num}</td>
+						</tr>
+						<tr>
+							<th>예약자 아이디</th>
+							<td>${user.me_id}</td>
+						</tr>
+						<tr>
+							<th>예약등록 일자</th>
+							<td>${rsv.re_register_date_str}</td>
+						</tr>
+					</table>
+				</div>
+
+				<!-- 좌석정보 -->
+				<div class="table_container">
+					<div class="title_area">
+						<h3>캐비 정보</h3>
+					</div>
+					<table border="1">
+						<tr>
+							<th>카페 지점</th>
+							<td>[${br.br_re_name}] ${br.br_name}</td>
+						</tr>
+						<tr>
+							<th>사물함 번호</th>
+							<td>${rsv.se_name}번</td>
+						</tr>
+					</table>
+				</div>
+
+				<!-- 이용권 정보 -->
+				<div class="table_container">
+					<div class="title_area">
 						<h3>이용권 정보</h3>
 					</div>
 					<table border="1">
 						<tr>
 							<th>사용한 이용권</th>
 							<td>${ticketName}</td>
-						</tr>
-						<tr>
-							<th>사용한 시간</th>
-							<td>${rsv.re_hours}시간</td>
-						</tr>
-						<tr>
-							<th>남은 시간</th>
-							<td>
-								<c:if test="${restTime!=0}">${restTime}시간</c:if>
-								<c:if test="${restTime==0}">이용권 사용 완료</c:if>
-							</td>
 						</tr>
 					</table>
 				</div>
@@ -57,7 +82,8 @@
 						</tr>
 					</table>
 				</div>
-					</table>
+
+		
 					<div class="return_box">
 						<a href="<c:url value='/mypage/myres_book'></c:url>"><button class="btn_r btn_return">돌아가기</button></a>
 					</div>

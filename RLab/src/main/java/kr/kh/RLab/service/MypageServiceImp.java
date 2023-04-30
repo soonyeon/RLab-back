@@ -231,6 +231,13 @@ public class MypageServiceImp implements MypageService {
 			int totalCount = mypageDao.selectBookTotalCount(memberId);
 			return totalCount;	
 		}
+		
+	//[예약 관리 > 나의 예약 내역 > 예약 상세 내역]
+		//캐비넷 이용권 이름 가져오기
+		@Override
+		public String getTicketNameByBookInfo(ReservationVO rsv) {
+			return mypageDao.selectTicketName(rsv);
+		}
 	
 	
 	//[작성글 관리 > 나의 게시글]
@@ -295,6 +302,7 @@ public class MypageServiceImp implements MypageService {
 			ArrayList<Integer> wantList = mypageDao.selectWantListById(memberId);
 			return wantList;
 		}
+
 
 
 
