@@ -319,6 +319,12 @@ public class StudyServiceImp implements StudyService {
         studyDao.updateStudy(study);
 	}
 
+	@Override
+	public StudyMemberVO findStudyMember(int st_num,String me_id) {
+		return studyDao.findStudyMember(st_num,me_id);
+	}
+
+
 
 
 }

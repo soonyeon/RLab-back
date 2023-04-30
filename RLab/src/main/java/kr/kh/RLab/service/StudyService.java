@@ -104,5 +104,7 @@ public interface StudyService {
 	
 	void updateStudy(StudyVO study);
 
+	StudyMemberVO findStudyMember(int st_num, String me_id);
+
 
 }

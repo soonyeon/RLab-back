@@ -438,7 +438,9 @@ body {
 <script>
 const st_num = '${st_num}';
 const userId = '${userId}'; 
-loadStudyMembers(st_num, userId);
+$(document).ready(function() {
+    loadStudyMembers(st_num, userId);
+});
 
 const sse = new EventSource("<c:url value='/connect'></c:url>" + "?id=" + userId);
 sse.addEventListener('connect', (e) => {
@@ -485,6 +487,8 @@ function loadStudyMembers(st_num, userId) {
                 type: 'GET',
                 dataType: 'json',
                 success: function (members) {
+                	// 기존 멤버 목록을 삭제
+                    $(".accessor_container").remove();
                     let memberList = "";
 
                     // 첫 번째 멤버의 study_title을 가져옴
@@ -494,16 +498,8 @@ function loadStudyMembers(st_num, userId) {
 
                     // 온라인 회원 목록 처리
                     members.forEach(member => {
-                        if (onlineMembers.includes(member.me_name)) {
-                            memberList += createMemberListItem(member, userId, true);
-                        }
-                    });
-
-                    // 오프라인 회원 목록 처리
-                    members.forEach(member => {
-                        if (!onlineMembers.includes(member.me_name)) {
-                            memberList += createMemberListItem(member, userId, false);
-                        }
+                        const isOnline = onlineMembers.includes(member.me_name);
+                        memberList += createMemberListItem(member, userId, isOnline);
                     });
 
                     document.querySelector(".accessor").innerHTML = memberList;
@@ -512,7 +508,6 @@ function loadStudyMembers(st_num, userId) {
         }
     });
 }
-
 function createMemberListItem(member, userId, isOnline) {
     const defaultImage = '<c:url value="/resources/img/user.png" />';
     const userProfileImage = member.me_profile ? '<c:url value="/download" />' + member.me_profile : defaultImage;

@@ -17,23 +17,24 @@
 	</select>
 	<update id="updateAuthority">
 		update member
-    set 		
-			me_authority = #{me_authority}
+		set
+		me_authority = #{me_authority}
 		where
-			me_id = #{me_id}
+		me_id = #{me_id}
 	</update>
 	<update id="updateMember">
-		  UPDATE member
-		  SET me_name = #{m.me_name},
-		      me_pw = #{m.me_pw},
-		      me_email = #{m.me_email}
-		  WHERE me_id = #{m.me_id}
+		UPDATE member
+		SET me_name = #{m.me_name},
+		me_pw = #{m.me_pw},
+		me_email = #{m.me_email}
+		WHERE me_id = #{m.me_id}
 	</update>
 	<update id="updateProfile">
-		  UPDATE member
-		  SET me_profile = #{m.me_profile}
-		  WHERE me_id = #{m.me_id}
+		UPDATE member
+		SET me_profile = #{m.me_profile}
+		WHERE me_id = #{m.me_id}
 	</update>
+	
 	<select id="selectMemberBySession" resultType="kr.kh.RLab.vo.MemberVO">
  		select 
  			*
