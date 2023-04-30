@@ -105,7 +105,7 @@ public class MypageServiceImp implements MypageService {
 		}
 
 
-	
+	/////////////
 	//[마이페이지 홈 > 나의 스터디]
 	@Override
 	public ArrayList<StudyVO> getMainStudyList(String userId) {
@@ -115,6 +115,7 @@ public class MypageServiceImp implements MypageService {
 	}
 	
 	
+	////////////////
 	//[마이페이지 홈 > 나의 스크랩]
 	@Override
 	public ArrayList<BoardVO> getMainScrapList(String userId) {
@@ -123,7 +124,7 @@ public class MypageServiceImp implements MypageService {
 		return mypageDao.selectMainScrapList(userId);
 	}
 
-	
+	///////////////
 	//[개인정보 수정 > 비밀번호 체크]
 		@Override
 		public boolean checkPw(MemberVO pw, MemberVO user) {
@@ -177,7 +178,7 @@ public class MypageServiceImp implements MypageService {
 			    }		
 			return true;
 			}
-			
+	////////////		
 	//[예약 관리 > 나의 결제 내역]	
 		//결제 정보 가져오기	
 		@Override
@@ -239,7 +240,31 @@ public class MypageServiceImp implements MypageService {
 			return mypageDao.selectTicketName(rsv);
 		}
 	
-	
+	///////////
+	//[스터디 관리 > 내가 찜한 스터디]	
+		// 아이디로 내가 찜한 스터디 가져오기	
+		@Override
+		public ArrayList<GatherVO> getFavoriteList(String memberId, GatherCriteria cri) {
+			if(memberId == null)
+				return null;
+			return mypageDao.selectFavoriteList(memberId, cri);
+		}
+		
+		// 내가 찜한 스터디의 태그들 가져오기
+		@Override
+		public ArrayList<TagRegisterVO> getfavoriteTagList(GatherCriteria cri) {
+			ArrayList<TagRegisterVO> tagList =  mypageDao.selectFavoriteTagList(cri);
+			return tagList;
+		}
+		
+		// 내가 찜한 모집글의 수 
+		@Override
+		public int getFavoriteTotalCount(String memberId) {
+			int totalCount = mypageDao.selectFavoriteTotalCount(memberId);
+			return totalCount;
+		}
+		
+	////////////
 	//[작성글 관리 > 나의 게시글]
 		// 아이디로 작성 게시글 목록 가져오기
 		@Override
@@ -302,8 +327,6 @@ public class MypageServiceImp implements MypageService {
 			ArrayList<Integer> wantList = mypageDao.selectWantListById(memberId);
 			return wantList;
 		}
-
-
 
 
 

@@ -73,7 +73,7 @@
               <a href="<c:url value='/mypage'></c:url>" class="list_item">마이페이지 홈</a>
               <a href="<c:url value='/mypage/pwcheck'></c:url>" class="list_item">개인정보 수정</a>
               <a href="<c:url value='/mypage/myres_pay'></c:url>" class="list_item">예약 관리</a>
-              <a href="./mystudy_favorite.html" class="list_item">스터디 관리</a>
+              <a href="<c:url value='/mypage/mystudy_favorite'></c:url>" class="list_item">스터디 관리</a>
               <a href="<c:url value='/mypage/mypost_post'></c:url>" class="list_item">작성글 관리</a>
             </nav>
           </aside>

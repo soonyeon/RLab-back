@@ -55,7 +55,7 @@ public interface MypageDAO {
   
 		
 
-		
+	////////////////	
 	//[개인정보 수정 > 비밀번호 체크 > 개인정보 수정창]
 		// 프로필 이미지 수정
 		int updateProfile(@Param("m")MemberVO member);
@@ -63,7 +63,7 @@ public interface MypageDAO {
 		// 나머지 개인정보 수정
 		int updateMember(@Param("m")MemberVO member);
 		
-		
+	///////////////	
 	//[예약 관리 > 나의 결제 내역]	
 		//나의 결제 정보 가져오기	
 		ArrayList<PayDTO> selectPayList(@Param("memberId")String memberId,  @Param("cri")Criteria cri);
@@ -94,7 +94,18 @@ public interface MypageDAO {
 		//캐비넷 이용권 이름 가져오기	
 		String selectTicketName(ReservationVO rsv);
 		
+	////////////////	
+	//[스터디 관리 > 내가 찜한 스터디]	
+		// 아이디로 내가 찜한 스터디 가져오기
+		ArrayList<GatherVO> selectFavoriteList(@Param("memberId")String memberId, @Param("cri")GatherCriteria cri);
 		
+		// 내가 찜한 스터디의 태그들 가져오기
+		ArrayList<TagRegisterVO> selectFavoriteTagList(@Param("cri")GatherCriteria cri);
+		
+		// 내가 찜한 모집글의 수
+		int selectFavoriteTotalCount(String memberId);
+		
+	////////////////	
 	//[작성글 관리 > 나의 게시글]
 		// 아이디로 작성 게시글 목록 가져오기
 		ArrayList<BoardVO> selectBoardListById(@Param("memberId")String memberId, @Param("cri")Criteria cri);
@@ -123,11 +134,6 @@ public interface MypageDAO {
 		
 		// 내가 쓴 모집글의 찜 여부 가져오기
 		ArrayList<Integer> selectWantListById(String memberId);
-
-
-
-
-
 
 
 

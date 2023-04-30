@@ -83,7 +83,20 @@ public interface MypageService {
 		// 나머지 개인정보 수정
 		boolean editUser(MemberVO member, MemberVO user);
 	
+	///////////////////
 		
+	//[스터디 관리 > 내가 찜한 스터디]	
+		// 아이디로 내가 찜한 스터디 가져오기	
+		ArrayList<GatherVO> getFavoriteList(String memberId, GatherCriteria cri);	
+		
+		// 내가 찜한 스터디의 태그들 가져오기
+		ArrayList<TagRegisterVO> getfavoriteTagList(GatherCriteria cri);
+		
+		// 내가 찜한 모집글의 수 
+		int getFavoriteTotalCount(String memberId);
+		
+		
+	/////////////////	
 	//[작성글 관리 > 나의 게시글]
 		// 아이디로 작성 게시글 목록 가져오기
 		ArrayList<BoardVO> getBoardListById(String memberId, Criteria cri);
@@ -120,5 +133,7 @@ public interface MypageService {
 
 		//펫 경험치 가져오기
 		GrowthVO selectPetExp(String memberId);
+
+
 
 }

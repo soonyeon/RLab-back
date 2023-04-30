@@ -204,6 +204,8 @@ public class MypageController {
 		return mv;
 	}
 	
+	/////////////////////////////
+	
 	//[예약 관리 > 나의 결제 내역]
 	@GetMapping("/myres_pay")
 	public ModelAndView myPay(
@@ -262,7 +264,6 @@ public class MypageController {
 			// 페이지 네이션
 			// 로그인한 회원이 가진 예약 전체 수 가져오기
 			int totalCount = mypageService.getBookTotalCount(memberId);
-			System.out.println(totalCount);
 			PageMaker pm = new PageMaker(totalCount, 2, cri);
 			
 			mv.addObject("myBookList", myBookList);
@@ -290,22 +291,54 @@ public class MypageController {
 		}
 		
 	//[예약 관리 > 나의 예약 내역 > 캐비넷 예약 상세 내역]	
-			@GetMapping("/myres_book/2/{re_num}")
-			public ModelAndView myBookLockerDetail(
-					ModelAndView mv, HttpSession session, @PathVariable int re_num, MemberVO member, Criteria cri){	
-				MemberVO user = (MemberVO)session.getAttribute("user");
-				ReservationVO rsv = reservationService.getReservation(re_num);
-				BranchVO br  = reservationService.getBranchBySeNum(rsv.getRe_se_num());
-				String ticketName = mypageService.getTicketNameByBookInfo(rsv);
-				System.out.println(ticketName);
-				mv.addObject("user", user);
-				mv.addObject("rsv", rsv);
-				mv.addObject("br", br);
-				mv.addObject("ticketName",ticketName);
-		        mv.setViewName("/mypage/book_locker_detail");
-		        return mv;
-			}
-	
+		@GetMapping("/myres_book/2/{re_num}")
+		public ModelAndView myBookLockerDetail(
+				ModelAndView mv, HttpSession session, @PathVariable int re_num, MemberVO member, Criteria cri){	
+			MemberVO user = (MemberVO)session.getAttribute("user");
+			ReservationVO rsv = reservationService.getReservation(re_num);
+			BranchVO br  = reservationService.getBranchBySeNum(rsv.getRe_se_num());
+			String ticketName = mypageService.getTicketNameByBookInfo(rsv);
+			mv.addObject("user", user);
+			mv.addObject("rsv", rsv);
+			mv.addObject("br", br);
+			mv.addObject("ticketName",ticketName);
+	        mv.setViewName("/mypage/book_locker_detail");
+	        return mv;
+		}
+	//////////////////////////////////
+			
+	//[스터디 관리 > 내가 찜한 스터디]
+		@GetMapping("/mystudy_favorite")
+		public ModelAndView myStudy(
+				ModelAndView mv, HttpSession session, MemberVO member, GatherCriteria cri){		
+			/// 세션 정보 가져오기
+			MemberVO user = (MemberVO)session.getAttribute("user");
+			String memberId = user.getMe_id();
+			
+			// 아이디로 내가 찜한 스터디 가져오기
+			ArrayList<GatherVO> myFavoriteList = mypageService.getFavoriteList(memberId, cri);
+			System.out.println(myFavoriteList);
+			
+			// 내가 찜한 스터디의 태그들 가져오기
+			ArrayList<TagRegisterVO>favoriteTagList = mypageService.getfavoriteTagList(cri);
+			
+			// 내가 찜한 스터디 찜 여부 가져오기
+			ArrayList<Integer> wantList = mypageService.selectWantListById(memberId);
+			
+			// 페이지 네이션		
+			int totalCount = mypageService.getFavoriteTotalCount(memberId);
+			System.out.println(totalCount);
+			PageMaker pm = new PageMaker(totalCount, 1, cri);
+			
+			mv.addObject("myFavoriteList", myFavoriteList);
+			mv.addObject("favoriteTagList", favoriteTagList);
+			mv.addObject("wantList", wantList);
+			mv.addObject("pm", pm);
+			mv.setViewName("/mypage/mystudy_favorite");
+			return mv;
+		}
+
+	///////////////////////////////
 	//[작성글 관리 > 나의 게시글]
 	@GetMapping("/mypost_post")
 	public ModelAndView mypost(

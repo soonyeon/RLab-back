@@ -152,6 +152,43 @@
 		  WHERE me_id = #{m.me_id}
 		</update>
 
+	<!-- [스터디 관리 > 내가 찜한 스터디]	 -->
+		<!-- 아이디로 내가 찜한 스터디 가져오기 -->
+		<select id="selectFavoriteList" resultMap="gather">
+			select ga_num, ga_title, ga_me_id, me_name,
+				st_num, st_image, st_re_name, st_now_people, st_total_people, st_state
+  			from study
+  			join gather on ga_st_num = st_num
+  			join member on me_id = st_me_id
+            join want on wa_ga_num = ga_num
+			WHERE  
+				ga_me_id = #{memberId}
+			and wa_state = 1
+			<if test="cri.filter == 'on'">
+				AND st_state = 1
+			</if>
+			ORDER BY ga_num DESC
+		</select>
+		
+		<!-- 내가 찜한 스터디의 태그들 가져오기 -->
+		<select id="selectFavoriteTagList" resultType="kr.kh.RLab.vo.TagRegisterVO">
+			SELECT *
+			FROM tag_register
+			join study on tr_st_num = st_num
+			join gather on ga_st_num = st_num
+			join want on wa_ga_num = ga_num
+			where wa_state = 1
+		</select>
+		
+		<!-- 내가 찜한 모집글의 수 -->
+		<select id="selectFavoriteTotalCount" resultType="int">
+			select count(*)
+			from want
+            where wa_me_id = #{memberId}
+			and wa_state = 1
+		</select>
+		
+
 	<!-- [예약 관리 > 나의 결제 내역] -->
 		<!-- 결제 정보 가져오기 -->
 		<select id="selectPayList" resultType="kr.kh.RLab.vo.PayDTO">
