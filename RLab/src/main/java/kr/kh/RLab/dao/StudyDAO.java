@@ -131,6 +131,7 @@ public interface StudyDAO {
 
 	StudyMemberVO findStudyMember(@Param("st_num")int st_num,@Param("me_id")String me_id);
 
+	void updateMemberStNum(@Param("me_id")String me_id,@Param("st_num") int st_num, @Param("new_st_num")int new_st_num);
 
 
 }
