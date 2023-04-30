@@ -100,7 +100,6 @@ public class StudyController {
 			return "error";
 		}
 	
-		
 	}
 
 	@PostMapping("/toggleLike")
@@ -328,30 +327,30 @@ public class StudyController {
 	    int todoProgressRateint= (int) Math.round(todoProgressRate);
 	    //System.out.println("투두 진척도 : " + todoProgressRate+"%");
 	    
+	    //스터디멤버 리스
 	    ArrayList<StudyMemberVO> stMember = studyService.getStudyMember(st_num);
-	    System.out.println("스터디 멤버 리스트 : "+stMember);
 	    
-	    //스터디넘버가 일치하는 스터디 멤버 불러오기
+	    //스터디넘버가 일치하는 스터디 멤버 투두 불러오기
 	    ArrayList<TodoVO> stMemberTodo = studyService.getStudyMemberTodo(st_num);
-	    System.out.println("스터디 멤버 투두 리스트 : "+stMemberTodo);
 	    
-	    //멤버의 투두 진척도
-//	    double membersTdProgRate = studyService.getTodoProgressRate(td_me_id);
-//	    int membersTdProgRateint= (int) Math.round(membersTdProgRate);
-	    
-	    double membersTdProgRate = studyService.membersTdProgRate(td.getTd_me_id());
-	    int membersTdProgRateint = (int) Math.round(membersTdProgRate);
-	//    
-	    System.out.println("멤버 투두 진척도 : "+membersTdProgRateint);
-//	    td.setTd_me_prog_rate(membersTdProgRateint);
-	    
+	    //멤버 투두 진행
+	    //서비스에서 멤버의 투두 총개수,완료 개수를 구해 진척률을 전달받고 정수로 변환->TodoMemberVO에 me_prog_rate를 만들어 값으로 할 
+	    ArrayList<StudyMemberVO> stMemberProgRateList = new ArrayList<>();
+	    for (StudyMemberVO member : stMember) {
+	        double membersTdProgRate = studyService.membersTdProgRate(member.getSm_me_id());
+	        int membersTdProgRateint = (int) Math.round(membersTdProgRate);
+	        member.setMe_prog_rate(membersTdProgRateint);
+	        stMemberProgRateList.add(member);
+	    }
+	    System.out.println("++++++"+stMemberProgRateList);
+   
 	    mv.addObject("myStudyList", myStudyList);
 	    mv.addObject("tdList", tdList);
 	    mv.addObject("memberId",memberId);
 	    mv.addObject("stMember",stMember);
 	    mv.addObject("stMemberTodo",stMemberTodo);
 	    mv.addObject("todoProgressRateint",todoProgressRateint);
-	    mv.addObject("membersTdProgRateint",membersTdProgRateint);
+	    mv.addObject("stMemberProgRateList",stMemberProgRateList);
 	    mv.setViewName("/study/to_do_list");
 	    return mv;
 	}
@@ -426,7 +425,6 @@ public class StudyController {
 			return "error";
 		}
 	}
-	
 
 	//데일리미션 페이지
 	@GetMapping("/daily/{st_num}")

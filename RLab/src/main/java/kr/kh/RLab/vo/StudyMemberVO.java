@@ -20,10 +20,13 @@ public class StudyMemberVO {
 	private String me_name;
 	private String me_profile;
 	private String st_name;
+	private int me_prog_rate;
 	
 	public void setSm_join_date(Date sm_join_date) {
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
 		String strDate = transFormat.format(sm_join_date);
 		this.sm_join_date = strDate;
 	}
+
+
 }

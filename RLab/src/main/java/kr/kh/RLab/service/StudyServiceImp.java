@@ -292,10 +292,8 @@ public class StudyServiceImp implements StudyService {
 	public double membersTdProgRate(String td_me_id) {
 		//1. memberId에 td_me_id와 일치하는 투두 개수 구하기
 		int mbTodoCount = studyDao.selectMemberTodoCount(td_me_id);
-		
 		//2. memberId가 td_me_id와 일치하고 td_finish가 1인 투두 개수 구하기
 		int finishTodoCount = studyDao.selectMemberFinishTodoCount(td_me_id);
-		
 		//3. 2의 값/ 1의 값 * 100을 해서 진척률 구하기
 		double membersTdProgRate = ((double) finishTodoCount / mbTodoCount) * 100;
 		
