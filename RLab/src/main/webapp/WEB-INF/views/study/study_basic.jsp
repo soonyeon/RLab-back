@@ -136,7 +136,7 @@ body {
 		<div class="left_menu_container">
 			<nav class="left_menu">
 				<a href="<c:url value='/study/${st_num}'></c:url>" class="list_item">스터디홈</a>
-				<a href="to_do_list.html" class="list_item">투두 리스트</a> 
+				<a href="<c:url value='/study/todo'></c:url>" class="list_item">투두 리스트</a> 
 				<a href="<c:url value='/study/daily/${st_num}'></c:url>" class="list_item">데일리 미션</a> 
 				<a href="<c:url value='/study/photo/${st_num}'></c:url>" class="list_item">인증 게시판</a> 
 				<a href="<c:url value='/board/list/${st_num}'></c:url>" class="list_item">자유 게시판</a> 
@@ -202,69 +202,50 @@ body {
 				</form>
 				</dialog>
 
-				<dialog id="editCalendarDialog">
-					<form id="editCalendarForm">
-						<input type="hidden" id="editCa_num"> 
-						<input type="hidden" id="editCa_st_num">
-						<h3>일정 수정 및 삭제</h3>
-						<div class="mb-3">
-							<label for="editCalendarTitle" class="form-label">제목</label>
-							<input type="text" class="form-control" id="editCalendarTitle">
-						</div>
-						<div class="mb-3">
-							<label for="editCalendarStart" class="form-label">시작일</label> 
-							<input type="datetime-local" class="form-control" id="editCalendarStart">
-						</div>
-						<div class="mb-3">
-							<label for="editCalendarEnd" class="form-label">종료일</label> <input
-								type="datetime-local" class="form-control" id="editCalendarEnd">
-						</div>
-						<div class="mb-3 form-check">
-							<input type="checkbox" class="form-check-input" id="editCalendarAllDay"> 
-							<label class="form-check-label" for="editCalendarAllDay">하루종일</label>
-						</div>
-						<menu>
-							<button type="button" id="closeEditCalendar">닫기</button>
-							<button type="button" id="updateCalendar">수정</button>
-							<button type="button" id="deleteCalendar">삭제</button>
-						</menu>
-					</form>
-				</dialog>
-
 				<div class="middle_container clearfix">
 					<!-- TO-DO LIST -->
-					<div class="todo_container">
-						<!-- 제목 -->
-						<div class="todo_box_title">
-							<h3>TODO</h3>
-							<a href="#" class="plus1">+더보기</a>
-						</div>
-						<!-- 내용 -->
-						<div class="todo_box_content">
-							<div class="input_container">
-								<input type="text" class="input_box" placeholder="할 일을 입력하세요">
-							</div>
-							<ul class="todo_list">
-								<li>
-									<span class="todo_check"> 
-										<i class="material-icons check">check</i>
-									</span> 
-									<span class="todo_content">할일</span> 
-									<span class="todo_clear">
-											<i class="material-icons clear">clear</i>
-									</span>
-								</li>
-							</ul>
+          <div class="todo_container">
+              <!-- 제목 -->
+              <div class="todo_box_title">
+                  <h3>TODO</h3>
+                  <a href="#" class="plus1">+더보기</a>
+              </div>
+              <!-- 내용 -->
+              <div class="todo_box_content">
+                  <div class="input_container">
+                      <input type="text"class="input_box" placeholder="할 일을 입력하세요">
+                  </div>
+                <ul class="todo_list">
+                    <c:forEach items="${tdList}" var="td" varStatus="vs" >
+                      <li>
+                        <c:if test="${td.td_finish == 0}">
+                          <span class="todo_check">
+                            <i class="material-icons check check_on">check</i>
+                          </span>
+                          <span class="todo_content">${td.td_content}</span>
+                        </c:if>
+                        <c:if test="${td.td_finish == 1}">
+                          <span class="todo_check">
+                            <i class="material-icons check check_off">check</i>
+                          </span>
+                          <span class="todo_content done">${td.td_content}</span>
+                        </c:if>
+                        <span class="todo_clear">
+                          <i class="material-icons clear">clear</i>
+                        </span>
+                      </li>
+                    </c:forEach>
+                </ul>  
 
-							<!-- 달성률 -->
-							<div>
-								<p class="success_percent">달성률 20%</p>
-							</div>
-							<div>
-								<progress class="progress" value="20" max="100"></progress>
-							</div>
-						</div>
-					</div>
+                  <!-- 달성률 -->
+                  <div>
+                      <progress class="progress" value="20" max="100"></progress>
+                  </div>
+                  <div>
+                      <p class="success_percent">달성률 20%</p>
+                  </div>
+              </div>
+          </div>
 
 					<!-- 타임라인 -->
 					<div class="time_line_container">
@@ -457,7 +438,9 @@ body {
 <script>
 const st_num = '${st_num}';
 const userId = '${userId}'; 
-loadStudyMembers(st_num, userId);
+$(document).ready(function() {
+    loadStudyMembers(st_num, userId);
+});
 
 const sse = new EventSource("<c:url value='/connect'></c:url>" + "?id=" + userId);
 sse.addEventListener('connect', (e) => {
@@ -470,6 +453,29 @@ sse.addEventListener('count', e => {
     console.log("count event data", receivedCount);
 });
 
+$('.leave').click(function() {
+	if(confirm('스터디를 탈퇴 하시겠습니까?')) {
+		  $.ajax({
+	            url: '<c:url value="/study/leave/${st_num}" />',
+	            type: 'POST',
+	            success: function(response) {
+	            	alert(response);
+	            	if(response == 'leader') {
+	            		alert('스터디장은 스터디 탈퇴가 불가능합니다. 스터디장을 회원에게 위임한 후 탈퇴하기를 진행하거나, 관리페이지에서 스터디 삭제를 진행해주세요.');
+	            		return false;
+	            	}else {
+	                alert('해당 스터디를 탈퇴했습니다.');
+	                window.location.href = '<c:url value="/" />';
+	            	}
+	            },
+	            error: function(error) {
+	                alert('해당 스터디 탈퇴에 실패하였습니다.');
+	            }
+	        });
+	}
+})
+
+
 function loadStudyMembers(st_num, userId) {
     $.ajax({
         url: '<c:url value="/onlineMembers"/>',
@@ -481,6 +487,8 @@ function loadStudyMembers(st_num, userId) {
                 type: 'GET',
                 dataType: 'json',
                 success: function (members) {
+                	// 기존 멤버 목록을 삭제
+                    $(".accessor_container").remove();
                     let memberList = "";
 
                     // 첫 번째 멤버의 study_title을 가져옴
@@ -490,16 +498,8 @@ function loadStudyMembers(st_num, userId) {
 
                     // 온라인 회원 목록 처리
                     members.forEach(member => {
-                        if (onlineMembers.includes(member.me_name)) {
-                            memberList += createMemberListItem(member, userId, true);
-                        }
-                    });
-
-                    // 오프라인 회원 목록 처리
-                    members.forEach(member => {
-                        if (!onlineMembers.includes(member.me_name)) {
-                            memberList += createMemberListItem(member, userId, false);
-                        }
+                        const isOnline = onlineMembers.includes(member.me_name);
+                        memberList += createMemberListItem(member, userId, isOnline);
                     });
 
                     document.querySelector(".accessor").innerHTML = memberList;
@@ -508,7 +508,6 @@ function loadStudyMembers(st_num, userId) {
         }
     });
 }
-
 function createMemberListItem(member, userId, isOnline) {
     const defaultImage = '<c:url value="/resources/img/user.png" />';
     const userProfileImage = member.me_profile ? '<c:url value="/download" />' + member.me_profile : defaultImage;

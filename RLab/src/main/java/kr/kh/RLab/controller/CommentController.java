@@ -39,7 +39,6 @@ public class CommentController {
 	@PostMapping("/create")
 	public Map<String, Object> createComment(@RequestBody CommentVO comment) {
 		int result = commentService.createComment(comment);
-		System.out.println(result);
 		// 새 댓글이 생성되면 SSE 이벤트를 전송
 		if (result > 0) {
 			BoardVO board = boardService.getBoardByComment(comment.getCo_ex_num());

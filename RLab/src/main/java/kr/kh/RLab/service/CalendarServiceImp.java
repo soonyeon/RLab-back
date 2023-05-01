@@ -24,8 +24,8 @@ public class CalendarServiceImp implements CalendarService{
 	}
 
 	@Override
-	public List<CalendarVO> findAll() {
-		return calendarDao.findAll();
+	public List<CalendarVO> findAll(int st_num) {
+		return calendarDao.findAll(st_num);
 	}
 
 	@Override
@@ -47,5 +47,6 @@ public class CalendarServiceImp implements CalendarService{
 			return ;
 		calendarDao.delete(ca_num);
 	}
+
 
 }

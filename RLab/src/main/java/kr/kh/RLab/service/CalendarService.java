@@ -8,10 +8,12 @@ public interface CalendarService {
 	//캘린더 등록
 	int insert(CalendarVO calendarVo);
 	
-	List<CalendarVO> findAll();
+	List<CalendarVO> findAll(int st_num);
 
 	CalendarVO findCaNum(int ca_num);
 
 	void update(CalendarVO calendarVo);
 	void delete(int ca_num);
+
+	
 }
