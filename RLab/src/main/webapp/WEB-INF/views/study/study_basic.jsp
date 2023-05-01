@@ -264,34 +264,20 @@
 	                <div class="my_study_container">
 	                    <div class="my_list_title">
 	                        <div class="icon_my">MY</div>
-	                        <div class="my_study ">나의 스터디<button class="btn_dropdown">▼</button></div>
+	                        <div class="my_study display_none">나의 스터디<button class="btn_dropdown">▼</button></div>
 	                    </div>
-	                    <div id="dropdown_list" class="">
+	                    <div id="dropdown_list" class="display_none">
 	                        <ul class="dropdown_list">
-	                            <li class="dropdown_item">
-	                                <div class="item_container">
-	                                    <p class="item_name">정보처리기사 스터디</p>
-	                                    <div class="star_on"></div>
-	                                </div>
-	                            </li>
-	                            <li class="dropdown_item">
-	                                <div class="item_container">
-	                                    <p class="item_name">정보처리기사 스터디</p>
-	                                    <div class="star_off"></div>
-	                                </div>
-	                            </li>
-	                            <li class="dropdown_item">
-	                                <div class="item_container">
-	                                    <p class="item_name">정보처리기사 스터디</p>
-	                                    <div class="star_off"></div>
-	                                </div>
-	                            </li>
-	                            <li class="dropdown_item">
-	                                <div class="item_container">
-	                                    <p class="item_name">정보처리기사 스터디</p>
-	                                    <div class="star_off"></div>
-	                                </div>
-	                            </li>
+	                        	<c:forEach items="${stList}" var="st">
+		                            <li class="dropdown_item">
+		                            	<input type="hidden" value="${st.st_num}">
+		                                <div class="item_container">
+		                                    <a href="<c:url value='/study/${st.st_num}'></c:url>" class="item_name">${st.st_name}</a>
+		                                    <c:if test="${user.me_study==st.st_num}"><div class="star_on"></div></c:if>
+		                                    <c:if test="${user.me_study!=st.st_num}"><div class="star_off"></div></c:if>
+		                                </div>
+		                            </li>
+	                            </c:forEach>
 	                        </ul>
 	                    </div>
 	                </div>

@@ -43,4 +43,6 @@ public interface StudyService {
 
 	List<StudyMemberVO> getOnlineMembers();
 
+	ArrayList<StudyVO> getUserStudyList(String me_id);
+
 }

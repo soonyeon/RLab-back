@@ -151,6 +151,8 @@ public class StudyController {
 	public ModelAndView main(ModelAndView mv, HttpSession session, @PathVariable("st_num") int st_num) {
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		ArrayList<StudyVO> study = studyService.getStudyByMemberId(user.getMe_id());
+		ArrayList<StudyVO> stList = studyService.getUserStudyList(user.getMe_id());
+		System.out.println(stList);
 		// 해당 user가 가입한 스터디가 1개도 없으면 다른 경로로 리다이렉트
 		if (study == null) {
 			mv.addObject("msg", "로그인 후 사용가능한 기능입니다.");
@@ -160,6 +162,7 @@ public class StudyController {
 		mv.addObject("st_num", st_num);
 		mv.addObject("study", study);
 		mv.addObject("loginUserId", user.getMe_id());
+		mv.addObject("stList", stList);
 		mv.setViewName("/study/study_basic");
 		return mv;
 	}

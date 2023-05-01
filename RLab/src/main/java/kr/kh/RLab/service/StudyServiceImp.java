@@ -128,4 +128,9 @@ public class StudyServiceImp implements StudyService {
 		return studyDao.getOnlineMembers();
 	}
 
+	@Override
+	public ArrayList<StudyVO> getUserStudyList(String me_id) {
+		return studyDao.selectUserStudyList(me_id);
+	}
+
 }
