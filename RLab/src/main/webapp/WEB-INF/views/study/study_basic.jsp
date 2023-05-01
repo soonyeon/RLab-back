@@ -211,47 +211,39 @@ body {
                   <a href="#" class="plus1">+더보기</a>
               </div>
               <!-- 내용 -->
-              <div class="todo_box_content">
-                  <div class="input_container">
-                      <input type="text"class="input_box" placeholder="할 일을 입력하세요">
-                  </div>
-                  
-                  
-                <ul class="todo_list" id="todo_list">
-                    <c:forEach items="${tdList}" var="td" varStatus="vs" >
-                      <li data-num="${td.td_num}">
-                      
-                        <c:if test="${td.td_finish == 0}">
-                          <span class="todo_check">
-                            <i class="material-icons check check_on">check</i>
-                          </span>
-                          <span class="todo_content">${td.td_content}</span>
-                        </c:if>
-                        
-                        <c:if test="${td.td_finish == 1}">
-                          <span class="todo_check">
-                            <i class="material-icons check check_off">check</i>
-                          </span>
-                          <span class="todo_content done">${td.td_content}</span>
-                        </c:if>
-                        
-                        <span class="todo_clear">
-                          <i class="material-icons clear">clear</i>
-                        </span>
-                        
-                        
-                      </li>
-                    </c:forEach>
-                </ul>  
-
+				<div class="todo_box_content">
+					<div class="input_container">
+						<input type="text"class="input_box" placeholder="할 일을 입력하세요">
+ 					</div>
+						<ul class="todo_list" id="todo_list">
+							<c:forEach items="${tdList}" var="td" varStatus="vs" >
+								<li data-num="${td.td_num}">
+									<c:if test="${td.td_finish == 0}">
+										<span class="todo_check">
+										<i class="material-icons check check_on">check</i>
+										</span>
+										<span class="todo_content">${td.td_content}</span>
+									</c:if>
+									<c:if test="${td.td_finish == 1}">
+										<span class="todo_check">
+										<i class="material-icons check check_off">check</i>
+										</span>
+										<span class="todo_content done">${td.td_content}</span>
+									</c:if>
+									<span class="todo_clear">
+										<i class="material-icons clear">clear</i>
+									</span>
+								</li>
+							</c:forEach>
+						</ul>
                   <!-- 달성률 -->
-                  <div>
-                      <progress class="progress" value="20" max="100"></progress>
-                  </div>
-                  <div>
-                      <p class="success_percent">달성률 20%</p>
-                  </div>
-              </div>
+						<div class="progress_container">
+							<canvas id="gauge" width="100" height="20"></canvas>
+							<div>
+						    	<p class="success_percent">달성률 ${todoProgressRateint}%</p>
+						    </div> 
+						</div>
+				</div>
           </div>
 
 					<!-- 타임라인 -->
@@ -443,6 +435,19 @@ body {
 	</div>
 </main>
 <script>
+//할 일 추가 후, todo_list 업데이트
+/* const updateTodoList = () => {
+    $.ajax({
+        async: false,
+        type: 'GET',
+        url: "<c:url value='/study/todo/list'></c:url>",
+        dataType: "html",
+        success: function (data) { 
+            $('.todo_list').html(data); // todo_list 클래스 부분을 서버에서 받은 HTML로 업데이트
+        }
+    });
+};
+ */
 //DOM 요소 가져오기
 const todoInput = document.querySelector(".input_box"); // 할 일 입력란
 const todoList = document.querySelector(".todo_list"); // 할 일 목록
@@ -451,11 +456,11 @@ const todo = todoInput.value;
 todoInput.addEventListener("keypress", (e) => {
 	
     if (e.keyCode === 13 && todoInput.value !== '') { // Enter 키를 눌렀고, 입력란이 비어있지 않은 경우
-    	generateTodo(todoInput.value); // 입력된 할 일을 추가하는 함수 호출
+    	const todo = todoInput.value;
+    	generateTodo(todo); // 입력된 할 일을 추가하는 함수 호출
         todoInput.value = ""; // 입력란 비우기
+        /* updateTodoList(); */
     }
-    console.log(1); 
-	
 });
 
 // 할 일을 생성하고 서버에 전송하는 함수
@@ -478,8 +483,9 @@ const generateTodo = (todo) => {
 		    //서버에서 보내는 데이터 타입
 		    contentType:"application/json; charset=UTF-8",
 		    success : function(data){
-		    	location.replace("<c:url value='/study/todo'></c:url>");
-		    /*     $('#todo_list').load("<c:url value='/study/todo'></c:url> #todo_list"); */
+		    	/* updateTodoList(); */
+		    	location.replace("<c:url value='/study/'></c:url>");
+		    	/* $('.todo_list').load("<c:url value='/study/'></c:url> .todo_list"); */
 		    }
 		});  
 } 
@@ -489,11 +495,7 @@ const clearIcons = document.querySelectorAll('.clear');
 clearIcons.forEach(icon => {
     icon.addEventListener("click", (e) => {
         var td_num = e.target.parentNode.parentNode.dataset.num;
-        /* const tdNum = li.querySelector('.td_num').textContent; */  // 할 일 내용 가져오기
-        // Ajax를 이용하여 서버에 할 일 내용을 전송
-/*         const obj = {
-        		td_num = ${td_num}
-        } */
+
         console.log(td_num);
         
         
@@ -507,7 +509,9 @@ clearIcons.forEach(icon => {
             // 서버에서 보내는 데이터 타입
             contentType: "application/json; charset=UTF-8",
             success: function (data) {
-            	location.replace("<c:url value='/study/todo'></c:url>");
+            	/* updateTodoList(); */
+		    	location.replace("<c:url value='/study/'></c:url>");
+		    	/* $('.todo_list').load("<c:url value='/study/'></c:url> .todo_list"); */
             }
         });
     });
@@ -529,8 +533,9 @@ checkOn.forEach(icon => {
             // 서버에서 보내는 데이터 타입
             contentType: "application/json; charset=UTF-8",
             success: function (data) { 
-            	location.replace("<c:url value='/study/todo'></c:url>");
-            	/* var td_finish = data.td_finish; */
+            	/* updateTodoList(); */
+		    	location.replace("<c:url value='/study/'></c:url>");
+		    	/* $('.todo_list').load("<c:url value='/study/'></c:url> .todo_list"); */
             }
         });
     });
@@ -554,16 +559,13 @@ checkOff.forEach(icon => {
             // 서버에서 보내는 데이터 타입
             contentType: "application/json; charset=UTF-8",
             success: function (data) { 
-            	 location.replace("<c:url value='/study/todo'></c:url>");  
+            	/* updateTodoList(); */
+		    	location.replace("<c:url value='/study/'></c:url>");
+		    	/* $('.todo_list').load("<c:url value='/study/'></c:url> .todo_list"); */
             }
         });
     });
 }); 
-
-
-
-
-
 
 
 

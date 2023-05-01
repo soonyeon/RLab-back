@@ -176,6 +176,12 @@ public class StudyController {
 			mv.addObject("url", "redirect:/");
 			mv.setViewName("/common/message");
 		}
+		String memberId = user.getMe_id();
+		double todoProgressRate = studyService.getTodoProgressRate(memberId);
+	    int todoProgressRateint= (int) Math.round(todoProgressRate);
+	    mv.addObject("todoProgressRateint",todoProgressRateint);
+		
+		
 		ArrayList<TodoVO> tdList = studyService.getTodoList(user.getMe_id());
 		mv.addObject("tdList",tdList);
 		ArrayList<PhotoVO> photo = studyService.selectPhotoPhNumTwo(st_num);
