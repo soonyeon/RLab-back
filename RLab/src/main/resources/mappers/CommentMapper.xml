@@ -48,7 +48,7 @@
 
 <update id="deleteComment">
 	update comment
-	set co_state = 'Y'
+	set co_delete = 'Y'
 	where co_num = #{co_num}
 </update>
 

@@ -318,7 +318,7 @@ function loadComments(page1) {
 			}
 
             $.each(comments, function(index, comment) {
-                if(comment.co_state == 'Y') {
+                if(comment.co_delete == 'Y') {
                  	 let cmStateHtml = '';
                     cmStateHtml += '<div class="cm_main_box">';
                     cmStateHtml += '<div class="cm_top_box">';

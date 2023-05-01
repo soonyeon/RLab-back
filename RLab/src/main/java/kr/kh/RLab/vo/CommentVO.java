@@ -18,7 +18,7 @@ public class CommentVO {
 	private int co_ex_num;
 	private Date co_reg_date;
 	private String me_name;
-	private char co_state;
+	private char co_delete;
 	
 	public String getCo_reg_date() {
 		SimpleDateFormat format = 
