@@ -81,15 +81,6 @@
 	                            <div>
 	                                <p class="success_percent">달성률 ${todoProgressRateint}%</p>
 	                            </div> 
-<%-- 								<c:forEach items="${stMemberProgRateList}" var="mp">
-									<c:if test="${memberId == mp.sm_me_id}">
-									                               
-										<canvas id="gauge" width="100" height="20"></canvas>
-										<div>
-											<p class="success_percent" id="prog">${mp.me_prog_rate}</p>
-										</div>
-									</c:if>
-								</c:forEach> --%>
 	                        </div>
 	                    </div>
 	                    <!-- 펫 박스 끝 -->
@@ -131,9 +122,9 @@
 			                            <div class="progress_container">
 		                                    <c:forEach items="${stMemberProgRateList}" var="mp">
 			                          			<c:if test="${sm.sm_me_id == mp.sm_me_id}">
-				                                	<canvas id="gauge" width="100" height="20"></canvas>
+				                                	<canvas class="gauge" width="100" height="20"></canvas>
 					                                <div>
-					                                    <p class="success_percent" id="prog">달성률${mp.me_prog_rate}%</p>
+					                                    <p class="success_percent">달성률<span class="prog">${mp.me_prog_rate}</span>%</p>
 					                                </div>
 			                                	</c:if>
 		                             		</c:forEach>
@@ -258,61 +249,51 @@
 
 <script>
 
-	/* 유저의 게이지 바  */
+//게이지바
+
+	// 유저의 게이지 바 
 	const canvas = document.getElementById("gauge");
 	const ctx = canvas.getContext("2d");
 	
 	const value = ${todoProgressRateint}; // 게이지바 값
 	const max = 100; // 게이지바 최대값
 	const barWidth = 100; // 게이지바 너비
-	const barHeight = 19; // 게이지바 높이
+	const barHeight = 20; // 게이지바 높이
 	const centerX = canvas.width / 2 - barWidth/2;
 	const centerY = canvas.height / 2;
 	
 	// 게이지바 그리기
 	const fillWidth = (value / max) * barWidth;
 	ctx.fillStyle = "rgb(0, 128, 255)";
-	ctx.fillRect(centerX, centerY - barHeight/2, fillWidth, barHeight);
+	ctx.fillRect(0, 0, fillWidth, barHeight);
 	
-	/* 자바스크립트에서 chec개수와 체크완료 개수 가져오기
-	 
-	/var todoList = document.getElementById(".todo_container_member");
-	var checkAllCount = todoList.querySelectorAll('.check').length;
-	console.log("check 전체 개수:"+checkAllCount);
+
 	
-	var checkOffCount = document.querySelectorAll('.check_off').length;
-	console.log("달성개수"+checkOffCount); */
-	  
+	$(document).ready(function() {
+		const stMemberSize = ${stMember.size()};
+		
+		for (let i = 0; i < stMemberSize; i++) {
+		const canvas = $('.todo_box_member_content').eq(i).find('.gauge');
+			if(canvas.length ==0) return;
+		const name = $('.todo_box_member_content').eq(i).find('.todo_box_member_title h3').text();
+		/* console.log("이름: "+name);
+		console.log(canvas) */
+		const ctx = canvas[0].getContext("2d");
+		const value = parseFloat($('.todo_box_member_content').eq(i).find('.prog').text());
+		/* console.log("멤버의 게이지값: "+value); */
+		
+		const max = 100;
+		const barWidth = 100;
+		const barHeight = 20;
+		
+		const fillWidth = (value / max) * barWidth;
+		ctx.fillStyle = "rgb(0, 128, 255)";
+		ctx.fillRect(0, 0, fillWidth, barHeight);
+		}
+	}); 
 	
-/* 	//todo_box_member_title의 h3의 값
-	const memberName = document.getElementById("member_name").textContent;
 	
-	// stMemberProgRateList의 me_name이랑 같을 때 해당 me_prog_rate 값을 가져옴
-	let value = 0;
-	stMemberProgRateList.forEach((mp) => {
-	  if (memberName === ${mp.me_name}) {
-	    value = ${mp.me_prog_rate};
-	  }
-	});
-	
-	// 게이지바 최대값
-	const max = 100;
-	// 게이지바 너비
-	const barWidth = 100;
-	// 게이지바 높이
-	const barHeight = 19;
-	const canvas = document.getElementById(`gauge-${sm.me_id}`);
-	const ctx = canvas.getContext("2d");
-	const centerX = canvas.width / 2 - barWidth / 2;
-	const centerY = canvas.height / 2;
-	
-	// 게이지바 그리기
-	const fillWidth = (value / max) * barWidth;
-	ctx.fillStyle = "rgb(0, 128, 255)";
-	ctx.fillRect(centerX, centerY - barHeight / 2, fillWidth, barHeight);
-	  
-	  
-	//DOM 요소 가져오기
+//투두 작성
 	const todoInput = document.querySelector(".input_box"); // 할 일 입력란
 	const todoList = document.querySelector(".todo_list"); // 할 일 목록
 	const todo = todoInput.value;
@@ -325,7 +306,7 @@
 	    }
 	    console.log(1); 
 		
-	}); */
+	});
 	
 	// 할 일을 생성하고 서버에 전송하는 함수
 	
