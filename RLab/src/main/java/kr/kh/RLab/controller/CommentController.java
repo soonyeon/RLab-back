@@ -72,8 +72,6 @@ public class CommentController {
 	public Map<String, Object> comment(@RequestBody CommentVO comment, HttpSession session) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		MemberVO user = (MemberVO) session.getAttribute("user");
-		System.out.println("co_num" + comment.getCo_num());
-		System.out.println("ori_num" + comment.getCo_ori_num());
 		boolean res = commentService.deleteComment(comment, user);
 		map.put("result", res ? "success" : "fail");
 		return map;
