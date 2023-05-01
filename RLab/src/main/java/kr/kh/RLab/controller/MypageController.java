@@ -259,7 +259,6 @@ public class MypageController {
 			
 			// 아이디로 나의 예약 목록 가져오기
 			ArrayList<ReservationVO> myBookList = mypageService.getBookList(memberId, cri);
-			System.out.println(myBookList);
 			// 페이지 네이션
 			// 로그인한 회원이 가진 예약 전체 수 가져오기
 			int totalCount = mypageService.getBookTotalCount(memberId);
@@ -366,11 +365,9 @@ public class MypageController {
 			
 			// 아이디로 진행중인 스터디 가져오기 (내가 회원으로 들어가 있는 스터디)
 			ArrayList<StudyVO> myProgressList = mypageService.getProgressList(memberId, cri);
-			System.out.println(myProgressList);
 			
 			// 페이지 네이션		
 			int totalCount = mypageService.getProgressTotalCount(memberId, cri);
-			System.out.println(totalCount);
 			PageMaker pm = new PageMaker(totalCount, 1, cri);
 			
 			mv.addObject("myProgressList", myProgressList);
@@ -415,9 +412,8 @@ public class MypageController {
 		// 페이지 네이션
 		// 로그인한 회원이 스크랩한 게시글 전체 수 가져오기
 		int totalCount = mypageService.getScrapBoardTotalCount(memberId);
-		System.out.println(totalCount);
 		PageMaker pm = new PageMaker(totalCount, 2, cri);
-		
+		System.out.println(myScrapList);
 		mv.addObject("myScrapList", myScrapList);
 		mv.addObject("pm", pm);
 		mv.setViewName("/mypage/mypost_scrap");
@@ -442,7 +438,6 @@ public class MypageController {
 		
 		// 페이지 네이션		
 		int totalCount = mypageService.getGatherTotalCount(memberId, cri);
-		System.out.println(totalCount);
 		PageMaker pm = new PageMaker(totalCount, 1, cri);
 		
 		mv.addObject("myGatherList", myGatherList);

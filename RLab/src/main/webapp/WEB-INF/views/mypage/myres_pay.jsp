@@ -52,7 +52,7 @@
 		                        <option value="작성일 순">작성일 순</option>
 		                      </select>
 		                    </div>
-		
+						<c:if test="${myPayList != null && myPayList.size() != 0}">
 		                    <div class="tab_content">
 		                      <!-- 나의 게시글 -->
 		                      <div class="table_area" id="tabs_1">
@@ -101,6 +101,13 @@
 								</div>
 		                     </div>  		                      
 		                   </div>
+		                 </c:if>
+		                 <c:if test="${myPayList.size() == 0 || myPayList == null}">
+		                      	<div class="nullMsg">
+		                      		<p> 결제내역이 없습니다.</p>
+		                      		<a class="btn_link link_favorite" href="<c:url value='/reservation/buy'></c:url>">이용권 구매하기</a>
+		                      	</div>
+			              </c:if>
 		                 </div>
 		                </div>
 		              </div>  

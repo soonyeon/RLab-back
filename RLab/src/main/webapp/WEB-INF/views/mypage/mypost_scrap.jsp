@@ -41,75 +41,80 @@
               <a href="<c:url value='/mypage/mypost_recruit'></c:url>" class="tab unselected_tab tab2"><div>나의 모집글</div></a>
               <a href="<c:url value='/mypage/mypost_scrap'></c:url>"  class="tab selected_tab tab3"><div>나의 스크랩</div></a>
             </div>
-              <div class="my_study_container" id="my_container">
-                <div class="study_card_container">
-
-            	<!-- table  -->
-                 <div class="table_container">
-                    <div class="select_box_area">
-                      <select name="select_view">
-                        <option value="전체보기">전체보기</option>
-                        <option value="최신 순">최신 순</option>
-                        <option value="작성일 순">작성일 순</option>
-                      </select>
-                    </div>
-
-                    <div class="tab_content">
-                    
-                      <!-- 나의 스크랩 -->
-                      <div class="table_area" id="tabs_3">
-                        <table class="border_box">
-                          <thead>
-                            <tr class="board_title_list">
-                              <td class="title_list_item">번호</td>
-                              <td class="title_list_item">스터디명</td>
-                              <td class="title_list_item">제목</td>
-                              <td class="title_list_item">작성자</td>
-                              <td class="title_list_item">작성일</td>
-                            </tr>
-                          </thead>
-                          <tbody>
-                           <c:forEach items="${myScrapList}" var="bo" varStatus="vs">
-	                            <tr class="board_list" onclick="location.href='<c:url value='/board/detail/${bo.bo_st_num}/${bo.bo_num}'/>';">	      
-	                              <td>${bo.scrapVO.sc_num}</td>
-	                              <td>${bo.st_name}</td>
-	                              <td class="post_title">${bo.bo_title}</td>
-	                              <td>${bo.me_name}</td>
-	                              <td>${bo.bo_reg_date_str}</td>                             
-								</tr>
-							</c:forEach>
-                          </tbody>
-                        </table>
-                      </div>
-                      <!-- 페이지 이동 -->
-	                      <div class="page_area">
-		                       <div class="page_box clearfix">
-			                        <c:if test="${pm.prev}">
-		                     			<a class="page-link" href="<c:url value='/mypage/mypost_scrap?page=${pm.endPage-1}'></c:url>">
-											<i class="btn_prev"></i>
-										</a>
-									</c:if>
-									<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
-										<span class="page_num">										
-											<a class="page-link <c:if test="${pm.cri.page == i}"> active</c:if>" href="<c:url value='/mypage/mypost_scrap?page=${i}'></c:url>">${i}</a>
-										</span>
-									</c:forEach>
-									<c:if test="${pm.next}">										
-										<a class="page-link" href="<c:url value='/mypage/mypost_scrap?page=${pm.endPage+1}'></c:url>">
-											<i class="btn_next"></i>
-										</a>
-									</c:if>
-		                       </div>
-	                       </div>  <!-- page area end -->
-                      	</div><!-- tab content end -->
-                    </div><!-- table_containert end -->
+            <div class="my_study_container" id="my_container">
+            	<div class="study_card_container">
+	            	<!-- table  -->
+	            	<div class="table_container">
+	                    <div class="select_box_area">
+	                      <select name="select_view">
+	                        <option value="전체보기">전체보기</option>
+	                        <option value="최신 순">최신 순</option>
+	                        <option value="작성일 순">작성일 순</option>
+	                      </select>
+	                    </div>
+	
+		                    <div class="tab_content">
+								<c:if test="${myScrapList != null && myScrapList.size() != 0}">
+			                      <!-- 나의 스크랩 -->
+			                      <div class="table_area" id="tabs_3">
+			                        <table class="border_box">
+			                          <thead>
+			                            <tr class="board_title_list">
+			                              <td class="title_list_item">번호</td>
+			                              <td class="title_list_item">스터디명</td>
+			                              <td class="title_list_item">제목</td>
+			                              <td class="title_list_item">작성자</td>
+			                              <td class="title_list_item">작성일</td>
+			                            </tr>
+			                          </thead>
+			                          <tbody>
+			                           <c:forEach items="${myScrapList}" var="bo" varStatus="vs">
+				                            <tr class="board_list" onclick="location.href='<c:url value='/board/detail/${bo.bo_st_num}/${bo.bo_num}'/>';">	      
+				                              <td>${bo.scrapVO.sc_num}</td>
+				                              <td>${bo.st_name}</td>
+				                              <td class="post_title">${bo.bo_title}</td>
+				                              <td>${bo.me_name}</td>
+				                              <td>${bo.bo_reg_date_str}</td>                             
+											</tr>
+										</c:forEach>
+			                          </tbody>
+			                        </table>
+			                      </div>
+		                      <!-- 페이지 이동 -->
+			                      <div class="page_area">
+				                       <div class="page_box clearfix">
+					                        <c:if test="${pm.prev}">
+				                     			<a class="page-link" href="<c:url value='/mypage/mypost_scrap?page=${pm.endPage-1}'></c:url>">
+													<i class="btn_prev"></i>
+												</a>
+											</c:if>
+											<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
+												<span class="page_num">										
+													<a class="page-link <c:if test="${pm.cri.page == i}"> active</c:if>" href="<c:url value='/mypage/mypost_scrap?page=${i}'></c:url>">${i}</a>
+												</span>
+											</c:forEach>
+											<c:if test="${pm.next}">										
+												<a class="page-link" href="<c:url value='/mypage/mypost_scrap?page=${pm.endPage+1}'></c:url>">
+													<i class="btn_next"></i>
+												</a>
+											</c:if>
+				                       </div>
+			                       </div>  <!-- page area end -->
+	                      	</c:if>
+	                      	</div><!-- tab content end -->
+						<c:if test="${myScrapList.size() == 0 || myScrapList == null}">
+	                      	<div class="nullMsg">
+	                      		<p> 스크랩한 글이 없습니다.</p>
+	                      	</div>
+		                </c:if>
+                    </div><!-- table_container end -->
 
                   </div><!-- study_card_container end -->
                 </div><!-- my_container end -->
-              </div>  <!-- main container end -->
           </section> 
-		</div><!-- total_container end -->
+        </div>  <!-- main container end -->
 	</main>
+</div><!-- total_container end -->
 
 <script>	
 </script>
