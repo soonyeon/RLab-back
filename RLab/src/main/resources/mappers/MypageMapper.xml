@@ -34,6 +34,7 @@
 	<id property="st_total_people" column="st_total_people"/>
 	<id property="st_image" column="st_image"/>
 	<id property="st_state" column="st_state"/>
+	<id property="st_info" column="st_info"/>
 		<association property="studyMemberVO" javaType="kr.kh.RLab.vo.StudyMemberVO">
 			<result property="sm_me_id" column="sm_me_id"/>	
 			<result property="sm_st_num" column="sm_st_num"/>	
@@ -152,41 +153,6 @@
 		  WHERE me_id = #{m.me_id}
 		</update>
 
-	<!-- [스터디 관리 > 내가 찜한 스터디]	 -->
-		<!-- 아이디로 내가 찜한 스터디 가져오기 -->
-		<select id="selectFavoriteList" resultMap="gather">
-			select ga_num, ga_title, ga_me_id, me_name,
-				st_num, st_image, st_re_name, st_now_people, st_total_people, st_state
-  			from study
-  			join gather on ga_st_num = st_num
-  			join member on me_id = st_me_id
-            join want on wa_ga_num = ga_num
-			WHERE  
-				ga_me_id = #{memberId}
-			and wa_state = 1
-			<if test="cri.filter == 'on'">
-				AND st_state = 1
-			</if>
-			ORDER BY ga_num DESC
-		</select>
-		
-		<!-- 내가 찜한 스터디의 태그들 가져오기 -->
-		<select id="selectFavoriteTagList" resultType="kr.kh.RLab.vo.TagRegisterVO">
-			SELECT *
-			FROM tag_register
-			join study on tr_st_num = st_num
-			join gather on ga_st_num = st_num
-			join want on wa_ga_num = ga_num
-			where wa_state = 1
-		</select>
-		
-		<!-- 내가 찜한 모집글의 수 -->
-		<select id="selectFavoriteTotalCount" resultType="int">
-			select count(*)
-			from want
-            where wa_me_id = #{memberId}
-			and wa_state = 1
-		</select>
 		
 
 	<!-- [예약 관리 > 나의 결제 내역] -->
@@ -252,6 +218,92 @@
 			join ticket on to_ti_num = ti_num
 			join ticket_type on ti_tt_num = tt_num
 			where to_num = #{re_num}
+		</select>
+		
+		
+	<!-- [스터디 관리 > 내가 찜한 스터디]	 -->
+		<!-- 아이디로 내가 찜한 스터디 가져오기 -->
+		<select id="selectFavoriteList" resultMap="gather">
+			select ga_num, ga_title, ga_me_id, me_name,
+				st_num, st_image, st_re_name, st_now_people, st_total_people, st_state
+  			from study
+  			join gather on ga_st_num = st_num
+  			join member on me_id = st_me_id
+            join want on wa_ga_num = ga_num
+			WHERE  
+				ga_me_id = #{memberId}
+			and wa_state = 1
+			<if test="cri.filter == 'on'">
+				AND st_state = 1
+			</if>
+			ORDER BY ga_num DESC
+		</select>
+		
+		<!-- 내가 찜한 스터디의 태그들 가져오기 -->
+		<select id="selectFavoriteTagList" resultType="kr.kh.RLab.vo.TagRegisterVO">
+			SELECT *
+			FROM tag_register
+			join study on tr_st_num = st_num
+			join gather on ga_st_num = st_num
+			join want on wa_ga_num = ga_num
+			where wa_state = 1
+		</select>
+		
+		<!-- 내가 찜한 모집글의 수 -->
+		<select id="selectFavoriteTotalCount" resultType="int">
+			select count(*)
+			from want
+            where wa_me_id = #{memberId}
+			and wa_state = 1
+		</select>
+		
+	<!-- [스터디 관리 > 내가 개설한 스터디]	 -->
+		<!-- 아이디로 내가 개설한 스터디 가져오기 -->
+		<select id="selectOpenList" resultType="kr.kh.RLab.vo.StudyVO">
+			select *
+  			from study
+			WHERE  
+				st_me_id = #{memberId}
+			<if test="cri.filter == 'on'">
+				AND st_state = 1
+			</if>
+			ORDER BY st_num DESC
+			limit #{cri.pageStart}, #{cri.perPageNum}
+		</select>
+		<!-- 내가 개설한 스터디 개수 -->
+		<select id="selectOpenTotalCount" resultType="int">
+			select count(*)
+			from study
+            where st_me_id = #{memberId}
+            <if test="cri.filter == 'on'">
+				AND st_state = 1
+			</if>
+		</select>
+		
+	<!-- [스터디 관리 > 진행중인 스터디] -->
+		<!-- 아이디로 진행중인 스터디 가져오기 (내가 회원으로 들어가 있는 스터디) -->
+		<select id="selectProgressList" resultMap="studyMember">
+			SELECT *
+			FROM study_member
+			join study on sm_st_num = st_num
+			WHERE  
+				sm_me_id = #{memberId}
+			<if test="cri.filter == 'on'">
+				AND st_state = 1
+			</if>
+			ORDER BY st_num DESC
+			limit #{cri.pageStart}, #{cri.perPageNum}
+		</select>
+		
+		<!-- 진행중인 스터디 개수 -->
+		<select id="selectProgressTotalCount" resultType="int">
+			SELECT count(*)
+			FROM study_member
+			join study on sm_st_num = st_num
+            where st_me_id = #{memberId}
+            <if test="cri.filter == 'on'">
+				AND st_state = 1
+			</if>
 		</select>
 		
 	<!-- [작성글 관리 > 나의 게시글] -->

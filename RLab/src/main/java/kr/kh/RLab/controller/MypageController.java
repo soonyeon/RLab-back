@@ -127,6 +127,7 @@ public class MypageController {
 		return res;
 	}
 	
+	//////////////////////////
 	//[개인정보 수정 > 비밀번호 체크]
 	@GetMapping("/pwcheck")
 	public ModelAndView pwCheck(ModelAndView mv) {
@@ -188,8 +189,6 @@ public class MypageController {
 		}else {
 			member.setMe_profile(user.getMe_profile());
 		}
-		
-			
 		boolean isEdited = mypageService.editUser(member, user); 
 		if(isEdited) {
 			user.setMe_name(member.getMe_name());
@@ -305,11 +304,11 @@ public class MypageController {
 	        mv.setViewName("/mypage/book_locker_detail");
 	        return mv;
 		}
+	
 	//////////////////////////////////
-			
 	//[스터디 관리 > 내가 찜한 스터디]
 		@GetMapping("/mystudy_favorite")
-		public ModelAndView myStudy(
+		public ModelAndView myStudyFavorite(
 				ModelAndView mv, HttpSession session, MemberVO member, GatherCriteria cri){		
 			/// 세션 정보 가져오기
 			MemberVO user = (MemberVO)session.getAttribute("user");
@@ -317,7 +316,6 @@ public class MypageController {
 			
 			// 아이디로 내가 찜한 스터디 가져오기
 			ArrayList<GatherVO> myFavoriteList = mypageService.getFavoriteList(memberId, cri);
-			System.out.println(myFavoriteList);
 			
 			// 내가 찜한 스터디의 태그들 가져오기
 			ArrayList<TagRegisterVO>favoriteTagList = mypageService.getfavoriteTagList(cri);
@@ -326,8 +324,7 @@ public class MypageController {
 			ArrayList<Integer> wantList = mypageService.selectWantListById(memberId);
 			
 			// 페이지 네이션		
-			int totalCount = mypageService.getFavoriteTotalCount(memberId);
-			System.out.println(totalCount);
+			int totalCount = mypageService.getFavoriteTotalCount(memberId, cri);
 			PageMaker pm = new PageMaker(totalCount, 1, cri);
 			
 			mv.addObject("myFavoriteList", myFavoriteList);
@@ -335,6 +332,50 @@ public class MypageController {
 			mv.addObject("wantList", wantList);
 			mv.addObject("pm", pm);
 			mv.setViewName("/mypage/mystudy_favorite");
+			return mv;
+		}
+		
+		//[스터디 관리 > 내가 개설한 스터디]
+		@GetMapping("/mystudy_open")
+		public ModelAndView myStudyOpen(
+				ModelAndView mv, HttpSession session, MemberVO member, GatherCriteria cri){		
+			/// 세션 정보 가져오기
+			MemberVO user = (MemberVO)session.getAttribute("user");
+			String memberId = user.getMe_id();
+			
+			// 아이디로 내가 개설한 스터디 가져오기
+			ArrayList<StudyVO> myOpenList = mypageService.getOpenList(memberId, cri);
+			
+			// 페이지 네이션		
+			int totalCount = mypageService.getOpenTotalCount(memberId, cri);
+			PageMaker pm = new PageMaker(totalCount, 1, cri);
+			
+			mv.addObject("myOpenList", myOpenList);
+			mv.addObject("pm", pm);
+			mv.setViewName("/mypage/mystudy_open");
+			return mv;
+		}
+		
+		//[스터디 관리 > 진행중인 스터디]
+		@GetMapping("/mystudy_progress")
+		public ModelAndView myStudyProgress(
+				ModelAndView mv, HttpSession session, MemberVO member, GatherCriteria cri){		
+			/// 세션 정보 가져오기
+			MemberVO user = (MemberVO)session.getAttribute("user");
+			String memberId = user.getMe_id();
+			
+			// 아이디로 진행중인 스터디 가져오기 (내가 회원으로 들어가 있는 스터디)
+			ArrayList<StudyVO> myProgressList = mypageService.getProgressList(memberId, cri);
+			System.out.println(myProgressList);
+			
+			// 페이지 네이션		
+			int totalCount = mypageService.getProgressTotalCount(memberId, cri);
+			System.out.println(totalCount);
+			PageMaker pm = new PageMaker(totalCount, 1, cri);
+			
+			mv.addObject("myProgressList", myProgressList);
+			mv.addObject("pm", pm);
+			mv.setViewName("/mypage/mystudy_progress");
 			return mv;
 		}
 
@@ -400,7 +441,7 @@ public class MypageController {
 		ArrayList<Integer> wantList = mypageService.selectWantListById(memberId);
 		
 		// 페이지 네이션		
-		int totalCount = mypageService.getGatherTotalCount(memberId);
+		int totalCount = mypageService.getGatherTotalCount(memberId, cri);
 		System.out.println(totalCount);
 		PageMaker pm = new PageMaker(totalCount, 1, cri);
 		

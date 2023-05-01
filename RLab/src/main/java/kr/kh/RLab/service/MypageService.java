@@ -93,7 +93,22 @@ public interface MypageService {
 		ArrayList<TagRegisterVO> getfavoriteTagList(GatherCriteria cri);
 		
 		// 내가 찜한 모집글의 수 
-		int getFavoriteTotalCount(String memberId);
+		int getFavoriteTotalCount(String memberId, GatherCriteria cri);
+		
+	//[스터디 관리 > 내가 개설한 스터디]	
+		// 아이디로 내가 개설한 스터디 가져오기		
+		ArrayList<StudyVO> getOpenList(String memberId, GatherCriteria cri);
+		
+		// 내가 개설한 스터디 개수
+		int getOpenTotalCount(String memberId, GatherCriteria cri);
+		
+		
+	//[스터디 관리 > 진행중인 스터디]	
+		// 아이디로 진행중인 스터디 가져오기 (내가 회원으로 들어가 있는 스터디)
+		ArrayList<StudyVO> getProgressList(String memberId, GatherCriteria cri);
+		
+		// 진행중인 스터디 개수
+		int getProgressTotalCount(String memberId, GatherCriteria cri);
 		
 		
 	/////////////////	
@@ -121,7 +136,7 @@ public interface MypageService {
 		ArrayList<TagRegisterVO> selectTagListById(String memberId);
 		
 		// 로그인한 회원이 작성한 모집글 전체 수 가져오기
-		int getGatherTotalCount(String memberId);
+		int getGatherTotalCount(String memberId, GatherCriteria cri);
 		
 		// 내가 쓴 모집글의 찜 여부 가져오기
 		ArrayList<Integer> selectWantListById(String memberId);

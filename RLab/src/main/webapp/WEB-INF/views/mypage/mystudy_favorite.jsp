@@ -52,7 +52,6 @@
 		                      <div class="except_container">
 		                        <div class="except_box">
 		                          <label for="except_btn">모집완료된 스터디 제외</label>
-		                          
 		                          <input type="checkbox" name="" id="except_btn" value="on" <c:if test="${pm.cri.filter == 'on'}">checked</c:if>> 
 		                        </div>
 		                      </div>
@@ -67,8 +66,21 @@
 			                          		<!-- 모집글 하나가 index -->
 			                          		<c:forEach begin="${i}" end="${i+2}" var="index">
 				                          		<c:if test="${myFavoriteList.size()-1 >= index}">
+				                          		
+				                          		
 				                          		  <c:set var="state" value="${myFavoriteList.get(index).st_state}"/>
 					                              <li class="study_card_box add_shadow op st_state" value="${state}">
+					                                 <c:if test="${myFavoriteList.get(index).st_state != 1}">
+					                                  <!-- 모집 완료 -->
+					                                  <div class="sad_container">
+						                                  <div class="sad_box">
+						                                    <div class="sad_img">
+						                                    	<img class="mypage_img" src="<c:url value='/resources/img/sad.png'></c:url>" width="auto" height="40">
+						                                    </div>
+						                                    <div class="sad_img_content">모집 완료</div>
+						                                  </div>
+						                               </div>
+						                              </c:if>
 					                                  <a href="<c:url value='/gather/detail/${myFavoriteList.get(index).st_num}'></c:url>">
 					                                      <div class="study_img_box">
 					                                      	<c:if test="${myFavoriteList.get(index).st_image == null}">
@@ -90,8 +102,10 @@
 					                                          <div class="study_recruit_content_box">
 					                                              <span class="study_recruit_content">[${myFavoriteList.get(index).st_re_name}] ${myFavoriteList.get(index).gatherVO.ga_title} </span>
 					                                          </div>
+					                                          
 					                                      		<!-- 모집중 상태 -->
 					                                          <div class="study_content">
+					                                           
 					                                              <div class="study_recruiting">
 					                                                  <span>모집중</span>
 					                                                  <span>${myFavoriteList.get(index).st_now_people}</span>
@@ -123,7 +137,12 @@
 									</c:if>
 		                          
 		                        </div>
-		  
+			  					 <c:if test="${myFavoriteList.size() == 0 || myFavoriteList == null}">
+				                      	<div class="nullMsg">
+				                      		<p> 찜한 스터디가 없습니다.</p>
+				                      		<a class="btn_link link_favorite" href="<c:url value='/gather/list'></c:url>">모집글 보러가기</a>
+				                      	</div>
+			                      </c:if>
 		                        <!-- 페이지네이션 -->
 		                        <div class="page_box clearfix">
 		                         <c:if test="${pm.prev}">

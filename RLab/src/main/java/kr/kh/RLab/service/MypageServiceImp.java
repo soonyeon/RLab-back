@@ -259,11 +259,42 @@ public class MypageServiceImp implements MypageService {
 		
 		// 내가 찜한 모집글의 수 
 		@Override
-		public int getFavoriteTotalCount(String memberId) {
-			int totalCount = mypageDao.selectFavoriteTotalCount(memberId);
+		public int getFavoriteTotalCount(String memberId, GatherCriteria cri) {
+			int totalCount = mypageDao.selectFavoriteTotalCount(memberId, cri);
 			return totalCount;
 		}
 		
+	//[스터디 관리 > 내가 개설한 스터디]	
+		// 아이디로 내가 개설한 스터디 가져오기	
+		@Override
+		public ArrayList<StudyVO> getOpenList(String memberId, GatherCriteria cri) {
+			if(memberId == null)
+				return null;
+			return mypageDao.selectOpenList(memberId, cri);
+		}
+		
+		// 내가 개설한 스터디 개수
+		@Override
+		public int getOpenTotalCount(String memberId, GatherCriteria cri) {
+			int totalCount = mypageDao.selectOpenTotalCount(memberId, cri);
+			return totalCount;
+		}
+		
+	//[스터디 관리 > 진행중인 스터디]	
+		// 아이디로 진행중인 스터디 가져오기 (내가 회원으로 들어가 있는 스터디)
+		@Override
+		public ArrayList<StudyVO> getProgressList(String memberId, GatherCriteria cri) {
+			if(memberId == null)
+				return null;
+			return mypageDao.selectProgressList(memberId, cri);
+		}
+
+		// 진행중인 스터디 개수
+		@Override
+		public int getProgressTotalCount(String memberId, GatherCriteria cri) {
+			int totalCount = mypageDao.selectProgressTotalCount(memberId, cri);
+			return totalCount;
+		}
 	////////////
 	//[작성글 관리 > 나의 게시글]
 		// 아이디로 작성 게시글 목록 가져오기
@@ -316,8 +347,8 @@ public class MypageServiceImp implements MypageService {
 		
 		// 로그인한 회원이 작성한 모집글 전체 수 가져오기
 		@Override
-		public int getGatherTotalCount(String memberId) {
-			int totalCount = mypageDao.selectGatherTotalCount(memberId);
+		public int getGatherTotalCount(String memberId, GatherCriteria cri) {
+			int totalCount = mypageDao.selectGatherTotalCount(memberId, cri);
 			return totalCount;
 		}
 		
@@ -327,6 +358,8 @@ public class MypageServiceImp implements MypageService {
 			ArrayList<Integer> wantList = mypageDao.selectWantListById(memberId);
 			return wantList;
 		}
+
+
 
 
 

@@ -103,7 +103,22 @@ public interface MypageDAO {
 		ArrayList<TagRegisterVO> selectFavoriteTagList(@Param("cri")GatherCriteria cri);
 		
 		// 내가 찜한 모집글의 수
-		int selectFavoriteTotalCount(String memberId);
+		int selectFavoriteTotalCount(@Param("memberId")String memberId, @Param("cri")GatherCriteria cri);
+		
+	//[스터디 관리 > 내가 개설한 스터디]	
+		// 아이디로 내가 개설한 스터디 가져오기
+		ArrayList<StudyVO> selectOpenList(@Param("memberId")String memberId, @Param("cri")GatherCriteria cri);
+		
+		// 내가 개설한 스터디 개수
+		int selectOpenTotalCount(@Param("memberId")String memberId, @Param("cri")GatherCriteria cri);
+	
+	//[스터디 관리 > 진행중인 스터디]	
+		// 아이디로 진행중인 스터디 가져오기 (내가 회원으로 들어가 있는 스터디)	
+		ArrayList<StudyVO> selectProgressList(@Param("memberId")String memberId, @Param("cri")GatherCriteria cri);
+
+		// 진행중인 스터디 개수
+		int selectProgressTotalCount(@Param("memberId")String memberId, @Param("cri")GatherCriteria cri);
+		
 		
 	////////////////	
 	//[작성글 관리 > 나의 게시글]
@@ -130,11 +145,9 @@ public interface MypageDAO {
 		ArrayList<TagRegisterVO> selectTagListById(String memberId);
 		
 		// 로그인한 회원이 작성한 모집글 전체 수 가져오기
-		int selectGatherTotalCount(String memberId);
+		int selectGatherTotalCount(@Param("memberId")String memberId, @Param("cri")GatherCriteria cri);
 		
 		// 내가 쓴 모집글의 찜 여부 가져오기
 		ArrayList<Integer> selectWantListById(String memberId);
-
-
 
 }
