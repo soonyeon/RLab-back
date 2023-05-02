@@ -105,11 +105,9 @@ public class MypageController {
 
 		//나의 스터디 데이터 가져오기
 		ArrayList<StudyVO> myStudyList = mypageService.getMainStudyList(userId);
-		System.out.println("study" + myStudyList);
 		
 		//나의 스크랩 데이터 가져오기
 		ArrayList<BoardVO> myScrapList = mypageService.getMainScrapList(userId);
-		System.out.println("scrap" + myScrapList);
 
 		mv.addObject("myPet",myPet);
 		mv.addObject("myPoint", myPoint);
@@ -268,7 +266,6 @@ public class MypageController {
 			// 로그인한 회원이 가진 예약 전체 수 가져오기
 			int totalCount = mypageService.getBookTotalCount(memberId);
 			PageMaker pm = new PageMaker(totalCount, 2, cri);
-			
 			mv.addObject("myBookList", myBookList);
 			mv.addObject("pm", pm);
 			mv.setViewName("/mypage/myres_book");

@@ -83,10 +83,35 @@
             <article class="article_top">
               <!-- used_hours_container -->
               <div class="article_box" id="used_hours_container">
-                
+               
                 
                 <div class="user_info">
+                 <a href="<c:url value='/mypage'></c:url>" class="icon_profile">
+	    			<c:if test="${user.me_profile == null}">
+	    				<img class="mypage_img" src="<c:url value='/resources/img/user.png'></c:url>" width="auto" height="110">
+	    				<span class="blind">마이페이지</span>
+	    			</c:if>
+	    			
+	    			<c:if test="${user.me_profile != null}">
+		    			<img class="mypage_img" src="<c:url value='/download/profile/${user.me_profile}'></c:url>" width="auto" height="110">
+		    			<span class="blind">마이페이지</span>
+	    			</c:if>
+ 		    	</a>
+                 <div id="user_info_container">
                   <span><strong>"${user.me_name}"</strong> 님 안녕하세요</span>
+                  <div class="my_point">
+                    <h2 class="title_point">적립 포인트 : </h2>                  
+                    <div class="point_texts">
+                      <!-- <p class="title_point">Point</p> -->
+                      <div class="num_point">
+                        <span class="p_num">${user.me_point}</span>
+                        <span class="p_point">P</span>
+                      </div>
+                    </div>
+                    <!-- <i class="icon_info"></i>  -->
+                  	<!-- <i class="icon_point"></i> -->
+                  </div>
+                </div>  
                 </div>
                 <!-- 이용 시간 -->
                 <!-- 현재 시간 가져오기 -->
@@ -164,20 +189,7 @@
 	                </c:if>
 				</c:if>
 
-                <div id="point_container">
-                  <div class="my_point">
-                    <h2 class="title_point">적립 포인트 : </h2>                  
-                    <div class="point_texts">
-                      <!-- <p class="title_point">Point</p> -->
-                      <div class="num_point">
-                        <span class="p_num">${user.me_point}</span>
-                        <span class="p_point">P</span>
-                      </div>
-                    </div>
-                    <!-- <i class="icon_info"></i>  -->
-                  	<!-- <i class="icon_point"></i> -->
-                  </div>
-                </div>  
+           
 
               </div>
               <!-- pet_container -->
@@ -227,8 +239,7 @@
 	                </div>
 	              </c:if>
               </div>
-              <!-- book_container(나의 예약) -->
-            <div class="article_box book_container">
+           <!-- <div class="article_box book_container">
                 <div class="title_container">
                   <h3>나의 예약</h3>
                   <div class="book_window">
@@ -265,12 +276,13 @@
 	                  </c:if>
                   </div>
                 </div>
-              </div>
+              </div> --> 
             </article>
-
             <!-- article_second(d-day) -->
+              <!-- book_container(나의 예약) -->
             <!-- <h2 class="dday_title">D-DAY</h2> -->
             <article class="article_second">
+            <h3>나의 예약</h3>
               <div class="dday_container">
                 <ul class="list_dday">
                   <li class="item_dday">
@@ -287,7 +299,7 @@
                   </li>
                 </ul>
               </div>
-              <p class="plus_dday">+ D-day 추가하기</p>
+              <p class="plus_dday">더보기 +</p>
             </article>
 
             <!-- article_third(나의 스터디, 나의 스크랩) -->

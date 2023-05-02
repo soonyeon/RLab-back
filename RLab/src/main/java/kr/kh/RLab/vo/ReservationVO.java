@@ -24,6 +24,7 @@ public class ReservationVO {
 	private int br_num;
 	private String br_name;
 	private String se_name;
+	private String ti_name;
 	private BranchVO branchVO;
 	
 	public BranchVO getBranchVO() {

@@ -195,8 +195,10 @@
 	<!-- [예약 관리 > 나의 결제 내역] -->
 		<!-- 나의 예약 목록 가져오기	 -->	
 		<select id="selectBookList" resultType="kr.kh.RLab.vo.ReservationVO">
-			select re_num, re_register_date, br_name, ki_name, se_name, ki_num
+			select re_num, ti_name, re_register_date, br_name, ki_name, se_name, ki_num
 			from reservation
+			join ticket_own on re_to_num = to_num
+			join ticket on to_ti_num = ti_num
 			join seat on se_num = re_se_num
 			join kind on ki_num = se_ki_num
 			join branch on br_num = se_br_num
@@ -214,10 +216,11 @@
 	<!-- [예약 관리 > 나의 예약 내역 > 예약 상세 내역] -->
 		<!-- 캐비넷 이용권 이름 가져오기	 -->
 		<select id="selectTicketName" resultType="String">
-			select concat(tt_name, ' (', substring_index(ti_name, ' 이용권', 1), ')') from ticket_own
+			select ti_name
+			from reservation
+			join ticket_own on re_to_num = to_num
 			join ticket on to_ti_num = ti_num
-			join ticket_type on ti_tt_num = tt_num
-			where to_num = #{re_num}
+			where re_num = #{re_num}
 		</select>
 		
 		

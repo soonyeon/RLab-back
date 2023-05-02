@@ -62,8 +62,8 @@
 		                            <tr class="board_title_list">
 		                              <td class="title_list_item">예약등록일자</td>
 									  <td class="title_list_item">카페지점</td>
-									  <td class="title_list_item">상품명</td>
-									  <td class="title_list_item">상품번호</td>
+									  <td class="title_list_item">이용권</td>
+									  <td class="title_list_item">상품분류</td>
 		                            </tr>
 		                          </thead>
 		                          
@@ -74,8 +74,8 @@
 				                            <tr class="board_list" onclick="location.href='<c:url value='/mypage/myres_book/1/${mb.re_num}'></c:url>'">	                           
 				                              <td>${mb.re_register_date_str2}</td>
 				                              <td>${mb.br_name}</td>
-				                              <td class="post_title">${mb.ki_name}</td>			                 
-				                              <td>${mb.se_name}</td>                
+				                              <td class="post_title">${mb.ti_name}</td>			                 
+				                              <td>${mb.ki_name}</td>                
 				                            </tr>
 			                            </c:if>
 			                            <!-- 캐비넷일 경우 -->
@@ -83,8 +83,8 @@
 				                            <tr class="board_list" onclick="location.href='<c:url value='/mypage/myres_book/2/${mb.re_num}'></c:url>'">	                           
 				                              <td>${mb.re_register_date_str2}</td>
 				                              <td>${mb.br_name}</td>
-				                              <td class="post_title">${mb.ki_name}</td>			                 
-				                              <td>${mb.se_name}</td>                
+				                              <td class="post_title">${mb.ti_name}</td>			                 
+				                              <td>${mb.ki_name}</td>                
 				                            </tr>
 			                            </c:if>
 									</c:forEach>
