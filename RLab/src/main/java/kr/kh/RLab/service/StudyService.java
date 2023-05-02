@@ -62,13 +62,7 @@ public interface StudyService {
 
 	void finishTodoUndo(int td_num, int td_finish);
 
-	ArrayList<StudyMemberVO> getMyStudyLis(String memberId);
-
-	ArrayList<StudyMemberVO> getMyStudyMember(int myStudyNum);
-
-	ArrayList<TodoVO> getTodoListByMemberId(ArrayList<String> stMeIdList);
-
-	ArrayList<MemberVO> getTdMembersName(ArrayList<String> stMeIdList);
+	ArrayList<StudyMemberVO> getMyStudyList(String memberId);
 
 	double getTodoProgressRate(String memberId);
   
@@ -96,6 +90,12 @@ public interface StudyService {
 
 	MissionFinishVO selectTodayMissionFinsh(String me_id);
 
+	ArrayList<TodoVO> getStudyMemberTodo(int st_num);
+
+	ArrayList<StudyMemberVO> getStudyMember(int st_num);
+
+	double membersTdProgRate(String td_me_id);
+
 	void deleteLike(String li_me_id, int li_ph_num);
 
 	void leaveStudy(MemberVO user, int st_num);
@@ -107,6 +107,5 @@ public interface StudyService {
 	StudyMemberVO findStudyMember(int st_num, String me_id);
 
 	void updateMemberStNum(String me_id, int st_num, int new_st_num);
-
 
 }

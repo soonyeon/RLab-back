@@ -212,27 +212,9 @@ public class StudyServiceImp implements StudyService {
 	}
 
 	@Override
-	public ArrayList<StudyMemberVO> getMyStudyLis(String memberId) {
+	public ArrayList<StudyMemberVO> getMyStudyList(String memberId) {
 		
 		return studyDao.selectMyStudyList(memberId);
-	}
-
-	@Override
-	public ArrayList<StudyMemberVO> getMyStudyMember(int myStudyNum) {
-		
-		return studyDao.selectMyStudyMember(myStudyNum);
-	}
-
-	@Override
-	public ArrayList<TodoVO> getTodoListByMemberId(ArrayList<String> stMeIdList) {
-		
-		return studyDao.selectTodoListByMemberId(stMeIdList);
-	}
-
-	@Override
-	public ArrayList<MemberVO> getTdMembersName(ArrayList<String> stMeIdList) {
-
-		return studyDao.selectTodoMembersName(stMeIdList);
 	}
 
 	@Override
@@ -243,7 +225,7 @@ public class StudyServiceImp implements StudyService {
 		//2. memberId가 td_me_id와 일치하고 td_finish가 1인 투두 개수 구하기
 		int finishTodo = studyDao.selectTodoFinishCount(memberId);
 		
-//		//3. 2의 값/ 1의 값 * 100을 해서 진척률 구하기
+		//3. 2의 값/ 1의 값 * 100을 해서 진척률 구하기
 		double todoProgressRate = ((double) finishTodo / totalTodo) * 100;
 		
 		return todoProgressRate;
@@ -307,6 +289,28 @@ public class StudyServiceImp implements StudyService {
 	}
 
 	@Override
+	public ArrayList<TodoVO> getStudyMemberTodo(int st_num) {
+		return studyDao.selectStudyMemberTodo(st_num);
+	}
+	
+	@Override
+	public ArrayList<StudyMemberVO> getStudyMember(int st_num) {
+		return studyDao.selectStudyMember(st_num);
+	}
+
+	@Override
+	public double membersTdProgRate(String td_me_id) {
+		//1. memberId에 td_me_id와 일치하는 투두 개수 구하기
+		int mbTodoCount = studyDao.selectMemberTodoCount(td_me_id);
+		//2. memberId가 td_me_id와 일치하고 td_finish가 1인 투두 개수 구하기
+		int finishTodoCount = studyDao.selectMemberFinishTodoCount(td_me_id);
+		//3. 2의 값/ 1의 값 * 100을 해서 진척률 구하기
+		double membersTdProgRate = ((double) finishTodoCount / mbTodoCount) * 100;
+		
+		return membersTdProgRate;
+	}
+
+	@Override
 	public StudyVO getStudy(int st_num) {
 		if(st_num == 0) {
 			return null;
@@ -328,8 +332,5 @@ public class StudyServiceImp implements StudyService {
 	public void updateMemberStNum(String me_id, int st_num, int new_st_num) {
 		studyDao.updateMemberStNum(me_id, st_num, new_st_num);
 	}
-
-
-
 
 }

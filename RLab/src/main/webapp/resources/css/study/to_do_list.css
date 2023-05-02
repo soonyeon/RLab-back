@@ -80,8 +80,13 @@
    border-radius: 10px;
  }
 	
-	
-
+.todo_box_member_content .progress_container canvas{	
+   border: 0.7px solid rgb(136, 135, 135);
+   width: 185px;
+   height: 10px;
+   background-color: white;
+   border-radius: 10px;
+ }
 
 /* todo_container_member */
   .todo_container_member{
@@ -117,8 +122,9 @@
     background-color: #b8b8b8f0;
     border-radius: 5px;
   }
-
-
+  .progress_container .success_percent{
+  	font-size: 12px;
+  }
 
 
 
