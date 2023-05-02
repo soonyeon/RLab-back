@@ -95,4 +95,10 @@
     	join study on sm_st_num = st_num
     	where sm_me_id = #{me_id}
     </select>
+    <select id="selectStudyByStnum" resultType="kr.kh.RLab.vo.StudyVO">
+    	select st_num, st_name from study where st_num = #{me_study}
+    </select>
+    <update id="updateUserFavorite">
+    	update member set me_study = #{st_num} where me_id = #{me_id}
+    </update>
 </mapper>

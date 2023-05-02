@@ -150,9 +150,11 @@ public class StudyController {
 	@RequestMapping(value = "/{st_num}", method = RequestMethod.GET)
 	public ModelAndView main(ModelAndView mv, HttpSession session, @PathVariable("st_num") int st_num) {
 		MemberVO user = (MemberVO) session.getAttribute("user");
+		//st_me_id가 유저인 스터디 목록 불러오는 메소드인데 사용되는데가 없는데 지워도되는건가요?
 		ArrayList<StudyVO> study = studyService.getStudyByMemberId(user.getMe_id());
 		ArrayList<StudyVO> stList = studyService.getUserStudyList(user.getMe_id());
-		System.out.println(stList);
+		StudyVO nowStudy = studyService.getStudyByStnum(st_num);
+		StudyVO favoriteStudy = studyService.getStudyByStnum(user.getMe_study());
 		// 해당 user가 가입한 스터디가 1개도 없으면 다른 경로로 리다이렉트
 		if (study == null) {
 			mv.addObject("msg", "로그인 후 사용가능한 기능입니다.");
@@ -163,6 +165,8 @@ public class StudyController {
 		mv.addObject("study", study);
 		mv.addObject("loginUserId", user.getMe_id());
 		mv.addObject("stList", stList);
+		mv.addObject("now", nowStudy);
+		mv.addObject("favorite", favoriteStudy);
 		mv.setViewName("/study/study_basic");
 		return mv;
 	}
@@ -269,6 +273,16 @@ public class StudyController {
 		mv.addObject("user", user);
 		mv.setViewName("/study/management_study");
 		return mv;
+	}
+	@ResponseBody
+	@RequestMapping(value = "/setfavorite", method = RequestMethod.POST)
+	public HashMap<String, Object> setFavorite(@RequestBody StudyVO st, HttpSession session) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		studyService.updateUserFavorite(st.getSt_me_id(),st.getSt_num());
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		user.setMe_study(st.getSt_num());
+		session.setAttribute("user", user);
+		return map;
 	}
 
 }

@@ -45,4 +45,8 @@ public interface StudyService {
 
 	ArrayList<StudyVO> getUserStudyList(String me_id);
 
+	StudyVO getStudyByStnum(int me_study);
+
+	void updateUserFavorite(String me_id, int st_num);
+
 }

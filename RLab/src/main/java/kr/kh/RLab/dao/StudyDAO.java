@@ -52,4 +52,8 @@ public interface StudyDAO {
 
 	ArrayList<StudyVO> selectUserStudyList(String me_id);
 
+	StudyVO selectStudyByStnum(int me_study);
+
+	void updateUserFavorite(@Param("me_id")String me_id, @Param("st_num")int st_num);
+
 }

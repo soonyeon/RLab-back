@@ -133,4 +133,14 @@ public class StudyServiceImp implements StudyService {
 		return studyDao.selectUserStudyList(me_id);
 	}
 
+	@Override
+	public StudyVO getStudyByStnum(int me_study) {
+		return studyDao.selectStudyByStnum(me_study);
+	}
+
+	@Override
+	public void updateUserFavorite(String me_id, int st_num) {
+		studyDao.updateUserFavorite(me_id, st_num);
+	}
+
 }
