@@ -13,6 +13,7 @@ import kr.kh.RLab.vo.ItemVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.PayDTO;
 import kr.kh.RLab.vo.ReservationVO;
+import kr.kh.RLab.vo.SeatVO;
 import kr.kh.RLab.vo.TicketOwnVO;
 
 @Service
@@ -228,5 +229,10 @@ public class ReservationServiceImp implements ReservationService {
 	public BranchVO getBranchBySeNum(int re_se_num) {
 		return reservationDao.selectBranchBySenum(re_se_num);
 	}
-
+	
+	@Override
+	public ArrayList<SeatVO> getBranchSeat(int br_num, int ki_num) {
+		return reservationDao.selectBranchSeat(br_num, 1);
+	}
+	
 }

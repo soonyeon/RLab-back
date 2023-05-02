@@ -213,4 +213,7 @@
 		select * from branch
 		where br_num = (select se_br_num from seat where se_num = #{re_se_num})
 	</select>
+	<select id="selectBranchSeat" resultType="kr.kh.RLab.vo.SeatVO">
+		select * from seat where se_br_num = #{br_num} and se_ki_num = #{ki_num}
+	</select>
 </mapper>
