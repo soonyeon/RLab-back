@@ -297,7 +297,7 @@
                 <div class="title_background"></div>
                 <div class="title_container">
                   <h2 class="property_title">나의 스터디</h2>
-                  <a href="mystudy_progress.html">
+                  <a href="<c:url value='/mypage/mystudy_progress'></c:url>">
                     <p class="show_plus">더보기+</p>
                   </a>
                 </div>
@@ -332,7 +332,7 @@
                 <div class="title_background"></div>
                 <div class="title_container">
                   <h2 class="property_title">나의 스크랩</h2>
-                  <a href="mypost_scrap.html">
+                  <a href="<c:url value='/mypage/mypost_scrap'></c:url>">
                     <p class="show_plus">더보기+</p>
                   </a>
                 </div>

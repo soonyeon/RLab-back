@@ -101,10 +101,11 @@ public class MypageController {
 
 		//나의 스터디 데이터 가져오기
 		ArrayList<StudyVO> myStudyList = mypageService.getMainStudyList(userId);
+		System.out.println("study" + myStudyList);
 		
 		//나의 스크랩 데이터 가져오기
 		ArrayList<BoardVO> myScrapList = mypageService.getMainScrapList(userId);
-		
+		System.out.println("scrap" + myScrapList);
 
 		mv.addObject("myPet",myPet);
 		mv.addObject("myPoint", myPoint);
