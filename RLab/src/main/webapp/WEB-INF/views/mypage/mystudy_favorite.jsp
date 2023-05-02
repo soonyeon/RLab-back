@@ -189,6 +189,7 @@ $('#except_btn').change(function(){
 		//filter의 값을 off로 변경한다.
 		params.set('filter','off');
 	}
+	params.set('page','1');
 	
 	//http://localhost:8080 + /test/mypage/mypost_recruit + ? + search
 	var fullUrl = url.origin + url.pathname + "?" +params.toString();

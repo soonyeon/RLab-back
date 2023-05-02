@@ -52,7 +52,7 @@
 		                        <option value="작성일 순">작성일 순</option>
 		                      </select>
 		                    </div>
-		
+						<c:if test="${myBookList != null && myBookList.size() != 0}">
 		                    <div class="tab_content">
 		                      <!-- 나의 게시글 -->
 		                      <div class="table_area" id="tabs_1">
@@ -113,6 +113,13 @@
 								</div>
 		                     </div>  		                      
 		                   </div>
+		                  </c:if> 
+		                  <c:if test="${myBookList.size() == 0 || myBookList == null}">
+		                      	<div class="nullMsg">
+		                      		<p> 예약내역이 없습니다.</p>
+		                      		<a class="btn_link link_favorite" href="<c:url value='/reservation/book'></c:url>">예약하기</a>
+		                      	</div>
+			              </c:if> 
 		                 </div>
 		                </div>
 		              </div>  
