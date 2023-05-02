@@ -435,19 +435,12 @@ body {
 	</div>
 </main>
 <script>
+
+var url = new URL(location.href);
+var top2 = url.searchParams.get("top");
+$(document).scrollTop(top2);
+
 //할 일 추가 후, todo_list 업데이트
-/* const updateTodoList = () => {
-    $.ajax({
-        async: false,
-        type: 'GET',
-        url: "<c:url value='/study/todo/list'></c:url>",
-        dataType: "html",
-        success: function (data) { 
-            $('.todo_list').html(data); // todo_list 클래스 부분을 서버에서 받은 HTML로 업데이트
-        }
-    });
-};
- */
 //DOM 요소 가져오기
 const todoInput = document.querySelector(".input_box"); // 할 일 입력란
 const todoList = document.querySelector(".todo_list"); // 할 일 목록
@@ -464,7 +457,6 @@ todoInput.addEventListener("keypress", (e) => {
 });
 
 // 할 일을 생성하고 서버에 전송하는 함수
-
 const generateTodo = (todo) => {
     const obj = {
     		td_content : todo,
@@ -484,10 +476,10 @@ const generateTodo = (todo) => {
 		    contentType:"application/json; charset=UTF-8",
 		    success : function(data){
 		    	/* updateTodoList(); */
-		    	location.replace("<c:url value='/study/'></c:url>");
-		    	/* $('.todo_list').load("<c:url value='/study/'></c:url> .todo_list"); */
+		    	var top = $(document).scrollTop();
+		    	location.href = "<c:url value='/study/${st_num}?top="+top+"'></c:url>"; 
 		    }
-		});  
+	});  
 } 
 
 //투두 삭제
@@ -497,7 +489,6 @@ clearIcons.forEach(icon => {
         var td_num = e.target.parentNode.parentNode.dataset.num;
 
         console.log(td_num);
-        
         
         $.ajax({
             async: false,
@@ -509,9 +500,9 @@ clearIcons.forEach(icon => {
             // 서버에서 보내는 데이터 타입
             contentType: "application/json; charset=UTF-8",
             success: function (data) {
-            	/* updateTodoList(); */
-		    	location.replace("<c:url value='/study/'></c:url>");
-		    	/* $('.todo_list').load("<c:url value='/study/'></c:url> .todo_list"); */
+		    	/* updateTodoList(); */
+		    	var top = $(document).scrollTop();
+		    	location.href = "<c:url value='/study/${st_num}?top="+top+"'></c:url>";
             }
         });
     });
@@ -533,9 +524,8 @@ checkOn.forEach(icon => {
             // 서버에서 보내는 데이터 타입
             contentType: "application/json; charset=UTF-8",
             success: function (data) { 
-            	/* updateTodoList(); */
-		    	location.replace("<c:url value='/study/'></c:url>");
-		    	/* $('.todo_list').load("<c:url value='/study/'></c:url> .todo_list"); */
+		    	var top = $(document).scrollTop();
+		    	location.href = "<c:url value='/study/${st_num}?top="+top+"'></c:url>";
             }
         });
     });
@@ -559,15 +549,12 @@ checkOff.forEach(icon => {
             // 서버에서 보내는 데이터 타입
             contentType: "application/json; charset=UTF-8",
             success: function (data) { 
-            	/* updateTodoList(); */
-		    	location.replace("<c:url value='/study/'></c:url>");
-		    	/* $('.todo_list').load("<c:url value='/study/'></c:url> .todo_list"); */
+		    	var top = $(document).scrollTop();
+		    	location.href = "<c:url value='/study/${st_num}?top="+top+"'></c:url>";
             }
         });
     });
 }); 
-
-
 
 const st_num = '${st_num}';
 const userId = '${userId}'; 

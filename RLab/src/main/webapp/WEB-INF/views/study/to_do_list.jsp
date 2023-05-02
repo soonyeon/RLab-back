@@ -326,7 +326,6 @@
 			    contentType:"application/json; charset=UTF-8",
 			    success : function(data){
 			    	location.replace("<c:url value='/study/todo/${st_num}'></c:url>");
-			    /*     $('#todo_list').load("<c:url value='/study/todo'></c:url> #todo_list"); */
 			    }
 			});  
 	} 
@@ -370,7 +369,6 @@
 	            contentType: "application/json; charset=UTF-8",
 	            success: function (data) { 
 	            	location.replace("<c:url value='/study/todo/${st_num}'></c:url>");
-	            	/* var td_finish = data.td_finish; */
 	            }
 	        });
 	    });
