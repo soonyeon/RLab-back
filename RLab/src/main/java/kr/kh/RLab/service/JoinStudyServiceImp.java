@@ -35,7 +35,9 @@ public class JoinStudyServiceImp implements JoinStudyService{
 	        } else {
 	            studyMember.setSm_authority(1);
 	            studyMember.setSm_me_id(member.getMe_id());
+	            member.setMe_study(studyMember.getSm_st_num());
 	            joinstudyDao.insertStudyMember(studyMember);
+	            joinstudyDao.updateStudyNumber(member); //me_study 추가
 	            // study st_now_people 증가
 	            joinstudyDao.updateStudyNowPeopleUp(studyMember.getSm_st_num());
 	            newJoinState = 1;

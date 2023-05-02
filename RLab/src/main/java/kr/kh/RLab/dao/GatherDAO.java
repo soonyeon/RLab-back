@@ -72,6 +72,8 @@ public interface GatherDAO {
 
 	void deleteGather(int ga_num);
 
+	void updateMeStudyNumber(@Param("st_num")int st_num, @Param("me_id")String me_id);
+
 
 	
 

@@ -1,5 +1,6 @@
 package kr.kh.RLab.dao;
 
+import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.StudyMemberVO;
 
 public interface JoinStudyDAO {
@@ -19,6 +20,8 @@ public interface JoinStudyDAO {
 	void deleteStudyMember(StudyMemberVO isJoin);
 
 	void updateStudyNowPeopleDown(int sm_st_num);
+
+	void updateStudyNumber(MemberVO member);
 
 
 

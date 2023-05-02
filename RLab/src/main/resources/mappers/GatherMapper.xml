@@ -150,4 +150,11 @@
 	delete from gather
 	where ga_num = #{ga_num}
 </delete>
+<update id="updateMeStudyNumber">
+	update member
+	set 
+		me_study = #{st_num}
+	where
+		me_id = #{me_id}
+</update>
 </mapper>
