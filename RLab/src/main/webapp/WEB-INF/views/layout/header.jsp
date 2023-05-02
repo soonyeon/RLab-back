@@ -169,8 +169,8 @@
 			        </div>
 			    </div>
       			
-	     	<div class="alarm_modal" id="alarmModal">
-			    <c:forEach var="alarm" items="${alarm}">
+			<div class="alarm_modal" id="alarmModal" style="height: 200px; overflow-y: scroll;">			   
+			    <c:forEach var="alarm" items="${alarm}">  
 			        <p>${alarm.al_content}</p>
 			        <hr>
 			    </c:forEach> 
@@ -183,9 +183,9 @@ $(document).ready(function() {
 		      function() {
 		        $('#alarmModal').show();
 		      },
-		      function() {
+		   /*    function() {
 		        $('#alarmModal').hide();
-		      }
+		      } */
 		    );
 		
 		    $('#alarmModal').hover(
