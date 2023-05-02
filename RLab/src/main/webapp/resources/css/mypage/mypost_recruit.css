@@ -111,12 +111,17 @@
     width: 30px; height: 30px;
     background-image: url(../../img/like_on_red.png);
     background-size: cover;
+    position: absolute;
+    right: 10px;
+    z-index: 1;
   }
   
    .unlike_img{
     width: 30px; height: 30px;
     background-image: url(../../img/love_off.png);
     background-size: cover;
+    position: absolute;
+    right: 10px;
   }
   /* 모집완료 */
   .sad_container{
@@ -137,8 +142,6 @@
     align-items: center;
   }
   .sad_img {
-    background-image: url(../../img/sad.png);
-    background-size: cover;
     width: 49px;
     height: 49px;
   }

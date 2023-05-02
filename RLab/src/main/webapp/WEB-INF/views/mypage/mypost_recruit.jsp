@@ -45,7 +45,7 @@
 		               
 		                <div class="study_card_container">
 		                  
-		
+							
 		                    <!-- 나의 모집글 -->
 		                    <div class="tab_content">
 		                      <!-- 제외 버튼  -->
@@ -56,7 +56,7 @@
 		                          <input type="checkbox" name="" id="except_btn" value="on" <c:if test="${pm.cri.filter == 'on'}">checked</c:if>> 
 		                        </div>
 		                      </div>
-		  
+		  					<c:if test="${myGatherList != null && myGatherList.size() != 0}">
 		                      <!-- 컨텐트 박스 -->
 		                        <div class="content_box">
 		                        <!-- myGatherList가 0 이 아니면 실행 -->
@@ -141,9 +141,17 @@
 											<i class="btn_next"></i>
 										</a>
 									</c:if>
-		                      </div>
+		                      	</div>
+		                      </c:if>
+		                      <c:if test="${myGatherList.size() == 0 || myGatherList == null}">
+		                      	<div class="nullMsg">
+		                      		<p> 모집글이 없습니다.</p>
+		                      		<a class="btn_link link_favorite" href="<c:url value='/gather/insertgather'></c:url>">모집글 작성하기</a>
+		                      	</div>
+			                  </c:if>
 		                    </div>                                         
 		                </div>
+		              </div>
                   </section> 
 			</div>
 		</main>
@@ -170,6 +178,7 @@ $('#except_btn').change(function(){
 		//filter의 값을 off로 변경한다.
 		params.set('filter','off');
 	}
+	params.set('page','1');
 	
 	//http://localhost:8080 + /test/mypage/mypost_recruit + ? + search
 	var fullUrl = url.origin + url.pathname + "?" +params.toString();

@@ -2,6 +2,8 @@ package kr.kh.RLab.utils;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiConsumer;
@@ -88,7 +90,7 @@ public class SseEmitters {
 	}
 	 // 특정 사용자에게 이벤트 데이터를 전송
 	public void send(String eventName, Object eventData, String targetId) {
-	    emitters.forEach((id, userSessionInfo) -> {
+		emitters.forEach((id, userSessionInfo) -> {
 	        if (id != null && userSessionInfo != null && userSessionInfo.getEmitter() != null) {
 	            try {
 	                if (id.equals(targetId)) {
@@ -99,5 +101,9 @@ public class SseEmitters {
 	            }
 	        }
 	    });
+	}
+	
+	public List<String> getOnlineUserIds() {
+	    return new ArrayList<>(emitters.keySet());
 	}
 }

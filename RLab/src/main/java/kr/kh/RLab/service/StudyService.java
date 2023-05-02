@@ -85,7 +85,7 @@ public interface StudyService {
 	ArrayList<String> selectMissionFinishMember(int st_num);
 
 	boolean updateMission(MissionVO missionVO);
-
+  
 	PhotoVO getPhotoByPhNum(int li_ph_num);
 
 	MissionFinishVO selectTodayMissionFinsh(String me_id);
@@ -96,7 +96,16 @@ public interface StudyService {
 
 	double membersTdProgRate(String td_me_id);
 
+	void deleteLike(String li_me_id, int li_ph_num);
 
+	void leaveStudy(MemberVO user, int st_num);
+
+	StudyVO getStudy(int st_num);
 	
+	void updateStudy(StudyVO study);
+
+	StudyMemberVO findStudyMember(int st_num, String me_id);
+
+	void updateMemberStNum(String me_id, int st_num, int new_st_num);
 
 }

@@ -169,8 +169,8 @@
 			        </div>
 			    </div>
       			
-	     	<div class="alarm_modal" id="alarmModal">
-			    <c:forEach var="alarm" items="${alarm}">
+			<div class="alarm_modal" id="alarmModal" style="height: 200px; overflow-y: scroll;">			   
+			    <c:forEach var="alarm" items="${alarm}">  
 			        <p>${alarm.al_content}</p>
 			        <hr>
 			    </c:forEach> 
@@ -183,9 +183,9 @@ $(document).ready(function() {
 		      function() {
 		        $('#alarmModal').show();
 		      },
-		      function() {
+		   /*    function() {
 		        $('#alarmModal').hide();
-		      }
+		      } */
 		    );
 		
 		    $('#alarmModal').hover(
@@ -196,6 +196,21 @@ $(document).ready(function() {
 		        $('#alarmModal').hide();
 		      }
 		    );
+		    // 로그아웃 버튼 클릭 이벤트
+		    $("#logout_btn").on("click", function() {
+		        // 로그아웃 POST 요청
+		        $.ajax({
+		            url: '/logout',
+		            type: 'POST',
+		            success: function() {
+		                // 로그아웃 성공 후 페이지 새로고침
+		                location.reload();
+		            },
+		            error: function() {
+		                console.log("Logout request failed");
+		            }
+		        });
+		    });
 	
     function connect() {
         const userId = "${user.me_id}"; 
@@ -241,6 +256,45 @@ $(document).ready(function() {
                 hideModal();
             }, 5000);
             console.log("Received newLike event:", data);
+            showNotification(data.message);
+        });
+        source.addEventListener("joinStudy", function (event) {
+            // 이벤트가 발생할 때 여기에 코드 작성
+            const data = JSON.parse(event.data);
+            const title = "스터디 가입 신청이 도착했습니다";
+            const message = '스터디에 가입 신청을 하셨습니다. 스터디관리로 이동하여 확인해주세요. .';
+            showModal(title, message);
+
+            setTimeout(function() {
+                hideModal();
+            }, 5000);
+            console.log("Received joinStudy event:", data);
+            showNotification(data.message);
+        });
+        source.addEventListener("leaveStudy", function (event) {
+            // 이벤트가 발생할 때 여기에 코드 작성
+            const data = JSON.parse(event.data);
+            const title = "스터디 탈퇴 알림";
+            const message = '스터디관리로 이동하여 확인해주세요.';
+            showModal(title, message);
+
+            setTimeout(function() {
+                hideModal();
+            }, 5000);
+            console.log("Received leaveStudy event:", data);
+            showNotification(data.message);
+        });
+        source.addEventListener("authorizeStudy", function (event) {
+            // 이벤트가 발생할 때 여기에 코드 작성
+            const data = JSON.parse(event.data);
+            const title = "스터디 위임 알림";
+            const message = '스터디관리로 이동하여 확인해주세요.';
+            showModal(title, message);
+
+            setTimeout(function() {
+                hideModal();
+            }, 5000);
+            console.log("Received authorizeStudy event:", data);
             showNotification(data.message);
         });
     }

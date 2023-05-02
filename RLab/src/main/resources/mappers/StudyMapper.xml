@@ -222,4 +222,34 @@
 		SELECT count(*) FROM todo
 		WHERE td_me_id = #{td_me_id} AND td_finish = 1
 	</select>
+    <delete id="deleteLike">
+    	delete
+    	from `like`
+    	where li_me_id = #{li_me_id} and li_ph_num = #{li_ph_num}
+    </delete>
+    <delete id="leaveStudy">
+    	delete
+    	from study_member
+    	where sm_me_id = #{me_id} and  sm_st_num = #{st_num}
+    </delete>
+    <select id="getStudy" resultType="kr.kh.RLab.vo.StudyVO">
+    	select *
+    	from study
+    	where st_num = #{st_num}
+    </select>
+    <update id="updateStudy" parameterType="kr.kh.RLab.vo.StudyVO">
+    UPDATE study
+    SET st_now_people = #{st_now_people}
+    WHERE st_num = #{st_num}
+	</update>
+<select id="findStudyMember" resultType="kr.kh.RLab.vo.StudyMemberVO">
+	select *
+	from study_member
+	where sm_st_num = #{st_num} and sm_me_id = #{me_id}
+</select>
+<update id="updateMemberStNum">
+	update member
+	set me_study = #{new_st_num}
+	where me_id =#{me_id} and  me_study = #{st_num}
+</update>
 </mapper>
