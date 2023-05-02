@@ -216,4 +216,13 @@
 	<select id="selectBranchSeat" resultType="kr.kh.RLab.vo.SeatVO">
 		select * from seat where se_br_num = #{br_num} and se_ki_num = #{ki_num}
 	</select>
+	<update id="updateSeatUsability">
+		update seat set se_usable = 1 
+		where se_num = (
+			select se_num from (    
+				select se_num from seat     
+			    where se_br_num = 1 and se_name = 1 and se_ki_num = 1 and se_usable = 2
+			)tmp
+		)
+	</update>
 </mapper>

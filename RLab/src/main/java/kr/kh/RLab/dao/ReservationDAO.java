@@ -88,5 +88,7 @@ public interface ReservationDAO {
 	BranchVO selectBranchBySenum(int re_se_num);
 
 	ArrayList<SeatVO> selectBranchSeat(@Param("br_num")int br_num, @Param("ki_num")int ki_num);
+
+	void updateSeatUsability(@Param("se_ki_num")int se_ki_num, @Param("book")ReservationVO book);
 	
 }
