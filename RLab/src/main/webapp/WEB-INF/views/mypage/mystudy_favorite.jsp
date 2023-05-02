@@ -70,7 +70,7 @@
 				                          		
 				                          		  <c:set var="state" value="${myFavoriteList.get(index).st_state}"/>
 					                              <li class="study_card_box add_shadow op st_state" value="${state}">
-					                                 <c:if test="${myFavoriteList.get(index).st_state != 1}">
+					                                 <c:if test="${myFavoriteList.get(index).st_state == 2 || myFavoriteList.get(index).st_state == 0}">
 					                                  <!-- 모집 완료 -->
 					                                  <div class="sad_container">
 						                                  <div class="sad_box">
@@ -105,13 +105,20 @@
 					                                          
 					                                      		<!-- 모집중 상태 -->
 					                                          <div class="study_content">
-					                                           
-					                                              <div class="study_recruiting">
-					                                                  <span>모집중</span>
-					                                                  <span>${myFavoriteList.get(index).st_now_people}</span>
-					                                                  <span>/</span>
-					                                                  <span>${myFavoriteList.get(index).st_total_people}</span>
-					                                              </div>
+					                                             <c:if test="${myFavoriteList.get(index).st_state != 2 && myFavoriteList.get(index).st_state != 0}">
+						                                              <div class="study_recruiting">
+						                                                  <span>모집중&nbsp</span>
+						                                                  <span>${myFavoriteList.get(index).st_now_people}</span>
+						                                                  <span>/</span>
+						                                                  <span>${myFavoriteList.get(index).st_total_people}</span>
+						                                              </div>
+					                                              </c:if>
+					                                              
+					                                              <c:if test="${myFavoriteList.get(index).st_state == 2 || myFavoriteList.get(index).st_state == 0}">
+						                                              <div class="study_recruiting">
+						                                                  <span>모집완료</span>
+						                                              </div>
+					                                              </c:if>
 					                                             <!-- like -->
 										                         <div class="want_icon">
 																	<c:if test="${user == null}" >

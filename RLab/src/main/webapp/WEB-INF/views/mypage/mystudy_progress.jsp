@@ -87,16 +87,10 @@
 										                                    </div>
 										                                    <div class="ing_study_content">
 										                                        <div class="study_recruiting3">
-										                                             <c:if test="${myProgressList.get(index).st_now_people != myProgressList.get(index).st_total_people}">
 											                                            <span>스터디원 수</span>
 											                                            <span>${myProgressList.get(index).st_now_people}</span>
 											                                            <span>/</span>
 											                                            <span>${myProgressList.get(index).st_total_people}</span>
-											                                         </c:if>
-											                                         <!-- 아니면 st_state가 2일때.. -->
-											                                         <c:if test="${myProgressList.get(index).st_now_people == myProgressList.get(index).st_total_people}">
-											                                            <span>모집 완료</span>
-											                                         </c:if>
 										                                        </div>
 										                        
 										                                    </div>
@@ -128,8 +122,10 @@
 											                                    </div>
 											                                    <div class="ing_study_content">
 											                                        <div class="study_recruiting3 gr2">
-											                                         
-											                                            <span>모집 완료</span>
+											                                           <span>스터디원 수</span>
+											                                            <span>${myProgressList.get(index).st_now_people}</span>
+											                                            <span>/</span>
+											                                            <span>${myProgressList.get(index).st_total_people}</span>
 											                                        </div>
 											                                    </div>
 											                                  </div>
