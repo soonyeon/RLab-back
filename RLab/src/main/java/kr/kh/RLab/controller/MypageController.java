@@ -3,6 +3,7 @@ package kr.kh.RLab.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,6 +23,7 @@ import kr.kh.RLab.pagination.PageMaker;
 import kr.kh.RLab.service.MypageService;
 import kr.kh.RLab.service.PetService;
 import kr.kh.RLab.service.ReservationService;
+import kr.kh.RLab.service.StudyService;
 import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.BranchVO;
 import kr.kh.RLab.vo.EvolutionVO;
@@ -41,6 +44,7 @@ import lombok.RequiredArgsConstructor;
 public class MypageController {
 	private final MypageService mypageService;
 	private final PetService petService;
+	private final StudyService studyService;
 	private final ReservationService reservationService;
 	
 	//[마이페이지 홈]
@@ -414,7 +418,6 @@ public class MypageController {
 		// 로그인한 회원이 스크랩한 게시글 전체 수 가져오기
 		int totalCount = mypageService.getScrapBoardTotalCount(memberId);
 		PageMaker pm = new PageMaker(totalCount, 2, cri);
-		System.out.println(myScrapList);
 		mv.addObject("myScrapList", myScrapList);
 		mv.addObject("pm", pm);
 		mv.setViewName("/mypage/mypost_scrap");

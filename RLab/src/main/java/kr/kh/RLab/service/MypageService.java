@@ -72,7 +72,7 @@ public interface MypageService {
 		//캐비넷 이용권 이름 가져오기
 		String getTicketNameByBookInfo(ReservationVO rsv);
 		
-		
+	///////////////////////	
 	//[개인정보 수정 > 비밀번호 체크]
 		boolean checkPw(MemberVO pw, MemberVO user);
 		
@@ -148,6 +148,7 @@ public interface MypageService {
 
 		//펫 경험치 가져오기
 		GrowthVO selectPetExp(String memberId);
+
 
 
 

@@ -38,7 +38,7 @@
 		            <div class="tab-container">
 		              <a href="<c:url value='/mypage/mystudy_favorite'></c:url>"  class="tab unselected_tab tab1"><div>찜한 스터디</div></a>
 		              <a href="<c:url value='/mypage/mystudy_open'></c:url>" class="tab unselected_tab tab2"><div>개설한 스터디</div></a>
-		              <a href="<c:url value='/mypage/mystudy_progress'></c:url>"  class="tab selected_tab tab3"><div>진행중인 스터디</div></a>
+		              <a href="<c:url value='/mypage/mystudy_progress'></c:url>"  class="tab selected_tab tab3"><div>참여한 스터디</div></a>
 		            </div>
 		
 		            <div class="my_study_container" id="my_container">		               
@@ -64,8 +64,9 @@
 			                       				<c:if test="${myProgressList.size()-1 >= index}">
 			                       					<c:set var="state" value="${myProgressList.get(index).st_state}"/>
 								                         	<li class="study_card_box add_shadow op" value="${state}">
-								                         	
+								                         		<input type="hidden" name="st_num" value="${myProgressList.get(index).st_num}">
 					                       						<c:if test="${myProgressList.get(index).st_state == 1}">
+					                       							<i class="btn_remove"></i>
 										                            <a href="<c:url value='/study/${myProgressList.get(index).st_num}'></c:url>">				                        
 										                              <div class ="ing_study_container2">
 										                                <div class="study_info2">
@@ -100,38 +101,38 @@
 											                       </c:if>
 											                       
 											                      <c:if test="${myProgressList.get(index).st_state == 0 || myProgressList.get(index).st_state == 2}">
+											                      	<i class="btn_remove"></i>
 											                      	<a href="<c:url value='/study/${myProgressList.get(index).st_num}'></c:url>">	
-											                      		<i class="btn_remove"></i>
-											                              <div class ="ing_study_container2 gr2">
-											                                <div class="study_info2">
-											                                    <c:if test="${myProgressList.get(index).st_image == null}">
-												                                    <div class="ing_study_img" >
-												                                    	<img 
-												                                    	src="<c:url value='/resources/img/user.png'></c:url>" width="auto" height="172">
-											                                    	</div>
-											                                    </c:if>
-											                                    <c:if test="${myProgressList.get(index).st_image != null}">
-											                                   		<div class="ing_study_img" >
-												                                    	<img  
-												                                    	src="<c:url value='/download/study/${myProgressList.get(index).st_image}'></c:url>" width="auto" height="172">
-											                                    	</div>
-											                                    </c:if>
-											                                    <div class = "ing_study">
-											                                      <div class="ing_study_title">${myProgressList.get(index).st_name}</div>
-											                                      <div class="ing_study_title2">${myProgressList.get(index).st_info}</div>
-											                                    </div>
-											                                    <div class="ing_study_content">
-											                                        <div class="study_recruiting3 gr2">
-											                                           <span>스터디원 수</span>
-											                                            <span>${myProgressList.get(index).st_now_people}</span>
-											                                            <span>/</span>
-											                                            <span>${myProgressList.get(index).st_total_people}</span>
-											                                        </div>
-											                                    </div>
-											                                  </div>
-											                               </div>
+										                              <div class ="ing_study_container2 gr2">
+										                                <div class="study_info2">
+										                                    <c:if test="${myProgressList.get(index).st_image == null}">
+											                                    <div class="ing_study_img" >
+											                                    	<img 
+											                                    	src="<c:url value='/resources/img/user.png'></c:url>" width="auto" height="172">
+										                                    	</div>
+										                                    </c:if>
+										                                    <c:if test="${myProgressList.get(index).st_image != null}">
+										                                   		<div class="ing_study_img" >
+											                                    	<img  
+											                                    	src="<c:url value='/download/study/${myProgressList.get(index).st_image}'></c:url>" width="auto" height="172">
+										                                    	</div>
+										                                    </c:if>
+										                                    <div class = "ing_study">
+										                                      <div class="ing_study_title">${myProgressList.get(index).st_name}</div>
+										                                      <div class="ing_study_title2">${myProgressList.get(index).st_info}</div>
+										                                    </div>
+										                                    <div class="ing_study_content">
+										                                        <div class="study_recruiting3 gr2">
+										                                           <span>스터디원 수</span>
+										                                            <span>${myProgressList.get(index).st_now_people}</span>
+										                                            <span>/</span>
+										                                            <span>${myProgressList.get(index).st_total_people}</span>
+										                                        </div>
+										                                    </div>
+										                                  </div>
+										                               </div>
 										                            </a>
-											                       </c:if>
+											                      </c:if>
 								                         	</li>
 						                         </c:if>
 						                     </c:forEach>
@@ -202,14 +203,41 @@ $('#except_btn').change(function(){
 	location.replace(fullUrl);
 })
 
-//btn_remove
-/*$(document).ready(function(){
-	$('.btn_remove').click(function(){
-		console.log(1);
-		$(this).closest('.study_card_box').hide();
-	});
+//스터디 삭제 
+$(".btn_remove").on("click", function() {
+	let st_num = $(this).parent().find('[name=st_num]').val();
+	console.log(st_num);
+	//location.href="<c:url value='/study/management/study/delete/"+st_num+"'></c:url>"
+	let obj = {
+			st_num: st_num
+	}
+  confirmAction("스터디 삭제 시 스터디에올라온 게시글, 인증내역, 일정, 회원정보 등 모든 정보가 함께 삭제되며 해당 스터디에 접근이 불가합니다. 정말 삭제하시겠습니까?", function() {
+		$.ajax({	
+			async:false,
+		    type:'POST',
+		    data:JSON.stringify(obj),
+		    url:"<c:url value='/study/management/study/delete/"+st_num+"'></c:url>",
+		    //서버에서 받는 데이터 타입
+		    dataType:"json",
+		    //서버에서 보내는 데이터 타입
+		    contentType:"application/json; charset=UTF-8",
+		    success : function(data){
+		        console.log(data);
+				location.replace("<c:url value='/mypage/mystudy_progress'></c:url>");
+				alert("스터디가 삭제되었습니다.");
+		    }
+		});
+  	});
+});	
 	
-});*/
+//버튼 클릭시 스터디 선택 여부에 따라 confirm창 나타남
+function confirmAction(buttonText, action) {
+  if (confirm(buttonText)) {
+    action();
+  } else {
+    console.log("작업 취소");
+  }
+}	
 	
 	
 	

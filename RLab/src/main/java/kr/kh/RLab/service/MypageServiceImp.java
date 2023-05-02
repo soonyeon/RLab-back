@@ -8,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import kr.kh.RLab.dao.MypageDAO;
+import kr.kh.RLab.dao.StudyDAO;
 import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.pagination.GatherCriteria;
 import kr.kh.RLab.vo.BoardVO;
@@ -25,6 +26,7 @@ import lombok.RequiredArgsConstructor;
 public class MypageServiceImp implements MypageService {
 	
 	private final MypageDAO mypageDao;
+	private final StudyDAO studyDao;
 	
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
@@ -279,6 +281,7 @@ public class MypageServiceImp implements MypageService {
 			int totalCount = mypageDao.selectOpenTotalCount(memberId, cri);
 			return totalCount;
 		}
+
 		
 	//[스터디 관리 > 진행중인 스터디]	
 		// 아이디로 진행중인 스터디 가져오기 (내가 회원으로 들어가 있는 스터디)
@@ -358,9 +361,5 @@ public class MypageServiceImp implements MypageService {
 			ArrayList<Integer> wantList = mypageDao.selectWantListById(memberId);
 			return wantList;
 		}
-
-
-
-
 
 }
