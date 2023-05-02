@@ -99,7 +99,7 @@
 										                                </a>
 											                       </c:if>
 											                       
-											                      <c:if test="${myProgressList.get(index).st_state == 0}">
+											                      <c:if test="${myProgressList.get(index).st_state == 0 || myProgressList.get(index).st_state == 2}">
 											                      	<a href="<c:url value='/study/${myProgressList.get(index).st_num}'></c:url>">	
 											                      		<i class="btn_remove"></i>
 											                              <div class ="ing_study_container2 gr2">
