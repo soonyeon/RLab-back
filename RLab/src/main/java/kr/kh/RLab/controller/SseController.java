@@ -46,7 +46,7 @@ public class SseController {
     // 사용자가 연결되면, 해당 사용자에게 SseEmitter를 반환하고 사용자 ID와 함께 SseEmitters에 등록
     @GetMapping(value = "/connect", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public ResponseEntity<SseEmitter> connect(@RequestParam String id) {
-        SseEmitter emitter = new SseEmitter(60 * 1000L);
+        SseEmitter emitter = new SseEmitter(60*30 * 1000L);
         LocalDateTime sessionExpiryTime = LocalDateTime.now().plusMinutes(30);
         sseEmitters.add(id, emitter, sessionExpiryTime);
         try {
