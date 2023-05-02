@@ -521,16 +521,22 @@ article{
     background-color: var(--color_beige);
     box-sizing: border-box;
     box-shadow: var(--box-shadow);
+    gap: 15px;
 }
 .book_window .book_info{
     display: flex;
+    flex-flow: column;
     justify-content: center;
+    align-items: center;
     white-space: nowrap;
-    gap: 3px
+    gap: 10px
 }
 .book_info .book_title{
+	display: flex;
+	justify-content: center;
     font-size: 13px;
     margin-top: 3px;
+    gap: 3px;
 }
 .book_window .icon_circle{
     width: 5px;

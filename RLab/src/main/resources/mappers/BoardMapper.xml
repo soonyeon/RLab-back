@@ -84,7 +84,7 @@
 	    <id property="st_name" column="st_name" />
 	    <id property="bo_title" column="bo_title" />
 	    <id property="me_name" column="me_name" />
-	    <id property="bo_reg_date_str" column="bo_reg_date_str" />
+	    <id property="bo_reg_date" column="bo_reg_date" />
 	    <id property="bo_views" column="bo_views" />
 	    <id property="scrap_count" column="scrap_count" />
 	</resultMap>

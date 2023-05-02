@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,10 +22,12 @@ import kr.kh.RLab.service.MypageService;
 import kr.kh.RLab.service.PetService;
 import kr.kh.RLab.service.ReservationService;
 import kr.kh.RLab.vo.BoardVO;
+import kr.kh.RLab.vo.BranchVO;
 import kr.kh.RLab.vo.EvolutionVO;
 import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.GrowthVO;
 import kr.kh.RLab.vo.MemberVO;
+import kr.kh.RLab.vo.PayDTO;
 import kr.kh.RLab.vo.PetVO;
 import kr.kh.RLab.vo.ReservationVO;
 import kr.kh.RLab.vo.StudyVO;
@@ -47,19 +50,16 @@ public class MypageController {
 		String userId = user.getMe_id();
 		// 이용시간 안내
 		ReservationVO res = reservationService.getMyReservation(1, userId);
-		System.out.println(res);
 		//나의 펫 데려오기
 		GrowthVO myPet = mypageService.selectMyPet(userId);
 		if(myPet != null) {
 			// 레벨업까지의 경험치 정보
 				// 현재 레벨
 				int currentLevel = myPet.getGr_level();
-				System.out.println("currentLevel : " + currentLevel);
 				// 현재 경험치
 				int currentExp = myPet.getGr_exp();
 				// 레벨업까지의 최대 경험치
 				int	levelUpExp = mypageService.getLevelUpExp(currentLevel);	
-				System.out.println("levelUpExp : " + levelUpExp );
 				// 전 레벨의 최대 경험치
 				int exExp;
 					// 레벨 1이면 그대로
@@ -69,16 +69,11 @@ public class MypageController {
 						exExp = mypageService.getLevelUpExp(currentLevel-1);
 						currentExp -= exExp;
 					}		
-				System.out.println("currentExp : " + currentExp );
-				System.out.println("exExp : " + exExp );
 				
 				// 레벨업까지의 경험치(화면에 뿌려줄 최대 경험치 값)
-				//int levelUpExpOnScreen;
 					// 레벨 1이 아니면..
 					if(currentLevel != 1) {					
 						levelUpExp = levelUpExp - exExp;
-						//mv.addObject("levelUpExpOnScreen", levelUpExp);	
-						System.out.println("levelUpExpOnScreen : " + levelUpExp );
 					}		
 			mv.addObject("currentLevel", currentLevel);
 			mv.addObject("currentExp", currentExp);
@@ -98,8 +93,12 @@ public class MypageController {
 		int myPoint = mypageService.getMyPoint(userId);
 		
 		//나의 예약 데이터 가져오기
-		ArrayList<ReservationVO> resList = mypageService.getResList(userId);
-		
+			//좌석 예약 정보 가져오기		
+			ReservationVO mySeat = mypageService.getMySeat(userId);
+
+			//사물함 예약 정보 가져오기
+			ReservationVO myLocker = mypageService.getMyLocker(userId);
+
 		//나의 스터디 데이터 가져오기
 		ArrayList<StudyVO> myStudyList = mypageService.getMainStudyList(userId);
 		
@@ -110,7 +109,8 @@ public class MypageController {
 		mv.addObject("myPet",myPet);
 		mv.addObject("myPoint", myPoint);
 		mv.addObject("res", res);
-		mv.addObject("resList", resList);
+		mv.addObject("mySeat", mySeat);
+		mv.addObject("myLocker", myLocker);
 		mv.addObject("myScrapList", myScrapList);
 		mv.addObject("myStudyList", myStudyList);
 		mv.addObject("petList",petList);
@@ -127,6 +127,7 @@ public class MypageController {
 		return res;
 	}
 	
+	//////////////////////////
 	//[개인정보 수정 > 비밀번호 체크]
 	@GetMapping("/pwcheck")
 	public ModelAndView pwCheck(ModelAndView mv) {
@@ -188,8 +189,6 @@ public class MypageController {
 		}else {
 			member.setMe_profile(user.getMe_profile());
 		}
-		
-			
 		boolean isEdited = mypageService.editUser(member, user); 
 		if(isEdited) {
 			user.setMe_name(member.getMe_name());
@@ -204,7 +203,180 @@ public class MypageController {
 		return mv;
 	}
 	
+	/////////////////////////////
 	
+	//[예약 관리 > 나의 결제 내역]
+	@GetMapping("/myres_pay")
+	public ModelAndView myPay(
+			ModelAndView mv, HttpSession session, MemberVO member, Criteria cri){		
+		// 세션 정보 가져오기
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		String memberId = user.getMe_id();
+		
+		// 아이디로 나의 결제 목록 가져오기
+		ArrayList<PayDTO> myPayList = mypageService.getPayList(memberId, cri);
+
+		// 페이지 네이션
+		// 로그인한 회원이 가진 결제 전체 수 가져오기
+		int totalCount = mypageService.getPayTotalCount(memberId);
+		PageMaker pm = new PageMaker(totalCount, 2, cri);
+		
+		mv.addObject("myPayList", myPayList);
+		mv.addObject("pm", pm);
+		mv.setViewName("/mypage/myres_pay");
+		return mv;
+	}
+	
+	//[예약 관리 > 나의 결제 내역 > 결제 상세 내역]
+	@GetMapping("/myres_pay/{pa_order_id}")
+	public ModelAndView myPayDetail(
+			ModelAndView mv, HttpSession session, @PathVariable String pa_order_id, MemberVO member, Criteria cri){	
+		// 세션 정보 가져오기
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		String memberId = user.getMe_id();
+		
+		//결제번호 가져오기
+		String paOrderId = mypageService.getPaOrderId(memberId);
+		//결제번호로 결제 정보 가져오기
+        PayDTO pay = mypageService.getPayDto(paOrderId);
+        //해당 결제 정보안의 구매목록 가져오기
+        ArrayList<String> itemList = mypageService.getItemList(paOrderId);
+        
+        mv.addObject("pa_order_id", pa_order_id);
+		mv.addObject("pay", pay);
+        mv.addObject("itemList", itemList);
+        mv.setViewName("/mypage/pay_detail");
+        return mv;
+	}
+	
+	//[예약 관리 > 나의 예약 내역]
+		@GetMapping("/myres_book")
+		public ModelAndView myBook(
+				ModelAndView mv, HttpSession session, MemberVO member, Criteria cri){		
+			// 세션 정보 가져오기
+			MemberVO user = (MemberVO)session.getAttribute("user");
+			String memberId = user.getMe_id();
+			
+			// 아이디로 나의 예약 목록 가져오기
+			ArrayList<ReservationVO> myBookList = mypageService.getBookList(memberId, cri);
+			// 페이지 네이션
+			// 로그인한 회원이 가진 예약 전체 수 가져오기
+			int totalCount = mypageService.getBookTotalCount(memberId);
+			PageMaker pm = new PageMaker(totalCount, 2, cri);
+			
+			mv.addObject("myBookList", myBookList);
+			mv.addObject("pm", pm);
+			mv.setViewName("/mypage/myres_book");
+			return mv;
+		}
+		
+	//[예약 관리 > 나의 예약 내역 > 좌석 예약 상세 내역]	
+		@GetMapping("/myres_book/1/{re_num}")
+		public ModelAndView myBookSeatDetail(
+				ModelAndView mv, HttpSession session, @PathVariable int re_num, MemberVO member, Criteria cri){	
+			MemberVO user = (MemberVO)session.getAttribute("user");
+			ReservationVO rsv = reservationService.getReservation(re_num);
+			BranchVO br  = reservationService.getBranchBySeNum(rsv.getRe_se_num());
+			String ticketName = reservationService.getTicketNameByBookInfo(rsv);
+			int restTime = reservationService.getRestTime(rsv.getRe_to_num());
+			mv.addObject("user", user);
+			mv.addObject("rsv", rsv);
+			mv.addObject("br", br);
+			mv.addObject("ticketName",ticketName);
+			mv.addObject("restTime",restTime);
+	        mv.setViewName("/mypage/book_seat_detail");
+	        return mv;
+		}
+		
+	//[예약 관리 > 나의 예약 내역 > 캐비넷 예약 상세 내역]	
+		@GetMapping("/myres_book/2/{re_num}")
+		public ModelAndView myBookLockerDetail(
+				ModelAndView mv, HttpSession session, @PathVariable int re_num, MemberVO member, Criteria cri){	
+			MemberVO user = (MemberVO)session.getAttribute("user");
+			ReservationVO rsv = reservationService.getReservation(re_num);
+			BranchVO br  = reservationService.getBranchBySeNum(rsv.getRe_se_num());
+			String ticketName = mypageService.getTicketNameByBookInfo(rsv);
+			mv.addObject("user", user);
+			mv.addObject("rsv", rsv);
+			mv.addObject("br", br);
+			mv.addObject("ticketName",ticketName);
+	        mv.setViewName("/mypage/book_locker_detail");
+	        return mv;
+		}
+	
+	//////////////////////////////////
+	//[스터디 관리 > 내가 찜한 스터디]
+		@GetMapping("/mystudy_favorite")
+		public ModelAndView myStudyFavorite(
+				ModelAndView mv, HttpSession session, MemberVO member, GatherCriteria cri){		
+			/// 세션 정보 가져오기
+			MemberVO user = (MemberVO)session.getAttribute("user");
+			String memberId = user.getMe_id();
+			
+			// 아이디로 내가 찜한 스터디 가져오기
+			ArrayList<GatherVO> myFavoriteList = mypageService.getFavoriteList(memberId, cri);
+			
+			// 내가 찜한 스터디의 태그들 가져오기
+			ArrayList<TagRegisterVO>favoriteTagList = mypageService.getfavoriteTagList(cri);
+			
+			// 내가 찜한 스터디 찜 여부 가져오기
+			ArrayList<Integer> wantList = mypageService.selectWantListById(memberId);
+			
+			// 페이지 네이션		
+			int totalCount = mypageService.getFavoriteTotalCount(memberId, cri);
+			PageMaker pm = new PageMaker(totalCount, 1, cri);
+			
+			mv.addObject("myFavoriteList", myFavoriteList);
+			mv.addObject("favoriteTagList", favoriteTagList);
+			mv.addObject("wantList", wantList);
+			mv.addObject("pm", pm);
+			mv.setViewName("/mypage/mystudy_favorite");
+			return mv;
+		}
+		
+		//[스터디 관리 > 내가 개설한 스터디]
+		@GetMapping("/mystudy_open")
+		public ModelAndView myStudyOpen(
+				ModelAndView mv, HttpSession session, MemberVO member, GatherCriteria cri){		
+			/// 세션 정보 가져오기
+			MemberVO user = (MemberVO)session.getAttribute("user");
+			String memberId = user.getMe_id();
+			
+			// 아이디로 내가 개설한 스터디 가져오기
+			ArrayList<StudyVO> myOpenList = mypageService.getOpenList(memberId, cri);
+			
+			// 페이지 네이션		
+			int totalCount = mypageService.getOpenTotalCount(memberId, cri);
+			PageMaker pm = new PageMaker(totalCount, 1, cri);
+			
+			mv.addObject("myOpenList", myOpenList);
+			mv.addObject("pm", pm);
+			mv.setViewName("/mypage/mystudy_open");
+			return mv;
+		}
+		
+		//[스터디 관리 > 진행중인 스터디]
+		@GetMapping("/mystudy_progress")
+		public ModelAndView myStudyProgress(
+				ModelAndView mv, HttpSession session, MemberVO member, GatherCriteria cri){		
+			/// 세션 정보 가져오기
+			MemberVO user = (MemberVO)session.getAttribute("user");
+			String memberId = user.getMe_id();
+			
+			// 아이디로 진행중인 스터디 가져오기 (내가 회원으로 들어가 있는 스터디)
+			ArrayList<StudyVO> myProgressList = mypageService.getProgressList(memberId, cri);
+			
+			// 페이지 네이션		
+			int totalCount = mypageService.getProgressTotalCount(memberId, cri);
+			PageMaker pm = new PageMaker(totalCount, 1, cri);
+			
+			mv.addObject("myProgressList", myProgressList);
+			mv.addObject("pm", pm);
+			mv.setViewName("/mypage/mystudy_progress");
+			return mv;
+		}
+
+	///////////////////////////////
 	//[작성글 관리 > 나의 게시글]
 	@GetMapping("/mypost_post")
 	public ModelAndView mypost(
@@ -240,9 +412,8 @@ public class MypageController {
 		// 페이지 네이션
 		// 로그인한 회원이 스크랩한 게시글 전체 수 가져오기
 		int totalCount = mypageService.getScrapBoardTotalCount(memberId);
-		System.out.println(totalCount);
 		PageMaker pm = new PageMaker(totalCount, 2, cri);
-		
+		System.out.println(myScrapList);
 		mv.addObject("myScrapList", myScrapList);
 		mv.addObject("pm", pm);
 		mv.setViewName("/mypage/mypost_scrap");
@@ -266,8 +437,7 @@ public class MypageController {
 		ArrayList<Integer> wantList = mypageService.selectWantListById(memberId);
 		
 		// 페이지 네이션		
-		int totalCount = mypageService.getGatherTotalCount(memberId);
-		System.out.println(totalCount);
+		int totalCount = mypageService.getGatherTotalCount(memberId, cri);
 		PageMaker pm = new PageMaker(totalCount, 1, cri);
 		
 		mv.addObject("myGatherList", myGatherList);

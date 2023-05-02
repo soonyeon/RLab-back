@@ -72,8 +72,8 @@
             <nav class="left_menu">
               <a href="<c:url value='/mypage'></c:url>" class="list_item">마이페이지 홈</a>
               <a href="<c:url value='/mypage/pwcheck'></c:url>" class="list_item">개인정보 수정</a>
-              <a href="./book_info_ticket.html" class="list_item">예약 관리</a>
-              <a href="./mystudy_favorite.html" class="list_item">스터디 관리</a>
+              <a href="<c:url value='/mypage/myres_pay'></c:url>" class="list_item">예약 관리</a>
+              <a href="<c:url value='/mypage/mystudy_favorite'></c:url>" class="list_item">스터디 관리</a>
               <a href="<c:url value='/mypage/mypost_post'></c:url>" class="list_item">작성글 관리</a>
             </nav>
           </aside>
@@ -185,7 +185,7 @@
              	 <c:if test="${myPet == null}">
 	                <div class="pet_window">
 	                  <img src="" alt="" class="pet_talk" />
-	                  <img src="<c:url value="/download/pet/0.jpg"></c:url>" alt="펫" class="pet" />
+	                  <img src="<c:url value="/resources/img/egg.png"></c:url>" alt="펫" class="pet" />
 	                </div>
 	                <div class="pet_description">
 	                  <div class="pet_info_container">
@@ -201,7 +201,7 @@
 	              <c:if test="${myPet != null }">
 	                <div class="pet_window">
 	                  <img src="" alt="" class="pet_talk" />
-	                  <img src="<c:url value="/download/${myPet.ev_img}"></c:url>" alt="펫" class="pet" />
+	                  <img src="<c:url value="/resources/${myPet.ev_img}"></c:url>" alt="펫" class="pet" />
 	                </div>
 	                <div class="pet_description">
 	                  <div class="pet_info_container">
@@ -228,26 +228,41 @@
 	              </c:if>
               </div>
               <!-- book_container(나의 예약) -->
-              <div class="article_box book_container">
+            <div class="article_box book_container">
                 <div class="title_container">
                   <h3>나의 예약</h3>
                   <div class="book_window">
-                    <h4>강남역점</h4>
-                    <i class="icon_circle"></i>
-                    <div class="book_info">
-                      <div class="book_title">좌석</div>
-                      <h4>47번</h4>
-                    </div>
-                    <i class="icon_circle"></i>
-                    <div class="book_info">
-                      <div class="book_title">사물함</div>
-                      <h4>45번</h4>
-                    </div>
-                    <i class="icon_circle"></i>
-                    <div class="book_info">
-                      <div class="book_title">미팅룸</div>
-                      <h4>47번</h4>
-                    </div>
+	                  <c:if test="${mySeat != null && myLocker != null}">
+	                    <div class="book_info">
+		                    <h4>${mySeat.branchVO.br_name}</h4>
+		                    <div class="book_title">${mySeat.ki_name}<h4>${mySeat.se_name}번</h4></div>
+                   		</div>
+	                    <i class="icon_circle"></i>
+	                    <div class="book_info">
+	                    	<h4>${myLocker.branchVO.br_name}</h4>
+                        	<div class="book_title">${myLocker.ki_name}<h4>${myLocker.se_name}번</h4></div>
+	                    </div>
+	                  </c:if>
+	                  
+	                  <c:if test="${mySeat == null && myLocker != null}">
+	                    <div class="book_info">
+	                    	<h4>${myLocker.branchVO.br_name}</h4>
+                        	<div class="book_title">${myLocker.ki_name}<h4>${myLocker.se_name}번</h4></div>
+	                    </div>
+	                  </c:if>
+	                  
+	                  <c:if test="${mySeat != null && myLocker == null}">
+	                    <div class="book_info">
+		                    <h4>${mySeat.branchVO.br_name}</h4>
+		                    <div class="book_title">${mySeat.ki_name}<h4>${mySeat.se_name}번</h4></div>
+                   		</div>
+	                  </c:if>
+	                  
+	                  <c:if test="${mySeat == null && myLocker == null}">
+	                    <div class="book_info">
+		                    <h4>예약 정보가 없습니다.</h4>
+                   		</div>
+	                  </c:if>
                   </div>
                 </div>
               </div>

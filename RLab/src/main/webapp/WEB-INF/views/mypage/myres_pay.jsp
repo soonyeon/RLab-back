@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="<c:url value ='/resources/css/tab_common.css?after'></c:url>" />
 <link rel="stylesheet" href="<c:url value ='/resources/css/mypage/mypage_common.css?after'></c:url>" />
 <link rel="stylesheet" href="<c:url value ='/resources/css/table_common.css?after'></c:url>" />
-<link rel="stylesheet" href="<c:url value ='/resources/css/mypage/mypost_post.css?after'></c:url>">
+<link rel="stylesheet" href="<c:url value ='/resources/css/mypage/myres_pay.css?after'></c:url>">
 <title>작성글 관리</title>
 
 </head>
@@ -28,7 +28,7 @@
 					<nav class="left_menu">
 					  <a href="<c:url value='/mypage'></c:url>" class="list_item">마이페이지 홈</a>
 		              <a href="<c:url value='/mypage/pwcheck'></c:url>" class="list_item">개인정보 수정</a>
-		              <a href="./book_info_ticket.html" class="list_item">예약 관리</a>
+		              <a href="<c:url value='/mypage/myres_pay'></c:url>" class="list_item">예약 관리</a>
 		              <a href="./mystudy_favorite.html" class="list_item">스터디 관리</a>
 		              <a href="<c:url value='/mypage/mypost_post'></c:url>" class="list_item">작성글 관리</a>
 					</nav>
@@ -37,9 +37,8 @@
 				<section>
 		            <!-- 탭 -->
 		            <div class="tab-container">
-		            	<a href="<c:url value='/mypage/mypost_post'></c:url>"  class="tab selected_tab tab1"><div>나의 게시글</div></a>
-			            <a href="<c:url value='/mypage/mypost_recruit'></c:url>" class="tab unselected_tab tab2"><div>나의 모집글</div></a>
-			            <a href="<c:url value='/mypage/mypost_scrap'></c:url>"  class="tab unselected_tab tab3"><div>나의 스크랩</div></a>
+		            	<a href="<c:url value='/mypage/myres_pay'></c:url>"  class="tab selected_tab tab1"><div>결제 내역</div></a>
+			            <a href="<c:url value='/mypage/myres_book'></c:url>" class="tab unselected_tab tab2"><div>예약 내역</div></a>
 		            </div>
 		            <div class="my_study_container" id="my_container">
 		               <div class="study_card_container">
@@ -53,37 +52,34 @@
 		                        <option value="작성일 순">작성일 순</option>
 		                      </select>
 		                    </div>
-		
+						<c:if test="${myPayList != null && myPayList.size() != 0}">
 		                    <div class="tab_content">
-		                   		<c:if test="${myBoardList != null && myBoardList.size() != 0}">
-			                      <!-- 나의 게시글 -->
-			                      <div class="table_area" id="tabs_1">
-			                      <!-- <div class="tab-content_tabel_area 1"> -->
-			                        <table class="border_box">
-			                          <thead>
-			                            <tr class="board_title_list">
-			                              <td class="title_list_item">번호</td>
-			                              <td class="title_list_item">스터디명</td>
-			                              <td class="title_list_item">제목</td>
-			                              <td class="title_list_item">작성자</td>
-			                              <td class="title_list_item">작성일</td>
+		                      <!-- 나의 게시글 -->
+		                      <div class="table_area" id="tabs_1">
+		                      <!-- <div class="tab-content_tabel_area 1"> -->
+		                        <table class="border_box">
+		                          <thead>
+		                            <tr class="board_title_list">
+		                              <td class="title_list_item">구매번호</td>
+		                              <td class="title_list_item">구매일자</td>
+		                              <td class="title_list_item">상품명</td>
+		                              <td class="title_list_item">총 결제액</td>
+		                            </tr>
+		                          </thead>
+		                          
+		                          <tbody>
+			                         <c:forEach items="${myPayList}" var="mp" varStatus="vs">						
+			                            <tr class="board_list" onclick="location.href='<c:url value='/mypage/myres_pay/${mp.pa_order_id}'></c:url>'">	                           
+			                              <td>${mp.pa_order_id}</td>
+			                              <td>${mp.pa_date_str2}</td>
+			                              <td class="post_title">${mp.pa_order_name}</td>			                 
+			                              <td>${mp.pa_amount}</td>                
 			                            </tr>
-			                          </thead>
-			                          
-			                          <tbody>
-				                         <c:forEach items="${myBoardList}" var="bo" varStatus="vs">
-				                            <tr class="board_list" onclick="location.href='<c:url value='/board/detail/${bo.bo_st_num}/${bo.bo_num}'/>';">	                           
-				                              <td>${bo.bo_num}</td>
-				                              <td>${bo.st_name}</td>
-				                              <td class="post_title">${bo.bo_title}</td>
-				                              <td>${bo.me_name}</td>
-				                              <td>${bo.bo_reg_date_str}</td>                     
-				                            </tr>
-										</c:forEach>
-			                          </tbody>
-			                        </table>
-			                      </div>
-								
+									</c:forEach>
+		                          </tbody>
+		                        </table>
+		                      </div>
+		
 		                    <!-- 페이지 이동 -->
 		                     <div class="page_area">
 		                     	<div class="page_box clearfix">
@@ -103,14 +99,15 @@
 										</a>
 									</c:if>
 								</div>
-		                     </div> 
-		                    </c:if>	
-							<c:if test="${myBoardList.size() == 0 || myBoardList == null}">
-	                      	<div class="nullMsg">
-	                      		<p> 작성한 글이 없습니다.</p>
-	                      	</div>
-		                	</c:if>		 		                      
+		                     </div>  		                      
 		                   </div>
+		                 </c:if>
+		                 <c:if test="${myPayList.size() == 0 || myPayList == null}">
+		                      	<div class="nullMsg">
+		                      		<p> 결제내역이 없습니다.</p>
+		                      		<a class="btn_link link_favorite" href="<c:url value='/reservation/buy'></c:url>">이용권 구매하기</a>
+		                      	</div>
+			              </c:if>
 		                 </div>
 		                </div>
 		              </div>  
