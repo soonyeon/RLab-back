@@ -201,6 +201,35 @@ body {
 					</menu>
 				</form>
 				</dialog>
+				
+				<dialog id="editCalendarDialog">
+				  <form id="editCalendarForm">
+				    <input type="hidden" id="editCa_num">
+				    <input type="hidden" id="editCa_st_num">
+				    <h3>일정 수정 및 삭제</h3>
+				    <div class="mb-3">
+				      <label for="editCalendarTitle" class="form-label">제목</label>
+				      <input type="text" class="form-control" id="editCalendarTitle">
+				    </div>
+				    <div class="mb-3">
+				      <label for="editCalendarStart" class="form-label">시작일</label>
+				      <input type="datetime-local" class="form-control" id="editCalendarStart">
+				    </div>
+				    <div class="mb-3">
+				      <label for="editCalendarEnd" class="form-label">종료일</label>
+				      <input type="datetime-local" class="form-control" id="editCalendarEnd">
+				    </div>
+				    <div class="mb-3 form-check">
+				      <input type="checkbox" class="form-check-input" id="editCalendarAllDay">
+				      <label class="form-check-label" for="editCalendarAllDay">하루종일</label>
+				    </div>
+				    <menu>
+				      <button type="button" id="closeEditCalendar">닫기</button>
+				      <button type="button" id="updateCalendar">수정</button>
+				      <button type="button" id="deleteCalendar">삭제</button>
+				    </menu>
+				  </form>
+				</dialog>
 
 				<div class="middle_container clearfix">
 					<!-- TO-DO LIST -->
