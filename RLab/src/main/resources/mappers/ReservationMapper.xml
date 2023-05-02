@@ -221,7 +221,7 @@
 		where se_num = (
 			select se_num from (    
 				select se_num from seat     
-			    where se_br_num = 1 and se_name = 1 and se_ki_num = 1 and se_usable = 2
+			    where se_br_num = #{book.br_num} and se_name = #{book.se_name} and se_ki_num = #{se_ki_num} and se_usable = 2
 			)tmp
 		)
 	</update>

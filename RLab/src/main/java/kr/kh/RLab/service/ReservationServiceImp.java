@@ -155,7 +155,7 @@ public class ReservationServiceImp implements ReservationService {
 		if(reservationDao.updateMemberUseTime(book)==0)
 			System.out.println("회원 누적사용시간 증가 실패");
 		
-		//re_usable 상태 변경(가능(2)->불가(1))
+		//se_usable 상태 변경(가능(2)->불가(1))
 		reservationDao.updateSeatUsability(1,book);
 		
 		GrowthVO myPet = reservationDao.getMypet(book.getRe_me_id());
@@ -187,6 +187,9 @@ public class ReservationServiceImp implements ReservationService {
 		//me_use_time 누적이용시간 추가
 		if(reservationDao.updateMemberUseTime(book)==0)
 			System.out.println("회원 누적사용시간 증가 실패");
+		
+		//se_usable 상태 변경(가능(2)->불가(1))
+		reservationDao.updateSeatUsability(2,book);
 		
 		GrowthVO myPet = reservationDao.getMypet(book.getRe_me_id());
 		//pet있을 경우
@@ -235,7 +238,7 @@ public class ReservationServiceImp implements ReservationService {
 	
 	@Override
 	public ArrayList<SeatVO> getBranchSeat(int br_num, int ki_num) {
-		return reservationDao.selectBranchSeat(br_num, 1);
+		return reservationDao.selectBranchSeat(br_num, ki_num);
 	}
 	
 }
