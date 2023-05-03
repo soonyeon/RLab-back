@@ -43,8 +43,10 @@ public class CommentController {
 		if (result > 0) {
 			BoardVO board = boardService.getBoardByComment(comment.getCo_ex_num());
 			String userId = board.getBo_me_id(); // 게시물 작성자의 ID를 가져와야 함
-			String message = board.getBo_title()+"에 댓글이 달렸습니다";
-			notificationService.sendNotificationToUser(userId, message, AlarmType.COMMENT);
+			if(!userId.equals(comment.getCo_me_id())) { //본인이 단 댓글은 제외
+				String message = board.getBo_title()+"에 댓글이 달렸습니다";
+				notificationService.sendNotificationToUser(userId, message, AlarmType.COMMENT);
+			}
 		}
 
 		Map<String, Object> map = new HashMap<>();
