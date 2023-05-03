@@ -282,24 +282,49 @@
               <!-- book_container(나의 예약) -->
             <!-- <h2 class="dday_title">D-DAY</h2> -->
             <article class="article_second">
-            <h3>나의 예약</h3>
+            <h3 class="book_head_title">나의 예약</h3>
               <div class="dday_container">
                 <ul class="list_dday">
-                  <li class="item_dday">
-                    정보처리기사 필기
-                    <p class="dday">D-10</p>
-                  </li>
-                  <li class="item_dday">
-                    정보처리기사 실기
-                    <p class="dday">D-40</p>
-                  </li>
-                  <li class="item_dday">
-                    네트워크 관리사 2급 실기
-                    <p class="dday">D-40</p>
-                  </li>
+                <!-- 좌석, 캐비넷 둘다 예약이 있을 때 -->
+                 <c:if test="${mySeat != null && myLocker != null}">
+                    <div class="item_dday">
+                    	<h4>좌석 : </h4>
+	                    <h4>${mySeat.branchVO.br_name}</h4>
+	                    <div class="book_title">${mySeat.ki_name}&nbsp;<h4>${mySeat.se_name}번</h4></div>
+                  	</div>
+                    <div class="item_dday">
+                    	<h4>사물함 : </h4>
+                    	<h4>${myLocker.branchVO.br_name}</h4>
+                       	<div class="book_title">${myLocker.ki_name}&nbsp;<h4>${myLocker.se_name}번</h4></div>
+                    </div>
+                  
+                  </c:if>
+                  <!-- 좌석 예약만 있고 캐비넷 예약이 없을 때 -->
+                  <c:if test="${mySeat != null && myLocker == null}">
+                    <div class="book_info">
+	                    <h4>${mySeat.branchVO.br_name}</h4>
+	                    <div class="book_title">${mySeat.ki_name}&nbsp;<h4>${mySeat.se_name}번</h4></div>
+                  		</div>
+                  </c:if>
+                  <!-- 좌석 예약이 없고 캐비넷 예약만 있을 때 -->
+                   <c:if test="${mySeat == null && myLocker != null}">
+                    <div class="book_info">
+                    	<h4>${myLocker.branchVO.br_name}</h4>
+                       	<div class="book_title">${myLocker.ki_name}&nbsp;<h4>${myLocker.se_name}번</h4></div>
+                    </div>
+                  </c:if> 
+                 
+                  <!-- 좌석 예약, 캐비넷 예약 둘다 없을 때 -->
+                   <c:if test="${mySeat == null && myLocker == null}">
+                    <div class="book_info">
+	                    <h4>예약 정보가 없습니다.</h4>
+                  		</div>
+                  </c:if>
                 </ul>
               </div>
-              <p class="plus_dday">더보기 +</p>
+              <a href="<c:url value='/mypage/myres_book'></c:url>">
+              	<p class="plus_dday">더보기 +</p>
+              </a>
             </article>
 
             <!-- article_third(나의 스터디, 나의 스크랩) -->
@@ -537,6 +562,7 @@
     		var resValid = '${res.re_valid_time}';
     		
     		intervalId = setInterval(function(){
+    			
     			$.ajax({
     				url: '<c:url value="/mypage/timeGauge" />',
     				type: "GET",
@@ -550,7 +576,7 @@
     					}
     					resStart = new Date(data.re_start_time);
     					resValid = new Date(data.re_valid_time);
-    					updateGauge();
+    					updateGauge(resStart, resValid, now);
     				}
     			});
     		}, 1000); // 1초마다 업데이트
