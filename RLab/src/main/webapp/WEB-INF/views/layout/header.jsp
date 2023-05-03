@@ -135,8 +135,9 @@
 		        <c:if test="${user != null}">		  		       
      				<form action="<c:url value='/logout'></c:url>" method="post">     
 		  				<div class="logout_box">
-			  		    			<img class="alram_img" src="<c:url value='/resources/img/alram.png'></c:url>" width="auto" height="20">
-			  		    			<span class="blind">알림</span>
+              				<a class="logout_btn">로그아웃</a>
+		  		    			<img class="alram_img" src="<c:url value='/resources/img/alram.png'></c:url>" width="auto" height="20">
+		  		    			<span class="blind">알림</span>
 		  		    		<a href="<c:url value='/mypage'></c:url>" class="icon_mypage">
 		  		    			<c:if test="${user.me_profile == null}">
 		  		    				<img class="mypage_img" src="<c:url value='/resources/img/user.png'></c:url>" width="auto" height="40">
@@ -148,7 +149,6 @@
 			  		    			<span class="blind">마이페이지</span>
 		  		    			</c:if>
 			  		    	</a>
-              				<a class="logout_btn">로그아웃</a>
             			</div>    
               		</form>
 		        </c:if>
@@ -170,6 +170,7 @@
 			    </div>
       			
 			<div class="alarm_modal" id="alarmModal" style="height: 200px; overflow-y: scroll;">			   
+			    <img class="alram_img2" src="<c:url value='/resources/img/alram.png'></c:url>" width="auto" height="20">
 			    <c:forEach var="alarm" items="${alarm}">  
 			        <p>${alarm.al_content}</p>
 			        <hr>
@@ -178,18 +179,29 @@
     </header>
 <script>
 let source;
+
 $(document).ready(function() {
-	 $('.alram_img').hover(
+	 $('.alram_img').click(
 		      function() {
 		        $('#alarmModal').show();
-		      },
-		   /*    function() {
+		      }/*,
+		       function() {
 		        $('#alarmModal').hide();
-		      } */
-		    );
-		
-		    $('#alarmModal').hover(
+		      } /*
 		      function() {
+			        $('#alarmModal').hide();
+			      }
+		      */
+		    );
+	/* $(document).mouseup(function(e){
+			var modal = $('#alarmModal');
+			if(!modal.is(e.target)&& modal.has(e.target.length === 0) {
+				modal.hide();
+			}
+		});*/
+		
+	  $('#alarmModal').click(
+		     function() {
 		        $('#alarmModal').show();
 		      },
 		      function() {
