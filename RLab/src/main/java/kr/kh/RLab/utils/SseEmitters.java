@@ -90,6 +90,9 @@ public class SseEmitters {
 	}
 	 // 특정 사용자에게 이벤트 데이터를 전송
 	public void send(String eventName, Object eventData, String targetId) {
+		if(targetId == null) {
+			return;
+		}
 		emitters.forEach((id, userSessionInfo) -> {
 	        if (id != null && userSessionInfo != null && userSessionInfo.getEmitter() != null) {
 	            try {

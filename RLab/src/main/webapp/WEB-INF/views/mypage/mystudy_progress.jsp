@@ -64,9 +64,20 @@
 			                       				<c:if test="${myProgressList.size()-1 >= index}">
 			                       					<c:set var="state" value="${myProgressList.get(index).st_state}"/>
 								                         	<li class="study_card_box add_shadow op" value="${state}">
+								                         		
+					                       						
 								                         		<input type="hidden" name="st_num" value="${myProgressList.get(index).st_num}">
 					                       						<c:if test="${myProgressList.get(index).st_state == 1}">
-					                       							<i class="btn_remove"></i>
+					                       							
+					                       							<!-- 스터디 삭제, 탈퇴 버튼 -->
+					                       							<c:if test="${myProgressList.get(index).studyMemberVO.sm_authority == 9}">
+					                       								<i class="btn_remove"></i>
+					                       							</c:if>
+					                       							<c:if test="${myProgressList.get(index).studyMemberVO.sm_authority == 1}">
+					                       								<i class="btn_leave"></i>
+					                       							</c:if>
+					                       							
+					                       							
 										                            <a href="<c:url value='/study/${myProgressList.get(index).st_num}'></c:url>">				                        
 										                              <div class ="ing_study_container2">
 										                                <div class="study_info2">
@@ -101,7 +112,15 @@
 											                       </c:if>
 											                       
 											                      <c:if test="${myProgressList.get(index).st_state == 0 || myProgressList.get(index).st_state == 2}">
-											                      	<i class="btn_remove"></i>
+											                      
+											                      	<!-- 스터디 삭제, 탈퇴 버튼 -->
+					                       							<c:if test="${myProgressList.get(index).studyMemberVO.sm_authority == 9}">
+					                       								<i class="btn_remove"></i>
+					                       							</c:if>
+					                       							<c:if test="${myProgressList.get(index).studyMemberVO.sm_authority == 1}">
+					                       								<i class="btn_leave"></i>
+					                       							</c:if>
+					                       						
 											                      	<a href="<c:url value='/study/${myProgressList.get(index).st_num}'></c:url>">	
 										                              <div class ="ing_study_container2 gr2">
 										                                <div class="study_info2">
@@ -138,7 +157,25 @@
 						                     </c:forEach>
 			                         	</div>
 			                         </c:forEach>
-			                       	</c:if>
+			                          <!-- 페이지네이션 -->
+				                        <div class="page_box clearfix">
+				                         <c:if test="${pm.prev}">
+				                     			<a class="page-link" href="<c:url value='/mypage/mystudy_progress?page=${pm.endPage-1}&filter=${pm.cri.filter}'></c:url>">
+													<i class="btn_prev"></i>
+												</a>
+											</c:if>
+											<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
+												<span class="page_num">										
+													<a class="page-link <c:if test="${pm.cri.page == i}"> active</c:if>" href="<c:url value='/mypage/mystudy_progress?page=${i}&filter=${pm.cri.filter}'></c:url>">${i}</a>
+												</span>
+											</c:forEach>
+											<c:if test="${pm.next}">										
+												<a class="page-link" href="<c:url value='/mypage/mystudy_progress?page=${pm.endPage+1}&filter=${pm.cri.filter}'></c:url>">
+													<i class="btn_next"></i>
+												</a>
+											</c:if>
+				                      	</div> 
+			                  		</c:if>
 		                      </div>
 		                      
 		                      <c:if test="${myProgressList.size() == 0 || myProgressList == null}">
@@ -148,24 +185,7 @@
 		                      	</div>
 		                      </c:if>
 		                      
-			                        <!-- 페이지네이션 -->
-			                        <div class="page_box clearfix">
-			                         <c:if test="${pm.prev}">
-			                     			<a class="page-link" href="<c:url value='/mypage/mystudy_progress?page=${pm.endPage-1}&filter=${pm.cri.filter}'></c:url>">
-												<i class="btn_prev"></i>
-											</a>
-										</c:if>
-										<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
-											<span class="page_num">										
-												<a class="page-link <c:if test="${pm.cri.page == i}"> active</c:if>" href="<c:url value='/mypage/mystudy_progress?page=${i}&filter=${pm.cri.filter}'></c:url>">${i}</a>
-											</span>
-										</c:forEach>
-										<c:if test="${pm.next}">										
-											<a class="page-link" href="<c:url value='/mypage/mystudy_progress?page=${pm.endPage+1}&filter=${pm.cri.filter}'></c:url>">
-												<i class="btn_next"></i>
-											</a>
-										</c:if>
-			                      	</div> 
+			                       
 			                    </div>                                         
 			            </div>
 		            </div>
@@ -195,7 +215,7 @@ $('#except_btn').change(function(){
 		//filter의 값을 off로 변경한다.
 		params.set('filter','off');
 	}
-	params.set('page','1');
+	params.set('','');
 	
 	//http://localhost:8080 + /test/mypage/mypost_recruit + ? + search
 	var fullUrl = url.origin + url.pathname + "?" +params.toString();
@@ -229,6 +249,32 @@ $(".btn_remove").on("click", function() {
 		});
   	});
 });	
+
+//스터디 탈퇴
+$('.btn_leave').click(function() {
+	let st_num = $(this).parent().find('[name=st_num]').val();
+	console.log(st_num);
+	if(confirm('스터디를 탈퇴 하시겠습니까?')) {
+		  $.ajax({
+	            url: "<c:url value='/study/leave/"+st_num+"'></c:url>",
+	            type: 'POST',
+	            success: function(response) {
+	            	alert(response);
+	            	if(response == 'leader') {
+	            		alert('스터디장은 스터디 탈퇴가 불가능합니다. 스터디장을 회원에게 위임한 후 탈퇴하기를 진행하거나, 관리페이지에서 스터디 삭제를 진행해주세요.');
+	            		return false;
+	            	}else {
+	                alert('해당 스터디를 탈퇴했습니다.');
+	                window.location.href = '<c:url value='/mypage/mystudy_progress'></c:url>';
+	            	}
+	            },
+	            error: function(error) {
+	            	console.log(error);
+	                alert('해당 스터디 탈퇴에 실패하였습니다.');
+	            }
+	        });
+	}
+})
 	
 //버튼 클릭시 스터디 선택 여부에 따라 confirm창 나타남
 function confirmAction(buttonText, action) {

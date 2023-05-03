@@ -17,6 +17,7 @@ import kr.kh.RLab.vo.GrowthVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.PayDTO;
 import kr.kh.RLab.vo.ReservationVO;
+import kr.kh.RLab.vo.StudyMemberVO;
 import kr.kh.RLab.vo.StudyVO;
 import kr.kh.RLab.vo.TagRegisterVO;
 import lombok.RequiredArgsConstructor;
@@ -298,6 +299,14 @@ public class MypageServiceImp implements MypageService {
 			int totalCount = mypageDao.selectProgressTotalCount(memberId, cri);
 			return totalCount;
 		}
+		
+		// 멤버 등급 가져오기
+		@Override
+		public ArrayList<StudyMemberVO> getSmAuthority(String memberId, GatherCriteria cri) {
+			 
+			return mypageDao.selectSmAuthority(memberId, cri);
+		}
+
 	////////////
 	//[작성글 관리 > 나의 게시글]
 		// 아이디로 작성 게시글 목록 가져오기
@@ -361,5 +370,6 @@ public class MypageServiceImp implements MypageService {
 			ArrayList<Integer> wantList = mypageDao.selectWantListById(memberId);
 			return wantList;
 		}
+
 
 }

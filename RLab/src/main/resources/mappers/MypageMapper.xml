@@ -35,9 +35,15 @@
 	<id property="st_image" column="st_image"/>
 	<id property="st_state" column="st_state"/>
 	<id property="st_info" column="st_info"/>
+	<id property="al_num" column="al_num"/>
+	<id property="al_me_id" column="al_me_id"/>
+	<id property="al_content" column="al_content"/>
+	<id property="al_view" column="al_view"/>
+	<id property="al_type" column="al_type"/>
 		<association property="studyMemberVO" javaType="kr.kh.RLab.vo.StudyMemberVO">
 			<result property="sm_me_id" column="sm_me_id"/>	
 			<result property="sm_st_num" column="sm_st_num"/>	
+			<result property="sm_authority" column="sm_authority"/>	
 		</association>
 </resultMap>
 <!-- 마이페이지 홈 > 나의 예약  -->
@@ -118,7 +124,7 @@
 			join study on sm_st_num = st_num
 			where sm_me_id = #{userId}
 			ORDER BY sm_num DESC
-			LIMIT 3
+			LIMIT 4
 		</select>
 		
 		<!-- 나의 스크랩 -->
@@ -131,7 +137,7 @@
 				sc_me_id = #{userId} 
 				and sc_state = 1
 			ORDER BY bo_num DESC
-			LIMIT 4		
+			LIMIT 5	
 		</select>
 		
 		
@@ -305,6 +311,17 @@
 			join study on sm_st_num = st_num
             where st_me_id = #{memberId}
             <if test="cri.filter == 'on'">
+				AND st_state = 1
+			</if>
+		</select>
+		
+		<!-- 스터디 멤버 등급 -->
+		<select id="selectSmAuthority" resultMap="studyMember">
+			SELECT sm_authority
+			FROM study_member
+			join study on sm_st_num = st_num
+            where sm_me_id = #{memberId}
+             <if test="cri.filter == 'on'">
 				AND st_state = 1
 			</if>
 		</select>

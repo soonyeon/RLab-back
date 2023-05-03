@@ -3,7 +3,6 @@ package kr.kh.RLab.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,6 +31,7 @@ import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.PayDTO;
 import kr.kh.RLab.vo.PetVO;
 import kr.kh.RLab.vo.ReservationVO;
+import kr.kh.RLab.vo.StudyMemberVO;
 import kr.kh.RLab.vo.StudyVO;
 import kr.kh.RLab.vo.TagRegisterVO;
 import lombok.RequiredArgsConstructor;
@@ -368,11 +367,15 @@ public class MypageController {
 			// 아이디로 진행중인 스터디 가져오기 (내가 회원으로 들어가 있는 스터디)
 			ArrayList<StudyVO> myProgressList = mypageService.getProgressList(memberId, cri);
 			
+			// sm_authority 가져오기
+			ArrayList<StudyMemberVO> smAuthorities = mypageService.getSmAuthority(memberId, cri);
+			
 			// 페이지 네이션		
 			int totalCount = mypageService.getProgressTotalCount(memberId, cri);
 			PageMaker pm = new PageMaker(totalCount, 1, cri);
 			
 			mv.addObject("myProgressList", myProgressList);
+			mv.addObject("smAuthority", smAuthorities);
 			mv.addObject("pm", pm);
 			mv.setViewName("/mypage/mystudy_progress");
 			return mv;

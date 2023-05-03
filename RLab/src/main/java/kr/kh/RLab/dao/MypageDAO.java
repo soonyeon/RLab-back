@@ -12,6 +12,7 @@ import kr.kh.RLab.vo.GrowthVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.PayDTO;
 import kr.kh.RLab.vo.ReservationVO;
+import kr.kh.RLab.vo.StudyMemberVO;
 import kr.kh.RLab.vo.StudyVO;
 import kr.kh.RLab.vo.TagRegisterVO;
 
@@ -119,6 +120,8 @@ public interface MypageDAO {
 		// 진행중인 스터디 개수
 		int selectProgressTotalCount(@Param("memberId")String memberId, @Param("cri")GatherCriteria cri);
 		
+		// 멤버 등급 가져오기
+		ArrayList<StudyMemberVO> selectSmAuthority(@Param("memberId")String memberId, @Param("cri")GatherCriteria cri);
 		
 	////////////////	
 	//[작성글 관리 > 나의 게시글]
@@ -149,5 +152,7 @@ public interface MypageDAO {
 		
 		// 내가 쓴 모집글의 찜 여부 가져오기
 		ArrayList<Integer> selectWantListById(String memberId);
+
+
 
 }

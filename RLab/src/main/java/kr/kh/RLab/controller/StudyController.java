@@ -488,25 +488,28 @@ public class StudyController {
 		// 스터디 정보
 		StudyVO study = studyService.getStudy(st_num);
 		StudyMemberVO stMember = studyService.findStudyMember(st_num, user.getMe_id());
-		ArrayList<StudyVO> findStudy = studyService.getStudyByMemberId(user.getMe_id());
 		
 		if (stMember != null && stMember.getSm_authority() == 9) {
 			return "leader";
 		}
-
 		if (stMember != null) {
 			study.setSt_now_people(study.getSt_now_people() - 1);
 		}
 		String studyLeader = study.getSt_me_id();// 리더 id
 		String message = user.getMe_name() + "님이 스터디를 탈퇴했습니다.";
 
-		notificationService.sendNotificationToUser(studyLeader, message, AlarmType.STUDY);
-		sseController.sseLeaveStudy(st_num);
-
+		try {
+			notificationService.sendNotificationToUser(studyLeader, message, AlarmType.STUDY);
+			sseController.sseLeaveStudy(st_num);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		// 스터디 정보 업데이트
 		studyService.leaveStudy(user, st_num);
 		studyService.updateStudy(study);
 		
+		// 회원정보에 있는 study 값을 랜덤으로 추가하는 작업
+		ArrayList<StudyVO> findStudy = studyService.getStudyByMemberId(user.getMe_id());
 		for (StudyVO st : findStudy) {
 			
 			studyService.updateMemberStNum(user.getMe_id(),st_num,st.getSt_num());
