@@ -7,16 +7,14 @@ SELECT * FROM information_schema.events;
 -- 이벤트 생성
 CREATE EVENT refresh_seat
 ON SCHEDULE EVERY 1 SECOND
--- STARTS '2021-06-23 02:09:00'
+-- STARTS '2023-05-03 16:22:00'
 COMMENT '좌석현황(se_usable) 자동 새로고침'
 DO
-update seat set se_usable=2
-where se_num = (시간 넘었는데 아직 안돌아온 se_num);
+update seat 
+join reservation on re_se_num = se_num
+set se_usable = 2
+where re_valid_time < now() and se_usable = 1;
 
 -- 이벤트 삭제
-DROP event ip_reset;
+DROP event refresh_seat;
 
--- 쿼리 연구중임..
-select * from reservation
-join seat on re_se_num = se_num
-where 
