@@ -5,8 +5,8 @@
 <mapper namespace="kr.kh.RLab.dao.NotificationDao">
 	 <!-- 알림 이벤트 생성 -->
     <insert id="createNotificationEvent" parameterType="kr.kh.RLab.vo.AlarmVO">
-        INSERT INTO alram (al_me_id, al_content, alarm_type)
-        VALUES (#{al_me_id}, #{al_content}, #{alarm_type})
+        INSERT INTO alram (al_me_id, al_content, al_type)
+        VALUES (#{al_me_id}, #{al_content}, #{al_type})
     </insert>
 
     <!-- 사용자별 알림 이벤트 조회 -->
