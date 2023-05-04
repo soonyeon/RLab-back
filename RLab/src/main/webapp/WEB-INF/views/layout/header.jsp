@@ -47,22 +47,29 @@
     <!-- 로그인 모달창 -->
       <div class="modal_container" id="loginModal">
         <div class="modal_area">
-          <a href="#" class="close_btn">x</a>
+        <img class="remove_btn login_remove" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="40">
           <div class="login_box">
 
-            <h1>로그인</h1>
+            <h2>로그인</h2>
             
             <form action="<c:url value='/login'></c:url>" method="post">
-              <div class="form_group">
-                <!-- <label for="id"></label> -->
-                <input type="text" class="form_control" id="id" name="me_id" placeholder="아이디">
-              </div>
-              <div class="form_group">
-                <!-- <label for="pw">비번:</label> -->
-                <input type="password" class="form_control" id="pw" name="me_pw" placeholder="비밀번호">
-              </div>
-              <button class="btn_outline_success col-12">로그인</button>
-			  <input type="checkbox" name="autoLogin" value="true"> 자동로그인
+            	<div class="input_forms">
+	            	<div class="form_groups">
+		              <div class="form_group">
+		                <!-- <label for="id"></label> -->
+		                <input type="text" class="form_control" id="id" name="me_id" placeholder="아이디">
+		              </div>
+		              <div class="form_group">
+		                <!-- <label for="pw">비번:</label> -->
+		                <input type="password" class="form_control" id="pw" name="me_pw" placeholder="비밀번호">
+		              </div>
+		            </div>  
+	              	<button class="btn_outline_success col-12">로그인</button>
+              	</div>
+			  <div class= "login_stay_box">
+			 	 <input type="checkbox" name="autoLogin" value="true"> 
+			 	 <p>로그인 상태 유지</p>
+			  </div>
               <hr>
               <p class="more_action">
                 <a href="#" class="more_action_item 1">아이디 찾기</a> |
@@ -77,9 +84,9 @@
 
 		<div class="modal_container" id="findIDModal">
 		  <div class="modal_area">
-		    <a href="#" class="close_btn">x</a>
-		    <div class="find_id_box">
-		      <h1>아이디 찾기</h1>
+		  <img class="remove_btn login_remove" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="40">
+		    <div class="login_box find_id_box">
+		      <h2>아이디 찾기</h2>
 
 		      <form action="<c:url value='/findID'></c:url>" method="post">
 		        <div class="form_group">
@@ -87,6 +94,11 @@
 		          <input type="email" class="form_control" id="email" name="email" placeholder="이메일">
 		        </div>
 		        <button class="btn_outline_success col-12" type="button" onclick="findID()">아이디 찾기</button>
+			      <p class="more_action">
+	                <a href="#" class="more_action_item 0">로그인</a> |
+	                <a href="#" class="more_action_item 2">비밀번호 찾기</a> |
+	                <a href="<c:url value="/singup"></c:url>" class="more_action_item 3">회원가입</a>
+	              </p>
 		      </form>
 
 		    </div>
@@ -95,9 +107,9 @@
 
 		<div class="modal_container" id="findPWModal">
 		  <div class="modal_area">
-		    <a href="#" class="close_btn">x</a>
-		    <div class="find_pw_box">
-		      <h1>비밀번호 찾기</h1>
+		  <img class="remove_btn login_remove" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="40">
+		    <div class="login_box find_pw_box">
+		      <h2>비밀번호 찾기</h2>
 
 		      <form action="<c:url value='/findPW'></c:url>" method="post">
 		        <div class="form_group">
@@ -148,7 +160,7 @@
 		  		    			</c:if>
 		  		    			
 		  		    			<c:if test="${user.me_profile != null}">
-			  		    			<img class="mypage_img" src="<c:url value='/download/profile/${user.me_profile}'></c:url>" width="auto" height="40">
+			  		    			<img class="mypage_img" src="<c:url value='/download${user.me_profile}'></c:url>" width="auto" height="40">
 			  		    			<span class="blind">마이페이지</span>
 		  		    			</c:if>
 			  		    	</a>
@@ -175,7 +187,7 @@
 				    <c:forEach var="alarm" items="${alarm}">
 				   	    <c:if test="${alarm.al_view == 0}">
 							<a class="modal_content" href="">		   
-							    	<img class="alarm_remove" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="20">
+							    	<img class="remove_btn alarm_remove" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="20">
 						    	<div class="alarm_content_box">
 							    	<div class="new_dot"></div>
 							        <p>${alarm.al_content}</p>
@@ -185,7 +197,7 @@
 					    <c:if test="${alarm.al_view == 1}">
 							<a class="modal_content read_content" href="">		   
 						    	<div class="close_box">
-							    	<img class="alarm_remove" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="20">
+							    	<img class="remove_btn alarm_remove" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="20">
 						    	</div>  
 						        <p>${alarm.al_content}</p>
 				   			</a>
@@ -323,6 +335,12 @@ $(document).ready(function() {
       e.preventDefault();
       $('#loginModal').show();
     });
+    
+    $('.more_action_item.0').click(function(e) {
+        e.preventDefault();
+        $('#findIDModal').hide();
+        $('#loginModal').show();
+      });
 
     $('.more_action_item.1').click(function(e) {
       e.preventDefault();
@@ -336,7 +354,7 @@ $(document).ready(function() {
       $('#findPWModal').show();
     });
 
-    $('.close_btn').click(function(e) {
+    $('.remove_btn').click(function(e) {
       e.preventDefault();
       $('.modal_container').hide();
     });

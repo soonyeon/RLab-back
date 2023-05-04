@@ -105,6 +105,19 @@ a{color: var(--color_black);}
 a, button{
   cursor: pointer;
 }
+.remove_btn{
+	position: absolute;
+	display: flex;
+	cursor: pointer;
+	top: 3px;
+    right: 3px;
+	opacity: 40%;
+	width: 12px;
+	height: 12px;
+}
+.remove_btn:hover{
+	opacity: 80%;
+}
 
 
 
@@ -225,8 +238,9 @@ header #header_container {
   display: none;
 }
 .modal_area{
-  width: 400px;
-  height: 300px;
+  position: relative;
+  width: 463px;
+  height: 331px;
   text-align: center;
   font-size: 18px;
   color: #2d2d2d;
@@ -234,16 +248,34 @@ header #header_container {
   background-color: white;
   margin: auto;
   margin-top: 150px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0);
+  padding: 40px;
+  box-shadow: 5px 5px 10px rgb(48 46 46);
+  box-sizing: border-box;
+}
+
+.login_remove{
+	top: 7px;
+    right: 8px;
+    width: 22px;
+    height: 22px;	
 }
 .login_box{
-  margin: auto;
-  width: 280px;
-  padding: 25px 0px 25px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
 }
-.modal_area h1{
+.login_stay_box{
+	display: flex;
+	gap: 5px;
+	font-size: 14px;
+    margin-bottom: 4px;
+}
+.modal_area h2{
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 14px;
   color: #2d2d2d;
 }
 .modal_area form{
@@ -258,16 +290,27 @@ header #header_container {
   border-radius: 5px;
   padding-left: 5px;
   border: 0.5px solid rgba(121, 119, 119, 0.529);
-
 }
 .login_box .btn_outline_success{
   width: 100%;
-  height: 35px;
+  height: 100%;
+  font-size: 17px;
+  font-weight: 800;
   margin-bottom: 20px;
-  background-color: rgb(198, 197, 197);
+  background-color: var(--color_mint);
   border-style: none;
   border-radius: 5px;
-  border: 0.5px solid rgba(121, 119, 119, 0.529);
+  color: white;
+}
+.btn_outline_success:hover{
+	background-color: #12c78b;
+}
+.input_forms{
+	width: 100%;
+    height: 94px;
+    justify-content: center;
+    display: flex;
+    gap: 10px;
 }
 .more_action{
   text-align: center;
@@ -279,11 +322,23 @@ header #header_container {
   font-size: 12px;
   color: rgb(44, 44, 44);
   padding: 5px;
-
+}
+.more_action_item:hover{
+	color: #141414;
+	font-weight: 700;
+}
+.find_id_box form{
+	margin-top: 52px;
+}
+.find_id_box .form_control{
+	margin-bottom: 10px;
+}
+.find_id_box .btn_outline_success{
+	background-color: var(--color_blue);
 }
 
 
-.close_btn{
+/*.close_btn{
   height: 20px;
   width: 10px;
   color: gray;
@@ -294,7 +349,7 @@ header #header_container {
   line-height: 70%;
   font-size: 27px;
   font-weight: 50;
-}
+}*/
 /* 알람 모달*/
 .alarm_bell_box{
 	position: relative;
@@ -352,19 +407,11 @@ header #header_container {
 	background-color: red;
 	border-radius: var(--border_radius_1);
 }
+
 .alarm_remove{
-	position: absolute;
-	display: flex;
-	cursor: pointer;
-	top: 3px;
-    right: 3px;
-	opacity: 40%;
-	width: 12px;
-	height: 12px;
+	
 }
-.alarm_remove:hover{
-	opacity: 80%;
-}
+
 /* main */
 main{
   width: var(--body_size);
