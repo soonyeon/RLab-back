@@ -136,8 +136,11 @@
      				<form action="<c:url value='/logout'></c:url>" method="post">     
 		  				<div class="logout_box">
               				<a class="logout_btn">로그아웃</a>
+              				<div class="alarm_bell_box">
+              					<div class="new_dot bell_dot"></div>
 		  		    			<img class="alram_img" src="<c:url value='/resources/img/alram.png'></c:url>" width="auto" height="20">
 		  		    			<span class="blind">알림</span>
+		  		    		</div>
 		  		    		<a href="<c:url value='/mypage'></c:url>" class="icon_mypage">
 		  		    			<c:if test="${user.me_profile == null}">
 		  		    				<img class="mypage_img" src="<c:url value='/resources/img/user.png'></c:url>" width="auto" height="40">
@@ -169,13 +172,25 @@
 			        </div>
 			    </div>
 			<div class="alarm_modal" id="alarmModal" style=" max-height: 200px; overflow-y: auto;">	
-				<div class="modal_content">		   
-				    <c:forEach var="alarm" items="${alarm}">  
-				    	<img class="alarm_close" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="20">
-				        <p>${alarm.al_content}</p>
-				        <hr>
+				    <c:forEach var="alarm" items="${alarm}">
+				   	    <c:if test="${alarm.al_view == 0}">
+							<a class="modal_content" href="">		   
+							    	<img class="alarm_remove" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="20">
+						    	<div class="alarm_content_box">
+							    	<div class="new_dot"></div>
+							        <p>${alarm.al_content}</p>
+						    	</div>  
+				   			</a>
+				   		</c:if>
+					    <c:if test="${alarm.al_view == 1}">
+							<a class="modal_content read_content" href="">		   
+						    	<div class="close_box">
+							    	<img class="alarm_remove" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="20">
+						    	</div>  
+						        <p>${alarm.al_content}</p>
+				   			</a>
+				   		</c:if>
 				    </c:forEach> 
-			    </div>
 			</div> 
     </header>
 <script>
