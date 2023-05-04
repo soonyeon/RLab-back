@@ -165,13 +165,13 @@ public class MypageController {
 		member.setMe_id(user.getMe_id());	
 		
 		// 프로필 이미지 변경
-		String filePath = "D:/uploadFiles/profile/";
+		String filePath = "D:/uploadFiles";
 		String originName = file.getOriginalFilename();
-		String fileName = userId + "_" + originName;
+		String fileName = "/profile/" + userId + "_" + originName;
 		File dest = new File(filePath + fileName);
 		
 		if(originName != "") {
-			member.setMe_profile("/" + fileName);
+			member.setMe_profile(fileName);
 			try {
 				file.transferTo(dest);
 				boolean isImgEdited = mypageService.editImg(member, user); 
