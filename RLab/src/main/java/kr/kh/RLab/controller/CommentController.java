@@ -56,7 +56,7 @@ public class CommentController {
 				notificationService.sendNotificationToUser(userId, message, AlarmType.COMMENT);
 			}
 		}
-
+		System.out.println(1);
 		Map<String, Object> map = new HashMap<>();
 		map.put("result", result > 0 ? "success" : "fail");
 		sseController.sseNewComment(comment.getCo_ex_num());
@@ -70,7 +70,6 @@ public class CommentController {
 		PageMaker pm = new PageMaker(totalCount, 10, cc);
 
 		List<CommentVO> commentList = commentService.getCommentList(cc);	
-		System.out.println(commentList);
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("commentList", commentList);
 		resultMap.put("pm", pm);
