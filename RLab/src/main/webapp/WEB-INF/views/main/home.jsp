@@ -60,49 +60,139 @@
           </div>
   
           <!-- info_right(spot) -->
-          <div class="info_right">
-            <div class="title_box">스터디 지점 안내</div>
-            <div class="spot_banner_box">
-              <div class="spot_item1 add_shadow">
-                <div class="spot_img1"></div>
-                <div class="spot_content">
-                  <div class="spot_name">[서울] 강남역점</div>
-                  <div class="spot_address">
-                    서울특별시 강남구 태헤란로 10길 9, 5층<br>운영시간 : 24시간 연중무휴
+            <div class="info_right">
+              <div class="title_box">스터디 지점 안내</div>
+              <div class="show_window">
+                <div class="spot_container">
+                  <div class="spot_banner_box">
+                    <div class="spot_item1 add_shadow">
+                      <div class="spot_img1"></div>
+                      <div class="spot_content">
+                        <div class="spot_name">[서울] 강남역점</div>
+                        <div class="spot_address">
+                          서울특별시 강남구 태헤란로 10길 9, 5층<br>운영시간 : 24시간 연중무휴
+                        </div>
+                      </div>
+                    </div>
+                    <div class="spot_item2 add_shadow">
+                      <div class="spot_img2"></div>
+                      <div class="spot_content">
+                        <div class="spot_name">[서울] 강남역점</div>
+                        <div class="spot_address">
+                          서울특별시 강남구 태헤란로 10길 9, 5층<br>운영시간 : 24시간 연중무휴
+                        </div>
+                      </div>
+                    </div>
+                    <div class="spot_item3 add_shadow">
+                      <div class="spot_img3"></div>
+                      <div class="spot_content">
+                        <div class="spot_name">[서울] 강남역점</div>
+                        <div class="spot_address">
+                          서울특별시 강남구 태헤란로 10길 9, 5층<br>운영시간 : 24시간 연중무휴
+                        </div>
+                      </div>
+                    </div>
+                    <div class="spot_item4 add_shadow">
+                      <div class="notice_banner_box">
+                      <div class="spot_img4"></div>
+                      </div>
+                      <div class="spot_content">
+                        <div class="spot_name">[서울] 강남역점</div>
+                        <div class="spot_address">
+                          서울특별시 강남구 태헤란로 10길 9, 5층<br>운영시간 : 24시간 연중무휴
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-              <div class="spot_item2 add_shadow">
-                <div class="spot_img2"></div>
-                <div class="spot_content">
-                  <div class="spot_name">[서울] 강남역점</div>
-                  <div class="spot_address">
-                    서울특별시 강남구 태헤란로 10길 9, 5층<br>운영시간 : 24시간 연중무휴
+                  <div class="spot_banner_box">
+                    <div class="spot_item1 add_shadow">
+                      <div class="spot_img1"></div>
+                      <div class="spot_content">
+                        <div class="spot_name">[서울] 강남역점222</div>
+                        <div class="spot_address">
+                          서울특별시 강남구 태헤란로 10길 9, 5층<br>운영시간 : 24시간 연중무휴
+                        </div>
+                      </div>
+                    </div>
+                    <div class="spot_item2 add_shadow">
+                      <div class="spot_img2"></div>
+                      <div class="spot_content">
+                        <div class="spot_name">[서울] 강남역점2222</div>
+                        <div class="spot_address">
+                          서울특별시 강남구 태헤란로 10길 9, 5층<br>운영시간 : 24시간 연중무휴
+                        </div>
+                      </div>
+                    </div>
+                    <div class="spot_item3 add_shadow">
+                      <div class="spot_img3"></div>
+                      <div class="spot_content">
+                        <div class="spot_name">[서울] 강남역점2222</div>
+                        <div class="spot_address">
+                          서울특별시 강남구 태헤란로 10길 9, 5층<br>운영시간 : 24시간 연중무휴
+                        </div>
+                      </div>
+                    </div>
+                    <div class="spot_item4 add_shadow">
+                      <div class="notice_banner_box">
+                      <div class="spot_img4"></div>
+                      </div>
+                      <div class="spot_content">
+                        <div class="spot_name">[서울] 강남역점2222</div>
+                        <div class="spot_address">
+                          서울특별시 강남구 태헤란로 10길 9, 5층<br>운영시간 : 24시간 연중무휴
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
+                  <div class="spot_banner_box">
+                    <div class="spot_item1 add_shadow">
+                      <div class="spot_img1"></div>
+                      <div class="spot_content">
+                        <div class="spot_name">[서울] 강남역점33333</div>
+                        <div class="spot_address">
+                          서울특별시 강남구 태헤란로 10길 9, 5층<br>운영시간 : 24시간 연중무휴
+                        </div>
+                      </div>
+                    </div>
+                    <div class="spot_item2 add_shadow">
+                      <div class="spot_img2"></div>
+                      <div class="spot_content">
+                        <div class="spot_name">[서울] 3</div>
+                        <div class="spot_address">
+                          서울특별시 강남구 태헤란로 10길 9, 5층<br>운영시간 : 24시간 연중무휴
+                        </div>
+                      </div>
+                    </div>
+                    <div class="spot_item3 add_shadow">
+                      <div class="spot_img3"></div>
+                      <div class="spot_content">
+                        <div class="spot_name">[서울] 3</div>
+                        <div class="spot_address">
+                          서울특별시 강남구 태헤란로 10길 9, 5층<br>운영시간 : 24시간 연중무휴
+                        </div>
+                      </div>
+                    </div>
+                    <div class="spot_item4 add_shadow">
+                      <div class="notice_banner_box">
+                      <div class="spot_img4"></div>
+                      </div>
+                      <div class="spot_content">
+                        <div class="spot_name">[서울] 3</div>
+                        <div class="spot_address">
+                          서울특별시 강남구 태헤란로 10길 9, 5층<br>운영시간 : 24시간 연중무휴
+                        </div>
+                      </div>
+                    </div>
+                  </div>   
+                </div> 
               </div>
-              <div class="spot_item3 add_shadow">
-                <div class="spot_img3"></div>
-                <div class="spot_content">
-                  <div class="spot_name">[서울] 강남역점</div>
-                  <div class="spot_address">
-                    서울특별시 강남구 태헤란로 10길 9, 5층<br>운영시간 : 24시간 연중무휴
-                  </div>
-                </div>
+              <div class="spot_btn_box">
+                <div class="btn_spot1"></div>
+                <div class="btn_spot2"></div>
+                <div class="btn_spot3"></div>
               </div>
-              <div class="spot_item4 add_shadow">
-                <div class="notice_banner_box">
-                <div class="spot_img4"></div>
-                </div>
-                <div class="spot_content">
-                  <div class="spot_name">[서울] 강남역점</div>
-                  <div class="spot_address">
-                    서울특별시 강남구 태헤란로 10길 9, 5층<br>운영시간 : 24시간 연중무휴
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          
+          
         </article>
   
         <!-- info_bottom(recruit) -->
@@ -182,7 +272,7 @@
                 <div class="recruit_banner_title">[서울] 정처기 같이 공부해요!</div>
                 <div class="recruit_btn_box">
                   <button class="recruit_banner_btn">모집중 2 / 5</button>
-				  <div class="like_btn"></div>
+					<div class="like_btn"></div>
                   <!-- <img src="../img/like_on_red copy.png" alt="img" class="like_btn"> -->
                 </div>
               </div>
@@ -229,6 +319,24 @@
 
 
 <<script>
+
+//버튼 2를 누르면
+// transform: translate(-100vw)
+document.querySelector('.btn_spot1').addEventListener('click', function(){
+  document.querySelector('.spot_container').style.transform = 'translate(0px)';
+});
+document.querySelector('.btn_spot3').addEventListener('click', function(){
+  document.querySelector('.spot_container').style.transform = 'translate(-1160px)';
+});
+document.querySelector('.btn_spot2').addEventListener('click', function(){
+  document.querySelector('.spot_container').style.transform = 'translate(-595px)';
+});
+document.querySelector('.btn_spot3').addEventListener('click', function(){
+  document.querySelector('.spot_container').style.transform = 'translate(-1190px)';
+});
+
+
+
 var banner_area = document.querySelector('.main_banner_area'),
 banner = document.querySelectorAll('.main_banner_area li'),
 currentIdx = 0,

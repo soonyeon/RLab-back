@@ -134,12 +134,50 @@ main{
 .main_banner_img{width:100%; position:relative;}
 .main_btn_left{position:absolute; top: 200px; left: 50px;}
 .main_btn_right{position:absolute; top: 200px; right: 50px}
+
+
 /* info_top_left */
+
 .info_area_top{
   margin-top: 20px;
-  height: 664px;
+  height: 685px;
   display: flex;
   justify-content: space-between;
+}
+.show_window{
+  overflow: hidden;
+  height: 601px;
+  width: 585px;
+}
+[class ^= btn_spot]{
+  cursor: pointer;
+}
+.spot_banner_box{width: 580px;}
+.spot_container{
+  width: 1840px;
+}
+/* .info_area_top{background-color: blue;}
+.show_window{background-color: pink;} */
+.spot_banner_box{
+  width: 580px;
+  float: left;
+  margin-right: 10px;
+}
+.spot_btn_box{
+  width: 100px;
+  height: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  text-align: center;
+  margin: auto;
+}
+[class ^= btn_spot]{
+  background-color: rgba(128, 128, 128, 0.495);
+  border-radius: 50%;
+  height: 17px;
+  width: 17px;
+  margin-top: 15px;
 }
 .info_left, .info_right{width: 585px;}
 .title_box2{padding-bottom: 20px;}
@@ -155,6 +193,7 @@ main{
   height: 600px;
   background-image: url(../../img/notice_banner.png);
 }
+
 /* info_top-right */
 .spot_banner_box{
   display: grid;
