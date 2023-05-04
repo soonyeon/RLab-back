@@ -47,6 +47,14 @@ public class CommentController {
 				String message = board.getBo_title()+"에 댓글이 달렸습니다";
 				notificationService.sendNotificationToUser(userId, message, AlarmType.COMMENT);
 			}
+			System.out.println("comment:"+comment);
+			//대댓글일 경우 댓글의 작성자한테도 알림 전송
+			if(comment.getCo_ori_num()!=comment.getCo_num()) {
+				CommentVO oriComment = commentService.getCommentByCoNum(comment.getCo_ori_num());
+				userId = oriComment.getCo_me_id();
+				String message = oriComment.getCo_content()+"에 대댓글이 달렸습니다";
+				notificationService.sendNotificationToUser(userId, message, AlarmType.COMMENT);
+			}
 		}
 
 		Map<String, Object> map = new HashMap<>();
@@ -61,8 +69,8 @@ public class CommentController {
 		int totalCount = commentService.getCommentTotalCount(co_ex_num);
 		PageMaker pm = new PageMaker(totalCount, 10, cc);
 
-		List<CommentVO> commentList = commentService.getCommentList(cc);
-
+		List<CommentVO> commentList = commentService.getCommentList(cc);	
+		System.out.println(commentList);
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("commentList", commentList);
 		resultMap.put("pm", pm);

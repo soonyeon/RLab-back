@@ -66,4 +66,9 @@ public class CommentServiceImp implements CommentService {
 		commentDao.deleteCommentAll(comment,user.getMe_id());
 	}
 
+	@Override
+	public CommentVO getCommentByCoNum(int co_ori_num) {
+		return commentDao.selectComment(co_ori_num);
+	}
+
 }
