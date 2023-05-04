@@ -168,46 +168,34 @@
 						</c:choose>
 			        </div>
 			    </div>
-      			
-			<div class="alarm_modal" id="alarmModal" style="height: 200px; overflow-y: scroll;">			   
-			    <img class="alram_img2" src="<c:url value='/resources/img/alram.png'></c:url>" width="auto" height="20">
-			    <c:forEach var="alarm" items="${alarm}">  
-			        <p>${alarm.al_content}</p>
-			        <hr>
-			    </c:forEach> 
+			<div class="alarm_modal" id="alarmModal" style=" max-height: 200px; overflow-y: auto;">	
+				<div class="modal_content">		   
+				    <c:forEach var="alarm" items="${alarm}">  
+				    	<img class="alarm_close" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="20">
+				        <p>${alarm.al_content}</p>
+				        <hr>
+				    </c:forEach> 
+			    </div>
 			</div> 
     </header>
 <script>
 let source;
-
 $(document).ready(function() {
+	// 알람 누르면 알람 모달 보이기
 	 $('.alram_img').click(
-		      function() {
-		        $('#alarmModal').show();
-		      }/*,
-		       function() {
-		        $('#alarmModal').hide();
-		      } /*
-		      function() {
-			        $('#alarmModal').hide();
-			      }
-		      */
-		    );
-	/* $(document).mouseup(function(e){
-			var modal = $('#alarmModal');
-			if(!modal.is(e.target)&& modal.has(e.target.length === 0) {
-				modal.hide();
-			}
-		});*/
+      function() {
+        $('#alarmModal').show();
+      }
+	);
+
+	// 모달 외 영역 눌리면 알림 모달 닫기
+ 	$(document).mouseup(function (e){
+ 		if($("#alarmModal").has(e.target).length === 0){
+ 			$("#alarmModal").hide();
+ 		}
+ 	});
+
 		
-	  $('#alarmModal').click(
-		     function() {
-		        $('#alarmModal').show();
-		      },
-		      function() {
-		        $('#alarmModal').hide();
-		      }
-		    );
 		    // 로그아웃 버튼 클릭 이벤트
 		    $("#logout_btn").on("click", function() {
 		        // 로그아웃 POST 요청
@@ -438,3 +426,4 @@ $(document).ready(function() {
 	    };
 	  });
 </script>
+
