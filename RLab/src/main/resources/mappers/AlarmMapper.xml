@@ -6,11 +6,12 @@
 	 <!-- 알림 이벤트 생성 -->
     <insert id="createNotificationEvent" parameterType="kr.kh.RLab.vo.AlarmVO">
         INSERT INTO alram (al_me_id, al_content, al_type)
-        VALUES (#{al_me_id}, #{al_content}, #{alarm_type})
+        VALUES (#{al_me_id}, #{al_content}, #{al_type})
     </insert>
 
     <!-- 사용자별 알림 이벤트 조회 -->
     <select id="getUserAlrams" resultType="kr.kh.RLab.vo.AlarmVO">
         SELECT * FROM alram WHERE al_me_id = #{al_me_id}
+        order by al_num desc
     </select>
 </mapper>

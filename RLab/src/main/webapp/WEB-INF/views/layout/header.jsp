@@ -162,10 +162,10 @@
 			        <div class="notification-content">
 			            <h4 id="notificationTitle">알림</h4>
 						<c:choose>
-							<c:when test="${notification.alarm_type == 'COMMENT'}">
+							<c:when test="${notification.al_type == 'COMMENT'}">
 									올리신 게시글에 댓글이 달렸습니다.
 							</c:when>
-							<c:when test="${notification.alarm_type == 'LIKE'}">
+							<c:when test="${notification.al_type == 'LIKE'}">
 									올리신 게시글이 좋아요를 받았습니다.
 							</c:when>
 						</c:choose>

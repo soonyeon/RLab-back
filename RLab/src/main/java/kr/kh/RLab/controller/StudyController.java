@@ -180,6 +180,12 @@ public class StudyController {
 			mv.addObject("url", "redirect:/");
 			mv.setViewName("/common/message");
 		}
+		String memberId = user.getMe_id();
+		double todoProgressRate = studyService.getTodoProgressRate(memberId);
+	    int todoProgressRateint= (int) Math.round(todoProgressRate);
+	    mv.addObject("todoProgressRateint",todoProgressRateint);
+		
+		
 		ArrayList<TodoVO> tdList = studyService.getTodoList(user.getMe_id());
 		mv.addObject("tdList", tdList);
 		ArrayList<PhotoVO> photo = studyService.selectPhotoPhNumTwo(st_num);
@@ -260,6 +266,8 @@ public class StudyController {
 		studyService.deleteStudyMember(sm.getSm_st_num(), sm.getMe_name());
 		return map;
 	}
+	
+	@ResponseBody
 	@RequestMapping(value = "/management/member/authorize", method = RequestMethod.POST)
 	public HashMap<String, Object> authorizeMember(@RequestBody StudyMemberVO sm) {
 	    HashMap<String, Object> map = new HashMap<String, Object>();
@@ -291,8 +299,7 @@ public class StudyController {
 		mv.setViewName("/study/management_study");
 		return mv;
 	}
-
-	// 스터디 삭제
+	//스터디 삭제
 	@ResponseBody
 	@RequestMapping(value = "/management/study/delete/{st_num}", method = RequestMethod.POST)
 	public HashMap<String, Object> deleteStudy(@RequestBody StudyVO st) {
@@ -324,62 +331,52 @@ public class StudyController {
 		return map;
 	}
 
-	@ResponseBody
-	@RequestMapping(value = "/todo", method = RequestMethod.GET)
-	public ModelAndView todoList(ModelAndView mv, HttpSession session) {
-		MemberVO user = (MemberVO) session.getAttribute("user");
-		String memberId = user.getMe_id();
-
-		// 유저의 투두 리스트
-		ArrayList<TodoVO> tdList = studyService.getTodoList(memberId);
-
-		// 유저가 참여한 스터디 목록 조회
-		ArrayList<StudyMemberVO> myStudyList = studyService.getMyStudyLis(memberId);
-
-		// 유저의 투두 진척도
-		double todoProgressRate = studyService.getTodoProgressRate(memberId);
-		int todoProgressRateint = (int) Math.round(todoProgressRate);
-//	    System.out.println("투두 진척도 : " + todoProgressRate+"%");
-
-		// studyMemberVO에서 유저가 참여한 스터디의 멤버 리스트 가져오기 (sm_me_id)
-		ArrayList<StudyMemberVO> myStudyMemberList = new ArrayList<StudyMemberVO>();
-		// 내가 참여한 스터디의 멤버 목록 조회
-		for (StudyMemberVO studyMember : myStudyList) {
-			int myStudyNum = studyMember.getSm_st_num();
-			ArrayList<StudyMemberVO> myStudyMember = studyService.getMyStudyMember(myStudyNum);
-			for (StudyMemberVO studyMemberId : myStudyMember) {
-				myStudyMemberList.add(studyMemberId);
-			}
-		}
-
-		// myStudyMemberList에서 스터디 멤버의 아이디만 가져와서 중복된 값은 제거하기
-		ArrayList<String> stMeIdList = new ArrayList<String>();
-		// 스터디 멤버 목록에서 멤버 아이디를 추출
-		for (StudyMemberVO studyMemberId : myStudyMemberList) {
-			stMeIdList.add(studyMemberId.getSm_me_id());
-		}
-		// 가져온 스터디 멤버 아이디에서 중복된 값 제거
-		HashSet<String> uniqueSet = new HashSet<>(stMeIdList);
-		stMeIdList.clear();
-		stMeIdList.addAll(uniqueSet);
-
-		// 투두 멤버 닉네임과 아이디 가져오기
-		ArrayList<MemberVO> tdMembersName = studyService.getTdMembersName(stMeIdList);
-		// 투두 멤버의 투두 리스트 가져오기
-		ArrayList<TodoVO> mebersTd = studyService.getTodoListByMemberId(stMeIdList);
-
-		mv.addObject("myStudyMemberList", stMeIdList);
-		mv.addObject("myStudyList", myStudyList);
-		mv.addObject("mebersTd", mebersTd);
-		mv.addObject("tdList", tdList);
-		mv.addObject("memberId", memberId);
-		mv.addObject("tdMembersName", tdMembersName);
-		mv.addObject("todoProgressRateint", todoProgressRateint);
-		mv.setViewName("/study/to_do_list");
-		return mv;
+//	@ResponseBody
+	@RequestMapping(value = "/todo/{st_num}", method = RequestMethod.GET)
+	public ModelAndView todoList(ModelAndView mv, HttpSession session,@PathVariable("st_num") int st_num,StudyMemberVO sm, TodoVO td) {
+	    MemberVO user = (MemberVO) session.getAttribute("user");
+	    String memberId = user.getMe_id();
+	    
+	    //유저의 투두 리스트 
+	    ArrayList<TodoVO> tdList = studyService.getTodoList(memberId);
+	    
+	    //유저가 참여한 스터디 목록 조회
+	    ArrayList<StudyMemberVO> myStudyList = studyService.getMyStudyList(memberId);
+	    
+	    //유저의 투두 진척도
+	    double todoProgressRate = studyService.getTodoProgressRate(memberId);
+	    int todoProgressRateint= (int) Math.round(todoProgressRate);
+	    //System.out.println("투두 진척도 : " + todoProgressRate+"%");
+	    
+	    //스터디멤버 리스
+	    ArrayList<StudyMemberVO> stMember = studyService.getStudyMember(st_num);
+	    
+	    //스터디넘버가 일치하는 스터디 멤버 투두 불러오기
+	    ArrayList<TodoVO> stMemberTodo = studyService.getStudyMemberTodo(st_num);
+	    
+	    //멤버 투두 진행
+	    //서비스에서 멤버의 투두 총개수,완료 개수를 구해 진척률을 전달받고 정수로 변환->TodoMemberVO에 me_prog_rate를 만들어 값으로 할 
+	    ArrayList<StudyMemberVO> stMemberProgRateList = new ArrayList<>();
+	    for (StudyMemberVO member : stMember) {
+	        double membersTdProgRate = studyService.membersTdProgRate(member.getSm_me_id());
+	        int membersTdProgRateint = (int) Math.round(membersTdProgRate);
+	        member.setMe_prog_rate(membersTdProgRateint);
+	        stMemberProgRateList.add(member);
+	    }
+	    System.out.println("++++++"+stMemberProgRateList);
+   
+	    mv.addObject("myStudyList", myStudyList);
+	    mv.addObject("tdList", tdList);
+	    mv.addObject("memberId",memberId);
+	    mv.addObject("stMember",stMember);
+	    mv.addObject("stMemberTodo",stMemberTodo);
+	    mv.addObject("todoProgressRateint",todoProgressRateint);
+	    mv.addObject("stMemberProgRateList",stMemberProgRateList);
+	    mv.setViewName("/study/to_do_list");
+	    return mv;
 	}
 
-	// 투두 인풋 입력값 가져오기
+	//투두 인풋 입력값 가져오기
 	@ResponseBody
 	@PostMapping("/todo/create") // POST 요청 처리를 위한 매핑 경로 설정
 	public HashMap<String, Object> insertTodo(ModelAndView mv, @RequestBody TodoVO td) {
@@ -418,20 +415,8 @@ public class StudyController {
 		studyService.finishTodoUndo(td.getTd_num(), td.getTd_finish());
 		return map;
 	}
-
-//		MemberVO user = (MemberVO) session.getAttribute("user");
-//		String memberId = user.getMe_id();
-//		// System.out.println(user);
-
-//		ArrayList<StudyVO> myStudyList = studyService.getStudyListById(memberId);
-
-//		mv.addObject("myStudyList", myStudyList);
-//		mv.addObject("user", user);
-//		mv.setViewName("/study/management_study");
-//		return mv;
-//	}
-
-	// 데일리미션 등록
+	
+	//데일리미션 등록
 	@PostMapping("/daily/{st_num}/insertmission")
 	@ResponseBody
 	public String insertMission(@RequestParam("mi_st_num") int st_num, @RequestParam("mi_content") String content,

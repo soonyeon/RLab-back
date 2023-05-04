@@ -47,7 +47,7 @@ public class JoinStudyServiceImp implements JoinStudyService{
 	            alarm.setAl_content("스터디 가입 신청이 도착했습니다.");
 	            alarm.setAl_view(0); // 확인되지 않은 알림으로 설정
 	            alarm.setBo_title("스터디 가입"); // 게시물 제목 예시
-	            alarm.setAlarm_type(AlarmType.STUDY); // 알림 유형 설정
+	            alarm.setAl_type(AlarmType.STUDY); // 알림 유형 설정
 
 	            notificationDao.createNotificationEvent(alarm);
 	        }
