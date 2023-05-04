@@ -38,7 +38,7 @@
 		            <div class="tab-container">
 		              <a href="<c:url value='/mypage/mystudy_favorite'></c:url>"  class="tab selected_tab tab1"><div>찜한 스터디</div></a>
 		              <a href="<c:url value='/mypage/mystudy_open'></c:url>" class="tab unselected_tab tab2"><div>개설한 스터디</div></a>
-		              <a href="<c:url value='/mypage/mystudy_progress'></c:url>"  class="tab unselected_tab tab3"><div>진행중인 스터디</div></a>
+		              <a href="<c:url value='/mypage/mystudy_progress'></c:url>"  class="tab unselected_tab tab3"><div>참여한 스터디</div></a>
 		            </div>
 		
 		            <div class="my_study_container" id="my_container">
@@ -70,7 +70,7 @@
 				                          		
 				                          		  <c:set var="state" value="${myFavoriteList.get(index).st_state}"/>
 					                              <li class="study_card_box add_shadow op st_state" value="${state}">
-					                                 <c:if test="${myFavoriteList.get(index).st_state != 1}">
+					                                 <c:if test="${myFavoriteList.get(index).st_state == 2 || myFavoriteList.get(index).st_state == 0}">
 					                                  <!-- 모집 완료 -->
 					                                  <div class="sad_container">
 						                                  <div class="sad_box">
@@ -105,13 +105,20 @@
 					                                          
 					                                      		<!-- 모집중 상태 -->
 					                                          <div class="study_content">
-					                                           
-					                                              <div class="study_recruiting">
-					                                                  <span>모집중</span>
-					                                                  <span>${myFavoriteList.get(index).st_now_people}</span>
-					                                                  <span>/</span>
-					                                                  <span>${myFavoriteList.get(index).st_total_people}</span>
-					                                              </div>
+					                                             <c:if test="${myFavoriteList.get(index).st_state != 2 && myFavoriteList.get(index).st_state != 0}">
+						                                              <div class="study_recruiting">
+						                                                  <span>모집중&nbsp</span>
+						                                                  <span>${myFavoriteList.get(index).st_now_people}</span>
+						                                                  <span>/</span>
+						                                                  <span>${myFavoriteList.get(index).st_total_people}</span>
+						                                              </div>
+					                                              </c:if>
+					                                              
+					                                              <c:if test="${myFavoriteList.get(index).st_state == 2 || myFavoriteList.get(index).st_state == 0}">
+						                                              <div class="study_recruiting">
+						                                                  <span>모집완료</span>
+						                                              </div>
+					                                              </c:if>
 					                                             <!-- like -->
 										                         <div class="want_icon">
 																	<c:if test="${user == null}" >
@@ -134,8 +141,25 @@
 				                          	</c:forEach>
 				                          </div>
 				                     	</c:forEach>
+						                <!-- 페이지네이션 -->
+				                        <div class="page_box clearfix">
+				                         <c:if test="${pm.prev}">
+				                     			<a class="page-link" href="<c:url value='/mypage/mystudy_favorite?page=${pm.endPage-1}&filter=${pm.cri.filter}'></c:url>">
+													<i class="btn_prev"></i>
+												</a>
+											</c:if>
+											<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
+												<span class="page_num">										
+													<a class="page-link <c:if test="${pm.cri.page == i}"> active</c:if>" href="<c:url value='/mypage/mystudy_favorite?page=${i}&filter=${pm.cri.filter}'></c:url>">${i}</a>
+												</span>
+											</c:forEach>
+											<c:if test="${pm.next}">										
+												<a class="page-link" href="<c:url value='/mypage/mystudy_favorite?page=${pm.endPage+1}&filter=${pm.cri.filter}'></c:url>">
+													<i class="btn_next"></i>
+												</a>
+											</c:if>
+				                      	</div> 
 									</c:if>
-		                          
 		                        </div>
 			  					 <c:if test="${myFavoriteList.size() == 0 || myFavoriteList == null}">
 				                      	<div class="nullMsg">
@@ -143,24 +167,7 @@
 				                      		<a class="btn_link link_favorite" href="<c:url value='/gather/list'></c:url>">모집글 보러가기</a>
 				                      	</div>
 			                      </c:if>
-		                        <!-- 페이지네이션 -->
-		                        <div class="page_box clearfix">
-		                         <c:if test="${pm.prev}">
-		                     			<a class="page-link" href="<c:url value='/mypage/mystudy_favorite?page=${pm.endPage-1}&filter=${pm.cri.filter}'></c:url>">
-											<i class="btn_prev"></i>
-										</a>
-									</c:if>
-									<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
-										<span class="page_num">										
-											<a class="page-link <c:if test="${pm.cri.page == i}"> active</c:if>" href="<c:url value='/mypage/mystudy_favorite?page=${i}&filter=${pm.cri.filter}'></c:url>">${i}</a>
-										</span>
-									</c:forEach>
-									<c:if test="${pm.next}">										
-										<a class="page-link" href="<c:url value='/mypage/mystudy_favorite?page=${pm.endPage+1}&filter=${pm.cri.filter}'></c:url>">
-											<i class="btn_next"></i>
-										</a>
-									</c:if>
-		                      	</div> 
+		                       
 		                    </div>                                         
 		                </div>
                   </section> 

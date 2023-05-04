@@ -161,6 +161,26 @@ background-color: white;
   opacity: 80%;
 }
 
+.study_card_box:hover >.btn_leave{
+  display: block;
+}
+.btn_leave{
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url(../../img/delete.png);
+  z-index: 10;
+  opacity: 50%;
+  margin: 5px;
+  right: 0;
+  cursor: pointer;
+}
+.btn_leave:hover{
+  opacity: 80%;
+}
+
 /* 넘기기 버튼 */
 .study_card_container .page_box{
  /* margin-top: 20px; */

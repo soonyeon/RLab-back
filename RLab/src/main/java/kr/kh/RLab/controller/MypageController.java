@@ -21,6 +21,7 @@ import kr.kh.RLab.pagination.PageMaker;
 import kr.kh.RLab.service.MypageService;
 import kr.kh.RLab.service.PetService;
 import kr.kh.RLab.service.ReservationService;
+import kr.kh.RLab.service.StudyService;
 import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.BranchVO;
 import kr.kh.RLab.vo.EvolutionVO;
@@ -30,6 +31,7 @@ import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.PayDTO;
 import kr.kh.RLab.vo.PetVO;
 import kr.kh.RLab.vo.ReservationVO;
+import kr.kh.RLab.vo.StudyMemberVO;
 import kr.kh.RLab.vo.StudyVO;
 import kr.kh.RLab.vo.TagRegisterVO;
 import lombok.RequiredArgsConstructor;
@@ -41,6 +43,7 @@ import lombok.RequiredArgsConstructor;
 public class MypageController {
 	private final MypageService mypageService;
 	private final PetService petService;
+	private final StudyService studyService;
 	private final ReservationService reservationService;
 	
 	//[마이페이지 홈]
@@ -104,7 +107,6 @@ public class MypageController {
 		
 		//나의 스크랩 데이터 가져오기
 		ArrayList<BoardVO> myScrapList = mypageService.getMainScrapList(userId);
-		
 
 		mv.addObject("myPet",myPet);
 		mv.addObject("myPoint", myPoint);
@@ -263,7 +265,6 @@ public class MypageController {
 			// 로그인한 회원이 가진 예약 전체 수 가져오기
 			int totalCount = mypageService.getBookTotalCount(memberId);
 			PageMaker pm = new PageMaker(totalCount, 2, cri);
-			
 			mv.addObject("myBookList", myBookList);
 			mv.addObject("pm", pm);
 			mv.setViewName("/mypage/myres_book");
@@ -366,11 +367,15 @@ public class MypageController {
 			// 아이디로 진행중인 스터디 가져오기 (내가 회원으로 들어가 있는 스터디)
 			ArrayList<StudyVO> myProgressList = mypageService.getProgressList(memberId, cri);
 			
+			// sm_authority 가져오기
+			ArrayList<StudyMemberVO> smAuthorities = mypageService.getSmAuthority(memberId, cri);
+			
 			// 페이지 네이션		
 			int totalCount = mypageService.getProgressTotalCount(memberId, cri);
 			PageMaker pm = new PageMaker(totalCount, 1, cri);
 			
 			mv.addObject("myProgressList", myProgressList);
+			mv.addObject("smAuthority", smAuthorities);
 			mv.addObject("pm", pm);
 			mv.setViewName("/mypage/mystudy_progress");
 			return mv;
@@ -413,7 +418,6 @@ public class MypageController {
 		// 로그인한 회원이 스크랩한 게시글 전체 수 가져오기
 		int totalCount = mypageService.getScrapBoardTotalCount(memberId);
 		PageMaker pm = new PageMaker(totalCount, 2, cri);
-		System.out.println(myScrapList);
 		mv.addObject("myScrapList", myScrapList);
 		mv.addObject("pm", pm);
 		mv.setViewName("/mypage/mypost_scrap");

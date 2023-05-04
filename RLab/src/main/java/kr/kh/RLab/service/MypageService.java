@@ -10,6 +10,7 @@ import kr.kh.RLab.vo.GrowthVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.PayDTO;
 import kr.kh.RLab.vo.ReservationVO;
+import kr.kh.RLab.vo.StudyMemberVO;
 import kr.kh.RLab.vo.StudyVO;
 import kr.kh.RLab.vo.TagRegisterVO;
 
@@ -72,7 +73,7 @@ public interface MypageService {
 		//캐비넷 이용권 이름 가져오기
 		String getTicketNameByBookInfo(ReservationVO rsv);
 		
-		
+	///////////////////////	
 	//[개인정보 수정 > 비밀번호 체크]
 		boolean checkPw(MemberVO pw, MemberVO user);
 		
@@ -109,6 +110,9 @@ public interface MypageService {
 		
 		// 진행중인 스터디 개수
 		int getProgressTotalCount(String memberId, GatherCriteria cri);
+		
+		// 멤버 등급 가져오기
+		ArrayList<StudyMemberVO> getSmAuthority(String memberId, GatherCriteria cri);
 		
 		
 	/////////////////	
@@ -148,7 +152,6 @@ public interface MypageService {
 
 		//펫 경험치 가져오기
 		GrowthVO selectPetExp(String memberId);
-
 
 
 }

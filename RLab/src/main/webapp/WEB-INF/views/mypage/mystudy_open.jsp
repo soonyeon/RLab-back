@@ -38,7 +38,7 @@
 		            <div class="tab-container">
 		              <a href="<c:url value='/mypage/mystudy_favorite'></c:url>"  class="tab unselected_tab tab1"><div>찜한 스터디</div></a>
 		              <a href="<c:url value='/mypage/mystudy_open'></c:url>" class="tab selected_tab tab2"><div>개설한 스터디</div></a>
-		              <a href="<c:url value='/mypage/mystudy_progress'></c:url>"  class="tab unselected_tab tab3"><div>진행중인 스터디</div></a>
+		              <a href="<c:url value='/mypage/mystudy_progress'></c:url>"  class="tab unselected_tab tab3"><div>참여한 스터디</div></a>
 		            </div>
 		
 		            <div class="my_study_container" id="my_container">		               
@@ -64,8 +64,9 @@
 			                       				<c:if test="${myOpenList.size()-1 >= index}">
 			                       					<c:set var="state" value="${myOpenList.get(index).st_state}"/>
 								                         	<li class="study_card_box add_shadow op" value="${state}">
-								                         	
+								                         		<input type="hidden" name="st_num" value="${myOpenList.get(index).st_num}">
 					                       						<c:if test="${myOpenList.get(index).st_state == 1}">
+										                            <i class="btn_remove"></i>
 										                            <a href="<c:url value='/study/${myOpenList.get(index).st_num}'></c:url>">				                        
 										                              <div class ="ing_study_container">
 										                                <div class="study_info2">
@@ -87,27 +88,20 @@
 										                                    </div>
 										                                    <div class="ing_study_content">
 										                                        <div class="study_recruiting2">
-										                                             <c:if test="${myOpenList.get(index).st_now_people != myOpenList.get(index).st_total_people}">
 											                                            <span>스터디원 수</span>
 											                                            <span>${myOpenList.get(index).st_now_people}</span>
 											                                            <span>/</span>
 											                                            <span>${myOpenList.get(index).st_total_people}</span>
-											                                         </c:if>
-											                                         <!-- 아니면 st_state가 2일때.. -->
-											                                         <c:if test="${myOpenList.get(index).st_now_people == myOpenList.get(index).st_total_people}">
-											                                            <span>모집 완료</span>
-											                                         </c:if>
 										                                        </div>
-										                        
 										                                    </div>
 										                                  </div>
 										                                </div>
 										                                </a>
 											                       </c:if>
 											                       
-											                      <c:if test="${myOpenList.get(index).st_state == 0}">
+											                      <c:if test="${myOpenList.get(index).st_state == 0 || myOpenList.get(index).st_state == 2}">
+											                      	<i class="btn_remove"></i>
 											                      	<a href="<c:url value='/study/${myOpenList.get(index).st_num}'></c:url>">	
-											                      		<i class="btn_remove"></i>
 											                              <div class ="ing_study_container gr2">
 											                                <div class="study_info2">
 											                                    <c:if test="${myOpenList.get(index).st_image == null}">
@@ -128,59 +122,55 @@
 											                                    </div>
 											                                    <div class="ing_study_content">
 											                                        <div class="study_recruiting2 gr2">
-											                                         
-											                                            <span>모집 완료</span>
+											                                           <span>스터디원 수</span>
+											                                            <span>${myOpenList.get(index).st_now_people}</span>
+											                                            <span>/</span>
+											                                            <span>${myOpenList.get(index).st_total_people}</span>
 											                                        </div>
 											                                    </div>
 											                                  </div>
 											                               </div>
-										                            </a>
+										                            	</a>
 											                       </c:if>
-								                         	</li>
-						                         </c:if>
-						                     </c:forEach>
-			                         	</div>
-			                         </c:forEach>
-			                       	</c:if>
-		                      </div>
-		                      
-		                       	<c:if test="${myOpenList.size() == 0 || myOpenList == null}">
-				                      	<div class="nullMsg">
-				                      		<p> 개설한 스터디가 없습니다.</p>
-				                      		<a class="btn_link link_open" href="<c:url value='/gather/insertstudy'></c:url>">스터디 개설하기</a>
-				                      	</div>
-			                      </c:if>
-			                        <!-- 페이지네이션 -->
-			                        <div class="page_box clearfix">
-			                         <c:if test="${pm.prev}">
-			                     			<a class="page-link" href="<c:url value='/mypage/mystudy_open?page=${pm.endPage-1}&filter=${pm.cri.filter}'></c:url>">
-												<i class="btn_prev"></i>
-											</a>
-										</c:if>
-										<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
-											<span class="page_num">										
-												<a class="page-link <c:if test="${pm.cri.page == i}"> active</c:if>" href="<c:url value='/mypage/mystudy_open?page=${i}&filter=${pm.cri.filter}'></c:url>">${i}</a>
-											</span>
-										</c:forEach>
-										<c:if test="${pm.next}">										
-											<a class="page-link" href="<c:url value='/mypage/mystudy_open?page=${pm.endPage+1}&filter=${pm.cri.filter}'></c:url>">
-												<i class="btn_next"></i>
-											</a>
-										</c:if>
-			                      	</div> 
-			                    </div>                                         
-			            </div>
-		            </div>
-                  </section> 
+								                         		</li>
+								                         </c:if>
+								                     </c:forEach>
+					                         	</div>
+					                         </c:forEach>
+						                        <div class="page_box clearfix">
+						                         <c:if test="${pm.prev}">
+						                     			<a class="page-link" href="<c:url value='/mypage/mystudy_open?page=${pm.endPage-1}&filter=${pm.cri.filter}'></c:url>">
+															<i class="btn_prev"></i>
+														</a>
+													</c:if>
+													<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
+														<span class="page_num">										
+															<a class="page-link <c:if test="${pm.cri.page == i}"> active</c:if>" href="<c:url value='/mypage/mystudy_open?page=${i}&filter=${pm.cri.filter}'></c:url>">${i}</a>
+														</span>
+													</c:forEach>
+													<c:if test="${pm.next}">										
+														<a class="page-link" href="<c:url value='/mypage/mystudy_open?page=${pm.endPage+1}&filter=${pm.cri.filter}'></c:url>">
+															<i class="btn_next"></i>
+														</a>
+													</c:if>
+						                      	</div> 
+					                       	</c:if>
+				                      </div>
+				                      
+				                       	<c:if test="${myOpenList.size() == 0 || myOpenList == null}">
+						                      	<div class="nullMsg">
+						                      		<p> 개설한 스터디가 없습니다.</p>
+						                      		<a class="btn_link link_open" href="<c:url value='/gather/insertstudy'></c:url>">스터디 개설하기</a>
+						                      	</div>
+					                      </c:if>
+					                    </div>                                         
+					            </div>
+				            </div>
+		                  </section> 
+					</div>
+				</main>
 			</div>
-		</main>
-	</div>
 <script>	
-/*$('#except_btn').change(function(){
-	if($(this).is(':checked')){
-        location.replace('<c:url value="mypage/mypost_recruit?filter=checked"></c:url>');
-	}
-})*/
 $('#except_btn').change(function(){
 	 //현재 페이지 주소
 	 var url = new URL(window.location.href)
@@ -205,17 +195,41 @@ $('#except_btn').change(function(){
 	location.replace(fullUrl);
 })
 
-//btn_remove
-/*$(document).ready(function(){
-	$('.btn_remove').click(function(){
-		console.log(1);
-		$(this).closest('.study_card_box').hide();
-	});
+//스터디 삭제 
+$(".btn_remove").on("click", function() {
+	let st_num = $(this).parent().find('[name=st_num]').val();
+	console.log(st_num);
+	//location.href="<c:url value='/study/management/study/delete/"+st_num+"'></c:url>"
+	let obj = {
+			st_num: st_num
+	}
+  confirmAction("스터디 삭제 시 스터디에올라온 게시글, 인증내역, 일정, 회원정보 등 모든 정보가 함께 삭제되며 해당 스터디에 접근이 불가합니다. 정말 삭제하시겠습니까?", function() {
+		$.ajax({	
+			async:false,
+		    type:'POST',
+		    data:JSON.stringify(obj),
+		    url:"<c:url value='/study/management/study/delete/"+st_num+"'></c:url>",
+		    //서버에서 받는 데이터 타입
+		    dataType:"json",
+		    //서버에서 보내는 데이터 타입
+		    contentType:"application/json; charset=UTF-8",
+		    success : function(data){
+		        console.log(data);
+				location.replace("<c:url value='/mypage/mystudy_open'></c:url>");
+				alert("스터디가 삭제되었습니다.");
+		    }
+		});
+  	});
+});	
 	
-});*/
-	
-	
-	
+//버튼 클릭시 스터디 선택 여부에 따라 confirm창 나타남
+function confirmAction(buttonText, action) {
+  if (confirm(buttonText)) {
+    action();
+  } else {
+    console.log("작업 취소");
+  }
+}	
 
 
 </script>

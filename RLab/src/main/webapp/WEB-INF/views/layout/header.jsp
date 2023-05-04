@@ -135,8 +135,12 @@
 		        <c:if test="${user != null}">		  		       
      				<form action="<c:url value='/logout'></c:url>" method="post">     
 		  				<div class="logout_box">
-			  		    			<img class="alram_img" src="<c:url value='/resources/img/alram.png'></c:url>" width="auto" height="20">
-			  		    			<span class="blind">알림</span>
+              				<a class="logout_btn">로그아웃</a>
+              				<div class="alarm_bell_box">
+              					<div class="new_dot bell_dot"></div>
+		  		    			<img class="alram_img" src="<c:url value='/resources/img/alram.png'></c:url>" width="auto" height="20">
+		  		    			<span class="blind">알림</span>
+		  		    		</div>
 		  		    		<a href="<c:url value='/mypage'></c:url>" class="icon_mypage">
 		  		    			<c:if test="${user.me_profile == null}">
 		  		    				<img class="mypage_img" src="<c:url value='/resources/img/user.png'></c:url>" width="auto" height="40">
@@ -148,7 +152,6 @@
 			  		    			<span class="blind">마이페이지</span>
 		  		    			</c:if>
 			  		    	</a>
-              				<a class="logout_btn">로그아웃</a>
             			</div>    
               		</form>
 		        </c:if>
@@ -168,34 +171,46 @@
 						</c:choose>
 			        </div>
 			    </div>
-      			
-			<div class="alarm_modal" id="alarmModal" style="height: 200px; overflow-y: scroll;">			   
-			    <c:forEach var="alarm" items="${alarm}">  
-			        <p>${alarm.al_content}</p>
-			        <hr>
-			    </c:forEach> 
+			<div class="alarm_modal" id="alarmModal" style=" max-height: 200px; overflow-y: auto;">	
+				    <c:forEach var="alarm" items="${alarm}">
+				   	    <c:if test="${alarm.al_view == 0}">
+							<a class="modal_content" href="">		   
+							    	<img class="alarm_remove" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="20">
+						    	<div class="alarm_content_box">
+							    	<div class="new_dot"></div>
+							        <p>${alarm.al_content}</p>
+						    	</div>  
+				   			</a>
+				   		</c:if>
+					    <c:if test="${alarm.al_view == 1}">
+							<a class="modal_content read_content" href="">		   
+						    	<div class="close_box">
+							    	<img class="alarm_remove" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="20">
+						    	</div>  
+						        <p>${alarm.al_content}</p>
+				   			</a>
+				   		</c:if>
+				    </c:forEach> 
 			</div> 
     </header>
 <script>
 let source;
 $(document).ready(function() {
-	 $('.alram_img').hover(
-		      function() {
-		        $('#alarmModal').show();
-		      },
-		   /*    function() {
-		        $('#alarmModal').hide();
-		      } */
-		    );
+	// 알람 누르면 알람 모달 보이기
+	 $('.alram_img').click(
+      function() {
+        $('#alarmModal').show();
+      }
+	);
+
+	// 모달 외 영역 눌리면 알림 모달 닫기
+ 	$(document).mouseup(function (e){
+ 		if($("#alarmModal").has(e.target).length === 0){
+ 			$("#alarmModal").hide();
+ 		}
+ 	});
+
 		
-		    $('#alarmModal').hover(
-		      function() {
-		        $('#alarmModal').show();
-		      },
-		      function() {
-		        $('#alarmModal').hide();
-		      }
-		    );
 		    // 로그아웃 버튼 클릭 이벤트
 		    $("#logout_btn").on("click", function() {
 		        // 로그아웃 POST 요청
@@ -426,3 +441,4 @@ $(document).ready(function() {
 	    };
 	  });
 </script>
+
