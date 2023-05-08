@@ -264,39 +264,62 @@ header #header_container {
   height: 100%;
   display: flex;
   flex-flow: column;
-  justify-content: center;
+ /* justify-content: space-between;*/
+  gap: 25px;
   align-items: center;
+}
+.form_groups{
+	width: 226px;
+	height: 94px;
+	display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+}
+.form_group{
+	width: 100%;
+	height: 42.3px;
 }
 .login_stay_box{
 	display: flex;
 	gap: 5px;
 	font-size: 14px;
-    margin-bottom: 4px;
 }
 .modal_area h2{
   text-align: center;
-  margin-bottom: 14px;
+  /* margin-bottom: 14px;*/
   color: #2d2d2d;
+  font-size: 37px;
 }
 .modal_area form{
+  display: flex;
+  flex-flow: column;
+  gap: 13px;
   text-align: left;
-  margin: auto;
+ /* margin: auto;*/
 }
 .form_group .form_control{
-  width: 273px;
-  height: 40px;
-  margin-bottom:10px;
+  width: 226px;
+  height: 42.3px;
+  /* margin-bottom:10px;
   border-style: none;
+  padding-left: 5px; */
+  box-sizing: border-box;
+  padding: 10px;
   border-radius: 5px;
-  padding-left: 5px;
   border: 0.5px solid rgba(121, 119, 119, 0.529);
 }
+.form_group .form_control:focus{
+	border: none;
+	box-sizing: border-box;
+	outline: 1px solid var(--color_mint);
+}
+
+
 .login_box .btn_outline_success{
-  width: 100%;
+  width: 95px;
   height: 100%;
   font-size: 17px;
   font-weight: 800;
-  margin-bottom: 20px;
   background-color: var(--color_mint);
   border-style: none;
   border-radius: 5px;
@@ -314,7 +337,8 @@ header #header_container {
 }
 .more_action{
   text-align: center;
-  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #80808074;
   color: rgba(128, 128, 128, 0.454);
 }
 .more_action_item{
@@ -328,13 +352,50 @@ header #header_container {
 	font-weight: 700;
 }
 .find_id_box form{
-	margin-top: 52px;
+	display: flex;
+    flex-flow: column;
+    gap: 13px;
+    text-align: left;
+	margin-top: 5px;
 }
-.find_id_box .form_control{
-	margin-bottom: 10px;
+.find_id_box h2{
+	font-size: 35px;
+	padding-top: 10px;
+}
+#email{
+	width: 276px;
+}
+#email:focus{
+	border: none;
+	outline: 1px solid var(--color_blue);
 }
 .find_id_box .btn_outline_success{
+    width: 100%;
+	height: 50px;
 	background-color: var(--color_blue);
+}
+
+.find_pw_box h2{
+	font-size: 35px;
+	padding-top: 15px;
+}
+.find_pw_box .form_groups{
+	gap: 5px;
+	justify-content: none;
+}
+#findPW_id:focus, #findPW_email:focus{
+	border: none;
+	outline: 1px solid var(--color_yellow);
+}
+.find_pw_box .btn_outline_success {
+   width: 95px;
+    height: 100%;
+    font-size: 17px;
+    font-weight: 800;
+    background-color: var(--color_yellow);
+    border-style: none;
+    border-radius: 5px;
+    color: white;
 }
 
 

@@ -70,11 +70,10 @@
 			 	 <input type="checkbox" name="autoLogin" value="true"> 
 			 	 <p>로그인 상태 유지</p>
 			  </div>
-              <hr>
               <p class="more_action">
                 <a href="#" class="more_action_item 1">아이디 찾기</a> |
                 <a href="#" class="more_action_item 2">비밀번호 찾기</a> |
-                <a href="<c:url value="/singup"></c:url>" class="more_action_item 3">회원가입</a>
+                <a href="<c:url value="/signup"></c:url>" class="more_action_item 3">회원가입</a>
               </p>
             </form>
 
@@ -96,8 +95,8 @@
 		        <button class="btn_outline_success col-12" type="button" onclick="findID()">아이디 찾기</button>
 			      <p class="more_action">
 	                <a href="#" class="more_action_item 0">로그인</a> |
-	                <a href="#" class="more_action_item 2">비밀번호 찾기</a> |
-	                <a href="<c:url value="/singup"></c:url>" class="more_action_item 3">회원가입</a>
+	                <a href="#" class="more_action_item 2_1">비밀번호 찾기</a> |
+	                <a href="<c:url value="/signup"></c:url>" class="more_action_item 3">회원가입</a>
 	              </p>
 		      </form>
 
@@ -112,13 +111,22 @@
 		      <h2>비밀번호 찾기</h2>
 
 		      <form action="<c:url value='/findPW'></c:url>" method="post">
-		        <div class="form_group">
-		          <input type="text" class="form_control" id="findPW_id" name="me_id" placeholder="아이디">
-		        </div>
-		        <div class="form_group">
-		          <input type="email" class="form_control" id="findPW_email" name="email" placeholder="이메일">
-		        </div>
-		        <button class="btn_outline_success col-12" type="button" onclick="findPW()">전송</button>
+		      	<div class="input_forms">
+			      	<div class="form_groups">
+				        <div class="form_group">
+				          <input type="text" class="form_control" id="findPW_id" name="me_id" placeholder="아이디">
+				        </div>
+				        <div class="form_group">
+				          <input type="email" class="form_control" id="findPW_email" name="email" placeholder="이메일">
+				        </div>
+				    </div>
+			        <button class="btn_outline_success col-12" type="button" onclick="findPW()">전송</button>
+			     </div> 
+			      <p class="more_action">
+	                <a href="#" class="more_action_item 0_1">로그인</a> |
+	                <a href="#" class="more_action_item 1_1">아이디 찾기</a> |
+	                <a href="<c:url value="/signup"></c:url>" class="more_action_item 3">회원가입</a>
+	              </p>
 		      </form>
 		    </div>
 		  </div>
@@ -222,7 +230,6 @@ $(document).ready(function() {
  		}
  	});
 
-		
 		    // 로그아웃 버튼 클릭 이벤트
 		    $("#logout_btn").on("click", function() {
 		        // 로그아웃 POST 요청
@@ -330,6 +337,13 @@ $(document).ready(function() {
 	
 	
 	
+	// 로그인 모달
+	// 모달 외 영역 눌리면 알림 모달 닫기
+ 	$(document).mouseup(function (e){
+ 		if($("#loginModal").has(e.target).length === 0){
+ 			$("#loginModal").hide();
+ 		}
+ 	});
 	
     $('.login_modal').click(function(e) {
       e.preventDefault();
@@ -341,18 +355,36 @@ $(document).ready(function() {
         $('#findIDModal').hide();
         $('#loginModal').show();
       });
+    
+    $('.more_action_item.0_1').click(function(e) {
+        e.preventDefault();
+        $('#findPWModal').hide();
+        $('#loginModal').show();
+      });
 
     $('.more_action_item.1').click(function(e) {
       e.preventDefault();
       $('#loginModal').hide();
       $('#findIDModal').show();
     });
+    
+    $('.more_action_item.1_1').click(function(e) {
+        e.preventDefault();
+        $('#findPWModal').hide();
+        $('#findIDModal').show();
+      });
 
     $('.more_action_item.2').click(function(e) {
       e.preventDefault();
       $('#loginModal').hide();
       $('#findPWModal').show();
     });
+    
+    $('.more_action_item.2_1').click(function(e) {
+        e.preventDefault();
+        $('#findIDModal').hide();
+        $('#findPWModal').show();
+      });
 
     $('.remove_btn').click(function(e) {
       e.preventDefault();
