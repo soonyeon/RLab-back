@@ -452,6 +452,7 @@ header{
     box-sizing: border-box;
     background-color: white;
 	border-bottom: 1px solid gray;
+	white-space: nowrap;
 }
 .read_content{
 	background-color: #d5d2d2;
