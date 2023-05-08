@@ -179,7 +179,9 @@ header #header_container {
 	align-items: center;
 	font-size: 15px;
 }
-
+header{
+	
+}
 /* 로그인 전 */
 #header_container .header_right{
 	display: flex;

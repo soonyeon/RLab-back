@@ -214,6 +214,20 @@
 			</div> 
     </header>
 <script>
+// 스크롤 내리면 헤더에 그림자넣기
+$("body").on("mousewheel", function(e){
+	var wheel = e.originalEvent.wheelDelta;
+	var now= $("header").offset().top;
+	console.log(now);
+	if(now <= 100){
+		$("header").css("box-shadow", "none");
+	}
+	if(wheel > 0){
+	}else{
+		$("header").css("box-shadow", "2px 2px 5px #d9cec5ba");
+	}
+})
+
 let source;
 $(document).ready(function() {
 	// 알람 누르면 알람 모달 보이기
