@@ -155,7 +155,7 @@
 		        <c:if test="${user != null}">		  		       
      				<form action="<c:url value='/logout'></c:url>" method="post">     
 		  				<div class="logout_box">
-              				<a class="logout_btn">로그아웃</a>
+              				
               				<div class="alarm_bell_box">
               					<div class="new_dot bell_dot"></div>
 		  		    			<img class="alram_img" src="<c:url value='/resources/img/alram.png'></c:url>" width="auto" height="20">
@@ -172,6 +172,7 @@
 			  		    			<span class="blind">마이페이지</span>
 		  		    			</c:if>
 			  		    	</a>
+		  		    		<a class="logout_btn">로그아웃</a>
             			</div>    
               		</form>
 		        </c:if>
