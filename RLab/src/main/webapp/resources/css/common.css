@@ -81,7 +81,7 @@ a{color: var(--color_black);}
 /* 추가(주연): 로고 아이콘 2023-02-10 */
 .btn_home {
     display: flex;
-    width: 66px;
+    width: 69px;
     height: 50px;
     font-size: 14px;
     font-weight: 800;
@@ -90,12 +90,9 @@ a{color: var(--color_black);}
   }
 .btn_home .icon_home {
    width: 40px;
-   height: 51px;
-   background-size: 60px 60px;
-   background-position: -10px -5px;
-	/* 수정(주연): 로고 아이콘 2023-02-11 */
-   background-size: 58px 58px;
-   background-position: -10px -4px;
+   height: 100%;
+   background-size: 55px;
+   background-position: -9px -2px;
    background-image: url(../img/rlab_logo.png);
    background-repeat: no-repeat;
 }
@@ -146,39 +143,38 @@ header #header_container {
 }
 #header_container .header_left{
 	display: flex;
-	gap: 30px;
+	gap: 90px;
 }
 .btn_home {
 	display: flex;
-	width: 66px;
+	width: 69px;
 	height: 50px;
 	font-size: 14px;
 	font-weight: 800;
 	line-height: 80px;
 	overflow: hidden;
 }
-.btn_home .icon_home {
-	width: 40px;
-	height: 51px;
-	background-size: 60px 60px;
-	background-position: -10px -5px;
-	background-image: url(../img/rlab_logo.png);
-	background-repeat: no-repeat;
 	
- /* width: 40px;
-  height: 51px;
-  background-size: 58px 58px;
-  background-position: -9px -4px;
-  background-image: url(../img/rlab_logo.png);
-  background-repeat: no-repeat;*/
-}
 .top_menu_container{
-	width: 230px;
+	width: 315px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	font-size: 15px;
+	font-size: 16px;
 }
+.top_menu_container .list_item{
+	color: #4c4c4c;
+}
+.top_menu_container .list_item:nth-child(1):hover{
+	color: var(--color_blue);
+}
+.top_menu_container .list_item:nth-child(2):hover{
+	color: var(--color_mint);
+}
+.top_menu_container .list_item:nth-child(3):hover{
+	color: #fbd620;
+}
+
 header{
 	
 }
