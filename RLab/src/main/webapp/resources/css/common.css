@@ -376,6 +376,9 @@ header{
 	height: 50px;
 	background-color: var(--color_blue);
 }
+.find_id_box .btn_outline_success:hover{
+	background-color: #5383bb;
+}
 
 .find_pw_box h2{
 	font-size: 35px;
@@ -399,7 +402,9 @@ header{
     border-radius: 5px;
     color: white;
 }
-
+.find_pw_box .btn_outline_success:hover{
+	background-color: #cdb943;
+}
 
 /*.close_btn{
   height: 20px;
