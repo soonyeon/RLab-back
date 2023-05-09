@@ -4,14 +4,6 @@
 <!-- header -->
 <!-- 모달 -->
 <style>
-	.notification {
-	  position: fixed;
-	  top: 20px;
-	  left: 50%;
-	  transform: translateX(-50%);
-	  z-index: 9999;
-	}
-	
 	body {
     font-family: Arial, sans-serif;
 	}
@@ -43,12 +35,11 @@
 	}
 </style>
 <header>
-	 <div class="notification" style="display:none;"></div>
     <!-- 로그인 모달창 -->
-      <div class="modal_container" id="loginModal">
+	<div class="modal_container" id="loginModal">
         <div class="modal_area">
-          <a href="#" class="close_btn">x</a>
-          <div class="login_box">
+        	<a href="#" class="close_btn">x</a>
+        	<div class="login_box">
 
             <h1>로그인</h1>
             
@@ -161,14 +152,15 @@
 	<div id="notificationModal" class="notification-modal">
         <div class="notification-content">
             <h4 id="notificationTitle">알림</h4>
-			<c:choose>
+            
+		<!-- 	<c:choose>
 				<c:when test="${notification.al_type == 'COMMENT'}">
 						올리신 게시글에 댓글이 달렸습니다.
 				</c:when>
 				<c:when test="${notification.al_type == 'LIKE'}">
 						올리신 게시글이 좋아요를 받았습니다.
 				</c:when>
-			</c:choose>
+			</c:choose> -->
         </div>
     </div>
 	<div class="alarm_modal" id="alarmModal" style=" max-height: 200px; overflow-y: auto;">	
@@ -329,7 +321,7 @@ function connect() {
     };
     source.addEventListener("newComment", function (event) {
     	//이벤트가 일어날 일을 여기밑에다가 쓰기
-	    const data = JSON.parse(event.data);
+	   //const data = JSON.parse(event.data);
 	    	console.log(event);
 		const title = "새로운 댓글";
 		const message = '게시글에 댓글이 달렸습니다.';
@@ -338,13 +330,13 @@ function connect() {
 		setTimeout(function() {
 		    hideModal();
 		}, 5000); 
-	 	console.log("Received newComment event:", data);
-	 	showNotification(data.message);
+	 	//console.log("Received newComment event:", data);
+	 	//showNotification(message);
 	 });
     
     source.addEventListener("newLike", function (event) {
         // 이벤트가 발생할 때 여기에 코드 작성
-        const data = JSON.parse(event.data);
+        //const data = JSON.parse(event.data);
         const title = "좋아요 알림";
         const message = '게시글에 좋아요가 추가되었습니다.';
         showModal(title, message);
@@ -352,13 +344,13 @@ function connect() {
         setTimeout(function() {
             hideModal();
         }, 5000);
-        console.log("Received newLike event:", data);
-        showNotification(data.message);
+        //console.log("Received newLike event:", data);
+        //showNotification(data.message);
     });
     
     source.addEventListener("joinStudy", function (event) {
         // 이벤트가 발생할 때 여기에 코드 작성
-        const data = JSON.parse(event.data);
+        //const data = JSON.parse(event.data);
         const title = "스터디 가입 알림";
         const message = '스터디에 새로운 회원이 가입했습니다. 스터디관리로 이동하여 확인해주세요. .';
         showModal(title, message);
@@ -366,13 +358,13 @@ function connect() {
         setTimeout(function() {
             hideModal();
         }, 5000);
-        console.log("Received joinStudy event:", data);
-        showNotification(data.message);
+        //console.log("Received joinStudy event:", data);
+        //showNotification(data.message);
     });
     
     source.addEventListener("leaveStudy", function (event) {
         // 이벤트가 발생할 때 여기에 코드 작성
-        const data = JSON.parse(event.data);
+        //const data = JSON.parse(event.data);
         const title = "스터디 탈퇴 알림";
         const message = '스터디원이 스터디를 탈퇴하였습니다. 스터디관리로 이동하여 확인해주세요.';
         showModal(title, message);
@@ -380,13 +372,13 @@ function connect() {
         setTimeout(function() {
             hideModal();
         }, 5000);
-        console.log("Received leaveStudy event:", data);
-        showNotification(data.message);
+        //console.log("Received leaveStudy event:", data);
+        //showNotification(data.message);
     });
     
     source.addEventListener("authorizeStudy", function (event) {
         // 이벤트가 발생할 때 여기에 코드 작성
-        const data = JSON.parse(event.data);
+        //const data = JSON.parse(event.data);
         const title = "스터디장 임명";
         const message = '새로운 스터디장으로 임명되었습니다. 스터디관리로 이동하여 확인해주세요.';
         showModal(title, message);
@@ -394,8 +386,8 @@ function connect() {
         setTimeout(function() {
             hideModal();
         }, 5000);
-        console.log("Received authorizeStudy event:", data);
-        showNotification(data.message);
+        //console.log("Received authorizeStudy event:", data);
+        //showNotification(data.message);
     });
 }
 
@@ -416,7 +408,7 @@ function hideModal() {
 
 
 function showNotification(message) {
-  console.log("showNotification called with message:", message);
+  //console.log("showNotification called with message:", message);
   $(".notification").text(message);
   $(".notification").fadeIn().delay(3000).fadeOut();
 }
