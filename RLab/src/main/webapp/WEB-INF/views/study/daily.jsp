@@ -116,7 +116,7 @@
 						<div class="now">NOW</div>
 					</div>
 					<div class="circle_star cc">
-						<img class="star" src="../img/favorite_star_on.png">
+						<img class="star" src="<c:url value='/resources/img/favorite_star_on.png'></c:url>">
 					</div>
 					<div class="my_study_container">
 						<div class="my_list_title">
