@@ -69,7 +69,7 @@
 	                    <!-- 펫 박스 -->
 	                    <div class="pet_box">
 	                    	<div class="pet_inner_box">
-	                    		<c:if test="${myPet == null }">
+	                    		<c:if test="${myPet == null}">
 			                        <div class="pet_message_container">
 			                            <div class="pet_message">응원할 펫이 없습니다</div>
 			                        </div>
@@ -77,9 +77,20 @@
 			                        	<img src="<c:url value="/resources/img/egg.png"></c:url>" alt="펫" class="pet">
 			                        </div>
 			                    </c:if>
-	                    		<c:if test="${myPet != null }">
+	                    		<c:if test="${myPet != null}">
 			                        <div class="pet_message_container">
-			                            <div class="pet_message">조금만 더 힘내요!</div>
+				                        <div class="message_box">
+					                        <c:if test="${todoProgressRateint >= 30 && todoProgressRateint < 50}">
+					                            <div class="pet_message">시작이 반이라는 말도 있죠?</div>
+					                        </c:if>
+					                        <c:if test="${todoProgressRateint >= 50 && todoProgressRateint < 100}">
+					                            <div class="pet_message">조금만 더 힘내요!</div>
+					                        </c:if>
+					                        <c:if test="${todoProgressRateint == 100}">
+					                            <div class="pet_message">오늘 할일 끝!</div>
+					                            <img src="<c:url value='/resources/img/party.png'></c:url>" width="auto" height="30">
+					                        </c:if>
+					                    </div>
 			                        </div>
 			                        <div class="pet_img_container">
 			                        	<img src="<c:url value="/resources/img${myPet.ev_img}"></c:url>" width="auto" height="149">
@@ -88,6 +99,7 @@
 		                        
 		                        <!-- 달성률 -->
 		                        <div class="progress_container">
+		                        ${todoProgressRateint}
 		                            <canvas id="gauge" width="100" height="20"></canvas>
 		                            <div>
 		                                <p class="success_percent">달성률 ${todoProgressRateint}%</p>
@@ -260,46 +272,6 @@
 
 
 <script>
-const st_num = '${st_num}';
-const userId = '${userId}'; 
-$(document).ready(function() {
-    loadStudyMembers(st_num, userId);
-});
-
-const sse = new EventSource("<c:url value='/connect'></c:url>" + "?id=" + userId);
-sse.addEventListener('connect', (e) => {
-    const { data: receivedConnectData } = e;
-    console.log('connect event data: ', receivedConnectData);  // "connected!"
-    console.log(new Date());
-});
-sse.addEventListener('count', e => {
-    const { data: receivedCount } = e;
-    console.log("count event data", receivedCount);
-});
-
-$('.leave').click(function() {
-	if(confirm('스터디를 탈퇴 하시겠습니까?')) {
-		  $.ajax({
-	            url: '<c:url value="/study/leave/${st_num}" />',
-	            type: 'POST',
-	            success: function(response) {
-	            	alert(response);
-	            	if(response == 'leader') {
-	            		alert('스터디장은 스터디 탈퇴가 불가능합니다. 스터디장을 회원에게 위임한 후 탈퇴하기를 진행하거나, 관리페이지에서 스터디 삭제를 진행해주세요.');
-	            		return false;
-	            	}else {
-	                alert('해당 스터디를 탈퇴했습니다.');
-	                window.location.href = '<c:url value="/" />';
-	            	}
-	            },
-	            error: function(error) {
-	                alert('해당 스터디 탈퇴에 실패하였습니다.');
-	            }
-	        });
-	}
-})
-
-
 function loadStudyMembers(st_num, userId) {
     $.ajax({
         url: '<c:url value="/onlineMembers"/>',
