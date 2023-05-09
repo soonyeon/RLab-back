@@ -228,6 +228,7 @@ $("#logout_btn").on("click", function() {
 });
 	
 function connect() {
+
     const userId = "${user.me_id}"; 
     console.log(userId);
     const connectUrl = "<c:url value='/connect' />" + "?id=" + userId;

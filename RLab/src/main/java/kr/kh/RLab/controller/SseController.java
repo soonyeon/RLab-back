@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,16 +47,21 @@ public class SseController {
 
     // 사용자가 연결되면, 해당 사용자에게 SseEmitter를 반환하고 사용자 ID와 함께 SseEmitters에 등록
     @GetMapping(value = "/connect", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public ResponseEntity<SseEmitter> connect(@RequestParam String id) {
+    public ResponseEntity<SseEmitter> connect(@RequestParam String id, HttpSession session) {
         SseEmitter emitter = new SseEmitter(60*30 * 1000L);
         LocalDateTime sessionExpiryTime = LocalDateTime.now().plusMinutes(30);
-        sseEmitters.add(id, emitter, sessionExpiryTime);
+        Object isEmitter = session.getAttribute("emitter");
+        if(isEmitter != null )
+        	return ResponseEntity.ok(emitter);
+        sseEmitters.add(id, emitter, sessionExpiryTime, session);
+        
         try {
             emitter.send(SseEmitter.event().name("connect").data("connected!"));
 
         } catch (IOException e) {
             logger.error("Error sending connect event to user {}", id, e);
         }
+        
         return ResponseEntity.ok(emitter);
     }
     // 온라인 사용자 목록을 반환

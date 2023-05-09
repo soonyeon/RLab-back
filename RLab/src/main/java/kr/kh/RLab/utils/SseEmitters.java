@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiConsumer;
+
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -68,13 +71,18 @@ public class SseEmitters {
 	}
   
 	 // 이벤트 발송기를 사용하여 새 사용자 추가
-	public void add(SseEmitter emitter) {
+	public void add(String id, SseEmitter emitter, LocalDateTime sessionExpiryTime, HttpSession session) {
+		System.out.println("add id :"+id);
+		if(id == null || id.length() == 0)
+			return;
 	    if (emitter != null) {
 	        UserSessionInfo userSessionInfo = new UserSessionInfo(emitter, LocalDateTime.now().plusMinutes(30));
-	        this.emitters.put(emitter.toString(), userSessionInfo);
-
+	        this.emitters.put(id, userSessionInfo);
+	        session.setAttribute("emitter", true);
+	        System.out.println("sseConnect : " + id);
 	        emitter.onCompletion(() -> {
 	            this.emitters.remove(emitter.toString());
+	            session.removeAttribute("emitter");
 	        });
 
 	        emitter.onTimeout(() -> {
@@ -90,13 +98,16 @@ public class SseEmitters {
 	}
 	 // 특정 사용자에게 이벤트 데이터를 전송
 	public void send(String eventName, Object eventData, String targetId) {
+		System.out.println("emitter send");
 		if(targetId == null) {
 			return;
 		}
 		emitters.forEach((id, userSessionInfo) -> {
+			System.out.println(eventName+" : "+id);
 	        if (id != null && userSessionInfo != null && userSessionInfo.getEmitter() != null) {
 	            try {
 	                if (id.equals(targetId)) {
+	                	
 	                    userSessionInfo.getEmitter().send(SseEmitter.event().name(eventName).data(eventData));
 	                }
 	            } catch (IOException e) {
