@@ -80,7 +80,7 @@
 					                <input type="file" id="photo" name="photo" accept="image/*">
 					                <br>
 					                <label for="content">내용입력:</label>
-					                <textarea id="content" name="content" rows="4" cols="50" maxlength="100" placeholder="내용은 100자 이내"></textarea>
+					                <textarea id="content" name="content" rows="4" cols="50" maxlength="500" placeholder="내용은 500자 이내"></textarea>
 					                <br>
 					                <label for="category">카테고리 선택:</label>
 						                <select id="ph_pt_num" name="ph_pt_num">
