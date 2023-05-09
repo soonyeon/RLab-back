@@ -67,7 +67,9 @@
 										<a href="<c:url value='/board/list/${st_num}?page=${pm.startPage-1}&pageSize=${ph.pageSize}'/>"> <i class="btn_prev"></i></a>
 									</c:if>
 									<c:forEach var="i" begin="${pm.startPage}" end="${pm.endPage}">
-										<a class="page_num<c:if test="${pm.cri.page == i}"> selected</c:if>" href="<c:url value='/board/list/${st_num}?page=${i}'/>">${i}</a>
+										<span class="page_num">
+											<a class="page_link<c:if test="${pm.cri.page == i}"> selected</c:if>" href="<c:url value='/board/list/${st_num}?page=${i}'/>">${i}</a>
+										</span>
 									</c:forEach>
 									<c:if test="${pm.next}">
 										<a href="<c:url value='/board/list/${st_num}?page=${pm.endPage+1}'/>"><i class="btn_next"></i></a>

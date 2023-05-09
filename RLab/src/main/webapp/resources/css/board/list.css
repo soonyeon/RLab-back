@@ -21,7 +21,9 @@ td a{
 }
 
 /*#my_container{padding-top: 32px;}*/
-
+.my_study_container{
+	margin-bottom: 0;
+}
 .study_card_container{
  /* padding-left: 30px;*/
 }
@@ -38,6 +40,12 @@ td a{
 	overflow: hidden;
 	box-sizing: border-box;
 }
+.home_container{
+	display: flex;
+    flex-flow: column;
+    gap: 20px;
+}
+
 .tab_content{
 	display: flex;
 	flex-flow: column;
@@ -121,7 +129,7 @@ table { border-collapse: collapse; }
 
 /* 넘기기 버튼 */
 .page_box{
-  margin-top: 40px; display: flex; justify-content: center;
+	display: flex; justify-content: center;
 }
 .page_box>*{float: left; }
 .page_num+.page_num{margin-left: 20px;}
