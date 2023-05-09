@@ -108,4 +108,16 @@ public interface StudyService {
 
 	void updateMemberStNum(String me_id, int st_num, int new_st_num);
 
+	ArrayList<MemberVO> selectMemberListByStNum(int st_num);
+
+	ArrayList<StudyMemberVO> selectStudyMemberByMeId(String me_id);
+
+	void updateMembersNull(String me_id, Integer new_st_num);
+
+	void updateMembersFirst(String me_id, int sm_st_num);
+
+
+
+
+
 }

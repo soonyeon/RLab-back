@@ -333,4 +333,34 @@ public class StudyServiceImp implements StudyService {
 		studyDao.updateMemberStNum(me_id, st_num, new_st_num);
 	}
 
+	@Override
+	public ArrayList<MemberVO> selectMemberListByStNum(int st_num) {
+		return studyDao.selectMemberListByStNum(st_num);
+		
+	}
+
+	@Override
+	public ArrayList<StudyMemberVO> selectStudyMemberByMeId(String me_id) {
+		return studyDao.selectStudyMemberByMeId(me_id);
+	}
+
+	@Override
+	public void updateMembersNull(String me_id, Integer new_st_num) {
+		studyDao.updateMembersNull(me_id,new_st_num);
+	}
+
+	@Override
+	public void updateMembersFirst(String me_id, int sm_st_num) {
+		studyDao.updateMembersFirst(me_id,sm_st_num);
+		
+	}
+
+
+
+
+
+
+
+
+
 }

@@ -302,10 +302,21 @@ public class StudyController {
 	//스터디 삭제
 	@ResponseBody
 	@RequestMapping(value = "/management/study/delete/{st_num}", method = RequestMethod.POST)
-	public HashMap<String, Object> deleteStudy(@RequestBody StudyVO st) {
+	public HashMap<String, Object> deleteStudy(@RequestBody StudyVO st,HttpSession session) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		// 해당 스터디를 삭제
 		studyService.deleteStudy(st.getSt_num());
+		//member me_study업데이트
+		ArrayList<MemberVO> meList = studyService.selectMemberListByStNum(st.getSt_num());
+		for (MemberVO me : meList ) {
+			ArrayList<StudyMemberVO> smList = studyService.selectStudyMemberByMeId(me.getMe_id());
+			if(smList.size()==0) {
+				studyService.updateMembersNull(me.getMe_id(),null);
+			}else {	
+				studyService.updateMembersFirst(me.getMe_id(),smList.get(0).getSm_st_num());
+			}
+		}
+		
 		return map;
 	}
 
@@ -475,6 +486,7 @@ public class StudyController {
 		StudyMemberVO stMember = studyService.findStudyMember(st_num, user.getMe_id());
 		ArrayList<StudyVO> findStudy = studyService.getStudyByMemberId(user.getMe_id());
 		
+		
 		if (stMember != null && stMember.getSm_authority() == 9) {
 			return "leader";
 		}
@@ -491,7 +503,7 @@ public class StudyController {
 		// 스터디 정보 업데이트
 		studyService.leaveStudy(user, st_num);
 		studyService.updateStudy(study);
-		
+
 		for (StudyVO st : findStudy) {
 			
 			studyService.updateMemberStNum(user.getMe_id(),st_num,st.getSt_num());
