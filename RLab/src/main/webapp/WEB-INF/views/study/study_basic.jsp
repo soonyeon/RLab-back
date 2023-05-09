@@ -645,12 +645,22 @@ function loadStudyMembers(st_num, userId) {
                         memberList += '<div class="study_title">' + members[0].st_name + '</div>';
                     }
 
-                    // 온라인 회원 목록 처리
+                    // 온라인 회원 목록 처리 (나->접속자->비접속자)
+                    members.forEach(member => {
+                    const isOnline = onlineMembers.includes(member.me_name);
+                        if(userId === member.me_name)
+                        	memberList += createMemberListItem(member, userId, true);
+                    });
                     members.forEach(member => {
                         const isOnline = onlineMembers.includes(member.me_name);
-                        memberList += createMemberListItem(member, userId, isOnline);
+	                	if(userId != member.me_name && isOnline)
+	                    	memberList += createMemberListItem(member, userId, true);
                     });
-
+                    members.forEach(member => {
+                        const isOnline = onlineMembers.includes(member.me_name);
+	                	if(userId != member.me_name && !isOnline)
+	                    	memberList += createMemberListItem(member, userId, false);
+                    });
                     document.querySelector(".accessor").innerHTML = memberList;
                 }
             });
