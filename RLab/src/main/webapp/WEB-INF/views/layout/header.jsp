@@ -213,12 +213,10 @@ $(document).mouseup(function (e){
 		
 // 로그아웃 버튼 클릭 이벤트
 $("#logout_btn").on("click", function() {
-    // 로그아웃 POST 요청
     $.ajax({
         url: '/logout',
         type: 'POST',
         success: function() {
-            // 로그아웃 성공 후 페이지 새로고침
             location.reload();
         },
         error: function() {
@@ -226,7 +224,78 @@ $("#logout_btn").on("click", function() {
         }
     });
 });
-	
+
+$('.login_modal').click(function(e) {
+  e.preventDefault();
+  $('#loginModal').show();
+});
+
+$('.more_action_item.1').click(function(e) {
+  e.preventDefault();
+  $('#loginModal').hide();
+  $('#findIDModal').show();
+});
+
+$('.more_action_item.2').click(function(e) {
+  e.preventDefault();
+  $('#loginModal').hide();
+  $('#findPWModal').show();
+});
+
+$('.close_btn').click(function(e) {
+  e.preventDefault();
+  $('.modal_container').hide();
+});
+
+$('.logout_btn').click(function(e) {
+	e.preventDefault();
+	$(this).closest('form').submit();
+});
+
+function findPW() {
+  let id = $("#findPW_id").val();
+  let email = $("#findPW_email").val();
+  $.ajax({
+    type: "POST",
+    url: "<c:url value='/findPW'/>",
+    data: {
+      id: id,
+      email: email
+    },
+    success: function(response) {
+      if (response === "found") {
+        alert("이메일로 임시번호를 보냈습니다.");
+      } else {
+        alert("해당 아이디와 이메일로 등록된 정보가 없습니다.");
+      }
+    },
+    error: function() {
+      alert("이메일로 전송이 실패 했습니다.");
+    }
+  });
+}
+
+function findID() {
+  let email = $("#email").val();
+  $.ajax({
+    type: "POST",
+    url: "<c:url value='/findID'/>",
+    data: {
+      email: email
+    },
+    success: function(response) {
+      if (response === "found") {
+        alert("이메일로 아이디를 보냈습니다.");
+      } else {
+        alert("해당 이메일로 등록된 아이디가 없습니다.");
+      }
+    },
+    error: function() {
+      alert("이메일로 전송이 실패 했습니다.");
+    }
+  });
+}
+
 function connect() {
 
     const userId = "${user.me_id}"; 
@@ -274,11 +343,12 @@ function connect() {
         console.log("Received newLike event:", data);
         showNotification(data.message);
     });
+    
     source.addEventListener("joinStudy", function (event) {
         // 이벤트가 발생할 때 여기에 코드 작성
         const data = JSON.parse(event.data);
-        const title = "스터디 가입 신청이 도착했습니다";
-        const message = '스터디에 가입 신청을 하셨습니다. 스터디관리로 이동하여 확인해주세요. .';
+        const title = "스터디 가입 알림";
+        const message = '스터디에 새로운 회원이 가입했습니다. 스터디관리로 이동하여 확인해주세요. .';
         showModal(title, message);
 
         setTimeout(function() {
@@ -287,11 +357,12 @@ function connect() {
         console.log("Received joinStudy event:", data);
         showNotification(data.message);
     });
+    
     source.addEventListener("leaveStudy", function (event) {
         // 이벤트가 발생할 때 여기에 코드 작성
         const data = JSON.parse(event.data);
         const title = "스터디 탈퇴 알림";
-        const message = '스터디관리로 이동하여 확인해주세요.';
+        const message = '스터디원이 스터디를 탈퇴하였습니다. 스터디관리로 이동하여 확인해주세요.';
         showModal(title, message);
 
         setTimeout(function() {
@@ -300,11 +371,12 @@ function connect() {
         console.log("Received leaveStudy event:", data);
         showNotification(data.message);
     });
+    
     source.addEventListener("authorizeStudy", function (event) {
         // 이벤트가 발생할 때 여기에 코드 작성
         const data = JSON.parse(event.data);
-        const title = "스터디 위임 알림";
-        const message = '스터디관리로 이동하여 확인해주세요.';
+        const title = "스터디장 임명";
+        const message = '새로운 스터디장으로 임명되었습니다. 스터디관리로 이동하여 확인해주세요.';
         showModal(title, message);
 
         setTimeout(function() {
@@ -318,27 +390,7 @@ function connect() {
 connect();
 	
 
-$('.login_modal').click(function(e) {
-  e.preventDefault();
-  $('#loginModal').show();
-});
 
-$('.more_action_item.1').click(function(e) {
-  e.preventDefault();
-  $('#loginModal').hide();
-  $('#findIDModal').show();
-});
-
-$('.more_action_item.2').click(function(e) {
-  e.preventDefault();
-  $('#loginModal').hide();
-  $('#findPWModal').show();
-});
-
-$('.close_btn').click(function(e) {
-  e.preventDefault();
-  $('.modal_container').hide();
-});
  
 function showModal(title, message) {
     $("#notificationTitle").text(title);
@@ -350,59 +402,13 @@ function hideModal() {
     $("#notificationModal").fadeOut(300);
 }
 
-function findID() {
-  let email = $("#email").val();
-  $.ajax({
-    type: "POST",
-    url: "<c:url value='/findID'/>",
-    data: {
-      email: email
-    },
-    success: function(response) {
-      if (response === "found") {
-        alert("이메일로 아이디를 보냈습니다.");
-      } else {
-        alert("해당 이메일로 등록된 아이디가 없습니다.");
-      }
-    },
-    error: function() {
-      alert("이메일로 전송이 실패 했습니다.");
-    }
-  });
-}
 
-function findPW() {
-  let id = $("#findPW_id").val();
-  let email = $("#findPW_email").val();
-  $.ajax({
-    type: "POST",
-    url: "<c:url value='/findPW'/>",
-    data: {
-      id: id,
-      email: email
-    },
-    success: function(response) {
-      if (response === "found") {
-        alert("이메일로 임시번호를 보냈습니다.");
-      } else {
-        alert("해당 아이디와 이메일로 등록된 정보가 없습니다.");
-      }
-    },
-    error: function() {
-      alert("이메일로 전송이 실패 했습니다.");
-    }
-  });
-}
-
-$('.logout_btn').click(function(e) {
-	e.preventDefault();
-	$(this).closest('form').submit();
- });
 function showNotification(message) {
   console.log("showNotification called with message:", message);
   $(".notification").text(message);
   $(".notification").fadeIn().delay(3000).fadeOut();
 }
+
 $(document).ready(function () {
     if ('${board.bo_num}' == '')
       return;
