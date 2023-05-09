@@ -39,7 +39,7 @@ public class CommentController {
 	private final GatherService gatherService;
 	private final SseController sseController;
 	@PostMapping("/create")
-	public Map<String, Object> createComment(@RequestBody CommentVO comment) {
+	public Map<String, Object> createComment(@RequestBody CommentVO comment,HttpSession session) {
 		int result = commentService.createComment(comment);
 		// 새 댓글이 생성되면 SSE 이벤트를 전송
 		if (result > 0) {
@@ -78,7 +78,7 @@ public class CommentController {
 		}
 		Map<String, Object> map = new HashMap<>();
 		map.put("result", result > 0 ? "success" : "fail");
-		sseController.sseNewComment(comment.getCo_ex_num());
+		sseController.sseNewComment(comment.getCo_ex_num(),session);
 		return map;
 	}
 

@@ -5,6 +5,8 @@ package kr.kh.RLab.service;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Service;
 
 import kr.kh.RLab.dao.JoinStudyDAO;
@@ -26,7 +28,8 @@ public class JoinStudyServiceImp implements JoinStudyService{
 	private final NotificationDao notificationDao;
 	
 	@Override
-	public Map<String, Object> toggleJoin(StudyMemberVO studyMember, MemberVO member) {
+	public Map<String, Object> toggleJoin(StudyMemberVO studyMember, MemberVO member,
+			HttpSession session) {
 	    if (member != null && member.getMe_study() != 0) {
 	        // 이미 가입된 스터디가 있으면 메시지를 반환
 	        Map<String, Object> result = new HashMap<>();
@@ -51,7 +54,7 @@ public class JoinStudyServiceImp implements JoinStudyService{
 	            newJoinState = 1;
 	         // SSE 알림 전송
 	            StudyVO study = studyService.getStudy(studyMember.getSm_st_num());
-	            sseEmitters.send("joinStudy", study, study.getSt_me_id());
+	            sseEmitters.send("joinStudy", study, study.getSt_me_id(),session);
 	            AlarmVO alarm = new AlarmVO(study.getSt_me_id(), "스터디 가입 신청이 도착했습니다.", 
 	            		0, AlarmType.MEMBER);
 	            notificationDao.createNotificationEvent(alarm);

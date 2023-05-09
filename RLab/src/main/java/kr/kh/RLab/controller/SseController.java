@@ -115,7 +115,7 @@ public class SseController {
     }
     
     @GetMapping(value = "/sse/authorize/study", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public ResponseEntity<SseEmitters> sseauthorizeStudy(StudyMemberVO sm, HttpSession session){
+    public ResponseEntity<SseEmitters> sseAuthorizeStudy(StudyMemberVO sm, HttpSession session){
     	StudyVO sv = studyService.getStudy(sm.getSm_st_num()); 
     	StudyMemberVO stm = studyService.findStudyMember(sm.getSm_st_num(), sv.getSt_me_id());
     	sseEmitters.send("authorizeStudy", stm, stm.getSm_me_id(),session);
@@ -125,10 +125,8 @@ public class SseController {
     //알림 삭제
 	@ResponseBody
 	@RequestMapping(value = "/delete/alarm/{al_num}", method = RequestMethod.POST)
-	public HashMap<String,Object> insertAnswerPost(HttpSession session, @PathVariable("al_num")int al_num) {
-		System.out.println(al_num);
+	public HashMap<String,Object> insertAnswerPost(@PathVariable("al_num")int al_num, HttpSession session) {
 		HashMap<String,Object> map = new HashMap<String,Object>();
-		MemberVO user = (MemberVO)session.getAttribute("user");
 		notificationService.deleteAlarm(al_num);
 		return map;
 	}

@@ -105,7 +105,8 @@ public class StudyController {
 
 	@PostMapping("/toggleLike")
 	@ResponseBody
-	public String toggleLike(@RequestParam("li_ph_num") int li_ph_num, HttpServletRequest request) {
+	public String toggleLike(@RequestParam("li_ph_num") int li_ph_num, HttpServletRequest request,
+			HttpSession session) {
 		MemberVO member = (MemberVO) request.getSession().getAttribute("user");
 		String li_me_id = member.getMe_id();
 		LikeVO likeVO = studyService.getLikeByUserIdAndPhotoId(li_me_id, li_ph_num);
@@ -124,7 +125,7 @@ public class StudyController {
 			message = member.getMe_name() + "님이 다음 게시글에 좋아요 표시를 했습니다." + photo.getPh_content();
 
 			notificationService.sendNotificationToUser(photoUser, message, AlarmType.LIKE);
-			sseController.sseNewLike(photo.getPh_num());
+			sseController.sseNewLike(photo.getPh_num(), session);
 			return "inserted";
 		} else {// 좋아요가 존재하면,
 			studyService.deleteLike(li_me_id, li_ph_num);
@@ -276,7 +277,8 @@ public class StudyController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/management/member/authorize", method = RequestMethod.POST)
-	public HashMap<String, Object> authorizeMember(@RequestBody StudyMemberVO sm) {
+	public HashMap<String, Object> authorizeMember(@RequestBody StudyMemberVO sm,
+			HttpSession session) {
 	    HashMap<String, Object> map = new HashMap<String, Object>();
 
 	    studyService.authorizeStudyMember(sm.getSm_st_num(), sm.getMe_name());
@@ -288,7 +290,7 @@ public class StudyController {
 	        notificationService.sendNotificationToUser(newLeaderId, message, AlarmType.STUDY);
 	    }
 
-	    sseController.sseauthorizeStudy(sm);
+	    sseController.sseAuthorizeStudy(sm,session);
 
 	    return map;
 	}
@@ -492,7 +494,7 @@ public class StudyController {
 
 		try {
 			notificationService.sendNotificationToUser(studyLeader, message, AlarmType.MEMBER);
-			sseController.sseLeaveStudy(st_num);
+			sseController.sseLeaveStudy(st_num, session);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
