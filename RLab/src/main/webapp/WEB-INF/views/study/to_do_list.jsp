@@ -10,20 +10,20 @@
 
 <main>
 	<div class="main_container">
-	    <!-- 왼쪽 메뉴바 -->
-	    <div class="left_menu_container">
-	        <nav class="left_menu">
-	            <a href="<c:url value='/study/${st_num}'></c:url>" class="list_item">스터디홈</a>
-	            <a href="#" class="list_item">스터디 달력</a>
-	            <a href="<c:url value='/study/todo'></c:url>" class="list_item">투두 리스트</a>
-	            <a href="<c:url value='/study/daily/${st_num}'></c:url>" class="list_item">데일리 미션</a>
-	            <a href="<c:url value='/study/photo/${st_num}'></c:url>" class="list_item">인증 게시판</a>
-	            <a href="<c:url value='/board/list/${st_num}'></c:url>" class="list_item">자유 게시판</a>
-	            <a href="<c:url value='/study/management'></c:url>" class="list_item">스터디 관리</a>
-	            <a href="#" class="leave">탈퇴하기</a>
-	        </nav>
-	    </div>
-	
+		  <div class="left_side">
+				<!-- 왼쪽 메뉴바 -->
+				<div class="left_menu_container">
+					<nav class="left_menu">
+						<a href="<c:url value='/study/${st_num}'></c:url>" class="list_item">스터디홈</a>
+						<a href="<c:url value='/study/todo/${st_num}'></c:url>" class="list_item">투두 리스트</a> 
+						<a href="<c:url value='/study/daily/${st_num}'></c:url>" class="list_item">데일리 미션</a> 
+						<a href="<c:url value='/study/photo/${st_num}'></c:url>" class="list_item">인증 게시판</a> 
+						<a href="<c:url value='/board/list/${st_num}'></c:url>" class="list_item">자유 게시판</a> 
+						<a href="<c:url value='/study/management'></c:url>" class="list_item">스터디 관리</a>
+					</nav>
+				</div>
+				<a href="#" class="leave">탈퇴하기</a>
+			</div>	
 	    <section>
 	        <div class="todo_container">
 	            <div class="time_line_title"> 투두 리스트</div>
@@ -248,6 +248,94 @@
 
 
 <script>
+const st_num = '${st_num}';
+const userId = '${userId}'; 
+$(document).ready(function() {
+    loadStudyMembers(st_num, userId);
+});
+
+const sse = new EventSource("<c:url value='/connect'></c:url>" + "?id=" + userId);
+sse.addEventListener('connect', (e) => {
+    const { data: receivedConnectData } = e;
+    console.log('connect event data: ', receivedConnectData);  // "connected!"
+    console.log(new Date());
+});
+sse.addEventListener('count', e => {
+    const { data: receivedCount } = e;
+    console.log("count event data", receivedCount);
+});
+
+$('.leave').click(function() {
+	if(confirm('스터디를 탈퇴 하시겠습니까?')) {
+		  $.ajax({
+	            url: '<c:url value="/study/leave/${st_num}" />',
+	            type: 'POST',
+	            success: function(response) {
+	            	alert(response);
+	            	if(response == 'leader') {
+	            		alert('스터디장은 스터디 탈퇴가 불가능합니다. 스터디장을 회원에게 위임한 후 탈퇴하기를 진행하거나, 관리페이지에서 스터디 삭제를 진행해주세요.');
+	            		return false;
+	            	}else {
+	                alert('해당 스터디를 탈퇴했습니다.');
+	                window.location.href = '<c:url value="/" />';
+	            	}
+	            },
+	            error: function(error) {
+	                alert('해당 스터디 탈퇴에 실패하였습니다.');
+	            }
+	        });
+	}
+})
+
+
+function loadStudyMembers(st_num, userId) {
+    $.ajax({
+        url: '<c:url value="/onlineMembers"/>',
+        type: 'GET',
+        dataType: 'json',
+        success: function (onlineMembers) {
+            $.ajax({
+                url: '<c:url value="/study/getMembers/"/>${st_num}',
+                type: 'GET',
+                dataType: 'json',
+                success: function (members) {
+                	// 기존 멤버 목록을 삭제
+                    $(".accessor_container").remove();
+                    let memberList = "";
+
+                    // 첫 번째 멤버의 study_title을 가져옴
+                    if (members.length > 0) {
+                        memberList += '<div class="study_title">' + members[0].st_name + '</div>';
+                    }
+
+                    // 온라인 회원 목록 처리
+                    members.forEach(member => {
+                        const isOnline = onlineMembers.includes(member.me_name);
+                        memberList += createMemberListItem(member, userId, isOnline);
+                    });
+
+                    document.querySelector(".accessor").innerHTML = memberList;
+                }
+            });
+        }
+    });
+}
+function createMemberListItem(member, userId, isOnline) {
+    const defaultImage = '<c:url value="/resources/img/user.png" />';
+    const userProfileImage = member.me_profile ? '<c:url value="/download" />' + member.me_profile : defaultImage;
+
+    return '<div class="accessor_container">' +
+    	(isOnline ? '<div class="accessor_on"></div>' : '') +
+        '<div class="circle_accessor">' +
+        '<img class="acc_img" src="' + userProfileImage + '" width="auto" height="40">' +
+        '<span class="blind">마이페이지</span>' +
+        //(isOnline ? '<div class="accessor_on"></div>' : '') +
+        '</div>' +
+        '<div class="study_name">' + member.me_name + '</div>' +
+        (userId === member.me_name ? '<span class="your">YOU</span>' : '') +
+        '</div>';
+}
+
 
 //게이지바
 

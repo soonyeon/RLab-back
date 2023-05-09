@@ -149,11 +149,7 @@
   font-size: 15px;
   font-weight: 800;
 } */
-.leave {
-  position: relative;
-  bottom: -120px;
-  left: 5px;
-} 
+ 
 .left_menu a:visited {
   font-weight: bold; 
   /*클릭했을때 굵어지면서 검정색으로 바뀌게 나중에 수정 */
