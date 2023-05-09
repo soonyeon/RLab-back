@@ -14,6 +14,7 @@ import kr.kh.RLab.vo.PhotoTypeVO;
 import kr.kh.RLab.vo.PhotoVO;
 import kr.kh.RLab.vo.StudyMemberVO;
 import kr.kh.RLab.vo.StudyVO;
+import kr.kh.RLab.vo.TodoVO;
 
 public interface StudyService {
 
@@ -41,6 +42,30 @@ public interface StudyService {
 
 	void deleteStudyMember(int st_num, String me_name);
 
+	void authorizeStudyMember(int sm_st_num, String me_name);
+
+	void deleteStudy(int st_num);
+
+	void stateUpdateStudy(int st_num, int st_state);
+
+	int getStudyState(int st_num);
+
+	void stateUpdateStudyUndo(int st_num, int st_state);
+
+	ArrayList<TodoVO> getTodoList(String memberId);
+
+	void createTodo(String td_content, String td_me_id);
+
+	void deleteTodo(int td_num);
+
+	void finishTodo(int td_num, int td_finish);
+
+	void finishTodoUndo(int td_num, int td_finish);
+
+	ArrayList<StudyMemberVO> getMyStudyList(String memberId);
+
+	double getTodoProgressRate(String memberId);
+  
 	List<StudyMemberVO> selectList(int st_num);
 
 	List<StudyMemberVO> getOnlineMembers();
@@ -60,10 +85,27 @@ public interface StudyService {
 	ArrayList<String> selectMissionFinishMember(int st_num);
 
 	boolean updateMission(MissionVO missionVO);
-
+  
 	PhotoVO getPhotoByPhNum(int li_ph_num);
 
 	MissionFinishVO selectTodayMissionFinsh(String me_id);
 
+	ArrayList<TodoVO> getStudyMemberTodo(int st_num);
+
+	ArrayList<StudyMemberVO> getStudyMember(int st_num);
+
+	double membersTdProgRate(String td_me_id);
+
+	void deleteLike(String li_me_id, int li_ph_num);
+
+	void leaveStudy(MemberVO user, int st_num);
+
+	StudyVO getStudy(int st_num);
+	
+	void updateStudy(StudyVO study);
+
+	StudyMemberVO findStudyMember(int st_num, String me_id);
+
+	void updateMemberStNum(String me_id, int st_num, int new_st_num);
 
 }

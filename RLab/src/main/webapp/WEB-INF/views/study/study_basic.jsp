@@ -136,7 +136,7 @@ body {
 		<div class="left_menu_container">
 			<nav class="left_menu">
 				<a href="<c:url value='/study/${st_num}'></c:url>" class="list_item">스터디홈</a>
-				<a href="to_do_list.html" class="list_item">투두 리스트</a> 
+				<a href="<c:url value='/study/todo/${st_num}'></c:url>" class="list_item">투두 리스트</a> 
 				<a href="<c:url value='/study/daily/${st_num}'></c:url>" class="list_item">데일리 미션</a> 
 				<a href="<c:url value='/study/photo/${st_num}'></c:url>" class="list_item">인증 게시판</a> 
 				<a href="<c:url value='/board/list/${st_num}'></c:url>" class="list_item">자유 게시판</a> 
@@ -178,7 +178,7 @@ body {
 
 				<dialog id="calendarDialog">
 				<form id="calendarForm">
-					<input type="hidden" value="${ca_st_num}" id="ca_st_num">
+					<input type="hidden" value="${st_num}" id="ca_st_num">
 					<div class="mb-3">
 						<label for="calendarTitle" class="form-label">제목</label> 
 						<input type="text" class="form-control" id="calendarTitle">
@@ -201,70 +201,79 @@ body {
 					</menu>
 				</form>
 				</dialog>
-
+				
 				<dialog id="editCalendarDialog">
-					<form id="editCalendarForm">
-						<input type="hidden" id="editCa_num"> 
-						<input type="hidden" id="editCa_st_num">
-						<h3>일정 수정 및 삭제</h3>
-						<div class="mb-3">
-							<label for="editCalendarTitle" class="form-label">제목</label>
-							<input type="text" class="form-control" id="editCalendarTitle">
-						</div>
-						<div class="mb-3">
-							<label for="editCalendarStart" class="form-label">시작일</label> 
-							<input type="datetime-local" class="form-control" id="editCalendarStart">
-						</div>
-						<div class="mb-3">
-							<label for="editCalendarEnd" class="form-label">종료일</label> <input
-								type="datetime-local" class="form-control" id="editCalendarEnd">
-						</div>
-						<div class="mb-3 form-check">
-							<input type="checkbox" class="form-check-input" id="editCalendarAllDay"> 
-							<label class="form-check-label" for="editCalendarAllDay">하루종일</label>
-						</div>
-						<menu>
-							<button type="button" id="closeEditCalendar">닫기</button>
-							<button type="button" id="updateCalendar">수정</button>
-							<button type="button" id="deleteCalendar">삭제</button>
-						</menu>
-					</form>
+				  <form id="editCalendarForm">
+				    <input type="hidden" id="editCa_num">
+				    <input type="hidden" id="editCa_st_num">
+				    <h3>일정 수정 및 삭제</h3>
+				    <div class="mb-3">
+				      <label for="editCalendarTitle" class="form-label">제목</label>
+				      <input type="text" class="form-control" id="editCalendarTitle">
+				    </div>
+				    <div class="mb-3">
+				      <label for="editCalendarStart" class="form-label">시작일</label>
+				      <input type="datetime-local" class="form-control" id="editCalendarStart">
+				    </div>
+				    <div class="mb-3">
+				      <label for="editCalendarEnd" class="form-label">종료일</label>
+				      <input type="datetime-local" class="form-control" id="editCalendarEnd">
+				    </div>
+				    <div class="mb-3 form-check">
+				      <input type="checkbox" class="form-check-input" id="editCalendarAllDay">
+				      <label class="form-check-label" for="editCalendarAllDay">하루종일</label>
+				    </div>
+				    <menu>
+				      <button type="button" id="closeEditCalendar">닫기</button>
+				      <button type="button" id="updateCalendar">수정</button>
+				      <button type="button" id="deleteCalendar">삭제</button>
+				    </menu>
+				  </form>
 				</dialog>
 
 				<div class="middle_container clearfix">
 					<!-- TO-DO LIST -->
-					<div class="todo_container">
-						<!-- 제목 -->
-						<div class="todo_box_title">
-							<h3>TODO</h3>
-							<a href="#" class="plus1">+더보기</a>
-						</div>
-						<!-- 내용 -->
-						<div class="todo_box_content">
-							<div class="input_container">
-								<input type="text" class="input_box" placeholder="할 일을 입력하세요">
-							</div>
-							<ul class="todo_list">
-								<li>
-									<span class="todo_check"> 
-										<i class="material-icons check">check</i>
-									</span> 
-									<span class="todo_content">할일</span> 
+          <div class="todo_container">
+              <!-- 제목 -->
+              <div class="todo_box_title">
+                  <h3>TODO</h3>
+                  <a href="#" class="plus1">+더보기</a>
+              </div>
+              <!-- 내용 -->
+				<div class="todo_box_content">
+					<div class="input_container">
+						<input type="text"class="input_box" placeholder="할 일을 입력하세요">
+ 					</div>
+						<ul class="todo_list" id="todo_list">
+							<c:forEach items="${tdList}" var="td" varStatus="vs" >
+								<li data-num="${td.td_num}">
+									<c:if test="${td.td_finish == 0}">
+										<span class="todo_check">
+										<i class="material-icons check check_on">check</i>
+										</span>
+										<span class="todo_content">${td.td_content}</span>
+									</c:if>
+									<c:if test="${td.td_finish == 1}">
+										<span class="todo_check">
+										<i class="material-icons check check_off">check</i>
+										</span>
+										<span class="todo_content done">${td.td_content}</span>
+									</c:if>
 									<span class="todo_clear">
-											<i class="material-icons clear">clear</i>
+										<i class="material-icons clear">clear</i>
 									</span>
 								</li>
-							</ul>
-
-							<!-- 달성률 -->
+							</c:forEach>
+						</ul>
+                  <!-- 달성률 -->
+						<div class="progress_container">
+							<canvas id="gauge" width="100" height="20"></canvas>
 							<div>
-								<p class="success_percent">달성률 20%</p>
-							</div>
-							<div>
-								<progress class="progress" value="20" max="100"></progress>
-							</div>
+						    	<p class="success_percent">달성률 ${todoProgressRateint}%</p>
+						    </div> 
 						</div>
-					</div>
+				</div>
+          </div>
 
 					<!-- 타임라인 -->
 					<div class="time_line_container">
@@ -455,9 +464,132 @@ body {
 	</div>
 </main>
 <script>
+
+var url = new URL(location.href);
+var top2 = url.searchParams.get("top");
+$(document).scrollTop(top2);
+
+//할 일 추가 후, todo_list 업데이트
+//DOM 요소 가져오기
+const todoInput = document.querySelector(".input_box"); // 할 일 입력란
+const todoList = document.querySelector(".todo_list"); // 할 일 목록
+const todo = todoInput.value;
+// 할 일 입력란에서 Enter 키를 눌렀을 때의 이벤트 핸들러
+todoInput.addEventListener("keypress", (e) => {
+	
+    if (e.keyCode === 13 && todoInput.value !== '') { // Enter 키를 눌렀고, 입력란이 비어있지 않은 경우
+    	const todo = todoInput.value;
+    	generateTodo(todo); // 입력된 할 일을 추가하는 함수 호출
+        todoInput.value = ""; // 입력란 비우기
+        /* updateTodoList(); */
+    }
+});
+
+// 할 일을 생성하고 서버에 전송하는 함수
+const generateTodo = (todo) => {
+    const obj = {
+    		td_content : todo,
+    		td_me_id : '${user.me_id}'
+    };
+    // 컨트롤러에서 보내주는 값을 확인
+    /* console.log(obj);  *///obj에 입력한 값이 제대로 전송되는지 확인
+    
+ 	  $.ajax({
+			async:false,
+		    type:'POST',
+		    data:JSON.stringify(obj),
+		    url:"<c:url value='/study/todo/create'></c:url>",
+		    //서버에서 받는 데이터 타입
+		    dataType:"json",
+		    //서버에서 보내는 데이터 타입
+		    contentType:"application/json; charset=UTF-8",
+		    success : function(data){
+		    	/* updateTodoList(); */
+		    	var top = $(document).scrollTop();
+		    	location.href = "<c:url value='/study/${st_num}?top="+top+"'></c:url>"; 
+		    }
+	});  
+} 
+
+//투두 삭제
+const clearIcons = document.querySelectorAll('.clear');
+clearIcons.forEach(icon => {
+    icon.addEventListener("click", (e) => {
+        var td_num = e.target.parentNode.parentNode.dataset.num;
+
+        console.log(td_num);
+        
+        $.ajax({
+            async: false,
+            type: 'POST',
+            data:JSON.stringify({'td_num': td_num}),
+            url: "<c:url value='/study/todo/delete'></c:url>",
+            // 서버에서 받는 데이터 타입
+            dataType: "json",
+            // 서버에서 보내는 데이터 타입
+            contentType: "application/json; charset=UTF-8",
+            success: function (data) {
+		    	/* updateTodoList(); */
+		    	var top = $(document).scrollTop();
+		    	location.href = "<c:url value='/study/${st_num}?top="+top+"'></c:url>";
+            }
+        });
+    });
+});
+
+//투두 상태 변경 0->1
+const checkOn = document.querySelectorAll('.check_on');
+checkOn.forEach(icon => {
+    icon.addEventListener("click", (e) => {
+        var td_num = e.target.parentNode.parentNode.dataset.num;
+       
+        $.ajax({
+            async: false,
+            type: 'POST',
+            data:JSON.stringify({'td_num': td_num}),
+            url: "<c:url value='/study/todo/finish'></c:url>",
+            // 서버에서 받는 데이터 타입
+            dataType: "json",
+            // 서버에서 보내는 데이터 타입
+            contentType: "application/json; charset=UTF-8",
+            success: function (data) { 
+		    	var top = $(document).scrollTop();
+		    	location.href = "<c:url value='/study/${st_num}?top="+top+"'></c:url>";
+            }
+        });
+    });
+}); 
+
+//투두 상태 변경 1 -> 0
+const checkOff = document.querySelectorAll('.check_off');
+checkOff.forEach(icon => {
+    icon.addEventListener("click", (e) => {
+        var td_num = e.target.parentNode.parentNode.dataset.num;
+        
+        console.log(td_num);
+       
+        $.ajax({
+            async: false,
+            type: 'POST',
+            data:JSON.stringify({'td_num': td_num}),
+            url: "<c:url value='/study/todo/finish/undo'></c:url>",
+            // 서버에서 받는 데이터 타입
+            dataType: "json",
+            // 서버에서 보내는 데이터 타입
+            contentType: "application/json; charset=UTF-8",
+            success: function (data) { 
+		    	var top = $(document).scrollTop();
+		    	location.href = "<c:url value='/study/${st_num}?top="+top+"'></c:url>";
+            }
+        });
+    });
+}); 
+
 const st_num = '${st_num}';
 const userId = '${userId}'; 
-loadStudyMembers(st_num, userId);
+$(document).ready(function() {
+    loadStudyMembers(st_num, userId);
+});
 
 const sse = new EventSource("<c:url value='/connect'></c:url>" + "?id=" + userId);
 sse.addEventListener('connect', (e) => {
@@ -470,6 +602,29 @@ sse.addEventListener('count', e => {
     console.log("count event data", receivedCount);
 });
 
+$('.leave').click(function() {
+	if(confirm('스터디를 탈퇴 하시겠습니까?')) {
+		  $.ajax({
+	            url: '<c:url value="/study/leave/${st_num}" />',
+	            type: 'POST',
+	            success: function(response) {
+	            	alert(response);
+	            	if(response == 'leader') {
+	            		alert('스터디장은 스터디 탈퇴가 불가능합니다. 스터디장을 회원에게 위임한 후 탈퇴하기를 진행하거나, 관리페이지에서 스터디 삭제를 진행해주세요.');
+	            		return false;
+	            	}else {
+	                alert('해당 스터디를 탈퇴했습니다.');
+	                window.location.href = '<c:url value="/" />';
+	            	}
+	            },
+	            error: function(error) {
+	                alert('해당 스터디 탈퇴에 실패하였습니다.');
+	            }
+	        });
+	}
+})
+
+
 function loadStudyMembers(st_num, userId) {
     $.ajax({
         url: '<c:url value="/onlineMembers"/>',
@@ -481,6 +636,8 @@ function loadStudyMembers(st_num, userId) {
                 type: 'GET',
                 dataType: 'json',
                 success: function (members) {
+                	// 기존 멤버 목록을 삭제
+                    $(".accessor_container").remove();
                     let memberList = "";
 
                     // 첫 번째 멤버의 study_title을 가져옴
@@ -488,27 +645,28 @@ function loadStudyMembers(st_num, userId) {
                         memberList += '<div class="study_title">' + members[0].st_name + '</div>';
                     }
 
-                    // 온라인 회원 목록 처리
+                    // 온라인 회원 목록 처리 (나->접속자->비접속자)
                     members.forEach(member => {
-                        if (onlineMembers.includes(member.me_name)) {
-                            memberList += createMemberListItem(member, userId, true);
-                        }
+                    const isOnline = onlineMembers.includes(member.me_name);
+                        if(userId === member.me_name)
+                        	memberList += createMemberListItem(member, userId, true);
                     });
-
-                    // 오프라인 회원 목록 처리
                     members.forEach(member => {
-                        if (!onlineMembers.includes(member.me_name)) {
-                            memberList += createMemberListItem(member, userId, false);
-                        }
+                        const isOnline = onlineMembers.includes(member.me_name);
+	                	if(userId != member.me_name && isOnline)
+	                    	memberList += createMemberListItem(member, userId, true);
                     });
-
+                    members.forEach(member => {
+                        const isOnline = onlineMembers.includes(member.me_name);
+	                	if(userId != member.me_name && !isOnline)
+	                    	memberList += createMemberListItem(member, userId, false);
+                    });
                     document.querySelector(".accessor").innerHTML = memberList;
                 }
             });
         }
     });
 }
-
 function createMemberListItem(member, userId, isOnline) {
     const defaultImage = '<c:url value="/resources/img/user.png" />';
     const userProfileImage = member.me_profile ? '<c:url value="/download" />' + member.me_profile : defaultImage;
@@ -524,70 +682,26 @@ function createMemberListItem(member, userId, isOnline) {
         '</div>';
 }
 
-const todoInput = document.querySelector(".input_box");
-const todoList = document.querySelector(".todo_list");
+const canvas = document.getElementById("gauge");
+const ctx = canvas.getContext("2d");
 
-todoInput.addEventListener("keypress",(e) => {
-		if(e.keyCode === 13 && todoInput.value !== ''){
-    generateTodo(todoInput.value);
-		todoInput.value = "";
-		}
-});
+const value = ${todoProgressRateint}; // 게이지바 값
+const max = 100; // 게이지바 최대값
+const barWidth = 100; // 게이지바 너비
+const barHeight = 20; // 게이지바 높이
+const centerX = canvas.width / 2 - barWidth/2;
+const centerY = canvas.height / 2;
 
-const generateTodo = (todo) => {
-	const li = document.createElement("li");
-	const checkSpan  = generateCheck(); 
-	const contentSpan = generateContent(todo); 
-	const clearSpan = generateClear();
-	li.appendChild(checkSpan);
-	li.appendChild(contentSpan);
-	li.appendChild(clearSpan);
-	todoList.appendChild(li);
-	console.log(li);
-	
-}
+// 게이지바 그리기
+const fillWidth = (value / max) * barWidth;
+ctx.fillStyle = "rgb(0, 128, 255)";
+ctx.fillRect(centerX, centerY - barHeight/2, fillWidth, barHeight);
 
-//체크 생성 메서드
-const generateCheck= () => {
-	const span = document.createElement("span");
-	span.classList.add("todo_check")
-	const icon = document.createElement("i");
-	icon.classList.add("material-icons");
-	icon.classList.add("check")
-	icon.innerText = "check"
-	icon.addEventListener("click",(e) => {
-		const li = e.target.parentNode.parentNode;
-		li.classList.add('done');
-		icon.remove();
-	});
-	span.appendChild(icon);
-	return span;
-}
 
-//컨텐트 생성 메서드
-const generateContent = (todo) => {
-	const span = document.createElement("span");//스팬을 생성, span변수에 할당
-	span.classList.add("todo_content");
-	span.innerText = todo;
-	return span;
-}
 
-// x버튼
-const generateClear= () => {
-	const span = document.createElement("span");
-	span.classList.add("todo_clear")
-	const icon = document.createElement("i");
-	icon.classList.add("material-icons");
-	icon.classList.add("clear")
-	icon.innerText = "clear"
-	icon.addEventListener("click",(e) => {
-		const li = e.target.parentNode.parentNode;
-		todoList.removeChild(li);
-	});
-	span.appendChild(icon);
-	
-	return span;
-}
+
+
+
 
 
 </script>

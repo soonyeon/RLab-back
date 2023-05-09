@@ -24,6 +24,8 @@ import kr.kh.RLab.service.StudyService;
 import kr.kh.RLab.utils.SseEmitters;
 import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.PhotoVO;
+import kr.kh.RLab.vo.StudyMemberVO;
+import kr.kh.RLab.vo.StudyVO;
 
 @RestController
 public class SseController {
@@ -44,7 +46,7 @@ public class SseController {
     // 사용자가 연결되면, 해당 사용자에게 SseEmitter를 반환하고 사용자 ID와 함께 SseEmitters에 등록
     @GetMapping(value = "/connect", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public ResponseEntity<SseEmitter> connect(@RequestParam String id) {
-        SseEmitter emitter = new SseEmitter(60 * 1000L);
+        SseEmitter emitter = new SseEmitter(60*30 * 1000L);
         LocalDateTime sessionExpiryTime = LocalDateTime.now().plusMinutes(30);
         sseEmitters.add(id, emitter, sessionExpiryTime);
         try {
@@ -56,15 +58,9 @@ public class SseController {
         return ResponseEntity.ok(emitter);
     }
     // 온라인 사용자 목록을 반환
-    @GetMapping("/onlineMembers")
+    @GetMapping(value = "/onlineMembers")
     public ResponseEntity<List<String>> getOnlineMembers() {
-        List<String> onlineMembers = new ArrayList<>();
-        sseEmitters.forEach((id, userSessionInfo) -> {
-            // 현재 시간과 마지막 활동 시간을 비교하여 5분 이내의 활동이 있는 사용자를 온라인으로 간주함
-            if (Duration.between(userSessionInfo.getLastActivity(), LocalDateTime.now()).toMinutes() <= 5) {
-                onlineMembers.add(id);
-            }
-        });
+        List<String> onlineMembers = sseEmitters.getOnlineUserIds();
         return ResponseEntity.ok(onlineMembers);
     }
     // 새로운 댓글이 작성된 게시글에 대한 이벤트를 전송 게시글의 작성자에게 알림을 보냄
@@ -89,4 +85,32 @@ public class SseController {
         return ResponseEntity.ok(sseEmitters);
 
     }
+    
+    @GetMapping(value = "/sse/join/study/{st_num}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public ResponseEntity<SseEmitters> sseJoinStudy(@PathVariable("st_num") int st_num) {
+    	StudyVO study = studyService.getStudy(st_num);
+    	sseEmitters.send("joinStudy", study, study.getSt_me_id());
+        return ResponseEntity.ok(sseEmitters);
+
+    }
+    
+    
+    @GetMapping(value = "/sse/leave/study/{st_num}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public ResponseEntity<SseEmitters> sseLeaveStudy(@PathVariable("st_num") int st_num) {
+    	StudyVO study = studyService.getStudy(st_num);
+    	sseEmitters.send("leaveStudy", study, study.getSt_me_id());
+        return ResponseEntity.ok(sseEmitters);
+
+    }
+    
+    @GetMapping(value = "/sse/authorize/study", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public ResponseEntity<SseEmitters> sseauthorizeStudy(StudyMemberVO sm){
+    	StudyVO sv = studyService.getStudy(sm.getSm_st_num()); 
+    	StudyMemberVO stm = studyService.findStudyMember(sm.getSm_st_num(), sv.getSt_me_id());
+    	sseEmitters.send("authorizeStudy", stm, stm.getSm_me_id());
+        return ResponseEntity.ok(sseEmitters);
+
+    }
+
+	
 }

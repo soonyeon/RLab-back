@@ -17,6 +17,7 @@ import kr.kh.RLab.vo.PhotoTypeVO;
 import kr.kh.RLab.vo.PhotoVO;
 import kr.kh.RLab.vo.StudyMemberVO;
 import kr.kh.RLab.vo.StudyVO;
+import kr.kh.RLab.vo.TodoVO;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -114,10 +115,9 @@ public class StudyServiceImp implements StudyService {
 	public void deleteStudyMember(int st_num, String me_name) {
 		// me_id 가져오기
 		String me_id = studyDao.selectStudyMemberId(me_name);
-		System.out.println(me_id);
-		// st_num과 me_id를 이용하여 해당 정보를 study_member에서 삭제하기
-		studyDao.deleteStudyMember(st_num, me_id);
-
+		//st_num과 me_id를 이용하여 해당 정보를 study_member에서 삭제하기
+		if(studyDao.deleteStudyMember(st_num, me_id)==0)
+			return;
 	}
 
 	@Override
@@ -132,8 +132,103 @@ public class StudyServiceImp implements StudyService {
 
 	@Override
 	public ArrayList<StudyMemberVO> selectStudyMemberByStNum(int st_num) {
-		
 		return studyDao.selectStudyMemberByStNum(st_num);
+	}
+
+	@Override
+	public void authorizeStudyMember(int sm_st_num, String me_name) {
+		//me_id 구하고
+		String sm_me_id = studyDao.selectStudyMemberId(me_name);
+		//sm_st_num과 sm_me_id가 일치하는 스터디원의 sm_authority를 9로 변경 
+		studyDao.updateStudyMemberAuthority(sm_st_num, sm_me_id);
+		
+		//스터디장의 id가져오기
+		String leaderId = studyDao.selectStudyLeaderId(sm_st_num); 
+		
+		//기존 스터디장의 sm_authority를 1으로 변경
+		studyDao.updateStudyLeaderAuthority(sm_st_num, leaderId);
+		
+		//스터디의 st_me_id를 바뀐 스터디장으로 변경
+		studyDao.updateStudyLeader(sm_st_num,sm_me_id);
+	}
+
+	@Override
+	public void deleteStudy(int st_num) {
+		//study테이블에서 해당st_num인 행 삭제
+		studyDao.deleteStudyMemberList(st_num);
+		//해당 스터디의 모집글 삭제
+		studyDao.deleteGatherByStNum(st_num);
+		//해당 스터디로 등록된 tag_registe 전부 삭제
+		studyDao.deleteTagRegisteStNum(st_num);
+		//study테이블에서 해당st_num인 행 삭제
+		studyDao.deleteStudy(st_num);
+	}
+
+	@Override
+	public void stateUpdateStudy(int st_num, int st_state) {
+		//해당 스터디의st_num을 1에서 0으로 변경
+		studyDao.stateUpdateStudy(st_num,st_state);
+	}
+
+	@Override
+	public int getStudyState(int st_num) {
+		return studyDao.selectStudyState(st_num);
+
+	}
+
+	@Override
+	public void stateUpdateStudyUndo(int st_num, int st_state) {
+		//해당 스터디의st_num을 0에서 1으로 변경
+		studyDao.stateUpdateStudyUndo(st_num,st_state);
+		
+	}
+
+	@Override
+	public ArrayList<TodoVO> getTodoList(String memberId) {
+		
+		return studyDao.selectTodoList(memberId);
+	}
+
+	@Override
+	public void createTodo(String td_content, String td_me_id) {
+		studyDao.insertTodo(td_content,td_me_id);
+		
+	}
+
+	@Override
+	public void deleteTodo(int td_num) {
+		studyDao.deletetTodo(td_num);
+	}
+
+	@Override
+	public void finishTodo(int td_num, int td_finish) {
+		// 해당 스터디의 td_finish를 0에서 1로 변경
+		studyDao.updateTodo(td_num, td_finish);
+	}
+
+	@Override
+	public void finishTodoUndo(int td_num, int td_finish) {
+		studyDao.updateTodoUndo(td_num, td_finish);
+	}
+
+	@Override
+	public ArrayList<StudyMemberVO> getMyStudyList(String memberId) {
+		
+		return studyDao.selectMyStudyList(memberId);
+	}
+
+	@Override
+	public double getTodoProgressRate(String memberId) {
+		//1. memberId에 td_me_id와 일치하는 투두 개수 구하기
+		int totalTodo = studyDao.selectTodoCount(memberId);
+		
+		//2. memberId가 td_me_id와 일치하고 td_finish가 1인 투두 개수 구하기
+		int finishTodo = studyDao.selectTodoFinishCount(memberId);
+		
+		//3. 2의 값/ 1의 값 * 100을 해서 진척률 구하기
+		double todoProgressRate = ((double) finishTodo / totalTodo) * 100;
+		
+		return todoProgressRate;
 	}
 
 	@Override
@@ -170,6 +265,11 @@ public class StudyServiceImp implements StudyService {
 	public boolean updateMission(MissionVO missionVO) {
 		return studyDao.updateMission(missionVO);
 	}
+  
+	@Override
+	public MissionFinishVO selectTodayMissionFinsh(String me_id) {
+		return studyDao.selectTodayMissionFinsh(me_id);
+	}
 
 	@Override
 	public PhotoVO getPhotoByPhNum(int li_ph_num) {
@@ -177,16 +277,60 @@ public class StudyServiceImp implements StudyService {
 		return null;
 		return studyDao.getPhotosByPhNum(li_ph_num);
 	}
-
+  
 	@Override
-	public MissionFinishVO selectTodayMissionFinsh(String me_id) {
-		return studyDao.selectTodayMissionFinsh(me_id);
+	public void deleteLike(String li_me_id, int li_ph_num) {
+		studyDao.deleteLike(li_me_id,li_ph_num);
 	}
 
+	@Override
+	public void leaveStudy(MemberVO user, int st_num) {
+		studyDao.leaveStudy(user.getMe_id(),st_num);
+	}
 
-
+	@Override
+	public ArrayList<TodoVO> getStudyMemberTodo(int st_num) {
+		return studyDao.selectStudyMemberTodo(st_num);
+	}
 	
+	@Override
+	public ArrayList<StudyMemberVO> getStudyMember(int st_num) {
+		return studyDao.selectStudyMember(st_num);
+	}
 
+	@Override
+	public double membersTdProgRate(String td_me_id) {
+		//1. memberId에 td_me_id와 일치하는 투두 개수 구하기
+		int mbTodoCount = studyDao.selectMemberTodoCount(td_me_id);
+		//2. memberId가 td_me_id와 일치하고 td_finish가 1인 투두 개수 구하기
+		int finishTodoCount = studyDao.selectMemberFinishTodoCount(td_me_id);
+		//3. 2의 값/ 1의 값 * 100을 해서 진척률 구하기
+		double membersTdProgRate = ((double) finishTodoCount / mbTodoCount) * 100;
+		
+		return membersTdProgRate;
+	}
 
+	@Override
+	public StudyVO getStudy(int st_num) {
+		if(st_num == 0) {
+			return null;
+		}
+		return studyDao.getStudy(st_num);
+	}
+
+	@Override
+	public void updateStudy(StudyVO study) {
+        studyDao.updateStudy(study);
+	}
+
+	@Override
+	public StudyMemberVO findStudyMember(int st_num,String me_id) {
+		return studyDao.findStudyMember(st_num,me_id);
+	}
+
+	@Override
+	public void updateMemberStNum(String me_id, int st_num, int new_st_num) {
+		studyDao.updateMemberStNum(me_id, st_num, new_st_num);
+	}
 
 }

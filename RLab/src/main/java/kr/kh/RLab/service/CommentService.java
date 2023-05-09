@@ -26,5 +26,8 @@ public interface CommentService {
 
 	ArrayList<CommentVO> selectCommentByGaNum(int ga_num);
 
+	CommentVO getCommentByCoNum(int co_ori_num);
+
+
 
 }

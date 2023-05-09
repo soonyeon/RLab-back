@@ -1,6 +1,5 @@
 package kr.kh.RLab.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
@@ -14,7 +13,7 @@ public interface NotificationService {
 
     void removeUser(String userId);
 
-    void sendNotificationToUser(String userId, String message, AlarmType alarm_type);
+    void sendNotificationToUser(String userId, String message, AlarmType al_type);
 
     void addAlarm(AlarmVO alarm);
 

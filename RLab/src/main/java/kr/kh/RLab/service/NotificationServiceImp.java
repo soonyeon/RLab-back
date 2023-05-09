@@ -44,7 +44,7 @@ public class NotificationServiceImp implements NotificationService {
     }
 
     @Override
-    public void sendNotificationToUser(String userId, String message,AlarmType alarm_type) {
+    public void sendNotificationToUser(String userId, String message,AlarmType al_type) {
         SseEmitter emitter = null;
         if (emitters.containsKey(userId)) {
             emitter = emitters.get(userId);
@@ -59,7 +59,7 @@ public class NotificationServiceImp implements NotificationService {
         alarm.setAl_me_id(userId);
         alarm.setAl_content(message);
         alarm.setAl_view(0); // 0: 확인하지 않음, 1: 확인함
-        alarm.setAlarm_type(alarm_type);
+        alarm.setAl_type(al_type);
         addAlarm(alarm);
         notificationDao.createNotificationEvent(alarm);
     }

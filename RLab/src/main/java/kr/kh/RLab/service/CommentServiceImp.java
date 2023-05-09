@@ -71,6 +71,11 @@ public class CommentServiceImp implements CommentService {
 		if(ga_num == 0)
 			return null;
 		return commentDao.selectCommentByGaNum(ga_num);
+  }
+  
+	@Override
+	public CommentVO getCommentByCoNum(int co_ori_num) {
+		return commentDao.selectComment(co_ori_num);
 	}
 
 }

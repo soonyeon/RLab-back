@@ -242,7 +242,16 @@ function loadComments(page1) {
 
             $.each(comments, function(index, comment) {
             	 if (comment.co_table === 'gather') {
-                console.log(comment);
+           		 if(comment.co_delete == 'Y') {
+                    	 let cmStateHtml = '';
+                       cmStateHtml += '<div class="cm_main_box">';
+                       cmStateHtml += '<div class="cm_top_box">';
+                       cmStateHtml += '<div class="already_comment">' + '삭제된 댓글입니다' + '</div>';
+                       cmStateHtml += '</div>';
+                       cmStateHtml += '</div>';
+                       $('.comment_box').append(cmStateHtml);
+                       return;
+                  } 	
                 if (comment.co_num == comment.co_ori_num) {
                     let listHtml = '';
 

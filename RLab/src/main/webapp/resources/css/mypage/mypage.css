@@ -73,7 +73,6 @@ article{
     border: var(--border_basic);
     border-radius: var(--border_radius_4);
     box-shadow: var(--box-shadow);
-    margin: 0 5px 5px 0;
     padding: 35px;
     gap: 18px;
     box-sizing: border-box;
@@ -82,7 +81,7 @@ article{
 .articles{
     display: flex;
     flex-flow: column;
-    gap: 10px;
+    gap: 18px;
     width: 970px;
 }
 
@@ -96,19 +95,23 @@ article{
 
 /*  article_top(이용시간, 펫 창, 나의 예약) */
 .articles .article_top{
-    height: 350px;
+    height: 393px;
 }
 .user_info{
+	width: 100%;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+   	gap: 45px; 
     font-size: 20px;
-    height: 25px;
 }
 .article_top #used_hours_container{
     display: flex;
     flex-flow: column;
     justify-content: space-between;
-    width: 55%;
+    width: 68%;
     background-color: var(--color_blue);
-    padding: 45px 35px 50px 35px;
+    padding: 40px 25px 45px 35px;
     box-sizing: border-box;
 }
 .title{
@@ -118,8 +121,8 @@ article{
     padding: 0 7px;
 }
 #used_hours_container .gauge{
-    width: 450px;
-    height: 23px;
+    width: 551px;
+    height: 35px;
     border: var(--border_basic);
     border-radius: var(--border_radius_2);
     background-color: var(--color_beige);
@@ -128,7 +131,7 @@ article{
 }
 .gauge_colored{
 	width: 100%;
-    height: 30px;
+    height: 100%;
 }
 .pet_ex_colored{
 	width: 0%;
@@ -158,18 +161,55 @@ article{
 .res_btn:hover{
 	background-color: #e7d743;
 }
-#used_hours_container #point_container{
-    width: 100%;
-    display: flex;
-    justify-content: flex-start;
+
+.icon_profile{
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    width:109px;
+    height: 109px;
+   	border: 2px solid var(--color_mint);
+    border-radius: var(--border_radius_1);
+    
 }
-#point_container .my_point{
+
+#user_info_container{
+	display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+	position: relative;
+	background: white;
+	border-radius: .4em;
+	padding: 20px 50px;
+	box-shadow: 3px 3px 10px #18181856;
+	box-sizing: border-box;
+}
+
+#user_info_container:after {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 16px solid transparent;
+	border-right-color: white;
+	border-left: 0;
+	margin-top: -20px;
+	margin-left: -14px;
+}
+
+#user_info_container .my_point{
     position: relative;
     display: flex;
     align-items: flex-end;
     gap: 10px;
     margin-bottom: -3px;
 }
+
 .icon_point{
     width: 55px;
     height: 55px;
@@ -179,22 +219,21 @@ article{
     opacity: 40%;
 }
 .my_point .title_point{
-    font-size: 20px;
-    padding-left: 7px;
+    font-size: 15px;
+    padding-left: 10px;
 }
 .my_point .point_texts .num_point{
-    font-size: 20px;
-    margin-bottom: -8px;
+    font-size: 15px;
 }
 
 .num_point .p_num{
-    font-size: 40px;
+    font-size: 20px;
     font-weight: bold;
 }
 .num_point .p_point{
-    font-size: 20px;
+    font-size: 15px;
 }
-#point_container .point_btns_container{
+#user_info_container .point_btns_container{
     height: 80px;
     display: flex;
     flex-flow: column;
@@ -225,7 +264,7 @@ article{
 
 /* 펫 창 */
 .article_top .pet_container{
-    width: 25%;
+    width: 30%;
     border: var(--border_basic);
     border-radius: var(--border_radius_4);    
     background-color: var(--color_yellow);
@@ -233,15 +272,14 @@ article{
     display: flex;
     flex-flow: column;
     align-items: flex-start;
-    gap: 10px;
+    justify-content: space-between;
 }
 .pet_container .pet_window{
     display: flex;
     flex-flow: column;
-    
     align-items: center;
     width: 100%;
-    
+    height: 100%;
     border: var(--border_basic);
     border-radius: var(--border_radius_4);
     background-color: var(--color_beige);
@@ -267,8 +305,8 @@ article{
     justify-content: space-between;
 }
 .pet_info_container .pet_level{
-    width: 55px;
-    height: 25px;
+    width: 58px;
+    height: 28px;
     background-color: var(--color_blue);
     border-radius: var(--border_radius_2);
     font-weight: 700;
@@ -277,13 +315,18 @@ article{
     line-height: 28px;
     padding: 2px;
 }
+.this_pet{
+	display: flex;
+	flex-flow: column;
+	gap: 3px;
+}
 .this_pet .pet_name{
-    font-size: 20px;
+    font-size: 23px;
 }
 .this_pet .pet_reward{
     display: flex;
     gap: 3px;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 600;
 }
 .icon_reward{
@@ -296,14 +339,14 @@ article{
 }
 .pet_description #pet_store_container{
     width: 97%;
-    height: 35px;
+    height: 45px;
     background-color: var(--color_mint);
     border: var(--border_basic);
     border-radius: var(--border_radius_4);
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
     cursor: pointer;
 }
@@ -521,16 +564,22 @@ article{
     background-color: var(--color_beige);
     box-sizing: border-box;
     box-shadow: var(--box-shadow);
+    gap: 15px;
 }
 .book_window .book_info{
     display: flex;
+    flex-flow: column;
     justify-content: center;
+    align-items: center;
     white-space: nowrap;
-    gap: 3px
+    gap: 10px
 }
 .book_info .book_title{
+	display: flex;
+	justify-content: center;
     font-size: 13px;
     margin-top: 3px;
+    gap: 3px;
 }
 .book_window .icon_circle{
     width: 5px;
@@ -542,27 +591,43 @@ article{
 
 /* article_second (d-day)*/
 .articles .article_second {
-    width: 82.8%;
+	display: flex;
+    align-items: center;
+    width: 100%;
     height: 70px;
-    padding: 15px;
+    padding: 15px 30px;
     box-sizing: border-box;
     background-color: var(--color_black);
     border-radius: var(--border_radius_4);
+    color: white;
+    white-space: nowrap;
+
 }
 .dday_container{
-    display: flex;
-    align-items: center;
-    position: relative;
-    width: 84%;
+	display: flex;
+   	position: relative;
+    width: 70%;
     align-items: center;
     overflow: hidden;
+    height: 100%;
+}
+
+.book_head_title{
+	/*margin-right: 20px;*/
+}
+.book_title{
+	display: flex;
 }
 .article_second .list_dday{
     position: absolute;
-    left: 9px;
+    left: 638px;
     display: flex;
     gap: 50px;
-    width: 1300px;
+   	animation: billboard 10s linear infinite;
+}
+@keyframes billboard{
+	from {transform: translateX(0);}
+	to {transform: translateX(-1157px);}
 }
 .list_dday .item_dday{
     display: flex;
@@ -571,15 +636,16 @@ article{
     font-size: 20px;
     font-weight: 700;
 }
-.item_dday:nth-child(1){
+.item_dday:nth-child(odd){
     color: var(--color_blue);
 }
-.item_dday:nth-child(2){
+.item_dday:nth-child(even){
     color: var(--color_yellow);
 }
-.item_dday:nth-child(3){
-    color: var(--color_mint);
-}
+/*.item_dday:nth-child(2){
+	margin-right: 100px;
+}*/
+
 .plus_dday{
     font-size: 14px;
     margin-top: -5px;
@@ -592,11 +658,11 @@ article{
 
 /* article_third (나의 스터디, 나의 스크랩) */
 .articles .article_third{
-    width: 82.8%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
-    gap: 0.9%;
-    height: 320px;
+    gap: 15px;
+    height: 383px;
     overflow: hidden;
 }
 .title_background{
@@ -610,7 +676,7 @@ article{
 /* my_study_container */
 .article_third .my_study_container{
     position: relative;
-    width: 48.5%;
+    width: 49%;
     display: flex;
     flex-flow: column;
     gap: 50px;
@@ -653,7 +719,7 @@ article{
 /* my_scrab_container */
 .article_third .my_scrab_container{
     position: relative;
-    width: 48.5%;
+    width: 49%;
     display: flex;
     flex-flow: column;
     gap: 50px;
