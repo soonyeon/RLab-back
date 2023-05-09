@@ -22,7 +22,7 @@
 						<a href="<c:url value='/study/management'></c:url>" class="list_item">스터디 관리</a>
 					</nav>
 				</div>
-				<a href="#" class="leave">탈퇴하기</a>
+				<a href="#" class="leave_btn">탈퇴하기</a>
 			</div>	
 	    <section>
 	        <div class="todo_container">
@@ -99,7 +99,6 @@
 		                        
 		                        <!-- 달성률 -->
 		                        <div class="progress_container">
-		                        ${todoProgressRateint}
 		                            <canvas id="gauge" width="100" height="20"></canvas>
 		                            <div>
 		                                <p class="success_percent">달성률 ${todoProgressRateint}%</p>

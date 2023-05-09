@@ -7,27 +7,28 @@
 
 <link rel="stylesheet"
 	href="<c:url value='/resources/css/study/certification_board.css'></c:url>">
-<link rel="stylesheet"
-	href="<c:url value='/resources/css/study/study.css'></c:url>">
-<link rel="stylesheet"
-	href="<c:url value='/resources/css/study/daily.css'></c:url>">
+	<link rel="stylesheet" href="<c:url value='/resources/css/common.css'></c:url>">
+<link rel="stylesheet" href="<c:url value='/resources/css/study/study.css'></c:url>">
+<link rel="stylesheet" href="<c:url value='/resources/css/study/daily.css'></c:url>">
 <c:set var="now" value="<%=new Date()%>" />
 <c:set var="currentDate2" value="<fmt:formatDate pattern='yyyy.MM.dd' value='${now}'/>" />
 <fmt:formatDate pattern='yyyy.MM.dd' value='${now}' var="currentDate"/>
 <main>
 	<div class="main_container">
-		<!-- 왼쪽 메뉴바 -->
-		    <div class="left_menu_container">
-		        <nav class="left_menu">
-		            <a href="<c:url value='/study/${user.me_study}'></c:url>" class="list_item">스터디홈</a>
-		            <a href="to_do_list.html" class="list_item">투두 리스트</a>
-		            <a href="<c:url value='/study/daily/${user.me_study}'></c:url>" class="list_item">데일리 미션</a>
-		            <a href="<c:url value='/study/photo/${user.me_study}'></c:url>" class="list_item">인증 게시판</a>
-		            <a href="<c:url value='/board/list/${user.me_study}'></c:url>" class="list_item">자유 게시판</a>
-		            <a href="<c:url value='/study/management/member'></c:url>" class="list_item">스터디 관리</a>
-		            <a href="#" class="leave">탈퇴하기</a>
-		        </nav>
-		    </div>
+		<div class="left_side">
+			<!-- 왼쪽 메뉴바 -->
+			<div class="left_menu_container">
+				<nav class="left_menu">
+					<a href="<c:url value='/study/${st_num}'></c:url>" class="list_item">스터디홈</a>
+					<a href="<c:url value='/study/todo/${st_num}'></c:url>" class="list_item">투두 리스트</a> 
+					<a href="<c:url value='/study/daily/${st_num}'></c:url>" class="list_item">데일리 미션</a> 
+					<a href="<c:url value='/study/photo/${st_num}'></c:url>" class="list_item">인증 게시판</a> 
+					<a href="<c:url value='/board/list/${st_num}'></c:url>" class="list_item">자유 게시판</a> 
+					<a href="<c:url value='/study/management'></c:url>" class="list_item">스터디 관리</a>
+				</nav>
+			</div>
+			<a href="#" class="leave_btn">탈퇴하기</a>
+		</div>
 	
 		<section>
 			<div class="home_container">
@@ -109,7 +110,7 @@
 						<div class="now">NOW</div>
 					</div>
 					<div class="circle_star cc">
-						<img class="star" src="../img/favorite_star_on.png">
+						<img class="star" src="/test/resources/img/favorite_star_on.png">
 					</div>
 					<div class="my_study_container">
 						<div class="my_list_title">

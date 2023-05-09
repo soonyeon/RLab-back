@@ -144,7 +144,7 @@ body {
 					<a href="<c:url value='/study/management'></c:url>" class="list_item">스터디 관리</a>
 				</nav>
 			</div>
-			<a href="#" class="leave">탈퇴하기</a>
+			<a href="#" class="leave_btn">탈퇴하기</a>
 		</div>
 		<section>
 			<div class="home_container">

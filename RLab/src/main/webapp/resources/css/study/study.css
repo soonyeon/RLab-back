@@ -85,8 +85,8 @@ footer .corp_container .link_corp:nth-child(1)::before{
 /* main div */
 .main_container{
 	width: 100%;
-  display: flex;
-  flex-flow: row; 
+	display: flex;
+ 	justify-content: space-between;
 }
 
 /* main #main_container {
@@ -102,7 +102,7 @@ footer .corp_container .link_corp:nth-child(1)::before{
     align-items: center;
     gap: 20px;
 }
-.leave{
+.leave_btn{
 	width: 160px;
 	padding: 10px;
 	box-sizing: border-box;
@@ -147,8 +147,8 @@ footer .corp_container .link_corp:nth-child(1)::before{
 .home_container {
   float: left;
   width: 709px;
-  margin-left: 30px;
-  margin-right: 30px;
+ /* margin-left: 30px;
+  margin-right: 30px;*/
 }
 
 /* 캘랜더  */
