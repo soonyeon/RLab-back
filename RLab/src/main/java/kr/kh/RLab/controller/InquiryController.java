@@ -39,7 +39,6 @@ public class InquiryController {
 		PageMaker pm = new PageMaker(totalCount,1, cri);
 		ArrayList<InquiryTypeVO> itList = inquiryService.getAllInquiryType();
 		ArrayList<Integer> answered = inquiryService.getAnsweredInNum();
-		System.out.println("답변완료된 게시글 번호:"+answered);
 		mv.addObject("user", user);
 		mv.addObject("inList", inList);
 		mv.addObject("pm", pm);

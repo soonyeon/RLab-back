@@ -67,7 +67,7 @@
 									<a href="/RLab/inquiry/list">1:1 문의</a>
 								</li>
 								<li class="item_help">
-									<a href="<c:url value='/notice/list'></c:url>">공지사항</a>
+									<a href="/RLab/notice/list">공지사항</a>
 								</li>
 								<li class="item_help">F&Q</li>
 								<li class="item_help">가맹점 문의</li>

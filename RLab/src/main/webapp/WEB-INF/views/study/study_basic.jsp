@@ -170,135 +170,135 @@ body {
 				</div>
 
 				<dialog id="calendarDialog">
-				<form id="calendarForm">
-					<input type="hidden" value="${st_num}" id="ca_st_num">
-					<div class="mb-3">
-						<label for="calendarTitle" class="form-label">제목</label> 
-						<input type="text" class="form-control" id="calendarTitle">
-					</div>
-					<div class="mb-3">
-						<label for="calendarStart" class="form-label">시작일</label>
-						<input type="datetime-local" class="form-control" id="calendarStart">
-					</div>
-					<div class="mb-3">
-						<label for="calendarEnd" class="form-label">종료일</label> 
-						<input type="datetime-local" class="form-control" id="calendarEnd">
-					</div>
-					<div class="mb-3 form-check">
-						<input type="checkbox" class="form-check-input" id="calendarAllDay"> 
-						<label class="form-check-label"	for="calendarAllDay">하루종일</label>
-					</div>
-					<menu>
-						<button type="button" id="closecalendar">닫기</button>
-						<button type="button" id="savecalendar">저장</button>
-					</menu>
-				</form>
+					<form id="calendarForm">
+						<input type="hidden" value="${st_num}" id="ca_st_num">
+						<div class="mb-3">
+							<label for="calendarTitle" class="form-label">제목</label> 
+							<input type="text" class="form-control" id="calendarTitle">
+						</div>
+						<div class="mb-3">
+							<label for="calendarStart" class="form-label">시작일</label>
+							<input type="datetime-local" class="form-control" id="calendarStart">
+						</div>
+						<div class="mb-3">
+							<label for="calendarEnd" class="form-label">종료일</label> 
+							<input type="datetime-local" class="form-control" id="calendarEnd">
+						</div>
+						<div class="mb-3 form-check">
+							<input type="checkbox" class="form-check-input" id="calendarAllDay"> 
+							<label class="form-check-label"	for="calendarAllDay">하루종일</label>
+						</div>
+						<menu>
+							<button type="button" id="closecalendar">닫기</button>
+							<button type="button" id="savecalendar">저장</button>
+						</menu>
+					</form>
 				</dialog>
 				
 				<dialog id="editCalendarDialog">
-				  <form id="editCalendarForm">
-				    <input type="hidden" id="editCa_num">
-				    <input type="hidden" id="editCa_st_num">
-				    <h3>일정 수정 및 삭제</h3>
-				    <div class="mb-3">
-				      <label for="editCalendarTitle" class="form-label">제목</label>
-				      <input type="text" class="form-control" id="editCalendarTitle">
-				    </div>
-				    <div class="mb-3">
-				      <label for="editCalendarStart" class="form-label">시작일</label>
-				      <input type="datetime-local" class="form-control" id="editCalendarStart">
-				    </div>
-				    <div class="mb-3">
-				      <label for="editCalendarEnd" class="form-label">종료일</label>
-				      <input type="datetime-local" class="form-control" id="editCalendarEnd">
-				    </div>
-				    <div class="mb-3 form-check">
-				      <input type="checkbox" class="form-check-input" id="editCalendarAllDay">
-				      <label class="form-check-label" for="editCalendarAllDay">하루종일</label>
-				    </div>
-				    <menu>
-				      <button type="button" id="closeEditCalendar">닫기</button>
-				      <button type="button" id="updateCalendar">수정</button>
-				      <button type="button" id="deleteCalendar">삭제</button>
-				    </menu>
-				  </form>
+					<form id="editCalendarForm">
+						<input type="hidden" id="editCa_num">
+					    <input type="hidden" id="editCa_st_num">
+					    <h3>일정 수정 및 삭제</h3>
+					    <div class="mb-3">
+					    	<label for="editCalendarTitle" class="form-label">제목</label>
+					    	<input type="text" class="form-control" id="editCalendarTitle">
+					    </div>
+					    <div class="mb-3">
+					    	<label for="editCalendarStart" class="form-label">시작일</label>
+					    	<input type="datetime-local" class="form-control" id="editCalendarStart">
+					    </div>
+					    <div class="mb-3">
+					    	<label for="editCalendarEnd" class="form-label">종료일</label>
+					    	<input type="datetime-local" class="form-control" id="editCalendarEnd">
+					    </div>
+					    <div class="mb-3 form-check">
+					    	<input type="checkbox" class="form-check-input" id="editCalendarAllDay">
+					    	<label class="form-check-label" for="editCalendarAllDay">하루종일</label>
+					    </div>
+					    <menu>
+					    	<button type="button" id="closeEditCalendar">닫기</button>
+					    	<button type="button" id="updateCalendar">수정</button>
+					    	<button type="button" id="deleteCalendar">삭제</button>
+					    </menu>
+					</form>
 				</dialog>
 				<div class="middle_container clearfix">
-					<!-- TO-DO LIST -->
-          <div class="todo_container">
-              <!-- 제목 -->
-              <div class="todo_box_title">
-                  <h3>TODO</h3>
-                  <a href="#" class="plus1">+더보기</a>
-              </div>
-              <!-- 내용 -->
+				<!-- TO-DO LIST -->
+				<div class="todo_container">
+				<!-- 제목 -->
+				<div class="todo_box_title">
+					<h3>TODO</h3>
+					<a href="#" class="plus1">+더보기</a>
+				</div>
+				<!-- 내용 -->
 				<div class="todo_box_content">
 					<div class="input_container">
 						<input type="text"class="input_box" placeholder="할 일을 입력하세요">
  					</div>
-						<ul class="todo_list" id="todo_list">
-							<c:forEach items="${tdList}" var="td" varStatus="vs" >
-								<li data-num="${td.td_num}">
-									<c:if test="${td.td_finish == 0}">
-										<span class="todo_check">
-										<i class="material-icons check check_on">check</i>
-										</span>
-										<span class="todo_content">${td.td_content}</span>
-									</c:if>
-									<c:if test="${td.td_finish == 1}">
-										<span class="todo_check">
-										<i class="material-icons check check_off">check</i>
-										</span>
-										<span class="todo_content done">${td.td_content}</span>
-									</c:if>
-									<span class="todo_clear">
-										<i class="material-icons clear">clear</i>
+					<ul class="todo_list" id="todo_list">
+						<c:forEach items="${tdList}" var="td" varStatus="vs" >
+							<li data-num="${td.td_num}">
+								<c:if test="${td.td_finish == 0}">
+									<span class="todo_check">
+									<i class="material-icons check check_on">check</i>
 									</span>
-								</li>
-							</c:forEach>
-						</ul>
-                  <!-- 달성률 -->
-						<div class="progress_container">
-							<canvas id="gauge" width="100" height="20"></canvas>
-							<div>
-						    	<p class="success_percent">달성률 ${todoProgressRateint}%</p>
-						    </div> 
-						</div>
-				</div>
-          </div>
-
-					<!-- 타임라인 -->
-					<div class="time_line_container">
-						<div class="timeline_box_title">
-							<h3 class="feed_title">오늘의 인증</h3>
-						</div>
-						<div class="feed_content_box">
-							<c:forEach items="${photo}" var="ph">
-								<c:if test="${ph.ph_st_num != null}">
-									<div class="today_feed_board">
-										<div class="feed_board">
-											<ul class="feed_writer_box">
-												<i class="feed_writer_img"></i>
-												<i class="feed_writer_name">${ph.ph_me_id}</i>
-												<i class="feed_date">${ph.ph_register_date }</i>
-											</ul>
-									<img class="feed_img" src="<c:url value='/download${ph.ph_img}'></c:url>">
-									</div>
-									<div class="feed_content_item">
-										<div class="feed_like">
-											<div class="feed_like_img"></div>
-											<div class="feed_like_count">10</div>
-										</div>
-										<div class="feed_content">
-											<span>${ph.ph_content}</span>
-											</div>
-										</div>
-									</div>
-									<hr>
+									<span class="todo_content">${td.td_content}</span>
 								</c:if>
-							</c:forEach> 
-						</div>
+								<c:if test="${td.td_finish == 1}">
+									<span class="todo_check">
+									<i class="material-icons check check_off">check</i>
+									</span>
+									<span class="todo_content done">${td.td_content}</span>
+								</c:if>
+								<span class="todo_clear">
+									<i class="material-icons clear">clear</i>
+								</span>
+							</li>
+						</c:forEach>
+					</ul>
+					<!-- 달성률 -->
+					<div class="progress_container">
+						<canvas id="gauge" width="100" height="20"></canvas>
+						<div>
+					    	<p class="success_percent">달성률 ${todoProgressRateint}%</p>
+					    </div> 
 					</div>
+				</div>
+			</div>
+
+			<!-- 타임라인 -->
+			<div class="time_line_container">
+				<div class="timeline_box_title">
+					<h3 class="feed_title">오늘의 인증</h3>
+				</div>
+				<div class="feed_content_box">
+					<c:forEach items="${photo}" var="ph">
+						<c:if test="${ph.ph_st_num != null}">
+							<div class="today_feed_board">
+								<div class="feed_board">
+									<ul class="feed_writer_box">
+										<i class="feed_writer_img"></i>
+										<i class="feed_writer_name">${ph.ph_me_id}</i>
+										<i class="feed_date">${ph.ph_register_date }</i>
+									</ul>
+							<img class="feed_img" src="<c:url value='/download${ph.ph_img}'></c:url>">
+							</div>
+							<div class="feed_content_item">
+								<div class="feed_like">
+									<div class="feed_like_img"></div>
+									<div class="feed_like_count">10</div>
+								</div>
+								<div class="feed_content">
+									<span>${ph.ph_content}</span>
+									</div>
+								</div>
+							</div>
+							<hr>
+						</c:if>
+					</c:forEach> 
+				</div>
+			</div>
 			<!-- 자유게시판 최신글 -->
 			<div class="free_board">
 				<!-- 제목 -->
@@ -353,38 +353,38 @@ body {
 	<!-- 오른쪽 메뉴 -->
 	<aside>
 		<div class="right-container">
-          <!-- 메뉴바 3개 -->
-          <div class="study_link_container">
-              <div class="circle_now cc">
-                  <div class="icon_now">NOW</div>
-                  <div class="study_name">${now.st_name}</div>
-              </div>
-              <div class="circle_star cc">
-                  <img class="icon_star" src="<c:url value='/resources/img/favorite_star_on.png'></c:url>">
-                  <div class="study_name"><a href="<c:url value='/study/${favorite.st_num}'></c:url>">${favorite.st_name}</a></div>
-              </div>
-              <div class="my_study_container">
-                  <div class="my_list_title">
-                      <div class="icon_my">MY</div>
-                      <div class="my_study">나의 스터디<button class="btn_dropdown">▼</button></div>
-                  </div>
-                  <div id="dropdown_list" class="display_none">
-                      <ul class="dropdown_list">
-                        <c:forEach items="${stList}" var="st">
-                            <li class="dropdown_item">
-                              <input type="hidden" name="list_st_num" value="${st.st_num}">
-                                <div class="item_container">
-                                    <a href="<c:url value='/study/${st.st_num}'></c:url>" class="item_name">${st.st_name}</a>
-                                    <c:if test="${user.me_study==st.st_num}"><div class="star_on"></div></c:if>
-                                    <c:if test="${user.me_study!=st.st_num}"><div class="star_off"></div></c:if>
-                                </div>
-                            </li>
-                          </c:forEach>
-                      </ul>
-                  </div>
-              </div>
-          </div>
-      </div>
+			<!-- 메뉴바 3개 -->
+			<div class="study_link_container">
+				<div class="circle_now cc">
+                	<div class="icon_now">NOW</div>
+                	<div class="study_name">${now.st_name}</div>
+            	</div>
+				<div class="circle_star cc">
+                	<img class="icon_star" src="<c:url value='/resources/img/favorite_star_on.png'></c:url>">
+                	<div class="study_name"><a href="<c:url value='/study/${favorite.st_num}'></c:url>">${favorite.st_name}</a></div>
+				</div>
+				<div class="my_study_container">
+					<div class="my_list_title">
+                    	<div class="icon_my">MY</div>
+                    	<div class="my_study">나의 스터디<button class="btn_dropdown">▼</button></div>
+                	</div>
+                	<div id="dropdown_list" class="display_none">
+						<ul class="dropdown_list">
+	                    	<c:forEach items="${stList}" var="st">
+	                        	<li class="dropdown_item">
+	                            	<input type="hidden" name="list_st_num" value="${st.st_num}">
+	                                <div class="item_container">
+	                                    <a href="<c:url value='/study/${st.st_num}'></c:url>" class="item_name">${st.st_name}</a>
+	                                    <c:if test="${user.me_study==st.st_num}"><div class="star_on"></div></c:if>
+	                                    <c:if test="${user.me_study!=st.st_num}"><div class="star_off"></div></c:if>
+	                                </div>
+	                          	</li>
+							</c:forEach>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
 		<!-- 접속상태 -->
 		<div class="accessor">
 			<div class="study_title">정보처리기사 스터디</div>
@@ -392,48 +392,48 @@ body {
 				<div class="circle_accessor">
 					<div class="accessor_on"></div>
 				</div>
-				<div class="study_name">김돌탕</div>
+				<div class="member_name">김돌탕</div>
 				<span class="your">YOU</span>
 			</div>
 			<div class="accessor_container">
 				<div class="circle_accessor"></div>
-				<div class="study_name">김순연</div>
+				<div class="member_name">김순연</div>
 			</div>
 			<div class="accessor_container">
 				<div class="circle_accessor"></div>
-				<div class="study_name">김세영</div>
+				<div class="member_name">김세영</div>
 			</div>
 			<div class="accessor_container">
 				<div class="circle_accessor"></div>
-				<div class="study_name">김도현</div>
+				<div class="member_name">김도현</div>
 			</div>
 			<div class="accessor_container">
 				<div class="circle_accessor"></div>
-				<div class="study_name">이정현</div>
+				<div class="member_name">이정현</div>
 			</div>
 			<div class="accessor_container">
 				<div class="circle_accessor"></div>
-				<div class="study_name">가나다</div>
+				<div class="member_name">가나다</div>
 			</div>
 			<div class="accessor_container">
 				<div class="circle_accessor"></div>
-				<div class="study_name">라마바</div>
+				<div class="member_name">라마바</div>
 			</div>
 			<div class="accessor_container">
 				<div class="circle_accessor"></div>
-				<div class="study_name">사아나</div>
+				<div class="member_name">사아나</div>
 			</div>
 			<div class="accessor_container">
 				<div class="circle_accessor"></div>
-				<div class="study_name">s아나</div>
+				<div class="member_name">s아나</div>
 			</div>
 			<div class="accessor_container">
 				<div class="circle_accessor"></div>
-				<div class="study_name">s아나</div>
+				<div class="member_name">s아나</div>
 			</div>
 			<div class="accessor_container">
 				<div class="circle_accessor"></div>
-				<div class="study_name">s아나</div>
+				<div class="member_name">s아나</div>
 			</div>
 		</div>
 	</aside>
@@ -650,7 +650,7 @@ function createMemberListItem(member, userId, isOnline) {
         '<span class="blind">마이페이지</span>' +
         (isOnline ? '<div class="accessor_on"></div>' : '') +
         '</div>' +
-        '<div class="study_name">' + member.me_name + '</div>' +
+        '<div class="member_name">' + member.me_name + '</div>' +
         (userId === member.me_name ? '<span class="your">YOU</span>' : '') +
         '</div>';
 }
@@ -683,7 +683,7 @@ $(document).ready(function (){
 	$('.star_off').click(function(){
 		let studyName = $(this).prev().text();
 		let studyNum = $(this).parents('.dropdown_item').find('[name=list_st_num]').val();
-		if(confirm("'studyName'를 즐겨찾기로 등록하시겠습니까?")){
+		if(confirm("'"+studyName+"' 스터디를 즐겨찾기로 등록하시겠습니까?")){
 			let obj = {
 				st_num: studyNum,
 				st_me_id: '${user.me_id}'
