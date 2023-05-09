@@ -188,14 +188,12 @@
 		                </div>
 	                </c:if>
 				</c:if>
-
-           
-
               </div>
               <!-- pet_container -->
               <div class="article_box pet_container">
              	 <c:if test="${myPet == null}">
 	                <div class="pet_window">
+	                	
 	                  <img src="" alt="" class="pet_talk" />
 	                  <img src="<c:url value="/resources/img/egg.png"></c:url>" alt="펫" class="pet" />
 	                </div>
@@ -213,7 +211,7 @@
 	              <c:if test="${myPet != null }">
 	                <div class="pet_window">
 	                  <img src="" alt="" class="pet_talk" />
-	                  <img src="<c:url value="/resources/${myPet.ev_img}"></c:url>" alt="펫" class="pet" />
+	                  <img src="<c:url value="/resources/img${myPet.ev_img}"></c:url>" alt="펫" class="pet" />
 	                </div>
 	                <div class="pet_description">
 	                  <div class="pet_info_container">
