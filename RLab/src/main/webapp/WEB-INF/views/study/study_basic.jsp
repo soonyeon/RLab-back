@@ -487,27 +487,24 @@ todoInput.addEventListener("keypress", (e) => {
 
 // 할 일을 생성하고 서버에 전송하는 함수
 const generateTodo = (todo) => {
-    const obj = {
-    		td_content : todo,
-    		td_me_id : '${user.me_id}'
+	const obj = {
+   		td_content : todo,
+   		td_me_id : '${user.me_id}'
     };
-    // 컨트롤러에서 보내주는 값을 확인
-    /* console.log(obj);  *///obj에 입력한 값이 제대로 전송되는지 확인
-    
- 	  $.ajax({
-			async:false,
-		    type:'POST',
-		    data:JSON.stringify(obj),
-		    url:"<c:url value='/study/todo/create'></c:url>",
-		    //서버에서 받는 데이터 타입
-		    dataType:"json",
-		    //서버에서 보내는 데이터 타입
-		    contentType:"application/json; charset=UTF-8",
-		    success : function(data){
-		    	/* updateTodoList(); */
-		    	var top = $(document).scrollTop();
-		    	location.href = "<c:url value='/study/${st_num}?top="+top+"'></c:url>"; 
-		    }
+	$.ajax({
+		async:false,
+	    type:'POST',
+	    data:JSON.stringify(obj),
+	    url:"<c:url value='/study/todo/create'></c:url>",
+	    //서버에서 받는 데이터 타입
+	    dataType:"json",
+	    //서버에서 보내는 데이터 타입
+	    contentType:"application/json; charset=UTF-8",
+	    success : function(data){
+	    	/* updateTodoList(); */
+	    	var top = $(document).scrollTop();
+	    	location.href = "<c:url value='/study/${st_num}?top="+top+"'></c:url>"; 
+	    }
 	});  
 } 
 
@@ -604,23 +601,23 @@ sse.addEventListener('count', e => {
 
 $('.leave').click(function() {
 	if(confirm('스터디를 탈퇴 하시겠습니까?')) {
-		  $.ajax({
-	            url: '<c:url value="/study/leave/${st_num}" />',
-	            type: 'POST',
-	            success: function(response) {
-	            	alert(response);
-	            	if(response == 'leader') {
-	            		alert('스터디장은 스터디 탈퇴가 불가능합니다. 스터디장을 회원에게 위임한 후 탈퇴하기를 진행하거나, 관리페이지에서 스터디 삭제를 진행해주세요.');
-	            		return false;
-	            	}else {
-	                alert('해당 스터디를 탈퇴했습니다.');
-	                window.location.href = '<c:url value="/" />';
-	            	}
-	            },
-	            error: function(error) {
-	                alert('해당 스터디 탈퇴에 실패하였습니다.');
-	            }
-	        });
+		$.ajax({
+	    	url: '<c:url value="/study/leave/${st_num}" />',
+            type: 'POST',
+            success: function(response) {
+            	alert(response);
+            	if(response == 'leader') {
+            		alert('스터디장은 스터디 탈퇴가 불가능합니다. 스터디장을 회원에게 위임한 후 탈퇴하기를 진행하거나, 관리페이지에서 스터디 삭제를 진행해주세요.');
+            		return false;
+            	}else {
+                alert('해당 스터디를 탈퇴했습니다.');
+                window.location.href = '<c:url value="/" />';
+            	}
+            },
+            error: function(error) {
+                alert('해당 스터디 탈퇴에 실패하였습니다.');
+            }
+        });
 	}
 })
 
@@ -696,12 +693,6 @@ const centerY = canvas.height / 2;
 const fillWidth = (value / max) * barWidth;
 ctx.fillStyle = "rgb(0, 128, 255)";
 ctx.fillRect(centerX, centerY - barHeight/2, fillWidth, barHeight);
-
-
-
-
-
-
 
 
 </script>
