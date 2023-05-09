@@ -72,5 +72,9 @@
 	from comment
 	where  co_me_id = #{me_id}
 </delete>
-
+<select id="selectCommentByGaNum" resultType="kr.kh.RLab.vo.CommentVO">
+	select *
+		from comment
+	where co_ex_num = #{ga_num}
+</select>
 </mapper>

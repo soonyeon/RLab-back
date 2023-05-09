@@ -15,6 +15,7 @@
 	<div id="main_container">
 	<input type="hidden" value="${user.me_id}" name="userId">
 	<input type="hidden" value="gather" name="ga_table">
+	<input type="hidden" value="${ga.ga_st_num}" name="ga_st_num">
 		<div class="main_title">
 			<h1>모집글 작성</h1>
 		</div>
@@ -24,41 +25,42 @@
 					임시저장 불러오기
 				</button>
 			</c:if>
-		  <!-- Modal -->
-		    <div id="temporary-list-modal" class="modal-style" style="display: none;">
-		      <h2>임시 게시글<button id="deleteAll">전체 삭제</button></h2>
-		      <ul id="itemList">
-		        <li>
-		            <span class="temp-title" data-title="${temp.te_title}" data-content="${temp.te_content}"></span>
-             				<button class="deleteBtn" data-id="${temp.te_num}">삭제</button>
-		        </li>
-		      </ul>
-		    </div>
-		    <div id="modal-background" class="modal-background" style="display: none;"></div>
-		</div>
-	
-		<form action="<c:url value='/gather/insertgather'></c:url>" method="post">			
+			
+			  <!-- Modal -->
+			    <div id="temporary-list-modal" class="modal-style" style="display: none;">
+			      <h2>임시 게시글<button id="deleteAll">전체 삭제</button></h2>
+			      <ul id="itemList">
+				        <li>
+				            <span class="temp-title" data-title="${temp.te_title}" data-content="${temp.te_content}"></span>
+               				<button class="deleteBtn" data-id="${temp.te_num}">삭제</button>
+				        </li>
+			      </ul>
+			      
+			    </div>
+			    <div id="modal-background" class="modal-background" style="display: none;"></div>
+			  </div>
+		
+		<form action="<c:url value='/gather/update/${ga.ga_num}'></c:url>" method="post">			
 			<h2>모집할스터디</h2>
 			<select id="choose_study" name="ga_st_num">
 			 	<c:forEach var="study" items="${studies}">
-                	<option value="${study.st_num}">${study.st_name}</option>
+                	<option value="${study.st_num}" <c:if test="${ga.ga_st_num == study.st_num}">selected</c:if>>${study.st_name}</option>
            		</c:forEach>
-			</select>
-			
+			</select>	
 			<h2>제목</h2>
 			<div class="recruit_title_box">
-				<input type="text" class="recruit_title" placeholder="제목 10자 이내" maxlength="10" name="ga_title">
+				<input type="text" class="recruit_title" placeholder="제목 10자 이내" maxlength="10" name="ga_title" value="${ga.ga_title}">
 			</div>
 			<h2>내용</h2>
-			<textarea id="summernote" name="ga_content" ></textarea>
+			<textarea id="summernote" name="ga_content" value="${ga.ga_content}"></textarea>
 			<div class="btn_box">
-				<c:if test="${user != null }">
 				<button type="button" class="ts_btn">임시저장</button>
-				<button type="submit" class="write_complete_btn">작성완료</button>
-				</c:if>
+				<button type="submit" class="write_complete_btn">수정완료</button>
+
 			</div>
 		</form>
 	</div>
+
 </main>
 
 	<!-- Modal -->
@@ -217,5 +219,6 @@ $('form').submit(function(){
 						[ 'view', [ 'fullscreen', 'codeview', 'help' ] ] ]
 			});
 	
+	$('#summernote').summernote('code','${ga.ga_content}');
 	
 </script>
