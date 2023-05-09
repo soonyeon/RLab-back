@@ -3,7 +3,6 @@ package kr.kh.RLab.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -493,7 +491,7 @@ public class StudyController {
 		String message = user.getMe_name() + "님이 스터디를 탈퇴했습니다.";
 
 		try {
-			notificationService.sendNotificationToUser(studyLeader, message, AlarmType.STUDY);
+			notificationService.sendNotificationToUser(studyLeader, message, AlarmType.MEMBER);
 			sseController.sseLeaveStudy(st_num);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -505,7 +503,6 @@ public class StudyController {
 		// 회원정보에 있는 study 값을 랜덤으로 추가하는 작업
 		ArrayList<StudyVO> findStudy = studyService.getStudyByMemberId(user.getMe_id());
 		for (StudyVO st : findStudy) {
-			
 			studyService.updateMemberStNum(user.getMe_id(),st_num,st.getSt_num());
 		}
 		//st_num , me_id 일치하는 멤버

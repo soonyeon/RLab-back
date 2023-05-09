@@ -52,13 +52,8 @@ public class JoinStudyServiceImp implements JoinStudyService{
 	         // SSE 알림 전송
 	            StudyVO study = studyService.getStudy(studyMember.getSm_st_num());
 	            sseEmitters.send("joinStudy", study, study.getSt_me_id());
-	            AlarmVO alarm = new AlarmVO();
-	            alarm.setAl_me_id(study.getSt_me_id());
-	            alarm.setAl_content("스터디 가입 신청이 도착했습니다.");
-	            alarm.setAl_view(0); // 확인되지 않은 알림으로 설정
-	            alarm.setBo_title("스터디 가입"); // 게시물 제목 예시
-	            alarm.setAl_type(AlarmType.STUDY); // 알림 유형 설정
-
+	            AlarmVO alarm = new AlarmVO(study.getSt_me_id(), "스터디 가입 신청이 도착했습니다.", 
+	            		0, AlarmType.MEMBER);
 	            notificationDao.createNotificationEvent(alarm);
 	        }
 	    } else {
@@ -68,9 +63,6 @@ public class JoinStudyServiceImp implements JoinStudyService{
 	        joinstudyDao.updateStudyNowPeopleDown(studyMember.getSm_st_num());
 	        newJoinState = 0;
 	    }
-
-	    // 게시글에 대한 현재 스크랩 개수를 가져옴
-	    int currentJoinCount = joinstudyDao.getJoinCountByStudy(studyMember.getSm_st_num());
 
 	    Map<String, Object> result = new HashMap<>();
 	    result.put("joinState", newJoinState);

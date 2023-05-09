@@ -174,8 +174,8 @@
 	<div class="alarm_modal" id="alarmModal" style=" max-height: 200px; overflow-y: auto;">	
 	    <c:forEach var="alarm" items="${alarm}">
 	   	    <c:if test="${alarm.al_view == 0}">
-				<a class="modal_content" href="">		   
-				    	<img class="alarm_remove" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="20">
+				<a class="modal_content" href="#">		   
+				    <img class="alarm_remove" data-num="${alarm.al_num}" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="20">
 			    	<div class="alarm_content_box">
 				    	<div class="new_dot"></div>
 				        <p>${alarm.al_content}</p>
@@ -183,17 +183,15 @@
 	   			</a>
 	   		</c:if>
 		    <c:if test="${alarm.al_view == 1}">
-				<a class="modal_content read_content" href="">		   
-			    	<div class="close_box">
-				    	<img class="alarm_remove" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="20">
-			    	</div>  
+				<a class="modal_content read_content" href="#">		   
+				    <img class="alarm_remove" data-num="${alarm.al_num}" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="20">
 			        <p>${alarm.al_content}</p>
 	   			</a>
 	   		</c:if>
 	    </c:forEach> 
 	</div> 
 </header>
-<script>
+<script><!-- 알림 -->
 let source;
 $(document).ready(function() {
 	// 알람 누르면 알람 모달 보이기
@@ -208,6 +206,20 @@ $(document).mouseup(function (e){
 	if($("#alarmModal").has(e.target).length === 0){
 		$("#alarmModal").hide();
 	}
+});
+//알림 삭제 버튼
+$('.alarm_remove').click(function(){
+	let al_num = $(this).data('num');
+	$.ajax({
+        url: '<c:url value="/delete/alarm/'+al_num+'"></c:url>',
+        type: 'POST',
+        success: function() {
+            location.reload();
+        },
+        error: function() {
+            console.log("Delete Alarm request failed");
+        }
+    });
 });
 
 		

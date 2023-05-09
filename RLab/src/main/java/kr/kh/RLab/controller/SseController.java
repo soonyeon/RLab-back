@@ -1,9 +1,8 @@
 package kr.kh.RLab.controller;
 
 import java.io.IOException;
-import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -15,16 +14,19 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import kr.kh.RLab.service.BoardService;
+import kr.kh.RLab.service.NotificationService;
 import kr.kh.RLab.service.StudyService;
 import kr.kh.RLab.utils.SseEmitters;
 import kr.kh.RLab.vo.BoardVO;
+import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.PhotoVO;
 import kr.kh.RLab.vo.StudyMemberVO;
 import kr.kh.RLab.vo.StudyVO;
@@ -39,6 +41,8 @@ public class SseController {
     private BoardService boardService;
     @Autowired
     private StudyService studyService;
+    @Autowired
+    private NotificationService notificationService;
 
     @Autowired
     public SseController(SseEmitters sseEmitters) {
@@ -81,8 +85,8 @@ public class SseController {
     	
         //4. 새로운 댓글이 작성된 게시글의 정보를 받음
         return ResponseEntity.ok(sseEmitters);
-
     }
+// 하단 알림 보내는 부분
     // 새로운 좋아요가 눌린 사진에 대한 이벤트를 전송 사진의 작성자에게 알림을 보냄
     @GetMapping(value = "/sse/new/photo/{ph_num}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)//이벤트 형식의 응답을 함
     public ResponseEntity<SseEmitters> sseNewLike(@PathVariable("ph_num") int ph_num) {
@@ -90,7 +94,6 @@ public class SseController {
     	sseEmitters.send("newLike", photo, photo.getPh_me_id());
     	
         return ResponseEntity.ok(sseEmitters);
-
     }
     
     @GetMapping(value = "/sse/join/study/{st_num}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
@@ -98,7 +101,6 @@ public class SseController {
     	StudyVO study = studyService.getStudy(st_num);
     	sseEmitters.send("joinStudy", study, study.getSt_me_id());
         return ResponseEntity.ok(sseEmitters);
-
     }
     
     
@@ -107,7 +109,6 @@ public class SseController {
     	StudyVO study = studyService.getStudy(st_num);
     	sseEmitters.send("leaveStudy", study, study.getSt_me_id());
         return ResponseEntity.ok(sseEmitters);
-
     }
     
     @GetMapping(value = "/sse/authorize/study", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
@@ -116,8 +117,16 @@ public class SseController {
     	StudyMemberVO stm = studyService.findStudyMember(sm.getSm_st_num(), sv.getSt_me_id());
     	sseEmitters.send("authorizeStudy", stm, stm.getSm_me_id());
         return ResponseEntity.ok(sseEmitters);
-
     }
-
-	
+    
+    //알림 삭제
+	@ResponseBody
+	@RequestMapping(value = "/delete/alarm/{al_num}", method = RequestMethod.POST)
+	public HashMap<String,Object> insertAnswerPost(HttpSession session, @PathVariable("al_num")int al_num) {
+		System.out.println(al_num);
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		notificationService.deleteAlarm(al_num);
+		return map;
+	}
 }
