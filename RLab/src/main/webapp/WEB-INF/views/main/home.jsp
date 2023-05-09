@@ -318,97 +318,99 @@
 
 
 
-<<script>
-
-//버튼 2를 누르면
-// transform: translate(-100vw)
-document.querySelector('.btn_spot1').addEventListener('click', function(){
-  document.querySelector('.spot_container').style.transform = 'translate(0px)';
-});
-document.querySelector('.btn_spot3').addEventListener('click', function(){
-  document.querySelector('.spot_container').style.transform = 'translate(-1160px)';
-});
-document.querySelector('.btn_spot2').addEventListener('click', function(){
-  document.querySelector('.spot_container').style.transform = 'translate(-595px)';
-});
-document.querySelector('.btn_spot3').addEventListener('click', function(){
-  document.querySelector('.spot_container').style.transform = 'translate(-1190px)';
-});
+<script>
 
 
-
-var banner_area = document.querySelector('.main_banner_area'),
-banner = document.querySelectorAll('.main_banner_area li'),
-currentIdx = 0,
-bannerCount = banner.length,
-bannerWidth = 1200,
-bannerMargin = 300,
-leftBtn = document.querySelector('.main_btn_left'),
-rightBtn = document.querySelector('.main_btn_right');
-console.log('bannerCount : '+bannerCount);
-
-makeClone();
-
-function makeClone(){
-for(var i = 0; i<bannerCount; i++){
-// a.cloneNode() --> a요소를 그대로 복사
-// a.cloneNode(true) --> a의 자식요소까지 복사
-var cloneBanner = banner[i].cloneNode(true);
-cloneBanner.classList.add('clone'); //위에 복사한 cloneSlide에 clone 클래스명을 넣어줌
-// a.appendChild(b) -->a요소 뒤에 b를 추가 하는 코드
-banner_area.appendChild(cloneBanner);
-}
-for(var i = bannerCount-1; i>= 0; i--){
-// a.cloneNode() --> a요소를 그대로 복사
-// a.cloneNode(true) --> a의 자식요소까지 복사
-var cloneBanner = banner[i].cloneNode(true);
-cloneBanner.classList.add('clone'); //위에 복사한 cloneSlide에 clone 클래스명을 넣어줌
-// a.prepend(b) -->a요소 앞에 b를 추가 하는 코드
-banner_area.prepend(cloneBanner);
-}
-updateWidth();
-setInitialPos();
-setTimeout(function(){
-banner_area.classList.add('animated');
-},100);
-
-}
-function updateWidth(){
-var currentBanner = document.querySelectorAll('.main_banner_area li');
-var newBannerCount = currentBanner.length;
-var newWidth = (bannerWidth + bannerMargin)*newBannerCount - bannerMargin + 'px';
-banner_area.style.width = newWidth;
-console.log('newWidth :'+newWidth);
-}
-function setInitialPos(){
-var initialTranslateValue = -(bannerWidth + bannerMargin)*bannerCount;
-//slides {transform: treanslateX(-1000px);}""
-banner_area.style.transform = 'translateX('+initialTranslateValue+'px)';
-console.log('initialTranslateValue : '+initialTranslateValue);
-}
-
-
-rightBtn.addEventListener('click',function(){
-moveSlide(currentIdx + 1);
-});
-leftBtn.addEventListener('click',function(){
-moveSlide(currentIdx - 1);
-});
-function moveSlide(num){
-banner_area.style.left = -num * (bannerWidth + bannerMargin) + 'px';
-currentIdx = num;
-console.log(currentIdx,bannerCount);
-
-if(currentIdx == bannerCount){
-banner_area.style.left = '0px';
-currentIdx = 0;
-console.log("currentIdx : "+currentIdx);
-
-}
-
-}
-
+	var banner_area = document.querySelector('.main_banner_area'),
+	banner = document.querySelectorAll('.main_banner_area li'),
+	currentIdx = 0,
+	bannerCount = banner.length,
+	bannerWidth = 1200,
+	bannerMargin = 300,
+	leftBtn = document.querySelector('.main_btn_left'),
+	rightBtn = document.querySelector('.main_btn_right');
+	console.log('bannerCount : '+bannerCount);
 	
+	makeClone();
+	
+	function makeClone(){
+		for(var i = 0; i<bannerCount; i++){
+			// a.cloneNode() --> a요소를 그대로 복사
+			// a.cloneNode(true) --> a의 자식요소까지 복사
+			var cloneBanner = banner[i].cloneNode(true);
+			cloneBanner.classList.add('clone'); //위에 복사한 cloneSlide에 clone 클래스명을 넣어줌
+			// a.appendChild(b) -->a요소 뒤에 b를 추가 하는 코드
+			banner_area.appendChild(cloneBanner);
+		}
+		
+		for(var i = bannerCount-1; i>= 0; i--){
+			var cloneBanner = banner[i].cloneNode(true);
+			cloneBanner.classList.add('clone'); //위에 복사한 cloneSlide에 clone 클래스명을 넣어줌
+			// a.prepend(b) -->a요소 앞에 b를 추가 하는 코드
+			banner_area.prepend(cloneBanner);
+		}
+		
+	updateWidth();
+	setInitialPos();
+	setTimeout(function(){
+	banner_area.classList.add('animated');
+	},100);
+		
+	}
+	
+	function updateWidth(){
+		var currentBanner = document.querySelectorAll('.main_banner_area li');
+		var newBannerCount = currentBanner.length;
+		var newWidth = (bannerWidth + bannerMargin)*newBannerCount - bannerMargin + 'px';
+		banner_area.style.width = newWidth;
+		console.log('newWidth :'+newWidth);
+	}
+	
+	function setInitialPos(){
+		var initialTranslateValue = -(bannerWidth + bannerMargin)*bannerCount;
+		//slides {transform: treanslateX(-1000px);}""
+		banner_area.style.transform = 'translateX('+initialTranslateValue+'px)';
+		console.log('initialTranslateValue : '+initialTranslateValue);
+	}
+	
+	rightBtn.addEventListener('click',function(){
+		  moveSlide(currentIdx + 1);
+		});
+	leftBtn.addEventListener('click',function(){
+	  moveSlide(currentIdx - 1);
+	});
+	
+	function moveSlide(num){
+	  banner_area.style.left = -num * (bannerWidth + bannerMargin) + 'px';
+	  currentIdx = num;
+	  console.log(currentIdx,bannerCount);
+
+	  if(currentIdx == bannerCount || currentIdx == -bannerCount){
+	    banner_area.style.left = '0px';
+	    currentIdx = 0;
+	    console.log("currentIdx : "+currentIdx);
+	    
+	  }
+
+	}
+
+
+
+
+/* 스터디 지점 안내 */
+	document.querySelector('.btn_spot1').addEventListener('click', function(){
+	document.querySelector('.spot_container').style.transform = 'translate(0px)';
+	});
+	document.querySelector('.btn_spot3').addEventListener('click', function(){
+	document.querySelector('.spot_container').style.transform = 'translate(-1160px)';
+	});
+	document.querySelector('.btn_spot2').addEventListener('click', function(){
+	document.querySelector('.spot_container').style.transform = 'translate(-595px)';
+	});
+	document.querySelector('.btn_spot3').addEventListener('click', function(){
+	document.querySelector('.spot_container').style.transform = 'translate(-1190px)';
+	}); 
+
 </script> 
 
 
