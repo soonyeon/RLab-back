@@ -11,23 +11,37 @@
     margin-left: 350px;
 	
 }
+td a{
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-break: break-all;
+    padding: 5px;
+    box-sizing: border-box;
+}
 
-#my_container{padding-top: 32px;}
+/*#my_container{padding-top: 32px;}*/
+
 .study_card_container{
-  padding-left: 30px;
+ /* padding-left: 30px;*/
 }
 
 #my_container {
-	margin-top: -7px; /* 위쪽 마진을 음수값으로 조정하여 보더가 붙어있는 스타일로 변경 */
-	height:850px;
-	width: 830px;
+/*	margin-top: -7px; /* 위쪽 마진을 음수값으로 조정하여 보더가 붙어있는 스타일로 변경 */
+/*	height:850px;*/
+	/*width: 830px;*/
 	position: relative;
-	border: var(--border_basic); 
+	/*border: var(--border_basic); 
 	border-radius: var(--border_radius_4);
-	padding: 30px;
+	padding: 50px;*/
 	background-color: var(--color_beige);
 	overflow: hidden;
 	box-sizing: border-box;
+}
+.tab_content{
+	display: flex;
+	flex-flow: column;
+	gap: 10px;
 }
 .select_box_area{
   height: 29.5px;
@@ -40,12 +54,13 @@
   border-radius: 5px;
 }
 table { border-collapse: collapse; }
-.board_title_list{
+
+/*.board_title_list{
   border-top: 2px solid rgba(33, 33, 33, 0.393);
   border-bottom: 2px solid rgba(33, 33, 33, 0.393);
-}
+}*/
 .board_list {
-  border-bottom: 1px solid rgba(97, 97, 97, 0.634);
+  border-bottom: 1px solid  var(--color_yellow);
 }
 .board_list_1,
 .board_list_3,
@@ -57,11 +72,11 @@ table { border-collapse: collapse; }
 }
 .post_title{
   font-weight:bold;
-  font-size: 17px;
+  font-size: 14px;
   color:rgb(67, 66, 66)
 }
 [class^=table_area]{
-  height: 684px;
+ /* height: 684px;*/
   font-size: 15px;
   text-align: center;
   color: rgb(43, 42, 42);
@@ -74,13 +89,16 @@ table { border-collapse: collapse; }
 .board_title_list{
   font-size: 20px;
   font-weight: bold;
+  box-sizing: border-box;
+  background-color: var(--color_yellow);
 }
 .border_box .title_list_item{
-  height: 80px;
+  height: 44px;
 }
 .border_box [class^=board_list_]{
-  height: 61px;
-  border-bottom: 1px solid black;
+  height: 47px;
+  font-size: 14px;
+  border-bottom: 1px solid var(--color_yellow);
 }
 .background_bbls{
   height: 1253px;
@@ -127,6 +145,7 @@ table { border-collapse: collapse; }
 }
 
 .write_btn {
+	margin-top: 10px;
 	-webkit-appearance: none;
     appearance: none;
     background-color: transparent;

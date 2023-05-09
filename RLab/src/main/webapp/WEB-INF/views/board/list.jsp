@@ -4,7 +4,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>작성글 관리</title>
-<link rel="stylesheet" href="<c:url value='/resources/css/board/mypost_post2.css'></c:url>">
+<link rel="stylesheet" href="<c:url value='/resources/css/board/list.css'></c:url>">
 <link rel="stylesheet" href="<c:url value='/resources/css/study/study.css'></c:url>">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://kit.fontawesome.com/0639c8d8d2.js" crossorigin="anonymous"></script>
@@ -30,7 +30,7 @@
 		<section>
 			<div class="home_container">
 				<h2>자유게시판</h2>
-				<div class="my_study_container" id="my_container" style="margin-top: 30px;">
+				<div class="my_study_container" id="my_container">
 					<div class="study_card_container">
 						<!-- table  -->
 						<div class="table_container">
