@@ -25,4 +25,9 @@ public class PayDTO {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		return format.format(pa_date);
 	}
+	
+	public String getPa_date_str2() {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd (HH시 mm분)");
+		return format.format(pa_date);
+	}
 }

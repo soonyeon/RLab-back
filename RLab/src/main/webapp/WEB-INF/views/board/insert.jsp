@@ -51,7 +51,7 @@
 			    </div>
 			    <div id="modal-background" class="modal-background" style="display: none;"></div>
 			  </div>
-              <form action="<c:url value='/board/insert'></c:url>" method="post"> 
+			  <form action="<c:url value='/board/insert'></c:url>" method="post">
               	 <input type="hidden" name="bo_me_id" value="${memberId}">
                 <h2>스터디명</h2> 
                 <select id="choose_study" name="bo_st_num">

@@ -205,8 +205,7 @@ header #header_container {
 
 .logout_box{
 	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
+	gap: 10px;
 	align-items: center;
 }
 .logout_btn{
@@ -236,7 +235,6 @@ header #header_container {
   margin: auto;
   margin-top: 150px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0);
-
 }
 .login_box{
   margin: auto;
@@ -283,6 +281,8 @@ header #header_container {
   padding: 5px;
 
 }
+
+
 .close_btn{
   height: 20px;
   width: 10px;
@@ -295,7 +295,76 @@ header #header_container {
   font-size: 27px;
   font-weight: 50;
 }
+/* 알람 모달*/
+.alarm_bell_box{
+	position: relative;
+}
+.bell_dot{
+	position: absolute;
+}
+.alram_img{
+	cursor: pointer;
+}
+.alarm_modal {
+  position: fixed;
+  margin-top: 69px;
+  margin-left: 890px;
+  background-color: white;
+  color: black;
+  border-radius: 5px;
+  display: none;
+  z-index: 9998;
+  max-width: 300px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 3px 3px 7px #d5d2d2;
+}
 
+.modal_content{
+	display: flex;
+	position: relative;
+	width: 100%;
+	height: 49px;
+    font-size: 14px;
+    padding: 12px;
+    box-sizing: border-box;
+    background-color: white;
+	border-bottom: 1px solid gray;
+}
+.read_content{
+	background-color: #d5d2d2;
+	align-items: center;
+}
+.modal_content:nth-last-child(-n + 1){
+	border-bottom: none;
+}
+.modal_content:hover{
+	cursor: pointer;
+	background-color: #d5d2d2;
+}
+.alarm_content_box{
+	width: 100%;
+	display: flex;
+	flex-flow: column;
+}
+.new_dot{
+	width: 6px;
+	height: 6px;
+	background-color: red;
+	border-radius: var(--border_radius_1);
+}
+.alarm_remove{
+	position: absolute;
+	display: flex;
+	cursor: pointer;
+	top: 3px;
+    right: 3px;
+	opacity: 40%;
+	width: 12px;
+	height: 12px;
+}
+.alarm_remove:hover{
+	opacity: 80%;
+}
 /* main */
 main{
   width: var(--body_size);
@@ -367,3 +436,5 @@ footer .corp_container .link_corp:nth-child(1){
 footer .corp_container .link_corp:nth-child(1)::before{
   display: none;
 }
+
+

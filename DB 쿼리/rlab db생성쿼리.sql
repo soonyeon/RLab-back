@@ -175,7 +175,8 @@ CREATE TABLE `alram` (
 	`al_num`	int auto_increment primary key	NOT NULL,
 	`al_me_id`	varchar(13) NOT NULL,
 	`al_content`	varchar(255) not null,
-	`al_view`	TINYINT(1) NOT NULL DEFAULT 0
+	`al_view`	TINYINT(1) NOT NULL DEFAULT 0,
+    `al_type`	enum('like','comment','study') 
 );
 
 DROP TABLE IF EXISTS `pay`;
@@ -279,7 +280,8 @@ CREATE TABLE `seat` (
 	`se_num`	int auto_increment primary key	NOT NULL,
 	`se_br_num`	int	NOT NULL,
 	`se_ki_num`	int	NOT NULL,
-	`se_name`	varchar(15) not null,
+	`se_name`	varchar(15),
+    `se_spot` int not null,
     `se_usable`	int not null default 0
 );
 

@@ -34,7 +34,7 @@
 		</div>
 		<h2>내용</h2>
 		<div class="main_total_box">
-			<div class="main_left_box">${ga.ga_content}</div>
+			<div class="main_left_box">${ga.ga_content}</div>	
 			<div class="main_right_box">
 				<div class="rc_img_box">
 					<div class="rc_img"></div>
@@ -82,6 +82,12 @@
 						</c:if>
 					</div>
 				</div>
+				<c:if test="${user != null && user.me_id == ga.ga_me_id}">
+					<div class="btns_leader">
+						<a class="btn_edit" href="<c:url value='/gather/update/${ga.ga_num}'></c:url>" >스터디 수정</a>
+						<button class="btn_delete" type="button">스터디 삭제</button>
+					</div>
+				</c:if>
 			</div>
 		</div>
 	  <!-- 정현 댓글 작업 -->
@@ -162,23 +168,41 @@ $(document).ready(function() {
       contentType: "application/json",
       data: JSON.stringify(requestData),
       success: function(response) {
-        if (response.joinState === 1) {
-        	 $('.apply_btn').removeClass('apply_btn').addClass('already_apply_btn').text('스터디 가입 완료');
-          alert('스터디를 가입했습니다.');
-          location.reload();
-        } else if (response.joinState === 0) {
-        	 $('.already_apply_btn').removeClass('already_apply_btn').addClass('apply_btn').text('스터디 가입');
-          alert('스터디 가입 취소했습니다.');
-       		location.reload();
-          $('.now_pp').text(response.joinCount);
-        } 		
-      },
+    	  if (response.joinState === 1) {
+    	    $('.apply_btn').removeClass('apply_btn').addClass('already_apply_btn').text('스터디 가입 완료');
+    	    alert('스터디를 가입했습니다.');
+    	    location.reload();
+    	  } else if (response.joinState === 0) {
+    	    $('.already_apply_btn').removeClass('already_apply_btn').addClass('apply_btn').text('스터디 가입');
+    	    alert('스터디 가입 취소했습니다.');
+    	    location.reload();
+    	    $('.now_pp').text(response.joinCount);
+    	  } else if (response.joinState === -1) {
+    	    alert(response.message);
+    	  }
+    	},
       error: function(error) {
     	  console.log(error)
         alert('스터디 가입에 실패하였습니다. 다시 시도해주세요');
       }
     });
   }
+});
+
+$('.btn_delete').click(function() {
+    if (confirm('게시글을 삭제하시겠습니까?')) {
+        $.ajax({
+            url: '<c:url value="/gather/delete/${ga.ga_num}" />',
+            type: 'POST',
+            success: function(response) {
+                alert('게시글이 삭제되었습니다.');
+                window.location.href = '<c:url value="/gather/list/"/>';
+            },
+            error: function(error) {
+                alert('게시글 삭제에 실패하였습니다.');
+            }
+        });
+    }
 });
 </script>
 <script>
@@ -217,7 +241,17 @@ function loadComments(page1) {
 			}
 
             $.each(comments, function(index, comment) {
-                console.log(comment);
+            	 if (comment.co_table === 'gather') {
+           		 if(comment.co_delete == 'Y') {
+                    	 let cmStateHtml = '';
+                       cmStateHtml += '<div class="cm_main_box">';
+                       cmStateHtml += '<div class="cm_top_box">';
+                       cmStateHtml += '<div class="already_comment">' + '삭제된 댓글입니다' + '</div>';
+                       cmStateHtml += '</div>';
+                       cmStateHtml += '</div>';
+                       $('.comment_box').append(cmStateHtml);
+                       return;
+                  } 	
                 if (comment.co_num == comment.co_ori_num) {
                     let listHtml = '';
 
@@ -266,7 +300,8 @@ function loadComments(page1) {
                     reReplyHtml += '</div>';
 
                     $('.comment_box').append(reReplyHtml); // 생성된 답글 HTML 문자열을 댓글 목록 영역에 추가
-                }
+                	}
+            	 }
             });
             // 현재 페이지 값을 갱신
             $('#current_page').val(page1);

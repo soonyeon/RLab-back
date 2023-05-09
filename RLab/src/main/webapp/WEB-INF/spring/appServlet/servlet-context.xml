@@ -53,6 +53,7 @@
 		class="kr.kh.RLab.interceptor.AutoLoginInterceptor"></beans:bean>
 	<beans:bean id="loginRedirectInterceptor" 
 		class="kr.kh.RLab.interceptor.LoginRedirectInterceptor"></beans:bean>
+	<beans:bean id="alarmInterceptor" class="kr.kh.RLab.interceptor.AlarmInterceptor" />
 	<interceptors>
    	<interceptor>
         	<mapping path="/login"/>
@@ -66,6 +67,10 @@
 	        <mapping path="/**"/>
 	        <beans:ref bean="loginRedirectInterceptor"/>
 	</interceptor>
+		<interceptor>
+		    <mapping path="/**"/>
+		    <beans:ref bean="alarmInterceptor"/>
+		</interceptor>
     	<interceptor>
 			<mapping path="/board/insert"/>
 			<mapping path="/board/update/*"/>
@@ -73,6 +78,9 @@
 			<mapping path="/board/list"/>
 			<mapping path="/board/detail/*"/>
 			<mapping path="/study/*"/>
+			<mapping path="/reservation/1/*"/>
+			<mapping path="/reservation/2/*"/>
+			<mapping path="/reservation/buy"/>
 			<beans:ref bean="memberInterceptor"/>
 		</interceptor>
 	</interceptors>

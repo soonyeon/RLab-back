@@ -8,7 +8,7 @@ public interface CalendarDAO {
 
 	void insert(CalendarVO calendarVo);
 
-	List<CalendarVO> findAll();
+	List<CalendarVO> findAll(int st_num);
 	
 	CalendarVO findByCaNum(int ca_num);
 

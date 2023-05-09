@@ -24,21 +24,19 @@
 					임시저장 불러오기
 				</button>
 			</c:if>
-			
-			  <!-- Modal -->
-			    <div id="temporary-list-modal" class="modal-style" style="display: none;">
-			      <h2>임시 게시글<button id="deleteAll">전체 삭제</button></h2>
-			      <ul id="itemList">
-					        <li>
-					            <span class="temp-title" data-title="${temp.te_title}" data-content="${temp.te_content}"></span>
-                				<button class="deleteBtn" data-id="${temp.te_num}">삭제</button>
-					        </li>
-			      </ul>
-			      
-			    </div>
-			    <div id="modal-background" class="modal-background" style="display: none;"></div>
-			  </div>
+		  <!-- Modal -->
+		    <div id="temporary-list-modal" class="modal-style" style="display: none;">
+		      <h2>임시 게시글<button id="deleteAll">전체 삭제</button></h2>
+		      <ul id="itemList">
+		        <li>
+		            <span class="temp-title" data-title="${temp.te_title}" data-content="${temp.te_content}"></span>
+             				<button class="deleteBtn" data-id="${temp.te_num}">삭제</button>
+		        </li>
+		      </ul>
+		    </div>
+		    <div id="modal-background" class="modal-background" style="display: none;"></div>
 		</div>
+	
 		<form action="<c:url value='/gather/insertgather'></c:url>" method="post">			
 			<h2>모집할스터디</h2>
 			<select id="choose_study" name="ga_st_num">

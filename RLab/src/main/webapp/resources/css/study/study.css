@@ -1,9 +1,16 @@
 /* main div */
 .main_container{
+	width: 100%;
   display: flex;
   flex-flow: row; 
-  height : 1100px;
 }
+
+/* main #main_container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+} */
 
 /* 왼쪽 메뉴바 */
 .left_menu_container{
@@ -209,10 +216,17 @@ input[type="radio"]:checked ~ .tab-content {
   overflow: auto;
 }
 .success_percent{text-align: right;}
-.progress{
+/* .progress{
   width: 100%;
   height: 25px;
-}
+} */
+.progress_container canvas{
+   border: 0.7px solid rgb(136, 135, 135);
+   width: 243.7px;
+   height: 10px;
+   background-color: white;
+   border-radius: 10px;
+ }
 .success_percent{
   font-size: 12px;
 }
@@ -220,7 +234,10 @@ input[type="radio"]:checked ~ .tab-content {
 font-size: 16px;
 cursor: pointer;
 }
-.check{color: var(--color_mint) }
+.check{color: rgb(172, 169, 169);}
+.check_on{
+  color: var(--color_mint);
+}
 .clear{color: salmon;}
 .todo_list li {
   margin: 10px 0 16px;
@@ -248,7 +265,7 @@ cursor: pointer;
   font: white;
 }
 .done{
-  color: #161616;
+  color:rgb(172, 169, 169);
   text-decoration: line-through;
   font-style: italic;
 }
@@ -271,6 +288,7 @@ cursor: pointer;
   background-image: url(../../img/certify_img.jpeg);
   background-size: cover;
   min-height: 270px;
+  width: 370px;
   background-position: center;
   border-radius: var(--border_radius_4);
 }

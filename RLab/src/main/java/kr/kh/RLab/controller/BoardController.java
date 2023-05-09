@@ -4,11 +4,13 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -29,9 +31,11 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping("/board")
 public class BoardController {
-	
+	@Autowired
 	private final BoardService boardService;
+	@Autowired
 	private final ScrapService scrapService;
+	@Autowired
 	private final CommentService commentService;
 	
 	@GetMapping("/insert")
@@ -45,20 +49,19 @@ public class BoardController {
 	    return mv;
 	}
 	@PostMapping("/insert")
-	public ModelAndView boardInsertPost(ModelAndView mv,BoardVO board,HttpSession session,
-			@PathVariable int st_num) {
-		MemberVO user = (MemberVO) session.getAttribute("user");
-		boolean res = boardService.insertBoard(board, user);
-		mv.setViewName("redirect:/board/list/"+st_num);
-		return mv;
+	public ModelAndView boardInsertPost(ModelAndView mv, BoardVO board, HttpSession session,
+	        @RequestParam int bo_st_num) {
+	    MemberVO user = (MemberVO) session.getAttribute("user");
+	    boolean res = boardService.insertBoard(board, user);
+	    mv.setViewName("redirect:/board/list/" + bo_st_num);
+	    return mv;
 	}
-	
 	@GetMapping("/list/{st_num}")
 	public ModelAndView boardList(ModelAndView mv,Criteria cri, @PathVariable int st_num) {
 		cri.setPerPageNum(10); // 한 페이지당 컨텐츠 갯수
 	    int totalCount = boardService.getCount();
 	    PageMaker pm = new PageMaker(totalCount, 10, cri);
-	    ArrayList<BoardVO> boardList = boardService.selectBoardList(cri);
+	    ArrayList<BoardVO> boardList = boardService.selectBoardList(cri,st_num);
 	    mv.addObject("st_num", st_num);
 	    mv.addObject("pm", pm);
 	    mv.addObject("boardList", boardList);
