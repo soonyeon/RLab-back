@@ -3,7 +3,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     
-
+<link rel="stylesheet" href="<c:url value='/resources/css/common.css'></c:url>">
 <link rel="stylesheet" href="<c:url value='/resources/css/study/study.css'></c:url>">
 <link rel="stylesheet" href="<c:url value='/resources/css/study/to_do_list.css'></c:url>">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -68,21 +68,33 @@
 	
 	                    <!-- 펫 박스 -->
 	                    <div class="pet_box">
-	                        <div class="pet_message_container">
-	                            <div class="pet_message">조금만 더 힘내요!</div>
-	                        </div>
-	                        <div class="pet_img_container">
-	                        	<img class="pet_img">
-	                        </div>
-	                        
-	                        <!-- 달성률 -->
-	                        <div class="progress_container">
-	                            <canvas id="gauge" width="100" height="20"></canvas>
-	                            <div>
-	                                <p class="success_percent">달성률 ${todoProgressRateint}%</p>
-	                            </div> 
-	                        </div>
-	                    </div>
+	                    	<div class="pet_inner_box">
+	                    		<c:if test="${myPet == null }">
+			                        <div class="pet_message_container">
+			                            <div class="pet_message">응원할 펫이 없습니다</div>
+			                        </div>
+			                        <div class="pet_img_container">
+			                        	<img src="<c:url value="/resources/img/egg.png"></c:url>" alt="펫" class="pet">
+			                        </div>
+			                    </c:if>
+	                    		<c:if test="${myPet != null }">
+			                        <div class="pet_message_container">
+			                            <div class="pet_message">조금만 더 힘내요!</div>
+			                        </div>
+			                        <div class="pet_img_container">
+			                        	<img src="<c:url value="/resources/img${myPet.ev_img}"></c:url>" width="auto" height="149">
+			                        </div>
+			                     </c:if>
+		                        
+		                        <!-- 달성률 -->
+		                        <div class="progress_container">
+		                            <canvas id="gauge" width="100" height="20"></canvas>
+		                            <div>
+		                                <p class="success_percent">달성률 ${todoProgressRateint}%</p>
+		                            </div> 
+		                        </div>
+	                    	</div>
+	                   </div>
 	                    <!-- 펫 박스 끝 -->
 	                </div>
 	                <!-- 투두 컨테이너 마이 끝 -->

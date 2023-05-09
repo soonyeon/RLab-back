@@ -47,12 +47,27 @@
 }
 .todo_container_my .pet_box{background-color: rgba(247, 249, 251, 0.151);}
 .todo_container_my .pet_message_container{
+  position: relative;
   height: 50px;
   width: 180px;
   margin: auto;
   margin-bottom: 10px;
   border-radius: 3px;
-  background-color: white
+  background-color: white;
+}
+.pet_message_container:after{
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	width: 0;
+	height: 0;
+	border: 20px solid transparent;
+	border-top-color: white;
+	border-bottom: 0;
+	border-right: 0;
+	margin-left: -10px;
+	margin-bottom: -20px;
 }
 .pet_message_container .pet_message{
   text-align: center;
@@ -62,6 +77,10 @@
   height: 150px;
   width: 150px;
   margin: auto;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .todo_container_my .pet_box .pet_img {

@@ -3,7 +3,6 @@ package kr.kh.RLab.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,9 +24,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.pagination.PageMaker;
+import kr.kh.RLab.service.MypageService;
 import kr.kh.RLab.service.NotificationService;
 import kr.kh.RLab.service.StudyService;
 import kr.kh.RLab.vo.AlarmVO.AlarmType;
+import kr.kh.RLab.vo.GrowthVO;
 import kr.kh.RLab.vo.LikeVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.MissionFinishVO;
@@ -48,6 +48,7 @@ import lombok.extern.slf4j.Slf4j;
 public class StudyController {
 
 	private final StudyService studyService;
+	private final MypageService mypageService;
 	private final NotificationService notificationService;
 	private final SseController sseController;
 
@@ -364,10 +365,14 @@ public class StudyController {
 	        stMemberProgRateList.add(member);
 	    }
 	    System.out.println("++++++"+stMemberProgRateList);
+	    
+	  //나의 펫 데려오기
+	  GrowthVO myPet = mypageService.selectMyPet(memberId);
    
 	    mv.addObject("myStudyList", myStudyList);
 	    mv.addObject("tdList", tdList);
 	    mv.addObject("memberId",memberId);
+	    mv.addObject("myPet", myPet);
 	    mv.addObject("stMember",stMember);
 	    mv.addObject("stMemberTodo",stMemberTodo);
 	    mv.addObject("todoProgressRateint",todoProgressRateint);
