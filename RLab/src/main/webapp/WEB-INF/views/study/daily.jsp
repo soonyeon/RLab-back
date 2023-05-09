@@ -42,9 +42,16 @@
 							class="today_mission_date">${mission.mi_date}</span>
 							<c:choose>	
 					            <c:when test="${empty mission}">
-					                <div class="today_mission_contents">
-					                     오늘의 인증미션이 없습니다. 오늘의 미션을 등록해주세요!
-					                </div>
+					           		<c:if test="${authority == 9}">
+						                <div class="today_mission_contents">
+						                     오늘의 인증미션이 없습니다. 오늘의 미션을 등록해주세요!
+						                </div>
+					              	</c:if> 
+					              	<c:if  test="${authority == 1}">
+					              		<div class="today_mission_contents">
+						                    데일리 미션이 아직 등록되지않았습니다.
+						                </div>
+					              	</c:if>
 					            </c:when>
 						        <c:otherwise>
 									<div class="today_mission_contents">${mission.mi_content}</div>
@@ -109,7 +116,7 @@
 						<div class="now">NOW</div>
 					</div>
 					<div class="circle_star cc">
-						<img class="star" src="../img/favorite_star_on.png">
+						<img class="star" src="<c:url value='/resources/img/favorite_star_on.png'></c:url>">
 					</div>
 					<div class="my_study_container">
 						<div class="my_list_title">
