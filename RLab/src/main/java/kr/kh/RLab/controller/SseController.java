@@ -63,7 +63,7 @@ public class SseController {
         
         try {
             //emitter.send(SseEmitter.event().name("connect").data("connected!"));
-            sseEmitters.send("connect", id, id,session);
+            sseEmitters.send("connect", /*id,*/ id,session);
 
         } catch (Exception e) {
             logger.error("Error sending connect event to user {}", id, e);
@@ -78,15 +78,18 @@ public class SseController {
         return ResponseEntity.ok(onlineMembers);
     }
     // 새로운 댓글이 작성된 게시글에 대한 이벤트를 전송 게시글의 작성자에게 알림을 보냄
-    @GetMapping(value = "/sse/new/comment/{bo_num}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)//이벤트 형식의 응답을 함
-    public ResponseEntity<SseEmitters> sseNewComment(@PathVariable("bo_num") int bo_num, HttpSession session) {
-		//1. 이 게시글에 관한 작성자를 가져옴
+    @GetMapping(value = "/sse/new/comment", produces = MediaType.TEXT_EVENT_STREAM_VALUE)//이벤트 형식의 응답을 함
+    public ResponseEntity<SseEmitters> sseNewComment(/*@PathVariable("bo_num") int bo_num*/String userId, HttpSession session) {
+    	sseEmitters.send("newComment", userId, session);
+		/*
+    	//1. 이 게시글에 관한 작성자를 가져옴
     	BoardVO board = boardService.getBoard(bo_num);
     	//2. 에미터 send 
     	sseEmitters.send("newComment", board, board.getBo_me_id(),session);
     	//3.에미터 생성
     	
         //4. 새로운 댓글이 작성된 게시글의 정보를 받음
+         */
         return ResponseEntity.ok(sseEmitters);
     }
 // 하단 알림 보내는 부분
@@ -94,7 +97,7 @@ public class SseController {
     @GetMapping(value = "/sse/new/photo/{ph_num}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)//이벤트 형식의 응답을 함
     public ResponseEntity<SseEmitters> sseNewLike(@PathVariable("ph_num") int ph_num, HttpSession session) {
     	PhotoVO photo = studyService.getPhotoByPhNum(ph_num);
-    	sseEmitters.send("newLike", photo, photo.getPh_me_id(),session);
+    	sseEmitters.send("newLike", /*photo,*/ photo.getPh_me_id(),session);
     	
         return ResponseEntity.ok(sseEmitters);
     }
@@ -102,7 +105,7 @@ public class SseController {
     @GetMapping(value = "/sse/join/study/{st_num}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public ResponseEntity<SseEmitters> sseJoinStudy(@PathVariable("st_num") int st_num, HttpSession session) {
     	StudyVO study = studyService.getStudy(st_num);
-    	sseEmitters.send("joinStudy", study, study.getSt_me_id(),session);
+    	sseEmitters.send("joinStudy", /*study,*/ study.getSt_me_id(),session);
         return ResponseEntity.ok(sseEmitters);
     }
     
@@ -110,7 +113,7 @@ public class SseController {
     @GetMapping(value = "/sse/leave/study/{st_num}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public ResponseEntity<SseEmitters> sseLeaveStudy(@PathVariable("st_num") int st_num, HttpSession session) {
     	StudyVO study = studyService.getStudy(st_num);
-    	sseEmitters.send("leaveStudy", study, study.getSt_me_id(),session);
+    	sseEmitters.send("leaveStudy", /*study,*/ study.getSt_me_id(),session);
         return ResponseEntity.ok(sseEmitters);
     }
     
@@ -118,7 +121,7 @@ public class SseController {
     public ResponseEntity<SseEmitters> sseAuthorizeStudy(StudyMemberVO sm, HttpSession session){
     	StudyVO sv = studyService.getStudy(sm.getSm_st_num()); 
     	StudyMemberVO stm = studyService.findStudyMember(sm.getSm_st_num(), sv.getSt_me_id());
-    	sseEmitters.send("authorizeStudy", stm, stm.getSm_me_id(),session);
+    	sseEmitters.send("authorizeStudy", /*stm,*/ stm.getSm_me_id(),session);
         return ResponseEntity.ok(sseEmitters);
     }
     

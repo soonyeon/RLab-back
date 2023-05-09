@@ -43,20 +43,22 @@ public class CommentController {
 		int result = commentService.createComment(comment);
 		// 새 댓글이 생성되면 SSE 이벤트를 전송
 		if (result > 0) {
-			//board 댓글
+ 			//board 댓글
 			if(comment.getCo_table().equals("board")) {
 				BoardVO board = boardService.getBoardByComment(comment.getCo_ex_num());
 				String userId = board.getBo_me_id(); // 게시물 작성자의 ID를 가져와야 함
 				if(!userId.equals(comment.getCo_me_id())) { //본인이 단 댓글은 제외
 					String message = board.getBo_title()+"에 댓글이 달렸습니다";
 					notificationService.sendNotificationToUser(userId, message, AlarmType.STUDY);
+					sseController.sseNewComment(userId,session);
 				}
 				//대댓글일 경우 댓글의 작성자한테도 알림 전송
-				if(comment.getCo_ori_num()!=comment.getCo_num()) {
+				if(comment.getCo_ori_num()!=0 && comment.getCo_ori_num()!=comment.getCo_num()) {
 					CommentVO oriComment = commentService.getCommentByCoNum(comment.getCo_ori_num());
 					userId = oriComment.getCo_me_id();
 					String message = oriComment.getCo_content()+"에 대댓글이 달렸습니다";
 					notificationService.sendNotificationToUser(userId, message, AlarmType.STUDY);
+					sseController.sseNewComment(userId,session);
 				}
 			}
 			//gather 댓글
@@ -66,19 +68,21 @@ public class CommentController {
 				if(!userId.equals(comment.getCo_me_id())) { //본인이 단 댓글은 제외
 					String message = gather.getGa_title()+"에 댓글이 달렸습니다";
 					notificationService.sendNotificationToUser(userId, message, AlarmType.GATHER);
+					sseController.sseNewComment(userId,session);
 				}
 				//대댓글일 경우 댓글의 작성자한테도 알림 전송
-				if(comment.getCo_ori_num()!=comment.getCo_num()) {
+				if(comment.getCo_ori_num()!=0 && comment.getCo_ori_num()!=comment.getCo_num()) {
 					CommentVO oriComment = commentService.getCommentByCoNum(comment.getCo_ori_num());
 					userId = oriComment.getCo_me_id();
 					String message = oriComment.getCo_content()+"에 대댓글이 달렸습니다";
 					notificationService.sendNotificationToUser(userId, message, AlarmType.GATHER);
+					sseController.sseNewComment(userId, session);
 				}
 			}
 		}
 		Map<String, Object> map = new HashMap<>();
 		map.put("result", result > 0 ? "success" : "fail");
-		sseController.sseNewComment(comment.getCo_ex_num(),session);
+//		sseController.sseNewComment(comment.getCo_ex_num(),session);
 		return map;
 	}
 

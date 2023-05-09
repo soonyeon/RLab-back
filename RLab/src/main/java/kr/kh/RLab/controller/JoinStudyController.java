@@ -21,8 +21,6 @@ import lombok.RequiredArgsConstructor;
 public class JoinStudyController {
 	
 	private final JoinStudyService joinstudyService;
-	private final StudyService studyService;
-
 	
 	    @PostMapping("/join")
 	    public Map<String, Object> join(@RequestBody StudyMemberVO studyMember,

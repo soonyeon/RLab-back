@@ -100,7 +100,7 @@ public class SseEmitters {
 	    }
 	}
 	 // 특정 사용자에게 이벤트 데이터를 전송
-	public void send(String eventName, Object eventData, String targetId, HttpSession session) {
+	public void send(String eventName, /*Object eventData,*/ String targetId, HttpSession session) {
 		System.out.println("emitter send : "+emitters.size());
 		if(targetId == null || targetId.length() == 0) {
 			return;
@@ -113,9 +113,9 @@ public class SseEmitters {
 	            try {
 	                if (id.equals(targetId)) {
 	                	System.out.println(eventName + " : " +id);
-	                    userSessionInfo.getEmitter().send(SseEmitter.event().name(eventName).data(eventData));
+	                    //userSessionInfo.getEmitter().send(SseEmitter.event().name(eventName).data(eventData));
 	                }
-	            } catch (IOException e) {
+	            } catch (Exception e) {
 	                logger.error("Error sending count event to user {}", id, e);
 	            }
 	        }
