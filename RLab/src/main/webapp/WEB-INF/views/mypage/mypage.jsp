@@ -31,7 +31,7 @@
 	            <c:if test="${files.size() != 0}">
 		            <c:forEach items="${petFile}" var="pf">
 		            	  <c:if test="${pf.ev_level == pl.pe_final_level}">
-		            	 	<img src="<c:url value='/download${pf.ev_img}'></c:url>" class="pet_img">
+		            	 	<img src="<c:url value='/resources/img${pf.ev_img}'></c:url>" class="pet_img">
 		            	  </c:if>
 		            </c:forEach>
 		       
