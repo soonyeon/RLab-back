@@ -225,21 +225,26 @@ main{
 
 /* info_bottom_recruite */
 .info_area_bottom{
-  width: 1200px;
-  margin-top: 20px;
   position: relative;
-  margin-bottom: 40px;
-  margin: 20px auto 40px;
+}
+.recruit_box{
+  width: 1216px;
+  height: 350px;
+  position: absolute;
+  overflow: hidden;
 }
 .recruit_box_container{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  height: 320px;
-  width: 1195px;
+  position: absolute;
+  left: 11px; 
+}
+.recruit_box_container .animated{
+  transition: o.5s ease-out;
 }
 .recruit_banner_box{
   width: 280px;
+  height: 298px;
+  float: left;
+  margin-right: 22px;
   border: var(--border_basic);
   background-color: white;
   border-radius: 10px;
@@ -249,7 +254,8 @@ main{
   width: 100%;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
-  display: inline-block; width: 279.823px; height: 118.723px; margin-right: 10px;
+  display: inline-block; width: 275.823px; height: 118.723px;
+  /* margin-right: 10px; */
   background-size:279.823px 118.723px;
   background-image: url(../../img/recruit_thumb.png);
 }
@@ -304,10 +310,12 @@ main{
 .recruit_btn_left{position: absolute; top:170px; left:-100px;}
 .recruit_btn_right{position: absolute;top:170px;right:-100px;}
 
+
 /* bar_banner */
 .bar_area{
   background-color: rgb(21,21,21);
   text-align: center;
+  margin-top: 350px;
 }
 .bar_banner_box{
   text-align: center;
@@ -353,7 +361,7 @@ main{
 }
 .event_box{
   display: flex;
-  height: 252px;
+  height: 248px;
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 50px;

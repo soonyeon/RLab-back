@@ -199,85 +199,90 @@
         <article class="info_area_bottom">
           <div class="recruit_btn_left"></div>
           <div class="title_box2">스터디 모집 공고</div>
-          <div class="recruit_box_container">
-            <div class="recruit_banner_box add_shadow">
-              <div class="recruit_img1 "></div>
-              <div class="recruit_banner_inner_box">
-                <ul class="recruit_banner_tag">
-                  <span class="blue_btn">#정처기</span>
-                  <span class="mint_btn">#정보처리기사공부</span>
-                  <span class="blue_btn">#자격증</span>
-                  <span class="mint_btn">#정보처리기사</span>
-                  <span class="blue_btn">#정처기</span>
-                  <span class="mint_btn">#자격증</span>
-                </ul>
-                <div class="recruit_banner_title">[서울] 정보처리기사 자격증 함께 공부해서 합격해요</div>
-                <div class="recruit_btn_box">
-                  <button class="recruit_banner_btn">모집중 2 / 5</button>
-                  <div class="like_btn"></div>
-                  <!-- <img src="../img/like_on_red copy.png" alt="img" class="like_btn"> -->
-                </div>
-              </div>
-            </div>
-            <div class="recruit_banner_box add_shadow">
-              <div class="recruit_img2"></div>
-              <div class="recruit_banner_inner_box">
-                <ul class="recruit_banner_tag">
-                  <span class="blue_btn">#프론트엔드</span>
-                  <span class="mint_btn">#HTML</span>
-                  <span class="mint_btn">#javascript</span>
-                  <span class="blue_btn">#js</span>
-                  <span class="mint_btn">#css</span>
-                  <span class="mint_btn">#front</span>
-                  <span class="blue_btn">#typescript</span>
-                </ul>
-                <div class="recruit_banner_title">[서울] 정처기 같이 공부해요!</div>
-                <div class="recruit_btn_box">
-                  <button class="recruit_banner_btn">모집중 2 / 5</button>
-                  <div class="like_btn"></div>
-                  <!-- <img src="../img/like_on_red copy.png" alt="img" class="like_btn"> -->
-                </div>
-              </div>
-            </div>
-            <div class="recruit_banner_box add_shadow">
-              <div class="recruit_img3"></div>
-              <div class="recruit_banner_inner_box">
-                <ul class="recruit_banner_tag">
-                  <span class="blue_btn">#정처기</span>
-                  <span class="mint_btn">#정보처리기사공부</span>
-                  <span class="blue_btn">#자격증</span>
-                  <span class="mint_btn">#정보처리기사</span>
-                  <span class="blue_btn">#정처기</span>
-                  <span class="mint_btn">#자격증</span>
-                </ul>
-                <div class="recruit_banner_title">[서울] 정처기 같이 공부해요!</div>
-                <div class="recruit_btn_box">
-                  <button class="recruit_banner_btn">모집중 2 / 5</button>
-                  <div class="like_btn"></div>
-                  <!-- <img src="../img/like_on_red copy.png" alt="img" class="like_btn"> -->
-                </div>
-              </div>
-            </div>
-            <div class="recruit_banner_box add_shadow">
-              <div class="recruit_img4"></div>
-              <div class="recruit_banner_inner_box">
-                <ul class="recruit_banner_tag">
-                  <span class="blue_btn">#정처기</span>
-                  <span class="mint_btn">#정보처리기사공부</span>
-                  <span class="blue_btn">#자격증</span>
-                  <span class="mint_btn">#정보처리기사</span>
-                  <span class="blue_btn">#정처기</span>
-                  <span class="mint_btn">#자격증</span>
-                </ul>
-                <div class="recruit_banner_title">[서울] 정처기 같이 공부해요!</div>
-                <div class="recruit_btn_box">
-                  <button class="recruit_banner_btn">모집중 2 / 5</button>
-					<div class="like_btn"></div>
-                  <!-- <img src="../img/like_on_red copy.png" alt="img" class="like_btn"> -->
-                </div>
-              </div>
-            </div>
-          </div>
+          	<div class="recruit_box">
+	          <div class="recruit_box_container">
+	          
+	            <div class="recruit_banner_box add_shadow">
+	              <div class="recruit_img1 "></div>
+	              <div class="recruit_banner_inner_box">
+	                <ul class="recruit_banner_tag">
+	                  <span class="blue_btn">#11111</span>
+	                  <span class="mint_btn">#정보처리기사공부</span>
+	                  <span class="blue_btn">#자격증</span>
+	                  <span class="mint_btn">#정보처리기사</span>
+	                  <span class="blue_btn">#정처기</span>
+	                  <span class="mint_btn">#자격증</span>
+	                </ul>
+	                <div class="recruit_banner_title">[서울] 정보처리기사 자격증 함께 공부해서 합격해요</div>
+	                <div class="recruit_btn_box">
+	                  <button class="recruit_banner_btn">모집중 2 / 5</button>
+	                  <div class="like_btn"></div>
+	                  <!-- <img src="../img/like_on_red copy.png" alt="img" class="like_btn"> -->
+	                </div>
+	              </div>
+	            </div>
+	            <div class="recruit_banner_box add_shadow">
+	              <div class="recruit_img2"></div>
+	              <div class="recruit_banner_inner_box">
+	                <ul class="recruit_banner_tag">
+	                  <span class="blue_btn">#프론트엔드</span>
+	                  <span class="mint_btn">#HTML</span>
+	                  <span class="mint_btn">#javascript</span>
+	                  <span class="blue_btn">#js</span>
+	                  <span class="mint_btn">#css</span>
+	                  <span class="mint_btn">#front</span>
+	                  <span class="blue_btn">#typescript</span>
+	                </ul>
+	                <div class="recruit_banner_title">[서울] 정처기 같이 공부해요!</div>
+	                <div class="recruit_btn_box">
+	                  <button class="recruit_banner_btn">모집중 2 / 5</button>
+	                  <div class="like_btn"></div>
+	                  <!-- <img src="../img/like_on_red copy.png" alt="img" class="like_btn"> -->
+	                </div>
+	              </div>
+	            </div>
+	            <div class="recruit_banner_box add_shadow">
+	              <div class="recruit_img3"></div>
+	              <div class="recruit_banner_inner_box">
+	                <ul class="recruit_banner_tag">
+	                  <span class="blue_btn">#정처기</span>
+	                  <span class="mint_btn">#정보처리기사공부</span>
+	                  <span class="blue_btn">#자격증</span>
+	                  <span class="mint_btn">#정보처리기사</span>
+	                  <span class="blue_btn">#정처기</span>
+	                  <span class="mint_btn">#자격증</span>
+	                </ul>
+	                <div class="recruit_banner_title">[서울] 정처기 같이 공부해요!</div>
+	                <div class="recruit_btn_box">
+	                  <button class="recruit_banner_btn">모집중 2 / 5</button>
+	                  <div class="like_btn"></div>
+	                  <!-- <img src="../img/like_on_red copy.png" alt="img" class="like_btn"> -->
+	                </div>
+	              </div>
+	            </div>
+	            <div class="recruit_banner_box add_shadow">
+	              <div class="recruit_img4"></div>
+	              <div class="recruit_banner_inner_box">
+	                <ul class="recruit_banner_tag">
+	                  <span class="blue_btn">#정처기</span>
+	                  <span class="mint_btn">#정보처리기사공부</span>
+	                  <span class="blue_btn">#자격증</span>
+	                  <span class="mint_btn">#정보처리기사</span>
+	                  <span class="blue_btn">#정처기</span>
+	                  <span class="mint_btn">#자격증</span>
+	                </ul>
+	                <div class="recruit_banner_title">[서울] 정처기 같이 공부해요!</div>
+	                <div class="recruit_btn_box">
+	                  <button class="recruit_banner_btn">모집중 2 / 5</button>
+						<div class="like_btn"></div>
+	                  <!-- <img src="../img/like_on_red copy.png" alt="img" class="like_btn"> -->
+	                </div>
+	              </div>
+	            </div>
+	          
+	          </div>
+          	</div>
+          
           <div class="recruit_btn_right"></div>
         </article>
       </section>
@@ -395,10 +400,101 @@
 	}
 
 
+	// //스터디 모집 공고
+	var recruitBannerContainer = document.querySelector('.recruit_box_container'),
+	    recruitBanner = document.querySelectorAll('.recruit_banner_box'),
+	    recruitCurrentIdx = 0,
+	    recruitBannerCount = recruitBanner.length,
+	    recruitBannerWidth = 284,
+	    recruitBannerMargin =22,
+	    recruitBtnLeft = document.querySelector('.recruit_btn_left'),
+	    recruitBtnRight = document.querySelector('.recruit_btn_right');
+	console.log("recruitBannerCount : "+recruitBannerCount);
+
+	makeRecruiyClone();
+
+	function makeRecruiyClone(){
+	  for(var i = 0; i<recruitBannerCount; i++){
+	    var cloneRecruitBanner = recruitBanner[i].cloneNode(true);
+	    cloneRecruitBanner.classList.add('clone');
+	    recruitBannerContainer.appendChild(cloneRecruitBanner);
+	  }
+	  for(var i = recruitBannerCount-1; i>= 0; i--){
+	    var cloneRecruitBanner = recruitBanner[i].cloneNode(true);
+	    cloneRecruitBanner.classList.add('clone'); 
+	    recruitBannerContainer.prepend(cloneRecruitBanner);
+	  }
+	  
+	  recruitUpdateWidth();
+	  recruitSetInitialPos();
+	  recruitBannerContainer.classList.add('animated');
+
+	}
+	  
+
+	  function recruitUpdateWidth(){
+	    var recruitCurrentSlides = document.querySelectorAll('.recruit_banner_box');
+	    var recruitNewSlideCount= recruitCurrentSlides.length;
+
+	    var recruitNewWidth = (recruitBannerWidth + recruitBannerMargin)*recruitNewSlideCount + 'px';
+	    recruitBannerContainer.style.width = recruitNewWidth;
+	  } 
+
+	  function recruitSetInitialPos(){
+	    var recruitInitialTranslateValue = -(recruitBannerWidth + recruitBannerMargin)*recruitBannerCount-10;
+	    //slides {transform: treanslateX(-1000px);}""
+	    recruitBannerContainer.style.transform = 'translateX('+recruitInitialTranslateValue+'px)';
+	    console.log('recruitInitialTranslateValue : '+recruitInitialTranslateValue);
+	  }
+
+
+	  recruitBtnRight.addEventListener('click',function(){
+	    recruitMoveSlide(recruitCurrentIdx + 1);
+	    console.log("recruitCurrentIdx :" +recruitCurrentIdx);
+	    
+
+	  });
+
+	  recruitBtnLeft.addEventListener('click',function(){
+	      recruitMoveSlide(recruitCurrentIdx - 1);
+	  });
+
+	  function recruitMoveSlide(num){
+	    recruitBannerContainer.style.left = -num * (recruitBannerWidth + recruitBannerMargin) + 'px';
+	    recruitCurrentIdx = num;
+	    console.log(recruitCurrentIdx,recruitBannerCount);
+
+	  if(recruitCurrentIdx == recruitBannerCount || recruitCurrentIdx == -recruitBannerCount){
+
+	    setTimeout(function(){
+	      recruitBannerContainer.classList.remove('animated');
+	      recruitBannerContainer.style.left ='0px';
+	      recruitCurrentIdx = 0;
+
+	    },500);
+	    setTimeout(function(){
+	      recruitBannerContainer.classList.add('animated');
+	    },600);
+	    
+	  }
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 
 /* 스터디 지점 안내 */
-	document.querySelector('.btn_spot1').addEventListener('click', function(){
+ 	document.querySelector('.btn_spot1').addEventListener('click', function(){
 	document.querySelector('.spot_container').style.transform = 'translate(0px)';
 	});
 	document.querySelector('.btn_spot3').addEventListener('click', function(){
