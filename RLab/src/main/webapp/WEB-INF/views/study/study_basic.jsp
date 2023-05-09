@@ -1,21 +1,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-
-<link rel="stylesheet"
-	href="<c:url value='/resources/css/study/study.css'></c:url>">
-<link rel="stylesheet"
-	href="<c:url value='/resources/css/common.css'></c:url>">
-<link rel="stylesheet"
-	href="<c:url value='/resources/css/study/calendar_main.css'></c:url>">
+<link rel="stylesheet" href="<c:url value='/resources/css/study/study.css'></c:url>">
+<link rel="stylesheet" href="<c:url value='/resources/css/study/calendar_main.css'></c:url>">
+<script src="<c:url value='/resources/js/study/study.js'/>"></script>
 <script src="<c:url value='/resources/js/study/calendar/calendar.js'/>"></script>
 <script src="<c:url value='/resources/js/study/calendar/study_og.js'/>"></script>
-
-
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <style>
 dialog {
 	position: fixed;
@@ -230,7 +223,6 @@ body {
 				    </menu>
 				  </form>
 				</dialog>
-
 				<div class="middle_container clearfix">
 					<!-- TO-DO LIST -->
           <div class="todo_container">
@@ -361,54 +353,38 @@ body {
 	<!-- 오른쪽 메뉴 -->
 	<aside>
 		<div class="right-container">
-			<!-- 메뉴바 3개 -->
-			<div class="study_link_container">
-				<div class="circle_now cc">
-					<div class="now">NOW</div>
-				</div>
-				<div class="circle_star cc">
-					<img class="star"
-						src="<c:url value='/resources/img/favorite_star_on.png'></c:url>">
-				</div>
-				<div class="my_study_container">
-					<div class="my_list_title">
-						<div class="my">MY</div>
-						<!-- <div class="my_study" >나의 스터디<button id="dropdown_btn">▼</button></div> -->
-					</div>
-					<div id="dropdown_list" style="display: none;">
-						<ul class="dropdown_list_ul">
-							<li class="dropdown_list_li">
-								<div class="dropdown_list_contents">
-									<p class="dropdown_list_contents_title">정보처리기사 스터디</p>
-									<div class="dropdown_list_contents_on_img"></div>
-									<div class="dropdown_hr"></div>
-								</div>
-							</li>
-							<li class="dropdown_list_li">
-								<div class="dropdown_list_contents">
-									<p class="dropdown_list_contents_title">정보처리기사 스터디</p>
-									<div class="dropdown_list_contents_off_img"></div>
-									<div class="dropdown_hr"></div>
-								</div>
-							</li>
-							<li class="dropdown_list_li">
-								<div class="dropdown_list_contents">
-									<p class="dropdown_list_contents_title">정보처리기사 스터디</p>
-									<div class="dropdown_list_contents_off_img"></div>
-									<div class="dropdown_hr"></div>
-								</div>
-							</li>
-							<li class="dropdown_list_li">
-								<div class="dropdown_list_contents">
-									<p class="dropdown_list_contents_title">정보처리기사 스터디</p>
-									<div class="dropdown_list_contents_off_img"></div>
-									<div class="dropdown_hr"></div>
-								</div>
-							</li>
-						</ul>
-					</div>
-				</div>
-
+          <!-- 메뉴바 3개 -->
+          <div class="study_link_container">
+              <div class="circle_now cc">
+                  <div class="icon_now">NOW</div>
+                  <div class="study_name">${now.st_name}</div>
+              </div>
+              <div class="circle_star cc">
+                  <img class="icon_star" src="<c:url value='/resources/img/favorite_star_on.png'></c:url>">
+                  <div class="study_name"><a href="<c:url value='/study/${favorite.st_num}'></c:url>">${favorite.st_name}</a></div>
+              </div>
+              <div class="my_study_container">
+                  <div class="my_list_title">
+                      <div class="icon_my">MY</div>
+                      <div class="my_study">나의 스터디<button class="btn_dropdown">▼</button></div>
+                  </div>
+                  <div id="dropdown_list" class="display_none">
+                      <ul class="dropdown_list">
+                        <c:forEach items="${stList}" var="st">
+                            <li class="dropdown_item">
+                              <input type="hidden" name="list_st_num" value="${st.st_num}">
+                                <div class="item_container">
+                                    <a href="<c:url value='/study/${st.st_num}'></c:url>" class="item_name">${st.st_name}</a>
+                                    <c:if test="${user.me_study==st.st_num}"><div class="star_on"></div></c:if>
+                                    <c:if test="${user.me_study!=st.st_num}"><div class="star_off"></div></c:if>
+                                </div>
+                            </li>
+                          </c:forEach>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+      </div>
 		<!-- 접속상태 -->
 		<div class="accessor">
 			<div class="study_title">정보처리기사 스터디</div>
@@ -695,4 +671,35 @@ ctx.fillStyle = "rgb(0, 128, 255)";
 ctx.fillRect(centerX, centerY - barHeight/2, fillWidth, barHeight);
 
 
+</script>
+<script>
+/* 우측 메뉴 이벤트 */
+$(document).ready(function (){
+	$('.btn_dropdown').click(function(){
+		$('#dropdown_list').slideToggle();
+	});
+	
+	//star_off 클릭하면 즐겨찾기 등록하는 ajax post
+	$('.star_off').click(function(){
+		let studyName = $(this).prev().text();
+		let studyNum = $(this).parents('.dropdown_item').find('[name=list_st_num]').val();
+		if(confirm("'studyName'를 즐겨찾기로 등록하시겠습니까?")){
+			let obj = {
+				st_num: studyNum,
+				st_me_id: '${user.me_id}'
+			}
+			$.ajax({
+				type: 'POST',
+				data: JSON.stringify(obj),
+				url: '<c:url value="/study/setfavorite"></c:url>',
+				dataType:"json",
+				contentType:"application/json; charset=UTF-8",
+				success : function(data){
+					alert('즐겨찾기를 변경하였습니다.');
+					location.reload();
+				}
+			})
+		}
+	});
+});
 </script>
