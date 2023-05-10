@@ -136,6 +136,18 @@ public interface StudyDAO {
 
 	int selectMemberFinishTodoCount(@Param("td_me_id")String td_me_id);
 
+	ArrayList<MemberVO> selectMemberListByStNum(int st_num);
+
+	ArrayList<StudyMemberVO> selectStudyMemberByMeId(String me_id);
+
+	void updateMembersNull(@Param("me_id")String me_id, @Param("new_st_num")Integer new_st_num);
+
+	void updateMembersFirst(@Param("me_id")String me_id, @Param("sm_st_num")int sm_st_num);
+
+
+
+
+
 
 	ArrayList<StudyVO> selectUserStudyList(String me_id);
 

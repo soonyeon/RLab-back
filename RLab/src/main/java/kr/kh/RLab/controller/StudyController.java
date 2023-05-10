@@ -312,10 +312,21 @@ public class StudyController {
 	//스터디 삭제
 	@ResponseBody
 	@RequestMapping(value = "/management/study/delete/{st_num}", method = RequestMethod.POST)
-	public HashMap<String, Object> deleteStudy(@RequestBody StudyVO st) {
+	public HashMap<String, Object> deleteStudy(@RequestBody StudyVO st,HttpSession session) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		// 해당 스터디를 삭제
 		studyService.deleteStudy(st.getSt_num());
+		//member me_study업데이트
+		ArrayList<MemberVO> meList = studyService.selectMemberListByStNum(st.getSt_num());
+		for (MemberVO me : meList ) {
+			ArrayList<StudyMemberVO> smList = studyService.selectStudyMemberByMeId(me.getMe_id());
+			if(smList.size()==0) {
+				studyService.updateMembersNull(me.getMe_id(),null);
+			}else {	
+				studyService.updateMembersFirst(me.getMe_id(),smList.get(0).getSm_st_num());
+			}
+		}
+		
 		return map;
 	}
 
@@ -483,6 +494,7 @@ public class StudyController {
 		StudyVO study = studyService.getStudy(st_num);
 		StudyMemberVO stMember = studyService.findStudyMember(st_num, user.getMe_id());
 		
+		
 		if (stMember != null && stMember.getSm_authority() == 9) {
 			return "leader";
 		}
@@ -501,7 +513,6 @@ public class StudyController {
 		// 스터디 정보 업데이트
 		studyService.leaveStudy(user, st_num);
 		studyService.updateStudy(study);
-		
 		// 회원정보에 있는 study 값을 랜덤으로 추가하는 작업
 		ArrayList<StudyVO> findStudy = studyService.getStudyByMemberId(user.getMe_id());
 		for (StudyVO st : findStudy) {
