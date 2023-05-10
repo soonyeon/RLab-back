@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.kh.RLab.dao.HomeDAO">
+<select id="selectStudyAll" resultType="kr.kh.RLab.vo.StudyVO">
+	SELECT * FROM study 
+	JOIN gather ON ga_st_num = st_num
+	LEFT JOIN tag_register ON tr_st_num = st_num
+	GROUP BY st_num
+</select>
+<select id="selectGatherAll" resultType="kr.kh.RLab.vo.GatherVO">
+	select * from gather 
+	join member on me_id = ga_me_id
+	where ga_st_num = #{st_num}
+</select>
+<select id="selectFileList" resultType="kr.kh.RLab.vo.FileVO">
+	select * from file
+</select>
+<select id="selectTagList" resultType="kr.kh.RLab.vo.TagRegisterVO">
+	select 	* from tag_register
+</select>
+<select id="selectWantedStudyList" resultType="Integer">
+	SELECT ga_st_num FROM want 
+	join gather on ga_num = wa_ga_num
+	where wa_state=1 and wa_me_id = #{me_id}
+</select>
+</mapper>

@@ -264,7 +264,6 @@ main{
   display: inline-block; width: 272.823px; height: 118.723px;
   /* margin-right: 10px; */
   background-size:279.823px 118.723px;
-  background-image: url(../../img/recruit_thumb.png);
 }
 .recruit_banner_tag{
   display: flex;
