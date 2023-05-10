@@ -51,14 +51,19 @@ public class SseController {
 
     // 사용자가 연결되면, 해당 사용자에게 SseEmitter를 반환하고 사용자 ID와 함께 SseEmitters에 등록
     @GetMapping(value = "/connect", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public ResponseEntity<SseEmitter> connect(@RequestParam String id, HttpSession session) {
-    	if(session.getAttribute("emitter") != null) 
+    public ResponseEntity<SseEmitter> connect(@RequestParam String id, HttpSession session) throws IOException {
+    	SseEmitter emitter = new SseEmitter(60*30 * 1000L);
+    	LocalDateTime sessionExpiryTime = LocalDateTime.now().plusMinutes(30);
+    	Boolean isEmitter = (Boolean)session.getAttribute("emitter");
+    	/*
+    	if(session.getAttribute("emitter") != null) {
     		return ResponseEntity.ok(sseEmitters.getEmitter(id));
-        SseEmitter emitter = new SseEmitter(60*30 * 1000L);
-        LocalDateTime sessionExpiryTime = LocalDateTime.now().plusMinutes(30);
-        Object isEmitter = session.getAttribute("emitter");
-        if(isEmitter != null )
+    	}*/
+        if(isEmitter != null) {
+        	System.out.println(1);
+        	emitter.send(SseEmitter.event().name("test").data("test!"));
         	return ResponseEntity.ok(emitter);
+        }
         sseEmitters.add(id, emitter, sessionExpiryTime, session);
         
         try {

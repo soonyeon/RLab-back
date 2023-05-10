@@ -300,10 +300,11 @@ function findID() {
   });
 }
 
-function connect() {
 
+function connect() {
+	
     const userId = "${user.me_id}"; 
-    console.log(userId);
+
     const connectUrl = "<c:url value='/connect' />" + "?id=" + userId;
      source = new EventSource(connectUrl);
      let bt = "${board.bo_title}"
@@ -311,14 +312,18 @@ function connect() {
     source.onopen = function() {
         console.log("SSE connection opened");
     };
-    
     source.addEventListener("connect", function(event) {
         console.log("Received connect event:", event.data);
+    });
+    /*
+    source.addEventListener("test", function(event) {
+        console.log("test:", event.data);
     });
     
     source.onerror = function(event) {
         console.log("SSE error:", event);
     };
+    
     source.addEventListener("newComment", function (event) {
     	//이벤트가 일어날 일을 여기밑에다가 쓰기
 	   //const data = JSON.parse(event.data);
@@ -389,6 +394,7 @@ function connect() {
         //console.log("Received authorizeStudy event:", data);
         //showNotification(data.message);
     });
+    */
 }
 
 connect();
@@ -416,6 +422,8 @@ function showNotification(message) {
 $(document).ready(function () {
     if ('${board.bo_num}' == '')
       return;
+    
+    
     const source = new EventSource(`/sse/new/comment/${bo_num}`);
 
     source.onopen = function () {
@@ -448,5 +456,9 @@ $(document).ready(function () {
         console.log("SSE error for newLike:", event);
     };
  });
+ 
+$(window).on("beforeunload", function() {
+	  source.close();
+	});
 </script>
 

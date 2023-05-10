@@ -2,6 +2,7 @@ package kr.kh.RLab.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,6 +53,7 @@ public class StudyController {
 	@GetMapping("/photo/{st_num}")
 	public String photo(HttpServletRequest request, Model model, HttpSession session,
 			@PathVariable("st_num") int st_num) throws IOException {
+		System.out.println(new Date());
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		model.addAttribute("user", user);
 		ArrayList<PhotoTypeVO> phototypeList = studyService.getListPhotoType();
@@ -171,6 +173,7 @@ public class StudyController {
 	// 로그인O, me_study정보O 이상적으로 동작할때 도달하는 url
 	@RequestMapping(value = "/{st_num}", method = RequestMethod.GET)
 	public ModelAndView main(ModelAndView mv, HttpSession session, @PathVariable("st_num") int st_num) {
+		System.out.println(new Date());
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		//st_me_id가 유저인 스터디 목록 불러오는 메소드인데 사용되는데가 없는데 지워도되는건가요?
 		ArrayList<StudyVO> study = studyService.getStudyByMemberId(user.getMe_id());
@@ -460,6 +463,7 @@ public class StudyController {
 	// 데일리미션 페이지
 	@GetMapping("/daily/{st_num}")
 	public ModelAndView studyInsert(ModelAndView mv, HttpServletRequest request, @PathVariable("st_num") int st_num) {
+		System.out.println(new Date());
 		MemberVO user = (MemberVO) request.getSession().getAttribute("user");
 		ArrayList<StudyMemberVO> studyMember = studyService.selectStudyMemberByStNum(st_num);
 		Integer authority = studyService.selectSmAuthority(user, st_num);
