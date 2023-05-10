@@ -526,12 +526,13 @@ public class StudyController {
 			//user_id로 스터디가입이 없으면 null로 업데이트
 			if(smList.size()==0) {
 				studyService.updateMembersNull(me.getMe_id(), null);
+				user.setMe_study(0);
 			//user_id로 스터디가입이 있으면 첫번째걸로 업데이트
 			}else {
 				studyService.updateMembersFirst(me.getMe_id(), smList.get(0).getSm_st_num());
+				user.setMe_study(smList.get(0).getSm_st_num());
 			}
 			//세션에 바뀐st_num저장
-			user.setMe_study(smList.get(0).getSm_st_num());
 			session.setAttribute("user", user);
 		}
 		//st_num , me_id 일치하는 멤버
