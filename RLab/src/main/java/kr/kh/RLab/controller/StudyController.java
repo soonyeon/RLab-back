@@ -320,8 +320,10 @@ public class StudyController {
 		ArrayList<MemberVO> meList = studyService.selectMemberListByStNum(st.getSt_num());
 		for (MemberVO me : meList ) {
 			ArrayList<StudyMemberVO> smList = studyService.selectStudyMemberByMeId(me.getMe_id());
+			//id로 스터디가입이 없으면 null로 업데이트
 			if(smList.size()==0) {
 				studyService.updateMembersNull(me.getMe_id(),null);
+			//id로 스터디가입이 된게 있으면 제일 첫번째걸로 업데이트
 			}else {	
 				studyService.updateMembersFirst(me.getMe_id(),smList.get(0).getSm_st_num());
 			}
@@ -517,8 +519,10 @@ public class StudyController {
 		ArrayList<MemberVO> findMember = studyService.selectMemberByMemberId(user.getMe_id());
 		for (MemberVO me : findMember) {
 			ArrayList<StudyMemberVO> smList = studyService.selectStudMemberyByMemberId(me.getMe_id());
+			//user_id로 스터디가입이 없으면 null로 업데이트
 			if(smList.size()==0) {
 				studyService.updateMembersNull(me.getMe_id(), null);
+			//user_id로 스터디가입이 있으면 첫번째걸로 업데이트
 			}else {
 				studyService.updateMembersFirst(me.getMe_id(), smList.get(0).getSm_st_num());
 			}
