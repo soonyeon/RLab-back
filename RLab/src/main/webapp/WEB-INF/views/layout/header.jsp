@@ -424,7 +424,6 @@ $(document).ready(function () {
       return;
     
  });
- 
 $(window).on("beforeunload", function() {
 	  source.close();
 	});
