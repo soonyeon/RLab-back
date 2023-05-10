@@ -1,5 +1,6 @@
 package kr.kh.RLab.controller;
 
+import java.awt.dnd.DragSourceMotionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -317,19 +318,24 @@ public class StudyController {
 	@RequestMapping(value = "/management/study/delete/{st_num}", method = RequestMethod.POST)
 	public HashMap<String, Object> deleteStudy(@RequestBody StudyVO st,HttpSession session) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		MemberVO user = (MemberVO) session.getAttribute("user");
 		// 해당 스터디를 삭제
 		studyService.deleteStudy(st.getSt_num());
 		//member me_study업데이트
 		ArrayList<MemberVO> meList = studyService.selectMemberListByStNum(st.getSt_num());
 		for (MemberVO me : meList ) {
 			ArrayList<StudyMemberVO> smList = studyService.selectStudyMemberByMeId(me.getMe_id());
+			//id로 스터디가입이 없으면 null로 업데이트
 			if(smList.size()==0) {
 				studyService.updateMembersNull(me.getMe_id(),null);
+			//id로 스터디가입이 된게 있으면 제일 첫번째걸로 업데이트
 			}else {	
 				studyService.updateMembersFirst(me.getMe_id(),smList.get(0).getSm_st_num());
 			}
+			//세션에 바뀐st_num저장
+			user.setMe_study(smList.get(0).getSm_st_num());
+			session.setAttribute("user", user);
 		}
-		
 		return map;
 	}
 
@@ -517,10 +523,21 @@ public class StudyController {
 		// 스터디 정보 업데이트
 		studyService.leaveStudy(user, st_num);
 		studyService.updateStudy(study);
-		// 회원정보에 있는 study 값을 랜덤으로 추가하는 작업
-		ArrayList<StudyVO> findStudy = studyService.getStudyByMemberId(user.getMe_id());
-		for (StudyVO st : findStudy) {
-			studyService.updateMemberStNum(user.getMe_id(),st_num,st.getSt_num());
+		// studyMember에 user의 아이로 가입된 스터디 찾아서 업데이트
+		ArrayList<MemberVO> findMember = studyService.selectMemberByMemberId(user.getMe_id());
+		for (MemberVO me : findMember) {
+			ArrayList<StudyMemberVO> smList = studyService.selectStudMemberyByMemberId(me.getMe_id());
+			//user_id로 스터디가입이 없으면 null로 업데이트
+			if(smList.size()==0) {
+				studyService.updateMembersNull(me.getMe_id(), null);
+				user.setMe_study(0);
+			//user_id로 스터디가입이 있으면 첫번째걸로 업데이트
+			}else {
+				studyService.updateMembersFirst(me.getMe_id(), smList.get(0).getSm_st_num());
+				user.setMe_study(smList.get(0).getSm_st_num());
+			}
+			//세션에 바뀐st_num저장
+			session.setAttribute("user", user);
 		}
 		//st_num , me_id 일치하는 멤버
 		return "success";
