@@ -136,11 +136,6 @@ public class StudyServiceImp implements StudyService {
 	}
 
 	@Override
-	public StudyVO getStudyByStnum(int me_study) {
-		return studyDao.selectStudyByStnum(me_study);
-	}
-
-	@Override
 	public void updateUserFavorite(String me_id, int st_num) {
 		studyDao.updateUserFavorite(me_id, st_num);
 	}
@@ -151,20 +146,18 @@ public class StudyServiceImp implements StudyService {
 	}
 
 	@Override
-	public void authorizeStudyMember(int sm_st_num, String me_name) {
+	public String authorizeStudyMember(int sm_st_num, String me_name) {
 		//me_id 구하고
 		String sm_me_id = studyDao.selectStudyMemberId(me_name);
 		//sm_st_num과 sm_me_id가 일치하는 스터디원의 sm_authority를 9로 변경 
 		studyDao.updateStudyMemberAuthority(sm_st_num, sm_me_id);
-		
 		//스터디장의 id가져오기
 		String leaderId = studyDao.selectStudyLeaderId(sm_st_num); 
-		
 		//기존 스터디장의 sm_authority를 1으로 변경
 		studyDao.updateStudyLeaderAuthority(sm_st_num, leaderId);
-		
 		//스터디의 st_me_id를 바뀐 스터디장으로 변경
 		studyDao.updateStudyLeader(sm_st_num,sm_me_id);
+		return leaderId;
 	}
 
 	@Override
@@ -326,7 +319,7 @@ public class StudyServiceImp implements StudyService {
 		if(st_num == 0) {
 			return null;
 		}
-		return studyDao.getStudy(st_num);
+		return studyDao.selectStudy(st_num);
 	}
 
 	@Override
@@ -365,12 +358,6 @@ public class StudyServiceImp implements StudyService {
 		studyDao.updateMembersFirst(me_id,sm_st_num);
 		
 	}
-
-
-
-
-
-
 
 
 

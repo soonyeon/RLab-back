@@ -79,7 +79,7 @@ public class StudyController {
 		model.addAttribute("photos", photos);
 		model.addAttribute("likeCounts", likeCounts);
 		model.addAttribute("userLikes", userLikes);
-		return "/study/certification_board";
+		return "/study/photo";
 	}
 
 	@PostMapping("/photo/insert")
@@ -105,26 +105,20 @@ public class StudyController {
 
 	@PostMapping("/toggleLike")
 	@ResponseBody
-	public String toggleLike(@RequestParam("li_ph_num") int li_ph_num, HttpServletRequest request,
-			HttpSession session) {
-		MemberVO member = (MemberVO) request.getSession().getAttribute("user");
+	public String toggleLike(@RequestParam("li_ph_num") int li_ph_num, HttpSession session) {
+		MemberVO member = (MemberVO) session.getAttribute("user");
 		String li_me_id = member.getMe_id();
+		
 		LikeVO likeVO = studyService.getLikeByUserIdAndPhotoId(li_me_id, li_ph_num);
-		PhotoVO photo;
-		String photoUser;
-		String message;
-		if (likeVO == null) {// 좋아요가 존재하지않으면,
-			LikeVO newLike = new LikeVO();
-			newLike.setLi_me_id(li_me_id);
-			newLike.setLi_ph_num(li_ph_num);
-			newLike.setLi_state(1);
+		if (likeVO == null) {// 좋아요가 존재하지 않으면,
+			LikeVO newLike = new LikeVO(li_me_id,li_ph_num,1);
 			studyService.insertLike(newLike);
 
-			photo = studyService.getPhotoByPhNum(li_ph_num);
-			photoUser = photo.getPh_me_id();// photo 작성자 id
-			message = member.getMe_name() + "님이 다음 게시글에 좋아요 표시를 했습니다." + photo.getPh_content();
+			PhotoVO photo = studyService.getPhotoByPhNum(li_ph_num);
+			String photoUser = photo.getPh_me_id();// photo 작성자 id
+			String message = "'"+member.getMe_name() + "'님이 다음 게시글을 좋아합니다: " + photo.getPh_content();
 
-			notificationService.sendNotificationToUser(photoUser, message, AlarmType.LIKE);
+			notificationService.sendNotificationToUser(photoUser, message, AlarmType.LIKE, "photo", photo.getPh_st_num());
 			sseController.sseNewLike(photo.getPh_num(), session);
 			return "inserted";
 		} else {// 좋아요가 존재하면,
@@ -175,8 +169,8 @@ public class StudyController {
 		//st_me_id가 유저인 스터디 목록 불러오는 메소드인데 사용되는데가 없는데 지워도되는건가요?
 		ArrayList<StudyVO> study = studyService.getStudyByMemberId(user.getMe_id());
 		ArrayList<StudyVO> stList = studyService.getUserStudyList(user.getMe_id());
-		StudyVO nowStudy = studyService.getStudyByStnum(st_num);
-		StudyVO favoriteStudy = studyService.getStudyByStnum(user.getMe_study());
+		StudyVO nowStudy = studyService.getStudy(st_num);
+		StudyVO favoriteStudy = studyService.getStudy(user.getMe_study());
 		// 해당 user가 가입한 스터디가 1개도 없으면 다른 경로로 리다이렉트
 		if (study == null) {
 			mv.addObject("msg", "로그인 후 사용가능한 기능입니다.");
@@ -280,14 +274,13 @@ public class StudyController {
 	public HashMap<String, Object> authorizeMember(@RequestBody StudyMemberVO sm,
 			HttpSession session) {
 	    HashMap<String, Object> map = new HashMap<String, Object>();
-
-	    studyService.authorizeStudyMember(sm.getSm_st_num(), sm.getMe_name());
-
-	    String newLeaderId = sm.getSm_me_id();
-	    System.out.println(newLeaderId);
+	    
+	    // 멤버에게 권한 위임하고 위임받은 회원 id를 리턴
+	    String newLeaderId = studyService.authorizeStudyMember(sm.getSm_st_num(), sm.getMe_name());
 	    if (newLeaderId != null) {
-	        String message = "스터디장을 위임 받았습니다.";
-	        notificationService.sendNotificationToUser(newLeaderId, message, AlarmType.STUDY);
+	    	StudyVO study = studyService.getStudy(sm.getSm_st_num());
+	        String message = "' "+study.getSt_name()+" ' 스터디의 스터디장으로 임명되었습니다.";
+	        notificationService.sendNotificationToUser(newLeaderId, message, AlarmType.MEMBER, "study", sm.getSm_st_num());
 	    }
 
 	    sseController.sseAuthorizeStudy(sm,session);
@@ -505,7 +498,7 @@ public class StudyController {
 		String message = user.getMe_name() + "님이 스터디를 탈퇴했습니다.";
 
 		try {
-			notificationService.sendNotificationToUser(studyLeader, message, AlarmType.MEMBER);
+			notificationService.sendNotificationToUser(studyLeader, message, AlarmType.MEMBER, "study", study.getSt_num());
 			sseController.sseLeaveStudy(st_num, session);
 		}catch(Exception e){
 			e.printStackTrace();

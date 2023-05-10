@@ -20,12 +20,16 @@ public class AlarmVO {
 	private String al_content;
 	private int al_view; //확인여부?
 	private AlarmType al_type;
+	private String al_table;
+	private int al_ex_num;
 	
-	public AlarmVO(String al_me_id, String al_content, int al_view, AlarmType al_type) {
+	public AlarmVO(String al_me_id, String al_content, int al_view, AlarmType al_type, String al_table, int al_ex_num) {
 		this.al_me_id = al_me_id;
 		this.al_content = al_content;
 		this.al_view = al_view;
 		this.al_type = al_type;
+		this.al_table = al_table;
+		this.al_ex_num = al_ex_num;
 	}
 
 	

@@ -12,12 +12,12 @@
 	    <!-- 왼쪽 메뉴바 -->
 	    <div class="left_menu_container">
 	        <nav class="left_menu">
-	            <a href="<c:url value='/study/${user.me_study}'></c:url>" class="list_item">스터디홈</a>
-	            <a href="to_do_list.html" class="list_item">투두 리스트</a>
+	            <a href="<c:url value='/study/${st_num}'></c:url>" class="list_item">스터디홈</a>
+	            <a href="<c:url value='/todo/${st_num}'></c:url>" class="list_item">투두 리스트</a>
 	            <a href="<c:url value='/study/daily/${st_num}'></c:url>" class="list_item">데일리 미션</a> 
-	            <a href="<c:url value='/study/photo/${user.me_study}'></c:url>" class="list_item">인증 게시판</a>
-	            <a href="<c:url value='/board/list/${user.me_study}'></c:url>" class="list_item">자유 게시판</a>
-	            <a href="<c:url value='/study/management/member'></c:url>" class="list_item">스터디 관리</a>
+	            <a href="<c:url value='/study/photo/${st_num}'></c:url>" class="list_item">인증 게시판</a>
+	            <a href="<c:url value='/board/list/${st_num}'></c:url>" class="list_item">자유 게시판</a>
+	            <a href="<c:url value='/study/management'></c:url>" class="list_item">스터디 관리</a>
 	            <a href="#" class="leave">탈퇴하기</a>
 	        </nav>
 	    </div>
@@ -253,7 +253,6 @@ $(".btn_drop").on("click", function() {
 	
 	
   confirmAction("본 회원을 강퇴시키겠습니까?", function() {
-	  console.log($(this));
 	  $.ajax({
 			async:false,
 		    type:'POST',
@@ -277,10 +276,7 @@ $(".btn_drop").on("click", function() {
 
   
 $(".btn_power").on("click", function() {
-	console.log(1)
 	let me_name  = $(this).parents('.board_list').find('[name=me_name]').text();
-	console.log(me_name);
-	
 	let obj ={
 			me_name: me_name,
 			sm_st_num: ${st_num}
@@ -302,7 +298,6 @@ $(".btn_power").on("click", function() {
 	location.replace("<c:url value='/study/management/'></c:url>");
     alert("위임처리 되었습니다."); 
 	});
-	  
 });
 
 
