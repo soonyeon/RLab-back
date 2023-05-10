@@ -10,11 +10,17 @@ main{
   margin-top: 0px !important;
 }
 /* ----------------------------------------------------------------- */
-.main_container .info_area,
-.main_container .event_area{
+.main_container{
   width: 1200px;
   margin: auto;
 }
+
+.main_container .info_area{
+  width: 1200px;
+  margin: auto;
+  height:1080px;
+}
+
 .reservation_btn{
   width: 100px;
   height: 100px;
@@ -147,7 +153,7 @@ main{
 .show_window{
   overflow: hidden;
   height: 601px;
-  width: 585px;
+  width: 590px;
 }
 [class ^= btn_spot]{
   cursor: pointer;
@@ -228,7 +234,7 @@ main{
   position: relative;
 }
 .recruit_box{
-  width: 1216px;
+  width: 1208px;
   height: 350px;
   position: absolute;
   overflow: hidden;
@@ -241,7 +247,8 @@ main{
   transition: o.5s ease-out;
 }
 .recruit_banner_box{
-  width: 280px;
+  /* width: 280px; */
+  width: 275px;
   height: 298px;
   float: left;
   margin-right: 22px;
@@ -254,7 +261,7 @@ main{
   width: 100%;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
-  display: inline-block; width: 275.823px; height: 118.723px;
+  display: inline-block; width: 272.823px; height: 118.723px;
   /* margin-right: 10px; */
   background-size:279.823px 118.723px;
   background-image: url(../../img/recruit_thumb.png);
@@ -315,7 +322,6 @@ main{
 .bar_area{
   background-color: rgb(21,21,21);
   text-align: center;
-  margin-top: 350px;
 }
 .bar_banner_box{
   text-align: center;
@@ -354,34 +360,62 @@ main{
 } 
 
 /* event_banner */
+.event_area{
+  width: 1200px;
+  margin: auto;
+  height: 310px;
+}
+.event_box_area {
+  width: 1205px;
+  overflow: hidden;
+  height: 350px;
+  position: absolute;
+}
 .event_container{
   position:relative;
   width: 1200px;
   margin: 40px auto 40px;
 }
 .event_box{
-  display: flex;
   height: 248px;
-  flex-direction: row;
-  justify-content: space-between;
   margin-bottom: 50px;
   padding-right: 5px;
-  width: 1195px;
+  position: absolute;
 }
-[class^=event_banner]{
-  width: 580px;
+  .event_banner{
+  /* width: 580px; */
+  width:576px;
   text-align: center;
   border-radius: 10px;
   border: var(--border_basic);
+  /* margin-right: 40px; */
+  margin-right: 35px;
+  float: left;
 }
-[class^=event_img]{
+.event_img1{
   width: 100%;
   border-radius: 10px;
-  display: inline-block; width: 579.996px; height:245.930px; margin-right: 10px;
+  display: inline-block;
+  /* width: 579.996px;  */
+  height:245.930px; 
+  margin-right: 10px;
   background-size:579.996px 245.930px;
   background-image: url(../../img/event_thumb.png);
 }
+.event_img2{
+  width: 100%;
+  border-radius: 10px;
+  display: inline-block;
+  /* width: 579.996px;  */
+  height:245.930px; 
+  margin-right: 10px;
+  background-size:579.996px 245.930px;
+  background-image: url(../../img/event_thumb2.png);
+}
+
+
+
 .event_btn_left{position:absolute; top:150px; left:-100px;}
 .event_btn_right{position:absolute; top:150px; right:-100px}
-/* ---------------------------------------------------------------- */
 
+/* ---------------------------------------------------------------- */
