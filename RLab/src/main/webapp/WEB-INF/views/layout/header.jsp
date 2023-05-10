@@ -8,7 +8,7 @@
     font-family: Arial, sans-serif;
 	}
 
-	.notification-modal {
+	.notification_modal {
 	    position: fixed;
 	    bottom: 20px;
 	    right: 20px;
@@ -21,16 +21,16 @@
 	    z-index: 1000;
 	}
 	
-	.notification-content {
+	.notification_content {
 	    display: flex;
 	    flex-direction: column;
 	}
 	
-	.notification-content h4 {
+	.notification_content h4 {
 	    margin-bottom: 8px;
 	}
 	
-	.notification-content p {
+	.notification_content p {
 	    margin: 0;
 	}
 </style>
@@ -101,13 +101,11 @@
 		      </form>
 		    </div>
 		  </div>
-</div>
+		</div>
 
 
       <div id="header_container">
         <div class="header_left">
-
-  
           <a href="<c:url value='/'></c:url>" class="btn_home"><i class="icon_home"></i>LAB</a>
           <nav class="top_menu_container">
          	  <a href="<c:url value='/reservation'></c:url>" class="list_item">예약하기</a>
@@ -149,18 +147,10 @@
         	</div>
         </div>
     </div>	
-	<div id="notificationModal" class="notification-modal">
-        <div class="notification-content">
-            <h4 id="notificationTitle">알림</h4>
-            
-		<!-- 	<c:choose>
-				<c:when test="${notification.al_type == 'COMMENT'}">
-						올리신 게시글에 댓글이 달렸습니다.
-				</c:when>
-				<c:when test="${notification.al_type == 'LIKE'}">
-						올리신 게시글이 좋아요를 받았습니다.
-				</c:when>
-			</c:choose> -->
+	<div id="notificationModal" class="notification_modal">
+        <div class="notification_box">
+            <h4 class="notification_title">알림</h4>
+            <span class="notification_content"></span>
         </div>
     </div>
 	<div class="alarm_modal" id="alarmModal" style=" max-height: 200px; overflow-y: auto;">	
@@ -184,7 +174,6 @@
 	</div> 
 </header>
 <script><!-- 알림 -->
-let source;
 $(document).ready(function() {
 	// 알람 누르면 알람 모달 보이기
 	$('.alram_img').click(
@@ -305,8 +294,7 @@ function connect() {
     const userId = "${user.me_id}"; 
     console.log(userId);
     const connectUrl = "<c:url value='/connect' />" + "?id=" + userId;
-     source = new EventSource(connectUrl);
-     let bt = "${board.bo_title}"
+    const source = new EventSource(connectUrl);
     
     source.onopen = function() {
         console.log("SSE connection opened");
@@ -321,12 +309,12 @@ function connect() {
     };
     source.addEventListener("newComment", function (event) {
     	//이벤트가 일어날 일을 여기밑에다가 쓰기
-	   //const data = JSON.parse(event.data);
+	   const data = JSON.parse(event.data);
 	    	console.log(event);
 		const title = "새로운 댓글";
 		const message = '게시글에 댓글이 달렸습니다.';
 		showModal(title, message);
-		
+		reloadAlarmModal();
 		setTimeout(function() {
 		    hideModal();
 		}, 5000); 
@@ -336,7 +324,7 @@ function connect() {
     
     source.addEventListener("newLike", function (event) {
         // 이벤트가 발생할 때 여기에 코드 작성
-        //const data = JSON.parse(event.data);
+        const data = JSON.parse(event.data);
         const title = "좋아요 알림";
         const message = '게시글에 좋아요가 추가되었습니다.';
         showModal(title, message);
@@ -393,12 +381,13 @@ function connect() {
 
 connect();
 	
-
-
+function reloadAlarmModal(){
+	$("#alarmModal").load(location.href);
+}
  
 function showModal(title, message) {
-    $("#notificationTitle").text(title);
-    $("#notificationMessage").text(message);
+    $(".notification_title").text(title);
+    $(".notification_content").text(message);
     $("#notificationModal").fadeIn(300);
 }
 
@@ -406,13 +395,7 @@ function hideModal() {
     $("#notificationModal").fadeOut(300);
 }
 
-
-function showNotification(message) {
-  //console.log("showNotification called with message:", message);
-  $(".notification").text(message);
-  $(".notification").fadeIn().delay(3000).fadeOut();
-}
-
+/*
 $(document).ready(function () {
     if ('${board.bo_num}' == '')
       return;
@@ -448,5 +431,6 @@ $(document).ready(function () {
         console.log("SSE error for newLike:", event);
     };
  });
+ */
 </script>
 

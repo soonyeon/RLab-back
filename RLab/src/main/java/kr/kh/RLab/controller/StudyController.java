@@ -119,7 +119,7 @@ public class StudyController {
 			String message = "'"+member.getMe_name() + "'님이 다음 게시글을 좋아합니다: " + photo.getPh_content();
 
 			notificationService.sendNotificationToUser(photoUser, message, AlarmType.LIKE, "photo", photo.getPh_st_num());
-			sseController.sseNewLike(photo.getPh_num(), session);
+			sseController.sseNewLike(photo.getPh_num(), photo, session);
 			return "inserted";
 		} else {// 좋아요가 존재하면,
 			studyService.deleteLike(li_me_id, li_ph_num);
@@ -281,10 +281,8 @@ public class StudyController {
 	    	StudyVO study = studyService.getStudy(sm.getSm_st_num());
 	        String message = "' "+study.getSt_name()+" ' 스터디의 스터디장으로 임명되었습니다.";
 	        notificationService.sendNotificationToUser(newLeaderId, message, AlarmType.MEMBER, "study", sm.getSm_st_num());
+	        sseController.sseAuthorizeStudy(sm,study,session);
 	    }
-
-	    sseController.sseAuthorizeStudy(sm,session);
-
 	    return map;
 	}
 	
@@ -494,12 +492,12 @@ public class StudyController {
 		if (stMember != null) {
 			study.setSt_now_people(study.getSt_now_people() - 1);
 		}
-		String studyLeader = study.getSt_me_id();// 리더 id
+		String studyLeader = study.getSt_me_id();
 		String message = user.getMe_name() + "님이 스터디를 탈퇴했습니다.";
 
 		try {
 			notificationService.sendNotificationToUser(studyLeader, message, AlarmType.MEMBER, "study", study.getSt_num());
-			sseController.sseLeaveStudy(st_num, session);
+			sseController.sseLeaveStudy(st_num, study, session);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
