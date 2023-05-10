@@ -46,9 +46,11 @@ public class JoinStudyServiceImp implements JoinStudyService{
 	        } else {
 	            studyMember.setSm_authority(1);
 	            studyMember.setSm_me_id(member.getMe_id());
-	            member.setMe_study(studyMember.getSm_st_num());
 	            joinstudyDao.insertStudyMember(studyMember);
-	            joinstudyDao.updateStudyNumber(member); //me_study 추가
+	            if(member.getMe_study()==0) {
+	            	member.setMe_study(studyMember.getSm_st_num());
+	            	joinstudyDao.updateStudyNumber(member); //me_study 추가
+	            }
 	            // study st_now_people 증가
 	            joinstudyDao.updateStudyNowPeopleUp(studyMember.getSm_st_num());
 	            newJoinState = 1;
@@ -56,7 +58,7 @@ public class JoinStudyServiceImp implements JoinStudyService{
 	            StudyVO study = studyService.getStudy(studyMember.getSm_st_num());
 	            sseEmitters.send("joinStudy", study, study.getSt_me_id(),session);
 	            AlarmVO alarm = new AlarmVO(study.getSt_me_id(), "스터디 가입 신청이 도착했습니다.", 
-	            		0, AlarmType.MEMBER);
+	            		0, AlarmType.MEMBER, "study", studyMember.getSm_st_num());
 	            notificationDao.createNotificationEvent(alarm);
 	        }
 	    } else {
