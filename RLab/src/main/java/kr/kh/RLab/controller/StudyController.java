@@ -513,10 +513,15 @@ public class StudyController {
 		// 스터디 정보 업데이트
 		studyService.leaveStudy(user, st_num);
 		studyService.updateStudy(study);
-		// 회원정보에 있는 study 값을 랜덤으로 추가하는 작업
-		ArrayList<StudyVO> findStudy = studyService.getStudyByMemberId(user.getMe_id());
-		for (StudyVO st : findStudy) {
-			studyService.updateMemberStNum(user.getMe_id(),st_num,st.getSt_num());
+		// studyMember에 user의 아이로 가입된 스터디 찾아서 업데이트
+		ArrayList<MemberVO> findMember = studyService.selectMemberByMemberId(user.getMe_id());
+		for (MemberVO me : findMember) {
+			ArrayList<StudyMemberVO> smList = studyService.selectStudMemberyByMemberId(me.getMe_id());
+			if(smList.size()==0) {
+				studyService.updateMembersNull(me.getMe_id(), null);
+			}else {
+				studyService.updateMembersFirst(me.getMe_id(), smList.get(0).getSm_st_num());
+			}
 		}
 		//st_num , me_id 일치하는 멤버
 		return "success";
