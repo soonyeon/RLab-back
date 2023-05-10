@@ -315,7 +315,7 @@ function connect() {
     source.addEventListener("connect", function(event) {
         console.log("Received connect event:", event.data);
     });
-    /*
+    
     source.addEventListener("test", function(event) {
         console.log("test:", event.data);
     });
@@ -394,7 +394,7 @@ function connect() {
         //console.log("Received authorizeStudy event:", data);
         //showNotification(data.message);
     });
-    */
+    
 }
 
 connect();
@@ -423,38 +423,6 @@ $(document).ready(function () {
     if ('${board.bo_num}' == '')
       return;
     
-    
-    const source = new EventSource(`/sse/new/comment/${bo_num}`);
-
-    source.onopen = function () {
-      console.log("SSE connection opened");
-    };
-
-    source.addEventListener("newComment", function (event) {
-      const data = JSON.parse(event.data);
-      console.log("Received newComment event:", data);
-      showNotification(data.message);
-    });
-
-    source.onerror = function (event) {
-      console.log("SSE error:", event);
-    };
-    
-    const sourceNewLike = new EventSource(`/sse/new/photo/${ph_num}`);
-
-    sourceNewLike.onopen = function () {
-        console.log("SSE connection for newLike opened");
-    };
-
-    sourceNewLike.addEventListener("newLike", function (event) {
-        const data = JSON.parse(event.data);
-        console.log("Received newLike event:", data);
-        showNotification(data.message);
-    });
-
-    sourceNewLike.onerror = function (event) {
-        console.log("SSE error for newLike:", event);
-    };
  });
  
 $(window).on("beforeunload", function() {
