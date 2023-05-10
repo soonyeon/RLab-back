@@ -277,9 +277,6 @@ $(".btn_delete").on("click", function() {
 		    }
 		});
   	});
-	
-	
-	
 });
 
 

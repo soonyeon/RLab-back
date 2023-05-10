@@ -38,7 +38,7 @@
 				<!-- 좌석정보 -->
 				<div class="table_container">
 					<div class="title_area">
-						<h3>캐비 정보</h3>
+						<h3>예약 정보</h3>
 					</div>
 					<table border="1">
 						<tr>

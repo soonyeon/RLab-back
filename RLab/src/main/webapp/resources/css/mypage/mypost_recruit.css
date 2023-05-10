@@ -102,9 +102,17 @@
   
   }
   .study_card_container .study_content .study_recruiting{
-  border: 2px solid var(--color_black); background-color: var(--color_yellow);
-  text-align: center; border-radius: var(--border_radius_4); color: var(--color_black);
-  font-size:14px; width: 100px; height: 30px; line-height: 28px;
+  border: 2px solid var(--color_black); 
+  background-color: var(--color_yellow);
+  text-align: center; border-radius: var(--border_radius_4); 
+  color: var(--color_black);
+  font-size:14px; 
+  width: 100px; 
+  height: 30px; 
+  line-height: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   }
 
   .like_img{

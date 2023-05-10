@@ -44,7 +44,7 @@ public class NotificationServiceImp implements NotificationService {
     }
 
     @Override
-    public void sendNotificationToUser(String userId, String message,AlarmType alarm_type) {
+    public void sendNotificationToUser(String userId, String message,AlarmType al_type) {
         SseEmitter emitter = null;
         if (emitters.containsKey(userId)) {
             emitter = emitters.get(userId);
@@ -55,11 +55,7 @@ public class NotificationServiceImp implements NotificationService {
             emitter = newEmitter;
         }
 
-        AlarmVO alarm = new AlarmVO();
-        alarm.setAl_me_id(userId);
-        alarm.setAl_content(message);
-        alarm.setAl_view(0); // 0: 확인하지 않음, 1: 확인함
-        alarm.setAlarm_type(alarm_type);
+        AlarmVO alarm = new AlarmVO(userId, message, 0, al_type);// 0: 확인하지 않음, 1: 확인함
         addAlarm(alarm);
         notificationDao.createNotificationEvent(alarm);
     }
@@ -73,4 +69,9 @@ public class NotificationServiceImp implements NotificationService {
     public List<AlarmVO> getUserAlrams(String userid) {
         return notificationDao.getUserAlrams(userid);
     }
+
+	@Override
+	public void deleteAlarm(int al_num) {
+		notificationDao.deleteAlarm(al_num);
+	}
 }

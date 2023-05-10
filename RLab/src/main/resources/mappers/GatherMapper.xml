@@ -115,7 +115,6 @@
 	insert into study_member(sm_st_num,sm_me_id,sm_authority,sm_join_date)
 	values(#{sm.sm_st_num},#{sm.sm_me_id},9,NOW())
 </insert>
-
 <select id="getGatherByComment" resultType="kr.kh.RLab.vo.GatherVO">
 	select * from gather
 	where ga_num =  #{co_ex_num} 
@@ -133,4 +132,29 @@
 	order by count desc
 	limit 5 
 </select>
+<select id="selectGatherByGaNum" resultType="kr.kh.RLab.vo.GatherVO">
+	select * from gather
+	where ga_num = #{ga_num} and ga_me_id = #{user.me_id}
+</select>
+<update id="updateGather">
+	update gather
+	set
+		ga_st_num = #{ga_st_num},
+		ga_title = #{ga_title},
+		ga_content = #{ga_content},
+		ga_upd_date = now()
+	where
+		ga_num = #{ga_num}
+</update>
+<delete id="deleteGather">
+	delete from gather
+	where ga_num = #{ga_num}
+</delete>
+<update id="updateMeStudyNumber">
+	update member
+	set 
+		me_study = #{st_num}
+	where
+		me_id = #{me_id}
+</update>
 </mapper>

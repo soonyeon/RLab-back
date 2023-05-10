@@ -70,6 +70,12 @@ public interface StudyService {
 
 	List<StudyMemberVO> getOnlineMembers();
 
+	ArrayList<StudyVO> getUserStudyList(String me_id);
+
+	StudyVO getStudyByStnum(int me_study);
+
+	void updateUserFavorite(String me_id, int st_num);
+
 	ArrayList<StudyMemberVO> selectStudyMemberByStNum(int st_num);
 
 	ArrayList<PhotoVO> selectPhotoPhNumTwo(int st_num);
