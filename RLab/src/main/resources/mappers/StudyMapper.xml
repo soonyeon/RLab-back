@@ -263,4 +263,18 @@
 	set me_study = #{new_st_num}
 	where me_id =#{me_id} and  me_study = #{st_num}
 </update>
+<select id="selectMemberListByStNum" resultType="kr.kh.RLab.vo.MemberVO">
+	select * from member
+	where me_study= #{st_num};
+</select>
+<select id="selectStudyMemberByMeId" resultType="kr.kh.RLab.vo.StudyMemberVO">
+	select * from study_member
+	where sm_me_id = #{sm_me_id} 
+</select>
+<update id="updateMembersNull">
+	update member set me_study = NULL where me_id = #{me_id}
+</update>
+<update id="updateMembersFirst">
+	update member set me_study = #{sm_st_num} where me_id = #{me_id}
+</update>
 </mapper>
