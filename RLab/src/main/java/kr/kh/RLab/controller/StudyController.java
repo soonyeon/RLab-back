@@ -1,5 +1,6 @@
 package kr.kh.RLab.controller;
 
+import java.awt.dnd.DragSourceMotionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -314,6 +315,7 @@ public class StudyController {
 	@RequestMapping(value = "/management/study/delete/{st_num}", method = RequestMethod.POST)
 	public HashMap<String, Object> deleteStudy(@RequestBody StudyVO st,HttpSession session) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		MemberVO user = (MemberVO) session.getAttribute("user");
 		// 해당 스터디를 삭제
 		studyService.deleteStudy(st.getSt_num());
 		//member me_study업데이트
@@ -327,8 +329,10 @@ public class StudyController {
 			}else {	
 				studyService.updateMembersFirst(me.getMe_id(),smList.get(0).getSm_st_num());
 			}
+			//세션에 바뀐st_num저장
+			user.setMe_study(smList.get(0).getSm_st_num());
+			session.setAttribute("user", user);
 		}
-		
 		return map;
 	}
 
@@ -526,6 +530,9 @@ public class StudyController {
 			}else {
 				studyService.updateMembersFirst(me.getMe_id(), smList.get(0).getSm_st_num());
 			}
+			//세션에 바뀐st_num저장
+			user.setMe_study(smList.get(0).getSm_st_num());
+			session.setAttribute("user", user);
 		}
 		//st_num , me_id 일치하는 멤버
 		return "success";
