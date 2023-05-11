@@ -44,7 +44,6 @@
 						  <span class="on">on</span>
 						  <span class="off">off</span>
 						</label>
-
 					</div>
 					<div class="recruit_tag_box ">
 						<span id="tag_title">#태그</span>

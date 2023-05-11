@@ -274,7 +274,7 @@ body {
 				</div>
 				<div class="feed_content_box">
 					<c:forEach items="${photo}" var="ph">
-						<c:if test="${ph.ph_st_num != null}">
+						<c:if test="${ph.ph_st_num != null && ph.ph_num == 1}">
 							<div class="today_feed_board">
 								<div class="feed_board">
 									<ul class="feed_writer_box">

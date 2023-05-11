@@ -63,7 +63,9 @@
 							   <c:if test="${authority == 9}">
 							      <button class="mbutton1">등록/수정</button>
 							   </c:if> 
-							<a href="<c:url value='/study/photo/${user.me_study}'></c:url>" class="mbutton2">인증하기</a>	
+							
+								<a href="<c:url value='/study/photo/${user.me_study}'></c:url>" class="mbutton2">인증하기</a>	
+							
 						</div>
 					</div>
 					<!--달성률-->
