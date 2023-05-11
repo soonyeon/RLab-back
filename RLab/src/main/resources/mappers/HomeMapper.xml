@@ -10,9 +10,8 @@
 	GROUP BY st_num
 </select>
 <select id="selectGatherAll" resultType="kr.kh.RLab.vo.GatherVO">
-	select * from gather 
-	join member on me_id = ga_me_id
-	where ga_st_num = #{st_num}
+	select * from gather
+	join study on ga_st_num = st_num
 </select>
 <select id="selectFileList" resultType="kr.kh.RLab.vo.FileVO">
 	select * from file
