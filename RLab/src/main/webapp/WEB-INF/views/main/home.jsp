@@ -207,25 +207,24 @@
 						<c:forEach begin="${i}" end="${i+1}" var="index">
 							<c:if  test="${stList.size()-1 >= index}" >
 					            <div class="recruit_banner_box add_shadow">
+					            <a href="<c:url value='/gather/detail/${stList.get(index).st_num}'></c:url>">
 					              <div class="study_img_box">
 						              <c:if test="${files.size() != 0 }">
 										<c:forEach items="${fileList}" var="fi">
 											<c:if test="${fi.fi_ex_num == stList.get(index).st_num}">
-											
-											<img src="<c:url value='/download${fi.fi_name}'></c:url>" class="recruit_img1">
+												<img src="<c:url value='/download${fi.fi_name}'></c:url>" class="recruit_img1">
 											</c:if>
 										</c:forEach>
 									  </c:if>	
 					              </div>
 					              <div class="recruit_banner_inner_box">
-					                <ul class="recruit_banner_tag">					                  
-					                  <span class="blue_btn">#11111</span>
-					                  <span class="mint_btn">#정보처리기사공부</span>
-					                  <span class="blue_btn">#자격증</span>
-					                  <span class="mint_btn">#정보처리기사</span>
-					                  <span class="blue_btn">#정처기</span>
-					                  <span class="mint_btn">#자격증</span>
-					                </ul>
+									<ul class="recruit_banner_tag">					                  
+										<c:forEach items="${tagList}" var="ta" varStatus="vs">
+											<c:if test="${ta.tr_st_num==stList.get(index).st_num}">
+												<span class="blue_btn">${ta.tr_name}</span> 
+											</c:if>
+										</c:forEach>					                
+									</ul>
 					                <div class="recruit_banner_title">
 	                					<span class="study_recruit_content">[${stList.get(index).st_re_name}]</span>
 										<c:forEach items="${gaList}" var="ga">
@@ -245,6 +244,7 @@
 					                  <!-- <img src="../img/like_on_red copy.png" alt="img" class="like_btn"> -->
 					                </div>
 					              </div>
+					              </a>
 					            </div>
 					    	</c:if>  
 					    </c:forEach>      

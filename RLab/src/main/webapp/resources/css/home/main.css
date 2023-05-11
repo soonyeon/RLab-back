@@ -285,9 +285,9 @@ main{
 .recruit_banner_tag .blue_btn{
   background-color: var(--color_blue);
 }
-.recruit_banner_tag .mint_btn{
-  background-color: var(--color_mint);
-}
+.recruit_banner_tag .blue_btn:nth-child(2n){
+    background-color: var(--color_mint);
+  }
 .recruit_banner_title{
   font-size: 17px;
   font-weight: bold;
