@@ -170,7 +170,8 @@ table {
 }
 .profile_box .img_box{
   display: flex;
-  margin: 0;
+  justify-content: center;
+  align-items: center;
   width: 40px;
   height: 40px;
   border: 2px solid var(--color_blue);
@@ -178,7 +179,6 @@ table {
   overflow: hidden;
 }
 .profile_img{
-  width: 40px;
   height: 40px;
   background-size: cover;
   background-repeat: no-repeat;

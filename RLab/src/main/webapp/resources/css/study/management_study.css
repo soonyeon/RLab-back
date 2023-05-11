@@ -57,9 +57,9 @@
   line-height: 50px;
 }
 
-.list_item{
+/*.list_item{
   height:60px;
-}
+}*/
 .select_box_area{
   height: 29.5px;
   margin-bottom: 10px;
@@ -83,7 +83,7 @@ main #main_container{
 }
 #my_container {
 	width: 710px;
-  height: 886px;
+  height: 472px;
   top: -47px;
 	position: relative;
 	border: var(--border_basic); 

@@ -29,7 +29,7 @@
 
 		<section>
 			<div class="home_container">
-				<h2>자유게시판</h2>
+				<h2 class="time_line_title">자유게시판</h2>
 				<div class="my_study_container" id="my_container">
 					<div class="study_card_container">
 						<!-- table  -->

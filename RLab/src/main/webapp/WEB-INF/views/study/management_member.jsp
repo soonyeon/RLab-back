@@ -53,9 +53,9 @@
 		                                <tr class="board_list">
 			                            	<td class="post_title">
 		                                        <div class="profile_box">
-		                                            <div class="img_box">
-		                                                <div><img class="profile_img" src="<c:url value='/download${sm.me_profile}'></c:url>">${sm.me_profile}</div>
-		                                            </div>
+                                            		<div class="img_box">
+	                                                	<img class="profile_img" src="<c:url value='/download${sm.me_profile}'></c:url>"width="auto" height="40">
+                                                	</div>
 		                                            <span name="me_name" class="">${sm.me_name}</span>
 		                                        </div>
 		                                    </td>

@@ -1,4 +1,7 @@
-
+.time_line_title {
+    font-weight: bold;
+    font-size: 28px;
+}
 .mypage_container .mypage .icon_mypage{
   display: flex;
   width: 40px;

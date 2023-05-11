@@ -10,19 +10,19 @@
 <main>
 	<div id="main_container">
 	   <div class="left_side">
-			<!-- 왼쪽 메뉴바 -->
-			<div class="left_menu_container">
-				<nav class="left_menu">
-					<a href="<c:url value='/study/${st_num}'></c:url>" class="list_item">스터디홈</a>
-					<a href="<c:url value='/study/todo/${st_num}'></c:url>" class="list_item">투두 리스트</a> 
-					<a href="<c:url value='/study/daily/${st_num}'></c:url>" class="list_item">데일리 미션</a> 
-					<a href="<c:url value='/study/photo/${st_num}'></c:url>" class="list_item">인증 게시판</a> 
-					<a href="<c:url value='/board/list/${st_num}'></c:url>" class="list_item">자유 게시판</a> 
-					<a href="<c:url value='/study/management'></c:url>" class="list_item">스터디 관리</a>
-				</nav>
+				<!-- 왼쪽 메뉴바 -->
+				<div class="left_menu_container">
+					<nav class="left_menu">
+						<a href="<c:url value='/study/${st_num}'></c:url>" class="list_item">스터디홈</a>
+						<a href="<c:url value='/study/todo/${st_num}'></c:url>" class="list_item">투두 리스트</a> 
+						<a href="<c:url value='/study/daily/${st_num}'></c:url>" class="list_item">데일리 미션</a> 
+						<a href="<c:url value='/study/photo/${st_num}'></c:url>" class="list_item">인증 게시판</a> 
+						<a href="<c:url value='/board/list/${st_num}'></c:url>" class="list_item">자유 게시판</a> 
+						<a href="<c:url value='/study/management'></c:url>" class="list_item">스터디 관리</a>
+					</nav>
+				</div>
+				<a href="#" class="leave_btn">탈퇴하기</a>
 			</div>
-			<a href="#" class="leave_btn">탈퇴하기</a>
-		</div>
 	    <div class="content_container">
 	        <!-- 탭 -->
 	        <div class="tab_container">
