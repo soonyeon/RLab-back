@@ -196,7 +196,7 @@
           
         </article>
         
-<!-- info_bottom(recruit) -->
+		<!-- info_bottom(recruit) -->
         <article class="info_area_bottom">
           <div class="recruit_btn_left"></div>
           <div class="title_box2">스터디 모집 공고</div>
@@ -240,8 +240,18 @@
 										<span>/</span> 
 										<span>${stList.get(index).st_total_people}</span>
 					                  </div>
-					                  <div class="like_btn"></div>
-					                  <!-- <img src="../img/like_on_red copy.png" alt="img" class="like_btn"> -->
+					                  <!-- 스터디 좋아요 -->
+										<c:if test="${user == null}">
+											<div class="unlike_btn"></div>
+										</c:if>
+										<c:if test="${user != null}">
+											<c:if test="${waList.contains(stList.get(index).st_num)}">
+												<div class="like_btn"></div>
+											</c:if>
+											<c:if test="${!waList.contains(stList.get(index).st_num)}">
+												<div class="unlike_btn"></div>
+											</c:if>
+										</c:if>
 					                </div>
 					              </div>
 					              </a>
