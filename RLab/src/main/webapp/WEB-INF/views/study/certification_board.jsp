@@ -257,7 +257,12 @@ $(document).ready(function() {
         }
     });
 });
-
+//모달 외 영역 눌리면 인증 양식 모달 닫기
+	$(document).mouseup(function (e){
+		if($("#modal").has(e.target).length === 0){
+			$("#modal").hide();
+		}
+	});
 $("button").click(function(e){
 	if(${mf == null}){
 		 e.preventDefault();
