@@ -330,7 +330,9 @@
     border-top-right-radius: var(--border_radius_4);
     border-top-left-radius: var(--border_radius_4);
   }
-  
+	.study_img_box img:nth-child(2){
+		display : none;
+	}
   .study_card_container .study_info{
     width: 270px; 
     height: 152px;  

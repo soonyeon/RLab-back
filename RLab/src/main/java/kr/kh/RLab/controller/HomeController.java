@@ -26,11 +26,13 @@ public class HomeController {
 
 	private final HomeService homeService;
 	
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView home(ModelAndView mv,HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		
+		//모집글 불러오기
 		ArrayList<StudyVO> stList = homeService.selectStudyAll();
 		ArrayList<GatherVO> gaList = homeService.selectGatherAll();
 		ArrayList<FileVO> fileList = homeService.selectFileList();
@@ -41,6 +43,7 @@ public class HomeController {
 		mv.addObject("fileList",fileList);
 		mv.addObject("tagList",tagList);
 		mv.addObject("waList",waList);
+		
 		mv.setViewName("/main/home");
 		return mv;
 	}

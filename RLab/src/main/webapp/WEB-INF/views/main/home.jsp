@@ -1,7 +1,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<style>
+.study_img_box img:nth-child(2){
+	display : none;
+}
+</style>
 <link rel="stylesheet" href="<c:url value='/resources/css/home/main.css'></c:url>">  
 
 <body>
@@ -215,7 +219,10 @@
 												<img src="<c:url value='/download${fi.fi_name}'></c:url>" class="recruit_img1">
 											</c:if>
 										</c:forEach>
-									  </c:if>	
+									  </c:if>
+									  		<c:if test="${fi.fi_ex_num != stList.get(index).st_num}">
+					                        	<img class="recruit_img" src="<c:url value='/resources/img/recruit_thumb.png'></c:url>">
+					                        </c:if>	
 					              </div>
 					              <div class="recruit_banner_inner_box">
 									<ul class="recruit_banner_tag">					                  

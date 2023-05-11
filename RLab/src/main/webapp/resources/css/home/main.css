@@ -265,6 +265,9 @@ main{
   /* margin-right: 10px; */
   background-size:279.823px 118.723px;
 }
+.study_img_box img:nth-child(2){
+	display : none;
+}
 .recruit_banner_tag{
   display: flex;
   flex-direction: row;
