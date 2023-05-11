@@ -11,7 +11,11 @@
 			<div class="button_container">
 				<a href="<c:url value='/reservation/buy'></c:url>" class="ticket_box">
 					<div class="around_text">이용권 구매</div>
-					<div class="info_area">당일이용권(2/3/6시간)<br>기간이용권(2주/4주)<br>시간패키지(30/50/100시간)</div>							
+					<div class="info_area">
+						<div>당일이용권(2/3/6시간)</div>
+						<div>기간이용권(2주/4주)</div>
+						<div>시간패키지(30/50/100시간)</div>
+					</div>							
 				</a>
 				<a href="<c:url value='/reservation/book'></c:url>" class="reservation_box">
 					<div class="around_text">바로 예약</div>
