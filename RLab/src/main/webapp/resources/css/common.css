@@ -41,7 +41,7 @@ body {
   background-color: var(--color_beige);
 /* 추가(주연) 2023-02-15 
 배경 추가로 인한 body 속성 추가입니다. height는 해당 페이지에 알맞게 조정해주세요*/
-   height: 1513px;
+ /*  height: 1513px;*/
    position: relative;
  	}
 /* 추가(주연) 2023-02-21 */
