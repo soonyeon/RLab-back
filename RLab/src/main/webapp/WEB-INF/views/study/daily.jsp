@@ -39,12 +39,13 @@
 					<!-- 오늘의 미션 -->
 					
 					<div class="today_mission">
-						<span class="today_mission_title">오늘의미션</span> <span
+						<span class="today_mission_title">오늘의 미션</span> <span
 							class="today_mission_date">${mission.mi_date}</span>
 							<c:choose>	
 					            <c:when test="${empty mission}">
 					                <div class="today_mission_contents">
-					                     오늘의 인증미션이 없습니다. 오늘의 미션을 등록해주세요!
+					                     오늘의 미션이 없습니다. <br>
+					                     오늘의 미션을 등록해주세요!
 					                </div>
 					            </c:when>
 						        <c:otherwise>
@@ -55,9 +56,9 @@
 					<div class="main_today_mission_button clearfix">
 						<div class="today_mission_button">
 							   <c:if test="${authority == 9}">
-							      <button class="mbutton1">등록/수정</button>
+							      <button class="mbutton1 mbtn">등록/수정</button>
 							   </c:if> 
-							<a href="<c:url value='/study/photo/${user.me_study}'></c:url>" class="mbutton2">인증하기</a>	
+							<a href="<c:url value='/study/photo/${user.me_study}'></c:url>" class="mbutton2 mbtn">인증하기</a>	
 						</div>
 					</div>
 					<!--달성률-->
@@ -73,12 +74,16 @@
 						<c:forEach items="${studyMember}" var="sm">
 							<div class="daliy_mission_pro">
 								<c:if test="${!mfList.contains(sm.sm_me_id) || mfList == null}">
-									<img  class="pro_img" src="<c:url value='/download/${sm.me_profile}'></c:url>" >
+									<div class="pro_circle">
+										<img  class="pro_img" src="<c:url value='/download/${sm.me_profile}'></c:url>" width="auto" height="80" >
+									</div>
 									<div class="pro_name">${sm.sm_me_id}</div>
 								</c:if>
 								<c:if test="${mfList.contains(sm.sm_me_id)}"  >
 									<img class="pro-img-check">
-									<img  class="pro_img" src="<c:url value='/download/${sm.me_profile}'></c:url>" >
+									<div class="pro_circle">
+										<img  class="pro_img" src="<c:url value='/download/${sm.me_profile}'></c:url>" width="auto" height="80">
+									</div>
 									<div class="pro_name">${sm.sm_me_id}</div>
 								</c:if>
 							</div>
