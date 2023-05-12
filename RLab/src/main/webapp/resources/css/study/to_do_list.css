@@ -47,21 +47,46 @@
 }
 .todo_container_my .pet_box{background-color: rgba(247, 249, 251, 0.151);}
 .todo_container_my .pet_message_container{
+  position: relative;
   height: 50px;
-  width: 180px;
+  width: 230px;
   margin: auto;
   margin-bottom: 10px;
   border-radius: 3px;
-  background-color: white
+  background-color: white;
+}
+.pet_message_container:after{
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	width: 0;
+	height: 0;
+	border: 20px solid transparent;
+	border-top-color: white;
+	border-bottom: 0;
+	border-right: 0;
+	margin-left: -10px;
+	margin-bottom: -20px;
+}
+.message_box{
+	height: 100%;
+	display: flex;
+	justify-content: center;
+    align-items: center;
 }
 .pet_message_container .pet_message{
   text-align: center;
-  padding-top: 16px;
+  /*padding-top: 16px;*/
 }
 .todo_container_my .pet_box .pet_img_container {
   height: 150px;
   width: 150px;
   margin: auto;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .todo_container_my .pet_box .pet_img {
@@ -149,11 +174,7 @@
   font-size: 15px;
   font-weight: 800;
 } */
-.leave {
-  position: relative;
-  bottom: -120px;
-  left: 5px;
-} 
+ 
 .left_menu a:visited {
   font-weight: bold; 
   /*클릭했을때 굵어지면서 검정색으로 바뀌게 나중에 수정 */

@@ -38,27 +38,33 @@
     <!-- 로그인 모달창 -->
 	<div class="modal_container" id="loginModal">
         <div class="modal_area">
-        	<a href="#" class="close_btn">x</a>
-        	<div class="login_box">
+        <img class="remove_btn login_remove" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="40">
+          <div class="login_box">
 
-            <h1>로그인</h1>
+            <h2>로그인</h2>
             
             <form action="<c:url value='/login'></c:url>" method="post">
-              <div class="form_group">
-                <!-- <label for="id"></label> -->
-                <input type="text" class="form_control" id="id" name="me_id" placeholder="아이디">
-              </div>
-              <div class="form_group">
-                <!-- <label for="pw">비번:</label> -->
-                <input type="password" class="form_control" id="pw" name="me_pw" placeholder="비밀번호">
-              </div>
-              <button class="btn_outline_success col-12">로그인</button>
-			  <input type="checkbox" name="autoLogin" value="true"> 자동로그인
-              <hr>
+            	<div class="input_forms">
+	            	<div class="form_groups">
+		              <div class="form_group">
+		                <!-- <label for="id"></label> -->
+		                <input type="text" class="form_control" id="id" name="me_id" placeholder="아이디">
+		              </div>
+		              <div class="form_group">
+		                <!-- <label for="pw">비번:</label> -->
+		                <input type="password" class="form_control" id="pw" name="me_pw" placeholder="비밀번호">
+		              </div>
+		            </div>  
+	              	<button class="btn_outline_success col-12">로그인</button>
+              	</div>
+			  <div class= "login_stay_box">
+			 	 <input type="checkbox" name="autoLogin" value="true"> 
+			 	 <p>로그인 상태 유지</p>
+			  </div>
               <p class="more_action">
                 <a href="#" class="more_action_item 1">아이디 찾기</a> |
                 <a href="#" class="more_action_item 2">비밀번호 찾기</a> |
-                <a href="<c:url value="/singup"></c:url>" class="more_action_item 3">회원가입</a>
+                <a href="<c:url value="/signup"></c:url>" class="more_action_item 3">회원가입</a>
               </p>
             </form>
 
@@ -68,9 +74,9 @@
 
 		<div class="modal_container" id="findIDModal">
 		  <div class="modal_area">
-		    <a href="#" class="close_btn">x</a>
-		    <div class="find_id_box">
-		      <h1>아이디 찾기</h1>
+		  <img class="remove_btn login_remove" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="40">
+		    <div class="login_box find_id_box">
+		      <h2>아이디 찾기</h2>
 
 		      <form action="<c:url value='/findID'></c:url>" method="post">
 		        <div class="form_group">
@@ -78,6 +84,11 @@
 		          <input type="email" class="form_control" id="email" name="email" placeholder="이메일">
 		        </div>
 		        <button class="btn_outline_success col-12" type="button" onclick="findID()">아이디 찾기</button>
+			      <p class="more_action">
+	                <a href="#" class="more_action_item 0">로그인</a> |
+	                <a href="#" class="more_action_item 2_1">비밀번호 찾기</a> |
+	                <a href="<c:url value="/signup"></c:url>" class="more_action_item 3">회원가입</a>
+	              </p>
 		      </form>
 
 		    </div>
@@ -86,18 +97,27 @@
 
 		<div class="modal_container" id="findPWModal">
 		  <div class="modal_area">
-		    <a href="#" class="close_btn">x</a>
-		    <div class="find_pw_box">
-		      <h1>비밀번호 찾기</h1>
+		  <img class="remove_btn login_remove" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="40">
+		    <div class="login_box find_pw_box">
+		      <h2>비밀번호 찾기</h2>
 
 		      <form action="<c:url value='/findPW'></c:url>" method="post">
-		        <div class="form_group">
-		          <input type="text" class="form_control" id="findPW_id" name="me_id" placeholder="아이디">
-		        </div>
-		        <div class="form_group">
-		          <input type="email" class="form_control" id="findPW_email" name="email" placeholder="이메일">
-		        </div>
-		        <button class="btn_outline_success col-12" type="button" onclick="findPW()">전송</button>
+		      	<div class="input_forms">
+			      	<div class="form_groups">
+				        <div class="form_group">
+				          <input type="text" class="form_control" id="findPW_id" name="me_id" placeholder="아이디">
+				        </div>
+				        <div class="form_group">
+				          <input type="email" class="form_control" id="findPW_email" name="email" placeholder="이메일">
+				        </div>
+				    </div>
+			        <button class="btn_outline_success col-12" type="button" onclick="findPW()">전송</button>
+			     </div> 
+			      <p class="more_action">
+	                <a href="#" class="more_action_item 0_1">로그인</a> |
+	                <a href="#" class="more_action_item 1_1">아이디 찾기</a> |
+	                <a href="<c:url value="/signup"></c:url>" class="more_action_item 3">회원가입</a>
+	              </p>
 		      </form>
 		    </div>
 		  </div>
@@ -126,7 +146,7 @@
 		        <c:if test="${user != null}">		  		       
      				<form action="<c:url value='/logout'></c:url>" method="post">     
 		  				<div class="logout_box">
-              				<a class="logout_btn">로그아웃</a>
+              				
               				<div class="alarm_bell_box">
               					<div class="new_dot bell_dot"></div>
 		  		    			<img class="alram_img" src="<c:url value='/resources/img/alram.png'></c:url>" width="auto" height="20">
@@ -143,11 +163,13 @@
 			  		    			<span class="blind">마이페이지</span>
 		  		    			</c:if>
 			  		    	</a>
+		  		    		<a class="logout_btn">로그아웃</a>
             			</div>    
               		</form>
 		        </c:if>
         	</div>
         </div>
+
     </div>	
 	<div id="notificationModal" class="notification-modal">
         <div class="notification-content">
@@ -183,8 +205,23 @@
 	    </c:forEach> 
 	</div> 
 </header>
-<script><!-- 알림 -->
+<script>
 let source;
+// 스크롤 내리면 헤더에 그림자넣기
+$("body").on("mousewheel", function(e){
+	var wheel = e.originalEvent.wheelDelta;
+	var now= $("header").offset().top;
+	console.log(now);
+	if(now <= 100){
+		$("header").css("box-shadow", "none");
+	}
+	if(wheel > 0){
+	}else{
+		$("header").css("box-shadow", "2px 2px 5px #d9cec5ba");
+	}
+})
+  
+<!-- 알림 -->
 $(document).ready(function() {
 	// 알람 누르면 알람 모달 보이기
 	$('.alram_img').click(
@@ -213,6 +250,7 @@ $('.alarm_remove').click(function(){
         }
     });
 });
+
 
 		
 // 로그아웃 버튼 클릭 이벤트
@@ -279,6 +317,33 @@ function findPW() {
   });
 }
 
+
+    connect();
+	// 로그인 모달
+	// 모달 외 영역 눌리면 알림 모달 닫기
+ 	$(document).mouseup(function (e){
+ 		if($("#loginModal").has(e.target).length === 0){
+ 			$("#loginModal").hide();
+ 		}
+ 	});
+	
+    $('.login_modal').click(function(e) {
+      e.preventDefault();
+      $('#loginModal').show();
+    });
+    
+    $('.more_action_item.0').click(function(e) {
+        e.preventDefault();
+        $('#findIDModal').hide();
+        $('#loginModal').show();
+      });
+    
+    $('.more_action_item.0_1').click(function(e) {
+        e.preventDefault();
+        $('#findPWModal').hide();
+        $('#loginModal').show();
+      });
+
 function findID() {
   let email = $("#email").val();
   $.ajax({
@@ -302,9 +367,7 @@ function findID() {
 
 
 function connect() {
-	
     const userId = "${user.me_id}"; 
-
     const connectUrl = "<c:url value='/connect' />" + "?id=" + userId;
      source = new EventSource(connectUrl);
      let bt = "${board.bo_title}"
@@ -316,6 +379,13 @@ function connect() {
         console.log("Received connect event:", event.data);
     });
     
+
+    $('.more_action_item.1_1').click(function(e) {
+        e.preventDefault();
+        $('#findPWModal').hide();
+        $('#findIDModal').show();
+      });
+
     source.addEventListener("test", function(event) {
         console.log("test:", event.data);
     });
@@ -353,6 +423,16 @@ function connect() {
         //showNotification(data.message);
     });
     
+    $('.more_action_item.2_1').click(function(e) {
+        e.preventDefault();
+        $('#findIDModal').hide();
+        $('#findPWModal').show();
+      });
+
+    $('.remove_btn').click(function(e) {
+      e.preventDefault();
+      $('.modal_container').hide();
+
     source.addEventListener("joinStudy", function (event) {
         // 이벤트가 발생할 때 여기에 코드 작성
         //const data = JSON.parse(event.data);

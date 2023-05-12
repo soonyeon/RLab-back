@@ -4,7 +4,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>작성글 관리</title>
-<link rel="stylesheet" href="<c:url value='/resources/css/board/mypost_post.css'></c:url>">
+<link rel="stylesheet" href="<c:url value='/resources/css/board/list.css'></c:url>">
 <link rel="stylesheet" href="<c:url value='/resources/css/study/study.css'></c:url>">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://kit.fontawesome.com/0639c8d8d2.js" crossorigin="anonymous"></script>
@@ -12,25 +12,26 @@
 
 <main>
 	<div class="main_container">
-		<!-- 왼쪽 메뉴바 -->
-		<div class="left_menu_container">
-			<nav class="left_menu">
-				<a href="<c:url value='/study/${st_num}'></c:url>" class="list_item">스터디홈</a> 
-				<a href="#" class="list_item">스터디 달력</a> 
-				<a href="to_do_list.html" class="list_item">투두 리스트</a> 
-				<a href="Daily Mission.html" class="list_item">데일리 미션</a> 
-				<a href="<c:url value='/study/photo/${st_num}'></c:url>" class="list_item">인증 게시판</a> 
-				<a href="<c:url value='/board/list/${st_num}'></c:url>" class="list_item">자유 게시판</a> 
-				<a href="<c:url value='/study/management/member'></c:url>" class="list_item">스터디 관리</a> 
-				<a href="#" class="leave">탈퇴하기</a>
-			</nav>
-		</div>
+		 <div class="left_side">
+				<!-- 왼쪽 메뉴바 -->
+				<div class="left_menu_container">
+					<nav class="left_menu">
+						<a href="<c:url value='/study/${st_num}'></c:url>" class="list_item">스터디홈</a>
+						<a href="<c:url value='/study/todo/${st_num}'></c:url>" class="list_item">투두 리스트</a> 
+						<a href="<c:url value='/study/daily/${st_num}'></c:url>" class="list_item">데일리 미션</a> 
+						<a href="<c:url value='/study/photo/${st_num}'></c:url>" class="list_item">인증 게시판</a> 
+						<a href="<c:url value='/board/list/${st_num}'></c:url>" class="list_item">자유 게시판</a> 
+						<a href="<c:url value='/study/management'></c:url>" class="list_item">스터디 관리</a>
+					</nav>
+				</div>
+				<a href="#" class="leave_btn">탈퇴하기</a>
+			</div>
 
 		<section>
 			<div class="home_container">
-				<h2>자유게시판</h2>
-				
-				<div class="my_study_container" id="my_container" style="margin-top: 30px;">
+				<h2 class="time_line_title">자유게시판</h2>
+				<div class="my_study_container" id="my_container">
+
 					<div class="study_card_container">
 						<!-- table  -->
 						
@@ -76,7 +77,9 @@
 										<a href="<c:url value='/board/list/${st_num}?page=${pm.startPage-1}&pageSize=${ph.pageSize}'/>"> <i class="btn_prev"></i></a>
 									</c:if>
 									<c:forEach var="i" begin="${pm.startPage}" end="${pm.endPage}">
-										<a class="page_num<c:if test="${pm.cri.page == i}"> selected</c:if>" href="<c:url value='/board/list/${st_num}?page=${i}'/>">${i}</a>
+										<span class="page_num">
+											<a class="page_link<c:if test="${pm.cri.page == i}"> selected</c:if>" href="<c:url value='/board/list/${st_num}?page=${i}'/>">${i}</a>
+										</span>
 									</c:forEach>
 									<c:if test="${pm.next}">
 										<a href="<c:url value='/board/list/${st_num}?page=${pm.endPage+1}'/>"><i class="btn_next"></i></a>
