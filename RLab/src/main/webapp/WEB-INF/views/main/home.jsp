@@ -207,64 +207,60 @@
           	<div class="recruit_box">
 	          <div class="recruit_box_container">
 	          	<c:if test="${stList.size() != 0}">
-					<c:forEach begin="0" end="${stList.size()-1}" step="1" var="i">
-						<c:forEach begin="${i}" end="${i+1}" var="index">
-							<c:if  test="${stList.size()-1 >= index}" >
-					            <div class="recruit_banner_box add_shadow">
-					            <a href="<c:url value='/gather/detail/${stList.get(index).st_num}'></c:url>">
-					              <div class="study_img_box">
-						              <c:if test="${files.size() != 0 }">
-										<c:forEach items="${fileList}" var="fi">
-											<c:if test="${fi.fi_ex_num == stList.get(index).st_num}">
-												<img src="<c:url value='/download${fi.fi_name}'></c:url>" class="recruit_img1">
-											</c:if>
-										</c:forEach>
-									  </c:if>
-									  		<c:if test="${fi.fi_ex_num != stList.get(index).st_num}">
-					                        	<img class="recruit_img" src="<c:url value='/resources/img/recruit_thumb.png'></c:url>">
-					                        </c:if>	
-					              </div>
-					              <div class="recruit_banner_inner_box">
-									<ul class="recruit_banner_tag">					                  
-										<c:forEach items="${tagList}" var="ta" varStatus="vs">
-											<c:if test="${ta.tr_st_num==stList.get(index).st_num}">
-												<span class="blue_btn">${ta.tr_name}</span> 
-											</c:if>
-										</c:forEach>					                
-									</ul>
-					                <div class="recruit_banner_title">
-	                					<span class="study_recruit_content">[${stList.get(index).st_re_name}]</span>
-										<c:forEach items="${gaList}" var="ga">
-											<c:if test="${ga.ga_st_num==stList.get(index).st_num}">
-												<span> ${ga.ga_title}</span>
-											</c:if>
-										</c:forEach>
-									</div>
-					                <div class="recruit_btn_box">
-					                  <div class="recruit_banner_btn">
-		                  				<span>모집중</span> 
-										<span>${stList.get(index).st_now_people}</span> 
-										<span>/</span> 
-										<span>${stList.get(index).st_total_people}</span>
-					                  </div>
-					                  <!-- 스터디 좋아요 -->
-										<c:if test="${user == null}">
-											<div class="unlike_btn"></div>
-										</c:if>
-										<c:if test="${user != null}">
-											<c:if test="${waList.contains(stList.get(index).st_num)}">
-												<div class="like_btn"></div>
-											</c:if>
-											<c:if test="${!waList.contains(stList.get(index).st_num)}">
-												<div class="unlike_btn"></div>
-											</c:if>
-										</c:if>
-					                </div>
-					              </div>
-					              </a>
-					            </div>
-					    	</c:if>  
-					    </c:forEach>      
+					<c:forEach items="${stList}" var="st">
+		            <div class="recruit_banner_box add_shadow">
+		            <a href="<c:url value='/gather/detail/${st.st_num}'></c:url>">
+		              <div class="study_img_box">
+			              <c:if test="${files.size() != 0 }">
+							<c:forEach items="${fileList}" var="fi">
+								<c:if test="${fi.fi_ex_num == st.st_num}">
+									<img src="<c:url value='/download${fi.fi_name}'></c:url>" class="recruit_img1">
+								</c:if>
+							</c:forEach>
+						  </c:if>
+					  		<c:if test="${fi.fi_ex_num != st.st_num}">
+	                        	<img class="recruit_img" src="<c:url value='/resources/img/recruit_thumb.png'></c:url>">
+	                        </c:if>	
+		              </div>
+		              <div class="recruit_banner_inner_box">
+						<ul class="recruit_banner_tag">					                  
+							<c:forEach items="${tagList}" var="ta" varStatus="vs">
+								<c:if test="${ta.tr_st_num==st.st_num}">
+									<span class="blue_btn">${ta.tr_name}</span> 
+								</c:if>
+							</c:forEach>					                
+						</ul>
+		                <div class="recruit_banner_title">
+              					<span class="study_recruit_content">[${st.st_re_name}]</span>
+							<c:forEach items="${gaList}" var="ga">
+								<c:if test="${ga.ga_st_num==st.st_num}">
+									<span> ${ga.ga_title}</span>
+								</c:if>
+							</c:forEach>
+						</div>
+		                <div class="recruit_btn_box">
+		                  <div class="recruit_banner_btn">
+                 				<span>모집중</span> 
+							<span>${st.st_now_people}</span> 
+							<span>/</span> 
+							<span>${st.st_total_people}</span>
+		                  </div>
+		                  <!-- 스터디 좋아요 -->
+							<c:if test="${user == null}">
+								<div class="unlike_btn"></div>
+							</c:if>
+							<c:if test="${user != null}">
+								<c:if test="${waList.contains(st.st_num)}">
+									<div class="like_btn"></div>
+								</c:if>
+								<c:if test="${!waList.contains(st.st_num)}">
+									<div class="unlike_btn"></div>
+								</c:if>
+							</c:if>
+		                </div>
+		              </div>
+		              </a>
+		            </div>
 					</c:forEach>
 	         	 </c:if>
 	          </div>
