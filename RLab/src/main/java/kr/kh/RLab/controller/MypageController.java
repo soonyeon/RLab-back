@@ -25,6 +25,7 @@ import kr.kh.RLab.service.StudyService;
 import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.BranchVO;
 import kr.kh.RLab.vo.EvolutionVO;
+import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.GrowthVO;
 import kr.kh.RLab.vo.MemberVO;
@@ -323,10 +324,14 @@ public class MypageController {
 			// 내가 찜한 스터디 찜 여부 가져오기
 			ArrayList<Integer> wantList = mypageService.selectWantListById(memberId);
 			
+			// 내가 찜한 스터디 사진 가져오기
+			ArrayList<FileVO> fileList = mypageService.selectFileList();
+			
 			// 페이지 네이션		
 			int totalCount = mypageService.getFavoriteTotalCount(memberId, cri);
 			PageMaker pm = new PageMaker(totalCount, 1, cri);
 			
+			mv.addObject("fileList",fileList);
 			mv.addObject("myFavoriteList", myFavoriteList);
 			mv.addObject("favoriteTagList", favoriteTagList);
 			mv.addObject("wantList", wantList);
@@ -439,7 +444,7 @@ public class MypageController {
 		
 		// 내가 쓴 모집글의 찜 여부 가져오기
 		ArrayList<Integer> wantList = mypageService.selectWantListById(memberId);
-		
+
 		// 페이지 네이션		
 		int totalCount = mypageService.getGatherTotalCount(memberId, cri);
 		PageMaker pm = new PageMaker(totalCount, 1, cri);

@@ -258,6 +258,11 @@
 			where wa_state = 1
 		</select>
 		
+		<!-- 내가 찜한 스터디의 파일 가져오기 -->
+		<select id="selectFileList" resultType="kr.kh.RLab.vo.FileVO">
+			select * from file 
+		</select>
+					
 		<!-- 내가 찜한 모집글의 수 -->
 		<select id="selectFavoriteTotalCount" resultType="int">
 			select count(*)
