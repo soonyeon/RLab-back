@@ -206,6 +206,67 @@
 	</div> 
 </header>
 <script>
+// login 모달
+$(document).ready(function() {
+	// 로그인 버튼 click 로그인 모달 show
+	$('.login_modal').click(function(e) {
+		  e.preventDefault();
+		  $('#loginModal').show();
+	});
+	// x버튼 누르면 로그인 모달 닫기
+	$('.remove_btn').click(function(e) {
+	    e.preventDefault();
+	    $('.modal_container').hide();
+	});
+	
+	// 로그인 -> 아이디 찾기 
+	$('.more_action_item.1').click(function(e) {
+		  e.preventDefault();
+		  $('#loginModal').hide();
+		  $('#findIDModal').show();
+	});
+	// 로그인 -> 비번 찾기
+	$('.more_action_item.2').click(function(e) {
+		  e.preventDefault();
+		  $('#loginModal').hide();
+		  $('#findPWModal').show();
+	});
+	// 아이디 찾기 -> 로그인
+	$('.more_action_item.0').click(function(e) {
+	    e.preventDefault();
+	    $('#findIDModal').hide();
+	    $('#loginModal').show();
+	});
+	// 아이디 찾기 -> 비번찾기
+	$('.more_action_item.2_1').click(function(e) {
+        e.preventDefault();
+        $('#findIDModal').hide();
+        $('#findPWModal').show();
+    });
+	// 비번 찾기 -> 로그인
+	$('.more_action_item.0_1').click(function(e) {
+	    e.preventDefault();
+	    $('#findPWModal').hide();
+	    $('#loginModal').show();
+	});
+	// 비번 찾기 -> 아이디 찾기
+	$('.more_action_item.1_1').click(function(e) {
+	    e.preventDefault();
+	    $('#findPWModal').hide();
+	    $('#findIDModal').show();
+	});
+});
+
+//모달 외 영역 누르면 로그인 모달 닫기
+$(document).mouseup(function (e){
+	if($(".modal_container").has(e.target).length === 0){
+		$(".modal_container").hide();
+	}
+});
+
+
+</script>
+<script>
 let source;
 // 스크롤 내리면 헤더에 그림자넣기
 $("body").on("mousewheel", function(e){
@@ -219,13 +280,60 @@ $("body").on("mousewheel", function(e){
 	}else{
 		$("header").css("box-shadow", "2px 2px 5px #d9cec5ba");
 	}
-})
+});
+
+//아이디 찾기
+function findID() {
+  let email = $("#email").val();
+  $.ajax({
+    type: "POST",
+    url: "<c:url value='/findID'/>",
+    data: {
+      email: email
+    },
+    success: function(response) {
+      if (response === "found") {
+        alert("이메일로 아이디를 보냈습니다.");
+      } else {
+        alert("해당 이메일로 등록된 아이디가 없습니다.");
+      }
+    },
+    error: function() {
+      alert("이메일로 전송이 실패 했습니다.");
+    }
+  });
+}
+
+// 비밀번호 찾기
+function findPW() {
+  let id = $("#findPW_id").val();
+  let email = $("#findPW_email").val();
+  $.ajax({
+    type: "POST",
+    url: "<c:url value='/findPW'/>",
+    data: {
+      id: id,
+      email: email
+    },
+    success: function(response) {
+      if (response === "found") {
+        alert("이메일로 임시번호를 보냈습니다.");
+      } else {
+        alert("해당 아이디와 이메일로 등록된 정보가 없습니다.");
+      }
+    },
+    error: function() {
+      alert("이메일로 전송이 실패 했습니다.");
+    }
+  });
+}
   
-<!-- 알림 -->
+// 알림
 $(document).ready(function() {
 	// 알람 누르면 알람 모달 보이기
 	$('.alram_img').click(
 	function() {
+		console.log('zlert');
 		$('#alarmModal').show();
 	})
 });
@@ -251,7 +359,6 @@ $('.alarm_remove').click(function(){
     });
 });
 
-
 		
 // 로그아웃 버튼 클릭 이벤트
 $("#logout_btn").on("click", function() {
@@ -266,105 +373,14 @@ $("#logout_btn").on("click", function() {
         }
     });
 });
-
-$('.login_modal').click(function(e) {
-  e.preventDefault();
-  $('#loginModal').show();
-});
-
-$('.more_action_item.1').click(function(e) {
-  e.preventDefault();
-  $('#loginModal').hide();
-  $('#findIDModal').show();
-});
-
-$('.more_action_item.2').click(function(e) {
-  e.preventDefault();
-  $('#loginModal').hide();
-  $('#findPWModal').show();
-});
-
-$('.close_btn').click(function(e) {
-  e.preventDefault();
-  $('.modal_container').hide();
-});
-
 $('.logout_btn').click(function(e) {
 	e.preventDefault();
 	$(this).closest('form').submit();
 });
 
-function findPW() {
-  let id = $("#findPW_id").val();
-  let email = $("#findPW_email").val();
-  $.ajax({
-    type: "POST",
-    url: "<c:url value='/findPW'/>",
-    data: {
-      id: id,
-      email: email
-    },
-    success: function(response) {
-      if (response === "found") {
-        alert("이메일로 임시번호를 보냈습니다.");
-      } else {
-        alert("해당 아이디와 이메일로 등록된 정보가 없습니다.");
-      }
-    },
-    error: function() {
-      alert("이메일로 전송이 실패 했습니다.");
-    }
-  });
-}
 
 
     connect();
-	// 로그인 모달
-	// 모달 외 영역 눌리면 알림 모달 닫기
- 	$(document).mouseup(function (e){
- 		if($("#loginModal").has(e.target).length === 0){
- 			$("#loginModal").hide();
- 		}
- 	});
-	
-    $('.login_modal').click(function(e) {
-      e.preventDefault();
-      $('#loginModal').show();
-    });
-    
-    $('.more_action_item.0').click(function(e) {
-        e.preventDefault();
-        $('#findIDModal').hide();
-        $('#loginModal').show();
-      });
-    
-    $('.more_action_item.0_1').click(function(e) {
-        e.preventDefault();
-        $('#findPWModal').hide();
-        $('#loginModal').show();
-      });
-
-function findID() {
-  let email = $("#email").val();
-  $.ajax({
-    type: "POST",
-    url: "<c:url value='/findID'/>",
-    data: {
-      email: email
-    },
-    success: function(response) {
-      if (response === "found") {
-        alert("이메일로 아이디를 보냈습니다.");
-      } else {
-        alert("해당 이메일로 등록된 아이디가 없습니다.");
-      }
-    },
-    error: function() {
-      alert("이메일로 전송이 실패 했습니다.");
-    }
-  });
-}
-
 
 function connect() {
     const userId = "${user.me_id}"; 
@@ -379,12 +395,6 @@ function connect() {
         console.log("Received connect event:", event.data);
     });
     
-
-    $('.more_action_item.1_1').click(function(e) {
-        e.preventDefault();
-        $('#findPWModal').hide();
-        $('#findIDModal').show();
-      });
 
     source.addEventListener("test", function(event) {
         console.log("test:", event.data);
@@ -423,15 +433,6 @@ function connect() {
         //showNotification(data.message);
     });
     
-    $('.more_action_item.2_1').click(function(e) {
-        e.preventDefault();
-        $('#findIDModal').hide();
-        $('#findPWModal').show();
-      });
-
-    $('.remove_btn').click(function(e) {
-      e.preventDefault();
-      $('.modal_container').hide();
 
     source.addEventListener("joinStudy", function (event) {
         // 이벤트가 발생할 때 여기에 코드 작성
