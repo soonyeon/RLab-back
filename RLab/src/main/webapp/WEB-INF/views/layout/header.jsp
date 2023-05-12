@@ -220,6 +220,11 @@ $("#logout_btn").on("click", function() {
     });
 });
 
+$('.login_modal').click(function(e) { 
+	  e.preventDefault(); 
+	  $('#loginModal').show(); 
+	}); 
+
 $('.more_action_item.1').click(function(e) {
   e.preventDefault();
   $('#loginModal').hide();
