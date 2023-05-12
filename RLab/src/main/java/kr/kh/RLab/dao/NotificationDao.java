@@ -12,4 +12,7 @@ public interface NotificationDao {
 	List<AlarmVO> getUserAlrams(String userid);
 	
 	void deleteAlarm(int al_num);
+	
+	// 새로운 알람 개수 조회
+	int selectNewAlarmCount(String userId);
 }

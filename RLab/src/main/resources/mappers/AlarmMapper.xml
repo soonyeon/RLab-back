@@ -17,4 +17,11 @@
     <delete id="deleteAlarm">
     	delete from alarm where al_num = #{al_num}
     </delete>
+    
+    <!-- 새로운 알람 개수 조회 -->
+    <select id="selectNewAlarmCount" resultType="int">
+        SELECT COUNT(*) AS count
+		FROM alarm
+		WHERE al_me_id = #{userId} AND al_view = 0;
+    </select>
 </mapper>

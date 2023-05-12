@@ -74,4 +74,9 @@ public class NotificationServiceImp implements NotificationService {
 	public void deleteAlarm(int al_num) {
 		notificationDao.deleteAlarm(al_num);
 	}
+	
+	@Override
+	public int getNewAlarmCount(String userId) {
+		return notificationDao.selectNewAlarmCount(userId);
+	}
 }

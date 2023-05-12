@@ -146,11 +146,17 @@
 		        <c:if test="${user != null}">		  		       
      				<form action="<c:url value='/logout'></c:url>" method="post">     
 		  				<div class="logout_box">
-              				
               				<div class="alarm_bell_box">
-              					<div class="new_dot bell_dot"></div>
-		  		    			<img class="alram_img" src="<c:url value='/resources/img/alram.png'></c:url>" width="auto" height="20">
-		  		    			<span class="blind">알림</span>
+              					<!-- 새로운 알람이 있으면 new_dot이 보이게 -->
+              					<c:if test="${newAlarm != 0}">
+	              					<div class="new_dot bell_dot"></div>
+			  		    			<img class="alarm_img" src="<c:url value='/resources/img/alram.png'></c:url>" width="auto" height="20">
+			  		    			<span class="blind">알림</span>
+		  		    			</c:if>
+		  		    			<c:if test="${newAlarm == 0}">
+			  		    			<img class="alarm_img" src="<c:url value='/resources/img/alram.png'></c:url>" width="auto" height="20">
+			  		    			<span class="blind">알림</span>
+		  		    			</c:if>
 		  		    		</div>
 		  		    		<a href="<c:url value='/mypage'></c:url>" class="icon_mypage">
 		  		    			<c:if test="${user.me_profile == null}">
@@ -331,7 +337,7 @@ function findPW() {
 // 알림
 $(document).ready(function() {
 	// 알람 누르면 알람 모달 보이기
-	$('.alram_img').click(
+	$('.alarm_img').click(
 	function() {
 		console.log('zlert');
 		$('#alarmModal').show();

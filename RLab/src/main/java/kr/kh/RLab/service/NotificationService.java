@@ -21,5 +21,7 @@ public interface NotificationService {
 
 	void deleteAlarm(int al_num);
 
+	int getNewAlarmCount(String userId);
+
 
 }
