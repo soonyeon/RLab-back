@@ -147,6 +147,27 @@
      				<form action="<c:url value='/logout'></c:url>" method="post">     
 		  				<div class="logout_box">
               				<div class="alarm_bell_box">
+              					<div class="alarm_modal" id="alarmModal" style=" max-height: 200px; overflow-y: auto;">	
+								    <c:forEach var="alarm" items="${alarm}">
+								   	    <c:if test="${alarm.al_view == 0}">
+											<a class="modal_content" href="#">		   
+										    	<div class="alarm_content_box">
+											    	<div class="new_dot"></div>
+											        <p>${alarm.al_content}</p>
+										    	</div>  
+											    <img class="alarm_remove" data-num="${alarm.al_num}" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="20">
+								   			</a>
+								   		</c:if>
+									    <c:if test="${alarm.al_view == 1}">
+											<a class="modal_content read_content" href="#">		
+												<div class="alarm_content_box">   
+											        <p>${alarm.al_content}</p>
+								   				</div>
+												<img class="alarm_remove" data-num="${alarm.al_num}" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="20">
+								   			</a>
+								   		</c:if>
+								    </c:forEach> 
+								</div> 
               					<!-- 새로운 알람이 있으면 new_dot이 보이게 -->
               					<c:if test="${newAlarm != 0}">
 	              					<div class="new_dot bell_dot"></div>
@@ -158,6 +179,7 @@
 			  		    			<span class="blind">알림</span>
 		  		    			</c:if>
 		  		    		</div>
+		  		    		
 		  		    		<a href="<c:url value='/mypage'></c:url>" class="icon_mypage">
 		  		    			<c:if test="${user.me_profile == null}">
 		  		    				<img class="mypage_img" src="<c:url value='/resources/img/user.png'></c:url>" width="auto" height="40">
@@ -191,28 +213,9 @@
 			</c:choose> -->
         </div>
     </div>
-	<div class="alarm_modal" id="alarmModal" style=" max-height: 200px; overflow-y: auto;">	
-	    <c:forEach var="alarm" items="${alarm}">
-	   	    <c:if test="${alarm.al_view == 0}">
-				<a class="modal_content" href="#">		   
-			    	<div class="alarm_content_box">
-				    	<div class="new_dot"></div>
-				        <p>${alarm.al_content}</p>
-			    	</div>  
-				    <img class="alarm_remove" data-num="${alarm.al_num}" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="20">
-	   			</a>
-	   		</c:if>
-		    <c:if test="${alarm.al_view == 1}">
-				<a class="modal_content read_content" href="#">		
-					<div class="alarm_content_box">   
-				        <p>${alarm.al_content}</p>
-	   				</div>
-					<img class="alarm_remove" data-num="${alarm.al_num}" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="20">
-	   			</a>
-	   		</c:if>
-	    </c:forEach> 
-	</div> 
+	
 </header>
+
 <script>
 // login 모달
 $(document).ready(function() {
