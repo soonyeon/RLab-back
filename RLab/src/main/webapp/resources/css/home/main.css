@@ -241,7 +241,7 @@ main{
 }
 .recruit_box_container{
   position: absolute;
-  left: 11px; 
+  left: 29px; 
 }
 .recruit_box_container .animated{
   transition: o.5s ease-out;
