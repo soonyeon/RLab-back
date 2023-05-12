@@ -153,8 +153,9 @@
             <span class="notification_content"></span>
         </div>
     </div>
-	<div class="alarm_modal" id="alarmModal" style=" max-height: 200px; overflow-y: auto;">	
-	    <c:forEach var="alarm" items="${alarm}">
+	<div class="alarm_modal display_none" id="alarmModal" style=" max-height: 200px; overflow-y: auto;">	
+	<div class="alarm_container">
+	    <c:forEach var="alarm" items="${alList}">
 	   	    <c:if test="${alarm.al_view == 0}">
 				<a class="modal_content" href="#">		   
 				    <img class="alarm_remove" data-num="${alarm.al_num}" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="20">
@@ -171,6 +172,7 @@
 	   			</a>
 	   		</c:if>
 	    </c:forEach> 
+	    </div>
 	</div> 
 </header>
 <script><!-- 알림 -->
@@ -189,7 +191,7 @@ $(document).mouseup(function (e){
 	}
 });
 //알림 삭제 버튼
-$('.alarm_remove').click(function(){
+$(document).on("click",'.alarm_remove',function(){
 	let al_num = $(this).data('num');
 	$.ajax({
         url: '<c:url value="/delete/alarm/'+al_num+'"></c:url>',
@@ -216,11 +218,6 @@ $("#logout_btn").on("click", function() {
             console.log("Logout request failed");
         }
     });
-});
-
-$('.login_modal').click(function(e) {
-  e.preventDefault();
-  $('#loginModal').show();
 });
 
 $('.more_action_item.1').click(function(e) {
@@ -308,16 +305,18 @@ function connect() {
         console.log("SSE error:", event);
     };
     source.addEventListener("newComment", function (event) {
+    	console.log('새댓글');
     	//이벤트가 일어날 일을 여기밑에다가 쓰기
 	   const data = JSON.parse(event.data);
 	    	console.log(event);
 		const title = "새로운 댓글";
 		const message = '게시글에 댓글이 달렸습니다.';
 		showModal(title, message);
-		reloadAlarmModal();
+
 		setTimeout(function() {
 		    hideModal();
 		}, 5000); 
+		reloadAlarmModal();
 	 	//console.log("Received newComment event:", data);
 	 	//showNotification(message);
 	 });
@@ -332,6 +331,7 @@ function connect() {
         setTimeout(function() {
             hideModal();
         }, 5000);
+		reloadAlarmModal();
         //console.log("Received newLike event:", data);
         //showNotification(data.message);
     });
@@ -346,6 +346,7 @@ function connect() {
         setTimeout(function() {
             hideModal();
         }, 5000);
+		reloadAlarmModal();
         //console.log("Received joinStudy event:", data);
         //showNotification(data.message);
     });
@@ -360,6 +361,7 @@ function connect() {
         setTimeout(function() {
             hideModal();
         }, 5000);
+		reloadAlarmModal();
         //console.log("Received leaveStudy event:", data);
         //showNotification(data.message);
     });
@@ -374,6 +376,7 @@ function connect() {
         setTimeout(function() {
             hideModal();
         }, 5000);
+		reloadAlarmModal();
         //console.log("Received authorizeStudy event:", data);
         //showNotification(data.message);
     });
@@ -382,7 +385,8 @@ function connect() {
 connect();
 	
 function reloadAlarmModal(){
-	$("#alarmModal").load(location.href);
+	//$("#alarmModal").load(location.href+" #alarmModal");
+	$("#alarmModal").load("<c:url value='/alarm'></c:url> .alarm_container");
 }
  
 function showModal(title, message) {
