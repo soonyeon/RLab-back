@@ -390,8 +390,7 @@ function connect() {
 connect();
 	
 function reloadAlarmModal(){
-	//$("#alarmModal").load(location.href+" #alarmModal");
-	$("#alarmModal").load("<c:url value='/alarm'></c:url> .alarm_container");
+	$("#alarmModal").load(location.href+" .alarm_container");
 }
  
 function showModal(title, message) {

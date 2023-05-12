@@ -124,12 +124,4 @@ public class SseController {
 		return map;
 	}
 
-    @GetMapping(value = "/alarm")
-    public ModelAndView alarm(ModelAndView mv,HttpSession session){
-    	MemberVO user = (MemberVO)session.getAttribute("user");
-    	List<AlarmVO> alList = notificationService.getUserAlrams(user.getMe_id());
-    	mv.addObject("alList", alList);
-    	mv.setViewName("layout/alarm");
-        return mv;
-    }
 }
