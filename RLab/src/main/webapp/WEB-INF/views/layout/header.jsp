@@ -195,17 +195,19 @@
 	    <c:forEach var="alarm" items="${alarm}">
 	   	    <c:if test="${alarm.al_view == 0}">
 				<a class="modal_content" href="#">		   
-				    <img class="alarm_remove" data-num="${alarm.al_num}" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="20">
 			    	<div class="alarm_content_box">
 				    	<div class="new_dot"></div>
 				        <p>${alarm.al_content}</p>
 			    	</div>  
+				    <img class="alarm_remove" data-num="${alarm.al_num}" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="20">
 	   			</a>
 	   		</c:if>
 		    <c:if test="${alarm.al_view == 1}">
-				<a class="modal_content read_content" href="#">		   
-				    <img class="alarm_remove" data-num="${alarm.al_num}" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="20">
-			        <p>${alarm.al_content}</p>
+				<a class="modal_content read_content" href="#">		
+					<div class="alarm_content_box">   
+				        <p>${alarm.al_content}</p>
+	   				</div>
+					<img class="alarm_remove" data-num="${alarm.al_num}" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="20">
 	   			</a>
 	   		</c:if>
 	    </c:forEach> 
@@ -444,7 +446,7 @@ function connect() {
         // 이벤트가 발생할 때 여기에 코드 작성
         //const data = JSON.parse(event.data);
         const title = "스터디 가입 알림";
-        const message = '스터디에 새로운 회원이 가입했습니다. 스터디관리로 이동하여 확인해주세요. .';
+        const message = '스터디에 새로운 회원이 가입했습니다. 스터디관리로 이동하여 확인해주세요.';
         showModal(title, message);
 
         setTimeout(function() {

@@ -451,14 +451,18 @@ header{
   border-radius: 5px;
   display: none;
   z-index: 9998;
-  max-width: 300px;
+  width: 300px;
+  overflow-x: hidden;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 3px 3px 7px #d5d2d2;
+  box-shadow: var(--shadow);
 }
 
 .modal_content{
-	display: flex;
-	position: relative;
+/*	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	position: relative;*/
+	display: block;
 	width: 100%;
 	height: 49px;
     font-size: 14px;
@@ -467,6 +471,15 @@ header{
     background-color: white;
 	border-bottom: 1px solid gray;
 	white-space: nowrap;
+}
+.modal_content p{
+	width: 255px;
+    background-color: red;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.modal_content img{
+	width: 
 }
 .read_content{
 	background-color: #d5d2d2;
@@ -481,6 +494,7 @@ header{
 }
 .alarm_content_box{
 	width: 100%;
+	height: 24px;
 	display: flex;
 	flex-flow: column;
 }
@@ -492,7 +506,7 @@ header{
 }
 
 .alarm_remove{
-	
+	opacity: 50%;
 }
 
 /* main */
