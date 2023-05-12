@@ -19,8 +19,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.kh.RLab.pagination.GatherCriteria;
 import kr.kh.RLab.pagination.PageMaker;
+import kr.kh.RLab.service.CommentService;
 import kr.kh.RLab.service.GatherService;
 import kr.kh.RLab.service.JoinStudyService;
+import kr.kh.RLab.vo.BoardVO;
+import kr.kh.RLab.vo.CommentVO;
 import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.MemberVO;
@@ -38,6 +41,7 @@ public class GatherController {
 
 	private final GatherService gatherService;
 	private final JoinStudyService joinstudyService;
+	private final CommentService commentService;
 	
 	//스터디생성
 	@GetMapping("/insertstudy")
@@ -132,5 +136,37 @@ public class GatherController {
 		map.put("list", tagSearch);
 	    return map;
 	}
+	
+	//모집글 수정
+	@GetMapping("/update/{ga_num}")
+	public ModelAndView gatherUpdate(ModelAndView mv,HttpServletRequest request,@PathVariable("ga_num")int ga_num) {
+		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
+		GatherVO ga = gatherService.selectGather(ga_num,user);
+		ArrayList<StudyVO> studyList = gatherService.selectStudyById(user);
+		mv.addObject("studies",studyList);
+		mv.addObject("ga",ga);
+		mv.setViewName("/gather/update");
+		return mv;
+	}
 
+	@PostMapping("/update/{ga_num}")
+	public ModelAndView boardUpdatePost(ModelAndView mv, @PathVariable int ga_num, 
+			GatherVO gather) {
+		boolean res = gatherService.updateGather(gather);
+		mv.setViewName("redirect:/gather/detail/"+gather.getGa_st_num());
+		return mv;
+	}
+	
+	@PostMapping("/delete/{ga_num}")
+	@ResponseBody
+	public String deleteGather(@PathVariable("ga_num") int ga_num, HttpServletRequest request) {
+		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
+		gatherService.deleteGather(ga_num);
+		
+	    //게시글 삭제할때 해당하는 댓글도 삭제되게 설정
+	    ArrayList<CommentVO> comment = commentService.selectCommentByGaNum(ga_num);
+	    commentService.deleteCommentAll(comment,user);
+	    return "success";
+	}
+	
 }

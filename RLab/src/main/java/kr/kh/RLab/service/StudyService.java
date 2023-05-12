@@ -70,6 +70,12 @@ public interface StudyService {
 
 	List<StudyMemberVO> getOnlineMembers();
 
+	ArrayList<StudyVO> getUserStudyList(String me_id);
+
+	StudyVO getStudyByStnum(int me_study);
+
+	void updateUserFavorite(String me_id, int st_num);
+
 	ArrayList<StudyMemberVO> selectStudyMemberByStNum(int st_num);
 
 	ArrayList<PhotoVO> selectPhotoPhNumTwo(int st_num);
@@ -107,5 +113,21 @@ public interface StudyService {
 	StudyMemberVO findStudyMember(int st_num, String me_id);
 
 	void updateMemberStNum(String me_id, int st_num, int new_st_num);
+
+	ArrayList<MemberVO> selectMemberListByStNum(int st_num);
+
+	ArrayList<StudyMemberVO> selectStudyMemberByMeId(String me_id);
+
+	void updateMembersNull(String me_id, Integer new_st_num);
+
+	void updateMembersFirst(String me_id, int sm_st_num);
+
+	ArrayList<StudyMemberVO> selectStudMemberyByMemberId(String me_id);
+
+	ArrayList<MemberVO> selectMemberByMemberId(String me_id);
+
+
+
+
 
 }

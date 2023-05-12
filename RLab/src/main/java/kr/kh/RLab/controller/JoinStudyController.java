@@ -3,6 +3,7 @@ package kr.kh.RLab.controller;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,14 +21,13 @@ import lombok.RequiredArgsConstructor;
 public class JoinStudyController {
 	
 	private final JoinStudyService joinstudyService;
-	private final StudyService studyService;
-
 	
 	    @PostMapping("/join")
-	    public Map<String, Object> join(@RequestBody StudyMemberVO studyMember,HttpServletRequest request) {
-		 MemberVO member = (MemberVO)request.getSession().getAttribute("user"); 
+	    public Map<String, Object> join(@RequestBody StudyMemberVO studyMember,
+	    		HttpSession session) {
+		 MemberVO member = (MemberVO)session.getAttribute("user"); 
 		 
-		 return joinstudyService.toggleJoin(studyMember,member);
+		 return joinstudyService.toggleJoin(studyMember,member,session);
 	 }
 	 
 	 

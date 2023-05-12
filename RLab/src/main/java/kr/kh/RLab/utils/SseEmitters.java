@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiConsumer;
+
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -22,7 +25,7 @@ public class SseEmitters {
 	
 	// 연결된 사용자의 이벤트 발송기 및 세션 정보를 저장
 	private final Map<String, UserSessionInfo> emitters = new ConcurrentHashMap<>();
-	
+	/*
 	// 새 사용자를 추가하고 이벤트 발송기와 세션 만료 시간 설정
 	public void add(String id, SseEmitter emitter, LocalDateTime sessionExpiryTime) {
 		UserSessionInfo userSessionInfo = new UserSessionInfo(emitter, sessionExpiryTime);
@@ -35,7 +38,7 @@ public class SseEmitters {
 		emitter.onTimeout(() -> {
 			emitter.complete();
 		});
-	}
+	}*/
     // 모든 사용자에 대해 주어진 작업을 수행
 	public void forEach(BiConsumer<? super String, ? super UserSessionInfo> action) {
 		emitters.forEach(action);
@@ -68,13 +71,21 @@ public class SseEmitters {
 	}
   
 	 // 이벤트 발송기를 사용하여 새 사용자 추가
-	public void add(SseEmitter emitter) {
+	public void add(String id, SseEmitter emitter, LocalDateTime sessionExpiryTime, HttpSession session) {
+		
+		if(id == null || id.length() == 0)
+			return;
+		if(emitters.containsKey(id))
+			return;
 	    if (emitter != null) {
-	        UserSessionInfo userSessionInfo = new UserSessionInfo(emitter, LocalDateTime.now().plusMinutes(30));
-	        this.emitters.put(emitter.toString(), userSessionInfo);
-
+	        UserSessionInfo userSessionInfo = new UserSessionInfo(emitter, sessionExpiryTime);
+	        this.emitters.put(id, userSessionInfo);
+	        session.setAttribute("emitter", true);
+	        System.out.println("sseConnect : " + id);
 	        emitter.onCompletion(() -> {
-	            this.emitters.remove(emitter.toString());
+	            this.emitters.remove(id);
+	            session.removeAttribute("emitter");
+	            System.out.println("ssecomplete : " + id);
 	        });
 
 	        emitter.onTimeout(() -> {
@@ -89,17 +100,22 @@ public class SseEmitters {
 	    }
 	}
 	 // 특정 사용자에게 이벤트 데이터를 전송
-	public void send(String eventName, Object eventData, String targetId) {
-		if(targetId == null) {
+	public void send(String eventName, Object eventData, String targetId, HttpSession session) {
+		System.out.println("emitter send : "+emitters.size());
+		if(targetId == null || targetId.length() == 0) {
 			return;
 		}
+		if(session.getAttribute("emitter") == null)
+			return ;
 		emitters.forEach((id, userSessionInfo) -> {
+			System.out.println(eventName+" : "+id);
 	        if (id != null && userSessionInfo != null && userSessionInfo.getEmitter() != null) {
 	            try {
 	                if (id.equals(targetId)) {
+	                	System.out.println(eventName + " : " +id);
 	                    userSessionInfo.getEmitter().send(SseEmitter.event().name(eventName).data(eventData));
 	                }
-	            } catch (IOException e) {
+	            } catch (Exception e) {
 	                logger.error("Error sending count event to user {}", id, e);
 	            }
 	        }
@@ -108,5 +124,9 @@ public class SseEmitters {
 	
 	public List<String> getOnlineUserIds() {
 	    return new ArrayList<>(emitters.keySet());
+	}
+	public SseEmitter getEmitter(String id) {
+		UserSessionInfo usi = emitters.get(id); 
+		return usi == null ? null : usi.getEmitter();
 	}
 }

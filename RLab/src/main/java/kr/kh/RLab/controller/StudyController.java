@@ -1,7 +1,9 @@
 package kr.kh.RLab.controller;
 
+import java.awt.dnd.DragSourceMotionListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,6 +57,7 @@ public class StudyController {
 	@GetMapping("/photo/{st_num}")
 	public String photo(HttpServletRequest request, Model model, HttpSession session,
 			@PathVariable("st_num") int st_num) throws IOException {
+		System.out.println(new Date());
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		model.addAttribute("user", user);
 		ArrayList<PhotoTypeVO> phototypeList = studyService.getListPhotoType();
@@ -108,7 +111,8 @@ public class StudyController {
 
 	@PostMapping("/toggleLike")
 	@ResponseBody
-	public String toggleLike(@RequestParam("li_ph_num") int li_ph_num, HttpServletRequest request) {
+	public String toggleLike(@RequestParam("li_ph_num") int li_ph_num, HttpServletRequest request,
+			HttpSession session) {
 		MemberVO member = (MemberVO) request.getSession().getAttribute("user");
 		String li_me_id = member.getMe_id();
 		LikeVO likeVO = studyService.getLikeByUserIdAndPhotoId(li_me_id, li_ph_num);
@@ -127,7 +131,7 @@ public class StudyController {
 			message = member.getMe_name() + "님이 다음 게시글에 좋아요 표시를 했습니다." + photo.getPh_content();
 
 			notificationService.sendNotificationToUser(photoUser, message, AlarmType.LIKE);
-			sseController.sseNewLike(photo.getPh_num());
+			sseController.sseNewLike(photo.getPh_num(), session);
 			return "inserted";
 		} else {// 좋아요가 존재하면,
 			studyService.deleteLike(li_me_id, li_ph_num);
@@ -173,8 +177,13 @@ public class StudyController {
 	// 로그인O, me_study정보O 이상적으로 동작할때 도달하는 url
 	@RequestMapping(value = "/{st_num}", method = RequestMethod.GET)
 	public ModelAndView main(ModelAndView mv, HttpSession session, @PathVariable("st_num") int st_num) {
+		System.out.println(new Date());
 		MemberVO user = (MemberVO) session.getAttribute("user");
+		//st_me_id가 유저인 스터디 목록 불러오는 메소드인데 사용되는데가 없는데 지워도되는건가요?
 		ArrayList<StudyVO> study = studyService.getStudyByMemberId(user.getMe_id());
+		ArrayList<StudyVO> stList = studyService.getUserStudyList(user.getMe_id());
+		StudyVO nowStudy = studyService.getStudyByStnum(st_num);
+		StudyVO favoriteStudy = studyService.getStudyByStnum(user.getMe_study());
 		// 해당 user가 가입한 스터디가 1개도 없으면 다른 경로로 리다이렉트
 		if (study == null) {
 			mv.addObject("msg", "로그인 후 사용가능한 기능입니다.");
@@ -192,6 +201,11 @@ public class StudyController {
 		ArrayList<PhotoVO> photo = studyService.selectPhotoPhNumTwo(st_num);
 		mv.addObject("photo", photo);
 		mv.addObject("st_num", st_num);
+		mv.addObject("study", study);
+		mv.addObject("loginUserId", user.getMe_id());
+		mv.addObject("stList", stList);
+		mv.addObject("now", nowStudy);
+		mv.addObject("favorite", favoriteStudy);
 		mv.addObject("userId", user.getMe_name());
 		mv.setViewName("/study/study_basic");
 		return mv;
@@ -270,7 +284,8 @@ public class StudyController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/management/member/authorize", method = RequestMethod.POST)
-	public HashMap<String, Object> authorizeMember(@RequestBody StudyMemberVO sm) {
+	public HashMap<String, Object> authorizeMember(@RequestBody StudyMemberVO sm,
+			HttpSession session) {
 	    HashMap<String, Object> map = new HashMap<String, Object>();
 
 	    studyService.authorizeStudyMember(sm.getSm_st_num(), sm.getMe_name());
@@ -282,7 +297,7 @@ public class StudyController {
 	        notificationService.sendNotificationToUser(newLeaderId, message, AlarmType.STUDY);
 	    }
 
-	    sseController.sseauthorizeStudy(sm);
+	    sseController.sseAuthorizeStudy(sm,session);
 
 	    return map;
 	}
@@ -300,13 +315,30 @@ public class StudyController {
 		mv.setViewName("/study/management_study");
 		return mv;
 	}
+  
 	//스터디 삭제
 	@ResponseBody
 	@RequestMapping(value = "/management/study/delete/{st_num}", method = RequestMethod.POST)
-	public HashMap<String, Object> deleteStudy(@RequestBody StudyVO st) {
+	public HashMap<String, Object> deleteStudy(@RequestBody StudyVO st,HttpSession session) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		MemberVO user = (MemberVO) session.getAttribute("user");
 		// 해당 스터디를 삭제
 		studyService.deleteStudy(st.getSt_num());
+		//member me_study업데이트
+		ArrayList<MemberVO> meList = studyService.selectMemberListByStNum(st.getSt_num());
+		for (MemberVO me : meList ) {
+			ArrayList<StudyMemberVO> smList = studyService.selectStudyMemberByMeId(me.getMe_id());
+			//id로 스터디가입이 없으면 null로 업데이트
+			if(smList.size()==0) {
+				studyService.updateMembersNull(me.getMe_id(),null);
+			//id로 스터디가입이 된게 있으면 제일 첫번째걸로 업데이트
+			}else {	
+				studyService.updateMembersFirst(me.getMe_id(),smList.get(0).getSm_st_num());
+			}
+			//세션에 바뀐st_num저장
+			user.setMe_study(smList.get(0).getSm_st_num());
+			session.setAttribute("user", user);
+		}
 		return map;
 	}
 
@@ -332,7 +364,6 @@ public class StudyController {
 		return map;
 	}
 
-//	@ResponseBody
 	@RequestMapping(value = "/todo/{st_num}", method = RequestMethod.GET)
 	public ModelAndView todoList(ModelAndView mv, HttpSession session,@PathVariable("st_num") int st_num,StudyMemberVO sm, TodoVO td) {
 	    MemberVO user = (MemberVO) session.getAttribute("user");
@@ -456,6 +487,7 @@ public class StudyController {
 	// 데일리미션 페이지
 	@GetMapping("/daily/{st_num}")
 	public ModelAndView studyInsert(ModelAndView mv, HttpServletRequest request, @PathVariable("st_num") int st_num) {
+		System.out.println(new Date());
 		MemberVO user = (MemberVO) request.getSession().getAttribute("user");
 		ArrayList<StudyMemberVO> studyMember = studyService.selectStudyMemberByStNum(st_num);
 		Integer authority = studyService.selectSmAuthority(user, st_num);
@@ -479,6 +511,7 @@ public class StudyController {
 		StudyVO study = studyService.getStudy(st_num);
 		StudyMemberVO stMember = studyService.findStudyMember(st_num, user.getMe_id());
 		
+		
 		if (stMember != null && stMember.getSm_authority() == 9) {
 			return "leader";
 		}
@@ -489,22 +522,42 @@ public class StudyController {
 		String message = user.getMe_name() + "님이 스터디를 탈퇴했습니다.";
 
 		try {
-			notificationService.sendNotificationToUser(studyLeader, message, AlarmType.STUDY);
-			sseController.sseLeaveStudy(st_num);
+			notificationService.sendNotificationToUser(studyLeader, message, AlarmType.MEMBER);
+			sseController.sseLeaveStudy(st_num, session);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		// 스터디 정보 업데이트
 		studyService.leaveStudy(user, st_num);
 		studyService.updateStudy(study);
-		
-		// 회원정보에 있는 study 값을 랜덤으로 추가하는 작업
-		ArrayList<StudyVO> findStudy = studyService.getStudyByMemberId(user.getMe_id());
-		for (StudyVO st : findStudy) {
-			
-			studyService.updateMemberStNum(user.getMe_id(),st_num,st.getSt_num());
+		// studyMember에 user의 아이로 가입된 스터디 찾아서 업데이트
+		ArrayList<MemberVO> findMember = studyService.selectMemberByMemberId(user.getMe_id());
+		for (MemberVO me : findMember) {
+			ArrayList<StudyMemberVO> smList = studyService.selectStudMemberyByMemberId(me.getMe_id());
+			//user_id로 스터디가입이 없으면 null로 업데이트
+			if(smList.size()==0) {
+				studyService.updateMembersNull(me.getMe_id(), null);
+				user.setMe_study(0);
+			//user_id로 스터디가입이 있으면 첫번째걸로 업데이트
+			}else {
+				studyService.updateMembersFirst(me.getMe_id(), smList.get(0).getSm_st_num());
+				user.setMe_study(smList.get(0).getSm_st_num());
+			}
+			//세션에 바뀐st_num저장
+			session.setAttribute("user", user);
 		}
 		//st_num , me_id 일치하는 멤버
 		return "success";
+	}
+  // 즐겨찾기 변경
+	@ResponseBody
+	@RequestMapping(value = "/setfavorite", method = RequestMethod.POST)
+	public HashMap<String, Object> setFavorite(@RequestBody StudyVO st, HttpSession session) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		studyService.updateUserFavorite(st.getSt_me_id(),st.getSt_num());
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		user.setMe_study(st.getSt_num());
+		session.setAttribute("user", user);
+		return map;
 	}
 }

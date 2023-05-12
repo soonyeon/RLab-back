@@ -10,4 +10,6 @@ public interface NotificationDao {
 
 	// 사용자별 알림 이벤트 조회
 	List<AlarmVO> getUserAlrams(String userid);
+	
+	void deleteAlarm(int al_num);
 }

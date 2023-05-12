@@ -131,6 +131,21 @@ public class StudyServiceImp implements StudyService {
 	}
 
 	@Override
+	public ArrayList<StudyVO> getUserStudyList(String me_id) {
+		return studyDao.selectUserStudyList(me_id);
+	}
+
+	@Override
+	public StudyVO getStudyByStnum(int me_study) {
+		return studyDao.selectStudyByStnum(me_study);
+	}
+
+	@Override
+	public void updateUserFavorite(String me_id, int st_num) {
+		studyDao.updateUserFavorite(me_id, st_num);
+	}
+  
+  @Override
 	public ArrayList<StudyMemberVO> selectStudyMemberByStNum(int st_num) {
 		return studyDao.selectStudyMemberByStNum(st_num);
 	}
@@ -173,26 +188,22 @@ public class StudyServiceImp implements StudyService {
 	@Override
 	public int getStudyState(int st_num) {
 		return studyDao.selectStudyState(st_num);
-
 	}
 
 	@Override
 	public void stateUpdateStudyUndo(int st_num, int st_state) {
 		//해당 스터디의st_num을 0에서 1으로 변경
 		studyDao.stateUpdateStudyUndo(st_num,st_state);
-		
 	}
 
 	@Override
 	public ArrayList<TodoVO> getTodoList(String memberId) {
-		
 		return studyDao.selectTodoList(memberId);
 	}
 
 	@Override
 	public void createTodo(String td_content, String td_me_id) {
 		studyDao.insertTodo(td_content,td_me_id);
-		
 	}
 
 	@Override
@@ -332,5 +343,45 @@ public class StudyServiceImp implements StudyService {
 	public void updateMemberStNum(String me_id, int st_num, int new_st_num) {
 		studyDao.updateMemberStNum(me_id, st_num, new_st_num);
 	}
+
+	@Override
+	public ArrayList<MemberVO> selectMemberListByStNum(int st_num) {
+		return studyDao.selectMemberListByStNum(st_num);
+		
+	}
+
+	@Override
+	public ArrayList<StudyMemberVO> selectStudyMemberByMeId(String me_id) {
+		return studyDao.selectStudyMemberByMeId(me_id);
+	}
+
+	@Override
+	public void updateMembersNull(String me_id, Integer new_st_num) {
+		studyDao.updateMembersNull(me_id,new_st_num);
+	}
+
+	@Override
+	public void updateMembersFirst(String me_id, int sm_st_num) {
+		studyDao.updateMembersFirst(me_id,sm_st_num);
+		
+	}
+
+	@Override
+	public ArrayList<StudyMemberVO> selectStudMemberyByMemberId(String me_id) {
+		return studyDao.selectStudMemberyByMemberId(me_id);
+	}
+
+	@Override
+	public ArrayList<MemberVO> selectMemberByMemberId(String me_id) {
+		return studyDao.selectMemberByMemberId(me_id);
+	}
+
+
+
+
+
+
+
+
 
 }

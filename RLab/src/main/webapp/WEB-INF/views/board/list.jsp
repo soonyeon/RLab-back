@@ -31,10 +31,20 @@
 			<div class="home_container">
 				<h2 class="time_line_title">자유게시판</h2>
 				<div class="my_study_container" id="my_container">
+
 					<div class="study_card_container">
 						<!-- table  -->
+						
 						<div class="table_container">
 							<div class="tab_content">
+							  <div class="select_box_area">
+		                      	<select name="sort">
+										<option value="" <c:if test="${pm.cri.sort==''}">selected</c:if>>전체보기</option>
+										<option value="date" <c:if test="${pm.cri.sort=='date'}">selected</c:if>>최신순</option>
+										<option value="views" <c:if test="${pm.cri.sort=='views'}">selected</c:if>>조회순</option>
+										<option value="scrap" <c:if test="${pm.cri.sort=='scrap'}">selected</c:if>>스크랩순</option>
+								</select>
+		                    </div>
 								<!-- 나의 게시글 -->
 								<div class="table_area_1" id="tabs_1">
 									<!-- <div class="tab-content_tabel_area 1"> -->
@@ -191,4 +201,11 @@
 
 </main>
 <script>
+$(document).ready(function() {
+  $('select[name="sort"]').on('change', function() {
+    let sort = $(this).val();
+    let url = '/RLab/board/list/${st_num}?sort=' + sort;
+    window.location.href = url;
+  });
+});
 </script>

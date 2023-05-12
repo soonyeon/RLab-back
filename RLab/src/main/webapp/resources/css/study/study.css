@@ -84,7 +84,6 @@ footer .corp_container .link_corp:nth-child(1)::before{
   display: none;
 }
 
-
 /* main div */
 .main_container{
 	width: 100%;
@@ -377,7 +376,7 @@ cursor: pointer;
 
 /* 오늘의 인증 */
 .feed_writer_img {
-  background-image: url(../img/profile_img.png);
+  background-image: url(../../img/profile_img.png);
   width: 30px;
   height: 30px;
   border: none;
@@ -390,7 +389,7 @@ cursor: pointer;
   margin-right: 5px;
 }
 .feed_img{
-  background-image: url(../img/certify_img.jpeg);
+  background-image: url(../../img/certify_img.jpeg);
   background-size: cover;
   min-height: 270px;
   width: 370px;
@@ -398,7 +397,7 @@ cursor: pointer;
   border-radius: var(--border_radius_4);
 }
 .feed_like_img {
-  background-image: url(../img/like_off.png);
+  background-image: url(../../img/like_off.png);
   width: 25px;
   height: 25px;
   border: none;
@@ -500,7 +499,7 @@ cursor: pointer;
   border-radius: 40px;
 }
 .circle_now {
-  width: 40px;
+  width: 200px;
   height: 40px;
   position: relative;
   border: var(--border_basic);
@@ -513,7 +512,7 @@ cursor: pointer;
 .circle_now:hover {
   width: 200px;
 }
-.now {
+.circle_now .icon_now {
   left: 5px;
   position: absolute;
   font-size: 11px;
@@ -521,9 +520,19 @@ cursor: pointer;
   text-align: center;
   line-height: 40px;
 }
+.circle_now .study_name,
+.circle_star .study_name{
+ 	margin-top: 2px;
+	width: 150px;
+	height: 40px;  
+	text-align: center;
+ 	line-height: 40px;
+	margin-left: 40px;
+	font-size: 13px;
+}
 .circle_star{
   text-align: center;
-  width: 40px;
+  width: 200px;
   height: 40px;
   position: relative;
   border: var(--border_basic);
@@ -552,7 +561,7 @@ cursor: pointer;
   position: relative;
 }
 .circle_my {
-  width: 40px;
+  width: 400px;
   height: 40px;
   background-color: var(--color_yellow);
   top: -2px;
@@ -561,7 +570,7 @@ cursor: pointer;
   text-align: center;
   position: absolute;
 }
-.my {
+.icon_my {
   float: left;
   font-size: 11px;
   font-weight: bold;
@@ -571,7 +580,7 @@ cursor: pointer;
 }
 .my_list_title {
   position: absolute;
-  width: 40px;
+  width: 200px;
   height: 37px;
   border: var(--border_basic);
   border-radius: 25px;
@@ -584,37 +593,47 @@ cursor: pointer;
   margin-left: 2px;
   transition: width 0.5s ease;
 }
-.my_list_title:hover {
+.my_list_title.hover {
   width: 200px;
-}
-.my_list_title:hover + #dropdown_list {
-  display: block;
 }
 .my_study {
   float: right;
-  margin-top: 10px;
-  padding-left: 30px;
+  margin-top: 9px;
   font-weight: bold;
-  margin-right: 20px;
+  margin-right: 22px;
+  font-size: 14px;
 }
-#dropdown_btn {
+.btn_dropdown {
   background-color: transparent;
   border: none;
-  padding-left: 15px;
+  padding-left: 25px;
 }
 #dropdown_list {
-  /* position: absolute; */
   font-size: 12px;
   top: 40px;
   border: var(--border_basic);
   border-radius: var(--border_radius_4);
   width: 145px;
+  max-height: 140px;
+  overflow-y: scroll;
   margin-left: 40px;
   margin-bottom: 14px;
   margin-top: -7px;
   background-color: var(--color_beige);
 }
-.dropdown_list_contents_title {
+#dropdown_list::-webkit-scrollbar {
+  width: 8px;
+}
+#dropdown_list::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+
+#dropdown_list::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 20px;
+  border: 3px solid #f1f1f1;
+}
+.item_name {
   padding-left: 2px;
   padding-top: 7px;
   padding-bottom: 3px;
@@ -630,8 +649,8 @@ cursor: pointer;
   font-weight: bold;
   font-size: 10px;
 }
-.dropdown_list_contents_on_img {
-  background-image: url(../img/favorite_star_on.png);
+#dropdown_list .star_on {
+  background-image: url(../../img/favorite_star_on.png);
   height: 20px;
   width: 20px;
   margin-left: 10px;
@@ -639,8 +658,8 @@ cursor: pointer;
   background-size: 20px 20px;
   background-repeat: no-repeat;
 }
-.dropdown_list_contents_off_img {
-  background-image: url(../img/favorite_star.png);
+#dropdown_list .star_off {
+  background-image: url(../../img/favorite_star.png);
   height: 20px;
   width: 20px;
   margin-left: 10px;
@@ -648,17 +667,18 @@ cursor: pointer;
   background-size: 20px 20px;
   background-repeat: no-repeat;
 }
-.dropdown_list_contents_title + .dropdown_hr {
+/*
+.item_name + .dropdown_hr {
   border-top: var(--border_basic);
-}
-#dropdown_list .dropdown_list_ul  .dropdown_list_li .dropdown_list_contents  {
+}*/
+#dropdown_list .dropdown_list .dropdown_item .item_container{
   display: flex;
   align-items: center;
 }
-.dropdown_list_contents {
+.item_container {
   position: relative; /* div 요소에 position: relative 속성 추가 */
 }
-.dropdown_list_contents::after {
+.item_container::after {
   content: ""; /* 가상 요소 내용 설정 */
   position: absolute; /* 가상 요소에 position: absolute 속성 추가 */
   bottom: 0; /* 가상 요소의 위치를 div 요소 아래로 설정 */

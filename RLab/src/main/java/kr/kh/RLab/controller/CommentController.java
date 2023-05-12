@@ -17,11 +17,12 @@ import kr.kh.RLab.pagination.CommentCriteria;
 import kr.kh.RLab.pagination.PageMaker;
 import kr.kh.RLab.service.BoardService;
 import kr.kh.RLab.service.CommentService;
+import kr.kh.RLab.service.GatherService;
 import kr.kh.RLab.service.NotificationService;
-import kr.kh.RLab.utils.SseEmitters;
 import kr.kh.RLab.vo.AlarmVO.AlarmType;
 import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.CommentVO;
+import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.MemberVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,31 +36,53 @@ public class CommentController {
 	private final CommentService commentService;
 	private final NotificationService notificationService;
 	private final BoardService boardService;
+	private final GatherService gatherService;
 	private final SseController sseController;
 	@PostMapping("/create")
-	public Map<String, Object> createComment(@RequestBody CommentVO comment) {
+	public Map<String, Object> createComment(@RequestBody CommentVO comment,HttpSession session) {
 		int result = commentService.createComment(comment);
 		// 새 댓글이 생성되면 SSE 이벤트를 전송
 		if (result > 0) {
-			BoardVO board = boardService.getBoardByComment(comment.getCo_ex_num());
-			String userId = board.getBo_me_id(); // 게시물 작성자의 ID를 가져와야 함
-			if(!userId.equals(comment.getCo_me_id())) { //본인이 단 댓글은 제외
-				String message = board.getBo_title()+"에 댓글이 달렸습니다";
-				notificationService.sendNotificationToUser(userId, message, AlarmType.COMMENT);
+ 			//board 댓글
+			if(comment.getCo_table().equals("board")) {
+				BoardVO board = boardService.getBoardByComment(comment.getCo_ex_num());
+				String userId = board.getBo_me_id(); // 게시물 작성자의 ID를 가져와야 함
+				if(!userId.equals(comment.getCo_me_id())) { //본인이 단 댓글은 제외
+					String message = board.getBo_title()+"에 댓글이 달렸습니다";
+					notificationService.sendNotificationToUser(userId, message, AlarmType.STUDY);
+					sseController.sseNewComment(userId,session);
+				}
+				//대댓글일 경우 댓글의 작성자한테도 알림 전송
+				if(comment.getCo_ori_num()!=0 && comment.getCo_ori_num()!=comment.getCo_num()) {
+					CommentVO oriComment = commentService.getCommentByCoNum(comment.getCo_ori_num());
+					userId = oriComment.getCo_me_id();
+					String message = oriComment.getCo_content()+"에 대댓글이 달렸습니다";
+					notificationService.sendNotificationToUser(userId, message, AlarmType.STUDY);
+					sseController.sseNewComment(userId,session);
+				}
 			}
-			System.out.println("comment:"+comment);
-			//대댓글일 경우 댓글의 작성자한테도 알림 전송
-			if(comment.getCo_ori_num()!=comment.getCo_num()) {
-				CommentVO oriComment = commentService.getCommentByCoNum(comment.getCo_ori_num());
-				userId = oriComment.getCo_me_id();
-				String message = oriComment.getCo_content()+"에 대댓글이 달렸습니다";
-				notificationService.sendNotificationToUser(userId, message, AlarmType.COMMENT);
+			//gather 댓글
+			else if(comment.getCo_table().equals("gather")){
+				GatherVO gather = gatherService.getGatherByComment(comment.getCo_ex_num());
+				String userId = gather.getGa_me_id(); // 게시물 작성자의 ID를 가져와야 함
+				if(!userId.equals(comment.getCo_me_id())) { //본인이 단 댓글은 제외
+					String message = gather.getGa_title()+"에 댓글이 달렸습니다";
+					notificationService.sendNotificationToUser(userId, message, AlarmType.GATHER);
+					sseController.sseNewComment(userId,session);
+				}
+				//대댓글일 경우 댓글의 작성자한테도 알림 전송
+				if(comment.getCo_ori_num()!=0 && comment.getCo_ori_num()!=comment.getCo_num()) {
+					CommentVO oriComment = commentService.getCommentByCoNum(comment.getCo_ori_num());
+					userId = oriComment.getCo_me_id();
+					String message = oriComment.getCo_content()+"에 대댓글이 달렸습니다";
+					notificationService.sendNotificationToUser(userId, message, AlarmType.GATHER);
+					sseController.sseNewComment(userId, session);
+				}
 			}
 		}
-
 		Map<String, Object> map = new HashMap<>();
 		map.put("result", result > 0 ? "success" : "fail");
-		sseController.sseNewComment(comment.getCo_ex_num());
+//		sseController.sseNewComment(comment.getCo_ex_num(),session);
 		return map;
 	}
 
@@ -70,7 +93,6 @@ public class CommentController {
 		PageMaker pm = new PageMaker(totalCount, 10, cc);
 
 		List<CommentVO> commentList = commentService.getCommentList(cc);	
-		System.out.println(commentList);
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("commentList", commentList);
 		resultMap.put("pm", pm);

@@ -19,7 +19,7 @@ public interface NotificationService {
 
     List<AlarmVO> getUserAlrams(String userId);
 
-
+	void deleteAlarm(int al_num);
 
 
 }

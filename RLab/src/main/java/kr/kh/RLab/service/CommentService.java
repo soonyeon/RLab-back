@@ -24,7 +24,10 @@ public interface CommentService {
 
 	void deleteCommentAll(ArrayList<CommentVO> comment, MemberVO user);
 
+	ArrayList<CommentVO> selectCommentByGaNum(int ga_num);
+
 	CommentVO getCommentByCoNum(int co_ori_num);
+
 
 
 }

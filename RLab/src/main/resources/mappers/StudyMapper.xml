@@ -237,6 +237,17 @@
     	from study
     	where st_num = #{st_num}
     </select>
+    <select id="selectUserStudyList" resultType="kr.kh.RLab.vo.StudyVO">
+    	select * from study_member
+    	join study on sm_st_num = st_num
+    	where sm_me_id = #{me_id}
+    </select>
+    <select id="selectStudyByStnum" resultType="kr.kh.RLab.vo.StudyVO">
+    	select st_num, st_name from study where st_num = #{me_study}
+    </select>
+    <update id="updateUserFavorite">
+    	update member set me_study = #{st_num} where me_id = #{me_id}
+    </update>
     <update id="updateStudy" parameterType="kr.kh.RLab.vo.StudyVO">
     UPDATE study
     SET st_now_people = #{st_now_people}
@@ -252,4 +263,24 @@
 	set me_study = #{new_st_num}
 	where me_id =#{me_id} and  me_study = #{st_num}
 </update>
+<select id="selectMemberListByStNum" resultType="kr.kh.RLab.vo.MemberVO">
+	select * from member
+	where me_study= #{st_num};
+</select>
+<select id="selectStudyMemberByMeId" resultType="kr.kh.RLab.vo.StudyMemberVO">
+	select * from study_member
+	where sm_me_id = #{sm_me_id} 
+</select>
+<update id="updateMembersNull">
+	update member set me_study = NULL where me_id = #{me_id}
+</update>
+<update id="updateMembersFirst">
+	update member set me_study = #{sm_st_num} where me_id = #{me_id}
+</update>
+<select id="selectStudMemberyByMemberId" resultType="kr.kh.RLab.vo.StudyMemberVO">
+	select * from study_member where sm_me_id = #{sm_me_id}
+</select>
+<select id="selectMemberByMemberId" resultType="kr.kh.RLab.vo.MemberVO">
+	select * from member where me_id = #{me_id}
+</select>
 </mapper>
