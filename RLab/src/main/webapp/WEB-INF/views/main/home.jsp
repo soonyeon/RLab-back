@@ -7,17 +7,19 @@
 <body>
 	<!-- info_modal -->
 	<div class="spot_modal_container">
+	
+<%-- 	<c:forEach items="${spot}" var="sp" varStatus="vs" > --%>		
 	  <div class="spot_modal">
 	    <div class="spot_img_area">
 	      <div class="info_area">
 	        <div class="spot_info_left">
 	          <div class="spot_address">
-	            <div class="spot_add">서울시 강남구 541-5 강남빌딩 5층</div>
-	            <div class="spot_new_add">서울특별시 강남구 태헤란로 10길 9, 5층</div>
+	            <div class="spot_add">${sp.br_address}</div>
+	            <div class="spot_new_add">${sp.br_road_address}</div>
 	          </div>
 	          <div class="spot_tel_capa">
-	            <div class="spot_tel">1577-9292</div>
-	            <div class="spot_capacity">500석</div>
+	            <div class="spot_tel">${br_tel}</div>
+	            <div class="spot_capacity">${br_capacity}</div>
 	          </div>
 	        </div>
 	        <div class="spot_info_right">
@@ -26,8 +28,11 @@
 	        </div>
 	      </div>
 	    </div>
-	  </div> 
+	  </div>
+<%-- 	  </c:forEach> --%>
+	   
 	</div>
+	
   <main class="main_container">
       <div class="reservation_btn">예약하기</div>
       <!-- main_banner -->
@@ -88,127 +93,23 @@
               <div class="show_window">
                 <div class="spot_container">
                   <div class="spot_banner_box">
+                  
+                  
+                  	<c:forEach items="${spot}" var="sp" varStatus="vs" >
                     <div class="spot_item1 add_shadow">
                       <div class="spot_img1"></div>
                       <div class="spot_content">
-                        <div class="spot_name">[서울] 강남역점</div>
+                        <div class="spot_name">[${sp.br_re_name}] ${sp.br_name}</div>
                         <div class="spot_address">
-                          서울특별시 강남구 태헤란로 10길 9, 5층<br>운영시간 : 24시간 연중무휴
+                          ${sp.br_road_address}<br>전화 : ${sp.br_tel}
                         </div>
                       </div>
                     </div>
-                    <div class="spot_item2 add_shadow">
-                      <div class="spot_img2"></div>
-                      <div class="spot_content">
-                        <div class="spot_name">[서울] 강남역점</div>
-                        <div class="spot_address">
-                          서울특별시 강남구 태헤란로 10길 9, 5층<br>운영시간 : 24시간 연중무휴
-                        </div>
-                      </div>
-                    </div>
-                    <div class="spot_item3 add_shadow">
-                      <div class="spot_img3"></div>
-                      <div class="spot_content">
-                        <div class="spot_name">[서울] 강남역점</div>
-                        <div class="spot_address">
-                          서울특별시 강남구 태헤란로 10길 9, 5층<br>운영시간 : 24시간 연중무휴
-                        </div>
-                      </div>
-                    </div>
-                    <div class="spot_item4 add_shadow">
-                      <div class="notice_banner_box">
-                      <div class="spot_img4"></div>
-                      </div>
-                      <div class="spot_content">
-                        <div class="spot_name">[서울] 강남역점</div>
-                        <div class="spot_address">
-                          서울특별시 강남구 태헤란로 10길 9, 5층<br>운영시간 : 24시간 연중무휴
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="spot_banner_box">
-                    <div class="spot_item1 add_shadow">
-                      <div class="spot_img1"></div>
-                      <div class="spot_content">
-                        <div class="spot_name">[서울] 강남역점222</div>
-                        <div class="spot_address">
-                          서울특별시 강남구 태헤란로 10길 9, 5층<br>운영시간 : 24시간 연중무휴
-                        </div>
-                      </div>
-                    </div>
-                    <div class="spot_item2 add_shadow">
-                      <div class="spot_img2"></div>
-                      <div class="spot_content">
-                        <div class="spot_name">[서울] 강남역점2222</div>
-                        <div class="spot_address">
-                          서울특별시 강남구 태헤란로 10길 9, 5층<br>운영시간 : 24시간 연중무휴
-                        </div>
-                      </div>
-                    </div>
-                    <div class="spot_item3 add_shadow">
-                      <div class="spot_img3"></div>
-                      <div class="spot_content">
-                        <div class="spot_name">[서울] 강남역점2222</div>
-                        <div class="spot_address">
-                          서울특별시 강남구 태헤란로 10길 9, 5층<br>운영시간 : 24시간 연중무휴
-                        </div>
-                      </div>
-                    </div>
-                    <div class="spot_item4 add_shadow">
-                      <div class="notice_banner_box">
-                      <div class="spot_img4"></div>
-                      </div>
-                      <div class="spot_content">
-                        <div class="spot_name">[서울] 강남역점2222</div>
-                        <div class="spot_address">
-                          서울특별시 강남구 태헤란로 10길 9, 5층<br>운영시간 : 24시간 연중무휴
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="spot_banner_box">
-                    <div class="spot_item1 add_shadow">
-                      <div class="spot_img1"></div>
-                      <div class="spot_content">
-                        <div class="spot_name">[서울] 강남역점33333</div>
-                        <div class="spot_address">
-                          서울특별시 강남구 태헤란로 10길 9, 5층<br>운영시간 : 24시간 연중무휴
-                        </div>
-                      </div>
-                    </div>
-                    <div class="spot_item2 add_shadow">
-                      <div class="spot_img2"></div>
-                      <div class="spot_content">
-                        <div class="spot_name">[서울] 3</div>
-                        <div class="spot_address">
-                          서울특별시 강남구 태헤란로 10길 9, 5층<br>운영시간 : 24시간 연중무휴
-                        </div>
-                      </div>
-                    </div>
-                    <div class="spot_item3 add_shadow">
-                      <div class="spot_img3"></div>
-                      <div class="spot_content">
-                        <div class="spot_name">[서울] 3</div>
-                        <div class="spot_address">
-                          서울특별시 강남구 태헤란로 10길 9, 5층<br>운영시간 : 24시간 연중무휴
-                        </div>
-                      </div>
-                    </div>
-                    <div class="spot_item4 add_shadow">
-                      <div class="notice_banner_box">
-                      <div class="spot_img4"></div>
-                      </div>
-                      <div class="spot_content">
-                        <div class="spot_name">[서울] 3</div>
-                        <div class="spot_address">
-                          서울특별시 강남구 태헤란로 10길 9, 5층<br>운영시간 : 24시간 연중무휴
-                        </div>
-                      </div>
-                    </div>
+                    </c:forEach>
                   </div>   
                 </div> 
               </div>
+              
               <div class="spot_btn_box">
                 <div class="btn_spot1"></div>
                 <div class="btn_spot2"></div>
@@ -434,7 +335,19 @@
 		    $('.spot_modal_container').hide();
 		  });
 /* 	});	 */
-	
+/* 스터디 지점 안내 */
+ 	document.querySelector('.btn_spot1').addEventListener('click', function(){
+	document.querySelector('.spot_container').style.transform = 'translateY(0px)';
+	});
+	document.querySelector('.btn_spot3').addEventListener('click', function(){
+	document.querySelector('.spot_container').style.transform = 'translateY(-1220px)';
+	});
+	document.querySelector('.btn_spot2').addEventListener('click', function(){
+	document.querySelector('.spot_container').style.transform = 'translateY(-610px)';
+	});
+/* 	document.querySelector('.btn_spot3').addEventListener('click', function(){
+	document.querySelector('.spot_container').style.transform = 'translateY(-1190px)';
+	});	 */
 	
 	
 //스터디 모집 공고
@@ -510,21 +423,6 @@
 	    
 	  }
 	}
-	
-
-/* 스터디 지점 안내 */
- 	document.querySelector('.btn_spot1').addEventListener('click', function(){
-	document.querySelector('.spot_container').style.transform = 'translate(0px)';
-	});
-	document.querySelector('.btn_spot3').addEventListener('click', function(){
-	document.querySelector('.spot_container').style.transform = 'translate(-1160px)';
-	});
-	document.querySelector('.btn_spot2').addEventListener('click', function(){
-	document.querySelector('.spot_container').style.transform = 'translate(-595px)';
-	});
-	document.querySelector('.btn_spot3').addEventListener('click', function(){
-	document.querySelector('.spot_container').style.transform = 'translate(-1190px)';
-	});
 	
 	
 // 이벤트

@@ -217,6 +217,7 @@ main{
   border: var(--border_basic);
   background-color: white;
   cursor: pointer;
+  height: 283px;
 }
 .spot_name{
   font-size: 17px;
@@ -240,7 +241,7 @@ main{
   width: 100%;
   height: 100%;
   display: none;
-z-index: 95;
+  z-index: 95;
 }
 .spot_modal_container .spot_img_area{
   display: flex;
@@ -253,7 +254,6 @@ z-index: 95;
   background-size: 1200px;
   margin: 200px auto 0px;
 }
-
 
 .spot_modal_container .info_area{
   display: flex;

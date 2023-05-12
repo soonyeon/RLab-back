@@ -230,4 +230,10 @@ public class ReservationServiceImp implements ReservationService {
 		return reservationDao.selectBranchBySenum(re_se_num);
 	}
 
+	@Override
+	public ArrayList<BranchVO> getAllBranchListToMain() {
+		return reservationDao.selectAllBranchToMain();
+	}
+
+
 }
