@@ -105,11 +105,12 @@
 					        <label for="content">미션내용입력:</label>
 					        <textarea id="content" name="content" rows="4" cols="50" maxlength="100" placeholder="내용은 100자 이내"></textarea>
 					        <br>
-					     <button class="mission_up">등록하기</button>
-					     <button class="mission_edit">수정하기</button>
-					</form>
+					    	 <button class="mission_up">등록하기</button>
+					    	 <button class="mission_edit">수정하기</button>			
+						</form>
 				 </div>
 			</div>
+			
 	
 		</section>
 		<!-- 오른쪽 메뉴 -->

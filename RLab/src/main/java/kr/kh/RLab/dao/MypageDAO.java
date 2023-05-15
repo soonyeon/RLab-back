@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.pagination.GatherCriteria;
 import kr.kh.RLab.vo.BoardVO;
+import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.GrowthVO;
 import kr.kh.RLab.vo.MemberVO;
@@ -106,6 +107,9 @@ public interface MypageDAO {
 		// 내가 찜한 모집글의 수
 		int selectFavoriteTotalCount(@Param("memberId")String memberId, @Param("cri")GatherCriteria cri);
 		
+		// 내가 찜한 스터디 파일 가져오기
+		ArrayList<FileVO> selectFileList();
+		
 	//[스터디 관리 > 내가 개설한 스터디]	
 		// 아이디로 내가 개설한 스터디 가져오기
 		ArrayList<StudyVO> selectOpenList(@Param("memberId")String memberId, @Param("cri")GatherCriteria cri);
@@ -152,6 +156,8 @@ public interface MypageDAO {
 		
 		// 내가 쓴 모집글의 찜 여부 가져오기
 		ArrayList<Integer> selectWantListById(String memberId);
+
+	
 
 
 

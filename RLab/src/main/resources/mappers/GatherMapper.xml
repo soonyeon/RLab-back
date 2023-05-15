@@ -3,7 +3,7 @@
 <mapper namespace="kr.kh.RLab.dao.GatherDAO">
 <insert id="insertStudy" useGeneratedKeys="true" keyProperty="study.st_num">
 	insert into study(st_name,st_me_id,st_info,st_total_people,st_re_name,st_image)
-	values(#{study.st_name},#{study.st_me_id},#{study.st_info},#{study.st_total_people},#{study.st_re_name},#{study.st_image})
+	values(#{study.st_name},#{study.st_me_id},#{study.st_info},#{study.st_total_people},#{study.st_re_name},(select fi_ori_name from file where fi_ex_num = #{study.st_num}))
 </insert>
 <insert id="insertFile">
 	insert into file( fi_ori_name, fi_name, fi_table, fi_ex_num)
@@ -52,7 +52,7 @@
 	LIMIT #{cri.pageStart}, #{cri.perPageNum}
 </select>
 <select id="selectFileList" resultType="kr.kh.RLab.vo.FileVO">
-	select * from file
+	select * from file 
 </select>
 <select id="selectTagList" resultType="kr.kh.RLab.vo.TagRegisterVO">
 	select 	* from tag_register

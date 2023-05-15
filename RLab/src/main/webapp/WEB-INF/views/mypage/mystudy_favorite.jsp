@@ -83,12 +83,16 @@
 						                              </c:if>
 					                                  <a href="<c:url value='/gather/detail/${myFavoriteList.get(index).st_num}'></c:url>">
 					                                      <div class="study_img_box">
-					                                      	<c:if test="${myFavoriteList.get(index).st_image == null}">
-					                                      		<img class="mypage_img" src="<c:url value='/resources/img/recruit_thumb.png'></c:url>">
-					                                      	</c:if>
-					                                      	<c:if test="${myFavoriteList.get(index).st_image != null}">					                                      	
-						                                      	<img class="" src="<c:url value='/download/study/${myFavoriteList.get(index).st_image}'></c:url>">					                                      	
-					                                      	</c:if>
+																<c:if test="${files.size() != 0 }">
+																	<c:forEach items="${fileList}" var="fi">
+																		<c:if test="${fi.fi_ex_num == myFavoriteList.get(index).st_num}">
+																			<img src="<c:url value='/download${fi.fi_name}'></c:url>" class="mypage_img">
+																		</c:if>
+																	</c:forEach>
+																</c:if>	
+																<c:if test="${fi.fi_ex_num != myFavoriteList.get(index).st_num}">
+																	<img class="myapage" src="<c:url value='/resources/img/recruit_thumb.png'></c:url>">
+																</c:if>	
 					                                      </div>
 					                                      <div class="study_info">
 					                                      	<!-- tag 리스트 -->

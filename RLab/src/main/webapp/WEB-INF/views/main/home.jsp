@@ -1,7 +1,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<style>
+.study_img_box img:nth-child(2){
+	display : none;
+}
+</style>
 <link rel="stylesheet" href="<c:url value='/resources/css/home/main.css'></c:url>">  
 
 <body>
@@ -80,7 +84,7 @@
         </article>
 
       </section>
-  
+
       <!-- info_banner -->
       <section class="info_area">
         <article class="info_area_top">
@@ -132,85 +136,63 @@
           <div class="title_box2">스터디 모집 공고</div>
           	<div class="recruit_box">
 	          <div class="recruit_box_container">
-	          
-	            <div class="recruit_banner_box add_shadow">
-	              <div class="recruit_img1 "></div>
-	              <div class="recruit_banner_inner_box">
-	                <ul class="recruit_banner_tag">
-	                  <span class="blue_btn">#11111</span>
-	                  <span class="mint_btn">#정보처리기사공부</span>
-	                  <span class="blue_btn">#자격증</span>
-	                  <span class="mint_btn">#정보처리기사</span>
-	                  <span class="blue_btn">#정처기</span>
-	                  <span class="mint_btn">#자격증</span>
-	                </ul>
-	                <div class="recruit_banner_title">[서울] 정보처리기사 자격증 함께 공부해서 합격해요</div>
-	                <div class="recruit_btn_box">
-	                  <button class="recruit_banner_btn">모집중 2 / 5</button>
-	                  <div class="like_btn"></div>
-	                  <!-- <img src="../img/like_on_red copy.png" alt="img" class="like_btn"> -->
-	                </div>
-	              </div>
-	            </div>
-	            <div class="recruit_banner_box add_shadow">
-	              <div class="recruit_img2"></div>
-	              <div class="recruit_banner_inner_box">
-	                <ul class="recruit_banner_tag">
-	                  <span class="blue_btn">#프론트엔드</span>
-	                  <span class="mint_btn">#HTML</span>
-	                  <span class="mint_btn">#javascript</span>
-	                  <span class="blue_btn">#js</span>
-	                  <span class="mint_btn">#css</span>
-	                  <span class="mint_btn">#front</span>
-	                  <span class="blue_btn">#typescript</span>
-	                </ul>
-	                <div class="recruit_banner_title">[서울] 정처기 같이 공부해요!</div>
-	                <div class="recruit_btn_box">
-	                  <button class="recruit_banner_btn">모집중 2 / 5</button>
-	                  <div class="like_btn"></div>
-	                  <!-- <img src="../img/like_on_red copy.png" alt="img" class="like_btn"> -->
-	                </div>
-	              </div>
-	            </div>
-	            <div class="recruit_banner_box add_shadow">
-	              <div class="recruit_img3"></div>
-	              <div class="recruit_banner_inner_box">
-	                <ul class="recruit_banner_tag">
-	                  <span class="blue_btn">#정처기</span>
-	                  <span class="mint_btn">#정보처리기사공부</span>
-	                  <span class="blue_btn">#자격증</span>
-	                  <span class="mint_btn">#정보처리기사</span>
-	                  <span class="blue_btn">#정처기</span>
-	                  <span class="mint_btn">#자격증</span>
-	                </ul>
-	                <div class="recruit_banner_title">[서울] 정처기 같이 공부해요!</div>
-	                <div class="recruit_btn_box">
-	                  <button class="recruit_banner_btn">모집중 2 / 5</button>
-	                  <div class="like_btn"></div>
-	                  <!-- <img src="../img/like_on_red copy.png" alt="img" class="like_btn"> -->
-	                </div>
-	              </div>
-	            </div>
-	            <div class="recruit_banner_box add_shadow">
-	              <div class="recruit_img4"></div>
-	              <div class="recruit_banner_inner_box">
-	                <ul class="recruit_banner_tag">
-	                  <span class="blue_btn">#정처기</span>
-	                  <span class="mint_btn">#정보처리기사공부</span>
-	                  <span class="blue_btn">#자격증</span>
-	                  <span class="mint_btn">#정보처리기사</span>
-	                  <span class="blue_btn">#정처기</span>
-	                  <span class="mint_btn">#자격증</span>
-	                </ul>
-	                <div class="recruit_banner_title">[서울] 정처기 같이 공부해요!</div>
-	                <div class="recruit_btn_box">
-	                  <button class="recruit_banner_btn">모집중 2 / 5</button>
-						<div class="like_btn"></div>
-	                  <!-- <img src="../img/like_on_red copy.png" alt="img" class="like_btn"> -->
-	                </div>
-	              </div>
-	            </div>
-	          
+	          	<c:if test="${stList.size() != 0}">
+					<c:forEach items="${stList}" var="st">
+		            <div class="recruit_banner_box add_shadow">
+		            <a href="<c:url value='/gather/detail/${st.st_num}'></c:url>">
+		              <div class="study_img_box">
+			              <c:if test="${files.size() != 0 }">
+							<c:forEach items="${fileList}" var="fi">
+								<c:if test="${fi.fi_ex_num == st.st_num}">
+									<img src="<c:url value='/download${fi.fi_name}'></c:url>" class="recruit_img1">
+								</c:if>
+							</c:forEach>
+						  </c:if>
+					  		<c:if test="${fi.fi_ex_num != st.st_num}">
+	                        	<img class="recruit_img" src="<c:url value='/resources/img/recruit_thumb.png'></c:url>">
+	                        </c:if>	
+		              </div>
+		              <div class="recruit_banner_inner_box">
+						<ul class="recruit_banner_tag">					                  
+							<c:forEach items="${tagList}" var="ta" varStatus="vs">
+								<c:if test="${ta.tr_st_num==st.st_num}">
+									<span class="blue_btn">${ta.tr_name}</span> 
+								</c:if>
+							</c:forEach>					                
+						</ul>
+		                <div class="recruit_banner_title">
+              					<span class="study_recruit_content">[${st.st_re_name}]</span>
+							<c:forEach items="${gaList}" var="ga">
+								<c:if test="${ga.ga_st_num==st.st_num}">
+									<span> ${ga.ga_title}</span>
+								</c:if>
+							</c:forEach>
+						</div>
+		                <div class="recruit_btn_box">
+		                  <div class="recruit_banner_btn">
+                 				<span>모집중</span> 
+							<span>${st.st_now_people}</span> 
+							<span>/</span> 
+							<span>${st.st_total_people}</span>
+		                  </div>
+		                  <!-- 스터디 좋아요 -->
+							<c:if test="${user == null}">
+								<div class="unlike_btn"></div>
+							</c:if>
+							<c:if test="${user != null}">
+								<c:if test="${waList.contains(st.st_num)}">
+									<div class="like_btn"></div>
+								</c:if>
+								<c:if test="${!waList.contains(st.st_num)}">
+									<div class="unlike_btn"></div>
+								</c:if>
+							</c:if>
+		                </div>
+		              </div>
+		              </a>
+		            </div>
+					</c:forEach>
+	         	 </c:if>
 	          </div>
           	</div>
           
