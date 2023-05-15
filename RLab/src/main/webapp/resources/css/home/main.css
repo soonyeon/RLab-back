@@ -29,9 +29,9 @@ main{
   text-align: center;
   line-height: 105px;
   font-weight: bold;
-  position: sticky;
+  position: fixed;
   top: 500px;
-  left: 1670px;
+  right: 20px;
   z-index: 90;
 }
 .main_banner{
