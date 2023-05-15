@@ -180,23 +180,40 @@ footer .corp_container .link_corp:nth-child(1)::before{
   border: 3px solid #f1f1f1;
 }
 /* 캘랜더 탭 */
-.tabs {
-  position: relative;
-  /* height: 39px; */
+.tab_container{
+	height: 42px;
+	border: none;
+	overflow: hidden;
 }
-.tab {
-  border: var(--border_basic);
-  border-radius: var(--border_radius_4);
+.tabs {
+  display: flex;
+  height: 100%;
+}
+.tab_box{
+	width: 200px;
+    background-color: var(--color_blue);
+    display: flex;
+    flex-direction: column;
+    width: 16%;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: 12px;
+    /* display: flex; */
+    /* height: 100%;*/
+}
+.tab{
   display: flex;
   flex-direction: column;
   width: 16%; 
   box-sizing: border-box;
   text-align: center; 
   font-size: 12px;
-  position: absolute;
+/*  position: absolute;*/
   top: 0;
   z-index: 3;
-  border-radius: 5px;
+}
+.tab{
+	border-radius: var(--border_radius_4);
 }
 .tab:nth-child(2) {
   left: 109px;
@@ -206,8 +223,11 @@ footer .corp_container .link_corp:nth-child(1)::before{
   left: 216px;
   z-index: 1;
 }
-.tab input[type="radio"]:checked + label {
+.tab1 input[type="radio"]:checked  {
   background-color: var(--color_blue); 
+}
+.tab2 input[type="radio"]:checked  {
+  background-color: var(--color_mint); 
 }
 input[type="radio"] {
   display: none;
@@ -222,9 +242,10 @@ input[type="radio"] {
   background-color: white;
   display: none;
 }
+/*
 input[type="radio"]:checked + label {
   background-color: white;
-}
+}*/
 input[type="radio"]:checked ~ .tab-content {
   display: block;
 }

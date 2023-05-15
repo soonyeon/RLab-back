@@ -121,7 +121,7 @@ body {
 
 #editCalendarDialog #updateCalendar {
 	background-color: #28a745;
-}*/
+}
 </style>
 
 <main>
@@ -144,17 +144,13 @@ body {
 			<div class="home_container">
 				<div class="tab_container">
 					<div class="tabs">
-						<div class="tab">
+						<div class="tab_box tab1 tab">
 							<input type="radio" id="tab1" name="tab_control" checked>
-							<label for="tab1" class="tab1">달력</label>
+							<label for="tab1" class="">달력</label>
 						</div>
-						<div class="tab">
+						<div class="tab_box tab2 tab">
 							<input type="radio" id="tab2" name="tab_control"> 
-							<label for="tab2" class="tab2">일정 리스트</label>
-						</div>
-						<div class="tab">
-							<input type="radio" id="tab3" name="tab_control"> 
-							<label for="tab3" class="tab3">스탬프</label>
+							<label for="tab2" class="">일정 리스트</label>
 						</div>
 					</div>
 				</div>
@@ -189,6 +185,37 @@ body {
 						</form>
 					</dialog>
 					
+					<dialog id="editCalendarDialog">
+					<button type="button" id="closecalendar" ><img class="remove_btn" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="40"/></button>
+					<form id="editCalendarForm">
+						<input type="hidden" id="editCa_num">
+					    <input type="hidden" id="editCa_st_num">
+					    <h3>일정 수정 및 삭제</h3>
+					    <div class="mb_box">
+						    <div class="mb-3">
+						    	<label for="editCalendarTitle" class="form-label">제목</label>
+						    	<input type="text" class="form-control" id="editCalendarTitle">
+						    </div>
+						    <div class="mb-3">
+						    	<label for="editCalendarStart" class="form-label">시작일</label>
+						    	<input type="datetime-local" class="form-control" id="editCalendarStart">
+						    </div>
+						    <div class="mb-3">
+						    	<label for="editCalendarEnd" class="form-label">종료일</label>
+						    	<input type="datetime-local" class="form-control" id="editCalendarEnd">
+						    </div>
+						</div>
+					    <div class="mb-3 form-check mb_check_box">
+					    	<input type="checkbox" class="form-check-input" id="editCalendarAllDay">
+					    	<label class="form-check-label" for="editCalendarAllDay">하루종일</label>
+					    </div>
+					    <menu>
+					    	<button type="button" id="updateCalendar" class="edit_btn">수정</button>
+					    	<button type="button" id="deleteCalendar" class="edit_btn">삭제</button>
+					    </menu>
+					</form>
+				</dialog>
+					
 					<div class="calendar_box1">
 						<div id='calendar'></div>
 					</div>
@@ -201,34 +228,7 @@ body {
 				</div>
 					
 				
-				<dialog id="editCalendarDialog">
-					<form id="editCalendarForm">
-						<input type="hidden" id="editCa_num">
-					    <input type="hidden" id="editCa_st_num">
-					    <h3>일정 수정 및 삭제</h3>
-					    <div class="mb-3">
-					    	<label for="editCalendarTitle" class="form-label">제목</label>
-					    	<input type="text" class="form-control" id="editCalendarTitle">
-					    </div>
-					    <div class="mb-3">
-					    	<label for="editCalendarStart" class="form-label">시작일</label>
-					    	<input type="datetime-local" class="form-control" id="editCalendarStart">
-					    </div>
-					    <div class="mb-3">
-					    	<label for="editCalendarEnd" class="form-label">종료일</label>
-					    	<input type="datetime-local" class="form-control" id="editCalendarEnd">
-					    </div>
-					    <div class="mb-3 form-check">
-					    	<input type="checkbox" class="form-check-input" id="editCalendarAllDay">
-					    	<label class="form-check-label" for="editCalendarAllDay">하루종일</label>
-					    </div>
-					    <menu>
-					    	<button type="button" id="closeEditCalendar">닫기</button>
-					    	<button type="button" id="updateCalendar">수정</button>
-					    	<button type="button" id="deleteCalendar">삭제</button>
-					    </menu>
-					</form>
-				</dialog>
+				
 				<div class="middle_container clearfix">
 				<!-- TO-DO LIST -->
 				<div class="todo_container">
@@ -680,6 +680,8 @@ ctx.fillRect(centerX, centerY - barHeight/2, fillWidth, barHeight);
 
 </script>
 <script>
+
+
 /* 우측 메뉴 이벤트 */
 $(document).ready(function (){
 	$('.btn_dropdown').click(function(){
