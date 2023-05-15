@@ -106,13 +106,15 @@ a, button{
   cursor: pointer;
 }
 .remove_btn{
-	position: absolute;
 	display: flex;
 	cursor: pointer;
+	opacity: 40%;
+}
+.login_remove{
+	position: absolute;
 	top: 3px;
     right: 3px;
-	opacity: 40%;
-	width: 12px;
+    width: 12px;
 	height: 12px;
 }
 .remove_btn:hover{

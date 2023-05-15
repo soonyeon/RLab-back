@@ -10,6 +10,7 @@
 <script src="<c:url value='/resources/js/study/calendar/study_og.js'/>"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <style>
+/*
 dialog {
 	position: fixed;
 	top: 50%;
@@ -120,7 +121,7 @@ body {
 
 #editCalendarDialog #updateCalendar {
 	background-color: #28a745;
-}
+}*/
 </style>
 
 <main>
@@ -159,6 +160,35 @@ body {
 				</div>
 				<!-- 달력 -->
 				<div class="calendar_container">
+					<dialog id="calendarDialog" >
+						<button type="button" id="closecalendar" ><img class="remove_btn" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="40"/></button>
+						<form id="calendarForm">
+							<input type="hidden" value="${st_num}" id="ca_st_num">
+							<div class="mb_box">
+								<div class="mb-3">
+									<label for="calendarTitle" class="form-label">제목</label> 
+									<input type="text" class="form-control" id="calendarTitle">
+								</div>
+								<div class="mb-3">
+									<label for="calendarStart" class="form-label">시작일</label>
+									<input type="datetime-local" class="form-control" id="calendarStart">
+								</div>
+								<div class="mb-3">
+									<label for="calendarEnd" class="form-label">종료일</label> 
+									<input type="datetime-local" class="form-control" id="calendarEnd">
+								</div>
+							</div>
+							<div class="mb_check_box">
+								<div class="mb-3 form-check">
+									<input type="checkbox" class="form-check-input" id="calendarAllDay"> 
+									<label class="form-check-label"	for="calendarAllDay">하루종일</label>
+								</div>
+							</div>
+								
+								<button type="button" id="savecalendar">저장</button>
+						</form>
+					</dialog>
+					
 					<div class="calendar_box1">
 						<div id='calendar'></div>
 					</div>
@@ -169,32 +199,7 @@ body {
 						<div id='calendar'></div>
 					</div>
 				</div>
-
-				<dialog id="calendarDialog">
-					<form id="calendarForm">
-						<input type="hidden" value="${st_num}" id="ca_st_num">
-						<div class="mb-3">
-							<label for="calendarTitle" class="form-label">제목</label> 
-							<input type="text" class="form-control" id="calendarTitle">
-						</div>
-						<div class="mb-3">
-							<label for="calendarStart" class="form-label">시작일</label>
-							<input type="datetime-local" class="form-control" id="calendarStart">
-						</div>
-						<div class="mb-3">
-							<label for="calendarEnd" class="form-label">종료일</label> 
-							<input type="datetime-local" class="form-control" id="calendarEnd">
-						</div>
-						<div class="mb-3 form-check">
-							<input type="checkbox" class="form-check-input" id="calendarAllDay"> 
-							<label class="form-check-label"	for="calendarAllDay">하루종일</label>
-						</div>
-						<menu>
-							<button type="button" id="closecalendar">닫기</button>
-							<button type="button" id="savecalendar">저장</button>
-						</menu>
-					</form>
-				</dialog>
+					
 				
 				<dialog id="editCalendarDialog">
 					<form id="editCalendarForm">
