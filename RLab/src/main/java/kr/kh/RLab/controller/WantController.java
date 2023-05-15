@@ -24,5 +24,14 @@ public class WantController {
 		MemberVO member = (MemberVO)request.getSession().getAttribute("user");
 	     return wantService.toggleWant(wantVO,member);
 	 }
+	 
+
+	 @PostMapping("/wantst")
+	    public Map<String, Object> wantst(@RequestBody WantVO wantVO,HttpServletRequest request) {
+		MemberVO member = (MemberVO)request.getSession().getAttribute("user");
+		int gaNum =  wantService.selectGaNumByStNum();
+		wantVO.setWa_ga_num(gaNum);
+	     return wantService.toggleWant(wantVO,member);
+	 }
 	
 }

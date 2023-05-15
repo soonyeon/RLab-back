@@ -124,6 +124,7 @@
 															</c:if>
 														</c:forEach>
 													</div>
+											</a>
 													<div class="study_content">
 														<div class="study_recruiting">
 															<span>모집중</span> 
@@ -145,7 +146,8 @@
 															</c:if>
 														</div>
 													</div>
-												</a>
+												
+											
 										</li>
 									</c:if >
 								</c:forEach>
@@ -243,4 +245,42 @@ $(document).on('click','.hashTag', function(){
 	$('.search_tag').eq(0).remove();
 	$('#gather_form').submit();
 })
+
+//모집글 좋아요
+const userId = '${user.me_id}'; 
+const gatherNum = '${.ga_num}';
+
+$(document).ready(function() {
+  $('.want_icon').on('click', function() {
+    want();
+  });
+  
+  function want() {
+	    // 데이터
+	    var requestData = {
+	      wa_me_id: userId,
+	      wa_ga_num: gatherNum
+	    };
+	    $.ajax({
+	      url: '<c:url value="/want" />',
+	      type: 'POST',
+	      contentType: "application/json",
+	      data: JSON.stringify(requestData),
+	      success: function(response) {
+	        if (response && response.wantState === 1) {
+	        	 $('.unlike_img').removeClass('unlike_img').addClass('like_img');
+	          alert('스터디를 찜 했습니다.');
+	        } else if (response && response.wantState === 0) {
+	        	 $('.like_img').removeClass('like_img').addClass('unlike_img');
+	          alert('스터디 찜을 취소 했습니다.');
+	        }
+	      },
+	      error: function(error) {
+	    	  console.log(error)
+	        alert('찜에 실패하였습니다. 다시 시도해주세요');
+	      }
+	      
+	    });
+	  }
+	});
 </script>

@@ -48,7 +48,7 @@ public class GatherServiceImp implements GatherService {
 		ArrayList<TagVO> tagList = new ArrayList<>();
 		
 		
-		// 媛� �깭洹� DB�뿉 ���옣
+		// 태그 추가
 		for (String tagName : tags) {
 			tagName = tagName.trim();
 			if (tagName.isEmpty()) {
@@ -66,7 +66,7 @@ public class GatherServiceImp implements GatherService {
 			gatherDao.insertStudyTag(study.getSt_num(), tagVO.getTa_name());
 		}
 
-		// �뙆�씪 �뾽濡쒕뱶 泥섎━
+		// 파일 추가
 		if (files != null && files.length > 0) {
 			uploadFiles(files, study.getSt_num(), file.getFi_table());
 		}
