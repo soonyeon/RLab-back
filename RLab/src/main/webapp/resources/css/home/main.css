@@ -315,14 +315,12 @@ main{
 }
 .recruit_box_container{
   position: absolute;
-  left: 11px; 
 }
 .recruit_box_container .animated{
   transition: o.5s ease-out;
 }
 .recruit_banner_box{
-  /* width: 280px; */
-  width: 275px;
+  width: 275.5px;
   height: 298px;
   float: left;
   margin-right: 22px;
@@ -458,7 +456,7 @@ main{
 }
   .event_banner{
   /* width: 580px; */
-  width:576px;
+  width:575.1px;
   text-align: center;
   border-radius: 10px;
   border: var(--border_basic);

@@ -333,54 +333,6 @@
 
 	}
 
-/* 스터디 지점 안내 */
-
-/*  	$('.spot_item').click(function(){
-	  let index = $(this).index();
-	  $('.spot_modal_container').show();
-	});
-	
-	$('.spot_modal_container').click(function(){
-	    $('.spot_modal_container').hide();
-	  });
-
-	
-	var spotItems = document.querySelectorAll('.spot_item');
-
-	for (var i = 0; i < spotItems.length; i++) {
-	  spotItems[i].addEventListener('click', function() {
-		    var spotName = this.querySelector('.spot_name').textContent;
-		    var spotAdd = this.querySelector('.spot_address').textContent;
-		    var spotNewAdd = this.querySelector('.spot_new_add').textContent;
-		    var spotTel = this.querySelector('.spot_tel').textContent;
-		    var spotCapa = this.querySelector('.spot_capacity').textContent;
-
-		    var modalSpotName = document.querySelector('.spot_modal .spot_name');
-		    var modalSpotAdd = document.querySelector('.spot_modal .spot_add');
-		    var modalSpotNewAdd = document.querySelector('.spot_modal .spot_new_add');
-		    var modalSpotTel = document.querySelector('.spot_modal .spot_tel');
-		    var modalSpotCapa = document.querySelector('.spot_modal .spot_capacity');
-		    
-		    modalSpotName.textContent = spotName;
-		    modalSpotAdd.textContent = spotAdd;
-		    modalSpotNewAdd.textContent = spotNewAdd;
-		    modalSpotNewAdd.textContent = spotTel;
-		    modalSpotCapa.textContent = spotCapa;
-		    
-	    document.querySelector('.spot_modal_container').style.display = 'block';
-	  });
-	}
-	// spot_modal_container 클릭 이벤트 핸들러
-	var modalContainer = document.querySelector('.spot_modal_container');
-
-	modalContainer.addEventListener('click', function() {
-	  this.style.display = 'none';
-	}); */
-	
-	
-
-	  
-	  
 	
 	$('.spot_item').click(function(){
 		  var spotName = $(this).find('.spot_name').text();
@@ -401,11 +353,7 @@
 		$('.spot_modal_container').click(function(){
 		  $(this).hide();
 		});
-	
-	
-	
-	
-	
+
 
  	document.querySelector('.btn_spot1').addEventListener('click', function(){
 	document.querySelector('.spot_container').style.transform = 'translateY(0px)';
@@ -423,7 +371,7 @@
 	    recruitBanner = document.querySelectorAll('.recruit_banner_box'),
 	    recruitCurrentIdx = 0,
 	    recruitBannerCount = recruitBanner.length,
-	    recruitBannerWidth = 275,
+	    recruitBannerWidth = 275.5,
 	    recruitBannerMargin =28,
 	    recruitBtnLeft = document.querySelector('.recruit_btn_left'),
 	    recruitBtnRight = document.querySelector('.recruit_btn_right');
@@ -498,7 +446,7 @@
 	    eventBanner = document.querySelectorAll('.event_banner'),
 	    eventCurrentIdx = 0,
 	    eventBannerCount = eventBanner.length,
-	    eventBannerWidth = 582,
+	    eventBannerWidth = 581.1,
 	    eventBannerMargin =35,
 	    eventBtnLeft = document.querySelector('.event_btn_left'),
 	    eventBtnRight = document.querySelector('.event_btn_right');

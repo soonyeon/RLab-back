@@ -27,7 +27,6 @@ public class HomeController {
 	    ArrayList<BranchVO> spot = reservationService.getAllBranchListToMain();
 		
 	    mv.addObject("spot",spot);
-	    System.out.println(spot);
 		mv.setViewName("/main/home");
 		return mv;
 	}
