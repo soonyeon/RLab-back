@@ -3,31 +3,32 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     
-
+<link rel="stylesheet" href="<c:url value='/resources/css/common.css'></c:url>">  
 <link rel="stylesheet" href="<c:url value='/resources/css/study/study.css'></c:url>">
 <link rel="stylesheet" href="<c:url value='/resources/css/study/management_member.css'></c:url>">
 
 <main>
 	<div id="main_container">
-	    <!-- 왼쪽 메뉴바 -->
-	    <div class="left_menu_container">
-	        <nav class="left_menu">
-	            <a href="<c:url value='/study/${user.me_study}'></c:url>" class="list_item">스터디홈</a>
-	            <a href="#" class="list_item">스터디 달력</a>
-	            <a href="to_do_list.html" class="list_item">투두 리스트</a>
-	            <a href="Daily Mission.html" class="list_item">데일리 미션</a>
-	            <a href="<c:url value='/study/photo/${user.me_study}'></c:url>" class="list_item">인증 게시판</a>
-	            <a href="<c:url value='/board/list/${user.me_study}'></c:url>" class="list_item">자유 게시판</a>
-	            <a href="<c:url value='/study/management/member'></c:url>" class="list_item">스터디 관리</a>
-	            <a href="#" class="leave">탈퇴하기</a>
-	        </nav>
-	    </div>
+	     <div class="left_side">
+			<!-- 왼쪽 메뉴바 -->
+			<div class="left_menu_container">
+				<nav class="left_menu">
+					<a href="<c:url value='/study/${st_num}'></c:url>" class="list_item">스터디홈</a>
+					<a href="<c:url value='/study/todo/${st_num}'></c:url>" class="list_item">투두 리스트</a> 
+					<a href="<c:url value='/study/daily/${st_num}'></c:url>" class="list_item">데일리 미션</a> 
+					<a href="<c:url value='/study/photo/${st_num}'></c:url>" class="list_item">인증 게시판</a> 
+					<a href="<c:url value='/board/list/${st_num}'></c:url>" class="list_item">자유 게시판</a> 
+					<a href="<c:url value='/study/management'></c:url>" class="list_item">스터디 관리</a>
+				</nav>
+			</div>
+			<a href="#" class="leave_btn">탈퇴하기</a>
+		</div>
 	    
 	    <div class="content_container">
 	        <!-- 탭 -->
 	        <div class="tab_container">
 	            <a href="<c:url value='/study/management/member'></c:url>" class="item_tab  selected tab1">회원 관리</a>
-	            <a href="<c:url value='/study/management/study'></c:url>" class="item_tab unselected tab2">스터디 관리</a>
+	            <a href="<c:url value='/study/management/study/${st_num}'></c:url>" class="item_tab unselected tab2">스터디 관리</a>
 	        </div>
 	
 	        <div class="my_study_container" id="my_container">
@@ -52,17 +53,17 @@
 		                                <tr class="board_list">
 			                            	<td class="post_title">
 		                                        <div class="profile_box">
-		                                            <div class="img_box">
-		                                                <div class="profile_img"></div>
-		                                            </div>
+                                            		<div class="img_box">
+	                                                	<img class="profile_img" src="<c:url value='/download${sm.me_profile}'></c:url>"width="auto" height="40">
+                                                	</div>
 		                                            <span name="me_name" class="">${sm.me_name}</span>
 		                                        </div>
 		                                    </td>
 		                                    <td>${sm.sm_join_date}</td>
 		                                    <td>
-		                                        <div class="btn_container">
-		                                            <button class="btn_member btn_drop">강퇴</button>
-		                                            <button class="btn_member btn_power">스터디장 위임</button>
+		                                        <div class="btn_container" >
+		                                            <button class="btn_member btn_drop<c:if test="${sm.sm_me_id == user.me_id}"> display_none</c:if>">강퇴</button>
+		                                            <button class="btn_member btn_power<c:if test="${sm.sm_me_id == user.me_id}"> display_none</c:if>">스터디장 위임</button>
 		                                        </div>
 		                                    </td>
 		                                </tr>
@@ -244,81 +245,66 @@ function confirmAction(buttonText, action) {
   }
 }
 
-/* ajax를 이용 */
-/*  $.ajax({
-	//	비동기화 : 사용
-	// 동기화는 ajax 작업이 다 끝난 후 아래 코드가 실행
-	// 비동기화는 ajax가 작업이 끝나든 말든 아래 코드다 실행
-    async:true,
-    type:'POST',
-    data:JSON.stringify(obj),
-    url:"/study/management/member/{st_num}",
-    //서버에서 받는 데이터 타입
-    dataType:"json",
-    //서버에서 보내는 데이터 타입
-    contentType:"application/json; charset=UTF-8",
-    success : function(data){
-        console.log(data);
-    }
-}); 
-
-$.ajax({
-    url: "/management/member/delete",
-    type: "POST",
-    data: {st_me_id: st_me_id},
-    success: function(data) {
-        // 새로운 멤버 리스트를 사용하여 화면을 업데이트
-    }
-});
-
-$.ajax({
-    url: "/management/member/delete",
-    type: "POST",
-    data: {st_me_id: st_me_id},
-    success: function(data) {
-        // 멤버 리스트를 업데이트
-        var memberList = "";
-        $.each(data, function(index, member) {
-            memberList += "<tr><td>" + member.st_me_id + "</td><td>" + member.st_me_name + "</td></tr>";
-        });
-        $("#memberListTable tbody").html(memberList);
-    }
-});
-
-*/
-
-
-
 
 $(".btn_drop").on("click", function() {
-  /* confirmAction("본 회원을 강퇴시키겠습니까?", function() {
-    alert("강퇴처리 되었습니다.");
-  }); */
-  let me_name = $(this).parents('.board_list').find('[name=me_name]').text();
-  let obj ={
+	let me_name = $(this).parents('.board_list').find('[name=me_name]').text();
+	let obj ={
 		  me_name: me_name,
 		  sm_st_num: ${st_num}
-  } 
-  console.log(obj);
-	$.ajax({
-		async:false,
-	    type:'POST',
-	    data:JSON.stringify(obj),
-	    url:"<c:url value='/study/management/member/delete'></c:url>",
-	    //서버에서 받는 데이터 타입
-	    dataType:"json",
-	    //서버에서 보내는 데이터 타입
-	    contentType:"application/json; charset=UTF-8",
-	    success : function(data){
-	        console.log(data);
-	    }
-	});
-});
+	} 
+	
+	
+  confirmAction("본 회원을 강퇴시키겠습니까?", function() {
+	  console.log($(this));
+	  $.ajax({
+			async:false,
+		    type:'POST',
+		    data:JSON.stringify(obj),
+		    url:"<c:url value='/study/management/member/delete'></c:url>",
+		    //서버에서 받는 데이터 타입
+		    dataType:"json",
+		    //서버에서 보내는 데이터 타입
+		    contentType:"application/json; charset=UTF-8",
+		    success : function(data){
+		        console.log(data);
+		    }
+		});
+	  
+		location.replace("<c:url value='/study/management/member/${st_num}'></c:url>");
+	    alert("강퇴처리 되었습니다.");
+  }); 
+	  
+});   
 
+
+  
 $(".btn_power").on("click", function() {
-  confirmAction("본 회원에게 스터디장을 위임하시겠습니까?", function() {
-    alert("위임처리 되었습니다.");
-  });
+	console.log(1)
+	let me_name  = $(this).parents('.board_list').find('[name=me_name]').text();
+	console.log(me_name);
+	
+	let obj ={
+			me_name: me_name,
+			sm_st_num: ${st_num}
+	}
+	confirmAction("본 회원에게 스터디장을 위임하시겠습니까?", function(){
+		$.ajax({	
+			async:false,
+		    type:'POST',
+		    data:JSON.stringify(obj),
+		    url:"<c:url value='/study/management/member/authorize'></c:url>",
+		    //서버에서 받는 데이터 타입
+		    dataType:"json",
+		    //서버에서 보내는 데이터 타입
+		    contentType:"application/json; charset=UTF-8",
+		    success : function(data){
+		        console.log(data);
+		    }
+		});
+	location.replace("<c:url value='/study/management/'></c:url>");
+    alert("위임처리 되었습니다."); 
+	});
+	  
 });
 
 

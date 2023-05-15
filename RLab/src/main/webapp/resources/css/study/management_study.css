@@ -57,9 +57,9 @@
   line-height: 50px;
 }
 
-.list_item{
+/*.list_item{
   height:60px;
-}
+}*/
 .select_box_area{
   height: 29.5px;
   margin-bottom: 10px;
@@ -83,7 +83,7 @@ main #main_container{
 }
 #my_container {
 	width: 710px;
-  height: 886px;
+  height: 472px;
   top: -47px;
 	position: relative;
 	border: var(--border_basic); 
@@ -163,12 +163,19 @@ main #main_container{
 .study_box .btn_finish{
   background-color: var(--color_mint);
 }
+.study_box .btn_finish_cancel{
+  background-color: gray;
+  color:white;
+}
 .study_box .btn_delete{
   background-color: rgb(255, 47, 20);
   color: white;
 }
 .btn_finish:hover{
   background-color: rgb(17, 212, 138);
+}
+.btn_finish_cancel:hover{
+  background-color: rgb(96, 95, 95);
 }
 .btn_delete:hover{
   background-color: rgb(219, 39, 15);

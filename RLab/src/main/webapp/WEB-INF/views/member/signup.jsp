@@ -10,6 +10,7 @@
 <script src="<c:url value='/resources/js/jquery.min.js'></c:url>"></script>
 <script src="<c:url value='/resources/js/jquery.validate.min.js'></c:url>"></script>
 <script src="<c:url value='/resources/js/additional-methods.min.js'></c:url>"></script>
+<link rel="stylesheet" href="<c:url value ='/resources/css/common.css'></c:url>">
 <link rel="stylesheet" href="<c:url value ='/resources/css/signup.css'></c:url>">
 <title>signup</title>
 </head>

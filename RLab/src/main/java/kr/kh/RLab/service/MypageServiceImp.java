@@ -8,13 +8,17 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import kr.kh.RLab.dao.MypageDAO;
+import kr.kh.RLab.dao.StudyDAO;
 import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.pagination.GatherCriteria;
 import kr.kh.RLab.vo.BoardVO;
+import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.GrowthVO;
 import kr.kh.RLab.vo.MemberVO;
+import kr.kh.RLab.vo.PayDTO;
 import kr.kh.RLab.vo.ReservationVO;
+import kr.kh.RLab.vo.StudyMemberVO;
 import kr.kh.RLab.vo.StudyVO;
 import kr.kh.RLab.vo.TagRegisterVO;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +28,7 @@ import lombok.RequiredArgsConstructor;
 public class MypageServiceImp implements MypageService {
 	
 	private final MypageDAO mypageDao;
+	private final StudyDAO studyDao;
 	
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
@@ -78,13 +83,33 @@ public class MypageServiceImp implements MypageService {
 	}
 	
 	//[마이페이지 홈 > 나의 예약]
-	@Override
-	public ArrayList<ReservationVO> getResList(String userId) {
-		if(userId == null)
-			return null;
-		return mypageDao.selectResList(userId);
-	}
+		//좌석 예약 정보 가져오기
+		@Override
+		public ReservationVO getMySeat(String userId) {
+			if (userId == null) {
+		        return null;
+		  }
+			return mypageDao.selectMySeat(userId);
+		}
+		
+		//사물함 예약 정보 가져오기
+		@Override
+		public ReservationVO getMyLocker(String userId) {
+			if (userId == null) {
+		        return null;
+		  }
+			return mypageDao.selectMyLocker(userId);
+		}
 	
+		@Override
+		public ArrayList<ReservationVO> getResList(String userId) {
+			if(userId == null)
+				return null;
+			return mypageDao.selectResList(userId);
+		}
+
+
+	/////////////
 	//[마이페이지 홈 > 나의 스터디]
 	@Override
 	public ArrayList<StudyVO> getMainStudyList(String userId) {
@@ -94,6 +119,7 @@ public class MypageServiceImp implements MypageService {
 	}
 	
 	
+	////////////////
 	//[마이페이지 홈 > 나의 스크랩]
 	@Override
 	public ArrayList<BoardVO> getMainScrapList(String userId) {
@@ -102,7 +128,7 @@ public class MypageServiceImp implements MypageService {
 		return mypageDao.selectMainScrapList(userId);
 	}
 
-	
+	///////////////
 	//[개인정보 수정 > 비밀번호 체크]
 		@Override
 		public boolean checkPw(MemberVO pw, MemberVO user) {
@@ -156,8 +182,133 @@ public class MypageServiceImp implements MypageService {
 			    }		
 			return true;
 			}
+	////////////		
+	//[예약 관리 > 나의 결제 내역]	
+		//결제 정보 가져오기	
+		@Override
+		public ArrayList<PayDTO> getPayList(String memberId, Criteria cri) {
+			if(memberId == null)
+				return null;
+			return mypageDao.selectPayList(memberId, cri);
+		}
 	
+		//결제 전체 수 가져오기
+		@Override
+		public int getPayTotalCount(String memberId) {
+			int totalCount = mypageDao.selectPayTotalCount(memberId);
+			return totalCount;
+		}
+		
+	//[예약 관리 > 나의 결제 내역 > 결제 상세 내역]	
+		//결제번호 가져오기
+		@Override
+		public String getPaOrderId(String memberId) {
+			if(memberId == null)
+				return null;
+			return mypageDao.selectPaOrderId(memberId);
+		}
+		//결제번호로 결제 정보 가져오기
+		@Override
+		public PayDTO getPayDto(String paOrderId) {
+			if(paOrderId == null)
+				return null;
+			return mypageDao.selectPayDto(paOrderId);
+		}
+		// 해당 결제 정보안의 구매목록 가져오기
+		@Override
+		public ArrayList<String> getItemList(String paOrderId) {
+			if(paOrderId == null)
+				return null;
+			return mypageDao.selectItemList(paOrderId);
+		}
+	//[예약 관리 > 나의 예약 내역]	
+		//나의 예약 목록 가져오기
+		@Override
+		public ArrayList<ReservationVO> getBookList(String memberId, Criteria cri) {
+			if(memberId == null)
+				return null;
+			return mypageDao.selectBookList(memberId, cri);
+		}
+		
+		//예약 전체 수 가져오기
+		@Override
+		public int getBookTotalCount(String memberId) {
+			int totalCount = mypageDao.selectBookTotalCount(memberId);
+			return totalCount;	
+		}
+		
+	//[예약 관리 > 나의 예약 내역 > 예약 상세 내역]
+		//캐비넷 이용권 이름 가져오기
+		@Override
+		public String getTicketNameByBookInfo(ReservationVO rsv) {
+			return mypageDao.selectTicketName(rsv);
+		}
 	
+	///////////
+	//[스터디 관리 > 내가 찜한 스터디]	
+		// 아이디로 내가 찜한 스터디 가져오기	
+		@Override
+		public ArrayList<GatherVO> getFavoriteList(String memberId, GatherCriteria cri) {
+			if(memberId == null)
+				return null;
+			return mypageDao.selectFavoriteList(memberId, cri);
+		}
+		
+		// 내가 찜한 스터디의 태그들 가져오기
+		@Override
+		public ArrayList<TagRegisterVO> getfavoriteTagList(GatherCriteria cri) {
+			ArrayList<TagRegisterVO> tagList =  mypageDao.selectFavoriteTagList(cri);
+			return tagList;
+		}
+		
+		// 내가 찜한 모집글의 수 
+		@Override
+		public int getFavoriteTotalCount(String memberId, GatherCriteria cri) {
+			int totalCount = mypageDao.selectFavoriteTotalCount(memberId, cri);
+			return totalCount;
+		}
+		
+	//[스터디 관리 > 내가 개설한 스터디]	
+		// 아이디로 내가 개설한 스터디 가져오기	
+		@Override
+		public ArrayList<StudyVO> getOpenList(String memberId, GatherCriteria cri) {
+			if(memberId == null)
+				return null;
+			return mypageDao.selectOpenList(memberId, cri);
+		}
+		
+		// 내가 개설한 스터디 개수
+		@Override
+		public int getOpenTotalCount(String memberId, GatherCriteria cri) {
+			int totalCount = mypageDao.selectOpenTotalCount(memberId, cri);
+			return totalCount;
+		}
+
+		
+	//[스터디 관리 > 진행중인 스터디]	
+		// 아이디로 진행중인 스터디 가져오기 (내가 회원으로 들어가 있는 스터디)
+		@Override
+		public ArrayList<StudyVO> getProgressList(String memberId, GatherCriteria cri) {
+			if(memberId == null)
+				return null;
+			return mypageDao.selectProgressList(memberId, cri);
+		}
+
+		// 진행중인 스터디 개수
+		@Override
+		public int getProgressTotalCount(String memberId, GatherCriteria cri) {
+			int totalCount = mypageDao.selectProgressTotalCount(memberId, cri);
+			return totalCount;
+		}
+		
+		// 멤버 등급 가져오기
+		@Override
+		public ArrayList<StudyMemberVO> getSmAuthority(String memberId, GatherCriteria cri) {
+			 
+			return mypageDao.selectSmAuthority(memberId, cri);
+		}
+
+	////////////
 	//[작성글 관리 > 나의 게시글]
 		// 아이디로 작성 게시글 목록 가져오기
 		@Override
@@ -197,7 +348,6 @@ public class MypageServiceImp implements MypageService {
 		public ArrayList<GatherVO> getGatherListById(String memberId, GatherCriteria cri) {
 			if(memberId == null)
 				return null;
-			System.out.println("me_id" + memberId);
 			return mypageDao.selectGatherListById(memberId, cri);
 		}
 		
@@ -210,8 +360,8 @@ public class MypageServiceImp implements MypageService {
 		
 		// 로그인한 회원이 작성한 모집글 전체 수 가져오기
 		@Override
-		public int getGatherTotalCount(String memberId) {
-			int totalCount = mypageDao.selectGatherTotalCount(memberId);
+		public int getGatherTotalCount(String memberId, GatherCriteria cri) {
+			int totalCount = mypageDao.selectGatherTotalCount(memberId, cri);
 			return totalCount;
 		}
 		
@@ -222,6 +372,10 @@ public class MypageServiceImp implements MypageService {
 			return wantList;
 		}
 
+		@Override
+		public ArrayList<FileVO> selectFileList() {
+			return mypageDao.selectFileList();
+		}
 
 
 }

@@ -52,4 +52,6 @@ public interface ReservationService {
 
 	ArrayList<SeatVO> getBranchSeat(int br_num, int ki_num);
 
+	ArrayList<BranchVO> getAllBranchListToMain();
+
 }

@@ -33,9 +33,6 @@
     border-radius: var(--border_radius_4);
     margin-right: 15px;
   }
-  .study_card_box:nth-child(3n){
-    margin-right: 0;
-  }
   .study_img_box {
     width: 100%; 
     height:40%; 
@@ -43,6 +40,10 @@
   }
   .study_img_box img{
   	width: 100%;
+  }
+  
+  .study_img_box img:nth-child(2){
+	display : none;
   }
 
   .study_card_container .study_info{
@@ -102,21 +103,34 @@
   
   }
   .study_card_container .study_content .study_recruiting{
-  border: 2px solid var(--color_black); background-color: var(--color_yellow);
-  text-align: center; border-radius: var(--border_radius_4); color: var(--color_black);
-  font-size:14px; width: 100px; height: 30px; line-height: 28px;
+  border: 2px solid var(--color_black); 
+  background-color: var(--color_yellow);
+  text-align: center; border-radius: var(--border_radius_4); 
+  color: var(--color_black);
+  font-size:14px; 
+  width: 100px; 
+  height: 30px; 
+  line-height: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   }
 
   .like_img{
     width: 30px; height: 30px;
     background-image: url(../../img/like_on_red.png);
     background-size: cover;
+    position: absolute;
+    right: 10px;
+    z-index: 1;
   }
   
    .unlike_img{
     width: 30px; height: 30px;
     background-image: url(../../img/love_off.png);
     background-size: cover;
+    position: absolute;
+    right: 10px;
   }
   /* 모집완료 */
   .sad_container{
@@ -137,8 +151,6 @@
     align-items: center;
   }
   .sad_img {
-    background-image: url(../../img/sad.png);
-    background-size: cover;
     width: 49px;
     height: 49px;
   }

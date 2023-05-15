@@ -1,6 +1,7 @@
 package kr.kh.RLab.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -241,4 +242,10 @@ public class ReservationServiceImp implements ReservationService {
 		return reservationDao.selectBranchSeat(br_num, ki_num);
 	}
 	
+
+	@Override
+	public ArrayList<BranchVO> getAllBranchListToMain() {
+		return reservationDao.selectAllBranchToMain();
+	}
+
 }

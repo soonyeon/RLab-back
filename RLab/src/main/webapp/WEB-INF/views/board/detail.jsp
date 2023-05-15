@@ -312,15 +312,13 @@ function loadComments(page1) {
             let comments = response.commentList;
             let pageHandler = response.pageHandler;
             let count = response.commentCount;
-            console.log(response);
             if(response.commentList.length == 0) {
 				page = page-1;
 				return;
 			}
 
             $.each(comments, function(index, comment) {
-                console.log(comment);
-                if(comment.co_state == 'Y') {
+                if(comment.co_delete == 'Y') {
                  	 let cmStateHtml = '';
                     cmStateHtml += '<div class="cm_main_box">';
                     cmStateHtml += '<div class="cm_top_box">';
@@ -330,7 +328,7 @@ function loadComments(page1) {
                     $('.comment_box').append(cmStateHtml);
                     return;
                } 	
-                if (comment.co_num == comment.co_ori_num) {
+                if (comment.co_num == comment.co_ori_num && comment.co_table == 'board') {
                    
                     let listHtml = '';
 
@@ -338,11 +336,11 @@ function loadComments(page1) {
                     listHtml += '<div class="cm_top_box">';
                     listHtml += '<div class="cm_writer">';
                     listHtml += '<a href="#" class="cm_mypage">';
-                    <c:if test="${user.me_profile == null}">
+                    <c:if test="${comment.me_profile == null}">
                     listHtml += '<img src="<c:url value="/resources/img/user.png"></c:url>" width="auto" height="40">';
                     </c:if>
-                    <c:if test="${user.me_profile != null}">
-                    listHtml += '<img src="<c:url value="/download${user.me_profile}"></c:url>" width="auto" height="40">';
+                    <c:if test="${comment.me_profile != null}">
+                    listHtml += '<img src="<c:url value="/download${comment.me_profile}"></c:url>" width="auto" height="40">';
                     </c:if>
                     listHtml += '<span class="nick_name">' + comment.me_name + '</span>';
                     listHtml += '<span class="write_date">' + comment.co_reg_date + '</span>';
@@ -362,6 +360,7 @@ function loadComments(page1) {
                     $('.comment_box').append(listHtml); // 생성된 HTML 문자열을 댓글 목록 영역에 추가
                 }
                 else {
+                	if(comment.co_num != comment.co_ori_num && comment.co_table == 'board'){
                     let reReplyHtml = '';
 
                     reReplyHtml += '<div class="re_reply_main_box">';
@@ -369,11 +368,11 @@ function loadComments(page1) {
                     reReplyHtml += '<img class="re_reply_icon" src="<c:url value="/resources/img/reply.png"></c:url>">';
                     reReplyHtml += '<div class="re_writer">';
                     reReplyHtml += '<a href="#" class="re_mypage">';
-                    <c:if test="${user.me_profile == null}">
+                    <c:if test="${comment.me_profile == null}">
                     reReplyHtml += '<img src="<c:url value="/resources/img/user.png"></c:url>" width="auto" height="40">';
                     </c:if>
-                    <c:if test="${user.me_profile != null}">
-                    reReplyHtml += '<img src="<c:url value="/download${user.me_profile}"></c:url>" width="auto" height="40">';
+                    <c:if test="${comment.me_profile != null}">
+                    reReplyHtml += '<img src="<c:url value="/download${comment.me_profile}"></c:url>" width="auto" height="40">';
                     </c:if>
                     reReplyHtml += '<span class="re_nick_name">' + comment.me_name + '</span>';
                     reReplyHtml += '<span class="re_write_date">' + comment.co_reg_date + '</span>';
@@ -391,6 +390,7 @@ function loadComments(page1) {
 
                     $('.comment_box').append(reReplyHtml); // 생성된 답글 HTML 문자열을 댓글 목록 영역에 추가
                 }
+               		 }
             });
             // 현재 페이지 값을 갱신
             $('#current_page').val(page1);
@@ -398,7 +398,6 @@ function loadComments(page1) {
 
         },
         error: function(xhr, textStatus, errorThrown) {
-            console.log('댓글 목록 로딩 실패: ', textStatus);
             isLoading = false;
         }
     });
@@ -530,7 +529,6 @@ $(document).on('click', '.cm_delete_btn, .re_delete_btn', function() {
         co_num: co_num
     }
     deleteComment(comment, page);
-    console.log(comment);
 });
 
 function deleteComment(comment, page) {

@@ -3,7 +3,7 @@
 <mapper namespace="kr.kh.RLab.dao.GatherDAO">
 <insert id="insertStudy" useGeneratedKeys="true" keyProperty="study.st_num">
 	insert into study(st_name,st_me_id,st_info,st_total_people,st_re_name,st_image)
-	values(#{study.st_name},#{study.st_me_id},#{study.st_info},#{study.st_total_people},#{study.st_re_name},#{study.st_image})
+	values(#{study.st_name},#{study.st_me_id},#{study.st_info},#{study.st_total_people},#{study.st_re_name},(select fi_ori_name from file where fi_ex_num = #{study.st_num}))
 </insert>
 <insert id="insertFile">
 	insert into file( fi_ori_name, fi_name, fi_table, fi_ex_num)
@@ -52,7 +52,7 @@
 	LIMIT #{cri.pageStart}, #{cri.perPageNum}
 </select>
 <select id="selectFileList" resultType="kr.kh.RLab.vo.FileVO">
-	select * from file
+	select * from file 
 </select>
 <select id="selectTagList" resultType="kr.kh.RLab.vo.TagRegisterVO">
 	select 	* from tag_register
@@ -115,6 +115,15 @@
 	insert into study_member(sm_st_num,sm_me_id,sm_authority,sm_join_date)
 	values(#{sm.sm_st_num},#{sm.sm_me_id},9,NOW())
 </insert>
+<select id="getGatherByComment" resultType="kr.kh.RLab.vo.GatherVO">
+	select * from gather
+	where ga_num =  #{co_ex_num} 
+</select>
+
+<select id="findGatherdById" resultType="kr.kh.RLab.vo.GatherVO">
+	select * from gather
+	where ga_me_id = #{me_id}
+</select>
 <select id="selectSearchTagList" resultType="String">
 	select tr_name
 	from (select tr_name, count(*) as count from tag_register 
@@ -123,4 +132,29 @@
 	order by count desc
 	limit 5 
 </select>
+<select id="selectGatherByGaNum" resultType="kr.kh.RLab.vo.GatherVO">
+	select * from gather
+	where ga_num = #{ga_num} and ga_me_id = #{user.me_id}
+</select>
+<update id="updateGather">
+	update gather
+	set
+		ga_st_num = #{ga_st_num},
+		ga_title = #{ga_title},
+		ga_content = #{ga_content},
+		ga_upd_date = now()
+	where
+		ga_num = #{ga_num}
+</update>
+<delete id="deleteGather">
+	delete from gather
+	where ga_num = #{ga_num}
+</delete>
+<update id="updateMeStudyNumber">
+	update member
+	set 
+		me_study = #{st_num}
+	where
+		me_id = #{me_id}
+</update>
 </mapper>

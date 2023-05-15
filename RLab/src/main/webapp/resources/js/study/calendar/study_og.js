@@ -4,7 +4,7 @@ $(document).ready(function() {
     // 이벤트 데이터를 가져오는 함수
     function fetchEvents() {
         return $.ajax({
-            url: "/RLab/calendar/findAll",
+            url: "/RLab/calendar/findAll/" + st_num,
             type: "GET",
             dataType: "json",
         });
@@ -28,7 +28,7 @@ $(document).ready(function() {
     function fetchEventByCaNum(ca_num) {
         var url = "/RLab/calendar/findByCaNum/" + parseInt(ca_num);
         return $.ajax({
-            url: "/rlab/calendar/findByCaNum/" + ca_num,
+            url: "/RLab/calendar/findByCaNum/" + ca_num,
             type: "GET",
             dataType: "json",
         });

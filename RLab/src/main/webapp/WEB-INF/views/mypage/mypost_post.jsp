@@ -55,34 +55,35 @@
 		                    </div>
 		
 		                    <div class="tab_content">
-		                      <!-- 나의 게시글 -->
-		                      <div class="table_area" id="tabs_1">
-		                      <!-- <div class="tab-content_tabel_area 1"> -->
-		                        <table class="border_box">
-		                          <thead>
-		                            <tr class="board_title_list">
-		                              <td class="title_list_item">번호</td>
-		                              <td class="title_list_item">스터디명</td>
-		                              <td class="title_list_item">제목</td>
-		                              <td class="title_list_item">작성자</td>
-		                              <td class="title_list_item">작성일</td>
-		                            </tr>
-		                          </thead>
-		                          
-		                          <tbody>
-			                         <c:forEach items="${myBoardList}" var="bo" varStatus="vs">
-			                            <tr class="board_list" onclick="location.href='<c:url value='/board/detail/${bo.bo_st_num}/${bo.bo_num}'/>';">	                           
-			                              <td>${bo.bo_num}</td>
-			                              <td>${bo.st_name}</td>
-			                              <td class="post_title">${bo.bo_title}</td>
-			                              <td>${bo.me_name}</td>
-			                              <td>${bo.bo_reg_date_str}</td>                     
+		                   		<c:if test="${myBoardList != null && myBoardList.size() != 0}">
+			                      <!-- 나의 게시글 -->
+			                      <div class="table_area" id="tabs_1">
+			                      <!-- <div class="tab-content_tabel_area 1"> -->
+			                        <table class="border_box">
+			                          <thead>
+			                            <tr class="board_title_list">
+			                              <td class="title_list_item">번호</td>
+			                              <td class="title_list_item">스터디명</td>
+			                              <td class="title_list_item">제목</td>
+			                              <td class="title_list_item">작성자</td>
+			                              <td class="title_list_item">작성일</td>
 			                            </tr>
-									</c:forEach>
-		                          </tbody>
-		                        </table>
-		                      </div>
-		
+			                          </thead>
+			                          
+			                          <tbody>
+				                         <c:forEach items="${myBoardList}" var="bo" varStatus="vs">
+				                            <tr class="board_list" onclick="location.href='<c:url value='/board/detail/${bo.bo_st_num}/${bo.bo_num}'/>';">	                           
+				                              <td>${bo.bo_num}</td>
+				                              <td>${bo.st_name}</td>
+				                              <td class="post_title">${bo.bo_title}</td>
+				                              <td>${bo.me_name}</td>
+				                              <td>${bo.bo_reg_date_str}</td>                     
+				                            </tr>
+										</c:forEach>
+			                          </tbody>
+			                        </table>
+			                      </div>
+								
 		                    <!-- 페이지 이동 -->
 		                     <div class="page_area">
 		                     	<div class="page_box clearfix">
@@ -102,7 +103,13 @@
 										</a>
 									</c:if>
 								</div>
-		                     </div>  		                      
+		                     </div> 
+		                    </c:if>	
+							<c:if test="${myBoardList.size() == 0 || myBoardList == null}">
+	                      	<div class="nullMsg">
+	                      		<p> 작성한 글이 없습니다.</p>
+	                      	</div>
+		                	</c:if>		 		                      
 		                   </div>
 		                 </div>
 		                </div>

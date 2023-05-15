@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import kr.kh.RLab.service.MemberService;
 import kr.kh.RLab.service.SessionService;
 import kr.kh.RLab.service.StudyService;
+import kr.kh.RLab.utils.SseEmitters;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.SessionVO;
 
@@ -26,6 +27,9 @@ public class SessionController {
 	
 	@Autowired
 	private StudyService studyService;
+	
+	@Autowired
+	private SseEmitters sseEmitters;
 
 	@PostMapping("/login")
 	public ModelAndView loginPost(ModelAndView mv, MemberVO member, HttpServletRequest request, HttpSession session) {
@@ -58,6 +62,7 @@ public class SessionController {
 	public ModelAndView logoutPost(ModelAndView mv, HttpSession session) {
 	    if (session != null) {
 	        MemberVO user = (MemberVO) session.getAttribute("user");
+	        session.removeAttribute("emitter");
 	        if (user != null) {
 	            SessionVO sessionVO = new SessionVO();
 	            sessionVO.setSs_me_id(user.getMe_id());
@@ -66,11 +71,15 @@ public class SessionController {
 	            session.removeAttribute("user");
 	            user.setMe_session_limit(null);
 	            memberService.updateSession(user);
+	            
+	            // 로그아웃한 사용자를 SseEmitters에서 제거
+	            sseEmitters.remove(user.getMe_id());
 	        }
 	    }
 	    mv.setViewName("redirect:/");
 	    return mv;
 	}
+	
 	
 	
 	

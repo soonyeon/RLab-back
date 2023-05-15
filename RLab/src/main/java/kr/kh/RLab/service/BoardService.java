@@ -3,6 +3,7 @@ package kr.kh.RLab.service;
 import java.util.ArrayList;
 import java.util.Map;
 
+import kr.kh.RLab.pagination.BoardCriteria;
 import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.MemberVO;
@@ -13,7 +14,7 @@ public interface BoardService {
 	boolean insertBoard(BoardVO board, MemberVO member);
 	
     //게시글 리스트
-	ArrayList<BoardVO> selectBoardList(Criteria cri);
+	ArrayList<BoardVO> selectBoardList(BoardCriteria cri, int st_num);
 	
 	//게시글 상세조회
 	BoardVO getBoard(int bo_num);
@@ -29,5 +30,11 @@ public interface BoardService {
 	
 	//스터디 가져오기
 	ArrayList<StudyVO> selectStudyList();
+
+	BoardVO getBoardByComment(int co_num);
+
+	ArrayList<BoardVO> findBoardById(String me_id);
+
+	
 	
 }

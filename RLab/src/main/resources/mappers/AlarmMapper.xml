@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.kh.RLab.dao.NotificationDao">
+	 <!-- 알림 이벤트 생성 -->
+    <insert id="createNotificationEvent" parameterType="kr.kh.RLab.vo.AlarmVO">
+        INSERT INTO alarm (al_me_id, al_content, al_type)
+        VALUES (#{al_me_id}, #{al_content}, #{al_type})
+    </insert>
+    <!-- 사용자별 알림 이벤트 조회 -->
+    <select id="getUserAlarms" resultType="kr.kh.RLab.vo.AlarmVO">
+        SELECT * FROM alarm WHERE al_me_id = #{al_me_id}
+        order by al_num desc
+    </select>
+    <delete id="deleteAlarm">
+    	delete from alarm where al_num = #{al_num}
+    </delete>
+    <!-- 새로운 알람 개수 조회 -->
+    <select id="selectNewAlarmCount" resultType="int">
+        SELECT COUNT(*) AS count
+		FROM alarm
+		WHERE al_me_id = #{userId} AND al_view = 0;
+
+    </select>
+</mapper>

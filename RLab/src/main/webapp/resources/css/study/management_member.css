@@ -57,9 +57,6 @@
   line-height: 50px;
 }
 
-.list_item{
-  height:60px;
-}
 .select_box_area{
   height: 29.5px;
   margin-bottom: 10px;
@@ -73,10 +70,7 @@
 
 .slect_study_box .btn_choose{width: 100px;}
 /* main */
-main{
-  width: 1200px;
-	/* margin-top: 150px; */
-}
+
 main #main_container{
     width: 100%;
 		display: flex;
@@ -176,7 +170,8 @@ table {
 }
 .profile_box .img_box{
   display: flex;
-  margin: 0;
+  justify-content: center;
+  align-items: center;
   width: 40px;
   height: 40px;
   border: 2px solid var(--color_blue);
@@ -184,7 +179,6 @@ table {
   overflow: hidden;
 }
 .profile_img{
-  width: 40px;
   height: 40px;
   background-size: cover;
   background-repeat: no-repeat;

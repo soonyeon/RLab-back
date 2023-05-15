@@ -91,4 +91,6 @@ public interface ReservationDAO {
 
 	void updateSeatUsability(@Param("se_ki_num")int se_ki_num, @Param("book")ReservationVO book);
 	
+	ArrayList<BranchVO> selectAllBranchToMain();
+
 }

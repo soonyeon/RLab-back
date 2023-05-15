@@ -225,4 +225,7 @@
 			)tmp
 		)
 	</update>
+	<select id="selectAllBranchToMain" resultType="kr.kh.RLab.vo.BranchVO">
+		select * from branch
+	</select>
 </mapper>

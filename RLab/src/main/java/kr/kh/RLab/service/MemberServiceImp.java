@@ -161,7 +161,6 @@ public class MemberServiceImp implements MemberService {
 	public MemberVO findPWByEmail(String id, String email) {
 		if (id == null || email == null)
 			return null;
-		MemberVO m = memberDao.findPWByEmail(id, email);
 		return memberDao.findPWByEmail(id, email);
 	}
 
@@ -170,6 +169,8 @@ public class MemberServiceImp implements MemberService {
 		StringBuilder sb = new StringBuilder();
 		Random random = new Random();
 		for (int i = 0; i < 10; i++) {
+			// characters 문자열의 길이에서 무작위로 선택된 정수를 반환
+			// characters 문자열에서 선택된 인덱스에 해당하는 문자를 반환
 			sb.append(characters.charAt(random.nextInt(characters.length())));
 		}
 		return sb.toString();

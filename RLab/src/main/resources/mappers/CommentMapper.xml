@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.kh.RLab.dao.CommentDAO">
-<insert id="insertComment">
+<insert id="insertComment"  useGeneratedKeys="true" keyProperty="co_num">
     insert into
         comment(co_num, co_me_id, co_content, co_reg_date, co_ori_num, co_table, co_ex_num)
     select
@@ -33,8 +33,8 @@
 
 <select id="getCommentList" resultType="kr.kh.RLab.vo.CommentVO">
     SELECT * 
-    FROM comment AS c
-    LEFT JOIN member AS me ON c.co_me_id = me.me_id
+    FROM comment 
+    LEFT JOIN member ON co_me_id = me_id
     WHERE co_ex_num = #{co_ex_num}
     order by co_ori_num desc, co_num asc
     LIMIT #{pageStart}, #{perPageNum}
@@ -48,7 +48,7 @@
 
 <update id="deleteComment">
 	update comment
-	set co_state = 'Y'
+	set co_delete = 'Y'
 	where co_num = #{co_num}
 </update>
 
@@ -72,5 +72,9 @@
 	from comment
 	where  co_me_id = #{me_id}
 </delete>
-
+<select id="selectCommentByGaNum" resultType="kr.kh.RLab.vo.CommentVO">
+	select *
+		from comment
+	where co_ex_num = #{ga_num}
+</select>
 </mapper>

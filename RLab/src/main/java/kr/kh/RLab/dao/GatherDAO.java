@@ -1,3 +1,4 @@
+
 package kr.kh.RLab.dao;
 
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import kr.kh.RLab.pagination.GatherCriteria;
 import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.GatherVO;
+import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.StudyMemberVO;
 import kr.kh.RLab.vo.StudyVO;
 import kr.kh.RLab.vo.TagRegisterVO;
@@ -60,9 +62,21 @@ public interface GatherDAO {
 
 	void insertStudyLeader(@Param("sm")StudyMemberVO studyMember);
 
+	GatherVO getGatherByComment(int co_num);
 	ArrayList<String> selectSearchTagList(String search);
 
+	ArrayList<GatherVO> findGatherdById(String me_id);
 
+	GatherVO selectGatherByGaNum(@Param("ga_num")int ga_num,@Param("user")MemberVO user);
+
+	boolean updateGather(GatherVO gather);
+
+	void deleteGather(int ga_num);
+
+	void updateMeStudyNumber(@Param("st_num")int st_num, @Param("me_id")String me_id);
+
+
+	
 
 	
 

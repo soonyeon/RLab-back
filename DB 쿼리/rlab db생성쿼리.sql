@@ -175,7 +175,8 @@ CREATE TABLE `alram` (
 	`al_num`	int auto_increment primary key	NOT NULL,
 	`al_me_id`	varchar(13) NOT NULL,
 	`al_content`	varchar(255) not null,
-	`al_view`	TINYINT(1) NOT NULL DEFAULT 0
+	`al_view`	TINYINT(1) NOT NULL DEFAULT 0,
+    `al_type`	enum('like','comment','study') 
 );
 
 DROP TABLE IF EXISTS `pay`;
@@ -279,7 +280,8 @@ CREATE TABLE `seat` (
 	`se_num`	int auto_increment primary key	NOT NULL,
 	`se_br_num`	int	NOT NULL,
 	`se_ki_num`	int	NOT NULL,
-	`se_name`	varchar(15) not null,
+	`se_name`	varchar(15),
+    `se_spot` int not null,
     `se_usable`	int not null default 0
 );
 
@@ -372,11 +374,38 @@ DROP TABLE IF EXISTS `notice`;
 
 CREATE TABLE `notice` (
 	`no_num`	int auto_increment primary key	NOT NULL,
+    `no_nt_num` int not null,
 	`no_title`	varchar(20)	not NULL,
 	`no_me_id`	varchar(13)	NOT NULL,
 	`no_content`	longtext	not NULL,
 	`no_register_date`	datetime	NULL,
 	`no_views`	int not null default 0
+);
+
+DROP TABLE IF EXISTS `notice_type`;
+
+CREATE TABLE `notice_type` (
+	`nt_num` int auto_increment primary key	NOT NULL,
+    `nt_name` varchar(10)
+);
+
+DROP TABLE IF EXISTS `inquiry`;
+
+CREATE TABLE `inquiry` (
+	`in_num`	int auto_increment	NOT NULL primary key,
+	`in_it_num`	int	NOT NULL,
+	`in_title`	varchar(20)	not null,
+	`in_me_id`	varchar(13)	NOT NULL,
+	`in_content`	longtext	not NULL,
+	`in_reg_date`	datetime	not NULL,
+	`in_ori_num`	int not null default 0
+);
+
+DROP TABLE IF EXISTS `inquiry_type`;
+
+CREATE TABLE `inquiry_type` (
+	`it_num`	int auto_increment	NOT NULL primary key,
+	`it_name`	varchar(10)	NULL
 );
 
 ALTER TABLE `branch` ADD CONSTRAINT `FK_region_TO_branch_1` FOREIGN KEY (
@@ -708,8 +737,29 @@ REFERENCES `region` (
 	`re_name`
 );
 
+ALTER TABLE `notice` ADD CONSTRAINT `FK_notice_type_TO_notice_1` FOREIGN KEY (
+	`no_nt_num`
+)
+REFERENCES `notice_type` (
+	`nt_num`
+);
+
 ALTER TABLE `notice` ADD CONSTRAINT `FK_member_TO_notice_1` FOREIGN KEY (
 	`no_me_id`
+)
+REFERENCES `member` (
+	`me_id`
+);
+
+ALTER TABLE `inquiry` ADD CONSTRAINT `FK_inquiry_type_TO_inquiry_1` FOREIGN KEY (
+	`in_it_num`
+)
+REFERENCES `inquiry_type` (
+	`it_num`
+);
+
+ALTER TABLE `inquiry` ADD CONSTRAINT `FK_member_TO_inquiry_1` FOREIGN KEY (
+	`in_me_id`
 )
 REFERENCES `member` (
 	`me_id`

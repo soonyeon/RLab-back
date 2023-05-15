@@ -18,11 +18,18 @@ public class ReservationVO {
 	private Date re_start_time;
 	private Date re_valid_time;
 	private Date re_register_date;
-	private int re_to_num;
-	
+	private int re_to_num;	
+	private String ki_name;	
+	private int ki_num;	
 	private int br_num;
+	private String br_name;
 	private String se_name;
+	private String ti_name;
+	private BranchVO branchVO;
 	
+	public BranchVO getBranchVO() {
+		return branchVO;
+	}
   
 	public String getRe_start_time_str() {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -52,5 +59,10 @@ public class ReservationVO {
 			return "";
 			return format.format(re_valid_time);
 	}
+	public String getRe_register_date_str2() {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
+		return format.format(re_register_date);
+   }
+   
 	
 }
