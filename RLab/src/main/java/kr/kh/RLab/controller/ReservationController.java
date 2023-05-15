@@ -186,7 +186,7 @@ public class ReservationController {
 		BranchVO br = reservationService.getBranchByBrNum(br_num);
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		ArrayList<TicketOwnVO> toList = reservationService.getSeatTicketOwnListById(user.getMe_id());
-		ReservationVO myRsv = reservationService.getMyReservation(2, user.getMe_id());
+		ReservationVO myRsv = reservationService.getMyReservation(1, user.getMe_id());
 		mv.addObject("br", br);
 		mv.addObject("br_num", br_num);
 		mv.addObject("toList", toList);

@@ -283,10 +283,7 @@ $(function(){
 $(document).ready(function() {
 	$('form').submit(function(event) {
 		if(${myRsv == null}){
-			console.log('예약된 정보 없음')
-			event.preventDefault();
-			if(confirm('이미 사용중인 이용권이 존재합니다. 마이페이지로 이동하시겠습니까?'))
-				location.href('<c:url value="/mypage"></c:url>');
+			console.log('예약된 정보 없음');
 		}else{
 			if ( seatNum == '') {
 	            event.preventDefault(); // 폼 제출 방지
@@ -296,6 +293,9 @@ $(document).ready(function() {
 	    		event.preventDefault();
 	    		alert('등록된 이용권이 없을 경우, 이용권 구매를 먼저 진행하세요.');
 	    	}
+			event.preventDefault();
+			if(confirm('이미 사용중인 이용권이 존재합니다. 마이페이지로 이동하시겠습니까?'))
+				location.href='<c:url value="/mypage"></c:url>';
 		}
     });
 });
