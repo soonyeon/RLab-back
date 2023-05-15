@@ -8,28 +8,32 @@
 	<!-- info_modal -->
 	<div class="spot_modal_container">
 	
-<%-- 	<c:forEach items="${spot}" var="sp" varStatus="vs" > --%>		
-	  <div class="spot_modal">
-	    <div class="spot_img_area">
-	      <div class="info_area">
-	        <div class="spot_info_left">
-	          <div class="spot_address">
-	            <div class="spot_add">${sp.br_address}</div>
-	            <div class="spot_new_add">${sp.br_road_address}</div>
-	          </div>
-	          <div class="spot_tel_capa">
-	            <div class="spot_tel">${br_tel}</div>
-	            <div class="spot_capacity">${br_capacity}</div>
-	          </div>
-	        </div>
-	        <div class="spot_info_right">
-	          <a href="#" class="cabinet_reserv">사물함 예약</a>
-	          <a href="#" class="seat_reserv">좌석 예약</a>
-	        </div>
-	      </div>
-	    </div>
-	  </div>
-<%-- 	  </c:forEach> --%>
+<%-- 	<c:forEach items="${spot}" var="spm" varStatus="vs" >
+		<c:if test="${sp.br_num} == ${spm.br_num}">	 --%>
+		  <div class="spot_modal">
+		    <div class="spot_img_area">
+		      <div class="info_area">
+		        <div class="spot_info_left">
+		        
+		          <div class="spot_address">
+		          	<h1 class="spot_name"></h1>
+		            <div class="spot_add">br_address</div>
+		            <div class="spot_new_add">br_road_address</div>
+		          </div>
+		          <div class="spot_tel_capa">
+		            <div class="spot_tel">br_tel</div>
+		            <div class="spot_capacity">br_capacity</div>
+		          </div>
+		        </div>
+		        <div class="spot_info_right">
+		          <a href="#" class="cabinet_reserv">사물함 예약</a>
+		          <a href="#" class="seat_reserv">좌석 예약</a>
+		        </div>
+		      </div>
+		    </div>
+		  </div>
+<%-- 		 </c:if>
+		</c:forEach> --%>
 	   
 	</div>
 	
@@ -96,13 +100,19 @@
                   
                   
                   	<c:forEach items="${spot}" var="sp" varStatus="vs" >
-                    <div class="spot_item1 add_shadow">
+                    <div class="spot_item add_shadow" data-num="${sp.br_num}">
                       <div class="spot_img1"></div>
                       <div class="spot_content">
                         <div class="spot_name">[${sp.br_re_name}] ${sp.br_name}</div>
-                        <div class="spot_address">
+                        <div class="spot_road_address">
                           ${sp.br_road_address}<br>전화 : ${sp.br_tel}
-                        </div>
+                      	</div>
+                        <div class="spot_hidden_box">
+			          	  <div class="spot_address">${sp.br_address}</div>
+			          	  <div class="spot_new_address">${sp.br_road_address}</div>
+			          	  <div class="spot_tel">전화 : ${sp.br_tel}</div>
+			          	  <div class="br_capacity">전체 좌석 : ${sp.br_capacity}석</div>
+			          	</div>
                       </div>
                     </div>
                     </c:forEach>
@@ -323,19 +333,80 @@
 
 	}
 
+/* 스터디 지점 안내 */
 
-//스터디 지점안내 모달창
-/* 	let source;
-	$(document).ready(function() { */
-		$('.spot_item1').click(function(){
-		  let index = $(this).index();
+/*  	$('.spot_item').click(function(){
+	  let index = $(this).index();
+	  $('.spot_modal_container').show();
+	});
+	
+	$('.spot_modal_container').click(function(){
+	    $('.spot_modal_container').hide();
+	  });
+
+	
+	var spotItems = document.querySelectorAll('.spot_item');
+
+	for (var i = 0; i < spotItems.length; i++) {
+	  spotItems[i].addEventListener('click', function() {
+		    var spotName = this.querySelector('.spot_name').textContent;
+		    var spotAdd = this.querySelector('.spot_address').textContent;
+		    var spotNewAdd = this.querySelector('.spot_new_add').textContent;
+		    var spotTel = this.querySelector('.spot_tel').textContent;
+		    var spotCapa = this.querySelector('.spot_capacity').textContent;
+
+		    var modalSpotName = document.querySelector('.spot_modal .spot_name');
+		    var modalSpotAdd = document.querySelector('.spot_modal .spot_add');
+		    var modalSpotNewAdd = document.querySelector('.spot_modal .spot_new_add');
+		    var modalSpotTel = document.querySelector('.spot_modal .spot_tel');
+		    var modalSpotCapa = document.querySelector('.spot_modal .spot_capacity');
+		    
+		    modalSpotName.textContent = spotName;
+		    modalSpotAdd.textContent = spotAdd;
+		    modalSpotNewAdd.textContent = spotNewAdd;
+		    modalSpotNewAdd.textContent = spotTel;
+		    modalSpotCapa.textContent = spotCapa;
+		    
+	    document.querySelector('.spot_modal_container').style.display = 'block';
+	  });
+	}
+	// spot_modal_container 클릭 이벤트 핸들러
+	var modalContainer = document.querySelector('.spot_modal_container');
+
+	modalContainer.addEventListener('click', function() {
+	  this.style.display = 'none';
+	}); */
+	
+	
+
+	  
+	  
+	
+	$('.spot_item').click(function(){
+		  var spotName = $(this).find('.spot_name').text();
+		  var spotAdd = $(this).find('.spot_address').text();
+		  var spotNewAdd = $(this).find('.spot_new_address').text();
+		  var spotTel = $(this).find('.spot_tel').text();
+		  var spotCapa = $(this).find('.br_capacity').text();
+
+		  $('.spot_modal .spot_name').text(spotName);
+		  $('.spot_modal .spot_add').text(spotAdd);
+		  $('.spot_modal .spot_new_add').text(spotNewAdd);
+		  $('.spot_modal .spot_tel').text(spotTel);
+		  $('.spot_modal .spot_capacity').text(spotCapa);
+
 		  $('.spot_modal_container').show();
 		});
+
 		$('.spot_modal_container').click(function(){
-		    $('.spot_modal_container').hide();
-		  });
-/* 	});	 */
-/* 스터디 지점 안내 */
+		  $(this).hide();
+		});
+	
+	
+	
+	
+	
+
  	document.querySelector('.btn_spot1').addEventListener('click', function(){
 	document.querySelector('.spot_container').style.transform = 'translateY(0px)';
 	});
@@ -345,9 +416,6 @@
 	document.querySelector('.btn_spot2').addEventListener('click', function(){
 	document.querySelector('.spot_container').style.transform = 'translateY(-610px)';
 	});
-/* 	document.querySelector('.btn_spot3').addEventListener('click', function(){
-	document.querySelector('.spot_container').style.transform = 'translateY(-1190px)';
-	});	 */
 	
 	
 //스터디 모집 공고
