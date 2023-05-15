@@ -354,12 +354,13 @@
   	<!-- [작성글 관리 > 나의 스크랩] -->
   		<!-- 아이디로 스크랩한 게시글 목록 가져오기  -->	
   		<select id="selectScrapListById" resultMap="scrap">
-		    SELECT sc_num, st_name, bo_title, bo_num, me_name, bo_reg_date
+		    SELECT *, sc_num, st_name
 			FROM board
 			JOIN study ON board.bo_st_num = study.st_num
 		    JOIN member ON board.bo_me_id = member.me_id
 			JOIN scrap ON board.bo_num = scrap.sc_bo_num
 			WHERE scrap.sc_me_id = #{memberId} AND scrap.sc_state = 1
+			order by sc_num desc
 			limit #{cri.pageStart}, #{cri.perPageNum}
    		</select>
    		
