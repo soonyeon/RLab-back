@@ -9,7 +9,7 @@
         VALUES (#{al_me_id}, #{al_content}, #{al_type})
     </insert>
     <!-- 사용자별 알림 이벤트 조회 -->
-    <select id="getUserAlrams" resultType="kr.kh.RLab.vo.AlarmVO">
+    <select id="getUserAlarms" resultType="kr.kh.RLab.vo.AlarmVO">
         SELECT * FROM alarm WHERE al_me_id = #{al_me_id}
         order by al_num desc
     </select>

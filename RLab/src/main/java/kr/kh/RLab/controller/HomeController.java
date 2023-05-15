@@ -5,25 +5,22 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.kh.RLab.service.HomeService;
+import kr.kh.RLab.service.ReservationService;
+import kr.kh.RLab.vo.BranchVO;
 import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.StudyVO;
 import kr.kh.RLab.vo.TagRegisterVO;
 import lombok.RequiredArgsConstructor;
-import kr.kh.RLab.pagination.ReservationCriteria;
-import kr.kh.RLab.service.ReservationService;
-import kr.kh.RLab.vo.BranchVO;
 
 @Controller
 @RequiredArgsConstructor
@@ -36,6 +33,7 @@ public class HomeController {
 	
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public ModelAndView home(ModelAndView mv,HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		
