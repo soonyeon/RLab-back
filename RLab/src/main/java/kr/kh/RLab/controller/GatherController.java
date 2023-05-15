@@ -77,6 +77,7 @@ public class GatherController {
 	    mv.setViewName("redirect:/gather/list");
 	    return mv;
 	}
+	
 	//메인모집글리스트
 	@GetMapping("/list")
 	public ModelAndView mainlistgather(ModelAndView mv,GatherCriteria gcri,HttpServletRequest request) {
@@ -149,6 +150,7 @@ public class GatherController {
 		return mv;
 	}
 
+	
 	@PostMapping("/update/{ga_num}")
 	public ModelAndView boardUpdatePost(ModelAndView mv, @PathVariable int ga_num, 
 			GatherVO gather) {
@@ -157,6 +159,7 @@ public class GatherController {
 		return mv;
 	}
 	
+	//모집글 삭제
 	@PostMapping("/delete/{ga_num}")
 	@ResponseBody
 	public String deleteGather(@PathVariable("ga_num") int ga_num, HttpServletRequest request) {
