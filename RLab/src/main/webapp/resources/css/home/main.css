@@ -30,7 +30,7 @@ main{
   line-height: 105px;
   font-weight: bold;
   position: fixed;
-  top: 500px;
+  bottom:50px;
   right: 20px;
   z-index: 90;
 }
@@ -203,7 +203,7 @@ main{
 }
 
 /* info_top-right */
-.spot_banner_box{
+.info_right .spot_banner_box{
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
@@ -211,8 +211,8 @@ main{
   padding-right: 5px;
   height: 595px;
 }
-.spot_content{padding: 3px 10px;}
-.spot_item{
+.info_right .spot_content{padding: 3px 10px;}
+.info_right .spot_item{
   border-radius: 10px;
   border: var(--border_basic);
   background-color: white;
@@ -220,23 +220,23 @@ main{
   height: 283px;
   width:274.7px;
 }
-.spot_name{
+.info_right .spot_name{
   font-size: 17px;
   font-weight: bold;
-  padding: 0px 0px 5px 0px;
+  padding: 0px 0px 8px 0px;
 }
-.spot_road_address{
-  height:36px;
+.info_right .spot_road_address{
+  height:32px;
   overflow:hidden;
 }
-.spot_address{font-size: 14px;} 
-[class^=spot_img]{
-  border-top-right-radius: 6px;
+.info_right .spot_road_address, .info_right .spot_tel{font-size: 12px;} 
+/*.info_right [class^=spot_img]{
+   border-top-right-radius: 6px;
   border-top-left-radius: 6px;
   display: inline-block; width: 275.012px; height: 188.613px;
-  background-size:278.012px 188.613px;
-  background-image: url(../../img/study_thumb.jpeg);
-}
+  background-size:278.012px 188.613px; 
+  background-image: url(../../img/study_thumb.jpeg); 
+}*/
 .spot_hidden_box{
   display:none;
 }
@@ -252,25 +252,28 @@ main{
   z-index: 95;
 }
 .spot_modal_container .spot_img_area{
-  display: flex;
-  flex-direction: column-reverse;
+  /* display: flex;
+  flex-direction: column; */
   width: 1200px;
   height: 614px;
-  /* background-position: 100%; */
-  background-image: url(../../img/spot.jpg);
-  background-repeat: no-repeat;
+/*   background-image: url(../../img/spot.jpg);*/
+/*   background-repeat: no-repeat; */
   background-size: 1200px;
-  margin: 200px auto 0px;
+  margin: 200px auto 0px; 
 }
 
 .spot_modal_container .info_area{
   display: flex;
   flex-direction: row;
   color: white;
+  width:1150px;
   height: 200px;
   background-color: rgba(12, 12, 12, 0.556);
   padding: 25px;
   justify-content: space-between;
+  position: absolute;
+  top: 566px;
+  
 }
 .spot_modal_container .spot_name{
   font-size: 26px;
@@ -349,7 +352,7 @@ main{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  /* height: 52px; */
+  height: 52px;
   overflow: hidden;
   padding-bottom: 5px;
 }
@@ -372,7 +375,7 @@ main{
   font-size: 17px;
   font-weight: bold;
   margin: 8px 0px 15px 0px;
-  height: 42px;
+  height: 25px;
   overflow: hidden;
 }
 .recruit_banner_btn{
@@ -469,12 +472,11 @@ main{
   position: absolute;
 }
   .event_banner{
-  /* width: 580px; */
   width:575.1px;
+  height: 245px;
   text-align: center;
   border-radius: 10px;
   border: var(--border_basic);
-  /* margin-right: 40px; */
   margin-right: 35px;
   float: left;
 }
