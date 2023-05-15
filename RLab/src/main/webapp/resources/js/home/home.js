@@ -1,3 +1,18 @@
+//스터디 지점안내 모달창
+
+let source;
+$(document).ready(function() {
+	$('.spot_item1').click(function(){
+	  let index = $(this).index();
+	  $('.spot_modal_container').show();
+	});
+	$('.spot_modal_container').click(function(){
+	    $('.spot_modal_container').hide();
+	  });
+});
+
+
+
 //메인배너
 	var banner_area = document.querySelector('.main_banner_area'),
 		banner = document.querySelectorAll('.main_banner_area li'),

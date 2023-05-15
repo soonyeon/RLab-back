@@ -86,4 +86,6 @@ public interface ReservationDAO {
 
 	BranchVO selectBranchBySenum(int re_se_num);
 
+	ArrayList<BranchVO> selectAllBranchToMain();
+
 }
