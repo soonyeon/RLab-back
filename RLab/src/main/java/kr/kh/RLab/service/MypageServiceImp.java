@@ -12,6 +12,7 @@ import kr.kh.RLab.dao.StudyDAO;
 import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.pagination.GatherCriteria;
 import kr.kh.RLab.vo.BoardVO;
+import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.GrowthVO;
 import kr.kh.RLab.vo.MemberVO;
@@ -369,6 +370,11 @@ public class MypageServiceImp implements MypageService {
 		public ArrayList<Integer> selectWantListById(String memberId) {
 			ArrayList<Integer> wantList = mypageDao.selectWantListById(memberId);
 			return wantList;
+		}
+
+		@Override
+		public ArrayList<FileVO> selectFileList() {
+			return mypageDao.selectFileList();
 		}
 
 

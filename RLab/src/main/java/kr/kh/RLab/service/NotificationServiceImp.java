@@ -66,8 +66,8 @@ public class NotificationServiceImp implements NotificationService {
     }
 
     @Override
-    public List<AlarmVO> getUserAlrams(String userid) {
-        return notificationDao.getUserAlrams(userid);
+    public List<AlarmVO> getUserAlarms(String userid) {
+        return notificationDao.getUserAlarms(userid);
     }
 
 	@Override

@@ -4,12 +4,13 @@ import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Param;
 
-import kr.kh.RLab.vo.ItemVO;
-import kr.kh.RLab.vo.PayDTO;
-import kr.kh.RLab.vo.ReservationVO;
 import kr.kh.RLab.pagination.ReservationCriteria;
 import kr.kh.RLab.vo.BranchVO;
 import kr.kh.RLab.vo.GrowthVO;
+import kr.kh.RLab.vo.ItemVO;
+import kr.kh.RLab.vo.PayDTO;
+import kr.kh.RLab.vo.ReservationVO;
+import kr.kh.RLab.vo.SeatVO;
 import kr.kh.RLab.vo.TicketOwnVO;
 
 public interface ReservationDAO {
@@ -85,5 +86,11 @@ public interface ReservationDAO {
 	ReservationVO selecetReservation(@Param("re_num")int reNum);
 
 	BranchVO selectBranchBySenum(int re_se_num);
+
+	ArrayList<SeatVO> selectBranchSeat(@Param("br_num")int br_num, @Param("ki_num")int ki_num);
+
+	void updateSeatUsability(@Param("se_ki_num")int se_ki_num, @Param("book")ReservationVO book);
+	
+	ArrayList<BranchVO> selectAllBranchToMain();
 
 }

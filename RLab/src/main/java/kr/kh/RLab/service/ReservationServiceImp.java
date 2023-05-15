@@ -14,6 +14,7 @@ import kr.kh.RLab.vo.ItemVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.PayDTO;
 import kr.kh.RLab.vo.ReservationVO;
+import kr.kh.RLab.vo.SeatVO;
 import kr.kh.RLab.vo.TicketOwnVO;
 
 @Service
@@ -155,6 +156,9 @@ public class ReservationServiceImp implements ReservationService {
 		if(reservationDao.updateMemberUseTime(book)==0)
 			System.out.println("회원 누적사용시간 증가 실패");
 		
+		//se_usable 상태 변경(가능(2)->불가(1))
+		reservationDao.updateSeatUsability(1,book);
+		
 		GrowthVO myPet = reservationDao.getMypet(book.getRe_me_id());
 		//pet있을 경우
 		if(myPet != null) {
@@ -184,6 +188,9 @@ public class ReservationServiceImp implements ReservationService {
 		//me_use_time 누적이용시간 추가
 		if(reservationDao.updateMemberUseTime(book)==0)
 			System.out.println("회원 누적사용시간 증가 실패");
+		
+		//se_usable 상태 변경(가능(2)->불가(1))
+		reservationDao.updateSeatUsability(2,book);
 		
 		GrowthVO myPet = reservationDao.getMypet(book.getRe_me_id());
 		//pet있을 경우
@@ -228,6 +235,17 @@ public class ReservationServiceImp implements ReservationService {
 	@Override
 	public BranchVO getBranchBySeNum(int re_se_num) {
 		return reservationDao.selectBranchBySenum(re_se_num);
+	}
+	
+	@Override
+	public ArrayList<SeatVO> getBranchSeat(int br_num, int ki_num) {
+		return reservationDao.selectBranchSeat(br_num, ki_num);
+	}
+	
+
+	@Override
+	public ArrayList<BranchVO> getAllBranchListToMain() {
+		return reservationDao.selectAllBranchToMain();
 	}
 
 }

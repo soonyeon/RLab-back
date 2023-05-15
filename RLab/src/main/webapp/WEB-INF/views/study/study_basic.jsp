@@ -280,7 +280,7 @@ body {
 				</div>
 				<div class="feed_content_box">
 					<c:forEach items="${photo}" var="ph">
-						<c:if test="${ph.ph_st_num != null}">
+						<c:if test="${ph.ph_st_num != null && ph.ph_num == 1}">
 							<div class="today_feed_board">
 								<div class="feed_board">
 									<ul class="feed_writer_box">
@@ -581,13 +581,12 @@ sse.addEventListener('count', e => {
     console.log("count event data", receivedCount);
 });
 
-$('.leave').click(function() {
+$('.leave_btn').click(function() {
 	if(confirm('스터디를 탈퇴 하시겠습니까?')) {
 		$.ajax({
 	    	url: '<c:url value="/study/leave/${st_num}" />',
             type: 'POST',
             success: function(response) {
-            	alert(response);
             	if(response == 'leader') {
             		alert('스터디장은 스터디 탈퇴가 불가능합니다. 스터디장을 회원에게 위임한 후 탈퇴하기를 진행하거나, 관리페이지에서 스터디 삭제를 진행해주세요.');
             		return false;

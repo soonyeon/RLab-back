@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.PayDTO;
 import kr.kh.RLab.vo.ReservationVO;
+import kr.kh.RLab.vo.SeatVO;
 import kr.kh.RLab.pagination.ReservationCriteria;
 import kr.kh.RLab.vo.BranchVO;
 import kr.kh.RLab.vo.TicketOwnVO;
@@ -48,5 +49,9 @@ public interface ReservationService {
 	ReservationVO getReservation(int reNum);
 
 	BranchVO getBranchBySeNum(int re_se_num);
+
+	ArrayList<SeatVO> getBranchSeat(int br_num, int ki_num);
+
+	ArrayList<BranchVO> getAllBranchListToMain();
 
 }

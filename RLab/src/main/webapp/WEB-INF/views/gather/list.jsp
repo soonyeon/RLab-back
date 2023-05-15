@@ -44,7 +44,6 @@
 						  <span class="on">on</span>
 						  <span class="off">off</span>
 						</label>
-
 					</div>
 					<div class="recruit_tag_box ">
 						<span id="tag_title">#태그</span>
@@ -101,11 +100,13 @@
 													<c:if test="${files.size() != 0 }">
 														<c:forEach items="${fileList}" var="fi">
 															<c:if test="${fi.fi_ex_num == stList.get(index).st_num}">
-															<!-- <input type="file" accept="image/*" onchange="readURL(this);"> -->
-															<img src="<c:url value='/download${fi.fi_name}'></c:url>" class="study_img">
+																<img src="<c:url value='/download${fi.fi_name}'></c:url>" class="study_img">
 															</c:if>
 														</c:forEach>
 													</c:if>	
+													<c:if test="${fi.fi_ex_num != stList.get(index).st_num}">
+					                        			<img class="study_img" src="<c:url value='/resources/img/recruit_thumb.png'></c:url>">
+					                      	 		</c:if>	
 												</div>
 												<div class="study_info">
 													<div class="study_tag_info">
@@ -141,7 +142,6 @@
 																<c:if test="${!waList.contains(stList.get(index).st_num)}">
 																	<div class="unlike_img"></div>	
 																</c:if>
-																
 															</c:if>
 														</div>
 													</div>

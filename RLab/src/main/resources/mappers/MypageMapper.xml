@@ -99,7 +99,7 @@
 				join seat on re_se_num = se_name
 				join branch on se_br_num = br_num
 				join kind on se_ki_num = ki_num
-				where re_me_id = #{userId} and se_ki_num = 1
+				where re_me_id = #{userId} and se_ki_num = 1 and re_valid_time > now()
 			</select>
 			<!-- 사물함 예약 정보 가져오기 -->
 			<select id="selectMyLocker" resultMap="reservation">
@@ -108,7 +108,7 @@
 				join seat on re_se_num = se_num
 				join branch on se_br_num = br_num
 				join kind on se_ki_num = ki_num
-				where re_me_id = #{userId} and se_ki_num = 2
+				where re_me_id = #{userId} and se_ki_num = 2 and re_valid_time > now()
 			</select>
 			
 			<select id="selectResList" resultType="kr.kh.RLab.vo.ReservationVO">
@@ -240,7 +240,7 @@
   			join member on me_id = st_me_id
             join want on wa_ga_num = ga_num
 			WHERE  
-				ga_me_id = #{memberId}
+				wa_me_id = #{memberId}
 			and wa_state = 1
 			<if test="cri.filter == 'on'">
 				AND st_state = 1
@@ -258,6 +258,11 @@
 			where wa_state = 1
 		</select>
 		
+		<!-- 내가 찜한 스터디의 파일 가져오기 -->
+		<select id="selectFileList" resultType="kr.kh.RLab.vo.FileVO">
+			select * from file 
+		</select>
+					
 		<!-- 내가 찜한 모집글의 수 -->
 		<select id="selectFavoriteTotalCount" resultType="int">
 			select count(*)
@@ -349,12 +354,13 @@
   	<!-- [작성글 관리 > 나의 스크랩] -->
   		<!-- 아이디로 스크랩한 게시글 목록 가져오기  -->	
   		<select id="selectScrapListById" resultMap="scrap">
-		    SELECT sc_num, st_name, bo_title, bo_num, me_name, bo_reg_date
+		    SELECT *, sc_num, st_name
 			FROM board
 			JOIN study ON board.bo_st_num = study.st_num
 		    JOIN member ON board.bo_me_id = member.me_id
 			JOIN scrap ON board.bo_num = scrap.sc_bo_num
 			WHERE scrap.sc_me_id = #{memberId} AND scrap.sc_state = 1
+			order by sc_num desc
 			limit #{cri.pageStart}, #{cri.perPageNum}
    		</select>
    		

@@ -29,9 +29,9 @@ main{
   text-align: center;
   line-height: 105px;
   font-weight: bold;
-  position: sticky;
+  position: fixed;
   top: 500px;
-  left: 1670px;
+  right: 20px;
   z-index: 90;
 }
 .main_banner{
@@ -129,6 +129,7 @@ main{
   background-size:80px 80px;
   background-image: url(../../img/page_left.png);
   z-index: 90;
+  cursor: pointer;
 }
 [class$=btn_right]{
   display: inline-block; width: 50px; height: 50px; margin-right: 10px;
@@ -136,6 +137,7 @@ main{
   background-size:80px 80px;
   background-image: url(../../img/page_right.png);
   z-index: 90;
+  cursor: pointer;
 }
 .main_banner_img{width:100%; position:relative;}
 .main_btn_left{position:absolute; top: 200px; left: 50px;}
@@ -209,46 +211,121 @@ main{
   padding-right: 5px;
   height: 595px;
 }
-.spot_content{padding: 5px 10px 5px 10px;}
-[class^=spot_item]{
+.spot_content{padding: 3px 10px;}
+.spot_item{
   border-radius: 10px;
   border: var(--border_basic);
   background-color: white;
+  cursor: pointer;
+  height: 283px;
+  width:274.7px;
 }
 .spot_name{
   font-size: 17px;
   font-weight: bold;
-  padding: 5px 0px 10px 0px;
+  padding: 0px 0px 5px 0px;
+}
+.spot_road_address{
+  height:36px;
+  overflow:hidden;
 }
 .spot_address{font-size: 14px;} 
 [class^=spot_img]{
   border-top-right-radius: 6px;
   border-top-left-radius: 6px;
-  display: inline-block; width: 278.012px; height: 188.613px;
+  display: inline-block; width: 275.012px; height: 188.613px;
   background-size:278.012px 188.613px;
   background-image: url(../../img/study_thumb.jpeg);
 }
+.spot_hidden_box{
+  display:none;
+}
+
+
+/* info_modal */ 
+.spot_modal_container{
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.807);
+  width: 100%;
+  height: 100%;
+  display: none;
+  z-index: 95;
+}
+.spot_modal_container .spot_img_area{
+  display: flex;
+  flex-direction: column-reverse;
+  width: 1200px;
+  height: 614px;
+  /* background-position: 100%; */
+  background-image: url(../../img/spot.jpg);
+  background-repeat: no-repeat;
+  background-size: 1200px;
+  margin: 200px auto 0px;
+}
+
+.spot_modal_container .info_area{
+  display: flex;
+  flex-direction: row;
+  color: white;
+  height: 200px;
+  background-color: rgba(12, 12, 12, 0.556);
+  padding: 25px;
+  justify-content: space-between;
+}
+.spot_modal_container .spot_name{
+  font-size: 26px;
+  margin-bottom: 5px;
+}
+.spot_modal_container .spot_add{margin-bottom: 4px;}
+.spot_modal_container .spot_info_left{
+  width: 60%;
+  padding: 10px 30px;
+  display: flex;
+  flex-direction: column;
+}
+.spot_modal_container .spot_address{
+  font-weight: 600;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+.spot_modal_container .spot_info_right{
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+}
+.spot_modal_container .spot_info_right a{
+  width: 150px;
+  padding: 20px;
+  background-color: rgb(229, 225, 225);
+  color: black;
+  border-radius: 5px;
+  text-align: center;
+}
+.spot_modal_container .cabinet_reserv{
+  margin-bottom: 20px;
+} 
+
+
 
 /* info_bottom_recruite */
 .info_area_bottom{
   position: relative;
 }
 .recruit_box{
-  width: 1208px;
+  width: 1200px;
   height: 350px;
   position: absolute;
   overflow: hidden;
 }
 .recruit_box_container{
   position: absolute;
-  left: 11px; 
+/*   left: 29px;  */
 }
 .recruit_box_container .animated{
   transition: o.5s ease-out;
 }
 .recruit_banner_box{
-  /* width: 280px; */
-  width: 275px;
+  width: 276px;
   height: 298px;
   float: left;
   margin-right: 22px;
@@ -264,7 +341,9 @@ main{
   display: inline-block; width: 272.823px; height: 118.723px;
   /* margin-right: 10px; */
   background-size:279.823px 118.723px;
-  background-image: url(../../img/recruit_thumb.png);
+}
+.study_img_box img:nth-child(2){
+	display : none;
 }
 .recruit_banner_tag{
   display: flex;
@@ -286,9 +365,9 @@ main{
 .recruit_banner_tag .blue_btn{
   background-color: var(--color_blue);
 }
-.recruit_banner_tag .mint_btn{
-  background-color: var(--color_mint);
-}
+.recruit_banner_tag .blue_btn:nth-child(2n){
+    background-color: var(--color_mint);
+  }
 .recruit_banner_title{
   font-size: 17px;
   font-weight: bold;
@@ -309,6 +388,13 @@ main{
   background-image: url(../../img/like_on_red.png);
   background-repeat: no-repeat;	
 }
+.unlike_btn{
+  width: 50px;
+  background-size: 45px 45px;
+  background-image: url(../../img/love_off.png);
+  background-repeat: no-repeat;		
+}
+
 .recruit_btn_box{
   display: flex;
   flex-direction: row;
@@ -384,7 +470,7 @@ main{
 }
   .event_banner{
   /* width: 580px; */
-  width:576px;
+  width:575.1px;
   text-align: center;
   border-radius: 10px;
   border: var(--border_basic);

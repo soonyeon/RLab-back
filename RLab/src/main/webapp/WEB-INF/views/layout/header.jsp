@@ -283,7 +283,6 @@ let source;
 $("body").on("mousewheel", function(e){
 	var wheel = e.originalEvent.wheelDelta;
 	var now= $("header").offset().top;
-	console.log(now);
 	if(now <= 100){
 		$("header").css("box-shadow", "none");
 	}

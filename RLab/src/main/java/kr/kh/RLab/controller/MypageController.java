@@ -25,6 +25,7 @@ import kr.kh.RLab.service.StudyService;
 import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.BranchVO;
 import kr.kh.RLab.vo.EvolutionVO;
+import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.GrowthVO;
 import kr.kh.RLab.vo.MemberVO;
@@ -51,10 +52,13 @@ public class MypageController {
 	public ModelAndView mypage(ModelAndView mv, MemberVO member, HttpSession session) {
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		String userId = user.getMe_id();
+		System.out.println(1);
 		// 이용시간 안내
 		ReservationVO res = reservationService.getMyReservation(1, userId);
+		System.out.println(2);
 		//나의 펫 데려오기
 		GrowthVO myPet = mypageService.selectMyPet(userId);
+		System.out.println(3);
 		if(myPet != null) {
 			// 레벨업까지의 경험치 정보
 				// 현재 레벨
@@ -84,6 +88,7 @@ public class MypageController {
 			mv.addObject("exExp", exExp);			
 			//펫exp가져오기
 			GrowthVO petExp = mypageService.selectPetExp(userId);
+			System.out.println(4);
 			mv.addObject("petExp",petExp);
 		}
 		
@@ -94,13 +99,16 @@ public class MypageController {
 		
 		//적립 포인트 데이터 가져오기
 		int myPoint = mypageService.getMyPoint(userId);
+		System.out.println(5);
 		
 		//나의 예약 데이터 가져오기
 			//좌석 예약 정보 가져오기		
 			ReservationVO mySeat = mypageService.getMySeat(userId);
+			System.out.println(6);
 
 			//사물함 예약 정보 가져오기
 			ReservationVO myLocker = mypageService.getMyLocker(userId);
+			System.out.println(7);
 
 		//나의 스터디 데이터 가져오기
 		ArrayList<StudyVO> myStudyList = mypageService.getMainStudyList(userId);
@@ -237,12 +245,10 @@ public class MypageController {
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		String memberId = user.getMe_id();
 		
-		//결제번호 가져오기
-		String paOrderId = mypageService.getPaOrderId(memberId);
 		//결제번호로 결제 정보 가져오기
-        PayDTO pay = mypageService.getPayDto(paOrderId);
+        PayDTO pay = mypageService.getPayDto(pa_order_id);
         //해당 결제 정보안의 구매목록 가져오기
-        ArrayList<String> itemList = mypageService.getItemList(paOrderId);
+        ArrayList<String> itemList = mypageService.getItemList(pa_order_id);
         
         mv.addObject("pa_order_id", pa_order_id);
 		mv.addObject("pay", pay);
@@ -323,10 +329,14 @@ public class MypageController {
 			// 내가 찜한 스터디 찜 여부 가져오기
 			ArrayList<Integer> wantList = mypageService.selectWantListById(memberId);
 			
+			// 내가 찜한 스터디 사진 가져오기
+			ArrayList<FileVO> fileList = mypageService.selectFileList();
+			
 			// 페이지 네이션		
 			int totalCount = mypageService.getFavoriteTotalCount(memberId, cri);
 			PageMaker pm = new PageMaker(totalCount, 1, cri);
 			
+			mv.addObject("fileList",fileList);
 			mv.addObject("myFavoriteList", myFavoriteList);
 			mv.addObject("favoriteTagList", favoriteTagList);
 			mv.addObject("wantList", wantList);
@@ -439,7 +449,7 @@ public class MypageController {
 		
 		// 내가 쓴 모집글의 찜 여부 가져오기
 		ArrayList<Integer> wantList = mypageService.selectWantListById(memberId);
-		
+
 		// 페이지 네이션		
 		int totalCount = mypageService.getGatherTotalCount(memberId, cri);
 		PageMaker pm = new PageMaker(totalCount, 1, cri);

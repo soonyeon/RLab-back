@@ -17,7 +17,7 @@ public interface NotificationService {
 
     void addAlarm(AlarmVO alarm);
 
-    List<AlarmVO> getUserAlrams(String userId);
+    List<AlarmVO> getUserAlarms(String userId);
 
 	void deleteAlarm(int al_num);
 

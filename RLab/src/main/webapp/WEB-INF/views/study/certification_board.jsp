@@ -69,7 +69,6 @@
 								                <div class="today_feed_board">
 								                    <c:forEach var="photo" items="${photos}">
 								                        <div class="board">
-								                            <div class="feed_img"></div>
 								                            <div class="feed_name">${photo.me_name}</div>
 								                            <div class="feed_date">${photo.ph_register_date_str}</div>
 								                            <div class="feed_contents_img">
