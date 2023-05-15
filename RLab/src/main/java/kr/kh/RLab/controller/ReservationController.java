@@ -23,6 +23,7 @@ import kr.kh.RLab.vo.BranchVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.PayDTO;
 import kr.kh.RLab.vo.ReservationVO;
+import kr.kh.RLab.vo.SeatVO;
 import kr.kh.RLab.vo.TicketOwnVO;
 
 @Controller
@@ -187,10 +188,13 @@ public class ReservationController {
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		ArrayList<TicketOwnVO> toList = reservationService.getSeatTicketOwnListById(user.getMe_id());
 		ReservationVO myRsv = reservationService.getMyReservation(1, user.getMe_id());
+		System.out.println("내 예약정보: "+myRsv);
+		ArrayList<SeatVO> seList = reservationService.getBranchSeat(br_num,1);
 		mv.addObject("br", br);
 		mv.addObject("br_num", br_num);
 		mv.addObject("toList", toList);
 		mv.addObject("myRsv", myRsv);
+		mv.addObject("seList", seList);
 		mv.setViewName("/reservation/seat_select");
 		return mv;
 	}
@@ -246,10 +250,12 @@ public class ReservationController {
 		//이미 등록된 예약정보가 있으면 예약 못하게 막아줘야함
 		ReservationVO myRsv = reservationService.getMyReservation(2, user.getMe_id());
 		System.out.println("myRsv: "+myRsv);
+		ArrayList<SeatVO> seList = reservationService.getBranchSeat(br_num,2);
 		mv.addObject("br", br);
 		mv.addObject("br_num", br_num);
 		mv.addObject("toList", toList);
 		mv.addObject("myRsv", myRsv);
+		mv.addObject("seList", seList);
 		mv.setViewName("/reservation/cabinet_select");
 		return mv;
 	}
