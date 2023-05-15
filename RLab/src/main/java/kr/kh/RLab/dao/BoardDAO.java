@@ -39,4 +39,6 @@ public interface BoardDAO {
 
 	StudyVO selectStudy(int st_num);
 
+	ArrayList<BoardVO> selectBoardListByStNum(int st_num);
+
 }
