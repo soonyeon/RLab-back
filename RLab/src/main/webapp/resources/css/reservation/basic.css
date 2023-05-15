@@ -152,8 +152,9 @@ main .info_box{
 	border-radius: 20px;
 	text-align: center; 
 	/* line-height: 300px; */
-	border: var(--border_basic);
-	border-radius: var(--border_radius_2);
+	/*border: var(--border_basic);*/
+	box-shadow: var(--shadow);
+	border-radius: var(--border_radius_1);
 	padding: 120px 20px;
 	box-sizing: border-box;
 }
@@ -173,5 +174,11 @@ main .info_box{
 	border-radius: 30px;
 }
 .button_container .info_area{
+	display: flex;
+	flex-flow: column;
+	gap: 10px;
 	margin-top: 50px;
+}
+.button_container .info_area:nth-child(2){
+	
 }

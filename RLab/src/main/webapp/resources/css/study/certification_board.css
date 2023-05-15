@@ -1,3 +1,16 @@
+.time_line_container_top{
+	display: flex;
+	flex-flow: column;
+	gap: 20px;
+}
+.time_line_cover{
+	width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 15px;
+}
+
 .study_name {
     display: inline-block;
     vertical-align: 10px;  
@@ -13,15 +26,19 @@
   }
   
   .time_line_container2 {
-    margin-right:120px;
+ 	position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: var(--border_radius_4);
-    border: var(--border_basic);
-    box-shadow: var(--box-shadow);
+    border: var(--border_light);
+    box-shadow: var(--shadow);
     float: right;
     width: 400px;
     overflow: auto;
     height: 600px;
     background-color: #fff;
+    margin-left: 20px;
   }
   
   .time_line_container2::-webkit-scrollbar {
@@ -36,21 +53,24 @@
   .circle_btn {
     display: inline-block;
     background-color: var(--color_blue);
+    box-shadow: var(--shadow);
     color: var(--color_black);
     border-radius: 50%;
     width: 80px;
     height: 80px;
     text-align: center;
     line-height: 80px;
+    font-size: 13px;
     font-weight: bold;
     cursor: pointer;
-    position: fixed;
-    bottom: 180px;
-    left : 1100px;
   }
+  .circle_btn:hover{
+  	background-color: var(--blue_hover);
+  }
+  
   .modal {
   display: none; 
-  position: fixed; 
+  position: absolute; 
   z-index: 1; 
   left: 0;
   top: 0;
@@ -62,19 +82,25 @@
 
 
 .modal-content {
+  display: flex;
+  flex-flow: column;
   background-color: #fefefe;
-  margin: 15% auto; 
+  /*margin: 15% auto; */
   padding: 20px;
-  border: 1px solid #888;
-  width: 80%; 
-  max-width: 500px;
+  border-radius: var(--border_radius_4);
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 .close {
-  color: #aaa;
+  width: 23px;
+  height: 23px;
   float: right;
-  font-size: 28px;
-  font-weight: bold;
+  opacity: 50%;
+}
+.close:hover{
+  opacity: 90%;
 }
 
 .close:hover,
@@ -85,14 +111,66 @@
 }
 
 .modal-content form button {
-  display: block;
   margin: 0 auto;
 }
+
+.inner_container{
+	display: flex;
+	flex-flow: column;
+    gap: 30px;
+}
+.inner_container h2{
+	display: flex;
+	justify-content: center;
+	font-size: 30px;
+}
+.inner_container form{
+	display: flex;
+	flex-flow: column;
+    gap: 27px;
+}
+.inner_container label{
+	font-size: 16px;
+	font-weight: 700;
+}
+
+.inner_item{
+	display: flex;
+    flex-flow: column;
+    gap: 6px;
+}
+
+#ph_pt_num{
+	width: 120px;
+    height: 40px;
+    font-size: 14px;
+    padding: 5px;
+}
+#content{
+	height: 156px;
+}
+	
+.register_btn{
+	width: 200px;
+    height: 63px;
+    background-color: var(--color_blue);
+    border: none;
+    border-radius: var(--border_radius_2);
+    font-size: 16px;
+    font-weight: 700;
+}
+.register_btn:hover{
+	background-color: var(--blue_hover);
+}
+
 .no_certification_message {
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
+    line-height: 21px;
     font-weight: bold;
+    font-size: 13px;
     min-height: 500px; 
 }
   

@@ -49,4 +49,6 @@ public interface ReservationService {
 
 	BranchVO getBranchBySeNum(int re_se_num);
 
+	ArrayList<BranchVO> getAllBranchListToMain();
+
 }

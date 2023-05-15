@@ -229,7 +229,10 @@ main .main_container{
 .ticket_time:hover{
 	background-color: #a7a7a771;
 }
-
+.ticket_time .price{
+	display: flex;
+	align-items: center;
+}
 /* 선택한 이용권 박스 */
 input[type=number]{
 	width: 150px;

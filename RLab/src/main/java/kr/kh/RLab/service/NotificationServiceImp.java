@@ -67,11 +67,16 @@ public class NotificationServiceImp implements NotificationService {
 
     @Override
     public List<AlarmVO> getUserAlrams(String userid) {
-        return notificationDao.getUserAlrams(userid);
+        return notificationDao.getUserAlarms(userid);
     }
 
 	@Override
 	public void deleteAlarm(int al_num) {
 		notificationDao.deleteAlarm(al_num);
+	}
+	
+	@Override
+	public int getNewAlarmCount(String userId) {
+		return notificationDao.selectNewAlarmCount(userId);
 	}
 }
