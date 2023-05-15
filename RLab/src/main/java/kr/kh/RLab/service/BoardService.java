@@ -35,6 +35,8 @@ public interface BoardService {
 
 	ArrayList<BoardVO> findBoardById(String me_id);
 
+	StudyVO selectStudy(int st_num);
+
 	
 	
 }

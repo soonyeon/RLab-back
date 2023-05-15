@@ -88,6 +88,12 @@
 		select * from board
 		where bo_me_id = #{me_id}
 	</select>
+	
+		
+	<select id="selectStudy" resultType="kr.kh.RLab.vo.StudyVO">
+		select * from study
+		where st_num = #{st_num}
+	</select>
   	
   	<resultMap id="BoardResultMap" type="kr.kh.RLab.vo.BoardVO">
 	    <id property="bo_num" column="bo_num" />

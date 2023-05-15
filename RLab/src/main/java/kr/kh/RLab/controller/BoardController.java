@@ -39,12 +39,12 @@ public class BoardController {
 	@Autowired
 	private final CommentService commentService;
 	
-	@GetMapping("/insert")
-	public ModelAndView boardInsert(ModelAndView mv,HttpSession session) {
+	@GetMapping("/insert/{st_num}")
+	public ModelAndView boardInsert(@PathVariable int st_num, ModelAndView mv,HttpSession session) {
 		MemberVO user = (MemberVO) session.getAttribute("user");	    
 		mv.addObject("memberId", user.getMe_id());
 	    //스터디 가져오기
-	    ArrayList<StudyVO> studyList = boardService.selectStudyList();
+		StudyVO	studyList = boardService.selectStudy(st_num);
 	    mv.addObject("studies", studyList);
 	    mv.setViewName("/board/insert");
 	    return mv;

@@ -55,9 +55,7 @@
               	 <input type="hidden" name="bo_me_id" value="${memberId}">
                 <h2>스터디명</h2> 
                 <select id="choose_study" name="bo_st_num">
-                	<c:forEach var="study" items="${studies}">
-                		<option value="${study.st_num}">${study.st_name}</option>
-           			</c:forEach>
+                		<option value="${studies.st_num}">${studies.st_name}</option>
                 </select> 
                 <h2>제목</h2> 
                 <div class="recruit_title_box"> 

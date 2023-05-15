@@ -83,4 +83,9 @@ public class BoardServiceImp implements BoardService {
 		return boardDao.findBoardById(me_id);
 	}
 
+	@Override
+	public StudyVO selectStudy(int st_num) {
+		return boardDao.selectStudy(st_num);
+	}
+
 }
