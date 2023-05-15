@@ -1,9 +1,10 @@
 package kr.kh.RLab.controller;
 
+import java.awt.dnd.DragSourceMotionListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,9 +26,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.pagination.PageMaker;
+import kr.kh.RLab.service.MypageService;
 import kr.kh.RLab.service.NotificationService;
 import kr.kh.RLab.service.StudyService;
 import kr.kh.RLab.vo.AlarmVO.AlarmType;
+import kr.kh.RLab.vo.GrowthVO;
 import kr.kh.RLab.vo.LikeVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.MissionFinishVO;
@@ -48,12 +50,14 @@ import lombok.extern.slf4j.Slf4j;
 public class StudyController {
 
 	private final StudyService studyService;
+	private final MypageService mypageService;
 	private final NotificationService notificationService;
 	private final SseController sseController;
 
 	@GetMapping("/photo/{st_num}")
 	public String photo(HttpServletRequest request, Model model, HttpSession session,
 			@PathVariable("st_num") int st_num) throws IOException {
+		System.out.println(new Date());
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		model.addAttribute("user", user);
 		ArrayList<PhotoTypeVO> phototypeList = studyService.getListPhotoType();
@@ -107,7 +111,8 @@ public class StudyController {
 
 	@PostMapping("/toggleLike")
 	@ResponseBody
-	public String toggleLike(@RequestParam("li_ph_num") int li_ph_num, HttpServletRequest request) {
+	public String toggleLike(@RequestParam("li_ph_num") int li_ph_num, HttpServletRequest request,
+			HttpSession session) {
 		MemberVO member = (MemberVO) request.getSession().getAttribute("user");
 		String li_me_id = member.getMe_id();
 		LikeVO likeVO = studyService.getLikeByUserIdAndPhotoId(li_me_id, li_ph_num);
@@ -126,7 +131,7 @@ public class StudyController {
 			message = member.getMe_name() + "님이 다음 게시글에 좋아요 표시를 했습니다." + photo.getPh_content();
 
 			notificationService.sendNotificationToUser(photoUser, message, AlarmType.LIKE);
-			sseController.sseNewLike(photo.getPh_num());
+			sseController.sseNewLike(photo.getPh_num(), session);
 			return "inserted";
 		} else {// 좋아요가 존재하면,
 			studyService.deleteLike(li_me_id, li_ph_num);
@@ -172,19 +177,35 @@ public class StudyController {
 	// 로그인O, me_study정보O 이상적으로 동작할때 도달하는 url
 	@RequestMapping(value = "/{st_num}", method = RequestMethod.GET)
 	public ModelAndView main(ModelAndView mv, HttpSession session, @PathVariable("st_num") int st_num) {
+		System.out.println(new Date());
 		MemberVO user = (MemberVO) session.getAttribute("user");
+		//st_me_id가 유저인 스터디 목록 불러오는 메소드인데 사용되는데가 없는데 지워도되는건가요?
 		ArrayList<StudyVO> study = studyService.getStudyByMemberId(user.getMe_id());
+		ArrayList<StudyVO> stList = studyService.getUserStudyList(user.getMe_id());
+		StudyVO nowStudy = studyService.getStudyByStnum(st_num);
+		StudyVO favoriteStudy = studyService.getStudyByStnum(user.getMe_study());
 		// 해당 user가 가입한 스터디가 1개도 없으면 다른 경로로 리다이렉트
 		if (study == null) {
 			mv.addObject("msg", "로그인 후 사용가능한 기능입니다.");
 			mv.addObject("url", "redirect:/");
 			mv.setViewName("/common/message");
 		}
+		String memberId = user.getMe_id();
+		double todoProgressRate = studyService.getTodoProgressRate(memberId);
+	    int todoProgressRateint= (int) Math.round(todoProgressRate);
+	    mv.addObject("todoProgressRateint",todoProgressRateint);
+		
+		
 		ArrayList<TodoVO> tdList = studyService.getTodoList(user.getMe_id());
 		mv.addObject("tdList", tdList);
 		ArrayList<PhotoVO> photo = studyService.selectPhotoPhNumTwo(st_num);
 		mv.addObject("photo", photo);
 		mv.addObject("st_num", st_num);
+		mv.addObject("study", study);
+		mv.addObject("loginUserId", user.getMe_id());
+		mv.addObject("stList", stList);
+		mv.addObject("now", nowStudy);
+		mv.addObject("favorite", favoriteStudy);
 		mv.addObject("userId", user.getMe_name());
 		mv.setViewName("/study/study_basic");
 		return mv;
@@ -260,8 +281,11 @@ public class StudyController {
 		studyService.deleteStudyMember(sm.getSm_st_num(), sm.getMe_name());
 		return map;
 	}
+	
+	@ResponseBody
 	@RequestMapping(value = "/management/member/authorize", method = RequestMethod.POST)
-	public HashMap<String, Object> authorizeMember(@RequestBody StudyMemberVO sm) {
+	public HashMap<String, Object> authorizeMember(@RequestBody StudyMemberVO sm,
+			HttpSession session) {
 	    HashMap<String, Object> map = new HashMap<String, Object>();
 
 	    studyService.authorizeStudyMember(sm.getSm_st_num(), sm.getMe_name());
@@ -273,7 +297,7 @@ public class StudyController {
 	        notificationService.sendNotificationToUser(newLeaderId, message, AlarmType.STUDY);
 	    }
 
-	    sseController.sseauthorizeStudy(sm);
+	    sseController.sseAuthorizeStudy(sm,session);
 
 	    return map;
 	}
@@ -291,14 +315,30 @@ public class StudyController {
 		mv.setViewName("/study/management_study");
 		return mv;
 	}
-
-	// 스터디 삭제
+  
+	//스터디 삭제
 	@ResponseBody
 	@RequestMapping(value = "/management/study/delete/{st_num}", method = RequestMethod.POST)
-	public HashMap<String, Object> deleteStudy(@RequestBody StudyVO st) {
+	public HashMap<String, Object> deleteStudy(@RequestBody StudyVO st,HttpSession session) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		MemberVO user = (MemberVO) session.getAttribute("user");
 		// 해당 스터디를 삭제
 		studyService.deleteStudy(st.getSt_num());
+		//member me_study업데이트
+		ArrayList<MemberVO> meList = studyService.selectMemberListByStNum(st.getSt_num());
+		for (MemberVO me : meList ) {
+			ArrayList<StudyMemberVO> smList = studyService.selectStudyMemberByMeId(me.getMe_id());
+			//id로 스터디가입이 없으면 null로 업데이트
+			if(smList.size()==0) {
+				studyService.updateMembersNull(me.getMe_id(),null);
+			//id로 스터디가입이 된게 있으면 제일 첫번째걸로 업데이트
+			}else {	
+				studyService.updateMembersFirst(me.getMe_id(),smList.get(0).getSm_st_num());
+			}
+			//세션에 바뀐st_num저장
+			user.setMe_study(smList.get(0).getSm_st_num());
+			session.setAttribute("user", user);
+		}
 		return map;
 	}
 
@@ -324,62 +364,55 @@ public class StudyController {
 		return map;
 	}
 
-	@ResponseBody
-	@RequestMapping(value = "/todo", method = RequestMethod.GET)
-	public ModelAndView todoList(ModelAndView mv, HttpSession session) {
-		MemberVO user = (MemberVO) session.getAttribute("user");
-		String memberId = user.getMe_id();
-
-		// 유저의 투두 리스트
-		ArrayList<TodoVO> tdList = studyService.getTodoList(memberId);
-
-		// 유저가 참여한 스터디 목록 조회
-		ArrayList<StudyMemberVO> myStudyList = studyService.getMyStudyLis(memberId);
-
-		// 유저의 투두 진척도
-		double todoProgressRate = studyService.getTodoProgressRate(memberId);
-		int todoProgressRateint = (int) Math.round(todoProgressRate);
-//	    System.out.println("투두 진척도 : " + todoProgressRate+"%");
-
-		// studyMemberVO에서 유저가 참여한 스터디의 멤버 리스트 가져오기 (sm_me_id)
-		ArrayList<StudyMemberVO> myStudyMemberList = new ArrayList<StudyMemberVO>();
-		// 내가 참여한 스터디의 멤버 목록 조회
-		for (StudyMemberVO studyMember : myStudyList) {
-			int myStudyNum = studyMember.getSm_st_num();
-			ArrayList<StudyMemberVO> myStudyMember = studyService.getMyStudyMember(myStudyNum);
-			for (StudyMemberVO studyMemberId : myStudyMember) {
-				myStudyMemberList.add(studyMemberId);
-			}
-		}
-
-		// myStudyMemberList에서 스터디 멤버의 아이디만 가져와서 중복된 값은 제거하기
-		ArrayList<String> stMeIdList = new ArrayList<String>();
-		// 스터디 멤버 목록에서 멤버 아이디를 추출
-		for (StudyMemberVO studyMemberId : myStudyMemberList) {
-			stMeIdList.add(studyMemberId.getSm_me_id());
-		}
-		// 가져온 스터디 멤버 아이디에서 중복된 값 제거
-		HashSet<String> uniqueSet = new HashSet<>(stMeIdList);
-		stMeIdList.clear();
-		stMeIdList.addAll(uniqueSet);
-
-		// 투두 멤버 닉네임과 아이디 가져오기
-		ArrayList<MemberVO> tdMembersName = studyService.getTdMembersName(stMeIdList);
-		// 투두 멤버의 투두 리스트 가져오기
-		ArrayList<TodoVO> mebersTd = studyService.getTodoListByMemberId(stMeIdList);
-
-		mv.addObject("myStudyMemberList", stMeIdList);
-		mv.addObject("myStudyList", myStudyList);
-		mv.addObject("mebersTd", mebersTd);
-		mv.addObject("tdList", tdList);
-		mv.addObject("memberId", memberId);
-		mv.addObject("tdMembersName", tdMembersName);
-		mv.addObject("todoProgressRateint", todoProgressRateint);
-		mv.setViewName("/study/to_do_list");
-		return mv;
+	@RequestMapping(value = "/todo/{st_num}", method = RequestMethod.GET)
+	public ModelAndView todoList(ModelAndView mv, HttpSession session,@PathVariable("st_num") int st_num,StudyMemberVO sm, TodoVO td) {
+	    MemberVO user = (MemberVO) session.getAttribute("user");
+	    String memberId = user.getMe_id();
+	    
+	    //유저의 투두 리스트 
+	    ArrayList<TodoVO> tdList = studyService.getTodoList(memberId);
+	    
+	    //유저가 참여한 스터디 목록 조회
+	    ArrayList<StudyMemberVO> myStudyList = studyService.getMyStudyList(memberId);
+	    
+	    //유저의 투두 진척도
+	    double todoProgressRate = studyService.getTodoProgressRate(memberId);
+	    int todoProgressRateint= (int) Math.round(todoProgressRate);
+	    //System.out.println("투두 진척도 : " + todoProgressRate+"%");
+	    
+	    //스터디멤버 리스
+	    ArrayList<StudyMemberVO> stMember = studyService.getStudyMember(st_num);
+	    
+	    //스터디넘버가 일치하는 스터디 멤버 투두 불러오기
+	    ArrayList<TodoVO> stMemberTodo = studyService.getStudyMemberTodo(st_num);
+	    
+	    //멤버 투두 진행
+	    //서비스에서 멤버의 투두 총개수,완료 개수를 구해 진척률을 전달받고 정수로 변환->TodoMemberVO에 me_prog_rate를 만들어 값으로 할 
+	    ArrayList<StudyMemberVO> stMemberProgRateList = new ArrayList<>();
+	    for (StudyMemberVO member : stMember) {
+	        double membersTdProgRate = studyService.membersTdProgRate(member.getSm_me_id());
+	        int membersTdProgRateint = (int) Math.round(membersTdProgRate);
+	        member.setMe_prog_rate(membersTdProgRateint);
+	        stMemberProgRateList.add(member);
+	    }
+	    System.out.println("++++++"+stMemberProgRateList);
+	    
+	  //나의 펫 데려오기
+	  GrowthVO myPet = mypageService.selectMyPet(memberId);
+   
+	    mv.addObject("myStudyList", myStudyList);
+	    mv.addObject("tdList", tdList);
+	    mv.addObject("memberId",memberId);
+	    mv.addObject("myPet", myPet);
+	    mv.addObject("stMember",stMember);
+	    mv.addObject("stMemberTodo",stMemberTodo);
+	    mv.addObject("todoProgressRateint",todoProgressRateint);
+	    mv.addObject("stMemberProgRateList",stMemberProgRateList);
+	    mv.setViewName("/study/to_do_list");
+	    return mv;
 	}
 
-	// 투두 인풋 입력값 가져오기
+	//투두 인풋 입력값 가져오기
 	@ResponseBody
 	@PostMapping("/todo/create") // POST 요청 처리를 위한 매핑 경로 설정
 	public HashMap<String, Object> insertTodo(ModelAndView mv, @RequestBody TodoVO td) {
@@ -418,20 +451,8 @@ public class StudyController {
 		studyService.finishTodoUndo(td.getTd_num(), td.getTd_finish());
 		return map;
 	}
-
-//		MemberVO user = (MemberVO) session.getAttribute("user");
-//		String memberId = user.getMe_id();
-//		// System.out.println(user);
-
-//		ArrayList<StudyVO> myStudyList = studyService.getStudyListById(memberId);
-
-//		mv.addObject("myStudyList", myStudyList);
-//		mv.addObject("user", user);
-//		mv.setViewName("/study/management_study");
-//		return mv;
-//	}
-
-	// 데일리미션 등록
+	
+	//데일리미션 등록
 	@PostMapping("/daily/{st_num}/insertmission")
 	@ResponseBody
 	public String insertMission(@RequestParam("mi_st_num") int st_num, @RequestParam("mi_content") String content,
@@ -466,6 +487,7 @@ public class StudyController {
 	// 데일리미션 페이지
 	@GetMapping("/daily/{st_num}")
 	public ModelAndView studyInsert(ModelAndView mv, HttpServletRequest request, @PathVariable("st_num") int st_num) {
+		System.out.println(new Date());
 		MemberVO user = (MemberVO) request.getSession().getAttribute("user");
 		ArrayList<StudyMemberVO> studyMember = studyService.selectStudyMemberByStNum(st_num);
 		Integer authority = studyService.selectSmAuthority(user, st_num);
@@ -488,30 +510,54 @@ public class StudyController {
 		// 스터디 정보
 		StudyVO study = studyService.getStudy(st_num);
 		StudyMemberVO stMember = studyService.findStudyMember(st_num, user.getMe_id());
-		ArrayList<StudyVO> findStudy = studyService.getStudyByMemberId(user.getMe_id());
+		
 		
 		if (stMember != null && stMember.getSm_authority() == 9) {
 			return "leader";
 		}
-
 		if (stMember != null) {
 			study.setSt_now_people(study.getSt_now_people() - 1);
 		}
 		String studyLeader = study.getSt_me_id();// 리더 id
 		String message = user.getMe_name() + "님이 스터디를 탈퇴했습니다.";
 
-		notificationService.sendNotificationToUser(studyLeader, message, AlarmType.STUDY);
-		sseController.sseLeaveStudy(st_num);
-
+		try {
+			notificationService.sendNotificationToUser(studyLeader, message, AlarmType.MEMBER);
+			sseController.sseLeaveStudy(st_num, session);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		// 스터디 정보 업데이트
 		studyService.leaveStudy(user, st_num);
 		studyService.updateStudy(study);
-		
-		for (StudyVO st : findStudy) {
-			
-			studyService.updateMemberStNum(user.getMe_id(),st_num,st.getSt_num());
+		// studyMember에 user의 아이로 가입된 스터디 찾아서 업데이트
+		ArrayList<MemberVO> findMember = studyService.selectMemberByMemberId(user.getMe_id());
+		for (MemberVO me : findMember) {
+			ArrayList<StudyMemberVO> smList = studyService.selectStudMemberyByMemberId(me.getMe_id());
+			//user_id로 스터디가입이 없으면 null로 업데이트
+			if(smList.size()==0) {
+				studyService.updateMembersNull(me.getMe_id(), null);
+				user.setMe_study(0);
+			//user_id로 스터디가입이 있으면 첫번째걸로 업데이트
+			}else {
+				studyService.updateMembersFirst(me.getMe_id(), smList.get(0).getSm_st_num());
+				user.setMe_study(smList.get(0).getSm_st_num());
+			}
+			//세션에 바뀐st_num저장
+			session.setAttribute("user", user);
 		}
 		//st_num , me_id 일치하는 멤버
 		return "success";
+	}
+  // 즐겨찾기 변경
+	@ResponseBody
+	@RequestMapping(value = "/setfavorite", method = RequestMethod.POST)
+	public HashMap<String, Object> setFavorite(@RequestBody StudyVO st, HttpSession session) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		studyService.updateUserFavorite(st.getSt_me_id(),st.getSt_num());
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		user.setMe_study(st.getSt_num());
+		session.setAttribute("user", user);
+		return map;
 	}
 }

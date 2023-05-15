@@ -7,27 +7,28 @@
 
 <link rel="stylesheet"
 	href="<c:url value='/resources/css/study/certification_board.css'></c:url>">
-<link rel="stylesheet"
-	href="<c:url value='/resources/css/study/study.css'></c:url>">
-<link rel="stylesheet"
-	href="<c:url value='/resources/css/study/daily.css'></c:url>">
+	<link rel="stylesheet" href="<c:url value='/resources/css/common.css'></c:url>">
+<link rel="stylesheet" href="<c:url value='/resources/css/study/study.css'></c:url>">
+<link rel="stylesheet" href="<c:url value='/resources/css/study/daily.css'></c:url>">
 <c:set var="now" value="<%=new Date()%>" />
 <c:set var="currentDate2" value="<fmt:formatDate pattern='yyyy.MM.dd' value='${now}'/>" />
 <fmt:formatDate pattern='yyyy.MM.dd' value='${now}' var="currentDate"/>
 <main>
 	<div class="main_container">
-		<!-- 왼쪽 메뉴바 -->
-		    <div class="left_menu_container">
-		        <nav class="left_menu">
-		            <a href="<c:url value='/study/${user.me_study}'></c:url>" class="list_item">스터디홈</a>
-		            <a href="to_do_list.html" class="list_item">투두 리스트</a>
-		            <a href="<c:url value='/study/daily/${user.me_study}'></c:url>" class="list_item">데일리 미션</a>
-		            <a href="<c:url value='/study/photo/${user.me_study}'></c:url>" class="list_item">인증 게시판</a>
-		            <a href="<c:url value='/board/list/${user.me_study}'></c:url>" class="list_item">자유 게시판</a>
-		            <a href="<c:url value='/study/management/member'></c:url>" class="list_item">스터디 관리</a>
-		            <a href="#" class="leave">탈퇴하기</a>
-		        </nav>
-		    </div>
+		<div class="left_side">
+			<!-- 왼쪽 메뉴바 -->
+			<div class="left_menu_container">
+				<nav class="left_menu">
+					<a href="<c:url value='/study/${st_num}'></c:url>" class="list_item">스터디홈</a>
+					<a href="<c:url value='/study/todo/${st_num}'></c:url>" class="list_item">투두 리스트</a> 
+					<a href="<c:url value='/study/daily/${st_num}'></c:url>" class="list_item">데일리 미션</a> 
+					<a href="<c:url value='/study/photo/${st_num}'></c:url>" class="list_item">인증 게시판</a> 
+					<a href="<c:url value='/board/list/${st_num}'></c:url>" class="list_item">자유 게시판</a> 
+					<a href="<c:url value='/study/management'></c:url>" class="list_item">스터디 관리</a>
+				</nav>
+			</div>
+			<a href="#" class="leave_btn">탈퇴하기</a>
+		</div>
 	
 		<section>
 			<div class="home_container">
@@ -38,13 +39,20 @@
 					<!-- 오늘의 미션 -->
 					
 					<div class="today_mission">
-						<span class="today_mission_title">오늘의미션</span> <span
+						<span class="today_mission_title">오늘의 미션</span> <span
 							class="today_mission_date">${mission.mi_date}</span>
 							<c:choose>	
 					            <c:when test="${empty mission}">
-					                <div class="today_mission_contents">
-					                     오늘의 인증미션이 없습니다. 오늘의 미션을 등록해주세요!
-					                </div>
+					           		  <c:if test="${authority == 9}">
+						                <div class="today_mission_contents">
+						                     오늘의 인증미션이 없습니다. 오늘의 미션을 등록해주세요!
+						                </div>
+					              	</c:if> 
+					              	<c:if  test="${authority == 1}">
+					              		<div class="today_mission_contents">
+						                    데일리 미션이 아직 등록되지않았습니다.
+						                </div>
+					              	</c:if>
 					            </c:when>
 						        <c:otherwise>
 									<div class="today_mission_contents">${mission.mi_content}</div>
@@ -54,9 +62,9 @@
 					<div class="main_today_mission_button clearfix">
 						<div class="today_mission_button">
 							   <c:if test="${authority == 9}">
-							      <button class="mbutton1">등록/수정</button>
+							      <button class="mbutton1 mbtn">등록/수정</button>
 							   </c:if> 
-							<a href="<c:url value='/study/photo/${user.me_study}'></c:url>" class="mbutton2">인증하기</a>	
+							<a href="<c:url value='/study/photo/${user.me_study}'></c:url>" class="mbutton2 mbtn">인증하기</a>	
 						</div>
 					</div>
 					<!--달성률-->
@@ -72,12 +80,16 @@
 						<c:forEach items="${studyMember}" var="sm">
 							<div class="daliy_mission_pro">
 								<c:if test="${!mfList.contains(sm.sm_me_id) || mfList == null}">
-									<img  class="pro_img" src="<c:url value='/download/${sm.me_profile}'></c:url>" >
+									<div class="pro_circle">
+										<img  class="pro_img" src="<c:url value='/download/${sm.me_profile}'></c:url>" width="auto" height="80" >
+									</div>
 									<div class="pro_name">${sm.sm_me_id}</div>
 								</c:if>
 								<c:if test="${mfList.contains(sm.sm_me_id)}"  >
 									<img class="pro-img-check">
-									<img  class="pro_img" src="<c:url value='/download/${sm.me_profile}'></c:url>" >
+									<div class="pro_circle">
+										<img  class="pro_img" src="<c:url value='/download/${sm.me_profile}'></c:url>" width="auto" height="80">
+									</div>
 									<div class="pro_name">${sm.sm_me_id}</div>
 								</c:if>
 							</div>
@@ -109,7 +121,7 @@
 						<div class="now">NOW</div>
 					</div>
 					<div class="circle_star cc">
-						<img class="star" src="../img/favorite_star_on.png">
+						<img class="star" src="<c:url value='/resources/img/favorite_star_on.png'></c:url>">
 					</div>
 					<div class="my_study_container">
 						<div class="my_list_title">

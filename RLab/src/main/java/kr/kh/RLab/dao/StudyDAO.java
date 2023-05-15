@@ -83,12 +83,6 @@ public interface StudyDAO {
 
 	ArrayList<StudyMemberVO> selectMyStudyList(@Param("memberId")String memberId);
 
-	ArrayList<StudyMemberVO> selectMyStudyMember(@Param("myStudyNum")int myStudyNum);
-
-	ArrayList<TodoVO> selectTodoListByMemberId(@Param("stMeIdList")ArrayList<String> stMeIdList);
-
-	ArrayList<MemberVO> selectTodoMembersName(@Param("stMeIdList")ArrayList<String> stMeIdList);
-
 	int selectTodoCount(@Param("memberId")String memberId);
 
 	int selectTodoFinishCount(@Param("memberId")String memberId);
@@ -107,7 +101,7 @@ public interface StudyDAO {
 
 	ArrayList<MemberVO> selectMember(int st_num);
 
-	int selectSmAuthority(@Param("user")MemberVO user,@Param("st_num")int st_num);
+	Integer selectSmAuthority(@Param("user")MemberVO user,@Param("st_num")int st_num);
 
 	boolean insertMission(MissionVO missionVO);
 
@@ -133,5 +127,31 @@ public interface StudyDAO {
 
 	void updateMemberStNum(@Param("me_id")String me_id,@Param("st_num") int st_num, @Param("new_st_num")int new_st_num);
 
+
+	ArrayList<TodoVO> selectStudyMemberTodo(@Param("st_num")int st_num);
+
+	ArrayList<StudyMemberVO> selectStudyMember(@Param("st_num")int st_num);
+
+	int selectMemberTodoCount(@Param("td_me_id")String td_me_id);
+
+	int selectMemberFinishTodoCount(@Param("td_me_id")String td_me_id);
+
+	ArrayList<MemberVO> selectMemberListByStNum(int st_num);
+
+	ArrayList<StudyMemberVO> selectStudyMemberByMeId(String me_id);
+
+	void updateMembersNull(@Param("me_id")String me_id, @Param("new_st_num")Integer new_st_num);
+
+	void updateMembersFirst(@Param("me_id")String me_id, @Param("sm_st_num")int sm_st_num);
+
+	ArrayList<StudyVO> selectUserStudyList(String me_id);
+
+	StudyVO selectStudyByStnum(int me_study);
+
+	void updateUserFavorite(@Param("me_id")String me_id, @Param("st_num")int st_num);
+
+	ArrayList<StudyMemberVO> selectStudMemberyByMemberId(String me_id);
+
+	ArrayList<MemberVO> selectMemberByMemberId(String me_id);
 
 }

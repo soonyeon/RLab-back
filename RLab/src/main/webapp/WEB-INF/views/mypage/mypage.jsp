@@ -31,7 +31,7 @@
 	            <c:if test="${files.size() != 0}">
 		            <c:forEach items="${petFile}" var="pf">
 		            	  <c:if test="${pf.ev_level == pl.pe_final_level}">
-		            	 	<img src="<c:url value='/download${pf.ev_img}'></c:url>" class="pet_img">
+		            	 	<img src="<c:url value='/resources/img${pf.ev_img}'></c:url>" class="pet_img">
 		            	  </c:if>
 		            </c:forEach>
 		       
@@ -72,8 +72,8 @@
             <nav class="left_menu">
               <a href="<c:url value='/mypage'></c:url>" class="list_item">마이페이지 홈</a>
               <a href="<c:url value='/mypage/pwcheck'></c:url>" class="list_item">개인정보 수정</a>
-              <a href="./book_info_ticket.html" class="list_item">예약 관리</a>
-              <a href="./mystudy_favorite.html" class="list_item">스터디 관리</a>
+              <a href="<c:url value='/mypage/myres_pay'></c:url>" class="list_item">예약 관리</a>
+              <a href="<c:url value='/mypage/mystudy_favorite'></c:url>" class="list_item">스터디 관리</a>
               <a href="<c:url value='/mypage/mypost_post'></c:url>" class="list_item">작성글 관리</a>
             </nav>
           </aside>
@@ -83,10 +83,35 @@
             <article class="article_top">
               <!-- used_hours_container -->
               <div class="article_box" id="used_hours_container">
-                
+               
                 
                 <div class="user_info">
+                 <a href="<c:url value='/mypage'></c:url>" class="icon_profile">
+	    			<c:if test="${user.me_profile == null}">
+	    				<img class="mypage_img" src="<c:url value='/resources/img/user.png'></c:url>" width="auto" height="110">
+	    				<span class="blind">마이페이지</span>
+	    			</c:if>
+	    			
+	    			<c:if test="${user.me_profile != null}">
+		    			<img class="mypage_img" src="<c:url value='/download${user.me_profile}'></c:url>" width="auto" height="110">
+		    			<span class="blind">마이페이지</span>
+	    			</c:if>
+ 		    	</a>
+                 <div id="user_info_container">
                   <span><strong>"${user.me_name}"</strong> 님 안녕하세요</span>
+                  <div class="my_point">
+                    <h2 class="title_point">적립 포인트 : </h2>                  
+                    <div class="point_texts">
+                      <!-- <p class="title_point">Point</p> -->
+                      <div class="num_point">
+                        <span class="p_num">${user.me_point}</span>
+                        <span class="p_point">P</span>
+                      </div>
+                    </div>
+                    <!-- <i class="icon_info"></i>  -->
+                  	<!-- <i class="icon_point"></i> -->
+                  </div>
+                </div>  
                 </div>
                 <!-- 이용 시간 -->
                 <!-- 현재 시간 가져오기 -->
@@ -163,29 +188,14 @@
 		                </div>
 	                </c:if>
 				</c:if>
-
-                <div id="point_container">
-                  <div class="my_point">
-                    <h2 class="title_point">적립 포인트 : </h2>                  
-                    <div class="point_texts">
-                      <!-- <p class="title_point">Point</p> -->
-                      <div class="num_point">
-                        <span class="p_num">${user.me_point}</span>
-                        <span class="p_point">P</span>
-                      </div>
-                    </div>
-                    <!-- <i class="icon_info"></i>  -->
-                  	<!-- <i class="icon_point"></i> -->
-                  </div>
-                </div>  
-
               </div>
               <!-- pet_container -->
               <div class="article_box pet_container">
              	 <c:if test="${myPet == null}">
 	                <div class="pet_window">
+	                	
 	                  <img src="" alt="" class="pet_talk" />
-	                  <img src="<c:url value="/download/pet/0.jpg"></c:url>" alt="펫" class="pet" />
+	                  <img src="<c:url value="/resources/img/egg.png"></c:url>" alt="펫" class="pet" />
 	                </div>
 	                <div class="pet_description">
 	                  <div class="pet_info_container">
@@ -201,7 +211,7 @@
 	              <c:if test="${myPet != null }">
 	                <div class="pet_window">
 	                  <img src="" alt="" class="pet_talk" />
-	                  <img src="<c:url value="/download/${myPet.ev_img}"></c:url>" alt="펫" class="pet" />
+	                  <img src="<c:url value="/resources/img${myPet.ev_img}"></c:url>" alt="펫" class="pet" />
 	                </div>
 	                <div class="pet_description">
 	                  <div class="pet_info_container">
@@ -227,52 +237,92 @@
 	                </div>
 	              </c:if>
               </div>
-              <!-- book_container(나의 예약) -->
-              <div class="article_box book_container">
+           <!-- <div class="article_box book_container">
                 <div class="title_container">
                   <h3>나의 예약</h3>
                   <div class="book_window">
-                    <h4>강남역점</h4>
-                    <i class="icon_circle"></i>
-                    <div class="book_info">
-                      <div class="book_title">좌석</div>
-                      <h4>47번</h4>
-                    </div>
-                    <i class="icon_circle"></i>
-                    <div class="book_info">
-                      <div class="book_title">사물함</div>
-                      <h4>45번</h4>
-                    </div>
-                    <i class="icon_circle"></i>
-                    <div class="book_info">
-                      <div class="book_title">미팅룸</div>
-                      <h4>47번</h4>
-                    </div>
+	                  <c:if test="${mySeat != null && myLocker != null}">
+	                    <div class="book_info">
+		                    <h4>${mySeat.branchVO.br_name}</h4>
+		                    <div class="book_title">${mySeat.ki_name}<h4>${mySeat.se_name}번</h4></div>
+                   		</div>
+	                    <i class="icon_circle"></i>
+	                    <div class="book_info">
+	                    	<h4>${myLocker.branchVO.br_name}</h4>
+                        	<div class="book_title">${myLocker.ki_name}<h4>${myLocker.se_name}번</h4></div>
+	                    </div>
+	                  </c:if>
+	                  
+	                  <c:if test="${mySeat == null && myLocker != null}">
+	                    <div class="book_info">
+	                    	<h4>${myLocker.branchVO.br_name}</h4>
+                        	<div class="book_title">${myLocker.ki_name}<h4>${myLocker.se_name}번</h4></div>
+	                    </div>
+	                  </c:if>
+	                  
+	                  <c:if test="${mySeat != null && myLocker == null}">
+	                    <div class="book_info">
+		                    <h4>${mySeat.branchVO.br_name}</h4>
+		                    <div class="book_title">${mySeat.ki_name}<h4>${mySeat.se_name}번</h4></div>
+                   		</div>
+	                  </c:if>
+	                  
+	                  <c:if test="${mySeat == null && myLocker == null}">
+	                    <div class="book_info">
+		                    <h4>예약 정보가 없습니다.</h4>
+                   		</div>
+	                  </c:if>
                   </div>
                 </div>
-              </div>
+              </div> --> 
             </article>
-
             <!-- article_second(d-day) -->
+              <!-- book_container(나의 예약) -->
             <!-- <h2 class="dday_title">D-DAY</h2> -->
             <article class="article_second">
+            <h3 class="book_head_title">나의 예약</h3>
               <div class="dday_container">
                 <ul class="list_dday">
-                  <li class="item_dday">
-                    정보처리기사 필기
-                    <p class="dday">D-10</p>
-                  </li>
-                  <li class="item_dday">
-                    정보처리기사 실기
-                    <p class="dday">D-40</p>
-                  </li>
-                  <li class="item_dday">
-                    네트워크 관리사 2급 실기
-                    <p class="dday">D-40</p>
-                  </li>
+                <!-- 좌석, 캐비넷 둘다 예약이 있을 때 -->
+                 <c:if test="${mySeat != null && myLocker != null}">
+                    <div class="item_dday">
+                    	<h4>좌석 : </h4>
+	                    <h4>${mySeat.branchVO.br_name}</h4>
+	                    <div class="book_title">${mySeat.ki_name}&nbsp;<h4>${mySeat.se_name}번</h4></div>
+                  	</div>
+                    <div class="item_dday">
+                    	<h4>사물함 : </h4>
+                    	<h4>${myLocker.branchVO.br_name}</h4>
+                       	<div class="book_title">${myLocker.ki_name}&nbsp;<h4>${myLocker.se_name}번</h4></div>
+                    </div>
+                  
+                  </c:if>
+                  <!-- 좌석 예약만 있고 캐비넷 예약이 없을 때 -->
+                  <c:if test="${mySeat != null && myLocker == null}">
+                    <div class="book_info">
+	                    <h4>${mySeat.branchVO.br_name}</h4>
+	                    <div class="book_title">${mySeat.ki_name}&nbsp;<h4>${mySeat.se_name}번</h4></div>
+                  		</div>
+                  </c:if>
+                  <!-- 좌석 예약이 없고 캐비넷 예약만 있을 때 -->
+                   <c:if test="${mySeat == null && myLocker != null}">
+                    <div class="book_info">
+                    	<h4>${myLocker.branchVO.br_name}</h4>
+                       	<div class="book_title">${myLocker.ki_name}&nbsp;<h4>${myLocker.se_name}번</h4></div>
+                    </div>
+                  </c:if> 
+                 
+                  <!-- 좌석 예약, 캐비넷 예약 둘다 없을 때 -->
+                   <c:if test="${mySeat == null && myLocker == null}">
+                    <div class="book_info">
+	                    <h4>예약 정보가 없습니다.</h4>
+                  		</div>
+                  </c:if>
                 </ul>
               </div>
-              <p class="plus_dday">+ D-day 추가하기</p>
+              <a href="<c:url value='/mypage/myres_book'></c:url>">
+              	<p class="plus_dday">더보기 +</p>
+              </a>
             </article>
 
             <!-- article_third(나의 스터디, 나의 스크랩) -->
@@ -282,7 +332,7 @@
                 <div class="title_background"></div>
                 <div class="title_container">
                   <h2 class="property_title">나의 스터디</h2>
-                  <a href="mystudy_progress.html">
+                  <a href="<c:url value='/mypage/mystudy_progress'></c:url>">
                     <p class="show_plus">더보기+</p>
                   </a>
                 </div>
@@ -317,7 +367,7 @@
                 <div class="title_background"></div>
                 <div class="title_container">
                   <h2 class="property_title">나의 스크랩</h2>
-                  <a href="mypost_scrap.html">
+                  <a href="<c:url value='/mypage/mypost_scrap'></c:url>">
                     <p class="show_plus">더보기+</p>
                   </a>
                 </div>
@@ -510,6 +560,7 @@
     		var resValid = '${res.re_valid_time}';
     		
     		intervalId = setInterval(function(){
+    			
     			$.ajax({
     				url: '<c:url value="/mypage/timeGauge" />',
     				type: "GET",
@@ -523,7 +574,7 @@
     					}
     					resStart = new Date(data.re_start_time);
     					resValid = new Date(data.re_valid_time);
-    					updateGauge();
+    					updateGauge(resStart, resValid, now);
     				}
     			});
     		}, 1000); // 1초마다 업데이트

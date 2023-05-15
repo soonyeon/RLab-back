@@ -5,87 +5,223 @@
 <mapper namespace="kr.kh.RLab.dao.StudyDAO">
 	<select id="getPhotoType" resultType="kr.kh.RLab.vo.PhotoTypeVO">
 		select *
-			from photo_type
+		from photo_type
 	</select>
-	
 	<insert id="insertCB" useGeneratedKeys="true" keyProperty="ph_num">
-    	insert into photo (ph_pt_num, ph_me_id, ph_register_date, ph_img, ph_content, ph_st_num)
-    	values (#{ph_pt_num}, #{ph_me_id}, now(), #{ph_img}, #{ph_content}, #{ph_st_num})
+		insert into photo (ph_pt_num, ph_me_id, ph_register_date, ph_img, ph_content, ph_st_num)
+		values (#{ph_pt_num}, #{ph_me_id}, now(), #{ph_img}, #{ph_content}, #{ph_st_num})
 	</insert>
 	<insert id="insertFile">
 		insert into file( fi_ori_name, fi_name, fi_table, fi_ex_num)
 		values(#{file.fi_ori_name}, #{file.fi_name}, #{file.fi_table}, #{file.fi_ex_num}) 
 	</insert>
-	
 	 <select id="getStudyByMemberId" parameterType="String" resultType="kr.kh.RLab.vo.StudyVO">
-        SELECT * FROM study WHERE st_me_id = #{st_me_id}
-    </select>
-    
-    <!-- 오늘 해당하는거만 가져오기 -->
-     <select id="getPhotosByStudyNum" resultType="kr.kh.RLab.vo.PhotoVO">
-       SELECT p.*, m.me_name
-	   FROM photo p JOIN member m ON p.ph_me_id = m.me_id  
-	   WHERE ph_st_num = #{st_num} AND DATE(ph_register_date) = DATE(NOW()) 
-    </select>
-    <!-- 좋아요기능 -->
+		SELECT * FROM study WHERE st_me_id = #{st_me_id}
+	</select>
+	<!-- 오늘 해당하는거만 가져오기 -->
+	<select id="getPhotosByStudyNum" resultType="kr.kh.RLab.vo.PhotoVO">
+		SELECT p.*, m.me_name
+		FROM photo p JOIN member m ON p.ph_me_id = m.me_id  
+		WHERE ph_st_num = #{st_num} AND DATE(ph_register_date) = DATE(NOW()) 
+	</select>
+	<!-- 좋아요기능 -->
 	<insert id="insertLike">
-	    INSERT INTO `like` (li_num, li_me_id, li_ph_num, li_state)
-	    VALUES (#{li_num}, #{li_me_id}, #{li_ph_num}, #{li_state})
+		INSERT INTO `like` (li_num, li_me_id, li_ph_num, li_state)
+		VALUES (#{li_num}, #{li_me_id}, #{li_ph_num}, #{li_state})
 	</insert>
 	<update id="updateLikeStatus">
-	    UPDATE `like`
-	    SET li_state = #{li_state}
-	    WHERE li_me_id = #{li_me_id} AND li_ph_num = #{li_ph_num}
+		UPDATE `like`
+		SET li_state = #{li_state}
+		WHERE li_me_id = #{li_me_id} AND li_ph_num = #{li_ph_num}
 	</update>
 	<select id="getLikeByUserIdAndPhotoId" resultType="kr.kh.RLab.vo.LikeVO">
-	    SELECT * FROM `like`
-	    WHERE li_me_id = #{li_me_id} AND li_ph_num = #{li_ph_num}
+		SELECT * FROM `like`
+		WHERE li_me_id = #{li_me_id} AND li_ph_num = #{li_ph_num}
 	</select>
-	
 	<select id="countLikesByPhotoId" parameterType="int" resultType="int">
-	    SELECT COUNT(*) FROM `like` WHERE li_ph_num = #{li_ph_num} AND li_state = 1
+		SELECT COUNT(*) FROM `like` WHERE li_ph_num = #{li_ph_num} AND li_state = 1
 	</select>
-    
-    <select id="selectStudyListById" resultType="kr.kh.RLab.vo.StudyVO">
-    	SELECT st_num, st_name 
+	<select id="selectStudyListById" resultType="kr.kh.RLab.vo.StudyVO">
+		SELECT st_num, st_name 
 		FROM study 
 		WHERE st_me_id = #{memberId}
-    </select>
-    <select id="selectStudyMemberList" resultType="kr.kh.RLab.vo.StudyMemberVO">
-    	SELECT * FROM study_member
-    	join member on sm_me_id = me_id
-    	WHERE sm_st_num = #{st_num}
-    	LIMIT #{cri.pageStart},#{cri.perPageNum}
-    </select>
-	<select id="selectStudyTotalCount" resultType="int">
-    	SELECT count(*) from study_member
+	</select>
+	<select id="selectStudyMemberList" resultType="kr.kh.RLab.vo.StudyMemberVO">
+		SELECT * FROM study_member
+		join member on sm_me_id = me_id
 		WHERE sm_st_num = #{st_num}
-    </select>
-    <select id="selectStudyMemberId" resultType="String">
-    	select me_id from member
-    	where me_name = #{me_name}
-    </select>
-    <delete id="deleteStudyMember">
-    	delete from study_member
-    	where sm_st_num = #{st_num} and sm_me_id = #{me_id}
-    </delete>
-    <update id="updateStudyMemberAuthority">
-    	update study_member set sm_authority = 9
-    	where sm_me_id = #{sm_me_id}
-    	and sm_st_num = #{sm_st_num}
-    </update>
-    <select id="selectStudyLeaderId" resultType="String">
-    	select st_me_id from study
-    	where st_num = #{sm_st_num}
-    </select>
-    <update id="updateStudyLeaderAuthority">
+		LIMIT #{cri.pageStart},#{cri.perPageNum}
+	</select>
+	<select id="selectStudyTotalCount" resultType="int">
+		SELECT count(*) from study_member
+		WHERE sm_st_num = #{st_num}
+	</select>
+	<select id="selectStudyMemberId" resultType="String">
+		select me_id from member
+		where me_name = #{me_name}
+	</select>
+	<delete id="deleteStudyMember">
+		delete from study_member
+		where sm_st_num = #{st_num} and sm_me_id = #{me_id}
+	</delete>
+	<update id="updateStudyMemberAuthority">
+		update study_member set sm_authority = 9
+		where sm_me_id = #{sm_me_id}
+		and sm_st_num = #{sm_st_num}
+	</update>
+	<select id="selectStudyLeaderId" resultType="String">
+		select st_me_id from study
+		where st_num = #{sm_st_num}
+	</select>
+	<update id="updateStudyLeaderAuthority">
 		update study_member set sm_authority = 1
 		where sm_st_num = #{sm_st_num} and sm_me_id = #{leaderId}
-    </update>
-    <update id="updateStudyLeader"> 
+	</update>
+	<update id="updateStudyLeader"> 
 		update study set st_me_id = #{sm_me_id}
 		where st_num = #{sm_st_num}
-    </update>
+	</update>
+	<delete id="deleteStudyMemberList">
+		delete from study_member
+		where sm_st_num = #{st_num}
+	</delete>
+	<delete id="deleteGatherByStNum">
+		delete from gather
+		where ga_st_num = #{st_num}
+	</delete>
+	<delete id="deleteTagRegisteStNum">
+		delete from tag_register
+		where tr_st_num = #{st_num}
+	</delete>
+	<delete id="deleteStudy">
+		delete from study
+		where st_num = #{st_num}
+	</delete>
+	<update id="stateUpdateStudy"> 
+		update study set st_state = 0
+		where st_num = #{st_num}
+	</update>
+	<select id="selectStudyState" resultType="int">
+		select st_state from study
+		where st_num = #{st_num}
+	</select>
+	<update id="stateUpdateStudyUndo"> 
+		update study set st_state = 1
+		where st_num = #{st_num}
+	</update>
+	<select id="selectTodoList" resultType="kr.kh.RLab.vo.TodoVO">
+		select * from todo
+		where td_me_id = #{memberId}
+	</select>
+	<insert id="insertTodo">
+		insert into todo(td_me_id,td_content,td_finish,td_date)
+		values(#{td_me_id},#{td_content},0,NOW())
+	</insert>
+	<delete id="deletetTodo">
+		delete from todo
+		where td_num = #{td_num}
+	</delete>
+	<update id="updateTodo">
+		update todo set td_finish = 1
+		where td_num = #{td_num}
+	</update>
+	<update id="updateTodoUndo">
+		update todo set td_finish = 0
+		where td_num = #{td_num}
+	</update>
+	<select id="selectMyStudyList" resultType="kr.kh.RLab.vo.StudyMemberVO">
+		select sm_st_num from study_member
+		where sm_me_id = #{memberId}
+	</select>
+	<select id="selectTodoCount" resultType="int">
+		SELECT count(*) FROM todo
+		WHERE td_me_id = #{memberId}
+	</select>
+	<select id="selectTodoFinishCount" resultType="int">
+		SELECT count(*) FROM todo
+		WHERE td_me_id = #{memberId} AND td_finish = 1
+	</select>
+	<select id="selectList" parameterType="int" resultType="kr.kh.RLab.vo.StudyMemberVO">
+	    SELECT *
+	    FROM study_member
+	    join member on sm_me_id = me_id
+	    join study on sm_st_num = st_num
+	    WHERE sm_st_num = #{st_num}
+	</select>
+	<select id="getOnlineMembers" resultType="kr.kh.RLab.vo.StudyMemberVO">
+		SELECT *
+		FROM study_member
+		join member on sm_me_id = me_id
+		join session ON ss_me_id = me_id
+		WHERE ss_out IS NULL
+	</select>
+	<select id="getPhotosByPhNum" resultType="kr.kh.RLab.vo.PhotoVO">
+		select *
+		from photo
+		where ph_num = #{li_ph_num}
+	</select>
+	<select id="selectPhotoPhNumTwo" resultType="kr.kh.RLab.vo.PhotoVO">
+		select * from photo
+		where ph_pt_num = 2 and ph_st_num = #{st_num} and Date(ph_register_date) = CURDATE();
+	</select>
+	<select id="selectStudyMemberByStNum" resultType="kr.kh.RLab.vo.StudyMemberVO">
+		select * from study_member
+		join member on me_id = sm_me_id
+		where sm_st_num = #{st_num}
+	</select>
+	<select id="selectSmAuthority" resultType="Integer">
+		select sm_authority from study_member
+		where sm_me_id=#{user.me_id} and sm_st_num= #{st_num}
+	</select>
+	<insert id="insertMission">
+		insert into mission(mi_content,mi_date,mi_st_num)
+		values(#{mi_content},NOW(),#{mi_st_num})
+	</insert>
+	<select id="selectMission" resultType="kr.kh.RLab.vo.MissionVO">
+		select * from mission
+		where mi_st_num = #{st_num} and mi_date = CURDATE();
+	</select>
+	<insert id="insertMissionFinishMember" parameterType="map">
+		insert into mission_finish(mf_mi_num, mf_me_id)
+		values((select mi_num from mission where mi_st_num = #{st_num} and mi_date = CURDATE() ),#{user.me_id}) 
+	</insert>
+	<select id="selectMissionFinishMember" resultType="String">
+		select mf_me_id from mission_finish
+		join mission on mi_num = mf_mi_num
+		where mi_st_num = #{st_num} and mi_date = CURDATE();
+	</select>
+	<update id="updateMission">
+		update mission
+		set mi_content = #{mi_content}
+		where mi_st_num = #{mi_st_num} and mi_date = CURDATE();
+	</update>
+	<select id="selectTodayMissionFinsh" resultType="kr.kh.RLab.vo.MissionFinishVO">
+		select * from mission_finish
+		join mission on mi_num = mf_mi_num
+		where mf_me_id = #{me_id} and mi_date = CURDATE();
+	</select>
+	<select id="selectStudyMemberTodo" resultType="kr.kh.RLab.vo.TodoVO">
+		select *
+		from todo
+		join study_member ON sm_me_id = td_me_id
+		join study ON sm_st_num = st_num
+		join member on me_id = sm_me_id
+		where st_num = #{st_num};
+	</select>
+	<select id="selectStudyMember" resultType="kr.kh.RLab.vo.StudyMemberVO">
+		select * from study_member
+		join member on me_id = sm_me_id
+		where sm_st_num = #{st_num};
+	</select>
+	
+	<select id="selectMemberTodoCount" resultType="int">
+		SELECT count(*) FROM todo
+		WHERE td_me_id = #{td_me_id}
+	</select>
+	<select id="selectMemberFinishTodoCount" resultType="int">
+		SELECT count(*) FROM todo
+		WHERE td_me_id = #{td_me_id} AND td_finish = 1
+	</select>
     <delete id="deleteLike">
     	delete
     	from `like`
@@ -101,149 +237,22 @@
     	from study
     	where st_num = #{st_num}
     </select>
-    
+    <select id="selectUserStudyList" resultType="kr.kh.RLab.vo.StudyVO">
+    	select * from study_member
+    	join study on sm_st_num = st_num
+    	where sm_me_id = #{me_id}
+    </select>
+    <select id="selectStudyByStnum" resultType="kr.kh.RLab.vo.StudyVO">
+    	select st_num, st_name from study where st_num = #{me_study}
+    </select>
+    <update id="updateUserFavorite">
+    	update member set me_study = #{st_num} where me_id = #{me_id}
+    </update>
     <update id="updateStudy" parameterType="kr.kh.RLab.vo.StudyVO">
     UPDATE study
     SET st_now_people = #{st_now_people}
     WHERE st_num = #{st_num}
 	</update>
-<delete id="deleteStudyMemberList">
-  delete from study_member
-  where sm_st_num = #{st_num}
-</delete>
-<delete id="deleteGatherByStNum">
-  delete from gather
-  where ga_st_num = #{st_num}
-</delete>
-<delete id="deleteTagRegisteStNum">
-  delete from tag_register
-  where tr_st_num = #{st_num}
-</delete>
-<delete id="deleteStudy">
-  delete from study
-  where st_num = #{st_num}
-</delete>
-  <update id="stateUpdateStudy"> 
-  update study set st_state = 0
-  where st_num = #{st_num}
-</update>
-<select id="selectStudyState" resultType="int">
-  select st_state from study
-  where st_num = #{st_num}
-</select>
-<update id="stateUpdateStudyUndo"> 
-  update study set st_state = 1
-  where st_num = #{st_num}
-</update>
-<select id="selectTodoList" resultType="kr.kh.RLab.vo.TodoVO">
-  select * from todo
-  where td_me_id = #{memberId}
-</select>
-<insert id="insertTodo">
-  insert into todo(td_me_id,td_content,td_finish,td_date)
-values(#{td_me_id},#{td_content},0,NOW())
-</insert>
-<delete id="deletetTodo">
-  delete from todo
-  where td_num = #{td_num}
-</delete>
-<update id="updateTodo">
-  update todo set td_finish = 1
-  where td_num = #{td_num}
-</update>
-<update id="updateTodoUndo">
-  update todo set td_finish = 0
-  where td_num = #{td_num}
-</update>
-<select id="selectMyStudyList" resultType="kr.kh.RLab.vo.StudyMemberVO">
-  select sm_st_num from study_member
-  where sm_me_id = #{memberId}
-</select>
-<select id="selectMyStudyMember" resultType="kr.kh.RLab.vo.StudyMemberVO">
-  select sm_me_id from study_member
-  where sm_st_num = #{myStudyNum}
-</select>
-<select id="selectTodoListByMemberId" resultType="kr.kh.RLab.vo.TodoVO">
-    SELECT * FROM todo
-    WHERE td_me_id IN
-    <foreach item="item" index="index" collection="stMeIdList" open="(" separator="," close=")">
-        #{item}
-    </foreach>
-</select>
-<select id="selectTodoMembersName" resultType="kr.kh.RLab.vo.MemberVO">
-    SELECT me_name, me_id FROM member
-    WHERE me_id IN
-    <foreach item="item" index="index" collection="stMeIdList" open="(" separator="," close=")">
-        #{item}
-    </foreach>
-</select>
-<select id="selectTodoCount" resultType="int">
-  SELECT count(*) FROM todo
-  WHERE td_me_id = #{memberId}
-</select>
-<select id="selectTodoFinishCount" resultType="int">
-  SELECT count(*) FROM todo
-  WHERE td_me_id = #{memberId} AND td_finish = 1
-</select>
-<select id="selectList" parameterType="int" resultType="kr.kh.RLab.vo.StudyMemberVO">
-    SELECT *
-    FROM study_member
-    join member on sm_me_id = me_id
-    join study on sm_st_num = st_num
-    WHERE sm_st_num = #{st_num}
-</select>
-<select id="getOnlineMembers" resultType="kr.kh.RLab.vo.StudyMemberVO">
-  SELECT *
-  FROM study_member
-  join member on sm_me_id = me_id
-  join session ON ss_me_id = me_id
-  WHERE ss_out IS NULL
-</select>
-<select id="getPhotosByPhNum" resultType="kr.kh.RLab.vo.PhotoVO">
-  select *
-  from photo
-  where ph_num = #{li_ph_num}
-</select>
-<select id="selectPhotoPhNumTwo" resultType="kr.kh.RLab.vo.PhotoVO">
-  select * from photo
-  where ph_pt_num = 2 and ph_st_num = #{st_num} and Date(ph_register_date) = CURDATE();
-</select>
-<select id="selectStudyMemberByStNum" resultType="kr.kh.RLab.vo.StudyMemberVO">
-  select * from study_member
-  join member on me_id = sm_me_id
-  where sm_st_num = #{st_num}
-</select>
-<select id="selectSmAuthority" resultType="Integer">
-  select sm_authority from study_member
-  where sm_me_id=#{user.me_id} and sm_st_num= #{st_num}
-</select>
-<insert id="insertMission">
-  insert into mission(mi_content,mi_date,mi_st_num)
-  values(#{mi_content},NOW(),#{mi_st_num})
-</insert>
-<select id="selectMission" resultType="kr.kh.RLab.vo.MissionVO">
-  select * from mission
-  where mi_st_num = #{st_num} and mi_date = CURDATE();
-</select>
-<insert id="insertMissionFinishMember" parameterType="map">
-  insert into mission_finish(mf_mi_num, mf_me_id)
-  values((select mi_num from mission where mi_st_num = #{st_num} and mi_date = CURDATE() ),#{user.me_id}) 
-</insert>
-<select id="selectMissionFinishMember" resultType="String">
-  select mf_me_id from mission_finish
-  join mission on mi_num = mf_mi_num
-  where mi_st_num = #{st_num} and mi_date = CURDATE();
-</select>
-<update id="updateMission">
-  update mission
-  set mi_content = #{mi_content}
-  where mi_st_num = #{mi_st_num} and mi_date = CURDATE();
-</update>
-<select id="selectTodayMissionFinsh" resultType="kr.kh.RLab.vo.MissionFinishVO">
-      select * from mission_finish
-  join mission on mi_num = mf_mi_num
-    where mf_me_id = #{me_id} and mi_date = CURDATE();
-</select>
 <select id="findStudyMember" resultType="kr.kh.RLab.vo.StudyMemberVO">
 	select *
 	from study_member
@@ -254,4 +263,24 @@ values(#{td_me_id},#{td_content},0,NOW())
 	set me_study = #{new_st_num}
 	where me_id =#{me_id} and  me_study = #{st_num}
 </update>
+<select id="selectMemberListByStNum" resultType="kr.kh.RLab.vo.MemberVO">
+	select * from member
+	where me_study= #{st_num};
+</select>
+<select id="selectStudyMemberByMeId" resultType="kr.kh.RLab.vo.StudyMemberVO">
+	select * from study_member
+	where sm_me_id = #{sm_me_id} 
+</select>
+<update id="updateMembersNull">
+	update member set me_study = NULL where me_id = #{me_id}
+</update>
+<update id="updateMembersFirst">
+	update member set me_study = #{sm_st_num} where me_id = #{me_id}
+</update>
+<select id="selectStudMemberyByMemberId" resultType="kr.kh.RLab.vo.StudyMemberVO">
+	select * from study_member where sm_me_id = #{sm_me_id}
+</select>
+<select id="selectMemberByMemberId" resultType="kr.kh.RLab.vo.MemberVO">
+	select * from member where me_id = #{me_id}
+</select>
 </mapper>

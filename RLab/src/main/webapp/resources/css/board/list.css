@@ -1,0 +1,175 @@
+
+
+/* 나의 게시글, 나의 스크랩에서만 헤더가 이상함*/
+.top_menu_container{
+  line-height: 50px;
+}
+
+
+.form-container {
+	
+    margin-left: 350px;
+	
+}
+td a{
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-break: break-all;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+/*#my_container{padding-top: 32px;}*/
+.my_study_container{
+	margin-bottom: 0;
+}
+.study_card_container{
+ /* padding-left: 30px;*/
+}
+
+#my_container {
+/*	margin-top: -7px; /* 위쪽 마진을 음수값으로 조정하여 보더가 붙어있는 스타일로 변경 */
+/*	height:850px;*/
+	/*width: 830px;*/
+	position: relative;
+	/*border: var(--border_basic); 
+	border-radius: var(--border_radius_4);
+	padding: 50px;*/
+	background-color: var(--color_beige);
+	overflow: hidden;
+	box-sizing: border-box;
+}
+.home_container{
+	display: flex;
+    flex-flow: column;
+    gap: 20px;
+}
+
+.tab_content{
+	display: flex;
+	flex-flow: column;
+	gap: 10px;
+}
+.select_box_area{
+  height: 29.5px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row-reverse;
+}
+.select_view option{
+  width: 200px;
+  border-radius: 5px;
+}
+table { border-collapse: collapse; }
+
+/*.board_title_list{
+  border-top: 2px solid rgba(33, 33, 33, 0.393);
+  border-bottom: 2px solid rgba(33, 33, 33, 0.393);
+}*/
+.board_list {
+  border-bottom: 1px solid  var(--color_yellow);
+}
+.board_list_1,
+.board_list_3,
+.board_list_5,
+.board_list_7,
+.board_list_9,
+.board_list_11{
+  background-color: rgba(128, 128, 128, 0.072);
+}
+.post_title{
+  font-weight:bold;
+  font-size: 14px;
+  color:rgb(67, 66, 66)
+}
+[class^=table_area]{
+ /* height: 684px;*/
+  font-size: 15px;
+  text-align: center;
+  color: rgb(43, 42, 42);
+}
+.fa-solid{margin-left: 5px; margin-right: -10px;}
+/* .table_area_3, .table_area_2{display: none;} */
+.border_box{
+  width: 100%;
+}
+.board_title_list{
+  font-size: 20px;
+  font-weight: bold;
+  box-sizing: border-box;
+  background-color: var(--color_yellow);
+}
+.border_box .title_list_item{
+  height: 44px;
+  font-size: 17px;
+}
+.border_box [class^=board_list_]{
+  height: 47px;
+  font-size: 14px;
+  border-bottom: 1px solid var(--color_yellow);
+}
+.background_bbls{
+  height: 1253px;
+}
+.icon_scrab_box{
+  height: 50px;
+  padding: auto;
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+}
+.icon_scrab{
+  width: 32px;   
+  height: 50px;
+  background-size: 30px 50px;
+  background-image: url(../img/favorite_tag.png);
+  
+}
+.bd_list_item{padding-left: 5px;}
+
+/* 넘기기 버튼 */
+.page_box{
+	display: flex; justify-content: center;
+}
+.page_box>*{float: left; }
+.page_num+.page_num{margin-left: 20px;}
+.page_box .selected{
+  color: var(--color_black); font-weight: bold;
+  
+}
+.page_box span{
+  line-height: 30px; font-size: 25px; color: rgb(62, 62, 62)
+}
+
+.page_box .btn_prev{
+  display: inline-block; width: 30px; height: 30px; margin-right: 10px;
+  background-position: -10px -10px; 
+  background-image: url(../../img/page_left.png);  background-size:50px 50px;
+}
+.page_box .btn_next{
+  width: 30px; height: 30px; margin-left: 10px;
+  background-position: -10px -10px; display: inline-block;
+  background-image: url(../../img/page_right.png); background-size:50px 50px;
+}
+
+.write_btn {
+	margin-top: 10px;
+	-webkit-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    border: 0;
+    font-weight: bold;
+    background-color: var(--color_blue);
+    width: 110px;
+    height: 40px ;
+    border-radius: var(--border_radius_3);
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.nick_name {
+	font-weight: bold;
+}

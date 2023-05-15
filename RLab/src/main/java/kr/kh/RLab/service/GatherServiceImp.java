@@ -33,7 +33,8 @@ public class GatherServiceImp implements GatherService {
 		if (member == null) {
 			return false;
 		}
-
+		
+		
 		if (study.getSt_name().trim().length() == 0 || study.getSt_total_people() < 1) {
 			return false;
 		}
@@ -42,11 +43,12 @@ public class GatherServiceImp implements GatherService {
 		studyMember.setSm_me_id(member.getMe_id());
 		studyMember.setSm_st_num(study.getSt_num());
 		gatherDao.insertStudyLeader(studyMember);
-
+		
 		String[] tags = tag.getTa_name().split(",");
 		ArrayList<TagVO> tagList = new ArrayList<>();
-
-		// 각 태그 DB에 저장
+		
+		
+		// 媛� �깭洹� DB�뿉 ���옣
 		for (String tagName : tags) {
 			tagName = tagName.trim();
 			if (tagName.isEmpty()) {
@@ -64,9 +66,15 @@ public class GatherServiceImp implements GatherService {
 			gatherDao.insertStudyTag(study.getSt_num(), tagVO.getTa_name());
 		}
 
-		// 파일 업로드 처리
+		// �뙆�씪 �뾽濡쒕뱶 泥섎━
 		if (files != null && files.length > 0) {
 			uploadFiles(files, study.getSt_num(), file.getFi_table());
+		}
+		
+		//me_study가 비어있으면 추가되도록, 비어있지않으면 그냥 넘어감
+		if (member.getMe_study() == 0) {
+		    gatherDao.updateMeStudyNumber(study.getSt_num(),member.getMe_id());
+		    member.setMe_study(study.getSt_num());
 		}
 		return false;
 	}
@@ -74,29 +82,29 @@ public class GatherServiceImp implements GatherService {
 	private void uploadFiles(MultipartFile[] files, int st_num, String fi_table) {
 		if (files == null || files.length == 0)
 			return;
-		// 반복문
+		// 諛섎났臾�
 		for (MultipartFile file : files) {
 			if (file == null || file.getOriginalFilename().length() == 0)
 				continue;
 			String fileName = "";
-			// 첨부파일 서버에 업로드
+			// 泥⑤��뙆�씪 �꽌踰꾩뿉 �뾽濡쒕뱶
 			try {
 				fileName = UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			// 첨부파일 객체를 생성
+			// 泥⑤��뙆�씪 媛앹껜瑜� �깮�꽦
 			FileVO fileVo = new FileVO(file.getOriginalFilename(), fileName, st_num);
 
 			fileVo.setFi_table(fi_table);
-			// 파일 객체의 st_num 속성 값을 fi_ex_num으로 수정
+			// �뙆�씪 媛앹껜�쓽 st_num �냽�꽦 媛믪쓣 fi_ex_num�쑝濡� �닔�젙
 			fileVo.setFi_ex_num(st_num);
-			// 다오에게서 첨부파일 정보를 주면서 추가하라고 요청
+			// �떎�삤�뿉寃뚯꽌 泥⑤��뙆�씪 �젙蹂대�� 二쇰㈃�꽌 異붽��븯�씪怨� �슂泥�
 			gatherDao.insertFile(fileVo);
 		}
 	}
 
-	// 모집글
+	// 紐⑥쭛湲�
 	@Override
 	public boolean insertGather(MemberVO member, GatherVO gather, StudyVO study) {
 		if (member == null)
@@ -202,6 +210,24 @@ public class GatherServiceImp implements GatherService {
 	@Override
 	public ArrayList<GatherVO> findGatherdById(String me_id) {
 		return gatherDao.findGatherdById(me_id);
+	}
+
+	@Override
+	public GatherVO selectGather(int ga_num, MemberVO user) {
+		return gatherDao.selectGatherByGaNum(ga_num,user);
+	}
+
+	@Override
+	public boolean updateGather(GatherVO gather) {
+		if(!checkGather(gather))
+			return false;
+		return gatherDao.updateGather(gather);
+	}
+
+	@Override
+	public void deleteGather(int ga_num) {
+		gatherDao.deleteGather(ga_num);
+		
 	}
 
 }

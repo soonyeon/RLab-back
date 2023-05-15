@@ -62,6 +62,7 @@ public class SessionController {
 	public ModelAndView logoutPost(ModelAndView mv, HttpSession session) {
 	    if (session != null) {
 	        MemberVO user = (MemberVO) session.getAttribute("user");
+	        session.removeAttribute("emitter");
 	        if (user != null) {
 	            SessionVO sessionVO = new SessionVO();
 	            sessionVO.setSs_me_id(user.getMe_id());
