@@ -13,17 +13,18 @@
 	<div class="spot_modal_container">
 	  <div class="spot_modal">
 	    <div class="spot_img_area">
+	     <img class="spot_img" src="/test/download/branch/역삼점.jpg"width="1200px" height="614px">
 	      <div class="info_area">
 	        <div class="spot_info_left">
 	        
 	          <div class="spot_address">
 	          	<h1 class="spot_name"></h1>
-	            <div class="spot_add">br_address</div>
-	            <div class="spot_new_add">br_road_address</div>
+	            <div class="spot_add"></div>
+	            <div class="spot_new_add"></div>
 	          </div>
 	          <div class="spot_tel_capa">
-	            <div class="spot_tel">br_tel</div>
-	            <div class="spot_capacity">br_capacity</div>
+	            <div class="spot_tel"></div>
+	            <div class="spot_capacity"></div>
 	          </div>
 	        </div>
 	        <div class="spot_info_right">
@@ -91,7 +92,7 @@
                   <div class="spot_banner_box">
                   	<c:forEach items="${spot}" var="sp" varStatus="vs" >
                     <div class="spot_item add_shadow" data-num="${sp.br_num}">
-                      <div class="spot_img1"></div>
+                      <img class="spot_img" src="<c:url value='/download${sp.br_img}'></c:url>"width="275.012" height="188.613px">
                       <div class="spot_content">
                         <div class="spot_name">[${sp.br_re_name}] ${sp.br_name}</div>
                         <div class="spot_road_address">${sp.br_road_address}</div>
@@ -99,6 +100,7 @@
                         <div class="spot_hidden_box">
 			          	  <div class="spot_address">${sp.br_address}</div>
 			          	  <div class="br_capacity">전체 좌석 : ${sp.br_capacity}석</div>
+			          	  <div class="spot_img_file">${sp.br_img}</div>
 			          	</div>
                       </div>
                     </div>
@@ -228,7 +230,7 @@
 
 
 
-//메인배너
+/* 메인배너 */
 	var banner_area = document.querySelector('.main_banner_area'),
 		banner = document.querySelectorAll('.main_banner_area li'),
 		currentIdx = 0,
@@ -237,7 +239,6 @@
 		bannerMargin = 300,
 		leftBtn = document.querySelector('.main_btn_left'),
 		rightBtn = document.querySelector('.main_btn_right');
-		console.log('bannerCount : '+bannerCount);
 		
 		makeClone();
 	
@@ -266,14 +267,11 @@
 		var newBannerCount = currentBanner.length;
 		var newWidth = (bannerWidth + bannerMargin)*newBannerCount - bannerMargin + 'px';
 		banner_area.style.width = newWidth;
-		console.log('newWidth :'+newWidth);
 	}
 	
 	function setInitialPos(){
 		var initialTranslateValue = -(bannerWidth + bannerMargin)*bannerCount;
-		//slides {transform: treanslateX(-1000px);}""
 		banner_area.style.transform = 'translateX('+initialTranslateValue+'px)';
-		console.log('initialTranslateValue : '+initialTranslateValue);
 	}
 	
 	rightBtn.addEventListener('click',function(){
@@ -286,18 +284,16 @@
 	function moveSlide(num){
 	  banner_area.style.left = -num * (bannerWidth + bannerMargin) + 'px';
 	  currentIdx = num;
-	  console.log(currentIdx,bannerCount);
 
 	  if(currentIdx == bannerCount || currentIdx == -bannerCount){
 	    banner_area.style.left = '0px';
 	    currentIdx = 0;
-	    console.log("currentIdx : "+currentIdx);
 	    
 	  }
 
 	}
 
-	
+/* 스터디 지점 안내 */	
 	$('.spot_item').click(function(){
 		  var spotName = $(this).find('.spot_name').text();
 		  var spotAdd = $(this).find('.spot_address').text();
@@ -305,11 +301,18 @@
 		  var spotTel = $(this).find('.spot_tel').text();
 		  var spotCapa = $(this).find('.br_capacity').text();
 
+		  var spotImgFileValue = $(this).find('.spot_hidden_box .spot_img_file').text();
+		  /* var spotImgSrc = "/RLab/download" + spotImgFileValue; */
+		  var spotImgSrc = "/test/download" + spotImgFileValue;
+			
+
 		  $('.spot_modal .spot_name').text(spotName);
 		  $('.spot_modal .spot_add').text(spotAdd);
 		  $('.spot_modal .spot_new_add').text(spotNewAdd);
 		  $('.spot_modal .spot_tel').text(spotTel);
 		  $('.spot_modal .spot_capacity').text(spotCapa);
+
+		  $('.spot_img_area .spot_img').attr('src', spotImgSrc);
 
 		  $('.spot_modal_container').show();
 		});
@@ -330,7 +333,7 @@
 	});
 	
 	
-//스터디 모집 공고
+/* 스터디 모집 공고 */
 	var recruitBannerContainer = document.querySelector('.recruit_box_container'),
 	    recruitBanner = document.querySelectorAll('.recruit_banner_box'),
 	    recruitCurrentIdx = 0,
@@ -371,7 +374,6 @@
 
 	  function recruitSetInitialPos(){
 	    var recruitInitialTranslateValue = -(recruitBannerWidth + recruitBannerMargin)*recruitBannerCount;
-	    //slides {transform: treanslateX(-1000px);}""
 	    recruitBannerContainer.style.transform = 'translateX('+recruitInitialTranslateValue+'px)';
 	  }
 
@@ -444,7 +446,6 @@
 
 	  function eventSetInitialPos(){
 	    var eventInitialTranslateValue = -(eventBannerWidth + eventBannerMargin)*eventBannerCount;
-	    //slides {transform: treanslateX(-1000px);}""
 	    eventBannerContainer.style.transform = 'translateX('+eventInitialTranslateValue+'px)';
 	  }
 
