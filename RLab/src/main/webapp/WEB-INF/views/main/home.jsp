@@ -11,48 +11,40 @@
 <body>
 	<!-- info_modal -->
 	<div class="spot_modal_container">
-	
-<%-- 	<c:forEach items="${spot}" var="spm" varStatus="vs" >
-		<c:if test="${sp.br_num} == ${spm.br_num}">	 --%>
-		  <div class="spot_modal">
-		    <div class="spot_img_area">
-		      <div class="info_area">
-		        <div class="spot_info_left">
-		        
-		          <div class="spot_address">
-		          	<h1 class="spot_name"></h1>
-		            <div class="spot_add">br_address</div>
-		            <div class="spot_new_add">br_road_address</div>
-		          </div>
-		          <div class="spot_tel_capa">
-		            <div class="spot_tel">br_tel</div>
-		            <div class="spot_capacity">br_capacity</div>
-		          </div>
-		        </div>
-		        <div class="spot_info_right">
-		          <a href="#" class="cabinet_reserv">사물함 예약</a>
-		          <a href="#" class="seat_reserv">좌석 예약</a>
-		        </div>
-		      </div>
-		    </div>
-		  </div>
-<%-- 		 </c:if>
-		</c:forEach> --%>
-	   
+	  <div class="spot_modal">
+	    <div class="spot_img_area">
+	      <div class="info_area">
+	        <div class="spot_info_left">
+	        
+	          <div class="spot_address">
+	          	<h1 class="spot_name"></h1>
+	            <div class="spot_add">br_address</div>
+	            <div class="spot_new_add">br_road_address</div>
+	          </div>
+	          <div class="spot_tel_capa">
+	            <div class="spot_tel">br_tel</div>
+	            <div class="spot_capacity">br_capacity</div>
+	          </div>
+	        </div>
+	        <div class="spot_info_right">
+	          <a href="#" class="cabinet_reserv">사물함 예약</a>
+	          <a href="#" class="seat_reserv">좌석 예약</a>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
 	</div>
-	
   <main class="main_container">
       <div class="reservation_btn">예약하기</div>
+      
       <!-- main_banner -->
       <section class="main_area">
         <article class="main_area_box">
-
           <div class="main_banner_box slide_wrapper">
             <div class="main_btn_left"></div>  
 					<ul class="main_banner_area">
 						<li class="main_banner_item">
 							<div class="main_banner_img1"></div>
-							<!-- <img src="../../img/main_banner.png"> -->
 							<div class="banner_text_box">
 								<span class="banner_icon">함께해요</span>
 								<div class="banner_text_main">함께 성장할<br>스터디 메이트를 찾아요</div>
@@ -61,7 +53,6 @@
 						</li>
 						<li class="main_banner_item">
 							<div class="main_banner_img2"></div>
-							<!-- <img src="../../img/main_banner2.png"> -->
 							<div class="banner_text_box">
 								<span class="banner_icon">함께해요22</span>
 								<div class="banner_text_main">함께 성장할<br>동료를 찾아요</div>
@@ -70,7 +61,6 @@
 						</li>
 						<li class="main_banner_item">
 							<div class="main_banner_img3"></div>
-							<!-- <img src="../../img/main_banner3.png"> -->
 							<div class="banner_text_box">
 								<span class="banner_icon">함께해요00</span>
 								<div class="banner_text_main">함께 성장할<br>동료를 찾아요</div>
@@ -80,11 +70,9 @@
 					</ul>
 				<div class="main_btn_right"></div>
           </div>
-
         </article>
-
       </section>
-
+      
       <!-- info_banner -->
       <section class="info_area">
         <article class="info_area_top">
@@ -101,20 +89,15 @@
               <div class="show_window">
                 <div class="spot_container">
                   <div class="spot_banner_box">
-                  
-                  
                   	<c:forEach items="${spot}" var="sp" varStatus="vs" >
                     <div class="spot_item add_shadow" data-num="${sp.br_num}">
                       <div class="spot_img1"></div>
                       <div class="spot_content">
                         <div class="spot_name">[${sp.br_re_name}] ${sp.br_name}</div>
-                        <div class="spot_road_address">
-                          ${sp.br_road_address}<br>전화 : ${sp.br_tel}
-                      	</div>
+                        <div class="spot_road_address">${sp.br_road_address}</div>
+                      	<div class="spot_tel">전화 : ${sp.br_tel}</div>
                         <div class="spot_hidden_box">
 			          	  <div class="spot_address">${sp.br_address}</div>
-			          	  <div class="spot_new_address">${sp.br_road_address}</div>
-			          	  <div class="spot_tel">전화 : ${sp.br_tel}</div>
 			          	  <div class="br_capacity">전체 좌석 : ${sp.br_capacity}석</div>
 			          	</div>
                       </div>
@@ -239,7 +222,6 @@
         </article>
       </section>
   </main>   
-<%-- <script src="<c:url value='/resources/js/home/home.js'/>"> --%>
 <script>
 
 
@@ -319,7 +301,7 @@
 	$('.spot_item').click(function(){
 		  var spotName = $(this).find('.spot_name').text();
 		  var spotAdd = $(this).find('.spot_address').text();
-		  var spotNewAdd = $(this).find('.spot_new_address').text();
+		  var spotNewAdd = $(this).find('.spot_road_address').text();
 		  var spotTel = $(this).find('.spot_tel').text();
 		  var spotCapa = $(this).find('.br_capacity').text();
 
@@ -353,7 +335,7 @@
 	    recruitBanner = document.querySelectorAll('.recruit_banner_box'),
 	    recruitCurrentIdx = 0,
 	    recruitBannerCount = recruitBanner.length,
-	    recruitBannerWidth = 275.5,
+	    recruitBannerWidth = 276,
 	    recruitBannerMargin =28,
 	    recruitBtnLeft = document.querySelector('.recruit_btn_left'),
 	    recruitBtnRight = document.querySelector('.recruit_btn_right');

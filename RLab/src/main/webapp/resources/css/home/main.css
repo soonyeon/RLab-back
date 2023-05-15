@@ -211,7 +211,7 @@ main{
   padding-right: 5px;
   height: 595px;
 }
-.spot_content{padding: 5px 10px 5px 10px;}
+.spot_content{padding: 3px 10px;}
 .spot_item{
   border-radius: 10px;
   border: var(--border_basic);
@@ -223,7 +223,11 @@ main{
 .spot_name{
   font-size: 17px;
   font-weight: bold;
-  padding: 5px 0px 10px 0px;
+  padding: 0px 0px 5px 0px;
+}
+.spot_road_address{
+  height:36px;
+  overflow:hidden;
 }
 .spot_address{font-size: 14px;} 
 [class^=spot_img]{
@@ -308,20 +312,20 @@ main{
   position: relative;
 }
 .recruit_box{
-  width: 1208px;
+  width: 1200px;
   height: 350px;
   position: absolute;
   overflow: hidden;
 }
 .recruit_box_container{
   position: absolute;
-  left: 29px; 
+/*   left: 29px;  */
 }
 .recruit_box_container .animated{
   transition: o.5s ease-out;
 }
 .recruit_banner_box{
-  width: 275.5px;
+  width: 276px;
   height: 298px;
   float: left;
   margin-right: 22px;
