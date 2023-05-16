@@ -202,7 +202,7 @@
             <h4 class="notification_title">알림</h4>
             <span class="notification_content"></span>
         </div>
-    </div>
+    </div> 
 	<div class="alarm_modal display_none" id="alarmModal" style=" max-height: 200px; overflow-y: auto;">	
 		<div class="alarm_container">
 		    <c:forEach var="alarm" items="${alList}">
@@ -285,10 +285,80 @@ $(document).mouseup(function (e){
 	}
 });
 
+//아이디 찾기
+function findID() {
+let email = $("#email").val();
+$.ajax({
+  type: "POST",
+  url: "<c:url value='/findID'/>",
+  data: {
+    email: email
+  },
+  success: function(response) {
+    if (response === "found") {
+      alert("이메일로 아이디를 보냈습니다.");
+    } else {
+      alert("해당 이메일로 등록된 아이디가 없습니다.");
+    }
+  },
+  error: function() {
+    alert("이메일로 전송이 실패 했습니다.");
+  }
+});
+}
+
+//비밀번호 찾기
+function findPW() {
+let id = $("#findPW_id").val();
+let email = $("#findPW_email").val();
+$.ajax({
+  type: "POST",
+  url: "<c:url value='/findPW'/>",
+  data: {
+    id: id,
+    email: email
+  },
+  success: function(response) {
+    if (response === "found") {
+      alert("이메일로 임시번호를 보냈습니다.");
+    } else {
+      alert("해당 아이디와 이메일로 등록된 정보가 없습니다.");
+    }
+  },
+  error: function() {
+    alert("이메일로 전송이 실패 했습니다.");
+  }
+});
+}
+
+//로그아웃 버튼 클릭 이벤트
+$("#logout_btn").on("click", function() {
+ $.ajax({
+     url: '/logout',
+     type: 'POST',
+     success: function() {
+         location.reload();
+     },
+     error: function() {
+         console.log("Logout request failed");
+     }
+ });
+});
+
+$('.close_btn').click(function(e) {
+  e.preventDefault();
+  $('.modal_container').hide();
+});
+
+$('.logout_btn').click(function(e) {
+	e.preventDefault();
+	$(this).closest('form').submit();
+});
 
 </script>
 <script>
-var source=null;
+var source = null;
+
 // 스크롤 내리면 헤더에 그림자넣기
 $("body").on("mousewheel", function(e){
 	var wheel = e.originalEvent.wheelDelta;
@@ -302,68 +372,23 @@ $("body").on("mousewheel", function(e){
 	}
 });
 
-//아이디 찾기
-function findID() {
-  let email = $("#email").val();
-  $.ajax({
-    type: "POST",
-    url: "<c:url value='/findID'/>",
-    data: {
-      email: email
-    },
-    success: function(response) {
-      if (response === "found") {
-        alert("이메일로 아이디를 보냈습니다.");
-      } else {
-        alert("해당 이메일로 등록된 아이디가 없습니다.");
-      }
-    },
-    error: function() {
-      alert("이메일로 전송이 실패 했습니다.");
-    }
-  });
-}
-
-// 비밀번호 찾기
-function findPW() {
-  let id = $("#findPW_id").val();
-  let email = $("#findPW_email").val();
-  $.ajax({
-    type: "POST",
-    url: "<c:url value='/findPW'/>",
-    data: {
-      id: id,
-      email: email
-    },
-    success: function(response) {
-      if (response === "found") {
-        alert("이메일로 임시번호를 보냈습니다.");
-      } else {
-        alert("해당 아이디와 이메일로 등록된 정보가 없습니다.");
-      }
-    },
-    error: function() {
-      alert("이메일로 전송이 실패 했습니다.");
-    }
-  });
-}
-  
 // 알림
 $(document).ready(function() {
 	// 알람 누르면 알람 모달 보이기
-	$('.alarm_img').click(
-	function() {
+	$('.alarm_img').click(function() {
 		console.log('zlert');
-		$('#alarmModal').show();
+		$('.alarm_modal').show();
+		console.log('?')
 	})
 });
 
 // 모달 외 영역 눌리면 알림 모달 닫기
 $(document).mouseup(function (e){
-	if($("#alarmModal").has(e.target).length === 0){
-		$("#alarmModal").hide();
+	if($(".alarm_modal").has(e.target).length === 0){
+		$(".alarm_modal").hide();
 	}
 });
+
 //알림 삭제 버튼
 $(document).on("click",'.alarm_remove',function(){
 	let al_num = $(this).data('num');
@@ -378,33 +403,6 @@ $(document).on("click",'.alarm_remove',function(){
         }
     });
 });
-
-		
-// 로그아웃 버튼 클릭 이벤트
-$("#logout_btn").on("click", function() {
-    $.ajax({
-        url: '/logout',
-        type: 'POST',
-        success: function() {
-            location.reload();
-        },
-        error: function() {
-            console.log("Logout request failed");
-        }
-    });
-});
-
-$('.close_btn').click(function(e) {
-  e.preventDefault();
-  $('.modal_container').hide();
-});
-
-$('.logout_btn').click(function(e) {
-	e.preventDefault();
-	$(this).closest('form').submit();
-});
-
-
 
 connect();
 
@@ -513,7 +511,7 @@ function hideModal() {
     $("#notificationModal").fadeOut(300);
 }
 
-//페이지를 떠날 때 
+//페이지를 떠날 때 연결요청한 source 삭제
 $(window).on("beforeunload", function() {
 	if(source != null)
 		source.close();
