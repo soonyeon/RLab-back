@@ -54,7 +54,6 @@ td a{
 }
 .select_box_area{
   height: 29.5px;
-  margin-bottom: 10px;
   display: flex;
   flex-direction: row-reverse;
 }
@@ -71,8 +70,11 @@ table { border-collapse: collapse; }
 .board_list {
   border-bottom: 1px solid  var(--color_yellow);
 }
-td:hover {
-  background-color: rgba(128, 128, 128, 0.072);
+.list_item{
+	cursor: pointer;
+}
+.list_item:hover {
+  background-color: #f0ea585e;
 }
  
 .post_title{
