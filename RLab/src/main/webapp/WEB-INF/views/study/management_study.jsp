@@ -32,15 +32,12 @@
 	
 	        <div class="my_study_container" id="my_container">
 	            <div class="option_container">
-	            	<div>
-
-	            		
-	            	</div>         
 	                <div class="finish_box study_box">
 	                    <div class="sb_title">
 	                        <h3>스터디 완료 전환</h3>
-	                        <i class="icon_info info_1"></i>
-	                        <%-- <img class="icon_info info_1"src="<c:url value="/resources/img/info.png"></c:url>"> --%>
+	                        <i class="icon_info info_1">
+	                        	<img class="icon_img" src="<c:url value="/resources/img/info.png"></c:url>"> 
+	                        </i>
 	                        <div class="info_modal info_finish display_none">
 	                            완료된 스터디로 전환 시 스터디 활동이 일부 제한되며, 자유게시판만 사용가능합니다. <br>
 	                            목표를 달성하거나 일정이 모두 완료된 경우에만 전환할 것을 권유드립니다.
@@ -56,8 +53,9 @@
 	                <div class="remove_box study_box">
 	                    <div class="sb_title">
 	                        <h3>스터디 영구 삭제</h3>
-	                        <i class="icon_info info_2"></i>
-	                        <%-- <img class="icon_info info_2"src="<c:url value="/resources/img/info.png"></c:url>"> --%>
+	                        <i class="icon_info info_2">
+	                         <img class="icon_img" src="<c:url value="/resources/img/info.png"></c:url>"> 
+	                        </i>
 	                        <div class="info_modal info_delete display_none">
 	                            스터디 삭제 시 스터디에올라온 게시글, 인증내역, 일정, 회원정보 등
 	                            모든 정보가 함께 삭제되며 해당 스터디에 접근이 불가합니다.
