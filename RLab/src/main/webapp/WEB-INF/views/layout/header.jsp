@@ -376,9 +376,7 @@ $("body").on("mousewheel", function(e){
 $(document).ready(function() {
 	// 알람 누르면 알람 모달 보이기
 	$('.alarm_img').click(function() {
-		console.log('zlert');
 		$('.alarm_modal').show();
-		console.log('?')
 	})
 });
 
@@ -422,7 +420,7 @@ function connect() {
         console.log("SSE error:", event);
     };
     
-    source.addEventListener("newComment", function (event) {
+    source.addEventListener("newComment", function(event) {
     	console.log('새댓글');
     	//이벤트가 일어날 일을 여기밑에다가 쓰기
 	   const data = JSON.parse(event.data);
@@ -504,11 +502,11 @@ function reloadAlarmModal(){
 function showModal(title, message) {
     $(".notification_title").text(title);
     $(".notification_content").text(message);
-    $("#notificationModal").fadeIn(300);
+    $(".notification_modal").fadeIn(300);
 }
 
 function hideModal() {
-    $("#notificationModal").fadeOut(300);
+    $(".notification_modal").fadeOut(300);
 }
 
 //페이지를 떠날 때 연결요청한 source 삭제

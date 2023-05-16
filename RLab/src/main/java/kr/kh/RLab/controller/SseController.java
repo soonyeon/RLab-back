@@ -36,8 +36,6 @@ public class SseController {
     private static final Logger logger = LoggerFactory.getLogger(SseController.class);
 
     @Autowired
-    private BoardService boardService;
-    @Autowired
     private StudyService studyService;
     @Autowired
     private NotificationService notificationService;
