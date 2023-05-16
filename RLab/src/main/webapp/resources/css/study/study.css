@@ -122,19 +122,33 @@ footer .corp_container .link_corp:nth-child(1)::before{
 	background-color: red;
 	color: white;
 }
-
+.manage_btn{
+	width: 160px;
+	padding: 10px;
+	box-sizing: border-box;
+	border: 1px solid var(--color_blue);
+    color: var(--color_blue);
+    font-size: 12px;
+	text-align: center;
+	border-radius: var(--border_radius_4);
+}
+.manage_btn:hover{
+	background-color: var(--color_blue);
+	color: white;
+}
 /* 왼쪽 메뉴바 */
 .left_menu_container{
   display: flex;
   justify-content: center;
   align-items: flex-start;
   width: 200px;
-  height: 430px;
+  height: 375px;
   padding: 60px 20px;
   border: 2px solid #020a17;
   border-radius: var(--border_radius_2);
   box-sizing: border-box;
   background-color: var(--color_beige);
+  margin-top: 43px;
 }
 .left_menu_container .left_menu{
   display: flex;
@@ -148,6 +162,11 @@ footer .corp_container .link_corp:nth-child(1)::before{
 .left_menu a:visited {
   font-weight: bold; 
   /*클릭했을때 굵어지면서 검정색으로 바뀌게 나중에 수정 */
+}
+.left_bottom_menu{
+	display: flex;
+	flex-flow: column;
+	gap: 10px;
 }
 /* 컨텐츠 */
 .home_container {

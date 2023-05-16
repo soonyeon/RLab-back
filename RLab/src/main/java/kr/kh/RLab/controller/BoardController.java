@@ -15,18 +15,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.kh.RLab.pagination.BoardCriteria;
-import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.pagination.PageMaker;
 import kr.kh.RLab.service.BoardService;
 import kr.kh.RLab.service.CommentService;
 import kr.kh.RLab.service.ScrapService;
+import kr.kh.RLab.service.StudyService;
 import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.CommentVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.ScrapVO;
 import kr.kh.RLab.vo.StudyVO;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @RequiredArgsConstructor
 @Controller
@@ -38,6 +37,8 @@ public class BoardController {
 	private final ScrapService scrapService;
 	@Autowired
 	private final CommentService commentService;
+	@Autowired
+	private final StudyService studyService;
 	
 	@GetMapping("/insert/{st_num}")
 	public ModelAndView boardInsert(@PathVariable int st_num, ModelAndView mv,HttpSession session) {
@@ -58,15 +59,20 @@ public class BoardController {
 	    return mv;
 	}
 	@GetMapping("/list/{st_num}")
-	public ModelAndView boardList(ModelAndView mv,BoardCriteria cri, @PathVariable int st_num) {
+	public ModelAndView boardList(HttpSession session, ModelAndView mv,BoardCriteria cri, @PathVariable int st_num) {
+		MemberVO user = (MemberVO) session.getAttribute("user");
 		cri.setPerPageNum(10); // 한 페이지당 컨텐츠 갯수
 	    int totalCount = boardService.getCount();
 	    PageMaker pm = new PageMaker(totalCount, 10, cri);
 	    ArrayList<BoardVO> boardList = boardService.selectBoardList(cri,st_num);
+	    // 스터디 관리
+	    int leaderCount = studyService.getLeaderCount(user.getMe_id());
+	    
 	    mv.addObject("st_num", st_num);
 	    mv.addObject("pm", pm);
 	    mv.addObject("boardList", boardList);
 	    mv.addObject("sort", cri.getSort());
+		mv.addObject("leaderCount", leaderCount);
 	    mv.setViewName("/board/list");
 	    return mv;
 	}

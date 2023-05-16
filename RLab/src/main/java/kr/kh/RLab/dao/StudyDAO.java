@@ -151,4 +151,6 @@ public interface StudyDAO {
 
 	ArrayList<MemberVO> selectMemberByMemberId(String me_id);
 
+	int selectLeaderCount(String me_id);
+
 }

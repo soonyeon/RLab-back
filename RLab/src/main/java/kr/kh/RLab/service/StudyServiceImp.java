@@ -369,6 +369,11 @@ public class StudyServiceImp implements StudyService {
 		return studyDao.selectMemberByMemberId(me_id);
 	}
 
+	@Override
+	public int getLeaderCount(String me_id) {
+		return studyDao.selectLeaderCount(me_id);
+	}
+
 
 
 }

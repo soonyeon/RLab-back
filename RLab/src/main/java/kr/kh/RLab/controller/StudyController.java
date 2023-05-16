@@ -82,12 +82,17 @@ public class StudyController {
 			likeCounts.put(li_ph_num, likeCount);
 			userLikes.put(li_ph_num, userLike != null && userLike.getLi_state() == 1);
 		}
+		
+		// 스터디 관리 페이지에 들어가기 위해 내가 스터디장으로 있는 스터디가 있는지 알아보는 메소드
+		int leaderCount = studyService.getLeaderCount(user.getMe_id());
+		
 		model.addAttribute("mf", mf);
 		model.addAttribute("memberId", member);
 		model.addAttribute("ptList", phototypeList);
 		model.addAttribute("photos", photos);
 		model.addAttribute("likeCounts", likeCounts);
 		model.addAttribute("userLikes", userLikes);
+		model.addAttribute("leaderCount", leaderCount);
 		return "/study/photo";
 	}
 
@@ -181,6 +186,8 @@ public class StudyController {
 		ArrayList<StudyVO> stList = studyService.getUserStudyList(user.getMe_id());
 		StudyVO nowStudy = studyService.getStudy(st_num);
 		StudyVO favoriteStudy = studyService.getStudy(user.getMe_study());
+		// 스터디 관리 페이지에 들어가기 위해 내가 스터디장으로 있는 스터디가 있는지 알아보는 메소드
+		int leaderCount = studyService.getLeaderCount(user.getMe_id());
 		// 해당 user가 가입한 스터디가 1개도 없으면 다른 경로로 리다이렉트
 		if (study == null) {
 			mv.addObject("msg", "로그인 후 사용가능한 기능입니다.");
@@ -191,7 +198,7 @@ public class StudyController {
 		double todoProgressRate = studyService.getTodoProgressRate(memberId);
 	    int todoProgressRateint= (int) Math.round(todoProgressRate);
 	    mv.addObject("todoProgressRateint",todoProgressRateint);
-	    
+	    System.out.println("leaderCount" +leaderCount);
 	    //board
 	    ArrayList<BoardVO> boardList = boardService.selectBoardListByStNum(st_num);
 	    mv.addObject("boardList", boardList);
@@ -208,6 +215,7 @@ public class StudyController {
 		mv.addObject("now", nowStudy);
 		mv.addObject("favorite", favoriteStudy);
 		mv.addObject("userId", user.getMe_name());
+		mv.addObject("leaderCount", leaderCount);
 		mv.setViewName("/study/study_basic");
 		return mv;
 	}
@@ -263,7 +271,12 @@ public class StudyController {
 		ArrayList<StudyMemberVO> memberList = studyService.getStudyMemberList(st_num, cri);
 		int totalCount = studyService.getStudyTotalCount(st_num);
 		PageMaker pm = new PageMaker(totalCount, 5, cri);
+		
+		String memberId = user.getMe_id();
+		ArrayList<StudyVO> myStudyList = studyService.getStudyListById(memberId);
+		
 		// "myStudyList" 키와 함께 연구 목록을 ModelAndView 객체에 추가
+		mv.addObject("myStudyList", myStudyList);
 		mv.addObject("memberList", memberList);
 		mv.addObject("st_num", st_num);
 		mv.addObject("pm", pm);
@@ -307,6 +320,9 @@ public class StudyController {
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		String memberId = user.getMe_id();
 		int st_state = studyService.getStudyState(st_num);
+		
+		ArrayList<StudyVO> myStudyList = studyService.getStudyListById(memberId);
+		mv.addObject("myStudyList", myStudyList);
 		mv.addObject("user", user);
 		mv.addObject("st_num", st_num); // 스터디 넘버를 ModelAndView에 추가
 		mv.addObject("st_state", st_state);
@@ -393,11 +409,13 @@ public class StudyController {
 	        member.setMe_prog_rate(membersTdProgRateint);
 	        stMemberProgRateList.add(member);
 	    }
-	    System.out.println("++++++"+stMemberProgRateList);
+	   // System.out.println("++++++"+stMemberProgRateList);
 	    
 	  //나의 펫 데려오기
 	  GrowthVO myPet = mypageService.selectMyPet(memberId);
-   
+	  // 스터디 관리
+	  int leaderCount = studyService.getLeaderCount(user.getMe_id());
+	  
 	    mv.addObject("myStudyList", myStudyList);
 	    mv.addObject("tdList", tdList);
 	    mv.addObject("memberId",memberId);
@@ -406,6 +424,7 @@ public class StudyController {
 	    mv.addObject("stMemberTodo",stMemberTodo);
 	    mv.addObject("todoProgressRateint",todoProgressRateint);
 	    mv.addObject("stMemberProgRateList",stMemberProgRateList);
+	    mv.addObject("leaderCount", leaderCount);
 	    mv.setViewName("/study/to_do_list");
 	    return mv;
 	}
@@ -485,16 +504,19 @@ public class StudyController {
 	// 데일리미션 페이지
 	@GetMapping("/daily/{st_num}")
 	public ModelAndView studyInsert(ModelAndView mv, HttpServletRequest request, @PathVariable("st_num") int st_num) {
-		System.out.println(new Date());
+		//System.out.println(new Date());
 		MemberVO user = (MemberVO) request.getSession().getAttribute("user");
 		ArrayList<StudyMemberVO> studyMember = studyService.selectStudyMemberByStNum(st_num);
 		Integer authority = studyService.selectSmAuthority(user, st_num);
 		MissionVO mission = studyService.selectMission(st_num);
 		ArrayList<String> mfList = studyService.selectMissionFinishMember(st_num);
+		// 스터디 관리
+	    int leaderCount = studyService.getLeaderCount(user.getMe_id());
 		mv.addObject("mfList", mfList);
 		mv.addObject("mission", mission);
 		mv.addObject("authority", authority);
 		mv.addObject("studyMember", studyMember);
+		mv.addObject("leaderCount", leaderCount);
 		mv.setViewName("/study/daily");
 		return mv;
 	}

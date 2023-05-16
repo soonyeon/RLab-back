@@ -7,10 +7,14 @@
 	align-items: center;
 	justify-content: space-between;
 }
+.time_line_title{
+	display: flex;
+	justify-content: center;
+}
 .content_container{
-  height: 1050px;
   display: flex;
   flex-flow: column;
+  gap: 50px;
 }
 /* tab */
 .tab-content {
@@ -46,7 +50,6 @@
 	background-color: var(--color_mint);
 }
 
-
 .tab {
 	background-color: var(--color_light-grey);
 }
@@ -68,14 +71,24 @@
   border-radius: 5px;
 }
 
-.slect_study_box .btn_choose{width: 100px;}
-/* main */
+.slect_study_box .btn_choose{
+	width: 90px;
+    border-radius: var(--border_radius_4);
+    border: none;
+    background-color: var(--color_yellow);
+    font-weight: 700;
+    padding: 10px;
+    box-sizing: border-box;
+}
+.slect_study_box .btn_choose:hover{
+	background-color:#e4de3f;
+}
 
+/* main */
 main #main_container{
     width: 100%;
-		display: flex;
-		justify-content: space-between;
-		gap: 30px;
+	display: flex;
+	justify-content: center;
 }
 #my_container {
 	width: 710px;
@@ -195,8 +208,8 @@ table {
 
 .table_area .slect_study_box{
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
+  justify-content: center;
+  gap: 20px;
 }
 .table_area .select_study_title{line-height: 2.2em;}
 .table_area .slect_study_list{
@@ -257,9 +270,11 @@ table {
 
 .selected.tab1{
   background-color: var(--color_blue);
+  font-weight: 700;
 }
 .selected.tab2{
   background-color: var(--color_mint);
+  font-weight: 700;
 }
 
 /* 넘기기 버튼 */

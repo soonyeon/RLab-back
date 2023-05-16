@@ -7,6 +7,7 @@
 	align-items: center;
 	justify-content: space-between;
 }
+/*
 .content_container{
   height: 1050px;
   display: flex;
@@ -51,7 +52,6 @@
 	background-color: var(--color_light-grey);
 }
 
-
 /* 나의 게시글, 나의 스크랩에서만 헤더가 이상함*/
 .top_menu_container{
   line-height: 50px;
@@ -75,6 +75,7 @@ main{
   width: 1200px;
 	/* margin-top: 150px; */
 }
+/*
 main #main_container{
     width: 100%;
 		display: flex;
@@ -93,8 +94,20 @@ main #main_container{
 	box-sizing: border-box;
 	z-index: 10;
   	overflow: hidden;
+}*/
+#my_container_study{
+	display: flex;
+	justify-content: center;
+    align-items: center;
+	width: 710px;
+	border: var(--border_basic); 
+	border-radius: var(--border_radius_4);
+	padding: 110px;
+	background-color: var(--color_beige);
+	box-sizing: border-box;
+	z-index: 10;
+  	overflow: hidden;
 }
-
 .option_container{
   display: flex;
   flex-flow: column;
