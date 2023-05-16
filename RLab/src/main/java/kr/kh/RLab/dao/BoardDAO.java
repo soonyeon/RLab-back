@@ -37,4 +37,8 @@ public interface BoardDAO {
 
 	ArrayList<BoardVO> findBoardById(String me_id);
 
+	StudyVO selectStudy(int st_num);
+
+	ArrayList<BoardVO> selectBoardListByStNum(int st_num);
+
 }

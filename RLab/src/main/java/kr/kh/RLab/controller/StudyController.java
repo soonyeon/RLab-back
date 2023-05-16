@@ -26,10 +26,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.pagination.PageMaker;
+import kr.kh.RLab.service.BoardService;
 import kr.kh.RLab.service.MypageService;
 import kr.kh.RLab.service.NotificationService;
 import kr.kh.RLab.service.StudyService;
 import kr.kh.RLab.vo.AlarmVO.AlarmType;
+import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.GrowthVO;
 import kr.kh.RLab.vo.LikeVO;
 import kr.kh.RLab.vo.MemberVO;
@@ -51,6 +53,7 @@ public class StudyController {
 
 	private final StudyService studyService;
 	private final MypageService mypageService;
+	private final BoardService boardService;
 	private final NotificationService notificationService;
 	private final SseController sseController;
 
@@ -194,7 +197,11 @@ public class StudyController {
 		double todoProgressRate = studyService.getTodoProgressRate(memberId);
 	    int todoProgressRateint= (int) Math.round(todoProgressRate);
 	    mv.addObject("todoProgressRateint",todoProgressRateint);
-		
+	    
+	    //board
+	    ArrayList<BoardVO> boardList = boardService.selectBoardListByStNum(st_num);
+	    mv.addObject("boardList", boardList);
+	    System.out.println("=========================================="+boardList);
 		
 		ArrayList<TodoVO> tdList = studyService.getTodoList(user.getMe_id());
 		mv.addObject("tdList", tdList);
