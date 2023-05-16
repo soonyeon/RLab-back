@@ -832,6 +832,14 @@ cursor: pointer;
   overflow: hidden;
   font-size: 14px;
 }
+.accessor::-webkit-scrollbar {
+	width: 10px;
+	background-color: red;
+}
+.accessor::-webkit-scrollbar-thumb{
+	background-color: red;
+}
+.accessor::-webkit-scrollbar-track
 /*.time_line_title{
   margin-left: 30px;
   font-weight: bold;
