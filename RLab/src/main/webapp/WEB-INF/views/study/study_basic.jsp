@@ -144,7 +144,7 @@ body {
 			<div class="home_container">
 				<div class="tab_container">
 					<div class="tabs">
-						<div class="tab_box tab1 tab">
+						<div class="tab_box tab1 tab tab1_selected">
 							<!--<input type="radio" id="tab1" name="tab_control" checked>
 							<label for="tab1" class="">달력</label>  -->
 							<p>달력</p>
