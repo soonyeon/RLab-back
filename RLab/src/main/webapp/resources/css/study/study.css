@@ -740,7 +740,8 @@ cursor: pointer;
   width: 210px;
   min-height: 200px;
   box-sizing: border-box;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   height: 520px;
 }
 .title_circle{
@@ -758,9 +759,6 @@ cursor: pointer;
   display: flex;
   gap: 20px;
   align-items: center;
-  text-overflow: ellipsis;
-  overflow-y: auto;
-  overflow-x: hidden;
   white-space: nowrap;
 }
 .study_title{
@@ -818,10 +816,11 @@ cursor: pointer;
   vertical-align: 10px;  
   margin: 0;
 }
-.member_name{
+.member_name, .study_name{
+	width: 38%;
 	overflow: hidden;
     text-overflow: ellipsis;
-}
+}/*
 .study_name {
   width: 81.1px;
   text-align: center;
@@ -831,15 +830,18 @@ cursor: pointer;
   white-space:nowrap;
   overflow: hidden;
   font-size: 14px;
-}
+}*/
 .accessor::-webkit-scrollbar {
-	width: 10px;
-	background-color: red;
+	width: 5px;
+	border-radius: var(--border_radius_4);
 }
 .accessor::-webkit-scrollbar-thumb{
-	background-color: red;
+	background-color: grey;
+	border-radius: var(--border_radius_4);
 }
-.accessor::-webkit-scrollbar-track
+.accessor::-webkit-scrollbar-track{
+	background-color: lightgrey;
+}
 /*.time_line_title{
   margin-left: 30px;
   font-weight: bold;
