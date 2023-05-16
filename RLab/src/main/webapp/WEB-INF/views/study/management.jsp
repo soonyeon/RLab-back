@@ -23,6 +23,8 @@
 				</div>
 				<a href="#" class="leave_btn">탈퇴하기</a>
 			</div>
+	<div class="management_container">
+		<div class="time_line_title">스터디 관리</div>
 	    <div class="content_container">
 	        <!-- 탭 -->
 	        <div class="tab_container">
@@ -51,6 +53,7 @@
 	            </div>
 	        </div>
 	    </div>
+	</div>
 	    <!-- 오른쪽 메뉴 -->
 	    <aside>
 	        <div class="right-container">

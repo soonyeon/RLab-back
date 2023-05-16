@@ -40,11 +40,12 @@ td a{
 	overflow: hidden;
 	box-sizing: border-box;
 }
+/*
 .home_container{
 	display: flex;
     flex-flow: column;
     gap: 20px;
-}
+}*/
 
 .tab_content{
 	display: flex;
