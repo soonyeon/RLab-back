@@ -29,7 +29,6 @@
  	position: relative;
     display: flex;
     justify-content: center;
-    align-items: center;
     border-radius: var(--border_radius_4);
     border: var(--border_light);
     box-shadow: var(--shadow);
@@ -39,8 +38,15 @@
     height: 600px;
     background-color: #fff;
     margin-left: 20px;
+    padding: 20px;
   }
-  
+  .profile_box{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .feed_date{line-height: 2;}
   .time_line_container2::-webkit-scrollbar {
     width: 5px;
     height: 5px;
@@ -49,7 +55,7 @@
     background-color: var(--color_black);
     border-radius: 10px;
   }
-  
+  .today_feed_board .board{padding:10px;}
   .circle_btn {
     display: inline-block;
     background-color: var(--color_blue);
