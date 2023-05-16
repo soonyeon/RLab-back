@@ -32,10 +32,16 @@
 	
 	        <div class="my_study_container" id="my_container">
 	            <div class="option_container">
-	            	<div>
-
-	            		
-	            	</div>         
+					<div class="edit_box study_box">
+	                	<div class="sb_title">
+	                		<h3>스터디 수정</h3>
+	                	</div>
+	                	<a  href="<c:url value='/study/updateStudy/${st_num}'></c:url>" >
+	                		<button class="btn_edit" >스터디 수정</button>
+	                	</a>
+	                	
+	                	
+	                </div>       
 	                <div class="finish_box study_box">
 	                    <div class="sb_title">
 	                        <h3>스터디 완료 전환</h3>
@@ -65,6 +71,7 @@
 	                    </div>
 	                    	<button class="btn_delete">스터디 삭제</button>
 	                </div>
+	                
 	            </div>
 	        </div>
 	    </div>

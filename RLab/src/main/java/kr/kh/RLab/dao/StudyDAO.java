@@ -15,6 +15,7 @@ import kr.kh.RLab.vo.PhotoTypeVO;
 import kr.kh.RLab.vo.PhotoVO;
 import kr.kh.RLab.vo.StudyMemberVO;
 import kr.kh.RLab.vo.StudyVO;
+import kr.kh.RLab.vo.TagRegisterVO;
 import kr.kh.RLab.vo.TodoVO;
 
 public interface StudyDAO {
@@ -155,5 +156,11 @@ public interface StudyDAO {
 	ArrayList<MemberVO> selectMemberByMemberId(String me_id);
 
 	MissionVO selectTodayMission(int st_num);
+
+	StudyVO selectStudy(int st_num);
+
+	FileVO selectFileByStNum(int st_num);
+
+	ArrayList<TagRegisterVO> selectTagListByStNum(@Param("st_num")int st_num);
 
 }

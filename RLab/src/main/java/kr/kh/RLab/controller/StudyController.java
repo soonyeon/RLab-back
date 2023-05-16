@@ -30,6 +30,8 @@ import kr.kh.RLab.service.MypageService;
 import kr.kh.RLab.service.NotificationService;
 import kr.kh.RLab.service.StudyService;
 import kr.kh.RLab.vo.AlarmVO.AlarmType;
+import kr.kh.RLab.vo.FileVO;
+import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.GrowthVO;
 import kr.kh.RLab.vo.LikeVO;
 import kr.kh.RLab.vo.MemberVO;
@@ -39,6 +41,7 @@ import kr.kh.RLab.vo.PhotoTypeVO;
 import kr.kh.RLab.vo.PhotoVO;
 import kr.kh.RLab.vo.StudyMemberVO;
 import kr.kh.RLab.vo.StudyVO;
+import kr.kh.RLab.vo.TagRegisterVO;
 import kr.kh.RLab.vo.TodoVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -572,4 +575,19 @@ public class StudyController {
 		session.setAttribute("user", user);
 		return map;
 	}
+	
+	//스터디 수정
+	@GetMapping("/updateStudy/{st_num}")
+	public ModelAndView studyUpdate(ModelAndView mv,HttpServletRequest request,@PathVariable("st_num")int st_num) {
+		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
+		StudyVO study = studyService.selectStudy(st_num);
+		FileVO file =  studyService.selectFileByStNum(st_num);
+		ArrayList<TagRegisterVO> tagList =  studyService.selectTagListByStNum(st_num);
+		mv.addObject("tagList",tagList);
+		mv.addObject("file",file);
+		mv.addObject("study",study);
+		mv.setViewName("/study/updateStudy");
+		return mv;
+	}
+
 }

@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import kr.kh.RLab.dao.StudyDAO;
 import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.utils.UploadFileUtils;
+import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.LikeVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.MissionFinishVO;
@@ -17,6 +18,7 @@ import kr.kh.RLab.vo.PhotoTypeVO;
 import kr.kh.RLab.vo.PhotoVO;
 import kr.kh.RLab.vo.StudyMemberVO;
 import kr.kh.RLab.vo.StudyVO;
+import kr.kh.RLab.vo.TagRegisterVO;
 import kr.kh.RLab.vo.TodoVO;
 import lombok.RequiredArgsConstructor;
 
@@ -380,6 +382,21 @@ public class StudyServiceImp implements StudyService {
 	@Override
 	public MissionVO selectTodayMission(int st_num) {
 		return studyDao.selectTodayMission(st_num);
+	}
+
+	@Override
+	public StudyVO selectStudy(int st_num) {
+		return studyDao.selectStudy(st_num);
+	}
+
+	@Override
+	public FileVO selectFileByStNum(int st_num) {
+		return studyDao.selectFileByStNum(st_num);
+	}
+
+	@Override
+	public ArrayList<TagRegisterVO> selectTagListByStNum(int st_num) {
+		return studyDao.selectTagListByStNum(st_num);
 	}
 
 

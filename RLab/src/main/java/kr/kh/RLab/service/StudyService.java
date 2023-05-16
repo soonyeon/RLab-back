@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.kh.RLab.pagination.Criteria;
+import kr.kh.RLab.vo.FileVO;
 import kr.kh.RLab.vo.LikeVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.MissionFinishVO;
@@ -14,6 +15,7 @@ import kr.kh.RLab.vo.PhotoTypeVO;
 import kr.kh.RLab.vo.PhotoVO;
 import kr.kh.RLab.vo.StudyMemberVO;
 import kr.kh.RLab.vo.StudyVO;
+import kr.kh.RLab.vo.TagRegisterVO;
 import kr.kh.RLab.vo.TodoVO;
 
 public interface StudyService {
@@ -127,6 +129,12 @@ public interface StudyService {
 	ArrayList<MemberVO> selectMemberByMemberId(String me_id);
 
 	MissionVO selectTodayMission(int st_num);
+
+	StudyVO selectStudy(int st_num);
+
+	FileVO selectFileByStNum(int st_num);
+
+	ArrayList<TagRegisterVO> selectTagListByStNum(int st_num);
 
 
 
