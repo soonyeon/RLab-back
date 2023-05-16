@@ -3,12 +3,12 @@
 
 
 
-.clearfix{
+/* .clearfix{
 	margin: 0px !important;
 }
 main{
   margin-top: 0px !important;
-}
+} */
 /* ----------------------------------------------------------------- */
 .main_container{
   width: 1200px;
@@ -352,13 +352,13 @@ main{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  height: 52px;
+  height: 47px;
   overflow: hidden;
   padding-bottom: 5px;
 }
 .recruit_banner_tag span{
   font-size: 12px;
-  padding: 3px 8px 6px;
+  padding: 4px 8px 7px;
   margin: 2px;
   height: 10px;
   border-radius: var(--border_radius_3);
@@ -374,7 +374,7 @@ main{
 .recruit_banner_title{
   font-size: 17px;
   font-weight: bold;
-  margin: 8px 0px 15px 0px;
+  margin: 14px 0px 15px 0px;
   height: 25px;
   overflow: hidden;
 }
