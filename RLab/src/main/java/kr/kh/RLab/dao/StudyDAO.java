@@ -154,4 +154,6 @@ public interface StudyDAO {
 
 	ArrayList<MemberVO> selectMemberByMemberId(String me_id);
 
+	MissionVO selectTodayMission(int st_num);
+
 }

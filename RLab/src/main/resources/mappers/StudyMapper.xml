@@ -283,4 +283,7 @@
 <select id="selectMemberByMemberId" resultType="kr.kh.RLab.vo.MemberVO">
 	select * from member where me_id = #{me_id}
 </select>
+<select id="selectTodayMission" resultType="kr.kh.RLab.vo.MissionVO">
+	select * from mission where mi_st_num = #{st_num} and mi_date = CURDATE();
+</select>
 </mapper>

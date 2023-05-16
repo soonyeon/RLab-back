@@ -45,9 +45,10 @@ public class WantServiceImp implements WantService{
 		return result;
 	}
 
+
 	@Override
-	public int selectGaNumByStNum() {
-		return wantDAO.selectGaNumByStNum();
+	public int selectGaNumByStNum(int st_num) {
+		return wantDAO.selectGaNumByStNum(st_num);
 	}
 	
 }

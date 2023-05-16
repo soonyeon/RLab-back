@@ -64,6 +64,7 @@ public class StudyController {
 		MemberVO member = (MemberVO) request.getSession().getAttribute("user");
 		ArrayList<StudyVO> study = studyService.getStudyByMemberId(member.getMe_id());
 		MissionFinishVO mf = studyService.selectTodayMissionFinsh(member.getMe_id());
+		
 		if (study == null) {
 			return "redirect:/";
 		}
@@ -79,6 +80,7 @@ public class StudyController {
 			likeCounts.put(li_ph_num, likeCount);
 			userLikes.put(li_ph_num, userLike != null && userLike.getLi_state() == 1);
 		}
+		
 		model.addAttribute("mf", mf);
 		model.addAttribute("memberId", member);
 		model.addAttribute("ptList", phototypeList);
@@ -98,6 +100,16 @@ public class StudyController {
 		photoVO.setPh_st_num(st_num);
 		photoVO.setPh_content(content);
 		photoVO.setPh_pt_num(Integer.parseInt(ph_pt_num));
+
+		MissionVO mission = studyService.selectTodayMission(st_num);
+		if(mission == null && photoVO.getPh_pt_num() == 2) {
+			return "noMission";
+		}
+		MissionFinishVO mf = studyService.selectTodayMissionFinsh(member.getMe_id());
+		
+		if(mf != null && photoVO.getPh_pt_num() == 2) {
+			return "already";
+		}
 		if (photoVO.getPh_pt_num() == 2) {
 			studyService.insertMissionFinishMember(member, st_num);
 		}

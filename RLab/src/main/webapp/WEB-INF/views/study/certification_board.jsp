@@ -40,7 +40,7 @@
 											            	<label for="category">카테고리 선택</label>
 											                <select id="ph_pt_num" name="ph_pt_num">
 										                		<c:forEach var="pt" items="${ptList}">
-											                    <option value="${pt.pt_num}">${pt.pt_name}</option>
+											                   	 <option value="${pt.pt_num}">${pt.pt_name}</option>
 										                		</c:forEach>
 											                </select>
 										                </div>
@@ -261,8 +261,9 @@ $(document).ready(function() {
 			$("#modal").hide();
 		}
 	});
-$("button").click(function(e){
-	if(${mf == null}){
+	$("button").click(function(e){
+		
+		
 		 e.preventDefault();
 		    let formData = new FormData();
 		    formData.append('photo', $('#photo')[0].files[0]);
@@ -281,6 +282,10 @@ $("button").click(function(e){
 		            if(response === "success"){
 		                alert("인증이 등록되었습니다.");
 		                location.reload();
+		            }else if(response === "already"){
+		            	alert("이미 오늘의 인증을 완료했습니다.")
+		            }else if(response == "noMission"){
+		     			alert("오늘의 미션이 아직 등록되지 않았습니다.")	
 		            }else{
 		                alert("인증 등록에 실패했습니다.");
 		            }
@@ -289,13 +294,9 @@ $("button").click(function(e){
 		            console.log(e);
 		        }
 		    });
-		   
-		}else{
-			alert("이미 오늘의 인증을 완료하였습니다.");
-			modal.hide();
-		}
-});
+		
 
+});
 
 $(".feed_like_img").on("click", function () {
     const li_ph_num = $(this).data("photo-id");

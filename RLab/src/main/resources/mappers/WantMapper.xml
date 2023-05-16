@@ -23,7 +23,7 @@
 	    wa_ga_num=#{wa_ga_num}
   </update>
   <select id="selectGaNumByStNum" resultType="int">
-  	select * from want
-  	where wa_ga_num = #{wa_ga_num}
+  	select ga_num from gather
+  	where ga_st_num = #{st_num}
   </select>
 </mapper>

@@ -132,7 +132,7 @@
 															<span>/</span> 
 															<span>${stList.get(index).st_total_people}</span>
 														</div>
-														<div class="want_icon">
+														<div class="want_icon" data-num="${stList.get(index).st_num }">
 															<c:if test="${user == null}" >
 																<div class="unlike_img"></div>
 															</c:if>
@@ -248,21 +248,21 @@ $(document).on('click','.hashTag', function(){
 
 //모집글 좋아요
 const userId = '${user.me_id}'; 
-const gatherNum = '${.ga_num}';
 
 $(document).ready(function() {
   $('.want_icon').on('click', function() {
-    want();
+	  const  studyNum = $(this).data('num');
+	want(studyNum);
   });
   
-  function want() {
+  function want(studyNum) {
 	    // 데이터
 	    var requestData = {
 	      wa_me_id: userId,
-	      wa_ga_num: gatherNum
+	      st_num: studyNum
 	    };
 	    $.ajax({
-	      url: '<c:url value="/want" />',
+	      url: '<c:url value="/wantst" />',
 	      type: 'POST',
 	      contentType: "application/json",
 	      data: JSON.stringify(requestData),

@@ -159,6 +159,7 @@
 							<span>${st.st_total_people}</span>
 		                  </div>
 		                  <!-- 스터디 좋아요 -->
+		                  
 							<c:if test="${user == null}">
 								<div class="unlike_btn"></div>
 							</c:if>
@@ -473,8 +474,9 @@
 	    
 	  }
 	}	
-
-
+	  
+	
+	
 
 </script>
 </body>

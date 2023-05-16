@@ -376,6 +376,12 @@ public class StudyServiceImp implements StudyService {
 		return studyDao.selectMemberByMemberId(me_id);
 	}
 
+	//오늘미션찾기
+	@Override
+	public MissionVO selectTodayMission(int st_num) {
+		return studyDao.selectTodayMission(st_num);
+	}
+
 
 
 
