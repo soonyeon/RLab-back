@@ -213,8 +213,24 @@ footer .corp_container .link_corp:nth-child(1)::before{
   z-index: 3;
 }
 .tab{
+	padding: 10px 20px;
+	background-color: lightgray;
+	cursor: pointer;
 	border-radius: var(--border_radius_4);
 }
+.tab1_selected{
+	background-color: var(--color_blue);
+}
+.tab2_selected{
+	background-color: var(--color_mint);
+}
+.tab1:hover{
+	background-color: var(--color_blue);
+}
+.tab2:hover{
+	background-color: var(--color_mint);
+}
+/*
 .tab:nth-child(2) {
   left: 109px;
   z-index: 2;
@@ -223,6 +239,7 @@ footer .corp_container .link_corp:nth-child(1)::before{
   left: 216px;
   z-index: 1;
 }
+
 .tab1 input[type="radio"]:checked  {
   background-color: var(--color_blue); 
 }
@@ -236,7 +253,7 @@ input[type="radio"] {
   padding: 10px 20px;
   background-color: lightgray;
   cursor: pointer;
-}
+}*/
 .tab-content {
   padding: 20px;
   background-color: white;
