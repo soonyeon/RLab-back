@@ -1,5 +1,6 @@
 package kr.kh.RLab.controller;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -18,15 +19,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import kr.kh.RLab.service.BoardService;
 import kr.kh.RLab.service.NotificationService;
 import kr.kh.RLab.service.StudyService;
 import kr.kh.RLab.utils.SseEmitters;
-import kr.kh.RLab.vo.AlarmVO;
-import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.PhotoVO;
 import kr.kh.RLab.vo.StudyMemberVO;
 import kr.kh.RLab.vo.StudyVO;
@@ -60,8 +58,7 @@ public class SseController {
     		return ResponseEntity.ok(sseEmitters.getEmitter(id));
     	}*/
         if(isEmitter != null) {
-        	System.out.println(1);
-        	emitter.send(SseEmitter.event().name("test").data("test!"));
+        	emitter.send(SseEmitter.event().name("connect").data("connected!"));
         	return ResponseEntity.ok(emitter);
         }
         sseEmitters.add(id, emitter, sessionExpiryTime, session);

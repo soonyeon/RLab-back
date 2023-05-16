@@ -90,6 +90,7 @@ public class SseEmitters {
 
 	        emitter.onTimeout(() -> {
 	            emitter.complete();
+	            System.out.println("ssetimeout : " + id);
 	        });
 	    }
 	}

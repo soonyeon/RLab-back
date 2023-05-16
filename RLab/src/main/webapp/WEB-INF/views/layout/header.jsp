@@ -420,7 +420,6 @@ function connect() {
         console.log("Received connect event:", event.data);
     });
     
-
     source.addEventListener("test", function(event) {
         console.log("test:", event.data);
     });
@@ -525,15 +524,9 @@ function hideModal() {
     $("#notificationModal").fadeOut(300);
 }
 
-/*
-$(document).ready(function () {
-    if ('${board.bo_num}' == '')
-      return;
-    
- });
- */
+//페이지를 떠날 때 
 $(window).on("beforeunload", function() {
-	  source.close();
-	});
+	source.close();
+});
 </script>
 
