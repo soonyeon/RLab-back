@@ -167,6 +167,7 @@ margin-top: 100px;
 }
 .main_bottom_box{
   margin-top: 40px;
+  width:805px;
 }
   
 .btns_leader{
@@ -208,18 +209,17 @@ margin-top: 100px;
 
 }
 .main_bottom_box .add_comment_box{
-    width: 640px;
     height: 50px;
     display: flex;
     justify-content: space-between;
 }
 .main_bottom_box .cm_input_box{
-    width: 600px;
+    width: 720px;
     height: 45px;
     box-sizing: border-box;
 }
 .main_bottom_box .cm_write{
-    width: 92%; 
+    width: 95%; 
     height: 45px;
     background-color: transparent;
     outline: none;
