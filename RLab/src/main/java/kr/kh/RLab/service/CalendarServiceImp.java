@@ -19,7 +19,13 @@ public class CalendarServiceImp implements CalendarService{
 	    if (calendarVo == null) {
 	        return -1;
 	    }
-	    calendarDao.insert(calendarVo);
+	    System.out.println(calendarVo);
+	    try {
+	    	calendarDao.insert(calendarVo);
+	    	
+	    }catch(Exception e) {
+	    	e.printStackTrace();
+	    }
 	    return calendarVo.getCa_num();
 	}
 

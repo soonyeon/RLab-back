@@ -147,4 +147,8 @@ public interface StudyDAO {
 
 	void updateUserFavorite(@Param("me_id")String me_id, @Param("st_num")int st_num);
 
+	ArrayList<StudyMemberVO> selectStudMemberyByMemberId(String me_id);
+
+	ArrayList<MemberVO> selectMemberByMemberId(String me_id);
+
 }

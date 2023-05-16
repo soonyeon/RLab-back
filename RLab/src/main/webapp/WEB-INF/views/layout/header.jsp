@@ -38,27 +38,33 @@
     <!-- 로그인 모달창 -->
 	<div class="modal_container" id="loginModal">
         <div class="modal_area">
-        	<a href="#" class="close_btn">x</a>
-        	<div class="login_box">
+        <img class="remove_btn login_remove" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="40">
+          <div class="login_box">
 
-            <h1>로그인</h1>
+            <h2>로그인</h2>
             
             <form action="<c:url value='/login'></c:url>" method="post">
-              <div class="form_group">
-                <!-- <label for="id"></label> -->
-                <input type="text" class="form_control" id="id" name="me_id" placeholder="아이디">
-              </div>
-              <div class="form_group">
-                <!-- <label for="pw">비번:</label> -->
-                <input type="password" class="form_control" id="pw" name="me_pw" placeholder="비밀번호">
-              </div>
-              <button class="btn_outline_success col-12">로그인</button>
-			  <input type="checkbox" name="autoLogin" value="true"> 자동로그인
-              <hr>
+            	<div class="input_forms">
+	            	<div class="form_groups">
+		              <div class="form_group">
+		                <!-- <label for="id"></label> -->
+		                <input type="text" class="form_control" id="id" name="me_id" placeholder="아이디">
+		              </div>
+		              <div class="form_group">
+		                <!-- <label for="pw">비번:</label> -->
+		                <input type="password" class="form_control" id="pw" name="me_pw" placeholder="비밀번호">
+		              </div>
+		            </div>  
+	              	<button class="btn_outline_success col-12">로그인</button>
+              	</div>
+			  <div class= "login_stay_box">
+			 	 <input type="checkbox" name="autoLogin" value="true"> 
+			 	 <p>로그인 상태 유지</p>
+			  </div>
               <p class="more_action">
                 <a href="#" class="more_action_item 1">아이디 찾기</a> |
                 <a href="#" class="more_action_item 2">비밀번호 찾기</a> |
-                <a href="<c:url value="/singup"></c:url>" class="more_action_item 3">회원가입</a>
+                <a href="<c:url value="/signup"></c:url>" class="more_action_item 3">회원가입</a>
               </p>
             </form>
 
@@ -68,9 +74,9 @@
 
 		<div class="modal_container" id="findIDModal">
 		  <div class="modal_area">
-		    <a href="#" class="close_btn">x</a>
-		    <div class="find_id_box">
-		      <h1>아이디 찾기</h1>
+		  <img class="remove_btn login_remove" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="40">
+		    <div class="login_box find_id_box">
+		      <h2>아이디 찾기</h2>
 
 		      <form action="<c:url value='/findID'></c:url>" method="post">
 		        <div class="form_group">
@@ -78,6 +84,11 @@
 		          <input type="email" class="form_control" id="email" name="email" placeholder="이메일">
 		        </div>
 		        <button class="btn_outline_success col-12" type="button" onclick="findID()">아이디 찾기</button>
+			      <p class="more_action">
+	                <a href="#" class="more_action_item 0">로그인</a> |
+	                <a href="#" class="more_action_item 2_1">비밀번호 찾기</a> |
+	                <a href="<c:url value="/signup"></c:url>" class="more_action_item 3">회원가입</a>
+	              </p>
 		      </form>
 
 		    </div>
@@ -86,18 +97,27 @@
 
 		<div class="modal_container" id="findPWModal">
 		  <div class="modal_area">
-		    <a href="#" class="close_btn">x</a>
-		    <div class="find_pw_box">
-		      <h1>비밀번호 찾기</h1>
+		  <img class="remove_btn login_remove" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="40">
+		    <div class="login_box find_pw_box">
+		      <h2>비밀번호 찾기</h2>
 
 		      <form action="<c:url value='/findPW'></c:url>" method="post">
-		        <div class="form_group">
-		          <input type="text" class="form_control" id="findPW_id" name="me_id" placeholder="아이디">
-		        </div>
-		        <div class="form_group">
-		          <input type="email" class="form_control" id="findPW_email" name="email" placeholder="이메일">
-		        </div>
-		        <button class="btn_outline_success col-12" type="button" onclick="findPW()">전송</button>
+		      	<div class="input_forms">
+			      	<div class="form_groups">
+				        <div class="form_group">
+				          <input type="text" class="form_control" id="findPW_id" name="me_id" placeholder="아이디">
+				        </div>
+				        <div class="form_group">
+				          <input type="email" class="form_control" id="findPW_email" name="email" placeholder="이메일">
+				        </div>
+				    </div>
+			        <button class="btn_outline_success col-12" type="button" onclick="findPW()">전송</button>
+			     </div> 
+			      <p class="more_action">
+	                <a href="#" class="more_action_item 0_1">로그인</a> |
+	                <a href="#" class="more_action_item 1_1">아이디 찾기</a> |
+	                <a href="<c:url value="/signup"></c:url>" class="more_action_item 3">회원가입</a>
+	              </p>
 		      </form>
 		    </div>
 		  </div>
@@ -124,12 +144,40 @@
 		        <c:if test="${user != null}">		  		       
      				<form action="<c:url value='/logout'></c:url>" method="post">     
 		  				<div class="logout_box">
-              				<a class="logout_btn">로그아웃</a>
               				<div class="alarm_bell_box">
-              					<div class="new_dot bell_dot"></div>
-		  		    			<img class="alram_img" src="<c:url value='/resources/img/alram.png'></c:url>" width="auto" height="20">
-		  		    			<span class="blind">알림</span>
+              					<div class="alarm_modal" id="alarmModal" style=" max-height: 200px; overflow-y: auto;">	
+								    <c:forEach var="alarm" items="${alarm}">
+								   	    <c:if test="${alarm.al_view == 0}">
+											<a class="modal_content" href="#">		   
+										    	<div class="alarm_content_box">
+											    	<div class="new_dot"></div>
+											        <p>${alarm.al_content}</p>
+										    	</div>  
+											    <img class="alarm_remove" data-num="${alarm.al_num}" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="20">
+								   			</a>
+								   		</c:if>
+									    <c:if test="${alarm.al_view == 1}">
+											<a class="modal_content read_content" href="#">		
+												<div class="alarm_content_box">   
+											        <p>${alarm.al_content}</p>
+								   				</div>
+												<img class="alarm_remove" data-num="${alarm.al_num}" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="20">
+								   			</a>
+								   		</c:if>
+								    </c:forEach> 
+								</div> 
+              					<!-- 새로운 알람이 있으면 new_dot이 보이게 -->
+              					<c:if test="${newAlarm != 0}">
+	              					<div class="new_dot bell_dot"></div>
+			  		    			<img class="alarm_img" src="<c:url value='/resources/img/alram.png'></c:url>" width="auto" height="20">
+			  		    			<span class="blind">알림</span>
+		  		    			</c:if>
+		  		    			<c:if test="${newAlarm == 0}">
+			  		    			<img class="alarm_img" src="<c:url value='/resources/img/alram.png'></c:url>" width="auto" height="20">
+			  		    			<span class="blind">알림</span>
+		  		    			</c:if>
 		  		    		</div>
+		  		    		
 		  		    		<a href="<c:url value='/mypage'></c:url>" class="icon_mypage">
 		  		    			<c:if test="${user.me_profile == null}">
 		  		    				<img class="mypage_img" src="<c:url value='/resources/img/user.png'></c:url>" width="auto" height="40">
@@ -141,11 +189,13 @@
 			  		    			<span class="blind">마이페이지</span>
 		  		    			</c:if>
 			  		    	</a>
+		  		    		<a class="logout_btn">로그아웃</a>
             			</div>    
               		</form>
 		        </c:if>
         	</div>
         </div>
+
     </div>	
 	<div id="notificationModal" class="notification_modal">
         <div class="notification_box">
@@ -175,11 +225,135 @@
 	    </div>
 	</div> 
 </header>
-<script><!-- 알림 -->
+
+<script>
+// login 모달
+$(document).ready(function() {
+	// 로그인 버튼 click 로그인 모달 show
+	$('.login_modal').click(function(e) {
+		  e.preventDefault();
+		  $('#loginModal').show();
+	});
+	// x버튼 누르면 로그인 모달 닫기
+	$('.remove_btn').click(function(e) {
+	    e.preventDefault();
+	    $('.modal_container').hide();
+	});
+	
+	// 로그인 -> 아이디 찾기 
+	$('.more_action_item.1').click(function(e) {
+		  e.preventDefault();
+		  $('#loginModal').hide();
+		  $('#findIDModal').show();
+	});
+	// 로그인 -> 비번 찾기
+	$('.more_action_item.2').click(function(e) {
+		  e.preventDefault();
+		  $('#loginModal').hide();
+		  $('#findPWModal').show();
+	});
+	// 아이디 찾기 -> 로그인
+	$('.more_action_item.0').click(function(e) {
+	    e.preventDefault();
+	    $('#findIDModal').hide();
+	    $('#loginModal').show();
+	});
+	// 아이디 찾기 -> 비번찾기
+	$('.more_action_item.2_1').click(function(e) {
+        e.preventDefault();
+        $('#findIDModal').hide();
+        $('#findPWModal').show();
+    });
+	// 비번 찾기 -> 로그인
+	$('.more_action_item.0_1').click(function(e) {
+	    e.preventDefault();
+	    $('#findPWModal').hide();
+	    $('#loginModal').show();
+	});
+	// 비번 찾기 -> 아이디 찾기
+	$('.more_action_item.1_1').click(function(e) {
+	    e.preventDefault();
+	    $('#findPWModal').hide();
+	    $('#findIDModal').show();
+	});
+});
+
+//모달 외 영역 누르면 로그인 모달 닫기
+$(document).mouseup(function (e){
+	if($(".modal_container").has(e.target).length === 0){
+		$(".modal_container").hide();
+	}
+});
+
+
+</script>
+<script>
+let source;
+// 스크롤 내리면 헤더에 그림자넣기
+$("body").on("mousewheel", function(e){
+	var wheel = e.originalEvent.wheelDelta;
+	var now= $("header").offset().top;
+	if(now <= 100){
+		$("header").css("box-shadow", "none");
+	}
+	if(wheel > 0){
+	}else{
+		$("header").css("box-shadow", "2px 2px 5px #d9cec5ba");
+	}
+});
+
+//아이디 찾기
+function findID() {
+  let email = $("#email").val();
+  $.ajax({
+    type: "POST",
+    url: "<c:url value='/findID'/>",
+    data: {
+      email: email
+    },
+    success: function(response) {
+      if (response === "found") {
+        alert("이메일로 아이디를 보냈습니다.");
+      } else {
+        alert("해당 이메일로 등록된 아이디가 없습니다.");
+      }
+    },
+    error: function() {
+      alert("이메일로 전송이 실패 했습니다.");
+    }
+  });
+}
+
+// 비밀번호 찾기
+function findPW() {
+  let id = $("#findPW_id").val();
+  let email = $("#findPW_email").val();
+  $.ajax({
+    type: "POST",
+    url: "<c:url value='/findPW'/>",
+    data: {
+      id: id,
+      email: email
+    },
+    success: function(response) {
+      if (response === "found") {
+        alert("이메일로 임시번호를 보냈습니다.");
+      } else {
+        alert("해당 아이디와 이메일로 등록된 정보가 없습니다.");
+      }
+    },
+    error: function() {
+      alert("이메일로 전송이 실패 했습니다.");
+    }
+  });
+}
+  
+// 알림
 $(document).ready(function() {
 	// 알람 누르면 알람 모달 보이기
-	$('.alram_img').click(
+	$('.alarm_img').click(
 	function() {
+		console.log('zlert');
 		$('#alarmModal').show();
 	})
 });
@@ -220,23 +394,6 @@ $("#logout_btn").on("click", function() {
     });
 });
 
-$('.login_modal').click(function(e) { 
-	  e.preventDefault(); 
-	  $('#loginModal').show(); 
-	}); 
-
-$('.more_action_item.1').click(function(e) {
-  e.preventDefault();
-  $('#loginModal').hide();
-  $('#findIDModal').show();
-});
-
-$('.more_action_item.2').click(function(e) {
-  e.preventDefault();
-  $('#loginModal').hide();
-  $('#findPWModal').show();
-});
-
 $('.close_btn').click(function(e) {
   e.preventDefault();
   $('.modal_container').hide();
@@ -247,68 +404,31 @@ $('.logout_btn').click(function(e) {
 	$(this).closest('form').submit();
 });
 
-function findPW() {
-  let id = $("#findPW_id").val();
-  let email = $("#findPW_email").val();
-  $.ajax({
-    type: "POST",
-    url: "<c:url value='/findPW'/>",
-    data: {
-      id: id,
-      email: email
-    },
-    success: function(response) {
-      if (response === "found") {
-        alert("이메일로 임시번호를 보냈습니다.");
-      } else {
-        alert("해당 아이디와 이메일로 등록된 정보가 없습니다.");
-      }
-    },
-    error: function() {
-      alert("이메일로 전송이 실패 했습니다.");
-    }
-  });
-}
 
-function findID() {
-  let email = $("#email").val();
-  $.ajax({
-    type: "POST",
-    url: "<c:url value='/findID'/>",
-    data: {
-      email: email
-    },
-    success: function(response) {
-      if (response === "found") {
-        alert("이메일로 아이디를 보냈습니다.");
-      } else {
-        alert("해당 이메일로 등록된 아이디가 없습니다.");
-      }
-    },
-    error: function() {
-      alert("이메일로 전송이 실패 했습니다.");
-    }
-  });
-}
+
+    connect();
 
 function connect() {
-
     const userId = "${user.me_id}"; 
-    console.log(userId);
     const connectUrl = "<c:url value='/connect' />" + "?id=" + userId;
     const source = new EventSource(connectUrl);
     
     source.onopen = function() {
         console.log("SSE connection opened");
     };
-    
     source.addEventListener("connect", function(event) {
         console.log("Received connect event:", event.data);
+    });
+    
+
+    source.addEventListener("test", function(event) {
+        console.log("test:", event.data);
     });
     
     source.onerror = function(event) {
         console.log("SSE error:", event);
     };
+    
     source.addEventListener("newComment", function (event) {
     	console.log('새댓글');
     	//이벤트가 일어날 일을 여기밑에다가 쓰기
@@ -341,11 +461,12 @@ function connect() {
         //showNotification(data.message);
     });
     
+
     source.addEventListener("joinStudy", function (event) {
         // 이벤트가 발생할 때 여기에 코드 작성
         //const data = JSON.parse(event.data);
         const title = "스터디 가입 알림";
-        const message = '스터디에 새로운 회원이 가입했습니다. 스터디관리로 이동하여 확인해주세요. .';
+        const message = '스터디에 새로운 회원이 가입했습니다. 스터디관리로 이동하여 확인해주세요.';
         showModal(title, message);
 
         setTimeout(function() {
@@ -385,6 +506,7 @@ function connect() {
         //console.log("Received authorizeStudy event:", data);
         //showNotification(data.message);
     });
+    
 }
 
 connect();
@@ -407,38 +529,11 @@ function hideModal() {
 $(document).ready(function () {
     if ('${board.bo_num}' == '')
       return;
-    const source = new EventSource(`/sse/new/comment/${bo_num}`);
-
-    source.onopen = function () {
-      console.log("SSE connection opened");
-    };
-
-    source.addEventListener("newComment", function (event) {
-      const data = JSON.parse(event.data);
-      console.log("Received newComment event:", data);
-      showNotification(data.message);
-    });
-
-    source.onerror = function (event) {
-      console.log("SSE error:", event);
-    };
     
-    const sourceNewLike = new EventSource(`/sse/new/photo/${ph_num}`);
-
-    sourceNewLike.onopen = function () {
-        console.log("SSE connection for newLike opened");
-    };
-
-    sourceNewLike.addEventListener("newLike", function (event) {
-        const data = JSON.parse(event.data);
-        console.log("Received newLike event:", data);
-        showNotification(data.message);
-    });
-
-    sourceNewLike.onerror = function (event) {
-        console.log("SSE error for newLike:", event);
-    };
  });
  */
+$(window).on("beforeunload", function() {
+	  source.close();
+	});
 </script>
 

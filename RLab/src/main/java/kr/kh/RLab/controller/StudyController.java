@@ -1,7 +1,9 @@
 package kr.kh.RLab.controller;
 
+import java.awt.dnd.DragSourceMotionListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,9 +26,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.pagination.PageMaker;
+import kr.kh.RLab.service.BoardService;
+import kr.kh.RLab.service.MypageService;
 import kr.kh.RLab.service.NotificationService;
 import kr.kh.RLab.service.StudyService;
 import kr.kh.RLab.vo.AlarmVO.AlarmType;
+import kr.kh.RLab.vo.BoardVO;
+import kr.kh.RLab.vo.GrowthVO;
 import kr.kh.RLab.vo.LikeVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.MissionFinishVO;
@@ -46,12 +52,15 @@ import lombok.extern.slf4j.Slf4j;
 public class StudyController {
 
 	private final StudyService studyService;
+	private final MypageService mypageService;
+	private final BoardService boardService;
 	private final NotificationService notificationService;
 	private final SseController sseController;
 
 	@GetMapping("/photo/{st_num}")
 	public String photo(HttpServletRequest request, Model model, HttpSession session,
 			@PathVariable("st_num") int st_num) throws IOException {
+		System.out.println(new Date());
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		model.addAttribute("user", user);
 		ArrayList<PhotoTypeVO> phototypeList = studyService.getListPhotoType();
@@ -165,6 +174,7 @@ public class StudyController {
 	// 로그인O, me_study정보O 이상적으로 동작할때 도달하는 url
 	@RequestMapping(value = "/{st_num}", method = RequestMethod.GET)
 	public ModelAndView main(ModelAndView mv, HttpSession session, @PathVariable("st_num") int st_num) {
+		System.out.println(new Date());
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		//st_me_id가 유저인 스터디 목록 불러오는 메소드인데 사용되는데가 없는데 지워도되는건가요?
 		ArrayList<StudyVO> study = studyService.getStudyByMemberId(user.getMe_id());
@@ -181,7 +191,11 @@ public class StudyController {
 		double todoProgressRate = studyService.getTodoProgressRate(memberId);
 	    int todoProgressRateint= (int) Math.round(todoProgressRate);
 	    mv.addObject("todoProgressRateint",todoProgressRateint);
-		
+	    
+	    //board
+	    ArrayList<BoardVO> boardList = boardService.selectBoardListByStNum(st_num);
+	    mv.addObject("boardList", boardList);
+	    System.out.println("=========================================="+boardList);
 		
 		ArrayList<TodoVO> tdList = studyService.getTodoList(user.getMe_id());
 		mv.addObject("tdList", tdList);
@@ -305,19 +319,24 @@ public class StudyController {
 	@RequestMapping(value = "/management/study/delete/{st_num}", method = RequestMethod.POST)
 	public HashMap<String, Object> deleteStudy(@RequestBody StudyVO st,HttpSession session) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		MemberVO user = (MemberVO) session.getAttribute("user");
 		// 해당 스터디를 삭제
 		studyService.deleteStudy(st.getSt_num());
 		//member me_study업데이트
 		ArrayList<MemberVO> meList = studyService.selectMemberListByStNum(st.getSt_num());
 		for (MemberVO me : meList ) {
 			ArrayList<StudyMemberVO> smList = studyService.selectStudyMemberByMeId(me.getMe_id());
+			//id로 스터디가입이 없으면 null로 업데이트
 			if(smList.size()==0) {
 				studyService.updateMembersNull(me.getMe_id(),null);
+			//id로 스터디가입이 된게 있으면 제일 첫번째걸로 업데이트
 			}else {	
 				studyService.updateMembersFirst(me.getMe_id(),smList.get(0).getSm_st_num());
 			}
+			//세션에 바뀐st_num저장
+			user.setMe_study(smList.get(0).getSm_st_num());
+			session.setAttribute("user", user);
 		}
-		
 		return map;
 	}
 
@@ -375,10 +394,14 @@ public class StudyController {
 	        stMemberProgRateList.add(member);
 	    }
 	    System.out.println("++++++"+stMemberProgRateList);
+	    
+	  //나의 펫 데려오기
+	  GrowthVO myPet = mypageService.selectMyPet(memberId);
    
 	    mv.addObject("myStudyList", myStudyList);
 	    mv.addObject("tdList", tdList);
 	    mv.addObject("memberId",memberId);
+	    mv.addObject("myPet", myPet);
 	    mv.addObject("stMember",stMember);
 	    mv.addObject("stMemberTodo",stMemberTodo);
 	    mv.addObject("todoProgressRateint",todoProgressRateint);
@@ -462,6 +485,7 @@ public class StudyController {
 	// 데일리미션 페이지
 	@GetMapping("/daily/{st_num}")
 	public ModelAndView studyInsert(ModelAndView mv, HttpServletRequest request, @PathVariable("st_num") int st_num) {
+		System.out.println(new Date());
 		MemberVO user = (MemberVO) request.getSession().getAttribute("user");
 		ArrayList<StudyMemberVO> studyMember = studyService.selectStudyMemberByStNum(st_num);
 		Integer authority = studyService.selectSmAuthority(user, st_num);
@@ -504,10 +528,21 @@ public class StudyController {
 		// 스터디 정보 업데이트
 		studyService.leaveStudy(user, st_num);
 		studyService.updateStudy(study);
-		// 회원정보에 있는 study 값을 랜덤으로 추가하는 작업
-		ArrayList<StudyVO> findStudy = studyService.getStudyByMemberId(user.getMe_id());
-		for (StudyVO st : findStudy) {
-			studyService.updateMemberStNum(user.getMe_id(),st_num,st.getSt_num());
+		// studyMember에 user의 아이로 가입된 스터디 찾아서 업데이트
+		ArrayList<MemberVO> findMember = studyService.selectMemberByMemberId(user.getMe_id());
+		for (MemberVO me : findMember) {
+			ArrayList<StudyMemberVO> smList = studyService.selectStudMemberyByMemberId(me.getMe_id());
+			//user_id로 스터디가입이 없으면 null로 업데이트
+			if(smList.size()==0) {
+				studyService.updateMembersNull(me.getMe_id(), null);
+				user.setMe_study(0);
+			//user_id로 스터디가입이 있으면 첫번째걸로 업데이트
+			}else {
+				studyService.updateMembersFirst(me.getMe_id(), smList.get(0).getSm_st_num());
+				user.setMe_study(smList.get(0).getSm_st_num());
+			}
+			//세션에 바뀐st_num저장
+			session.setAttribute("user", user);
 		}
 		//st_num , me_id 일치하는 멤버
 		return "success";

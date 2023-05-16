@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.kh.RLab.pagination.BoardCriteria;
 import kr.kh.RLab.pagination.Criteria;
 import kr.kh.RLab.pagination.PageMaker;
 import kr.kh.RLab.service.BoardService;
@@ -38,12 +39,12 @@ public class BoardController {
 	@Autowired
 	private final CommentService commentService;
 	
-	@GetMapping("/insert")
-	public ModelAndView boardInsert(ModelAndView mv,HttpSession session) {
+	@GetMapping("/insert/{st_num}")
+	public ModelAndView boardInsert(@PathVariable int st_num, ModelAndView mv,HttpSession session) {
 		MemberVO user = (MemberVO) session.getAttribute("user");	    
 		mv.addObject("memberId", user.getMe_id());
 	    //스터디 가져오기
-	    ArrayList<StudyVO> studyList = boardService.selectStudyList();
+		StudyVO	studyList = boardService.selectStudy(st_num);
 	    mv.addObject("studies", studyList);
 	    mv.setViewName("/board/insert");
 	    return mv;
@@ -57,7 +58,7 @@ public class BoardController {
 	    return mv;
 	}
 	@GetMapping("/list/{st_num}")
-	public ModelAndView boardList(ModelAndView mv,Criteria cri, @PathVariable int st_num) {
+	public ModelAndView boardList(ModelAndView mv,BoardCriteria cri, @PathVariable int st_num) {
 		cri.setPerPageNum(10); // 한 페이지당 컨텐츠 갯수
 	    int totalCount = boardService.getCount();
 	    PageMaker pm = new PageMaker(totalCount, 10, cri);
@@ -65,6 +66,7 @@ public class BoardController {
 	    mv.addObject("st_num", st_num);
 	    mv.addObject("pm", pm);
 	    mv.addObject("boardList", boardList);
+	    mv.addObject("sort", cri.getSort());
 	    mv.setViewName("/board/list");
 	    return mv;
 	}

@@ -31,7 +31,7 @@
 	            <c:if test="${files.size() != 0}">
 		            <c:forEach items="${petFile}" var="pf">
 		            	  <c:if test="${pf.ev_level == pl.pe_final_level}">
-		            	 	<img src="<c:url value='/download${pf.ev_img}'></c:url>" class="pet_img">
+		            	 	<img src="<c:url value='/resources/img${pf.ev_img}'></c:url>" class="pet_img">
 		            	  </c:if>
 		            </c:forEach>
 		       
@@ -93,7 +93,7 @@
 	    			</c:if>
 	    			
 	    			<c:if test="${user.me_profile != null}">
-		    			<img class="mypage_img" src="<c:url value='/download/profile/${user.me_profile}'></c:url>" width="auto" height="110">
+		    			<img class="mypage_img" src="<c:url value='/download${user.me_profile}'></c:url>" width="auto" height="110">
 		    			<span class="blind">마이페이지</span>
 	    			</c:if>
  		    	</a>
@@ -188,14 +188,12 @@
 		                </div>
 	                </c:if>
 				</c:if>
-
-           
-
               </div>
               <!-- pet_container -->
               <div class="article_box pet_container">
              	 <c:if test="${myPet == null}">
 	                <div class="pet_window">
+	                	
 	                  <img src="" alt="" class="pet_talk" />
 	                  <img src="<c:url value="/resources/img/egg.png"></c:url>" alt="펫" class="pet" />
 	                </div>
@@ -213,7 +211,7 @@
 	              <c:if test="${myPet != null }">
 	                <div class="pet_window">
 	                  <img src="" alt="" class="pet_talk" />
-	                  <img src="<c:url value="/resources/${myPet.ev_img}"></c:url>" alt="펫" class="pet" />
+	                  <img src="<c:url value="/resources/img${myPet.ev_img}"></c:url>" alt="펫" class="pet" />
 	                </div>
 	                <div class="pet_description">
 	                  <div class="pet_info_container">

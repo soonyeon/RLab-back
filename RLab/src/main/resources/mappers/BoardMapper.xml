@@ -11,15 +11,25 @@
 	
 	<select id="selectBoardList" resultMap="BoardResultMap">
 	    SELECT b.*, st.st_name, me.me_name, COUNT(s.sc_bo_num) as scrap_count
-		FROM board b
-		LEFT JOIN study AS st ON b.bo_st_num = st.st_num
-		LEFT JOIN member AS me ON b.bo_me_id = me.me_id
-		LEFT JOIN scrap s ON b.bo_num = s.sc_bo_num AND s.sc_state = 1
-		WHERE b.bo_st_num = #{st_num}
-		GROUP BY b.bo_num
-		ORDER BY b.bo_num DESC
-		LIMIT #{cri.perPageNum}
-		OFFSET #{cri.pageStart}
+	    FROM board b
+	    LEFT JOIN study AS st ON b.bo_st_num = st.st_num
+	    LEFT JOIN member AS me ON b.bo_me_id = me.me_id
+	    LEFT JOIN scrap s ON b.bo_num = s.sc_bo_num AND s.sc_state = 1
+	    WHERE b.bo_st_num = #{st_num}
+	    GROUP BY b.bo_num
+	    <choose>
+	        <when test="cri.sort == 'views'">
+	            ORDER BY b.bo_views DESC
+	        </when>
+	        <when test="cri.sort == 'scrap'">
+	            ORDER BY scrap_count DESC
+	        </when>
+	        <otherwise>
+	            ORDER BY b.bo_reg_date DESC
+	        </otherwise>
+	    </choose>
+	    LIMIT #{cri.perPageNum}
+	    OFFSET #{cri.pageStart}
 	</select>
 	
 	<select id="getBoard" resultType="kr.kh.RLab.vo.BoardVO">
@@ -78,6 +88,17 @@
 		select * from board
 		where bo_me_id = #{me_id}
 	</select>
+	
+		
+	<select id="selectStudy" resultType="kr.kh.RLab.vo.StudyVO">
+		select * from study
+		where st_num = #{st_num}
+	</select>
+	
+	<select id="selectBoardListByStNum" resultType="kr.kh.RLab.vo.BoardVO">
+  		select * from board
+  		where bo_st_num = #{st_num}
+  	</select>
   	
   	<resultMap id="BoardResultMap" type="kr.kh.RLab.vo.BoardVO">
 	    <id property="bo_num" column="bo_num" />

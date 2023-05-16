@@ -4,74 +4,103 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     
 
-<link rel="stylesheet" href="<c:url value='/resources/css/study/photo.css'></c:url>">
-<link rel="stylesheet" href="<c:url value='/resources/css/study/study_1.css'></c:url>">
-
- <div class="main_container" style="
-    margin-left: 150px;">
-                <!-- 왼쪽 메뉴바 -->
-		<div class="left_menu_container">
-			<nav class="left_menu">
-				<a href="<c:url value='/study/${st_num}'></c:url>" class="list_item">스터디홈</a>
-				<a href="<c:url value='/todo/${st_num}'></c:url>" class="list_item">투두 리스트</a> 
-				<a href="<c:url value='/study/daily/${st_num}'></c:url>" class="list_item">데일리 미션</a> 
-				<a href="<c:url value='/study/photo/${st_num}'></c:url>" class="list_item">인증 게시판</a> 
-				<a href="<c:url value='/board/list/${st_num}'></c:url>" class="list_item">자유 게시판</a> 
-				<a href="<c:url value='/study/management'></c:url>" class="list_item">스터디 관리</a>
-				<a href="#" class="leave">탈퇴하기</a>
-			</nav>
-		</div>
+<link rel="stylesheet" href="<c:url value='/resources/css/study/certification_board.css'></c:url>">
+<link rel="stylesheet" href="<c:url value='/resources/css/study/study.css'></c:url>">
+ <main>
+ <div class="main_container">
+           <div class="left_side">
+				<!-- 왼쪽 메뉴바 -->
+				<div class="left_menu_container">
+					<nav class="left_menu">
+						<a href="<c:url value='/study/${st_num}'></c:url>" class="list_item">스터디홈</a>
+						<a href="<c:url value='/study/todo/${st_num}'></c:url>" class="list_item">투두 리스트</a> 
+						<a href="<c:url value='/study/daily/${st_num}'></c:url>" class="list_item">데일리 미션</a> 
+						<a href="<c:url value='/study/photo/${st_num}'></c:url>" class="list_item">인증 게시판</a> 
+						<a href="<c:url value='/board/list/${st_num}'></c:url>" class="list_item">자유 게시판</a> 
+						<a href="<c:url value='/study/management'></c:url>" class="list_item">스터디 관리</a>
+					</nav>
+				</div>
+				<a href="#" class="leave_btn">탈퇴하기</a>
+			</div>
 
                 <section>
                     <div class="home_container">
                         <div class="time_line_container_top">
                             <div class="time_line_title"> 인증 게시판</div>
-	                           <div class="time_line_container2">
-							        <c:choose>
-							            <c:when test="${empty photos}">
-							                <div class="no_certification_message">
-							                     오늘의 인증글이 없습니다. 가장 먼저 인증글을 올려보세요!
-							                </div>
-							            </c:when>
-							            <c:otherwise>
-							                <div class="today_feed_board">
-							                    <c:forEach var="photo" items="${photos}">
-							                        <div class="board">
-							                            <div class="feed_img"></div>
-							                            <div class="feed_name">${photo.me_name}</div>
-							                            <div class="feed_date">${photo.ph_register_date_str}</div>
-							                            <div class="feed_contents_img">
-							                                <img width="350" height="300"		src="<c:url value='/download${photo.ph_img}'/>" alt="이미지">
-							                            </div>
-							                            <div class="middle_container2">
-							                                <span class="feed_date_min"><fmt:formatDate value="${photo.ph_register_date}" pattern="MM/dd" /></span>
-							                                <span class="feed_contents">${photo.ph_content}</span>
-							                            </div>
-							                            <div class="middle_container3">
-							                                <input type="hidden" id="like_clicked_image_url" value="<c:url value='/resources/img/like_clicked.png'/>">
-							                                <input type="hidden" id="like_off_image_url" value="<c:url value='/resources/img/like_off.png'/>">
-							                                <c:choose>
-							                                    <c:when test="${likeCounts[photo.ph_num] > 0 && userLikes[photo.ph_num]}">
-							                                        <img class="feed_like_img" data-photo-id="${photo.ph_num}" src="<c:url value='/resources/img/like_clicked.png'/>" />
-							                                    </c:when>
-							                                    <c:otherwise>
-							                                        <img class="feed_like_img" data-photo-id="${photo.ph_num}" src="<c:url value='/resources/img/like_off.png'/>" />
-							                                    </c:otherwise>
-							                                </c:choose>
-							                                <div class="feed_like_count">${likeCounts[photo.ph_num]}</div>
-							                            </div>
-							                        </div>
-							                        <hr>
-							                    </c:forEach>
-							                </div>
-							            </c:otherwise>
-							        </c:choose>
-	    						</div>
+                            	<div class="time_line_cover">
+		                           <div class="time_line_container2">
+		                           		<div id="modal" class="modal">
+									        <div class="modal-content">
+									            <span ><img class="close" src="<c:url value='/resources/img/delete.png'></c:url>"></span>
+										         <div class="inner_container">
+										            <h2>인증하기 양식</h2>
+										            <form>
+										            	<div class="inner_item">
+											            	<label for="category">카테고리 선택</label>
+											                <select id="ph_pt_num" name="ph_pt_num">
+										                		<c:forEach var="pt" items="${ptList}">
+											                    <option value="${pt.pt_num}">${pt.pt_name}</option>
+										                		</c:forEach>
+											                </select>
+										                </div>
+										                <div class="inner_item">
+											                <label for="photo">사진</label>
+											                <input type="file" id="photo" name="photo" accept="image/*">
+										                </div>
+										                <div class="inner_item">
+											                <label for="content">내용입력</label>
+											                <textarea id="content" name="content" rows="4" cols="50" maxlength="100" placeholder="내용은 100자 이내"></textarea>
+										                </div>
+										                
+										                <button class="register_btn">등록하기</button>
+										           </form>
+										        </div>  
+					                       </div>
+				                    	</div>
+								        <c:choose>
+								            <c:when test="${empty photos}">
+								                <div class="no_certification_message">
+								                     오늘의 인증글이 없습니다. <br>
+								                     가장 먼저 인증글을 올려보세요!
+								                </div>
+								            </c:when>
+								            <c:otherwise>
+								                <div class="today_feed_board">
+								                    <c:forEach var="photo" items="${photos}">
+								                        <div class="board">
+								                            <div class="feed_name">${photo.me_name}</div>
+								                            <div class="feed_date">${photo.ph_register_date_str}</div>
+								                            <div class="feed_contents_img">
+								                                <img width="350" height="300"		src="<c:url value='/download${photo.ph_img}'/>" alt="이미지">
+								                            </div>
+								                            <div class="middle_container2">
+								                                <span class="feed_date_min"><fmt:formatDate value="${photo.ph_register_date}" pattern="MM/dd" /></span>
+								                                <span class="feed_contents">${photo.ph_content}</span>
+								                            </div>
+								                            <div class="middle_container3">
+								                                <input type="hidden" id="like_clicked_image_url" value="<c:url value='/resources/img/like_clicked.png'/>">
+								                                <input type="hidden" id="like_off_image_url" value="<c:url value='/resources/img/like_off.png'/>">
+								                                <c:choose>
+								                                    <c:when test="${likeCounts[photo.ph_num] > 0 && userLikes[photo.ph_num]}">
+								                                        <img class="feed_like_img" data-photo-id="${photo.ph_num}" src="<c:url value='/resources/img/like_clicked.png'/>" />
+								                                    </c:when>
+								                                    <c:otherwise>
+								                                        <img class="feed_like_img" data-photo-id="${photo.ph_num}" src="<c:url value='/resources/img/like_off.png'/>" />
+								                                    </c:otherwise>
+								                                </c:choose>
+								                                <div class="feed_like_count">${likeCounts[photo.ph_num]}</div>
+								                            </div>
+								                        </div>
+								                        <hr>
+								                    </c:forEach>
+								                </div>
+								            </c:otherwise>
+								        </c:choose>
+		    						</div>
+		    						<div class="circle_btn">인증하기</div>
+		    					</div>
 							</div>
-                        </div>
-                        <div class="circle_btn">인증하기</div>
-                        
-                         <div id="modal" class="modal">
+						<!--  	 <div id="modal" class="modal">
 					        <div class="modal-content">
 					            <span class="close">&times;</span>
 					            <h2>인증하기 양식</h2>
@@ -91,7 +120,11 @@
 					                <button>등록하기</button>
 					           </form>
 	                       </div>
-                    	</div>
+                    	</div>-->
+                        </div>
+                        
+                        
+                        
                 </section>
                 <!-- 오른쪽 메뉴 -->
                     <div class="right-container">
@@ -197,6 +230,7 @@
                     </div>
             </div>
             </div>
+</main>
 <script>
 const likeclickedImageUrl = $("#like_clicked_image_url").val();
 const likeOffImageUrl = $("#like_off_image_url").val();
@@ -221,7 +255,12 @@ $(document).ready(function() {
         }
     });
 });
-
+//모달 외 영역 눌리면 인증 양식 모달 닫기
+	$(document).mouseup(function (e){
+		if($("#modal").has(e.target).length === 0){
+			$("#modal").hide();
+		}
+	});
 $("button").click(function(e){
 	if(${mf == null}){
 		 e.preventDefault();

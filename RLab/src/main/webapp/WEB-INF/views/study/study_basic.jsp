@@ -10,6 +10,7 @@
 <script src="<c:url value='/resources/js/study/calendar/study_og.js'/>"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <style>
+/*
 dialog {
 	position: fixed;
 	top: 50%;
@@ -125,39 +126,96 @@ body {
 
 <main>
 	<div class="main_container">
-		<!-- 왼쪽 메뉴바 -->
-		<div class="left_menu_container">
-			<nav class="left_menu">
-				<a href="<c:url value='/study/${st_num}'></c:url>" class="list_item">스터디홈</a>
-				<a href="<c:url value='/study/todo/${st_num}'></c:url>" class="list_item">투두 리스트</a> 
-				<a href="<c:url value='/study/daily/${st_num}'></c:url>" class="list_item">데일리 미션</a> 
-				<a href="<c:url value='/study/photo/${st_num}'></c:url>" class="list_item">인증 게시판</a> 
-				<a href="<c:url value='/board/list/${st_num}'></c:url>" class="list_item">자유 게시판</a> 
-				<a href="<c:url value='/study/management'></c:url>" class="list_item">스터디 관리</a>
-				<a href="#" class="leave">탈퇴하기</a>
-			</nav>
+		<div class="left_side">
+			<!-- 왼쪽 메뉴바 -->
+			<div class="left_menu_container">
+				<nav class="left_menu">
+					<a href="<c:url value='/study/${st_num}'></c:url>" class="list_item">스터디홈</a>
+					<a href="<c:url value='/study/todo/${st_num}'></c:url>" class="list_item">투두 리스트</a> 
+					<a href="<c:url value='/study/daily/${st_num}'></c:url>" class="list_item">데일리 미션</a> 
+					<a href="<c:url value='/study/photo/${st_num}'></c:url>" class="list_item">인증 게시판</a> 
+					<a href="<c:url value='/board/list/${st_num}'></c:url>" class="list_item">자유 게시판</a> 
+					<a href="<c:url value='/study/management'></c:url>" class="list_item">스터디 관리</a>
+				</nav>
+			</div>
+			<a href="#" class="leave_btn">탈퇴하기</a>
 		</div>
-
 		<section>
 			<div class="home_container">
 				<div class="tab_container">
 					<div class="tabs">
-						<div class="tab">
+						<div class="tab_box tab1 tab">
 							<input type="radio" id="tab1" name="tab_control" checked>
-							<label for="tab1" class="tab1">달력</label>
+							<label for="tab1" class="">달력</label>
 						</div>
-						<div class="tab">
+						<div class="tab_box tab2 tab">
 							<input type="radio" id="tab2" name="tab_control"> 
-							<label for="tab2" class="tab2">일정 리스트</label>
-						</div>
-						<div class="tab">
-							<input type="radio" id="tab3" name="tab_control"> 
-							<label for="tab3" class="tab3">스탬프</label>
+							<label for="tab2" class="">일정 리스트</label>
 						</div>
 					</div>
 				</div>
 				<!-- 달력 -->
 				<div class="calendar_container">
+					<dialog id="calendarDialog" >
+						<button type="button" id="closecalendar" ><img class="remove_btn" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="40"/></button>
+						<form id="calendarForm">
+							<input type="hidden" value="${st_num}" id="ca_st_num">
+							<div class="mb_box">
+								<div class="mb-3">
+									<label for="calendarTitle" class="form-label">제목</label> 
+									<input type="text" class="form-control" id="calendarTitle">
+								</div>
+								<div class="mb-3">
+									<label for="calendarStart" class="form-label">시작일</label>
+									<input type="datetime-local" class="form-control" id="calendarStart">
+								</div>
+								<div class="mb-3">
+									<label for="calendarEnd" class="form-label">종료일</label> 
+									<input type="datetime-local" class="form-control" id="calendarEnd">
+								</div>
+							</div>
+							<div class="mb_check_box">
+								<div class="mb-3 form-check">
+									<input type="checkbox" class="form-check-input" id="calendarAllDay"> 
+									<label class="form-check-label"	for="calendarAllDay">하루종일</label>
+								</div>
+							</div>
+								
+								<button type="button" id="savecalendar">저장</button>
+						</form>
+					</dialog>
+					
+					<dialog id="editCalendarDialog">
+					<button type="button" id="closecalendar" ><img class="remove_btn" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="40"/></button>
+					<form id="editCalendarForm">
+						<input type="hidden" id="editCa_num">
+					    <input type="hidden" id="editCa_st_num">
+					    <h3>일정 수정 및 삭제</h3>
+					    <div class="mb_box">
+						    <div class="mb-3">
+						    	<label for="editCalendarTitle" class="form-label">제목</label>
+						    	<input type="text" class="form-control" id="editCalendarTitle">
+						    </div>
+						    <div class="mb-3">
+						    	<label for="editCalendarStart" class="form-label">시작일</label>
+						    	<input type="datetime-local" class="form-control" id="editCalendarStart">
+						    </div>
+						    <div class="mb-3">
+						    	<label for="editCalendarEnd" class="form-label">종료일</label>
+						    	<input type="datetime-local" class="form-control" id="editCalendarEnd">
+						    </div>
+						</div>
+					    <div class="mb-3 form-check mb_check_box">
+					    	<input type="checkbox" class="form-check-input" id="editCalendarAllDay">
+					    	<label class="form-check-label" for="editCalendarAllDay">하루종일</label>
+					    </div>
+					    <menu>
+					    	<button type="button" id="updateCalendar" class="edit_btn">수정</button>
+					    	<button type="button" id="deleteCalendar" class="edit_btn">삭제</button>
+					    </menu>
+					</form>
+				</dialog>
+					
 					<div class="calendar_box1">
 						<div id='calendar'></div>
 					</div>
@@ -168,68 +226,16 @@ body {
 						<div id='calendar'></div>
 					</div>
 				</div>
-
-				<dialog id="calendarDialog">
-					<form id="calendarForm">
-						<input type="hidden" value="${st_num}" id="ca_st_num">
-						<div class="mb-3">
-							<label for="calendarTitle" class="form-label">제목</label> 
-							<input type="text" class="form-control" id="calendarTitle">
-						</div>
-						<div class="mb-3">
-							<label for="calendarStart" class="form-label">시작일</label>
-							<input type="datetime-local" class="form-control" id="calendarStart">
-						</div>
-						<div class="mb-3">
-							<label for="calendarEnd" class="form-label">종료일</label> 
-							<input type="datetime-local" class="form-control" id="calendarEnd">
-						</div>
-						<div class="mb-3 form-check">
-							<input type="checkbox" class="form-check-input" id="calendarAllDay"> 
-							<label class="form-check-label"	for="calendarAllDay">하루종일</label>
-						</div>
-						<menu>
-							<button type="button" id="closecalendar">닫기</button>
-							<button type="button" id="savecalendar">저장</button>
-						</menu>
-					</form>
-				</dialog>
+					
 				
-				<dialog id="editCalendarDialog">
-					<form id="editCalendarForm">
-						<input type="hidden" id="editCa_num">
-					    <input type="hidden" id="editCa_st_num">
-					    <h3>일정 수정 및 삭제</h3>
-					    <div class="mb-3">
-					    	<label for="editCalendarTitle" class="form-label">제목</label>
-					    	<input type="text" class="form-control" id="editCalendarTitle">
-					    </div>
-					    <div class="mb-3">
-					    	<label for="editCalendarStart" class="form-label">시작일</label>
-					    	<input type="datetime-local" class="form-control" id="editCalendarStart">
-					    </div>
-					    <div class="mb-3">
-					    	<label for="editCalendarEnd" class="form-label">종료일</label>
-					    	<input type="datetime-local" class="form-control" id="editCalendarEnd">
-					    </div>
-					    <div class="mb-3 form-check">
-					    	<input type="checkbox" class="form-check-input" id="editCalendarAllDay">
-					    	<label class="form-check-label" for="editCalendarAllDay">하루종일</label>
-					    </div>
-					    <menu>
-					    	<button type="button" id="closeEditCalendar">닫기</button>
-					    	<button type="button" id="updateCalendar">수정</button>
-					    	<button type="button" id="deleteCalendar">삭제</button>
-					    </menu>
-					</form>
-				</dialog>
+				
 				<div class="middle_container clearfix">
 				<!-- TO-DO LIST -->
 				<div class="todo_container">
 				<!-- 제목 -->
 				<div class="todo_box_title">
 					<h3>TODO</h3>
-					<a href="#" class="plus1">+더보기</a>
+					<a href="<c:url value='/study/todo/${st_num}'></c:url>" class="plus1">+더보기</a>
 				</div>
 				<!-- 내용 -->
 				<div class="todo_box_content">
@@ -274,7 +280,7 @@ body {
 				</div>
 				<div class="feed_content_box">
 					<c:forEach items="${photo}" var="ph">
-						<c:if test="${ph.ph_st_num != null}">
+						<c:if test="${ph.ph_st_num != null && ph.ph_num == 1}">
 							<div class="today_feed_board">
 								<div class="feed_board">
 									<ul class="feed_writer_box">
@@ -304,45 +310,17 @@ body {
 				<!-- 제목 -->
 				<div class="free_box_title">
 					<h3 class="contents_title">자유게시판 최신글</h3>
-					<a href="" class="plus2">+더보기</a>
+					<a href="<c:url value='/board/list/${st_num}'></c:url>" class="plus2">+더보기</a>
 				</div>
 				<div class="board_content_box">
 					<!-- 내용 1,2,3 -->
 					<div class="boardContainer">
 						<div class="board_box">
-							<a href="#" class="board_item">
-								<div class="circle_new">NEW</div> <span>정보처리기사 문제집 추천</span>
+						<c:forEach var="bd" items="${boardList}">
+							<a href="<c:url value='/board/detail/${st_num}/${bd.bo_num}'></c:url>" class="board_item">
+								<div class="circle_new">NEW</div> <span>${bd.bo_title}</span>
 							</a>
-						</div>
-						<div class="board_box">
-							<a href="#" class="board_item">
-								<div class="circle_new">NEW</div> <span>바닐자 자바스크립트 vs
-									제이쿼리</span>
-							</a>
-						</div>
-						<div class="board_box">
-							<a href="#" class="board_item">
-								<div class="circle_new">NEW</div> <span>react 온라인 강의 어떤게
-									좋나요?</span>
-							</a>
-						</div>
-						<div class="board_box">
-							<a href="#" class="board_item">
-								<div class="circle_new">NEW</div> <span>react 온라인 강의 어떤게
-									좋나요?</span>
-							</a>
-						</div>
-						<div class="board_box">
-							<a href="#" class="board_item">
-								<div class="circle_new">NEW</div> <span>react 온라인 강의 어떤게
-									좋나요?</span>
-							</a>
-						</div>
-						<div class="board_box">
-							<a href="#" class="board_item">
-								<div class="circle_new">NEW</div> <span>react 온라인 강의 어떤게
-									좋나요?</span>
-							</a>
+						</c:forEach>
 						</div>
 					</div>
 				</div>
@@ -575,13 +553,12 @@ sse.addEventListener('count', e => {
     console.log("count event data", receivedCount);
 });
 
-$('.leave').click(function() {
+$('.leave_btn').click(function() {
 	if(confirm('스터디를 탈퇴 하시겠습니까?')) {
 		$.ajax({
 	    	url: '<c:url value="/study/leave/${st_num}" />',
             type: 'POST',
             success: function(response) {
-            	alert(response);
             	if(response == 'leader') {
             		alert('스터디장은 스터디 탈퇴가 불가능합니다. 스터디장을 회원에게 위임한 후 탈퇴하기를 진행하거나, 관리페이지에서 스터디 삭제를 진행해주세요.');
             		return false;
@@ -645,10 +622,11 @@ function createMemberListItem(member, userId, isOnline) {
     const userProfileImage = member.me_profile ? '<c:url value="/download" />' + member.me_profile : defaultImage;
 
     return '<div class="accessor_container">' +
+    	(isOnline ? '<div class="accessor_on"></div>' : '') +
         '<div class="circle_accessor">' +
         '<img class="acc_img" src="' + userProfileImage + '" width="auto" height="40">' +
         '<span class="blind">마이페이지</span>' +
-        (isOnline ? '<div class="accessor_on"></div>' : '') +
+        //(isOnline ? '<div class="accessor_on"></div>' : '') +
         '</div>' +
         '<div class="member_name">' + member.me_name + '</div>' +
         (userId === member.me_name ? '<span class="your">YOU</span>' : '') +
@@ -673,6 +651,8 @@ ctx.fillRect(centerX, centerY - barHeight/2, fillWidth, barHeight);
 
 </script>
 <script>
+
+
 /* 우측 메뉴 이벤트 */
 $(document).ready(function (){
 	$('.btn_dropdown').click(function(){

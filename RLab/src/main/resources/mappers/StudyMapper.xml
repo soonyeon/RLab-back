@@ -274,4 +274,10 @@
 <update id="updateMembersFirst">
 	update member set me_study = #{sm_st_num} where me_id = #{me_id}
 </update>
+<select id="selectStudMemberyByMemberId" resultType="kr.kh.RLab.vo.StudyMemberVO">
+	select * from study_member where sm_me_id = #{sm_me_id}
+</select>
+<select id="selectMemberByMemberId" resultType="kr.kh.RLab.vo.MemberVO">
+	select * from member where me_id = #{me_id}
+</select>
 </mapper>

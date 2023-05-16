@@ -41,9 +41,14 @@ public class PetContorller {
 	}
 
 	@PostMapping("/getPrize")
-	public Map<String, Object> getPrize(@RequestBody GrowthVO growth) {
+	public Map<String, Object> getPrize(@RequestBody GrowthVO growth, HttpSession session) {
 	   Map<String, Object> map = new HashMap<>();
-	   petService.getPrize(growth.getGr_pe_num(),growth.getGr_me_id());   
+	   petService.getPrize(growth.getGr_pe_num(),growth.getGr_me_id()); 
+	   if(growth.getGr_pe_num()==1) {
+		   MemberVO user = (MemberVO)session.getAttribute("user");
+		   user.setMe_point(user.getMe_point()+1500);
+		   session.setAttribute("user", user);
+	   }
 	    return map;
 	}
 }

@@ -41,37 +41,17 @@
 				<div class="seat_area">
 					<div class="seat_table">
 						<table>
-							<tr class="row_1">
-								<td class="seat_unavailable">1</td>
-								<td class="seat_unavailable">2</td>
-								<td class="seat_unavailable">3</td>
-								<td class="seat_unavailable">4</td>
-								<td class="seat">5</td>
-								<td class="seat">6</td>
-								<td class="seat">7</td>
-								<td class="seat">8</td>
-							</tr>
-							<tr>
-								<td class="seat">9</td>
-								<td class="seat">10</td>
-								<td class="seat">11</td>
-								<td class="seat">12</td>
-								<td class="seat">13</td>
-								<td class="seat">14</td>
-								<td class="seat">15</td>
-								<td class="seat">16</td>
-
-							</tr>
-							<tr>
-								<td class="seat">17</td>
-								<td class="seat">18</td>
-								<td class="seat_unavailable">19</td>
-								<td class="seat_selected">20</td>
-								<td class="seat">21</td>
-								<td class="seat">22</td>
-								<td class="seat">23</td>
-								<td class="seat">24</td>
-							</tr>
+							<c:forEach begin="0" end="${seList.size()-1}" step="8" var="i">
+								<tr class="<c:if test='${i==0}'>row_1</c:if>">
+									<c:forEach begin="${i}" end="${i+7}" var="index">
+										<td class="
+											<c:if test='${seList.get(index).se_usable==0}'></c:if>
+											<c:if test='${seList.get(index).se_usable==1}'>seat_unavailable</c:if>
+											<c:if test='${seList.get(index).se_usable==2}'>seat</c:if>
+										">${seList.get(index).se_name}</td>
+									</c:forEach>
+								</tr>
+							</c:forEach>
 							<tr>
 								<td class="seat">25</td>
 								<td class="seat_unavailable">26</td>

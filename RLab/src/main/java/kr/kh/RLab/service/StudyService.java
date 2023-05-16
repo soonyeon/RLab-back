@@ -120,6 +120,10 @@ public interface StudyService {
 
 	void updateMembersFirst(String me_id, int sm_st_num);
 
+	ArrayList<StudyMemberVO> selectStudMemberyByMemberId(String me_id);
+
+	ArrayList<MemberVO> selectMemberByMemberId(String me_id);
+
 
 
 

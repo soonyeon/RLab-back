@@ -8,13 +8,19 @@
         INSERT INTO alarm (al_me_id, al_content, al_type, al_table, al_ex_num)
         VALUES (#{al_me_id}, #{al_content}, #{al_type}, #{al_table}, #{al_ex_num})
     </insert>
-
     <!-- 사용자별 알림 이벤트 조회 -->
-    <select id="getUserAlrams" resultType="kr.kh.RLab.vo.AlarmVO">
+    <select id="getUserAlarms" resultType="kr.kh.RLab.vo.AlarmVO">
         SELECT * FROM alarm WHERE al_me_id = #{al_me_id}
         order by al_num desc
     </select>
     <delete id="deleteAlarm">
     	delete from alarm where al_num = #{al_num}
     </delete>
+    <!-- 새로운 알람 개수 조회 -->
+    <select id="selectNewAlarmCount" resultType="int">
+        SELECT COUNT(*) AS count
+		FROM alarm
+		WHERE al_me_id = #{userId} AND al_view = 0;
+
+    </select>
 </mapper>

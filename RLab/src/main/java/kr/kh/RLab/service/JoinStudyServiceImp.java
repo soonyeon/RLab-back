@@ -30,13 +30,6 @@ public class JoinStudyServiceImp implements JoinStudyService{
 	@Override
 	public Map<String, Object> toggleJoin(StudyMemberVO studyMember, MemberVO member,
 			HttpSession session) {
-	    if (member != null && member.getMe_study() != 0) {
-	        // 이미 가입된 스터디가 있으면 메시지를 반환
-	        Map<String, Object> result = new HashMap<>();
-	        result.put("joinState", -1);
-	        result.put("message", "이미 가입된 스터디가 있습니다.기존 스터디를 탈퇴하고 가입해주세요.");
-	        return result;
-	    }
 
 	    StudyMemberVO isJoin = joinstudyDao.findJoinStudyMember(studyMember);
 	    int newJoinState;

@@ -3,27 +3,27 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     
-
+<link rel="stylesheet" href="<c:url value='/resources/css/common.css'></c:url>">
 <link rel="stylesheet" href="<c:url value='/resources/css/study/study.css'></c:url>">
 <link rel="stylesheet" href="<c:url value='/resources/css/study/to_do_list.css'></c:url>">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 <main>
 	<div class="main_container">
-	    <!-- 왼쪽 메뉴바 -->
-	    <div class="left_menu_container">
-	        <nav class="left_menu">
-	            <a href="<c:url value='/study/${st_num}'></c:url>" class="list_item">스터디홈</a>
-	            <a href="#" class="list_item">스터디 달력</a>
-	            <a href="<c:url value='/study/todo'></c:url>" class="list_item">투두 리스트</a>
-	            <a href="<c:url value='/study/daily/${st_num}'></c:url>" class="list_item">데일리 미션</a>
-	            <a href="<c:url value='/study/photo/${st_num}'></c:url>" class="list_item">인증 게시판</a>
-	            <a href="<c:url value='/board/list/${st_num}'></c:url>" class="list_item">자유 게시판</a>
-	            <a href="<c:url value='/study/management'></c:url>" class="list_item">스터디 관리</a>
-	            <a href="#" class="leave">탈퇴하기</a>
-	        </nav>
-	    </div>
-	
+		  <div class="left_side">
+				<!-- 왼쪽 메뉴바 -->
+				<div class="left_menu_container">
+					<nav class="left_menu">
+						<a href="<c:url value='/study/${st_num}'></c:url>" class="list_item">스터디홈</a>
+						<a href="<c:url value='/study/todo/${st_num}'></c:url>" class="list_item">투두 리스트</a> 
+						<a href="<c:url value='/study/daily/${st_num}'></c:url>" class="list_item">데일리 미션</a> 
+						<a href="<c:url value='/study/photo/${st_num}'></c:url>" class="list_item">인증 게시판</a> 
+						<a href="<c:url value='/board/list/${st_num}'></c:url>" class="list_item">자유 게시판</a> 
+						<a href="<c:url value='/study/management'></c:url>" class="list_item">스터디 관리</a>
+					</nav>
+				</div>
+				<a href="#" class="leave_btn">탈퇴하기</a>
+			</div>	
 	    <section>
 	        <div class="todo_container">
 	            <div class="time_line_title"> 투두 리스트</div>
@@ -68,21 +68,44 @@
 	
 	                    <!-- 펫 박스 -->
 	                    <div class="pet_box">
-	                        <div class="pet_message_container">
-	                            <div class="pet_message">조금만 더 힘내요!</div>
-	                        </div>
-	                        <div class="pet_img_container">
-	                        	<img class="pet_img">
-	                        </div>
-	                        
-	                        <!-- 달성률 -->
-	                        <div class="progress_container">
-	                            <canvas id="gauge" width="100" height="20"></canvas>
-	                            <div>
-	                                <p class="success_percent">달성률 ${todoProgressRateint}%</p>
-	                            </div> 
-	                        </div>
-	                    </div>
+	                    	<div class="pet_inner_box">
+	                    		<c:if test="${myPet == null}">
+			                        <div class="pet_message_container">
+			                            <div class="pet_message">응원할 펫이 없습니다</div>
+			                        </div>
+			                        <div class="pet_img_container">
+			                        	<img src="<c:url value="/resources/img/egg.png"></c:url>" alt="펫" class="pet">
+			                        </div>
+			                    </c:if>
+	                    		<c:if test="${myPet != null}">
+			                        <div class="pet_message_container">
+				                        <div class="message_box">
+					                        <c:if test="${todoProgressRateint >= 30 && todoProgressRateint < 50}">
+					                            <div class="pet_message">시작이 반이라는 말도 있죠?</div>
+					                        </c:if>
+					                        <c:if test="${todoProgressRateint >= 50 && todoProgressRateint < 100}">
+					                            <div class="pet_message">조금만 더 힘내요!</div>
+					                        </c:if>
+					                        <c:if test="${todoProgressRateint == 100}">
+					                            <div class="pet_message">오늘 할일 끝!</div>
+					                            <img src="<c:url value='/resources/img/party.png'></c:url>" width="auto" height="30">
+					                        </c:if>
+					                    </div>
+			                        </div>
+			                        <div class="pet_img_container">
+			                        	<img src="<c:url value="/resources/img${myPet.ev_img}"></c:url>" width="auto" height="149">
+			                        </div>
+			                     </c:if>
+		                        
+		                        <!-- 달성률 -->
+		                        <div class="progress_container">
+		                            <canvas id="gauge" width="100" height="20"></canvas>
+		                            <div>
+		                                <p class="success_percent">달성률 ${todoProgressRateint}%</p>
+		                            </div> 
+		                        </div>
+	                    	</div>
+	                   </div>
 	                    <!-- 펫 박스 끝 -->
 	                </div>
 	                <!-- 투두 컨테이너 마이 끝 -->
@@ -248,6 +271,54 @@
 
 
 <script>
+function loadStudyMembers(st_num, userId) {
+    $.ajax({
+        url: '<c:url value="/onlineMembers"/>',
+        type: 'GET',
+        dataType: 'json',
+        success: function (onlineMembers) {
+            $.ajax({
+                url: '<c:url value="/study/getMembers/"/>${st_num}',
+                type: 'GET',
+                dataType: 'json',
+                success: function (members) {
+                	// 기존 멤버 목록을 삭제
+                    $(".accessor_container").remove();
+                    let memberList = "";
+
+                    // 첫 번째 멤버의 study_title을 가져옴
+                    if (members.length > 0) {
+                        memberList += '<div class="study_title">' + members[0].st_name + '</div>';
+                    }
+
+                    // 온라인 회원 목록 처리
+                    members.forEach(member => {
+                        const isOnline = onlineMembers.includes(member.me_name);
+                        memberList += createMemberListItem(member, userId, isOnline);
+                    });
+
+                    document.querySelector(".accessor").innerHTML = memberList;
+                }
+            });
+        }
+    });
+}
+function createMemberListItem(member, userId, isOnline) {
+    const defaultImage = '<c:url value="/resources/img/user.png" />';
+    const userProfileImage = member.me_profile ? '<c:url value="/download" />' + member.me_profile : defaultImage;
+
+    return '<div class="accessor_container">' +
+    	(isOnline ? '<div class="accessor_on"></div>' : '') +
+        '<div class="circle_accessor">' +
+        '<img class="acc_img" src="' + userProfileImage + '" width="auto" height="40">' +
+        '<span class="blind">마이페이지</span>' +
+        //(isOnline ? '<div class="accessor_on"></div>' : '') +
+        '</div>' +
+        '<div class="study_name">' + member.me_name + '</div>' +
+        (userId === member.me_name ? '<span class="your">YOU</span>' : '') +
+        '</div>';
+}
+
 
 //게이지바
 
