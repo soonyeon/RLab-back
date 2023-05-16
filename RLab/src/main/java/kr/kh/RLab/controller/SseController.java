@@ -1,6 +1,5 @@
 package kr.kh.RLab.controller;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -19,13 +18,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import kr.kh.RLab.service.BoardService;
 import kr.kh.RLab.service.NotificationService;
 import kr.kh.RLab.service.StudyService;
 import kr.kh.RLab.utils.SseEmitters;
-import kr.kh.RLab.vo.BoardVO;
+import kr.kh.RLab.vo.AlarmVO;
 import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.PhotoVO;
 import kr.kh.RLab.vo.StudyMemberVO;
@@ -68,7 +68,7 @@ public class SseController {
         
         try {
             //emitter.send(SseEmitter.event().name("connect").data("connected!"));
-            sseEmitters.send("connect","알림", id, session);
+            sseEmitters.send("connect","connected!", id, session);
 
         } catch (Exception e) {
             logger.error("Error sending connect event to user {}", id, e);
@@ -84,40 +84,39 @@ public class SseController {
     }
     // 새로운 댓글이 작성된 게시글에 대한 이벤트를 전송 게시글의 작성자에게 알림을 보냄
     @GetMapping(value = "/sse/new/comment", produces = MediaType.TEXT_EVENT_STREAM_VALUE)//이벤트 형식의 응답을 함
-    public ResponseEntity<SseEmitters> sseNewComment(String userId, HttpSession session) {
-    	sseEmitters.send("newComment","알림", userId, session);
+    public ResponseEntity<SseEmitters> sseNewComment(String userId, Object eventData, HttpSession session) {
+    	sseEmitters.send("newComment",eventData, userId, session);
         return ResponseEntity.ok(sseEmitters);
     }
 // 하단 알림 보내는 부분
     // 새로운 좋아요가 눌린 사진에 대한 이벤트를 전송 사진의 작성자에게 알림을 보냄
     @GetMapping(value = "/sse/new/photo/{ph_num}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)//이벤트 형식의 응답을 함
-    public ResponseEntity<SseEmitters> sseNewLike(@PathVariable("ph_num") int ph_num, HttpSession session) {
+    public ResponseEntity<SseEmitters> sseNewLike(@PathVariable("ph_num") int ph_num, Object eventData,HttpSession session) {
     	PhotoVO photo = studyService.getPhotoByPhNum(ph_num);
-    	sseEmitters.send("newLike", "알림", photo.getPh_me_id(),session);
-    	
+    	sseEmitters.send("newLike", eventData, photo.getPh_me_id(),session);
         return ResponseEntity.ok(sseEmitters);
     }
     
     @GetMapping(value = "/sse/join/study/{st_num}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public ResponseEntity<SseEmitters> sseJoinStudy(@PathVariable("st_num") int st_num, HttpSession session) {
+    public ResponseEntity<SseEmitters> sseJoinStudy(@PathVariable("st_num") int st_num,Object eventData, HttpSession session) {
     	StudyVO study = studyService.getStudy(st_num);
-    	sseEmitters.send("joinStudy","알림", study.getSt_me_id(),session);
+    	sseEmitters.send("joinStudy",eventData, study.getSt_me_id(),session);
         return ResponseEntity.ok(sseEmitters);
     }
     
     
     @GetMapping(value = "/sse/leave/study/{st_num}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public ResponseEntity<SseEmitters> sseLeaveStudy(@PathVariable("st_num") int st_num, HttpSession session) {
+    public ResponseEntity<SseEmitters> sseLeaveStudy(@PathVariable("st_num") int st_num,Object eventData, HttpSession session) {
     	StudyVO study = studyService.getStudy(st_num);
-    	sseEmitters.send("leaveStudy", "알림", study.getSt_me_id(),session);
+    	sseEmitters.send("leaveStudy", eventData, study.getSt_me_id(),session);
         return ResponseEntity.ok(sseEmitters);
     }
     
     @GetMapping(value = "/sse/authorize/study", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public ResponseEntity<SseEmitters> sseAuthorizeStudy(StudyMemberVO sm, HttpSession session){
+    public ResponseEntity<SseEmitters> sseAuthorizeStudy(StudyMemberVO sm,Object eventData,HttpSession session){
     	StudyVO sv = studyService.getStudy(sm.getSm_st_num()); 
     	StudyMemberVO stm = studyService.findStudyMember(sm.getSm_st_num(), sv.getSt_me_id());
-    	sseEmitters.send("authorizeStudy","알림", stm.getSm_me_id(),session);
+    	sseEmitters.send("authorizeStudy",eventData, stm.getSm_me_id(),session);
         return ResponseEntity.ok(sseEmitters);
     }
     
@@ -129,4 +128,5 @@ public class SseController {
 		notificationService.deleteAlarm(al_num);
 		return map;
 	}
+
 }

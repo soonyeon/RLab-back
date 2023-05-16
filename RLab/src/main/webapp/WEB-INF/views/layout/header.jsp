@@ -8,7 +8,7 @@
     font-family: Arial, sans-serif;
 	}
 
-	.notification-modal {
+	.notification_modal {
 	    position: fixed;
 	    bottom: 20px;
 	    right: 20px;
@@ -21,16 +21,16 @@
 	    z-index: 1000;
 	}
 	
-	.notification-content {
+	.notification_content {
 	    display: flex;
 	    flex-direction: column;
 	}
 	
-	.notification-content h4 {
+	.notification_content h4 {
 	    margin-bottom: 8px;
 	}
 	
-	.notification-content p {
+	.notification_content p {
 	    margin: 0;
 	}
 </style>
@@ -121,13 +121,11 @@
 		      </form>
 		    </div>
 		  </div>
-</div>
+		</div>
 
 
       <div id="header_container">
         <div class="header_left">
-
-  
           <a href="<c:url value='/'></c:url>" class="btn_home"><i class="icon_home"></i>LAB</a>
           <nav class="top_menu_container">
          	  <a href="<c:url value='/reservation'></c:url>" class="list_item">예약하기</a>
@@ -199,21 +197,33 @@
         </div>
 
     </div>	
-	<div id="notificationModal" class="notification-modal">
-        <div class="notification-content">
-            <h4 id="notificationTitle">알림</h4>
-            
-		<!-- 	<c:choose>
-				<c:when test="${notification.al_type == 'COMMENT'}">
-						올리신 게시글에 댓글이 달렸습니다.
-				</c:when>
-				<c:when test="${notification.al_type == 'LIKE'}">
-						올리신 게시글이 좋아요를 받았습니다.
-				</c:when>
-			</c:choose> -->
+	<div id="notificationModal" class="notification_modal">
+        <div class="notification_box">
+            <h4 class="notification_title">알림</h4>
+            <span class="notification_content"></span>
         </div>
     </div>
-	
+	<div class="alarm_modal display_none" id="alarmModal" style=" max-height: 200px; overflow-y: auto;">	
+	<div class="alarm_container">
+	    <c:forEach var="alarm" items="${alList}">
+	   	    <c:if test="${alarm.al_view == 0}">
+				<a class="modal_content" href="#">		   
+				    <img class="alarm_remove" data-num="${alarm.al_num}" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="20">
+			    	<div class="alarm_content_box">
+				    	<div class="new_dot"></div>
+				        <p>${alarm.al_content}</p>
+			    	</div>  
+	   			</a>
+	   		</c:if>
+		    <c:if test="${alarm.al_view == 1}">
+				<a class="modal_content read_content" href="#">		   
+				    <img class="alarm_remove" data-num="${alarm.al_num}" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="20">
+			        <p>${alarm.al_content}</p>
+	   			</a>
+	   		</c:if>
+	    </c:forEach> 
+	    </div>
+	</div> 
 </header>
 
 <script>
@@ -355,7 +365,7 @@ $(document).mouseup(function (e){
 	}
 });
 //알림 삭제 버튼
-$('.alarm_remove').click(function(){
+$(document).on("click",'.alarm_remove',function(){
 	let al_num = $(this).data('num');
 	$.ajax({
         url: '<c:url value="/delete/alarm/'+al_num+'"></c:url>',
@@ -383,6 +393,12 @@ $("#logout_btn").on("click", function() {
         }
     });
 });
+
+$('.close_btn').click(function(e) {
+  e.preventDefault();
+  $('.modal_container').hide();
+});
+
 $('.logout_btn').click(function(e) {
 	e.preventDefault();
 	$(this).closest('form').submit();
@@ -395,8 +411,7 @@ $('.logout_btn').click(function(e) {
 function connect() {
     const userId = "${user.me_id}"; 
     const connectUrl = "<c:url value='/connect' />" + "?id=" + userId;
-     source = new EventSource(connectUrl);
-     let bt = "${board.bo_title}"
+    const source = new EventSource(connectUrl);
     
     source.onopen = function() {
         console.log("SSE connection opened");
@@ -415,23 +430,25 @@ function connect() {
     };
     
     source.addEventListener("newComment", function (event) {
+    	console.log('새댓글');
     	//이벤트가 일어날 일을 여기밑에다가 쓰기
-	   //const data = JSON.parse(event.data);
+	   const data = JSON.parse(event.data);
 	    	console.log(event);
 		const title = "새로운 댓글";
 		const message = '게시글에 댓글이 달렸습니다.';
 		showModal(title, message);
-		
+
 		setTimeout(function() {
 		    hideModal();
 		}, 5000); 
+		reloadAlarmModal();
 	 	//console.log("Received newComment event:", data);
 	 	//showNotification(message);
 	 });
     
     source.addEventListener("newLike", function (event) {
         // 이벤트가 발생할 때 여기에 코드 작성
-        //const data = JSON.parse(event.data);
+        const data = JSON.parse(event.data);
         const title = "좋아요 알림";
         const message = '게시글에 좋아요가 추가되었습니다.';
         showModal(title, message);
@@ -439,6 +456,7 @@ function connect() {
         setTimeout(function() {
             hideModal();
         }, 5000);
+		reloadAlarmModal();
         //console.log("Received newLike event:", data);
         //showNotification(data.message);
     });
@@ -454,6 +472,7 @@ function connect() {
         setTimeout(function() {
             hideModal();
         }, 5000);
+		reloadAlarmModal();
         //console.log("Received joinStudy event:", data);
         //showNotification(data.message);
     });
@@ -468,6 +487,7 @@ function connect() {
         setTimeout(function() {
             hideModal();
         }, 5000);
+		reloadAlarmModal();
         //console.log("Received leaveStudy event:", data);
         //showNotification(data.message);
     });
@@ -482,6 +502,7 @@ function connect() {
         setTimeout(function() {
             hideModal();
         }, 5000);
+		reloadAlarmModal();
         //console.log("Received authorizeStudy event:", data);
         //showNotification(data.message);
     });
@@ -490,12 +511,13 @@ function connect() {
 
 connect();
 	
-
-
+function reloadAlarmModal(){
+	$("#alarmModal").load(location.href+" .alarm_container");
+}
  
 function showModal(title, message) {
-    $("#notificationTitle").text(title);
-    $("#notificationMessage").text(message);
+    $(".notification_title").text(title);
+    $(".notification_content").text(message);
     $("#notificationModal").fadeIn(300);
 }
 
@@ -503,18 +525,13 @@ function hideModal() {
     $("#notificationModal").fadeOut(300);
 }
 
-
-function showNotification(message) {
-  //console.log("showNotification called with message:", message);
-  $(".notification").text(message);
-  $(".notification").fadeIn().delay(3000).fadeOut();
-}
-
+/*
 $(document).ready(function () {
     if ('${board.bo_num}' == '')
       return;
     
  });
+ */
 $(window).on("beforeunload", function() {
 	  source.close();
 	});

@@ -255,7 +255,6 @@ $(".btn_drop").on("click", function() {
 	
 	
   confirmAction("본 회원을 강퇴시키겠습니까?", function() {
-	  console.log($(this));
 	  $.ajax({
 			async:false,
 		    type:'POST',
@@ -279,10 +278,7 @@ $(".btn_drop").on("click", function() {
 
   
 $(".btn_power").on("click", function() {
-	console.log(1)
 	let me_name  = $(this).parents('.board_list').find('[name=me_name]').text();
-	console.log(me_name);
-	
 	let obj ={
 			me_name: me_name,
 			sm_st_num: ${st_num}
@@ -304,7 +300,6 @@ $(".btn_power").on("click", function() {
 	location.replace("<c:url value='/study/management/'></c:url>");
     alert("위임처리 되었습니다."); 
 	});
-	  
 });
 
 
