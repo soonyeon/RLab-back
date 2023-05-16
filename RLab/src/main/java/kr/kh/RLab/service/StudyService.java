@@ -78,7 +78,7 @@ public interface StudyService {
 
 	ArrayList<StudyMemberVO> selectStudyMemberByStNum(int st_num);
 
-	ArrayList<PhotoVO> selectPhotoPhNumTwo(int st_num);
+	ArrayList<PhotoVO> selectPhotos(int st_num);
 
 	int selectSmAuthority(MemberVO user,int st_num);
 

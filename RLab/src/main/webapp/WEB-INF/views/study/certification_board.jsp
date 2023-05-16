@@ -75,7 +75,6 @@
 								                                <img width="350" height="300"		src="<c:url value='/download${photo.ph_img}'/>" alt="이미지">
 								                            </div>
 								                            <div class="middle_container2">
-								                                <span class="feed_date_min"><fmt:formatDate value="${photo.ph_register_date}" pattern="MM/dd" /></span>
 								                                <span class="feed_contents">${photo.ph_content}</span>
 								                            </div>
 								                            <div class="middle_container3">

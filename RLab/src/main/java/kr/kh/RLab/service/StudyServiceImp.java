@@ -243,8 +243,8 @@ public class StudyServiceImp implements StudyService {
 	}
 
 	@Override
-	public ArrayList<PhotoVO> selectPhotoPhNumTwo(int st_num) {
-		return studyDao.selectPhotoPhNumTwo(st_num);
+	public ArrayList<PhotoVO> selectPhotos(int st_num) {
+		return studyDao.selectPhotos(st_num);
 	}
 
 	@Override

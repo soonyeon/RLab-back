@@ -11,5 +11,7 @@ public interface WantDAO {
 
 	void updateWant(WantVO isWant);
 
+	int selectGaNumByStNum();
+
 
 }

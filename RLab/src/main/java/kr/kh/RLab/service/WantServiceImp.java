@@ -44,5 +44,10 @@ public class WantServiceImp implements WantService{
 		result.put("wantState", newWantState);
 		return result;
 	}
+
+	@Override
+	public int selectGaNumByStNum() {
+		return wantDAO.selectGaNumByStNum();
+	}
 	
 }

@@ -11,5 +11,7 @@ public interface WantService {
 	
 	Map<String, Object> toggleWant(WantVO wantVO,MemberVO member);
 
+	int selectGaNumByStNum();
+
 
 }

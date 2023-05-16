@@ -22,4 +22,8 @@
 	and 
 	    wa_ga_num=#{wa_ga_num}
   </update>
+  <select id="selectGaNumByStNum" resultType="int">
+  	select * from want
+  	where wa_ga_num = #{wa_ga_num}
+  </select>
 </mapper>

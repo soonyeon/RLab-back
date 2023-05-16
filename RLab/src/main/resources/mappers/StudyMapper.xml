@@ -160,9 +160,9 @@
 		from photo
 		where ph_num = #{li_ph_num}
 	</select>
-	<select id="selectPhotoPhNumTwo" resultType="kr.kh.RLab.vo.PhotoVO">
+	<select id="selectPhotos" resultType="kr.kh.RLab.vo.PhotoVO">
 		select * from photo
-		where ph_pt_num = 2 and ph_st_num = #{st_num} and Date(ph_register_date) = CURDATE();
+		where ph_st_num = #{st_num} and Date(ph_register_date) = CURDATE();
 	</select>
 	<select id="selectStudyMemberByStNum" resultType="kr.kh.RLab.vo.StudyMemberVO">
 		select * from study_member

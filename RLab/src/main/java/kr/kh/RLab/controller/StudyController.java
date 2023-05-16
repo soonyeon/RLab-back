@@ -198,7 +198,8 @@ public class StudyController {
 		
 		ArrayList<TodoVO> tdList = studyService.getTodoList(user.getMe_id());
 		mv.addObject("tdList", tdList);
-		ArrayList<PhotoVO> photo = studyService.selectPhotoPhNumTwo(st_num);
+		ArrayList<PhotoVO> photo = studyService.selectPhotos(st_num);
+		
 		mv.addObject("photo", photo);
 		mv.addObject("st_num", st_num);
 		mv.addObject("study", study);
