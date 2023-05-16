@@ -53,13 +53,18 @@ td a{
 	gap: 10px;
 }
 .select_box_area{
-  height: 29.5px;
+ /* height: 29.5px;*/
   display: flex;
-  flex-direction: row-reverse;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
 }
 .select_view option{
   width: 200px;
   border-radius: 5px;
+}
+.sort_box{
+	height: 29.5px;
 }
 table { border-collapse: collapse; }
 
@@ -153,21 +158,23 @@ table { border-collapse: collapse; }
 }
 
 .write_btn {
-	margin-top: 10px;
 	-webkit-appearance: none;
     appearance: none;
     background-color: transparent;
     border: 0;
     font-weight: bold;
-    background-color: var(--color_blue);
+    background-color: var(--color_yellow);
     width: 110px;
-    height: 40px ;
+    height: 35px ;
     border-radius: var(--border_radius_3);
-    font-size: 14px;
+    font-size: 13px;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
+}
+.write_btn:hover{
+	background-color: #e3ca40
 }
 .nick_name {
 	font-weight: bold;

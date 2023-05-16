@@ -92,7 +92,10 @@ public class BoardController {
 	    for (ScrapVO scv : scrapedList) {
 				mv.addObject("scv", scv);
 		}
+	    // 스터디 관리
+	    int leaderCount = studyService.getLeaderCount(user.getMe_id());
 	    mv.addObject("st_num", st_num);
+	    mv.addObject("leaderCount", leaderCount);
 	    mv.setViewName("/board/detail");
 		return mv;
 	}

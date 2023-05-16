@@ -42,7 +42,8 @@
 						<div class="table_container">
 							<div class="tab_content">
 							  <div class="select_box_area">
-		                      	<select name="sort">
+							  	<a class="write_btn" href="<c:url value="/board/insert/${st_num}"></c:url>" style="float: right;">작성하기</a>
+		                      	<select class="sort_box" name="sort">
 										<option value="" <c:if test="${pm.cri.sort==''}">selected</c:if>>전체보기</option>
 										<option value="date" <c:if test="${pm.cri.sort=='date'}">selected</c:if>>최신순</option>
 										<option value="views" <c:if test="${pm.cri.sort=='views'}">selected</c:if>>조회순</option>
@@ -74,7 +75,7 @@
 											</tr>
 										</c:forEach>
 									</table>
-									<a class="write_btn" href="<c:url value="/board/insert/${st_num}"></c:url>" style="float: right;">작성하기</a>
+								<!-- <a class="write_btn" href="<c:url value="/board/insert/${st_num}"></c:url>" style="float: right;">작성하기</a> -->	
 								</div>
 								<div class="page_box clearfix">
 									<c:if test="${pm.prev}">

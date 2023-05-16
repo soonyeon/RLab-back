@@ -37,10 +37,17 @@
 .inner_board_box{
   border: 1px solid black;
   width: 650px;
-  padding: 20px 30px;
+  padding: 35px 35px 20px 35px;
   display: flex;
   flex-direction: column;
   margin-top: 10px
+}
+.board_title{
+	width: 100%;
+    height: 31px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .writer_and_scrap{
   display: flex;
@@ -95,14 +102,16 @@
 
 .scrap_and_comment{
   display: flex;
-  flex-direction: row;
+  gap: 10px;
   align-items: center;
   height: 50px;
   border-bottom: 2px solid var(--color_grey);
   
 }
-.scrap_bottom{
-  margin-right: 10px;
+.bottom_box{
+	display: flex;
+	align-items: center;
+	gap: 5px;
 }
 .scrap_num{
   font-size: 20px;
@@ -592,11 +601,6 @@
   padding-top: 16px;
 }
 
-.time_line_title{
-  margin-left: 30px;
-  font-weight: bold;
-  font-size: 28px;
-}
 
 .time_line_container2 {
   margin-right:120px;
