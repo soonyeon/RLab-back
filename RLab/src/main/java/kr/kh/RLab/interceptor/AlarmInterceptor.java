@@ -28,7 +28,6 @@ public class AlarmInterceptor implements HandlerInterceptor {
 		if (member != null && modelAndView != null) {
 			List<AlarmVO> alList = notificationService.getUserAlarms(member.getMe_id());
 			int newAlarm = notificationService.getNewAlarmCount(member.getMe_id());
-			System.out.println(alList);
 			modelAndView.addObject("alList", alList);
 			modelAndView.addObject("newAlarm", newAlarm);
 		}

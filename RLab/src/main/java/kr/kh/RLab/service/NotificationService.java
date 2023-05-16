@@ -23,5 +23,7 @@ public interface NotificationService {
 
 	int getNewAlarmCount(String userId);
 
+	void updateAlarmView(int al_num);
+
 
 }

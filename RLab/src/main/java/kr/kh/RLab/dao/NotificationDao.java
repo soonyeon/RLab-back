@@ -9,13 +9,14 @@ public interface NotificationDao {
 	void createNotificationEvent(AlarmVO alarm);
 
 	// 사용자별 알림 이벤트 조회
-
 	List<AlarmVO> getUserAlarms(String userid);
 	
 	void deleteAlarm(int al_num);
 	
 	// 새로운 알람 개수 조회
 	int selectNewAlarmCount(String userId);
+
+	void updateAlarmView(int al_num);
 
 
 }

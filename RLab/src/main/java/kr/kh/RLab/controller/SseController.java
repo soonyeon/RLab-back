@@ -121,7 +121,6 @@ public class SseController {
     	sseEmitters.send("authorizeStudy",eventData, stm.getSm_me_id(),session);
         return ResponseEntity.ok(sseEmitters);
     }
-    
     //알림 삭제
 	@ResponseBody
 	@RequestMapping(value = "/delete/alarm/{al_num}", method = RequestMethod.POST)
@@ -130,14 +129,19 @@ public class SseController {
 		notificationService.deleteAlarm(al_num);
 		return map;
 	}
-	
 	//board댓글 알림 눌렀을 때 링크이동
 	@GetMapping("/board/detail/{bo_num}")
 	public ModelAndView boardGet(ModelAndView mv, @PathVariable int bo_num) {
-		System.out.println("댓글게시글 이동여기까진 넘어옴");
 		BoardVO board = boardService.getBoard(bo_num);
 	    mv.setViewName("forward:/board/detail/"+board.getBo_st_num()+"/"+bo_num);
 		return mv;
 	}
-
+    //al_view 0->1 변경
+	@ResponseBody
+	@RequestMapping(value = "/update/alview/{al_num}", method = RequestMethod.POST)
+	public HashMap<String,Object> updateAlarmViewPost(@PathVariable("al_num")int al_num, HttpSession session) {
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		notificationService.updateAlarmView(al_num);
+		return map;
+	}
 }

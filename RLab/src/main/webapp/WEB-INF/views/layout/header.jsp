@@ -217,7 +217,7 @@
 		<div class="alarm_container">
 		    <c:forEach var="alarm" items="${alList}">
 		   	    <c:if test="${alarm.al_view == 0}">
-					<a class="modal_content" href="
+					<a class="modal_content" data-num="${alarm.al_num}" href="
 					<c:if test='${alarm.al_table=="board"}'><c:url value='/board/detail/${alarm.al_ex_num}'></c:url></c:if>
 					<c:if test='${alarm.al_table=="gather"}'><c:url value='/gather/detail/${alarm.al_ex_num}'></c:url></c:if>
 					<c:if test='${alarm.al_table=="photo"}'><c:url value='/study/photo/${alarm.al_ex_num}'></c:url></c:if>
@@ -231,7 +231,7 @@
 		   			</a>
 		   		</c:if>
 			    <c:if test="${alarm.al_view == 1}">
-					<a class="modal_content read_content" href="
+					<a class="modal_content read_content" data-num="${alarm.al_num}" href="
 					<c:if test='${alarm.al_table=="board"}'><c:url value='/board/detail/${alarm.al_ex_num}'></c:url></c:if>
 					<c:if test='${alarm.al_table=="gather"}'><c:url value='/gather/detail/${alarm.al_ex_num}'></c:url></c:if>
 					<c:if test='${alarm.al_table=="photo"}'><c:url value='/study/photo/${alarm.al_ex_num}'></c:url></c:if>
@@ -405,6 +405,22 @@ $(document).mouseup(function (e){
 	if($(".alarm_modal").has(e.target).length === 0){
 		$(".alarm_modal").hide();
 	}
+});
+
+//알림 클릭 시 al.view 0->1 변경
+$(document).on("click",'.modal_content',function(){
+	let al_num = $(this).data('num');
+	$.ajax({
+        url: '<c:url value="/update/alview/'+al_num+'"></c:url>',
+        type: 'POST',
+        success: function() {
+        	console.log('알림 확인 변경 성공');
+            //location.reload();
+        },
+        error: function() {
+            console.log("알림 확인 변경 실패");
+        }
+    });
 });
 
 //알림 삭제 버튼
