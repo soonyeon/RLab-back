@@ -302,9 +302,7 @@
 		  var spotCapa = $(this).find('.br_capacity').text();
 
 		  var spotImgFileValue = $(this).find('.spot_hidden_box .spot_img_file').text();
-		  /* var spotImgSrc = "/RLab/download" + spotImgFileValue; */
-		  var spotImgSrc = "/test/download" + spotImgFileValue;
-			
+		  var spotImgSrc = "/RLab/download" + spotImgFileValue;
 
 		  $('.spot_modal .spot_name').text(spotName);
 		  $('.spot_modal .spot_add').text(spotAdd);
