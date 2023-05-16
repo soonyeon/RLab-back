@@ -269,9 +269,11 @@ $(document).ready(function() {
 	      success: function(response) {
 	        if (response && response.wantState === 1) {
 	        	 $('.unlike_img').removeClass('unlike_img').addClass('like_img');
+	        	 location.reload();
 	          alert('스터디를 찜 했습니다.');
 	        } else if (response && response.wantState === 0) {
 	        	 $('.like_img').removeClass('like_img').addClass('unlike_img');
+	        	 location.reload();
 	          alert('스터디 찜을 취소 했습니다.');
 	        }
 	      },

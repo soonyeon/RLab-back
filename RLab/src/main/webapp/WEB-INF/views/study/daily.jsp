@@ -316,6 +316,7 @@ $(".mission_edit").click(function(e){
     });
 });
 
+$(content).text('${mission.mi_content}');
 
 
 
