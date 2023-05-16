@@ -204,24 +204,24 @@
         </div>
     </div>
 	<div class="alarm_modal display_none" id="alarmModal" style=" max-height: 200px; overflow-y: auto;">	
-	<div class="alarm_container">
-	    <c:forEach var="alarm" items="${alList}">
-	   	    <c:if test="${alarm.al_view == 0}">
-				<a class="modal_content" href="#">		   
-				    <img class="alarm_remove" data-num="${alarm.al_num}" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="20">
-			    	<div class="alarm_content_box">
-				    	<div class="new_dot"></div>
+		<div class="alarm_container">
+		    <c:forEach var="alarm" items="${alList}">
+		   	    <c:if test="${alarm.al_view == 0}">
+					<a class="modal_content" href="#">		   
+					    <img class="alarm_remove" data-num="${alarm.al_num}" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="20">
+				    	<div class="alarm_content_box">
+					    	<div class="new_dot"></div>
+					        <p>${alarm.al_content}</p>
+				    	</div>  
+		   			</a>
+		   		</c:if>
+			    <c:if test="${alarm.al_view == 1}">
+					<a class="modal_content read_content" href="#">		   
+					    <img class="alarm_remove" data-num="${alarm.al_num}" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="20">
 				        <p>${alarm.al_content}</p>
-			    	</div>  
-	   			</a>
-	   		</c:if>
-		    <c:if test="${alarm.al_view == 1}">
-				<a class="modal_content read_content" href="#">		   
-				    <img class="alarm_remove" data-num="${alarm.al_num}" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="20">
-			        <p>${alarm.al_content}</p>
-	   			</a>
-	   		</c:if>
-	    </c:forEach> 
+		   			</a>
+		   		</c:if>
+		    </c:forEach> 
 	    </div>
 	</div> 
 </header>
@@ -288,7 +288,7 @@ $(document).mouseup(function (e){
 
 </script>
 <script>
-let source;
+var source=null;
 // 스크롤 내리면 헤더에 그림자넣기
 $("body").on("mousewheel", function(e){
 	var wheel = e.originalEvent.wheelDelta;
@@ -406,22 +406,18 @@ $('.logout_btn').click(function(e) {
 
 
 
-    connect();
+connect();
 
 function connect() {
     const userId = "${user.me_id}"; 
     const connectUrl = "<c:url value='/connect' />" + "?id=" + userId;
-    const source = new EventSource(connectUrl);
+    source = new EventSource(connectUrl);
     
     source.onopen = function() {
         console.log("SSE connection opened");
     };
     source.addEventListener("connect", function(event) {
         console.log("Received connect event:", event.data);
-    });
-    
-    source.addEventListener("test", function(event) {
-        console.log("test:", event.data);
     });
     
     source.onerror = function(event) {
@@ -441,7 +437,6 @@ function connect() {
 		    hideModal();
 		}, 5000); 
 		reloadAlarmModal();
-	 	//console.log("Received newComment event:", data);
 	 	//showNotification(message);
 	 });
     
@@ -456,7 +451,6 @@ function connect() {
             hideModal();
         }, 5000);
 		reloadAlarmModal();
-        //console.log("Received newLike event:", data);
         //showNotification(data.message);
     });
     
@@ -472,7 +466,6 @@ function connect() {
             hideModal();
         }, 5000);
 		reloadAlarmModal();
-        //console.log("Received joinStudy event:", data);
         //showNotification(data.message);
     });
     
@@ -487,7 +480,6 @@ function connect() {
             hideModal();
         }, 5000);
 		reloadAlarmModal();
-        //console.log("Received leaveStudy event:", data);
         //showNotification(data.message);
     });
     
@@ -502,13 +494,10 @@ function connect() {
             hideModal();
         }, 5000);
 		reloadAlarmModal();
-        //console.log("Received authorizeStudy event:", data);
         //showNotification(data.message);
     });
     
 }
-
-connect();
 	
 function reloadAlarmModal(){
 	$("#alarmModal").load(location.href+" .alarm_container");
@@ -526,7 +515,8 @@ function hideModal() {
 
 //페이지를 떠날 때 
 $(window).on("beforeunload", function() {
-	source.close();
+	if(source != null)
+		source.close();
 });
 </script>
 

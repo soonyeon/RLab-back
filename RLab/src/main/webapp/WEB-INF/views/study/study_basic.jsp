@@ -542,6 +542,7 @@ $(document).ready(function() {
     loadStudyMembers(st_num, userId);
 });
 
+/*
 const sse = new EventSource("<c:url value='/connect'></c:url>" + "?id=" + userId);
 sse.addEventListener('connect', (e) => {
     const { data: receivedConnectData } = e;
@@ -552,6 +553,7 @@ sse.addEventListener('count', e => {
     const { data: receivedCount } = e;
     console.log("count event data", receivedCount);
 });
+*/
 
 $('.leave_btn').click(function() {
 	if(confirm('스터디를 탈퇴 하시겠습니까?')) {
