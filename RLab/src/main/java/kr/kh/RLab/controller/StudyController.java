@@ -106,7 +106,6 @@ public class StudyController {
 			return "noMission";
 		}
 		MissionFinishVO mf = studyService.selectTodayMissionFinsh(member.getMe_id());
-		
 		if(mf != null && photoVO.getPh_pt_num() == 2) {
 			return "already";
 		}

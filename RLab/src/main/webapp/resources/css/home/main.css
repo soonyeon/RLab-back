@@ -385,13 +385,13 @@ main{
 .like_btn{
   width: 50px;
   background-size: 45px 45px;
-  background-image: url(../../img/like_on_red.png);
+  background-image: url('../../img/like_on_red.png');
   background-repeat: no-repeat;	
 }
 .unlike_btn{
   width: 50px;
   background-size: 45px 45px;
-  background-image: url(../../img/love_off.png);
+  background-image: url('../../img/love_off.png');
   background-repeat: no-repeat;		
 }
 

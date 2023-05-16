@@ -151,6 +151,7 @@
 								</c:if>
 							</c:forEach>
 						</div>
+						 </a>
 		                <div class="recruit_btn_box">
 		                  <div class="recruit_banner_btn">
                  				<span>모집중</span> 
@@ -159,7 +160,7 @@
 							<span>${st.st_total_people}</span>
 		                  </div>
 		                  <!-- 스터디 좋아요 -->
-		                  
+		                  <div class="want_icon" data-num="${st.st_num}">
 							<c:if test="${user == null}">
 								<div class="unlike_btn"></div>
 							</c:if>
@@ -171,9 +172,9 @@
 									<div class="unlike_btn"></div>
 								</c:if>
 							</c:if>
+						  </div>		
 		                </div>
-		              </div>
-		              </a>
+		              </div>             
 		            </div>
 					</c:forEach>
 	         	 </c:if>
@@ -224,11 +225,46 @@
       </section>
   </main>   
 <script>
+const userId = '${user.me_id}'; 
 
+$(document).ready(function() {
+	  $('.want_icon').on('click', function() {
+		  const  studyNum = $(this).data('num');
+		want(studyNum);
+	  });
+	  
 
+	  function want(studyNum) {
+	    // 데이터
+	    var requestData = {
+	      wa_me_id: userId,
+	      st_num: studyNum
+	    };
+	    $.ajax({
+	      url: '<c:url value="/wantst" />',
+	      type: 'POST',
+	      contentType: "application/json",
+	      data: JSON.stringify(requestData),
+	      success: function(response) {
+	        if (response && response.wantState === 1) {
+	        	 $('.unlike_img').removeClass('unlike_img').addClass('like_img');
+	          alert('스터디를 찜 했습니다.');
+	        } else if (response && response.wantState === 0) {
+	        	 $('.like_img').removeClass('like_img').addClass('unlike_img');
+	          alert('스터디 찜을 취소 했습니다.');
+	        }
+	      },
+	      error: function(error) {
+	    	  console.log(error)
+	        alert('찜에 실패하였습니다. 다시 시도해주세요');
+	      }
+	      
+	    });
+	  }
+	});
 
-
-
+</script> 
+<script>
 //메인배너
 	var banner_area = document.querySelector('.main_banner_area'),
 		banner = document.querySelectorAll('.main_banner_area li'),
