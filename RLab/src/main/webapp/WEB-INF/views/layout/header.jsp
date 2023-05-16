@@ -148,7 +148,12 @@
               					<div class="alarm_modal" id="alarmModal" style=" max-height: 200px; overflow-y: auto;">	
 								    <c:forEach var="alarm" items="${alarm}">
 								   	    <c:if test="${alarm.al_view == 0}">
-											<a class="modal_content" href="#">		   
+											<a class="modal_content" href="
+											<c:if test='${alarm.al_table=="board"}'><c:url value='/board/detail/${alarm.al_ex_num}'></c:url></c:if>
+											<c:if test='${alarm.al_table=="gather"}'><c:url value='/gather/detail/${alarm.al_ex_num}'></c:url></c:if>
+											<c:if test='${alarm.al_table=="photo"}'><c:url value='/study/photo/${alarm.al_ex_num}'></c:url></c:if>
+											<c:if test='${alarm.al_table=="study"}'><c:url value='/study/${alarm.al_ex_num}'></c:url></c:if>
+											">		   
 										    	<div class="alarm_content_box">
 											    	<div class="new_dot"></div>
 											        <p>${alarm.al_content}</p>
@@ -157,7 +162,12 @@
 								   			</a>
 								   		</c:if>
 									    <c:if test="${alarm.al_view == 1}">
-											<a class="modal_content read_content" href="#">		
+											<a class="modal_content read_content" href="
+											<c:if test='${alarm.al_table=="board"}'><c:url value='/board/detail/${alarm.al_ex_num}'></c:url></c:if>
+											<c:if test='${alarm.al_table=="gather"}'><c:url value='/gather/detail/${alarm.al_ex_num}'></c:url></c:if>
+											<c:if test='${alarm.al_table=="photo"}'><c:url value='/study/photo/${alarm.al_ex_num}'></c:url></c:if>
+											<c:if test='${alarm.al_table=="study"}'><c:url value='/study/${alarm.al_ex_num}'></c:url></c:if>
+											">		
 												<div class="alarm_content_box">   
 											        <p>${alarm.al_content}</p>
 								   				</div>
@@ -207,19 +217,29 @@
 		<div class="alarm_container">
 		    <c:forEach var="alarm" items="${alList}">
 		   	    <c:if test="${alarm.al_view == 0}">
-					<a class="modal_content" href="#">		   
-					    <img class="alarm_remove" data-num="${alarm.al_num}" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="20">
+					<a class="modal_content" href="
+					<c:if test='${alarm.al_table=="board"}'><c:url value='/board/detail/${alarm.al_ex_num}'></c:url></c:if>
+					<c:if test='${alarm.al_table=="gather"}'><c:url value='/gather/detail/${alarm.al_ex_num}'></c:url></c:if>
+					<c:if test='${alarm.al_table=="photo"}'><c:url value='/study/photo/${alarm.al_ex_num}'></c:url></c:if>
+					<c:if test='${alarm.al_table=="study"}'><c:url value='/study/${alarm.al_ex_num}'></c:url></c:if>
+					">		   
 				    	<div class="alarm_content_box">
 					    	<div class="new_dot"></div>
 					        <p>${alarm.al_content}</p>
 				    	</div>  
+					    <img class="alarm_remove" data-num="${alarm.al_num}" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="20">
 		   			</a>
 		   		</c:if>
 			    <c:if test="${alarm.al_view == 1}">
-					<a class="modal_content read_content" href="#">		   
-					    <img class="alarm_remove" data-num="${alarm.al_num}" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="20">
-				        <p>${alarm.al_content}</p>
-		   			</a>
+					<a class="modal_content read_content" href="
+					<c:if test='${alarm.al_table=="board"}'><c:url value='/board/detail/${alarm.al_ex_num}'></c:url></c:if>
+					<c:if test='${alarm.al_table=="gather"}'><c:url value='/gather/detail/${alarm.al_ex_num}'></c:url></c:if>
+					<c:if test='${alarm.al_table=="photo"}'><c:url value='/study/photo/${alarm.al_ex_num}'></c:url></c:if>
+					<c:if test='${alarm.al_table=="study"}'><c:url value='/study/${alarm.al_ex_num}'></c:url></c:if>
+					">		   
+					    <p>${alarm.al_content}</p>
+		   				<img class="alarm_remove" data-num="${alarm.al_num}" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="20">
+				    </a>
 		   		</c:if>
 		    </c:forEach> 
 	    </div>

@@ -447,7 +447,7 @@ header{
 .alarm_modal {
   position: absolute;
   margin-top: 69px;
-  top: -22px;
+  top: 1px;
   /*right: -288px;*/
   margin-left: 890px;
   background-color: white;

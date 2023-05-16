@@ -2,6 +2,7 @@ package kr.kh.RLab.controller;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -19,13 +20,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import kr.kh.RLab.service.BoardService;
 import kr.kh.RLab.service.NotificationService;
 import kr.kh.RLab.service.StudyService;
 import kr.kh.RLab.utils.SseEmitters;
+import kr.kh.RLab.vo.BoardVO;
+import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.PhotoVO;
+import kr.kh.RLab.vo.ScrapVO;
 import kr.kh.RLab.vo.StudyMemberVO;
 import kr.kh.RLab.vo.StudyVO;
 
@@ -35,6 +40,8 @@ public class SseController {
     private final SseEmitters sseEmitters;
     private static final Logger logger = LoggerFactory.getLogger(SseController.class);
 
+    @Autowired
+    private BoardService boardService;
     @Autowired
     private StudyService studyService;
     @Autowired
@@ -122,6 +129,15 @@ public class SseController {
 		HashMap<String,Object> map = new HashMap<String,Object>();
 		notificationService.deleteAlarm(al_num);
 		return map;
+	}
+	
+	//board댓글 알림 눌렀을 때 링크이동
+	@GetMapping("/board/detail/{bo_num}")
+	public ModelAndView boardGet(ModelAndView mv, @PathVariable int bo_num) {
+		System.out.println("댓글게시글 이동여기까진 넘어옴");
+		BoardVO board = boardService.getBoard(bo_num);
+	    mv.setViewName("forward:/board/detail/"+board.getBo_st_num()+"/"+bo_num);
+		return mv;
 	}
 
 }

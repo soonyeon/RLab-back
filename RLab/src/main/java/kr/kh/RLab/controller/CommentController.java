@@ -40,7 +40,9 @@ public class CommentController {
 	private final SseController sseController;
 	@PostMapping("/create")
 	public Map<String, Object> createComment(@RequestBody CommentVO comment,HttpSession session) {
+		System.out.println("comment객체 받음:"+comment);
 		int result = commentService.createComment(comment);
+		System.out.println("댓글 등록 완");
 		// 새 댓글이 생성되면 SSE 이벤트를 전송
 		if (result > 0) {
 			String al_table = comment.getCo_table();
@@ -65,8 +67,13 @@ public class CommentController {
 				return null;
 			// 게시글 작성자 본인이 단 댓글은 알림 받지 않음
 			if(!userId.equals(comment.getCo_me_id())) { 
+				System.out.println("알림보내기전");
 				notificationService.sendNotificationToUser(userId, message, al_type, al_table, comment.getCo_ex_num());
+				System.out.println("알림 db 등록 완");
+				System.out.println("userId: "+userId);
+				System.out.println("eventData:"+eventData);
 				sseController.sseNewComment(userId,eventData,session);
+				System.out.println("하단 알림 전송 완");
 			}
 			// 대댓글 달리면 댓글 작성자에게도 알림
 			if(comment.getCo_ori_num()!=0 && comment.getCo_ori_num()!=comment.getCo_num()) {
