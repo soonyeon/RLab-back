@@ -237,7 +237,7 @@ body {
 				<!-- 제목 -->
 				<div class="todo_box_title">
 					<h3>TODO</h3>
-					<a href="#" class="plus1">+더보기</a>
+					<a href="<c:url value='/study/todo/${st_num}'></c:url>" class="plus1">+더보기</a>
 				</div>
 				<!-- 내용 -->
 				<div class="todo_box_content">
@@ -312,45 +312,17 @@ body {
 				<!-- 제목 -->
 				<div class="free_box_title">
 					<h3 class="contents_title">자유게시판 최신글</h3>
-					<a href="" class="plus2">+더보기</a>
+					<a href="<c:url value='/board/list/${st_num}'></c:url>" class="plus2">+더보기</a>
 				</div>
 				<div class="board_content_box">
 					<!-- 내용 1,2,3 -->
 					<div class="boardContainer">
 						<div class="board_box">
-							<a href="#" class="board_item">
-								<div class="circle_new">NEW</div> <span>정보처리기사 문제집 추천</span>
+						<c:forEach var="bd" items="${boardList}">
+							<a href="<c:url value='/board/detail/${st_num}/${bd.bo_num}'></c:url>" class="board_item">
+								<div class="circle_new">NEW</div> <span>${bd.bo_title}</span>
 							</a>
-						</div>
-						<div class="board_box">
-							<a href="#" class="board_item">
-								<div class="circle_new">NEW</div> <span>바닐자 자바스크립트 vs
-									제이쿼리</span>
-							</a>
-						</div>
-						<div class="board_box">
-							<a href="#" class="board_item">
-								<div class="circle_new">NEW</div> <span>react 온라인 강의 어떤게
-									좋나요?</span>
-							</a>
-						</div>
-						<div class="board_box">
-							<a href="#" class="board_item">
-								<div class="circle_new">NEW</div> <span>react 온라인 강의 어떤게
-									좋나요?</span>
-							</a>
-						</div>
-						<div class="board_box">
-							<a href="#" class="board_item">
-								<div class="circle_new">NEW</div> <span>react 온라인 강의 어떤게
-									좋나요?</span>
-							</a>
-						</div>
-						<div class="board_box">
-							<a href="#" class="board_item">
-								<div class="circle_new">NEW</div> <span>react 온라인 강의 어떤게
-									좋나요?</span>
-							</a>
+						</c:forEach>
 						</div>
 					</div>
 				</div>

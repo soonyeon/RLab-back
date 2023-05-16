@@ -70,7 +70,7 @@
 											</tr>
 										</c:forEach>
 									</table>
-									<a class="write_btn" href="<c:url value="/board/insert"></c:url>" style="float: right;">작성하기</a>
+									<a class="write_btn" href="<c:url value="/board/insert/${st_num}"></c:url>" style="float: right;">작성하기</a>
 								</div>
 								<div class="page_box clearfix">
 									<c:if test="${pm.prev}">

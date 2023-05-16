@@ -453,7 +453,6 @@ header{
   background-color: white;
   color: black;
   border-radius: 5px;
-  display: none;
   z-index: 9998;
   width: 312px;
   overflow-x: hidden;

@@ -70,14 +70,10 @@ table { border-collapse: collapse; }
 .board_list {
   border-bottom: 1px solid  var(--color_yellow);
 }
-.board_list_1,
-.board_list_3,
-.board_list_5,
-.board_list_7,
-.board_list_9,
-.board_list_11{
+td:hover {
   background-color: rgba(128, 128, 128, 0.072);
 }
+ 
 .post_title{
   font-weight:bold;
   font-size: 14px;
