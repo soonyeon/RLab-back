@@ -201,6 +201,7 @@ public class StudyController {
 	    //board
 	    ArrayList<BoardVO> boardList = boardService.selectBoardListByStNum(st_num);
 	    mv.addObject("boardList", boardList);
+	    System.out.println("=========================================="+boardList);
 		
 		ArrayList<TodoVO> tdList = studyService.getTodoList(user.getMe_id());
 		mv.addObject("tdList", tdList);

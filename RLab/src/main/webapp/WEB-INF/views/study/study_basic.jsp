@@ -311,10 +311,11 @@ body {
 					<!-- 내용 1,2,3 -->
 					<div class="boardContainer">
 						<div class="board_box">
-						<c:forEach var="bd" items="${boardList}"></c:forEach>
+						<c:forEach var="bd" items="${boardList}">
 							<a href="<c:url value='/board/detail/${st_num}/${bd.bo_num}'></c:url>" class="board_item">
 								<div class="circle_new">NEW</div> <span>${bd.bo_title}</span>
 							</a>
+						</c:forEach>
 						</div>
 					</div>
 				</div>
