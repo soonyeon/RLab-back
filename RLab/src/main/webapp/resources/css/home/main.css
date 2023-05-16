@@ -480,29 +480,11 @@ main{
   margin-right: 35px;
   float: left;
 }
-.event_img1{
-  width: 100%;
+.event_banner img{
   border-radius: 10px;
-  display: inline-block;
-  /* width: 579.996px;  */
-  height:245.930px; 
-  margin-right: 10px;
-  background-size:579.996px 245.930px;
-  background-image: url(../../img/event_thumb.png);
+  width: 575px;
+  height: 246px;
 }
-.event_img2{
-  width: 100%;
-  border-radius: 10px;
-  display: inline-block;
-  /* width: 579.996px;  */
-  height:245.930px; 
-  margin-right: 10px;
-  background-size:579.996px 245.930px;
-  background-image: url(../../img/event_thumb2.png);
-}
-
-
-
 .event_btn_left{position:absolute; top:150px; left:-100px;}
 .event_btn_right{position:absolute; top:150px; right:-100px}
 
