@@ -82,15 +82,15 @@
 
 
 .modal-content {
-  display: flex;
-  flex-flow: column;
-  background-color: #fefefe;
-  /*margin: 15% auto; */
-  padding: 20px;
-  border-radius: var(--border_radius_4);
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
+	display: flex;
+	flex-flow: column;
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border-radius: var(--border_radius_4);
+	width: 409px;
+	/* height: 100%; */
+	box-sizing: border-box;
 }
 
 .close {
