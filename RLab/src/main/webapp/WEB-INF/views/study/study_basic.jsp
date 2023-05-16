@@ -144,13 +144,15 @@ body {
 			<div class="home_container">
 				<div class="tab_container">
 					<div class="tabs">
-						<div class="tab_box tab1 tab">
-							<input type="radio" id="tab1" name="tab_control" checked>
-							<label for="tab1" class="">달력</label>
+						<div class="tab_box tab1 tab tab1_selected">
+							<!--<input type="radio" id="tab1" name="tab_control" checked>
+							<label for="tab1" class="">달력</label>  -->
+							<p>달력</p>
 						</div>
 						<div class="tab_box tab2 tab">
-							<input type="radio" id="tab2" name="tab_control"> 
-							<label for="tab2" class="">일정 리스트</label>
+							<!--<input type="radio" id="tab2" name="tab_control"> 
+							<label for="tab2" class="">일정 리스트</label>-->
+							<p>일정 리스트</p>
 						</div>
 					</div>
 				</div>
@@ -417,6 +419,16 @@ body {
 	</aside>
 	</div>
 </main>
+<script>
+$(".tab1").click(function() {
+    $(this).addClass("tab1_selected");
+    $(".tab2").removeClass("tab2_selected");
+});
+$(".tab2").click(function() {
+    $(this).addClass("tab2_selected");
+    $(".tab1").removeClass("tab1_selected");
+});
+</script>
 <script>
 
 var url = new URL(location.href);
