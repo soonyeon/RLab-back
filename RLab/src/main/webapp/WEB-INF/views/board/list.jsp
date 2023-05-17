@@ -64,7 +64,7 @@
 											<td class="title_list_item">스크랩</td>
 										</tr>
 										<c:forEach var="board" items="${boardList}">
-											<tr class="board_list_${board.bo_num} list_item"  onclick="location.href='<c:url value='/board/detail/${st_num}/${board.bo_num}'/>';">
+											<tr class="board_list_${board.bo_num} link_item"  onclick="location.href='<c:url value='/board/detail/${st_num}/${board.bo_num}'/>';">
 												<td>${board.bo_num}</td>
 												<td>${board.st_name}</td>
 												<td class="post_title"> ${board.bo_title}</td>
