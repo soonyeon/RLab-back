@@ -1,16 +1,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<link rel="stylesheet"
-	href="<c:url value='/resources/css/gather/insertstudy.css'></c:url>">
-<link rel="stylesheet"
-href="<c:url value='/resources/css/common.css'></c:url>">
-<script src="<c:url value='/resources/js/jquery.min.js'></c:url>"></script>
-<title>스터디 생성</title>
+<link rel="stylesheet" href="<c:url value='/resources/css/study/updateStudy.css'></c:url>">
+
 <main>
 	<div id="rc_new_study_main_container">
 		<div class="main_title">
-			<h1>스터디 만들기</h1>
+			<h1>스터디 수정</h1>
 		</div>
 		<form id="rc_new_box" action="<c:url value='/study/updateStudy'></c:url>" method="post" enctype="multipart/form-data">
 			<div class="top_box">
@@ -48,7 +44,6 @@ href="<c:url value='/resources/css/common.css'></c:url>">
 			</div>
 			<h3>배너이미지</h3>
 			<div class="ns_banner_box">
-
 				<input name ="fi_table" type="hidden" value="study">
 				<input hidden type="file" class="ns_banner" name="files" accept="image/*" onchange="readURL(this);" >
 				<img class="preview" height="200" width="200" src="<c:url value="/download/${file.fi_name}"></c:url>">
@@ -56,8 +51,7 @@ href="<c:url value='/resources/css/common.css'></c:url>">
 			</div>	
 			<h3>태그</h3>
 			<div class="ns_tag_box">
-				<input type="text" class="ns_tag"
-					placeholder="예시. 정처기, 모각코, 프로젝트 (태그명 최대 10자까지)" name="ta_name">
+				<input type="text" class="ns_tag" placeholder="예시. 정처기, 모각코, 프로젝트 (태그명 최대 10자까지)" name="ta_name">
 			</div>
 			<h3>소개글</h3>
 			<div class="ns_introduce_box">
@@ -67,7 +61,7 @@ href="<c:url value='/resources/css/common.css'></c:url>">
 
 			<div class="btn_box">
 			<c:if test="${user != null }">
-				<button type="submit" class="make_study_btn">스터디 생성</button>
+				<button type="submit" class="make_study_btn">스터디 수정</button>
 			</c:if>
 			</div>
 		</form>
