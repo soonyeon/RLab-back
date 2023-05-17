@@ -46,7 +46,11 @@ public class BoardController {
 		mv.addObject("memberId", user.getMe_id());
 	    //스터디 가져오기
 		StudyVO	studyList = boardService.selectStudy(st_num);
+		
+		// 스터디 관리 페이지에 들어가기 위해 내가 스터디장으로 있는 스터디가 있는지 알아보는 메소드
+		int leaderCount = studyService.getLeaderCount(user.getMe_id());
 	    mv.addObject("studies", studyList);
+	    mv.addObject("leaderCount", leaderCount);
 	    mv.setViewName("/board/insert");
 	    return mv;
 	}

@@ -174,7 +174,7 @@ table { border-collapse: collapse; }
     cursor: pointer;
 }
 .write_btn:hover{
-	background-color: #e3ca40
+	background-color: var(--yellow_hover);
 }
 .nick_name {
 	font-weight: bold;
