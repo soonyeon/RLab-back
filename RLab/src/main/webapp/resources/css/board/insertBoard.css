@@ -83,6 +83,7 @@
     margin: 10px 0 20px 0;
   }
   .recruit_title_box .bo_title{
+    display: flex;
     width: 90%; 
     border: none; 
     background-color: transparent;
