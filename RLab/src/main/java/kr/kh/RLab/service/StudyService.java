@@ -124,6 +124,8 @@ public interface StudyService {
 
 	ArrayList<MemberVO> selectMemberByMemberId(String me_id);
 
+	int getLeaderCount(String me_id);
+
 
 
 

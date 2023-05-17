@@ -50,8 +50,8 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public int getCount() {
-		return boardDao.getCount();
+	public int getCount(int st_num) {
+		return boardDao.getCount(st_num);
 	}
 
 	@Override

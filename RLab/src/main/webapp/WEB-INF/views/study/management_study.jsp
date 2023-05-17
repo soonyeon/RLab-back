@@ -6,11 +6,11 @@
 <link rel="stylesheet" href="<c:url value='/resources/css/main.css'></c:url>">
 <link rel="stylesheet" href="<c:url value='/resources/css/study/study.css'></c:url>">
 <link rel="stylesheet" href="<c:url value='/resources/css/study/management_study.css'></c:url>">
+<link rel="stylesheet" href="<c:url value='/resources/css/study/management_member.css'></c:url>">
 
 <main>
 	<div id="main_container">
-	   <div class="left_side">
-				<!-- 왼쪽 메뉴바 -->
+	<!--    <div class="left_side">
 				<div class="left_menu_container">
 					<nav class="left_menu">
 						<a href="<c:url value='/study/${st_num}'></c:url>" class="list_item">스터디홈</a>
@@ -22,58 +22,90 @@
 					</nav>
 				</div>
 				<a href="#" class="leave_btn">탈퇴하기</a>
+			</div>  -->
+		<div class="management_container">
+			<div class="time_line_title">스터디 관리</div>
+		    <div class="content_container">
+		    
+		    <!-- 스터디 선택 창 -->
+		    <div class="select_study_container">
+		        <!-- 탭 -->
+		        <div class="tab_container">
+		            <a href="#" class="item_tab" style="background-color: #f0ea58; font-weight: 700;">스터디 선택</a>
+		        </div>
+		        <div class="my_study_container" id="my_container">
+		            <!-- table  -->
+		            <div class="table_container">	
+		                <div class="tab_content">	
+		                    <!-- 나의 스크랩 -->
+		                    <div class="table_area" id="tabs_3">
+		                    	<form action="<c:url value='/study/management'></c:url>" method="post" >
+			                        <div class="slect_study_box">
+			                         <!-- <h3 class="select_study_title">스터디 선택</h3> --> 
+			                          <select name="st_num" class="slect_study_list">
+	                            		<c:forEach items="${myStudyList}" var="st" varStatus="vs">
+		                                	<option value="${st.st_num}" <c:if test="${st.st_num == st_num}">selected</c:if>>${st.st_name}</option>
+	                            		</c:forEach>
+			                          </select>
+			                          <button class="btn_choose">선택</button>
+		                    		</div>	 
+		                    	</form>                                    
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		     </div>  
+		     <!-- 스터디 관리 창 -->
+		    <div class="manage_study_container">  
+			     <!-- 탭 -->
+		        <div class="tab_container">
+		            <a href="<c:url value='/study/management/member/${st_num}'></c:url>" class="item_tab unselected tab1">회원 관리</a>
+		            <a href="<c:url value='/study/management/study/${st_num}'></c:url>" class="item_tab selected tab2">스터디 관리</a>
+		        </div>
+		
+		        <div class="my_study_container" id="my_container_study">
+		            <div class="option_container">
+		                <div class="finish_box study_box">
+		                    <div class="sb_title">
+		                        <h3>스터디 완료 전환</h3>
+		                        <i class="icon_info info_1">
+		                        	<img class="icon_img" src="<c:url value="/resources/img/info.png"></c:url>"> 
+		                        </i>
+		                        <div class="info_modal info_finish display_none">
+		                            완료된 스터디로 전환 시 스터디 활동이 일부 제한되며, 자유게시판만 사용가능합니다. <br>
+		                            목표를 달성하거나 일정이 모두 완료된 경우에만 전환할 것을 권유드립니다.
+		                        </div>
+		                    </div>
+		                    <c:if test="${st_state ==1}">
+			                    <button class="btn_finish">스터디 완료</button>
+		                    </c:if>
+		                    <c:if test="${st_state ==0}">
+		                    	<button class="btn_finish_cancel">스터디 완료 취소</button>
+		                    </c:if>
+		                </div>
+		                <div class="remove_box study_box">
+		                    <div class="sb_title">
+		                        <h3>스터디 영구 삭제</h3>
+		                        <i class="icon_info info_2">
+		                         <img class="icon_img" src="<c:url value="/resources/img/info.png"></c:url>"> 
+		                        </i>
+		                        <div class="info_modal info_delete display_none">
+		                            스터디 삭제 시 스터디에올라온 게시글, 인증내역, 일정, 회원정보 등
+		                            모든 정보가 함께 삭제되며 해당 스터디에 접근이 불가합니다.
+		                        </div>
+		                    </div>
+		                    	<button class="btn_delete">스터디 삭제</button>
+		                </div>
+		            </div>
+		       	 </div>
+		       </div>
 			</div>
-	    <div class="content_container">
-	        <!-- 탭 -->
-	        <div class="tab_container">
-	            <a href="<c:url value='/study/management/member/${st_num}'></c:url>" class="item_tab unselected tab1">회원 관리</a>
-	            <a href="<c:url value='/study/management/study/${st_num}'></c:url>" class="item_tab selected tab2">스터디 관리</a>
-	        </div>
-	
-	        <div class="my_study_container" id="my_container">
-	            <div class="option_container">
-	            	<div>
-
-	            		
-	            	</div>         
-	                <div class="finish_box study_box">
-	                    <div class="sb_title">
-	                        <h3>스터디 완료 전환</h3>
-	                        <i class="icon_info info_1"></i>
-	                        <%-- <img class="icon_info info_1"src="<c:url value="/resources/img/info.png"></c:url>"> --%>
-	                        <div class="info_modal info_finish display_none">
-	                            완료된 스터디로 전환 시 스터디 활동이 일부 제한되며, 자유게시판만 사용가능합니다. <br>
-	                            목표를 달성하거나 일정이 모두 완료된 경우에만 전환할 것을 권유드립니다.
-	                        </div>
-	                    </div>
-	                    <c:if test="${st_state ==1}">
-		                    <button class="btn_finish">스터디 완료</button>
-	                    </c:if>
-	                    <c:if test="${st_state ==0}">
-	                    	<button class="btn_finish_cancel">스터디 완료 취소</button>
-	                    </c:if>
-	                </div>
-	                <div class="remove_box study_box">
-	                    <div class="sb_title">
-	                        <h3>스터디 영구 삭제</h3>
-	                        <i class="icon_info info_2"></i>
-	                        <%-- <img class="icon_info info_2"src="<c:url value="/resources/img/info.png"></c:url>"> --%>
-	                        <div class="info_modal info_delete display_none">
-	                            스터디 삭제 시 스터디에올라온 게시글, 인증내역, 일정, 회원정보 등
-	                            모든 정보가 함께 삭제되며 해당 스터디에 접근이 불가합니다.
-	                        </div>
-	                    </div>
-	                    	<button class="btn_delete">스터디 삭제</button>
-	                </div>
-	            </div>
-	        </div>
-	    </div>
+		</div>
 	
 	
 	    <!-- 오른쪽 메뉴 -->
-	    <aside>
+	  <!--  <aside>
 	        <div class="right-container">
-	            <!-- 메뉴바 3개 -->
 	            <div class="study_link_container">
 	                <div class="circle_now cc">
 	                    <div class="now">NOW</div>
@@ -87,7 +119,6 @@
 	
 	                        <div class="my">MY</div>
 	
-	                        <!-- <div class="my_study" >나의 스터디<button id="dropdown_btn">▼</button></div> -->
 	                    </div>
 	                    <div id="dropdown_list" style="display: none;">
 	                        <ul class="dropdown_list_ul">
@@ -124,7 +155,6 @@
 	                </div>
 	            </div>
 	        </div>
-	        <!-- 접속상태 -->
 	        <div class="accessor">
 	            <div class="study_title">정보처리기사 스터디</div>
 	            <div class="accessor_container">
@@ -176,7 +206,7 @@
 	
 	        </div>
 	    </aside>
-	</div>
+	</div> -->  
 </main>
 
 <script>
