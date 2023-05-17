@@ -9,8 +9,7 @@
 
 <main>
 	<div id="main_container">
-	     <div class="left_side">
-				<!-- 왼쪽 메뉴바 -->
+	   <!--    <div class="left_side">
 				<div class="left_menu_container">
 					<nav class="left_menu">
 						<a href="<c:url value='/study/${st_num}'></c:url>" class="list_item">스터디홈</a>
@@ -22,11 +21,12 @@
 					</nav>
 				</div>
 				<a href="#" class="leave_btn">탈퇴하기</a>
-			</div>
-	    <div class="content_container">
+			</div> -->
+	<div class="management_container">
+		<div class="time_line_title">스터디 관리</div>
 	        <!-- 탭 -->
 	        <div class="tab_container">
-	            <a href="#" class="item_tab  selected tab1">스터디 선택</a>
+	            <a href="#" class="item_tab" style="background-color: #f0ea58; font-weight: 700;">스터디 선택</a>
 	        </div>
 	        <div class="my_study_container" id="my_container">
 	            <!-- table  -->
@@ -36,7 +36,7 @@
 	                    <div class="table_area" id="tabs_3">
 	                    	<form action="<c:url value='/study/management'></c:url>" method="post" >
 		                        <div class="slect_study_box">
-		                          <h3 class="select_study_title">스터디 선택</h3>
+		                          <!-- <h3 class="select_study_title">스터디 선택</h3> --> 
 		                          <select name="st_num" class="slect_study_list">
 	                                <option value="">스터디를 선택하세요</option>
                             		<c:forEach items="${myStudyList}" var="st" varStatus="vs">
@@ -50,11 +50,10 @@
 	                </div>
 	            </div>
 	        </div>
-	    </div>
+	</div>
 	    <!-- 오른쪽 메뉴 -->
-	    <aside>
+	  <!--   <aside>
 	        <div class="right-container">
-	            <!-- 메뉴바 3개 -->
 	            <div class="study_link_container">
 	                <div class="circle_now cc">
 	                    <div class="now">NOW</div>
@@ -65,7 +64,6 @@
 	                <div class="my_study_container">
 	                    <div class="my_list_title">
 	                        <div class="my">MY</div>
-	                        <!-- <div class="my_study" >나의 스터디<button id="dropdown_btn">▼</button></div> -->
 	                    </div>
 	                    <div id="dropdown_list" style="display: none;">
 	                        <ul class="dropdown_list_ul">
@@ -102,7 +100,6 @@
 	                </div>
 	            </div>
 	        </div>
-	        <!-- 접속상태 -->
 	        <div class="accessor">
 	            <div class="study_title">정보처리기사 스터디</div>
 	            <div class="accessor_container">
@@ -153,7 +150,7 @@
 	            </div>
 	        </div>
 	    </aside>
-	</div>
+	</div> --> 
 </main>	
 	
 	

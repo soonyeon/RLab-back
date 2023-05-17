@@ -1,4 +1,7 @@
- /* 왼쪽 메뉴바 */
+ input:-internal-autofill-selected{
+ 	background-color: red;
+ }
+/* 왼쪽 메뉴바 */
 .left_menu_container{
   display: flex;
   justify-content: center;
@@ -38,6 +41,9 @@
   .main_title{
     text-align: center;
   }
+  .home_container{
+  	overflow: hidden;
+  }
   .temporary_storage_box{
     display: flex;
     justify-content: flex-end ;
@@ -53,23 +59,27 @@
     height: 40px ;
     border-radius: var(--border_radius_3);
     line-height: 37px;
-
+  }
+  .call_temporary_storage:hover{
+  	background-color: var(--yellow_hover);
   }
 
   #choose_study{
-    height: 38px;
+    width: 708px;
+    height: 40px;
     border-radius: var(--border_radius_4);
-    padding: 8px;
+    padding: 10px;
+    box-sizing: border-box;
     font-weight: bold;
     margin: 10px 0 20px 0;
   }
   .recruit_title_box{
-    width: 800px;
+    width: 708px;
     border-radius: var(--border_radius_4); 
     border: 1px solid black;
     box-sizing: border-box;
     height: 40px;
-    padding: 10px 15px;
+    padding: 10px;
     margin: 10px 0 20px 0;
   }
   .recruit_title_box .bo_title{
@@ -79,42 +89,47 @@
     outline: none;
     justify-content: center;
     font-size: 14px;
-    vertical-align: 2px;
   }
   .btn_box{
     display: flex;
     justify-content: flex-end;
-    margin-top: 7px;
+    margin-top: 46px;
     
+  }
+  .btn_btm{
+  	font-size: 13px;
+  	font-weight: 700;
   }
   .ts_btn{
     -webkit-appearance: none;
     appearance: none;
     background-color: transparent;
     border: 0;
-    font-weight: bold;
     background-color: var(--color_yellow);
     width: 110px;
     height: 40px ;
     border-radius: var(--border_radius_3);
     line-height: 37px;
-    font-size: medium;
     margin-right: 10px;
     cursor: pointer;
+  }
+  .ts_btn:hover{
+  	background-color: var(--yellow_hover);
   }
   .write_complete_btn{
     -webkit-appearance: none;
     appearance: none;
     background-color: transparent;
     border: 0;
-    font-weight: bold;
     background-color: var(--color_blue);
     width: 110px;
     height: 40px ;
     border-radius: var(--border_radius_3);
     line-height: 37px;
-    font-size: medium;
     cursor: pointer;
+  }
+  .write_complete_btn:hover{
+  	background-color: var(--blue_hover);
   }
   .note-editor.note-frame{
     margin: 10px 0 0 0;

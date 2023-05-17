@@ -1,6 +1,7 @@
 .time_line_title {
     font-weight: bold;
     font-size: 28px;
+    margin-bottom: 10px;
 }
 .mypage_container .mypage .icon_mypage{
   display: flex;
@@ -18,7 +19,10 @@
   margin: 0 auto;
   margin-top: 100px;
 }*/
-
+.management_container{
+	display: flex;
+	flex-flow: column;
+}
 /* footer */
 footer{
   margin-top: 150px;
@@ -118,19 +122,33 @@ footer .corp_container .link_corp:nth-child(1)::before{
 	background-color: red;
 	color: white;
 }
-
+.manage_btn{
+	width: 160px;
+	padding: 10px;
+	box-sizing: border-box;
+	border: 1px solid var(--color_blue);
+    color: var(--color_blue);
+    font-size: 12px;
+	text-align: center;
+	border-radius: var(--border_radius_4);
+}
+.manage_btn:hover{
+	background-color: var(--color_blue);
+	color: white;
+}
 /* 왼쪽 메뉴바 */
 .left_menu_container{
   display: flex;
   justify-content: center;
   align-items: flex-start;
   width: 200px;
-  height: 430px;
+  height: 375px;
   padding: 60px 20px;
   border: 2px solid #020a17;
   border-radius: var(--border_radius_2);
   box-sizing: border-box;
   background-color: var(--color_beige);
+  margin-top: 43px;
 }
 .left_menu_container .left_menu{
   display: flex;
@@ -144,6 +162,11 @@ footer .corp_container .link_corp:nth-child(1)::before{
 .left_menu a:visited {
   font-weight: bold; 
   /*클릭했을때 굵어지면서 검정색으로 바뀌게 나중에 수정 */
+}
+.left_bottom_menu{
+	display: flex;
+	flex-flow: column;
+	gap: 10px;
 }
 /* 컨텐츠 */
 .home_container {
@@ -740,7 +763,8 @@ cursor: pointer;
   width: 210px;
   min-height: 200px;
   box-sizing: border-box;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   height: 520px;
 }
 .title_circle{
@@ -758,9 +782,6 @@ cursor: pointer;
   display: flex;
   gap: 20px;
   align-items: center;
-  text-overflow: ellipsis;
-  overflow-y: auto;
-  overflow-x: hidden;
   white-space: nowrap;
 }
 .study_title{
@@ -818,10 +839,11 @@ cursor: pointer;
   vertical-align: 10px;  
   margin: 0;
 }
-.member_name{
+.member_name, .study_name{
+	width: 38%;
 	overflow: hidden;
     text-overflow: ellipsis;
-}
+}/*
 .study_name {
   width: 81.1px;
   text-align: center;
@@ -831,15 +853,18 @@ cursor: pointer;
   white-space:nowrap;
   overflow: hidden;
   font-size: 14px;
-}
+}*/
 .accessor::-webkit-scrollbar {
-	width: 10px;
-	background-color: red;
+	width: 5px;
+	border-radius: var(--border_radius_4);
 }
 .accessor::-webkit-scrollbar-thumb{
-	background-color: red;
+	background-color: grey;
+	border-radius: var(--border_radius_4);
 }
-.accessor::-webkit-scrollbar-track
+.accessor::-webkit-scrollbar-track{
+	background-color: lightgrey;
+}
 /*.time_line_title{
   margin-left: 30px;
   font-weight: bold;

@@ -49,6 +49,7 @@
 			count(*)
 		from
 			board
+		where bo_st_num = #{st_num}
 	</select>
 	
 	<update id="countViews">

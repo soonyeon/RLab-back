@@ -40,11 +40,12 @@ td a{
 	overflow: hidden;
 	box-sizing: border-box;
 }
+/*
 .home_container{
 	display: flex;
     flex-flow: column;
     gap: 20px;
-}
+}*/
 
 .tab_content{
 	display: flex;
@@ -52,14 +53,18 @@ td a{
 	gap: 10px;
 }
 .select_box_area{
-  height: 29.5px;
-  margin-bottom: 10px;
+ /* height: 29.5px;*/
   display: flex;
-  flex-direction: row-reverse;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
 }
 .select_view option{
   width: 200px;
   border-radius: 5px;
+}
+.sort_box{
+	height: 29.5px;
 }
 table { border-collapse: collapse; }
 
@@ -70,8 +75,11 @@ table { border-collapse: collapse; }
 .board_list {
   border-bottom: 1px solid  var(--color_yellow);
 }
-td:hover {
-  background-color: rgba(128, 128, 128, 0.072);
+.link_item{
+	cursor: pointer;
+}
+.link_item:hover {
+  background-color: #f0ea585e;
 }
  
 .post_title{
@@ -150,21 +158,23 @@ td:hover {
 }
 
 .write_btn {
-	margin-top: 10px;
 	-webkit-appearance: none;
     appearance: none;
     background-color: transparent;
     border: 0;
     font-weight: bold;
-    background-color: var(--color_blue);
+    background-color: var(--color_yellow);
     width: 110px;
-    height: 40px ;
+    height: 35px ;
     border-radius: var(--border_radius_3);
-    font-size: 14px;
+    font-size: 13px;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
+}
+.write_btn:hover{
+	background-color: var(--yellow_hover);
 }
 .nick_name {
 	font-weight: bold;

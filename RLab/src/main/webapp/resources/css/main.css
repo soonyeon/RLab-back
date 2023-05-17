@@ -1,6 +1,5 @@
 
 
-
 /* ----------------------------------------------------------------- */
 .main_container .info_area,
 .main_container .event_area{
@@ -9,6 +8,7 @@
 }
 
 .reservation_btn{
+  font-family: var(--font_main);
   width: 100px;
   height: 100px;
   border-radius: 50px;
@@ -17,9 +17,10 @@
   line-height: 105px;
   font-weight: bold;
   position: sticky;
-  top: 500px;
+  top: 800px;
   left: 1670px;
   z-index: 90;
+  box-shadow: var(--shadow);
 }
 /* main */
 .main_area{background-color: #00c867;}
@@ -92,6 +93,7 @@
 .info_left, .info_right{width: 585px;}
 .title_box2{padding-bottom: 20px;}
 [class^=title_box]{
+  font-family: var(--font_main);
   font-size: 25px;
   font-weight: bold;
   padding-left: 10px;

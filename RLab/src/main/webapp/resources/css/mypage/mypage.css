@@ -88,9 +88,10 @@ article{
 .article_box .txt_new_pet{
 	font-weight: 600;
     text-align: center;
-    font-size: 16px;
-   	margin-top: 7px;
-    margin-left: 24px;
+    font-size: 14px;
+    display: flex;
+    flex-flow: column;
+    gap: 2px;
 }
 
 /*  article_top(이용시간, 펫 창, 나의 예약) */
@@ -277,6 +278,7 @@ article{
 .pet_container .pet_window{
     display: flex;
     flex-flow: column;
+    justify-content: center;
     align-items: center;
     width: 100%;
     height: 100%;
@@ -287,10 +289,13 @@ article{
 .pet_window .pet_talk{
     width: 50px;
 }
-.pet_window .pet{
+.pet_window .pet_box{
     width: 170px;
     height : 170px;
-    padding: 10px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .pet_container .pet_description{
     display: flex;
@@ -302,7 +307,8 @@ article{
 .pet_description .pet_info_container{
     height: 50px;
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    justify-content: center;
 }
 .pet_info_container .pet_level{
     width: 58px;
@@ -365,6 +371,17 @@ article{
 }
 #pet_store_container:hover{
     background-color: #18d898;
+}
+.pet_phrases2{
+	display: flex;
+	align-items: center;
+	gap: 3px;
+	margin-left: 3px;
+}
+.pointer_box{
+	width: 20px;
+	height: 20px;
+	transform: rotate(180deg);
 }
 .icon_store{
     display: flex;
@@ -726,7 +743,7 @@ article{
     justify-content: space-between;
     align-items: flex-start;
     overflow: hidden;
-    padding: 45px 25px;
+    padding: 45px 35px;
 }
 .title_container{
     position: absolute;
@@ -744,10 +761,11 @@ article{
 }
 .list_container{
     height: 100%;
-    margin-top: 50px;
+    margin-top: 47px;
     display: flex;
     flex-flow: column;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 16px;
     font-size: 17px;
 }
 .list_container .list_item{
@@ -777,6 +795,9 @@ article{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+.scrap_list{
+	gap: 35px;
 }
 
 /* footer */

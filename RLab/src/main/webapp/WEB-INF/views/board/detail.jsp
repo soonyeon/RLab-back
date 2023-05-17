@@ -6,8 +6,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>작성글 관리</title>
 <link rel="stylesheet"
-	href="<c:url value='/resources/css/board/mypost_post.css'></c:url>">
-<link rel="stylesheet"
 	href="<c:url value='/resources/css/board/detailBoard.css'></c:url>">
 <link rel="stylesheet"
 	href="<c:url value='/resources/css/study/study.css'></c:url>">
@@ -18,23 +16,28 @@
 
 <main>
 	<div class="main_container">
-		<!-- 왼쪽 메뉴바 -->
-		<div class="left_menu_container" style="width: 200px;">
-			<nav class="left_menu">
-				<a href="<c:url value='/study/${st_num}'></c:url>" class="list_item">스터디홈</a>
-				<a href="#" class="list_item">스터디 달력</a>
-				<a href="to_do_list.html"class="list_item">투두 리스트</a>
-				<a href="Daily Mission.html"class="list_item">데일리 미션</a>
-				<a href="<c:url value='/study/photo/${st_num}'></c:url>"class="list_item">인증 게시판</a>
-				<a href="<c:url value='/board/list/${st_num}'></c:url>" class="list_item">자유 게시판</a>
-				<a href="<c:url value='/study/management/member'></c:url>" class="list_item">스터디 관리</a>
-				<a href="#" class="leave">탈퇴하기</a>
-			</nav>
-		</div>
+		 <div class="left_side">
+			<!-- 왼쪽 메뉴바 -->
+			<div class="left_menu_container">
+				<nav class="left_menu">
+					<a href="<c:url value='/study/${st_num}'></c:url>" class="list_item">스터디홈</a>
+					<a href="<c:url value='/study/todo/${st_num}'></c:url>" class="list_item">투두 리스트</a> 
+					<a href="<c:url value='/study/daily/${st_num}'></c:url>" class="list_item">데일리 미션</a> 
+					<a href="<c:url value='/study/photo/${st_num}'></c:url>" class="list_item">인증 게시판</a> 
+					<a href="<c:url value='/board/list/${st_num}'></c:url>" class="list_item">자유 게시판</a> 
+				</nav>
+			</div>
+			<div class="left_bottom_menu">
+				<a href="#" class="leave_btn">탈퇴하기</a>
+				<c:if test="${leaderCount != 0 && leaderCount != null}">
+					<a class="manage_btn" href="<c:url value='/study/management'></c:url>" class="list_item">스터디 관리</a>
+				</c:if>
+			</div>
+		</div>	
 
 		<section class="section">
 			<div class="home_container">
-				<h2>자유게시판</h2>
+				<h2 class="time_line_title">자유게시판</h2>
 				<div class="inner_board_box">
 					<h1 class="board_title">${bd.bo_title}</h1>
 					<div class="writer_and_scrap">
@@ -42,13 +45,17 @@
 							<div class="writer_box">
 								<a href="#" class="writer"> <c:if
 										test="${user.me_profile == null}">
-										<img class="icon_writer"
-											src="<c:url value='/resources/img/user.png'></c:url>"
-											width="auto" height="40">
+										<div class="icon_writer">
+											<img 
+												src="<c:url value='/resources/img/user.png'></c:url>"
+												width="auto" height="40">
+										</div>
 									</c:if> <c:if test="${user.me_profile != null}">
-										<img class="icon_writer"
-											src="<c:url value='/download${user.me_profile}'></c:url>"
-											width="auto" height="40">
+										<div class="icon_writer">
+											<img 
+												src="<c:url value='/download${user.me_profile}'></c:url>"
+												width="auto" height="40">
+										</div>
 									</c:if> <input type="hidden" id="me_id" value="${bd.bo_me_id}">
 									<input type="hidden" id="current_page" value="1" /> <span
 									class="writer_name">${bd.me_name}</span></a>
@@ -57,7 +64,7 @@
 							<div class="view_box">
 								<img class="icon_view"
 									src="<c:url value='/resources/img/view_lightgray.png'></c:url>">
-								<span class="view">${bd.bo_views}</span>
+								<p class="view">${bd.bo_views}</p>
 							</div>
 						</div>
 						<div class="sc_and_mo_main">
@@ -88,7 +95,7 @@
 						<span>${bd.bo_content}</span>
 					</div>
 					<div class="scrap_and_comment">
-						<div class="scrap_bottom">
+						<div class="scrap_bottom bottom_box">
 							<c:if test="${user.me_id == scv.sc_me_id}">
 								<img class="icon_scrap"
 									src="<c:url value='/resources/img/favorite_tag.png' />">
@@ -99,7 +106,7 @@
 							</c:if>
 							<span>스크랩</span> <span class="scrap_num"></span>
 						</div>
-						<div class="comment_bottom">
+						<div class="comment_bottom bottom_box">
 							<img class="icon_comment"
 								src="<c:url value='/resources/img/speech_bubble.png'></c:url>">
 							<span>댓글</span> <span class="comment_num"></span>
