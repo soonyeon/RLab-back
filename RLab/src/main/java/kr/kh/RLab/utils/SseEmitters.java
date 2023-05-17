@@ -106,8 +106,10 @@ public class SseEmitters {
 		if(targetId == null || targetId.length() == 0) {
 			return;
 		}
-		if(session.getAttribute("emitter") == null)
+		if(session.getAttribute("emitter") == null) {
+			System.out.println("중단: session.getAttribute(\"emitter\") == null");
 			return ;
+		}
 		emitters.forEach((id, userSessionInfo) -> {
 			System.out.println(eventName+" : "+id);
 	        if (id != null && userSessionInfo != null && userSessionInfo.getEmitter() != null) {
@@ -117,6 +119,7 @@ public class SseEmitters {
 	                    userSessionInfo.getEmitter().send(SseEmitter.event().name(eventName).data(eventData));
 	                }
 	            } catch (Exception e) {
+	            	System.out.println("sseEmitter 에러 발생");
 	                logger.error("Error sending count event to user {}", id, e);
 	            }
 	        }

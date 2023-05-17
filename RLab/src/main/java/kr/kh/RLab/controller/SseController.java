@@ -57,16 +57,12 @@ public class SseController {
     public ResponseEntity<SseEmitter> connect(@RequestParam String id, HttpSession session) throws IOException {
     	SseEmitter emitter = new SseEmitter(60*30 * 1000L);
     	LocalDateTime sessionExpiryTime = LocalDateTime.now().plusMinutes(30);
+    	sseEmitters.add(id, emitter, sessionExpiryTime, session);
     	Boolean isEmitter = (Boolean)session.getAttribute("emitter");
-    	/*
-    	if(session.getAttribute("emitter") != null) {
-    		return ResponseEntity.ok(sseEmitters.getEmitter(id));
-    	}*/
         if(isEmitter != null) {
         	emitter.send(SseEmitter.event().name("connect").data("connected!"));
         	return ResponseEntity.ok(emitter);
         }
-        sseEmitters.add(id, emitter, sessionExpiryTime, session);
         
         try {
             //emitter.send(SseEmitter.event().name("connect").data("connected!"));
