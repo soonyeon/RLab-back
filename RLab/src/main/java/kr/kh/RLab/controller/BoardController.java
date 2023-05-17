@@ -113,8 +113,8 @@ public class BoardController {
 		BoardVO board = boardService.getBoard(bo_num);
 		mv.addObject("bd", board);
 		//스터디 가져오기
-		ArrayList<StudyVO> studyList = boardService.selectStudyList();
-		mv.addObject("study", studyList);
+		StudyVO	studyList = boardService.selectStudy(st_num);
+		mv.addObject("studies", studyList);
 	    mv.addObject("st_num", st_num);
 		mv.setViewName("/board/update");
 		return mv;
