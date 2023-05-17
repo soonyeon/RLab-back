@@ -145,7 +145,7 @@
      				<form action="<c:url value='/logout'></c:url>" method="post">     
 		  				<div class="logout_box">
               				<div class="alarm_bell_box">
-              					<div class="alarm_modal" id="alarmModal" style=" max-height: 200px; overflow-y: auto;">	
+              					<div class="alarm_modal display_none" id="alarmModal" style=" max-height: 200px; overflow-y: auto;">	
 								    <c:forEach var="alarm" items="${alarm}">
 								   	    <c:if test="${alarm.al_view == 0}">
 											<a class="modal_content" href="
@@ -206,13 +206,15 @@
         	</div>
         </div>
 
-    </div>	
+    </div>
+    <!-- 하단 실시간 알림 -->
 	<div id="notificationModal" class="notification_modal">
         <div class="notification_box">
             <h4 class="notification_title">알림</h4>
             <span class="notification_content"></span>
         </div>
     </div> 
+    <!-- 상단 알림창 -->
 	<div class="alarm_modal display_none" id="alarmModal" style=" max-height: 200px; overflow-y: auto;">	
 		<div class="alarm_container">
 		    <c:forEach var="alarm" items="${alList}">
