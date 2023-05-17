@@ -121,6 +121,7 @@
 	});
 	function readURL(input){
 		$('.btn-times').click();
+		
 		if(!input.files || !input.files[0]){
 			input.nextElementSibling.src ='';
 			input.previousElementSibling.style.display = 'block';
@@ -132,6 +133,7 @@
 			input.nextElementSibling.src = e.target.result;
 		}
 		reader.readAsDataURL(input.files[0]);
+		
 		$('.ns_banner_box').append('<span class="btn-times2" >X</span>')
 		$('.btn-times2').click(function(){
 			$(this).siblings('.preview').attr('src', plus_img);

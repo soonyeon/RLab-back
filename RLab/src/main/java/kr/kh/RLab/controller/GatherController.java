@@ -181,7 +181,6 @@ public class GatherController {
 		StudyVO study = gatherService.selectStudy(st_num);
 		FileVO file =  gatherService.selectFileByStNum(st_num);
 		ArrayList<String> tagList =  gatherService.selectTagListByStNum(st_num);
-		System.out.println(tagList);
 		mv.addObject("tagList",tagList);
 		mv.addObject("file",file);
 		mv.addObject("study",study);

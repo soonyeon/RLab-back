@@ -182,6 +182,6 @@
 </delete>
 <delete id="deleteFileByStNum">
 	delete from file
-	where fi_ex_num = #{st_num} and fi_table = 'study'
+	where fi_num = #{fileNums}
 </delete>
 </mapper>
