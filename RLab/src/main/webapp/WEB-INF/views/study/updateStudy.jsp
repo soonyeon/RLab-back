@@ -15,24 +15,24 @@
 				<div class="ns_region_box">
 					<h3>지역</h3>
 					<select id="choose_region" name="st_re_name">
-						<option value="지역미지정">지역미지정</option>
-						<option value="서울특별시">서울특별시</option>
-						<option value="부산광역시">부산광역시</option>
-						<option value="경기도">경기도</option>
-						<option value="인천광역시">인천광역시</option>
-						<option value="대구광역시">대구광역시</option>
-						<option value="경상북도">경상북도</option>
-						<option value="경상남도">경상남도</option>
-						<option value="대전광역시">대전광역시</option>
-						<option value="전라북도">전라북도</option>
-						<option value="전라남도">전라남도</option>
-						<option value="충청북도">충청북도</option>
-						<option value="충청남도">충청남도</option>
-						<option value="광주광역시">광주광역시</option>
-						<option value="강원도">강원도</option>
-						<option value="울산광역시">울산광역시</option>
-						<option value="제주특별자치도">제주특별자치도</option>
-						<option value="세종특별자치도">세종특별자치도</option>
+						<option value="지역미지정" <c:if test='${study.st_re_name == "지역 미지정"}'>selected</c:if>>지역미지정</option>
+						<option value="서울특별시" <c:if test='${study.st_re_name == "서울특별시"}'>selected</c:if>>서울특별시</option>
+						<option value="부산광역시" <c:if test='${study.st_re_name == "부산광역시"}'>selected</c:if>>부산광역시</option>
+						<option value="경기도" <c:if test='${study.st_re_name == "경기도"}'>selected</c:if>>경기도</option>
+						<option value="인천광역시" <c:if test='${study.st_re_name == "인천광역시"}'>selected</c:if>>인천광역시</option>
+						<option value="대구광역시" <c:if test='${study.st_re_name == "대구광역시"}'>selected</c:if>>대구광역시</option>
+						<option value="경상북도" <c:if test='${study.st_re_name == "경상북도"}'>selected</c:if>>경상북도</option>
+						<option value="경상남도" <c:if test='${study.st_re_name == "경상남도"}'>selected</c:if>>경상남도</option>
+						<option value="대전광역시" <c:if test='${study.st_re_name == "대전광역시"}'>selected</c:if>>대전광역시</option>
+						<option value="전라북도" <c:if test='${study.st_re_name == "전라북도"}'>selected</c:if>>전라북도</option>
+						<option value="전라남도" <c:if test='${study.st_re_name == "전라남도"}'>selected</c:if>>전라남도</option>
+						<option value="충청북도" <c:if test='${study.st_re_name == "충청북도"}'>selected</c:if>>충청북도</option>
+						<option value="충청남도" <c:if test='${study.st_re_name == "충청남도"}'>selected</c:if>>충청남도</option>
+						<option value="광주광역시" <c:if test='${study.st_re_name == "광주광역시"}'>selected</c:if>>광주광역시</option>
+						<option value="강원도" <c:if test='${study.st_re_name == "강원도"}'>selected</c:if>>강원도</option>
+						<option value="울산광역시" <c:if test='${study.st_re_name == "울산광역시"}'>selected</c:if>>울산광역시</option>
+						<option value="제주특별자치도" <c:if test='${study.st_re_name == "제주특별자치도"}'>selected</c:if>>제주특별자치도</option>
+						<option value="세종특별자치도" <c:if test='${study.st_re_name == "세종특별자치도"}'>selected</c:if>>세종특별자치도</option>
 					</select>
 				</div>
 				<div class="ns_people_box">
