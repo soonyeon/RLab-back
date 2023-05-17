@@ -45,29 +45,32 @@
             <div class="main_btn_left"></div>  
 					<ul class="main_banner_area">
 						<li class="main_banner_item">
-							<div class="main_banner_img1"></div>
-							<div class="banner_text_box">
-								<span class="banner_icon">함께해요</span>
-								<div class="banner_text_main">함께 성장할<br>스터디 메이트를 찾아요</div>
-								<div class="banner_text_sub">#우리 #함께성장해요<br>#동료여어디계신가요?</div>
-							</div>
+							<a href="/RLab/notice/detail/1"value=""><img src="/RLab/download/banner/main_banner01.png">
+								<div class="banner_text_box">
+									<span class="banner_icon">함께해요</span>
+									<div class="banner_text_main">함께 성장할<br>스터디 메이트를 찾아요</div>
+									<div class="banner_text_sub">#우리 #함께성장해요<br>#동료여어디계신가요?</div>
+								</div>
+							</a>
 						</li>
 						<li class="main_banner_item">
-							<div class="main_banner_img2"></div>
-							<div class="banner_text_box">
-								<span class="banner_icon">함께해요22</span>
-								<div class="banner_text_main">함께 성장할<br>동료를 찾아요</div>
-								<div class="banner_text_sub">#우리 #함께성장해요<br>#동료여어디계신가요?</div>
-							</div>
+							<a href="/RLab/notice/detail/2"value=""><img src="/RLab/download/banner/main_banner02.png">
+								<div class="banner_text_box">
+									<span class="banner_icon">스터디 모임</span>
+									<div class="banner_text_main"  style="color: black">자바 코딩테스트<br>함께 준비해요</div>
+									<div class="banner_text_sub" style="color: black">#자바 #코딩테스트 #합격<br>#동료여어디계신가요?</div>
+								</div>
+							</a>
 						</li>
 						<li class="main_banner_item">
-							<div class="main_banner_img3"></div>
-							<div class="banner_text_box">
-								<span class="banner_icon">함께해요00</span>
-								<div class="banner_text_main">함께 성장할<br>동료를 찾아요</div>
-								<div class="banner_text_sub">#우리 #함께성장해요<br>#동료여어디계신가요?</div>
-							</div>
-						</li>     
+							<a href="/RLab/notice/detail/2"value=""><img src="/RLab/download/banner/main_banner03.png">
+								<div class="banner_text_box">
+									<span class="banner_icon">함께해요</span>
+									<div class="banner_text_main">알랩 오픈 기념<br>스터디룸 체험단 모집</div>
+									<div class="banner_text_sub">#알랩 #이용권 #이벤트<br>#많은관심부탁드려요</div>
+								</div>
+							</a>
+						</li>    
 					</ul>
 				<div class="main_btn_right"></div>
           </div>
@@ -207,16 +210,16 @@
               <div class="event_box_area">
                 <div class="event_box">
                   <div class="event_banner add_shadow">
-                    <a href="/RLab/notice/detail/1"value=""><img src="/RLab/download/event/event01.jpeg"></a>
+                    <a href="/RLab/notice/detail/1"value=""><img src="/RLab/download/banner/event01.jpeg"></a>
                   </div>
                   <div class="event_banner add_shadow">
-                    <a href="/RLab/notice/detail/2"value=""><img src="/RLab/download/event/event02.png"></a>
+                    <a href="/RLab/notice/detail/2"value=""><img src="/RLab/download/banner/event02.png"></a>
                   </div>
                   <div class="event_banner add_shadow">
-                    <a href="/RLab/notice/detail/3"value=""><img src="/RLab/download/event/event03.jpg"></a>
+                    <a href="/RLab/notice/detail/3"value=""><img src="/RLab/download/banner/event03.jpg"></a>
                   </div>
                   <div class="event_banner add_shadow">
-                    <a href="/RLab/notice/detail/4"value=""><img src="/RLab/download/event/event04.jpg"></a>
+                    <a href="/RLab/notice/detail/4"value=""><img src="/RLab/download/banner/event04.jpg"></a>
                   </div>
                 </div>
               </div>
