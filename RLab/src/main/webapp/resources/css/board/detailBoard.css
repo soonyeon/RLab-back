@@ -52,6 +52,7 @@
 .writer_main{
   display: flex;
   flex-direction: row;
+  gap: 5px;
   align-items: center;
 }
 .writer_box .icon_writer {
@@ -63,6 +64,7 @@
 }
 .writer{
   display: flex;
+  gap: 9px;
   align-items: center;
 }
 .view_box .icon_view{
@@ -194,7 +196,11 @@
 .cm_mypage{
   display: flex;
   flex-wrap: wrap;
+  gap: 5px;
   align-items: center;
+}
+.cm_mypage img{
+	border-radius: 50%;
 }
 .cm_top_box .img_mypage{
   display: flex;
@@ -209,7 +215,7 @@
 }
 .write_date{
   font-size: 13px;
-  margin-left: 10px;
+  color: #919191;
 }
 .comment_btn_box .cm_plus_btn, 
 .comment_btn_box .cm_delete_btn,
@@ -265,6 +271,7 @@
 .re_mypage{
   display: flex;
   flex-wrap: wrap;
+  gap: 5px;
   align-items: center;
 }
 
@@ -285,30 +292,23 @@
   margin-right: 5px;
   justify-content: flex-start;
 }
-
-
 .re_nick_name {
   font-weight: bold;
-  margin-right: 5px;
 }
-
 .re_write_date {
   font-size: 13px;
-  color: var(--color_light-grey)
+  color: #919191;
 }
-
 .reply_btn_box {
   display: flex;
   align-items: center;
   margin: 5px;
   justify-content: flex-end;
-
 }
 .reply_btn_box .re_edit_btn, 
 .reply_btn_box .re_delete_btn,
 .cm_update_confirm_btn,
 .cm_update_cancel_btn {
-	
   background-color: transparent;
   border: none;
   margin-left: 10px;

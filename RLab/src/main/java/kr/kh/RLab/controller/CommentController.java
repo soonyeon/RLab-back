@@ -97,6 +97,7 @@ public class CommentController {
 
 		List<CommentVO> commentList = commentService.getCommentList(cc);	
 		Map<String, Object> resultMap = new HashMap<String, Object>();
+		System.out.println(commentList);
 		resultMap.put("commentList", commentList);
 		resultMap.put("pm", pm);
 

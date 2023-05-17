@@ -336,12 +336,10 @@ function loadComments(page1) {
                     listHtml += '<div class="cm_top_box">';
                     listHtml += '<div class="cm_writer">';
                     listHtml += '<a href="#" class="cm_mypage">';
-                    <c:if test="${comment.me_profile == null}">
-                    listHtml += '<img src="<c:url value="/resources/img/user.png"></c:url>" width="auto" height="40">';
-                    </c:if>
-                    <c:if test="${comment.me_profile != null}">
-                    listHtml += '<img src="<c:url value="/download${comment.me_profile}"></c:url>" width="auto" height="40">';
-                    </c:if>
+                    if(comment.me_profile == null)
+                    	listHtml += '<img src="<c:url value="/resources/img/user.png"></c:url>" width="auto" height="40">';
+                    else
+                    	listHtml += '<img src="<c:url value="/download'+comment.me_profile+'"></c:url>" width="auto" height="40">';
                     listHtml += '<span class="nick_name">' + comment.me_name + '</span>';
                     listHtml += '<span class="write_date">' + comment.co_reg_date + '</span>';
                     listHtml += '</a>';
