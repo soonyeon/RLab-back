@@ -68,10 +68,13 @@
 								                <div class="today_feed_board">
 								                    <c:forEach var="photo" items="${photos}">
 								                        <div class="board">
-								                            <div class="feed_name">${photo.me_name}</div>
-								                            <div class="feed_date">${photo.ph_register_date_str}</div>
+								                        
+								                        	<div class="profile_box">
+									                            <div class="feed_name">${photo.me_name}</div>
+									                            <div class="feed_date">${photo.ph_register_date_str}</div>
+								                            </div>
 								                            <div class="feed_contents_img">
-								                                <img width="350" height="300"		src="<c:url value='/download${photo.ph_img}'/>" alt="이미지">
+								                                <img width="350" height="350"		src="<c:url value='/download${photo.ph_img}'/>" alt="이미지">
 								                            </div>
 								                            <div class="middle_container2">
 								                                <span class="feed_date_min"><fmt:formatDate value="${photo.ph_register_date}" pattern="MM/dd" /></span>
