@@ -58,20 +58,34 @@
 }
 .writer_main{
   display: flex;
-  flex-direction: row;
   align-items: center;
+  gap: 14px;
 }
 .writer_box .icon_writer {
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  background-image: url(../img/profile_img.png);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-repeat: no-repeat;
 }
 .writer{
   display: flex;
   align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 700;
 }
+
+.view_box{
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 13px;
+}
+
 .view_box .icon_view{
   width: 20px;
   height: 20px;
@@ -85,14 +99,18 @@
 .icon_scrap{
   width: 25px;
   height: 25px;
+  cursor: pointer
 }
+
  .icon_comment{
   width: 25px;
   height: 25px;
  }
+ 
 .icon_more{
   width: 25px;
   height: 25px;
+  cursor: pointer
 }
 .board_content{
   height: 500px;
@@ -124,10 +142,10 @@
 
 .dropdown-menu {
   position: absolute;
-  min-width: 150px;
+  width: 86px;
   background-color: white;
   border: 1px solid #ccc;
-  z-index: 1;
+  z-index: 3;
   display: none;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -218,7 +236,6 @@
 }
 .write_date{
   font-size: 13px;
-  margin-left: 10px;
 }
 .comment_btn_box .cm_plus_btn, 
 .comment_btn_box .cm_delete_btn,

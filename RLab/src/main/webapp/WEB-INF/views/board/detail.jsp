@@ -45,13 +45,17 @@
 							<div class="writer_box">
 								<a href="#" class="writer"> <c:if
 										test="${user.me_profile == null}">
-										<img class="icon_writer"
-											src="<c:url value='/resources/img/user.png'></c:url>"
-											width="auto" height="40">
+										<div class="icon_writer">
+											<img 
+												src="<c:url value='/resources/img/user.png'></c:url>"
+												width="auto" height="40">
+										</div>
 									</c:if> <c:if test="${user.me_profile != null}">
-										<img class="icon_writer"
-											src="<c:url value='/download${user.me_profile}'></c:url>"
-											width="auto" height="40">
+										<div class="icon_writer">
+											<img 
+												src="<c:url value='/download${user.me_profile}'></c:url>"
+												width="auto" height="40">
+										</div>
 									</c:if> <input type="hidden" id="me_id" value="${bd.bo_me_id}">
 									<input type="hidden" id="current_page" value="1" /> <span
 									class="writer_name">${bd.me_name}</span></a>
@@ -60,7 +64,7 @@
 							<div class="view_box">
 								<img class="icon_view"
 									src="<c:url value='/resources/img/view_lightgray.png'></c:url>">
-								<span class="view">${bd.bo_views}</span>
+								<p class="view">${bd.bo_views}</p>
 							</div>
 						</div>
 						<div class="sc_and_mo_main">
