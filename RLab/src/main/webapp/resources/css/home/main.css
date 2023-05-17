@@ -349,7 +349,7 @@ main{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  /* height: 52px; */
+  height: 45.938px;
   overflow: hidden;
   padding-bottom: 5px;
 }

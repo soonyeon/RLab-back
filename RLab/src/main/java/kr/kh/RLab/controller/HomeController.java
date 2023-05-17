@@ -50,8 +50,8 @@ public class HomeController {
 		mv.addObject("waList",waList);
 		
 		//지점목록 불러오기
-    ArrayList<BranchVO> spot = reservationService.getAllBranchListToMain();
-	  mv.addObject("spot",spot);
+		ArrayList<BranchVO> spot = reservationService.getAllBranchListToMain();
+		mv.addObject("spot",spot);
   
 		mv.setViewName("/main/home");
 		return mv;

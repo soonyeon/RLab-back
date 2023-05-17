@@ -62,6 +62,7 @@ margin-top: 100px;
   width: 300px;
   height: 100%;
   border-radius: var(--border_radius_3);
+  background-color: #fff;
 }
 .main_right_box .rc_img_box{
   display: grid;
@@ -83,7 +84,6 @@ margin-top: 100px;
 }
 .main_right_box .rc_info_box{
   width: 260px;
-  background-color: #fff;
   border-bottom-left-radius: var(--border_radius_3);
   border-bottom-right-radius: var(--border_radius_3);
   padding: 39px 20px 20px 20px;
@@ -172,6 +172,8 @@ margin-top: 100px;
  display : flex;
  justify-content: end;
  column-gap: 15px;
+ padding-bottom: 10px;
+ padding-right: 10px;
 }
   
  .btn_edit{
