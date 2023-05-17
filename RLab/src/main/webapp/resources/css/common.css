@@ -24,10 +24,8 @@
 --border_radius_4: 10px;
 
 /* font */
- --font_family_main: -apple-system, BlinkMacSystemFont, "Malgun Gothic",
-   "맑은 고딕", helvetica, "Apple SD Gothic Neo", sans-serif;
- --font_family_sub: -apple-system, BlinkMacSystemFont, "Malgun Gothic",
-   "맑은 고딕", helvetica, "Apple SD Gothic Neo", sans-serif;
+ --font_main: 'NanumSquareNeo';
+ --font_sub: Noto Sans KR,Lato,sans-serif;
    
  --shadow: 2px 2px 5px #bfbfbf85;
 }
@@ -37,6 +35,7 @@
   padding: 0;
   list-style: none;
   text-decoration: none;
+  font-family: Noto Sans KR,Lato,sans-serif;
 }
 body {
   background-color: var(--color_beige);
@@ -84,6 +83,7 @@ a{color: var(--color_black);}
 }
 /* 추가(주연): 로고 아이콘 2023-02-10 */
 .btn_home {
+	font-family: 'Jalnan';
     display: flex;
     width: 73px;
     height: 50px;
@@ -122,7 +122,8 @@ a, button{
 	opacity: 80%;
 }
 
-
+@import url('https://webfontworld.github.io/NanumSquareNeo/NanumSquareNeo.css');
+@import url('https://webfontworld.github.io/goodchoice/Jalnan.css');
 
 /* ----------------------------------------------------------------- */
 
@@ -160,6 +161,7 @@ header #header_container {
 	font-size: 16px;
 }
 .top_menu_container .list_item{
+	font-family: var(--font_main);
 	color: #4c4c4c;
 }
 .top_menu_container .list_item:nth-child(1):hover{

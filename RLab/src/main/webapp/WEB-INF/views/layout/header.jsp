@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link href="https://webfontworld.github.io/NanumSquareNeo/NanumSquareNeo.css" rel="stylesheet">
+<link href="https://webfontworld.github.io/goodchoice/Jalnan.css" rel="stylesheet">
 <!-- header -->
 <!-- 모달 -->
 <style>
