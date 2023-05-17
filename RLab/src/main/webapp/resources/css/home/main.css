@@ -3,13 +3,18 @@
 
 
 
-/* .clearfix{
-	margin: 0px !important;
+.clearfix{
+
+	margin-top: 70px !important;
+    display: flex;
+    justify-content: center;
+
+	
 }
 main{
   margin-top: 0px !important;
-} */
-/* ----------------------------------------------------------------- */
+}
+/* --------------------------------------------------------------- */
 .main_container{
   width: 1200px;
   margin: auto;
@@ -34,6 +39,7 @@ main{
   right: 20px;
   z-index: 90;
 }
+.main_area{margin-top: 62px;}
 .main_banner{
   position:absolute;
   left:150px;
@@ -50,10 +56,6 @@ main{
 .main_area_box{
 	height:450px;
 }
-
-
-
-
 
 .slide_wrapper{
   overflow: hidden;
