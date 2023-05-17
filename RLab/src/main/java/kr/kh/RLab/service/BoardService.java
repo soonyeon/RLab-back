@@ -20,7 +20,7 @@ public interface BoardService {
 	BoardVO getBoard(int bo_num);
 	
 	//게시글 갯수
-	int getCount();
+	int getCount(int st_num);
 	
 	// 게시글 삭제
 	void deleteBoard(int bo_num);
@@ -34,6 +34,10 @@ public interface BoardService {
 	BoardVO getBoardByComment(int co_num);
 
 	ArrayList<BoardVO> findBoardById(String me_id);
+
+	StudyVO selectStudy(int st_num);
+
+	ArrayList<BoardVO> selectBoardListByStNum(int st_num);
 
 	
 	

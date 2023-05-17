@@ -21,10 +21,14 @@
 						<a href="<c:url value='/study/daily/${st_num}'></c:url>" class="list_item">데일리 미션</a> 
 						<a href="<c:url value='/study/photo/${st_num}'></c:url>" class="list_item">인증 게시판</a> 
 						<a href="<c:url value='/board/list/${st_num}'></c:url>" class="list_item">자유 게시판</a> 
-						<a href="<c:url value='/study/management'></c:url>" class="list_item">스터디 관리</a>
 					</nav>
 				</div>
-				<a href="#" class="leave_btn">탈퇴하기</a>
+				<div class="left_bottom_menu">
+					<a href="#" class="leave_btn">탈퇴하기</a>
+					<c:if test="${leaderCount != 0 && leaderCount != null}">
+						<a class="manage_btn" href="<c:url value='/study/management'></c:url>" class="list_item">스터디 관리</a>
+					</c:if>
+				</div>
 			</div>
 
 		<section>
@@ -38,7 +42,8 @@
 						<div class="table_container">
 							<div class="tab_content">
 							  <div class="select_box_area">
-		                      	<select name="sort">
+							  	<a class="write_btn" href="<c:url value="/board/insert/${st_num}"></c:url>" style="float: right;">작성하기</a>
+		                      	<select class="sort_box" name="sort">
 										<option value="" <c:if test="${pm.cri.sort==''}">selected</c:if>>전체보기</option>
 										<option value="date" <c:if test="${pm.cri.sort=='date'}">selected</c:if>>최신순</option>
 										<option value="views" <c:if test="${pm.cri.sort=='views'}">selected</c:if>>조회순</option>
@@ -59,10 +64,10 @@
 											<td class="title_list_item">스크랩</td>
 										</tr>
 										<c:forEach var="board" items="${boardList}">
-											<tr class="board_list_${board.bo_num}">
+											<tr class="board_list_${board.bo_num} link_item"  onclick="location.href='<c:url value='/board/detail/${st_num}/${board.bo_num}'/>';">
 												<td>${board.bo_num}</td>
 												<td>${board.st_name}</td>
-												<td class="post_title"><a href="<c:url value='/board/detail/${st_num}/${board.bo_num}'></c:url>"> ${board.bo_title}</a></td>
+												<td class="post_title"> ${board.bo_title}</td>
 												<td>${board.me_name}</td>
 												<td>${board.bo_reg_date_str}</td>
 												<td>${board.bo_views}</td>
@@ -70,7 +75,7 @@
 											</tr>
 										</c:forEach>
 									</table>
-									<a class="write_btn" href="<c:url value="/board/insert"></c:url>" style="float: right;">작성하기</a>
+								<!-- <a class="write_btn" href="<c:url value="/board/insert/${st_num}"></c:url>" style="float: right;">작성하기</a> -->	
 								</div>
 								<div class="page_box clearfix">
 									<c:if test="${pm.prev}">

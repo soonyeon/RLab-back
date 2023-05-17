@@ -9,8 +9,7 @@
 
 <main>
 	<div id="main_container">
-	     <div class="left_side">
-			<!-- 왼쪽 메뉴바 -->
+	  <!--    <div class="left_side">
 			<div class="left_menu_container">
 				<nav class="left_menu">
 					<a href="<c:url value='/study/${st_num}'></c:url>" class="list_item">스터디홈</a>
@@ -22,96 +21,118 @@
 				</nav>
 			</div>
 			<a href="#" class="leave_btn">탈퇴하기</a>
+		</div> --> 
+	    <div class="management_container">
+			<div class="time_line_title">스터디 관리</div>
+		    <div class="content_container">
+	    		<!-- 스터디 선택 창 -->
+		    	<div class="select_study_container">
+			        <!-- 탭 -->
+			        <div class="tab_container">
+			            <a href="#" class="item_tab"style="background-color: #f0ea58; font-weight: 700;">스터디 선택</a>
+			        </div>
+			        <div class="my_study_container" id="my_container">
+			            <!-- table  -->
+			            <div class="table_container">	
+			                <div class="tab_content">	
+			                    <!-- 나의 스크랩 -->
+			                    <div class="table_area" id="tabs_3">
+			                    	<form action="<c:url value='/study/management'></c:url>" method="post" >
+				                        <div class="slect_study_box">
+				                          <select name="st_num" class="slect_study_list">
+			                                <!--  <option value="">스터디를 선택하세요</option>-->
+		                            		<c:forEach items="${myStudyList}" var="st" varStatus="vs">
+			                                	<option value="${st.st_num}" <c:if test="${st.st_num == st_num}">selected</c:if>>${st.st_name}</option>
+		                            		</c:forEach>
+				                          </select>
+				                          <button class="btn_choose">선택</button>
+			                    		</div>	 
+			                    	</form>                                    
+			                    </div>
+			                </div>
+			            </div>
+			         </div>
+		      	</div>
+			   <!-- 회원 관리 창 -->
+		    	<div class="manage_member_container">   
+				     <!-- 탭 -->
+			        <div class="tab_container">
+			            <a href="<c:url value='/study/management/member'></c:url>" class="item_tab  selected tab1">회원 관리</a>
+			            <a href="<c:url value='/study/management/study/${st_num}'></c:url>" class="item_tab unselected tab2">스터디 관리</a>
+			        </div>
+			
+			        <div class="my_study_container" id="my_container">
+			            <!-- table  -->
+			            <div class="table_container">
+			
+			                <div class="tab_content">
+			                    <div class="table_area" id="tabs_3">
+			                        <table class="border_box">
+			                            <thead>
+			                                <tr class="board_title_list">
+			                                    <td class="title_list_item">닉네임</td>
+			                                    <td class="title_list_item">가입일</td>
+			                                    <td class="title_list_item"></td>
+			                                </tr>
+			                            </thead>
+			                            
+			                            <tbody>
+			                            	<c:forEach items="${memberList}" var="sm" varStatus="vs" >
+				                                <tr class="board_list">
+					                            	<td class="post_title">
+				                                        <div class="profile_box">
+		                                            		<div class="img_box">
+			                                                	<img class="profile_img" src="<c:url value='/download${sm.me_profile}'></c:url>"width="auto" height="40">
+		                                                	</div>
+				                                            <span name="me_name" class="">${sm.me_name}</span>
+				                                        </div>
+				                                    </td>
+				                                    <td>${sm.sm_join_date}</td>
+				                                    <td>
+				                                        <div class="btn_container" >
+				                                            <button class="btn_member btn_drop<c:if test="${sm.sm_me_id == user.me_id}"> display_none</c:if>">강퇴</button>
+				                                            <button class="btn_member btn_power<c:if test="${sm.sm_me_id == user.me_id}"> display_none</c:if>">스터디장 위임</button>
+				                                        </div>
+				                                    </td>
+				                                </tr>
+			                                </c:forEach>
+			                                
+			
+			                            </tbody>
+			                        </table>
+			                    </div>
+			                    
+			                    <!-- 페이지 이동 -->
+			                    <div class="page_area">
+				                    <div class="page_box clearfix">
+					                    <c:if test="${pm.prev}">
+					                        <a class="page-link" herf="<c:url value='/study/management/member/${st_num}?page=${pm.endPage-1}'></c:url>">
+					                        	<i class="btn_prev"></i>
+					                        </a>
+					                    </c:if>
+										<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
+											<span class="page_num">										
+												<a class="page-link <c:if test="${pm.cri.page == i}"> active</c:if>" href="<c:url value='/study/management/member/${st_num}?page=${i}'></c:url>">${i}</a>
+											</span>
+										</c:forEach>
+				                    
+										<c:if test="${pm.next}">										
+											<a class="page-link" href="<c:url value='/study/management/member/${st_num}?page=${pm.endPage+1}'></c:url>">
+					                        	<i class="btn_next"></i>
+					                        </a>
+					                    </c:if>
+			                    	</div>
+		                    	</div>
+		                	</div>
+		            	</div>
+		        	</div>
+		        </div>
+		    </div>
+		  
 		</div>
-	    
-	    <div class="content_container">
-	        <!-- 탭 -->
-	        <div class="tab_container">
-	            <a href="<c:url value='/study/management/member'></c:url>" class="item_tab  selected tab1">회원 관리</a>
-	            <a href="<c:url value='/study/management/study/${st_num}'></c:url>" class="item_tab unselected tab2">스터디 관리</a>
-	        </div>
-	
-	        <div class="my_study_container" id="my_container">
-	            <!-- table  -->
-	            <div class="table_container">
-	
-	                <div class="tab_content">
-
-	                    <div class="table_area" id="tabs_3">
-	                    	                                        
-	                        <table class="border_box">
-	                            <thead>
-	                                <tr class="board_title_list">
-	                                    <td class="title_list_item">닉네임</td>
-	                                    <td class="title_list_item">가입일</td>
-	                                    <td class="title_list_item"></td>
-	                                </tr>
-	                            </thead>
-	                            
-	                            <tbody>
-	                            	<c:forEach items="${memberList}" var="sm" varStatus="vs" >
-		                                <tr class="board_list">
-			                            	<td class="post_title">
-		                                        <div class="profile_box">
-                                            		<div class="img_box">
-	                                                	<img class="profile_img" src="<c:url value='/download${sm.me_profile}'></c:url>"width="auto" height="40">
-                                                	</div>
-		                                            <span name="me_name" class="">${sm.me_name}</span>
-		                                        </div>
-		                                    </td>
-		                                    <td>${sm.sm_join_date}</td>
-		                                    <td>
-		                                        <div class="btn_container" >
-		                                            <button class="btn_member btn_drop<c:if test="${sm.sm_me_id == user.me_id}"> display_none</c:if>">강퇴</button>
-		                                            <button class="btn_member btn_power<c:if test="${sm.sm_me_id == user.me_id}"> display_none</c:if>">스터디장 위임</button>
-		                                        </div>
-		                                    </td>
-		                                </tr>
-	                                </c:forEach>
-	                                
-	
-	                            </tbody>
-	                        </table>
-	                    </div>
-	                    
-	                    
-	                    
-	                    <!-- 페이지 이동 -->
-	                    <div class="page_area">
-	                    
-	                    <div class="page_box clearfix">
-		                    <c:if test="${pm.prev}">
-		                        <a class="page-link" herf="<c:url value='/study/management/member/${st_num}?page=${pm.endPage-1}'></c:url>">
-		                        	<i class="btn_prev"></i>
-		                        </a>
-		                    </c:if>
-							<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
-								<span class="page_num">										
-									<a class="page-link <c:if test="${pm.cri.page == i}"> active</c:if>" href="<c:url value='/study/management/member/${st_num}?page=${i}'></c:url>">${i}</a>
-								</span>
-							</c:forEach>
-	                    
-							<c:if test="${pm.next}">										
-								<a class="page-link" href="<c:url value='/study/management/member/${st_num}?page=${pm.endPage+1}'></c:url>">
-		                        	<i class="btn_next"></i>
-		                        </a>
-		                    </c:if>
-	                    
-                    	</div>
-                    </div>
-                    	
-                    	
-                  
-                </div>
-            </div>
-        </div>
-    </div>
-
-	
 	    <!-- 오른쪽 메뉴 -->
-	    <aside>
+	 <!--  <aside>
 	        <div class="right-container">
-	            <!-- 메뉴바 3개 -->
 	            <div class="study_link_container">
 	                <div class="circle_now cc">
 	                    <div class="now">NOW</div>
@@ -124,7 +145,6 @@
 	
 	                        <div class="my">MY</div>
 	
-	                        <!-- <div class="my_study" >나의 스터디<button id="dropdown_btn">▼</button></div> -->
 	                    </div>
 	                    <div id="dropdown_list" style="display: none;">
 	                        <ul class="dropdown_list_ul">
@@ -161,7 +181,6 @@
 	                </div>
 	            </div>
 	        </div>
-	        <!-- 접속상태 -->
 	        <div class="accessor">
 	            <div class="study_title">정보처리기사 스터디</div>
 	            <div class="accessor_container">
@@ -213,9 +232,7 @@
 	
 	        </div>
 	    </aside>
-	
-	
-	</div>
+	</div>-->   
 </main>	
 	
 	
@@ -255,7 +272,6 @@ $(".btn_drop").on("click", function() {
 	
 	
   confirmAction("본 회원을 강퇴시키겠습니까?", function() {
-	  console.log($(this));
 	  $.ajax({
 			async:false,
 		    type:'POST',
@@ -279,10 +295,7 @@ $(".btn_drop").on("click", function() {
 
   
 $(".btn_power").on("click", function() {
-	console.log(1)
 	let me_name  = $(this).parents('.board_list').find('[name=me_name]').text();
-	console.log(me_name);
-	
 	let obj ={
 			me_name: me_name,
 			sm_st_num: ${st_num}
@@ -304,7 +317,6 @@ $(".btn_power").on("click", function() {
 	location.replace("<c:url value='/study/management/'></c:url>");
     alert("위임처리 되었습니다."); 
 	});
-	  
 });
 
 

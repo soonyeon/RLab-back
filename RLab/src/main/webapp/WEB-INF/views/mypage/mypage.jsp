@@ -159,12 +159,7 @@
 		                <div id="pet_exp">
 		                  <div class="title">
 		                    <h2 class="property_title">펫 경험치</h2>
-		                    <c:if test="${currentLevel  == 1}">
-		                    	<p class="info exp_info"><strong>${currentExp}</strong>exp / 8exp</p>
-			                </c:if>
-			                <c:if test="${currentLevel  != 1}">
-		                    	<p class="info exp_info"><strong> ${levelUpExp}</strong>exp / ${levelUpExp}&nbsp;exp</p>
-			                </c:if>
+		                    	<p class="info exp_info"><strong> ${currentExp}</strong>exp / ${levelUpExp}&nbsp;exp</p>
 		                  </div>
 		                  <div class="gauge gauge_pet_exp">
 		                    <div class="gauge_colored" style= "background-color:yello"></div>
@@ -175,12 +170,7 @@
 		                <div id="pet_exp">
 		                  <div class="title">
 		                    <h2 class="property_title">펫 경험치</h2>
-		                    <c:if test="${currentLevel  == 1}">
-		                    	<p class="info exp_info"><strong>${currentExp}</strong>exp / 8exp</p>
-			                </c:if>
-			                <c:if test="${currentLevel  != 1}">
-		                    	<p class="info exp_info"><strong>${currentExp}</strong>exp / ${levelUpExp}&nbsp;exp</p>
-			                </c:if>
+		                    <p class="info exp_info"><strong>${currentExp}</strong>exp / ${levelUpExp}&nbsp;exp</p>
 		                  </div>
 		                  <div class="gauge gauge_pet_exp">
 		                    <div class="gauge_colored pet_ex_colored"></div>
@@ -193,14 +183,18 @@
               <div class="article_box pet_container">
              	 <c:if test="${myPet == null}">
 	                <div class="pet_window">
-	                	
-	                  <img src="" alt="" class="pet_talk" />
-	                  <img src="<c:url value="/resources/img/egg.png"></c:url>" alt="펫" class="pet" />
+	                  <div class="pet_box">
+		                  <img src="" alt="" class="pet_talk" />
+		                  <img src="<c:url value="/resources/img/rlab_logo.png"></c:url>" alt="펫" class="pet" width="auto" height="170" />
+	                  </div>
 	                </div>
 	                <div class="pet_description">
 	                  <div class="pet_info_container">
 	 					<span class="txt_new_pet">
-	 						★펫스토어 에서 펫을<br>데려와보세요★
+	 						<div class="pet_phrases1">펫이 당신을 기다리고 있어요!<br></div>
+	 						<div class="pet_phrases2">
+	 							펫스토어에서 펫 데려오기 <i class="pointer_box"><img alt="pointer" src="<c:url value="/resources/img/pointer.png"></c:url>"width="auto" height="20"></i>
+	 						</div>
 	 					</span>
 	                  </div>
 	                    <div id="pet_store_container">
@@ -210,8 +204,10 @@
 	              </c:if>
 	              <c:if test="${myPet != null }">
 	                <div class="pet_window">
-	                  <img src="" alt="" class="pet_talk" />
-	                  <img src="<c:url value="/resources/img${myPet.ev_img}"></c:url>" alt="펫" class="pet" />
+		                <div class="pet_box">
+		                  <img src="" alt="" class="pet_talk" />
+		                  <img src="<c:url value="/resources/img${myPet.ev_img}"></c:url>" alt="펫" class="pet" width="auto" height="170"/>
+		                </div>
 	                </div>
 	                <div class="pet_description">
 	                  <div class="pet_info_container">
@@ -223,12 +219,12 @@
 	                    </div>
 	                    <div class="pet_level">Lv. ${myPet.gr_level}</div>
 	                  </div>
-	                  	<c:if test="${petExp.gr_exp == petExp.ex_experience}">		                    
+	                  	<c:if test="${myPet.gr_exp == myPet.ex_experience}">		                    
 			                <div id="pet_getPrize_container" class="pet_getPrize_container">
 		                      <i class="icon_getPrize"></i>펫 보상받기
 		                    </div>
 		                </c:if>
-		                <c:if test="${petExp.gr_exp != petExp.ex_experience}">		
+		                <c:if test="${myPet.gr_exp != myPet.ex_experience}">		
 		                    <div id="pet_store_container">
 		                      <i class="icon_store"></i> 펫 스토어
 		                    </div>
@@ -372,7 +368,7 @@
                   </a>
                 </div>
                 
-                <ul class="list_container">
+                <ul class="list_container scrap_list">
                   <!-- 스크랩한 게시글 상세로 이동 -->
                   <c:if test="${myScrapList == null || myScrapList.size() == 0}">
 	                  <div class="noPostMsg">
@@ -586,16 +582,16 @@
   	$(document).ready(function(){
   		if(${myPet != null}){
   			var gaugeWidth = $('.pet_ex_colored').width();
-			var currentExp = '${currentExp}';
-			var levelUpExp = '${levelUpExp}';
+			var currentExp = ${currentExp};
+			var levelUpExp = ${levelUpExp};
 			//var levelUpExpOnScreen = '${levelUpExpOnScreen}';
-			var exp =  currentExp >= levelUpExp ? currentExp-levelUpExp : currentExp;
-			var ratio = exp / levelUpExp;
+			//var exp =  currentExp >= levelUpExp ? currentExp-levelUpExp : currentExp;
+			var ratio = currentExp / levelUpExp;
 			gaugeWidth = ratio * 100 + '%';
-			$('.pet_ex_colored').width(gaugeWidth);
-			if(${petExp.gr_exp != petExp.ex_experience})
-				$('.exp_info strong').text(exp);
-			console.log(exp);
+			console.log(gaugeWidth);
+			$('.gauge_colored').css("width",gaugeWidth);
+			if(${myPet.gr_exp != myPet.ex_experience})
+				$('.exp_info strong').text(currentExp);
   		}
     	
 		/*

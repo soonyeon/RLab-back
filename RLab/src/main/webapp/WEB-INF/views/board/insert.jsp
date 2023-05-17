@@ -2,8 +2,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="<c:url value='/resources/css/board/insertBoard.css'></c:url>">
-<link rel="stylesheet"
-	href="<c:url value='/resources/css/board/mypost_post.css'></c:url>">
 <link rel="stylesheet" href="<c:url value='/resources/css/study/study.css'></c:url>">
 <link href="<c:url value='/resources/css/summernote-lite.min.css'></c:url>" rel="stylesheet">
 <script src="<c:url value='/resources/js/summernote-lite.min.js'></c:url>"></script>
@@ -15,19 +13,24 @@
 
 <main>
 	<div class="main_container">
-		<!-- 왼쪽 메뉴바 -->
-		<div class="left_menu_container">
- 					<nav class="left_menu">
-                        <a href="study_basic.html" class="list_item">스터디홈</a>
-                        <a href="#" class="list_item">스터디 달력</a>
-                        <a href="to_do_list.html" class="list_item">투두 리스트</a>
-                        <a href="Daily Mission.html" class="list_item">데일리 미션</a>
-                        <a href="certification_board.html" class="list_item">인증 게시판</a>
-                        <a href="#" class="list_item">자유 게시판</a>
-                        <a href="#" class="list_item">스터디 관리</a>
-                        <a href="#" class="leave">탈퇴하기</a>
-                    </nav>
-		</div>
+		<div class="left_side">
+			<!-- 왼쪽 메뉴바 -->
+			<div class="left_menu_container">
+				<nav class="left_menu">
+					<a href="<c:url value='/study/${st_num}'></c:url>" class="list_item">스터디홈</a>
+					<a href="<c:url value='/study/todo/${st_num}'></c:url>" class="list_item">투두 리스트</a> 
+					<a href="<c:url value='/study/daily/${st_num}'></c:url>" class="list_item">데일리 미션</a> 
+					<a href="<c:url value='/study/photo/${st_num}'></c:url>" class="list_item">인증 게시판</a> 
+					<a href="<c:url value='/board/list/${st_num}'></c:url>" class="list_item">자유 게시판</a> 
+				</nav>
+			</div>
+			<div class="left_bottom_menu">
+				<a href="#" class="leave_btn">탈퇴하기</a>
+				<c:if test="${leaderCount != 0 && leaderCount != null}">
+					<a class="manage_btn" href="<c:url value='/study/management'></c:url>" class="list_item">스터디 관리</a>
+				</c:if>
+			</div>
+		</div>	
 
 		<section>
 			<div class="home_container">
@@ -55,9 +58,7 @@
               	 <input type="hidden" name="bo_me_id" value="${memberId}">
                 <h2>스터디명</h2> 
                 <select id="choose_study" name="bo_st_num">
-                	<c:forEach var="study" items="${studies}">
-                		<option value="${study.st_num}">${study.st_name}</option>
-           			</c:forEach>
+                		<option value="${studies.st_num}">${studies.st_name}</option>
                 </select> 
                 <h2>제목</h2> 
                 <div class="recruit_title_box"> 
@@ -67,8 +68,8 @@
                 <h2>내용</h2> 
 					<textarea id="content" name="bo_content"></textarea>  
 				<div class="btn_box">
-					<button class="ts_btn" type="button">임시저장</button>
-					<button class="write_complete_btn" type="submit">작성완료</button>
+					<button class="ts_btn btn_btm" type="button">임시저장</button>
+					<button class="write_complete_btn btn_btm" type="submit">작성완료</button>
 				</div>
 			</form>
 		</section>

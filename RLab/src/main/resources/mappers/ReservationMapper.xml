@@ -159,7 +159,7 @@
 								)
 						)
 					end as 'exp'
-				from growth
+				from growth where gr_me_id = #{re_me_id}
 			) tmp)
 		where gr_me_id = #{re_me_id}
 	]]>
@@ -178,7 +178,7 @@
 					when  gr_exp>=178 and gr_exp<328 then 5
 					when  gr_exp>=328 and gr_exp<=598 then 6
 				end as 'level'
-			from growth
+			from growth where gr_me_id = #{re_me_id}
 		) tmp)
 	where gr_me_id = #{re_me_id};
 	]]>
@@ -213,6 +213,18 @@
 		select * from branch
 		where br_num = (select se_br_num from seat where se_num = #{re_se_num})
 	</select>
+	<select id="selectBranchSeat" resultType="kr.kh.RLab.vo.SeatVO">
+		select * from seat where se_br_num = #{br_num} and se_ki_num = #{ki_num}
+	</select>
+	<update id="updateSeatUsability">
+		update seat set se_usable = 1 
+		where se_num = (
+			select se_num from (    
+				select se_num from seat     
+			    where se_br_num = #{book.br_num} and se_name = #{book.se_name} and se_ki_num = #{se_ki_num} and se_usable = 2
+			)tmp
+		)
+	</update>
 	<select id="selectAllBranchToMain" resultType="kr.kh.RLab.vo.BranchVO">
 		select * from branch
 	</select>

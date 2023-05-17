@@ -50,8 +50,8 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public int getCount() {
-		return boardDao.getCount();
+	public int getCount(int st_num) {
+		return boardDao.getCount(st_num);
 	}
 
 	@Override
@@ -81,6 +81,16 @@ public class BoardServiceImp implements BoardService {
 	@Override
 	public ArrayList<BoardVO> findBoardById(String me_id) {
 		return boardDao.findBoardById(me_id);
+	}
+
+	@Override
+	public StudyVO selectStudy(int st_num) {
+		return boardDao.selectStudy(st_num);
+	}
+
+	@Override
+	public ArrayList<BoardVO> selectBoardListByStNum(int st_num) {
+		return boardDao.selectBoardListByStNum(st_num);
 	}
 
 }

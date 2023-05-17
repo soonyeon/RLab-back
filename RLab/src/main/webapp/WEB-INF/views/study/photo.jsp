@@ -4,9 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     
 
-<link rel="stylesheet" href="<c:url value='/resources/css/study/certification_board.css'></c:url>">
+<link rel="stylesheet" href="<c:url value='/resources/css/study/photo.css'></c:url>">
 <link rel="stylesheet" href="<c:url value='/resources/css/study/study.css'></c:url>">
-<link rel="stylesheet" href="<c:url value='/resources/css/common.css'></c:url>">
  <main>
  <div class="main_container">
            <div class="left_side">
@@ -18,10 +17,14 @@
 						<a href="<c:url value='/study/daily/${st_num}'></c:url>" class="list_item">데일리 미션</a> 
 						<a href="<c:url value='/study/photo/${st_num}'></c:url>" class="list_item">인증 게시판</a> 
 						<a href="<c:url value='/board/list/${st_num}'></c:url>" class="list_item">자유 게시판</a> 
-						<a href="<c:url value='/study/management'></c:url>" class="list_item">스터디 관리</a>
 					</nav>
 				</div>
-				<a href="#" class="leave_btn">탈퇴하기</a>
+				<div class="left_bottom_menu">
+					<a href="#" class="leave_btn">탈퇴하기</a>
+					<c:if test="${leaderCount != 0 && leaderCount != null}">
+						<a class="manage_btn" href="<c:url value='/study/management'></c:url>" class="list_item">스터디 관리</a>
+					</c:if>
+				</div>
 			</div>
 
                 <section>
@@ -69,10 +72,13 @@
 								                <div class="today_feed_board">
 								                    <c:forEach var="photo" items="${photos}">
 								                        <div class="board">
-								                            <div class="feed_name">${photo.me_name}</div>
-								                            <div class="feed_date">${photo.ph_register_date_str}</div>
+								                        
+								                        	<div class="profile_box">
+									                            <div class="feed_name">${photo.me_name}</div>
+									                            <div class="feed_date">${photo.ph_register_date_str}</div>
+								                            </div>
 								                            <div class="feed_contents_img">
-								                                <img width="350" height="300"		src="<c:url value='/download${photo.ph_img}'/>" alt="이미지">
+								                                <img width="350" height="350"		src="<c:url value='/download${photo.ph_img}'/>" alt="이미지">
 								                            </div>
 								                            <div class="middle_container2">
 								                                <span class="feed_contents">${photo.ph_content}</span>

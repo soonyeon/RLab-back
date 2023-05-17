@@ -120,14 +120,13 @@ public interface StudyDAO {
 
 	void leaveStudy(@Param("me_id")String me_id, @Param("st_num")int st_num);
 
-	StudyVO getStudy(int st_num);
+	StudyVO selectStudy(int st_num);
 	
 	void updateStudy(StudyVO study);
 
 	StudyMemberVO findStudyMember(@Param("st_num")int st_num,@Param("me_id")String me_id);
 
 	void updateMemberStNum(@Param("me_id")String me_id,@Param("st_num") int st_num, @Param("new_st_num")int new_st_num);
-
 
 	ArrayList<TodoVO> selectStudyMemberTodo(@Param("st_num")int st_num);
 
@@ -147,8 +146,6 @@ public interface StudyDAO {
 
 	ArrayList<StudyVO> selectUserStudyList(String me_id);
 
-	StudyVO selectStudyByStnum(int me_study);
-
 	void updateUserFavorite(@Param("me_id")String me_id, @Param("st_num")int st_num);
 
 	ArrayList<StudyMemberVO> selectStudMemberyByMemberId(String me_id);
@@ -157,6 +154,5 @@ public interface StudyDAO {
 
 	MissionVO selectTodayMission(int st_num);
 
-	
-
+	int selectLeaderCount(String me_id);
 }

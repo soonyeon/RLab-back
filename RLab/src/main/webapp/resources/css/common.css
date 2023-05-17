@@ -8,6 +8,7 @@
 --color_light-grey: #bfbfbf;
 --color_grey: #626262;
 --blue_hover: #3f7fc9;
+--yellow_hover: #e3d640;
 
 /* size */
 --body_size: 1200px;
@@ -23,10 +24,8 @@
 --border_radius_4: 10px;
 
 /* font */
- --font_family_main: -apple-system, BlinkMacSystemFont, "Malgun Gothic",
-   "맑은 고딕", helvetica, "Apple SD Gothic Neo", sans-serif;
- --font_family_sub: -apple-system, BlinkMacSystemFont, "Malgun Gothic",
-   "맑은 고딕", helvetica, "Apple SD Gothic Neo", sans-serif;
+ --font_main: 'NanumSquareNeo';
+ --font_sub: Noto Sans KR,Lato,sans-serif;
    
  --shadow: 2px 2px 5px #bfbfbf85;
 }
@@ -36,6 +35,7 @@
   padding: 0;
   list-style: none;
   text-decoration: none;
+  font-family: Noto Sans KR,Lato,sans-serif;
 }
 body {
   background-color: var(--color_beige);
@@ -83,8 +83,9 @@ a{color: var(--color_black);}
 }
 /* 추가(주연): 로고 아이콘 2023-02-10 */
 .btn_home {
+	font-family: 'Jalnan';
     display: flex;
-    width: 69px;
+    width: 73px;
     height: 50px;
     font-size: 14px;
     font-weight: 800;
@@ -92,12 +93,12 @@ a{color: var(--color_black);}
     overflow: hidden;
   }
 .btn_home .icon_home {
-   width: 40px;
+   width: 41px;
    height: 100%;
-   background-size: 55px;
+   /*background-size: 55px;
    background-position: -9px -2px;
    background-image: url(../img/rlab_logo.png);
-   background-repeat: no-repeat;
+   background-repeat: no-repeat;*/
 }
 
 .add_shadow {box-shadow: 5px 5px 0px rgb(7, 7, 7);}
@@ -106,20 +107,23 @@ a, button{
   cursor: pointer;
 }
 .remove_btn{
-	position: absolute;
 	display: flex;
 	cursor: pointer;
+	opacity: 40%;
+}
+.login_remove{
+	position: absolute;
 	top: 3px;
     right: 3px;
-	opacity: 40%;
-	width: 12px;
+    width: 12px;
 	height: 12px;
 }
 .remove_btn:hover{
 	opacity: 80%;
 }
 
-
+@import url('https://webfontworld.github.io/NanumSquareNeo/NanumSquareNeo.css');
+@import url('https://webfontworld.github.io/goodchoice/Jalnan.css');
 
 /* ----------------------------------------------------------------- */
 
@@ -148,15 +152,6 @@ header #header_container {
 	display: flex;
 	gap: 90px;
 }
-.btn_home {
-	display: flex;
-	width: 69px;
-	height: 50px;
-	font-size: 14px;
-	font-weight: 800;
-	line-height: 80px;
-	overflow: hidden;
-}
 	
 .top_menu_container{
 	width: 315px;
@@ -166,6 +161,7 @@ header #header_container {
 	font-size: 16px;
 }
 .top_menu_container .list_item{
+	font-family: var(--font_main);
 	color: #4c4c4c;
 }
 .top_menu_container .list_item:nth-child(1):hover{
@@ -445,13 +441,12 @@ header{
 .alarm_modal {
   position: absolute;
   margin-top: 69px;
-  top: -22px;
-  right: -288px;
+  top: 1px;
+  /*right: -288px;*/
   margin-left: 890px;
   background-color: white;
   color: black;
   border-radius: 5px;
-  display: none;
   z-index: 9998;
   width: 312px;
   overflow-x: hidden;

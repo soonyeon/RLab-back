@@ -7,7 +7,10 @@
 	<div class="container">
 		<!-- 이용권/예약 선택 박스 -->
 		<div class="inner_container">
-			<div class="info_box">모든 이용권은 이용권 구매 후 이용가능합니다.</div>
+			<div class="info_box">
+	            <img class="icon_img" src="<c:url value="/resources/img/info.png"></c:url>"> 
+				모든 이용권은 이용권 구매 후 이용가능합니다.
+			</div>
 			<div class="button_container">
 				<a href="<c:url value='/reservation/buy'></c:url>" class="ticket_box">
 					<div class="around_text">이용권 구매</div>

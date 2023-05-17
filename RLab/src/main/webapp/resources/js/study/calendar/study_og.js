@@ -1,3 +1,4 @@
+
 $(document).ready(function() {
     var calendarEl = document.getElementById("calendar");
 
@@ -183,6 +184,7 @@ $(document).ready(function() {
                     clearInputFields(); // 입력 필드 값을 초기화함
                 },
                 error: function(xhr, status, error) {
+                	console.log(error);
                     alert("이벤트 추가에 실패했습니다.");
                 },
             });

@@ -40,49 +40,52 @@ public class CommentController {
 	private final SseController sseController;
 	@PostMapping("/create")
 	public Map<String, Object> createComment(@RequestBody CommentVO comment,HttpSession session) {
+		System.out.println("comment객체 받음:"+comment);
 		int result = commentService.createComment(comment);
+		System.out.println("댓글 등록 완");
 		// 새 댓글이 생성되면 SSE 이벤트를 전송
 		if (result > 0) {
- 			//board 댓글
-			if(comment.getCo_table().equals("board")) {
+			String al_table = comment.getCo_table();
+			String userId, message = "";
+			AlarmType al_type;
+			Object eventData;
+			
+			// 댓글 달리면 게시글 작성자에게 알림
+			if(al_table.equals("board")) {
 				BoardVO board = boardService.getBoardByComment(comment.getCo_ex_num());
-				String userId = board.getBo_me_id(); // 게시물 작성자의 ID를 가져와야 함
-				if(!userId.equals(comment.getCo_me_id())) { //본인이 단 댓글은 제외
-					String message = board.getBo_title()+"에 댓글이 달렸습니다";
-					notificationService.sendNotificationToUser(userId, message, AlarmType.STUDY);
-					sseController.sseNewComment(userId,session);
-				}
-				//대댓글일 경우 댓글의 작성자한테도 알림 전송
-				if(comment.getCo_ori_num()!=0 && comment.getCo_ori_num()!=comment.getCo_num()) {
-					CommentVO oriComment = commentService.getCommentByCoNum(comment.getCo_ori_num());
-					userId = oriComment.getCo_me_id();
-					String message = oriComment.getCo_content()+"에 대댓글이 달렸습니다";
-					notificationService.sendNotificationToUser(userId, message, AlarmType.STUDY);
-					sseController.sseNewComment(userId,session);
-				}
-			}
-			//gather 댓글
-			else if(comment.getCo_table().equals("gather")){
+				userId = board.getBo_me_id();
+				message = board.getBo_title()+"에 댓글이 달렸습니다";
+				al_type = AlarmType.STUDY;
+				eventData = board;
+			}else if(al_table.equals("gather")) {
 				GatherVO gather = gatherService.getGatherByComment(comment.getCo_ex_num());
-				String userId = gather.getGa_me_id(); // 게시물 작성자의 ID를 가져와야 함
-				if(!userId.equals(comment.getCo_me_id())) { //본인이 단 댓글은 제외
-					String message = gather.getGa_title()+"에 댓글이 달렸습니다";
-					notificationService.sendNotificationToUser(userId, message, AlarmType.GATHER);
-					sseController.sseNewComment(userId,session);
-				}
-				//대댓글일 경우 댓글의 작성자한테도 알림 전송
-				if(comment.getCo_ori_num()!=0 && comment.getCo_ori_num()!=comment.getCo_num()) {
-					CommentVO oriComment = commentService.getCommentByCoNum(comment.getCo_ori_num());
-					userId = oriComment.getCo_me_id();
-					String message = oriComment.getCo_content()+"에 대댓글이 달렸습니다";
-					notificationService.sendNotificationToUser(userId, message, AlarmType.GATHER);
-					sseController.sseNewComment(userId, session);
-				}
+				userId = gather.getGa_me_id();
+				message = gather.getGa_title()+"에 댓글이 달렸습니다";
+				al_type = AlarmType.GATHER;
+				eventData = gather;
+			}else
+				return null;
+			// 게시글 작성자 본인이 단 댓글은 알림 받지 않음
+			if(!userId.equals(comment.getCo_me_id())) { 
+				System.out.println("알림보내기전");
+				notificationService.sendNotificationToUser(userId, message, al_type, al_table, comment.getCo_ex_num());
+				System.out.println("알림 db 등록 완");
+				System.out.println("userId: "+userId);
+				System.out.println("eventData:"+eventData);
+				sseController.sseNewComment(userId,eventData,session);
+				System.out.println("하단 알림 전송 완");
+			}
+			// 대댓글 달리면 댓글 작성자에게도 알림
+			if(comment.getCo_ori_num()!=0 && comment.getCo_ori_num()!=comment.getCo_num()) {
+				CommentVO oriComment = commentService.getCommentByCoNum(comment.getCo_ori_num());
+				userId = oriComment.getCo_me_id();
+				message = oriComment.getCo_content()+"에 대댓글이 달렸습니다";
+				notificationService.sendNotificationToUser(userId, message, al_type, al_table, comment.getCo_ex_num());
+				sseController.sseNewComment(userId,eventData,session);
 			}
 		}
 		Map<String, Object> map = new HashMap<>();
 		map.put("result", result > 0 ? "success" : "fail");
-//		sseController.sseNewComment(comment.getCo_ex_num(),session);
 		return map;
 	}
 
@@ -94,6 +97,7 @@ public class CommentController {
 
 		List<CommentVO> commentList = commentService.getCommentList(cc);	
 		Map<String, Object> resultMap = new HashMap<String, Object>();
+		System.out.println(commentList);
 		resultMap.put("commentList", commentList);
 		resultMap.put("pm", pm);
 

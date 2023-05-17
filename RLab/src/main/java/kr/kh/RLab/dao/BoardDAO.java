@@ -19,7 +19,7 @@ public interface BoardDAO {
 
 	BoardVO getBoard(@Param("bo_num") int bo_num);
 
-	int getCount();
+	int getCount(int st_num);
 
 	void countViews(@Param("bo_num") int bo_num);
 
@@ -36,5 +36,9 @@ public interface BoardDAO {
 	BoardVO getBoardByComment(int co_num);
 
 	ArrayList<BoardVO> findBoardById(String me_id);
+
+	StudyVO selectStudy(int st_num);
+
+	ArrayList<BoardVO> selectBoardListByStNum(int st_num);
 
 }

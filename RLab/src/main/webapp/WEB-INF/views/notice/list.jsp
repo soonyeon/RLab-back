@@ -28,12 +28,6 @@
 				</aside>
 
 				<section>
-					<!-- 탭 
-					<div class="tab-container">
-						<a href="#" class="tab selected_tab tab1"><div>전체보기</div></a>
-						<a href="#" class="tab unselected_tab tab2"><div>공지사항</div></a>
-						<a href="#" class="tab unselected_tab tab3"><div>QnA</div></a>
-					</div>-->
 					<div class="notice_container">
 						<!-- table  -->
 						<form action="<c:url value='/notice/list'></c:url>">
@@ -93,15 +87,16 @@
 											<a href="<c:url value='/notice/list?page=${pm.endPage+1}&type=${pm.cri.type}&search=${pm.cri.search}&sort=${pm.cri.sort}'></c:url>"><i class="btn_next"></i></a>
 										</c:if>
 									</div>
+									<!-- 검색창 -->
 									<div class="search_area clearfix">
 										<select id="choose_type" name="type">
 											<option value="0">전체</option>
 											<c:forEach items="${ntList}" var="nt">
-												<option value="${nt.nt_num}">${nt.nt_name}</option>
+												<option value="${nt.nt_num}" <c:if test="${pm.cri.type==nt.nt_num}">selected</c:if>>${nt.nt_name}</option>
 											</c:forEach>
 										</select>
 										<div class="search_box">
-											<input type="text" class="search" placeholder="검색어를 입력하세요" name="search">
+											<input type="text" class="search" placeholder="검색어를 입력하세요" name="search" value="${pm.cri.search}">
 											<button class="icon_search"></button>
 										</div>
 									</div>
