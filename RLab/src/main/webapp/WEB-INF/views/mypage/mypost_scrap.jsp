@@ -7,10 +7,8 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="<c:url value='/resources/js/jquery.min.js'></c:url>"></script>
 <script src="<c:url value='/resources/js/jquery.validate.min.js'></c:url>"></script>
 <script src="<c:url value='/resources/js/additional-methods.min.js'></c:url>"></script>
- <link rel="stylesheet" href="<c:url value ='/resources/css/common.css?after'></c:url>" />
 <link rel="stylesheet" href="<c:url value ='/resources/css/mypage/mypage_common.css?after'></c:url>" />
 <link rel="stylesheet" href="<c:url value ='/resources/css/tab_common.css?after'></c:url>" />
 <link rel="stylesheet" href="<c:url value ='/resources/css/table_common.css?after'></c:url>" />
@@ -70,7 +68,7 @@
 			                          <tbody>
 			                           <c:forEach items="${myScrapList}" var="bo" varStatus="vs">
 				                            <tr class="board_list" onclick="location.href='<c:url value='/board/detail/${bo.bo_st_num}/${bo.bo_num}'/>';">	      
-				                              <td>${bo.scrapVO.sc_num}</td>
+				                              <td>${myScrapList.size()-vs.index}</td>
 				                              <td>${bo.st_name}</td>
 				                              <td class="post_title">${bo.bo_title}</td>
 				                              <td>${bo.me_name}</td>

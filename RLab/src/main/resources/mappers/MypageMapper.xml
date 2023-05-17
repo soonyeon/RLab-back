@@ -334,7 +334,7 @@
 	<!-- [작성글 관리 > 나의 게시글] -->
 		<!-- 아이디로 작성 게시글 목록 가져오기  -->
 	  	<select id="selectBoardListById" resultType="kr.kh.RLab.vo.BoardVO">
-	 		SELECT board.bo_num, study.st_name, board.bo_title, member.me_name, board.bo_reg_date 
+	 		SELECT *
 	 		FROM board
 	 		JOIN study ON board.bo_st_num = study.st_num
 	 		JOIN member ON board.bo_me_id = member.me_id
