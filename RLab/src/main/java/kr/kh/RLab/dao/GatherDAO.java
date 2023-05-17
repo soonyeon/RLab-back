@@ -42,8 +42,6 @@ public interface GatherDAO {
 
 	int selectStudyTotalCount(@Param("cri")GatherCriteria gcri);
 
-	ArrayList<Integer> selectStudyList();
-
 	ArrayList<Integer> selectWantedStudyList(@Param("me_id")String me_id);
 
 	ArrayList<Integer> selectStudyMemberList(@Param("me_id")String me_id);

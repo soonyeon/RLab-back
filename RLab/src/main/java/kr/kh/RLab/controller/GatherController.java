@@ -50,6 +50,7 @@ public class GatherController {
 	    mv.setViewName("/gather/insertstudy");
 	    return mv;
 	}
+	
 	@PostMapping("/insertstudy")
 	public ModelAndView studyInsertPost(ModelAndView mv,StudyVO study,HttpServletRequest request,RegionVO region,MultipartFile [] files,
 			FileVO file,TagVO tag,TagRegisterVO tagRegister,StudyMemberVO studyMember) {

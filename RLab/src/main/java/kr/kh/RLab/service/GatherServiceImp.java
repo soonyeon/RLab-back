@@ -27,14 +27,14 @@ public class GatherServiceImp implements GatherService {
 	private final MypageDAO mypageDao;
 	String uploadPath = "D:\\uploadfiles";
 
+	//[모집게시판 > 스터디생성]
 	@Override
 	public boolean insertStudy(StudyVO study, MemberVO member, RegionVO region, MultipartFile[] files, FileVO file,
 			TagVO tag, TagRegisterVO tagRegister, StudyMemberVO studyMember) {
 		if (member == null) {
 			return false;
 		}
-		
-		
+				
 		if (study.getSt_name().trim().length() == 0 || study.getSt_total_people() < 1) {
 			return false;
 		}
@@ -78,7 +78,8 @@ public class GatherServiceImp implements GatherService {
 		}
 		return false;
 	}
-
+	
+	//[모집게시판 > 스터디생성 > 파일 업로드]
 	private void uploadFiles(MultipartFile[] files, int st_num, String fi_table) {
 		if (files == null || files.length == 0)
 			return;
@@ -104,7 +105,7 @@ public class GatherServiceImp implements GatherService {
 		}
 	}
 
-	// 紐⑥쭛湲�
+	//[모집게시판 > 모집글 작성]
 	@Override
 	public boolean insertGather(MemberVO member, GatherVO gather, StudyVO study) {
 		if (member == null)
@@ -112,11 +113,11 @@ public class GatherServiceImp implements GatherService {
 		if (!checkGather(gather))
 			return false;
 		gather.setGa_me_id(member.getMe_id());
-		// gather.setGa_st_num(study.getSt_num());
 
 		return gatherDao.insertGather(gather);
 	}
 
+	//[모집게시판 > 모집글 작성할때 게시글 다작성되었는지 확인하기]
 	private boolean checkGather(GatherVO gather) {
 		if (gather == null || gather.getGa_title() == null || gather.getGa_title().trim().length() == 0
 				|| gather.getGa_content() == null || gather.getGa_content().trim().length() == 0)
@@ -124,6 +125,9 @@ public class GatherServiceImp implements GatherService {
 		return true;
 	}
 
+	
+	//[모집게시판 > 메인]
+		//스터디 & 모집글 불러오기
 	@Override
 	public ArrayList<StudyVO> selectStudyAll(GatherCriteria gcri) {
 		return gatherDao.selectStudyAll(gcri);
@@ -133,7 +137,7 @@ public class GatherServiceImp implements GatherService {
 	public ArrayList<FileVO> selectFileList() {
 		return gatherDao.selectFileList();
 	}
-
+	
 	@Override
 	public ArrayList<TagRegisterVO> selectTagList() {
 		ArrayList<TagRegisterVO> tagList = gatherDao.selectTagList();
@@ -151,17 +155,14 @@ public class GatherServiceImp implements GatherService {
 		return gatherDao.selectStudy(st_num);
 	}
 
+	
 	@Override
 	public int getStudyTotalCount(GatherCriteria gcri) {
 		Integer totalCount = gatherDao.selectStudyTotalCount(gcri);
 		return totalCount != null ? totalCount : 0;
 	}
 
-	@Override
-	public ArrayList<Integer> selectStudyList() {
-		return gatherDao.selectStudyList();
-	}
-
+	
 	@Override
 	public ArrayList<Integer> selectWantedStudyList(MemberVO user) {
 		if (user == null)
@@ -202,16 +203,19 @@ public class GatherServiceImp implements GatherService {
 		return gatherDao.getGatherByComment(co_num);
 	}
 	
+	//[모집게시판 > 메인 > 검색]
+		//태그검색
 	@Override
 	public ArrayList<String> getSearchTagList(String search) {
 		return gatherDao.selectSearchTagList(search);
 	}
-
+		
 	@Override
 	public ArrayList<GatherVO> findGatherdById(String me_id) {
 		return gatherDao.findGatherdById(me_id);
 	}
-
+	
+	//[모집게시판 > 모집글 수정]
 	@Override
 	public GatherVO selectGather(int ga_num, MemberVO user) {
 		return gatherDao.selectGatherByGaNum(ga_num,user);
@@ -223,7 +227,8 @@ public class GatherServiceImp implements GatherService {
 			return false;
 		return gatherDao.updateGather(gather);
 	}
-
+	
+	//[모집게시판 > 모집글 삭제]
 	@Override
 	public void deleteGather(int ga_num) {
 		gatherDao.deleteGather(ga_num);
@@ -245,7 +250,7 @@ public class GatherServiceImp implements GatherService {
 		return gatherDao.selectTagListByStNum(st_num);
 	}
 
-	//스터디 수정
+	//[스터디관리 > 스터디 수정]
 	@Override
 	public boolean editStudy(StudyVO study, MemberVO member, RegionVO region, MultipartFile[] files,FileVO file, Integer fileNums,
 			TagVO tag, TagRegisterVO tagRegister,int st_num) {
