@@ -75,6 +75,17 @@ public interface GatherDAO {
 
 	void updateMeStudyNumber(@Param("st_num")int st_num, @Param("me_id")String me_id);
 
+	StudyVO selectStudyByStNum(int st_num);
+
+	FileVO selectFileByStNum(int st_num);
+
+	ArrayList<String> selectTagListByStNum(@Param("st_num")int st_num);
+
+	void updateStudy(StudyVO study,@Param("st_num") int st_num);
+
+	void deleteTagByStNum(TagRegisterVO tagRegister,@Param("st_num") int st_num);
+
+	void deleteFileByStNum(FileVO file, @Param("st_num")int st_num);
 
 	
 

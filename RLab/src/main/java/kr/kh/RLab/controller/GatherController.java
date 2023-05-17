@@ -173,5 +173,29 @@ public class GatherController {
 	    return "success";
 	}
 	
+	//스터디 수정
+	@GetMapping("/updateStudy/{st_num}")
+	public ModelAndView studyUpdate(ModelAndView mv,HttpServletRequest request,@PathVariable("st_num")int st_num) {
+		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
+		StudyVO study = gatherService.selectStudy(st_num);
+		FileVO file =  gatherService.selectFileByStNum(st_num);
+		ArrayList<String> tagList =  gatherService.selectTagListByStNum(st_num);
+		System.out.println(tagList);
+		mv.addObject("tagList",tagList);
+		mv.addObject("file",file);
+		mv.addObject("study",study);
+		mv.setViewName("/gather/updateStudy");
+		return mv;
+	}
+	
+
+	@PostMapping("/updateStudy/{st_num}")
+	public ModelAndView studyUpdatePost(ModelAndView mv,StudyVO study,HttpServletRequest request,RegionVO region,MultipartFile [] files,
+			FileVO file,TagVO tag,TagRegisterVO tagRegister,@PathVariable("st_num")int st_num) {
+		MemberVO member = (MemberVO)request.getSession().getAttribute("user");
+		boolean res = gatherService.editStudy(study,member,	region,files,file,tag,tagRegister,st_num);
+		mv.setViewName("redirect:/study/management/study"+st_num);
+		return mv;
+	}
 
 }

@@ -157,10 +157,6 @@ public interface StudyDAO {
 
 	MissionVO selectTodayMission(int st_num);
 
-	StudyVO selectStudy(int st_num);
-
-	FileVO selectFileByStNum(int st_num);
-
-	ArrayList<TagRegisterVO> selectTagListByStNum(@Param("st_num")int st_num);
+	
 
 }

@@ -1,14 +1,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<link rel="stylesheet" href="<c:url value='/resources/css/study/updateStudy.css'></c:url>">
+<link rel="stylesheet" href="<c:url value='/resources/css/gather/updateStudy.css'></c:url>">
 
 <main>
 	<div id="rc_new_study_main_container">
 		<div class="main_title">
 			<h1>스터디 수정</h1>
 		</div>
-		<form id="rc_new_box" action="<c:url value='/study/updateStudy'></c:url>" method="post" enctype="multipart/form-data">
+		<form id="rc_new_box" action="<c:url value='/gather/updateStudy/${study.st_num}'></c:url>" method="post" enctype="multipart/form-data">
 			<div class="top_box">
 				<div class="ns_region_box">
 					<h3>지역</h3>
@@ -40,7 +40,7 @@
 			</div>
 			<h3>스터디명</h3>
 			<div class="ns_title_box">
-				<input type="text" class="ns_title" placeholder="10자 이내로 제목을 작성해보세요" name="st_name" maxlength="10" value="${study.st_name }">
+				<input type="text" class="ns_title" placeholder="10자 이내로 제목을 작성해보세요" name="st_name" maxlength="10" value="${study.st_name}">
 			</div>
 			<h3>배너이미지</h3>
 			<div class="ns_banner_box">
@@ -51,7 +51,8 @@
 			</div>	
 			<h3>태그</h3>
 			<div class="ns_tag_box">
-				<input type="text" class="ns_tag" placeholder="예시. 정처기, 모각코, 프로젝트 (태그명 최대 10자까지)" name="ta_name">
+				<input type="text" class="ns_tag" placeholder="예시. 정처기, 모각코, 프로젝트 (태그명 최대 10자까지)" name="ta_name" 
+				value="<c:forEach items='${tagList}' var='tag' varStatus='status'>${tag}${not status.last ? ',' : ''}</c:forEach>">
 			</div>
 			<h3>소개글</h3>
 			<div class="ns_introduce_box">
@@ -151,4 +152,10 @@
 
 	//비어있는 이미지 전역변수
 	var plus_img = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMIAAAEDCAMAAABQ/CumAAAAflBMVEX///+4uLi7u7v7+/vAwMD09PTFxcXp6enc3Nz4+PjIyMi6uro8PDw/Pz/w8PCzs7PPz8/l5eXV1dU4ODinp6dTU1NFRUVZWVlOTk7T09OIiIiXl5eurq50dHRKSkpmZmaUlJR4eHienp6Li4t+fn4sLCxoaGgWFhYmJiYyMjIE2RVEAAAE80lEQVR4nO3b6XqqOhQGYAiBhCHMBEQZHOo53v8NniTYVt2t7dkDyn6+90eLKO1aMWsBbbQsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBFclj26BB+iZOlYUgfHcXP87MgSWie2vGjI/k5LvdI4nHXcknIHx3MT4g5DSlV8StpSJY2k5w4pzZJc5KbhzEhZFEzyWG5F5I0860V8fXjWJdzsJgUVPshNEyZjt21VQGwFZ3yWQYVv52Q3CNTwClV7TSxV8x5cFzfZdoP5bEVJ6YC/IxS1U4XM3981X7Iuf0EocnHJt70eCFim3pkav0sXKl8wmBR8WuUEqqnvBMHlJAgW1r8Sk5JptrpSmWynPZzjYVBtiLqdMaWGb9G1el4Oe3nQ1zNH99373l0iF/h5EL40ab97FOME+8LC0iBhvYdhC4hBS9mn7MXkUJw7/nlp+AghTkghWeAFJ4BUngGSOEZ/P0pLOQaybtzocrCRaRA7twuhMu4X/jC86eQ3Ltn05JnT8FyvvToCAEAAACe3YadN1jTWuzuS5+Sw8uiPW8fxLgrHpBD9gu/Mw72tRT9OQXe1ywtyO8J63/wh/r2ypmVP9wN8ORmRxpbvoo/ksN+J9fTvo3YW/vi7l33HxHX1e2/Z73TFLDDN/vtymweXq6XRZanMTwW8lhy1wqi3bRzLbtWDH864B+xprr9D+xGjPpb2gnRy87saqKrF7G+KkW1mxZqeNFm2ruSUtQPKAVW6RTSNraCTTBNqVKU6usoRL05TpMkjuTVQaNYB+J1kaEXvc6yfEfmvJ1zd9Pbn0mdwrrY1EUhajPWpY5pjGRi2WIqlFzUVwdLqer2ddIH0XrGuN+5gxhMdFzoFHbC3pRpI1K9y6Sw7phqMf001KnYXh6cRZ1lv6XATxcpsDwcu6qbI4VW1v3uIoVI98JGmqI1KVgqwYM8F6otDpcH86hVz6XnR347lbwV52VX90KIppwhg0zWvOt16WWN7kgmhVwO7xNJSeXAWlOeyVTgr+LouOunRhabI1yVL29rVc5yOJTzrEDZiZ21Fnr0WNVk5xTWOlCfvaWwFTR7MQOaRNfjehBCmtc4Rz3DskFNpUL09SHhsy2g2Yogqxv96+LhLYVK5FZad68pZM3gx8VhSmFzdbhfjip9XSednob7Qj3tlatZ18cc5LaPQhPNUa50jInqLNv8EKmNchrzoFCVUDcfpWDwf1Q1tGoAsr4+j3024yImXhXHcznudV2mRWl1TaNOTYEO2LSYbBvrAdazLfwohaSg6u2TuXoLz9PMHSpVUclmnr9Wvv9JsTypSLgs86iXzU7PheA0vr0uLfQ2//f2GsnSZ45cVYEIrErytVmJHg9VqWt67vMEG/Sc3pb+dptM88AdvfenTcOy6AcD26oUtpUMmOjiwXQ3VVdCqsY0R0+9YqL7dKlaePI+eaaNeFaXEUnVZR6JRv1Djs2a86Z5tk/KfNrl1UTiRxKVRNfEVl8yOZ06m7ey/eSA55NEYXbcRDR50YvqG30VtZe5K1VrtvzVo6P7Fla0bl2LwDXXUbGu4fIUeKoyvLZ4eXBw3zSe1ClEXn6wh4/+2Fcyio5L+bhPZjmlfbMvLeSwzh8Szm/DF7xMGgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACM/wDCj0dZezasYAAAAABJRU5ErkJggg=='
+
+
+	//태그불러오기
+	
+
+	
 </script>

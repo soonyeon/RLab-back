@@ -36,7 +36,7 @@
 	                	<div class="sb_title">
 	                		<h3>스터디 수정</h3>
 	                	</div>
-	                	<a  href="<c:url value='/study/updateStudy/${st_num}'></c:url>" >
+	                	<a  href="<c:url value='/gather/updateStudy/${st_num}'></c:url>" >
 	                		<button class="btn_edit" >스터디 수정</button>
 	                	</a>
 	                	

@@ -57,6 +57,14 @@ public interface GatherService {
 
 	void deleteGather(int ga_num);
 
+	StudyVO selectStudy(int st_num);
+
+	FileVO selectFileByStNum(int st_num);
+
+	ArrayList<String> selectTagListByStNum(int st_num);
+
+	boolean editStudy(StudyVO study, MemberVO member, RegionVO region, MultipartFile[] files, FileVO file, TagVO tag,
+			TagRegisterVO tagRegister,int st_num);
 
 
 	

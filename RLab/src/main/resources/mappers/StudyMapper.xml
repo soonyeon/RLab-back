@@ -286,13 +286,6 @@
 <select id="selectTodayMission" resultType="kr.kh.RLab.vo.MissionVO">
 	select * from mission where mi_st_num = #{st_num} and mi_date = CURDATE();
 </select>
-<select id="selectStudy" resultType="kr.kh.RLab.vo.StudyVO">
-	select * from study where st_num = #{st_num}
-</select>
-<select id="selectFileByStNum" resultType="kr.kh.RLab.vo.FileVO">
-	select * from file where fi_ex_num=#{st_num} and fi_table = "study"
-</select>
-<select id="selectTagListByStNum" resultType="kr.kh.RLab.vo.TagRegisterVO">
-	select * from tag_register where tr_st_num = #{st_num}
-</select>
+
+
 </mapper>

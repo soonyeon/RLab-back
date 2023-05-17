@@ -229,5 +229,66 @@ public class GatherServiceImp implements GatherService {
 		gatherDao.deleteGather(ga_num);
 		
 	}
+	
+	@Override
+	public StudyVO selectStudy(int st_num) {
+		return gatherDao.selectStudyByStNum(st_num);
+	}
+
+	@Override
+	public FileVO selectFileByStNum(int st_num) {
+		return gatherDao.selectFileByStNum(st_num);
+	}
+
+	@Override
+	public ArrayList<String> selectTagListByStNum(int st_num) {
+		return gatherDao.selectTagListByStNum(st_num);
+	}
+
+	//스터디 수정
+	@Override
+	public boolean editStudy(StudyVO study, MemberVO member, RegionVO region, MultipartFile[] files, FileVO file,
+			TagVO tag, TagRegisterVO tagRegister,int st_num) {
+		if (member == null) {
+			return false;
+		}
+		if (study.getSt_name().trim().length() == 0 || study.getSt_total_people() < 1) {
+			return false;
+		}
+
+		gatherDao.updateStudy(study,st_num);
+		gatherDao.deleteTagByStNum(tagRegister,st_num);
+		
+		String[] tags = tag.getTa_name().split(",");
+		ArrayList<TagVO> tagList = new ArrayList<>();
+			
+		// 태그 추가
+		for (String tagName : tags) {
+			tagName = tagName.trim();
+			if (tagName.isEmpty()) {
+				continue;
+			}
+			ArrayList<TagVO> tagVOList = gatherDao.selectTag(tagName);
+			if (tagVOList.isEmpty()) {
+				TagVO tagVO = new TagVO();
+				tagVO.setTa_name(tagName);
+				gatherDao.insertTag(tagVO);
+				tagVOList.add(tagVO);
+			}
+			TagVO tagVO = tagVOList.get(0);
+			tagList.add(tagVO);
+			gatherDao.insertStudyTag(study.getSt_num(), tagVO.getTa_name());
+		}
+
+		gatherDao.deleteFileByStNum(file,st_num);
+		// 파일 추가
+		if (files != null && files.length > 0) {
+			uploadFiles(files, study.getSt_num(), file.getFi_table());
+		}
+		
+		return false;
+	}
+	
+
 
 }

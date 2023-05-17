@@ -13,9 +13,11 @@ import kr.kh.RLab.vo.MissionFinishVO;
 import kr.kh.RLab.vo.MissionVO;
 import kr.kh.RLab.vo.PhotoTypeVO;
 import kr.kh.RLab.vo.PhotoVO;
+import kr.kh.RLab.vo.RegionVO;
 import kr.kh.RLab.vo.StudyMemberVO;
 import kr.kh.RLab.vo.StudyVO;
 import kr.kh.RLab.vo.TagRegisterVO;
+import kr.kh.RLab.vo.TagVO;
 import kr.kh.RLab.vo.TodoVO;
 
 public interface StudyService {
@@ -130,11 +132,6 @@ public interface StudyService {
 
 	MissionVO selectTodayMission(int st_num);
 
-	StudyVO selectStudy(int st_num);
-
-	FileVO selectFileByStNum(int st_num);
-
-	ArrayList<TagRegisterVO> selectTagListByStNum(int st_num);
 
 
 
