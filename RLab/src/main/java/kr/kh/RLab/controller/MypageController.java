@@ -50,15 +50,18 @@ public class MypageController {
 	//[마이페이지 홈]
 	@GetMapping("")
 	public ModelAndView mypage(ModelAndView mv, MemberVO member, HttpSession session) {
+		// 현재 로그인한 사용자 정보를 가져옴
 		MemberVO user = (MemberVO)session.getAttribute("user");
+		// 현재 로그인한 사용자의 아이디를 userId에 담는다
 		String userId = user.getMe_id();
-		System.out.println(1);
+		
 		// 이용시간 안내
 		ReservationVO res = reservationService.getMyReservation(1, userId);
-		System.out.println(2);
+		
 		//나의 펫 데려오기
 		GrowthVO myPet = mypageService.selectMyPet(userId);
-		System.out.println("myPet:"+myPet);
+		
+		// 나의 펫이 존재하면...
 		if(myPet != null) {
 			// 레벨업까지의 경험치 정보
 			// 현재 레벨
@@ -74,16 +77,9 @@ public class MypageController {
 				currentExp -= exExp;
 				levelUpExp -= exExp;
 			}
-			System.out.println("currentLevel:"+currentLevel);
-			System.out.println("currentExp:"+currentExp);
-			System.out.println("levelUpExp:"+levelUpExp);
-			mv.addObject("currentLevel", currentLevel);
+//			mv.addObject("currentLevel", currentLevel);
 			mv.addObject("currentExp", currentExp);
 			mv.addObject("levelUpExp", levelUpExp);
-			//펫exp가져오기
-//			GrowthVO petExp = mypageService.selectPetExp(userId);
-//			System.out.println(4);
-//			mv.addObject("petExp",petExp);
 		}
 		
 		// 펫
