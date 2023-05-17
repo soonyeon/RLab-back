@@ -63,7 +63,7 @@ public interface GatherService {
 
 	ArrayList<String> selectTagListByStNum(int st_num);
 
-	boolean editStudy(StudyVO study, MemberVO member, RegionVO region, MultipartFile[] files, FileVO file, TagVO tag,
+	boolean editStudy(StudyVO study, MemberVO member, RegionVO region, MultipartFile[] files,FileVO file, Integer fileNums, TagVO tag,
 			TagRegisterVO tagRegister,int st_num);
 
 

@@ -247,7 +247,7 @@ public class GatherServiceImp implements GatherService {
 
 	//스터디 수정
 	@Override
-	public boolean editStudy(StudyVO study, MemberVO member, RegionVO region, MultipartFile[] files, FileVO file,
+	public boolean editStudy(StudyVO study, MemberVO member, RegionVO region, MultipartFile[] files,FileVO file, Integer fileNums,
 			TagVO tag, TagRegisterVO tagRegister,int st_num) {
 		if (member == null) {
 			return false;
@@ -279,14 +279,16 @@ public class GatherServiceImp implements GatherService {
 			tagList.add(tagVO);
 			gatherDao.insertStudyTag(study.getSt_num(), tagVO.getTa_name());
 		}
-
-		gatherDao.deleteFileByStNum(file,st_num);
+		if(fileNums != null)
+			gatherDao.deleteFileByStNum(fileNums);
+		
 		// 파일 추가
 		if (files != null && files.length > 0) {
 			uploadFiles(files, study.getSt_num(), file.getFi_table());
 		}
 		
-		return false;
+		
+		return true;
 	}
 	
 

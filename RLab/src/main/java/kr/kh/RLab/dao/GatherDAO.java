@@ -81,11 +81,11 @@ public interface GatherDAO {
 
 	ArrayList<String> selectTagListByStNum(@Param("st_num")int st_num);
 
-	void updateStudy(StudyVO study,@Param("st_num") int st_num);
+	void updateStudy(@Param("study")StudyVO study,@Param("st_num") int st_num);
 
 	void deleteTagByStNum(TagRegisterVO tagRegister,@Param("st_num") int st_num);
 
-	void deleteFileByStNum(FileVO file, @Param("st_num")int st_num);
+	void deleteFileByStNum( @Param("fileNums")int fileNums);
 
 	
 

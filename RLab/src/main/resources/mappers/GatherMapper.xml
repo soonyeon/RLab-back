@@ -169,10 +169,10 @@
 <update id="updateStudy">
 	update study
 	set 
-		st_name = #{st_name},
-		st_info = #{st_info},
-		st_total_people = #{st_total_people},
-		st_re_name = = #{st_re_name}
+		st_name = #{study.st_name},
+		st_info = #{study.st_info},
+		st_total_people = #{study.st_total_people},
+		st_re_name = #{study.st_re_name}
 	where
 		st_num = #{st_num}		
 </update>

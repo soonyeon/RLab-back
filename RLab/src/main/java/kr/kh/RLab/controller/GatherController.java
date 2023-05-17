@@ -190,12 +190,23 @@ public class GatherController {
 	
 
 	@PostMapping("/updateStudy/{st_num}")
-	public ModelAndView studyUpdatePost(ModelAndView mv,StudyVO study,HttpServletRequest request,RegionVO region,MultipartFile [] files,
-			FileVO file,TagVO tag,TagRegisterVO tagRegister,@PathVariable("st_num")int st_num) {
+	public ModelAndView studyUpdatePost(ModelAndView mv,StudyVO study,HttpServletRequest request,RegionVO region,MultipartFile [] files, FileVO file,
+			Integer fileNums,TagVO tag,TagRegisterVO tagRegister,@PathVariable("st_num")int st_num) {
+		System.out.println(fileNums);
 		MemberVO member = (MemberVO)request.getSession().getAttribute("user");
-		boolean res = gatherService.editStudy(study,member,	region,files,file,tag,tagRegister,st_num);
-		mv.setViewName("redirect:/study/management/study"+st_num);
+		String msg, url;
+		if(gatherService.editStudy(study,member,region,files,file,fileNums,tag,tagRegister,st_num)) {;
+			msg ="수정이 완료했습니다.";
+			url = "/study/management/study/"+st_num;
+		}else {
+			msg ="수정에 실패했습니다.";
+			url = "/study/management/study/"+st_num;
+		}
+		mv.addObject("msg", msg);
+		mv.addObject("url", url);
+		mv.setViewName("/common/message");
 		return mv;
 	}
+	
 
 }
