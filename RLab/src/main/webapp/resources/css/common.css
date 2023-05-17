@@ -106,13 +106,15 @@ a, button{
   cursor: pointer;
 }
 .remove_btn{
-	position: absolute;
 	display: flex;
 	cursor: pointer;
+	opacity: 40%;
+}
+.login_remove{
+	position: absolute;
 	top: 3px;
     right: 3px;
-	opacity: 40%;
-	width: 12px;
+    width: 12px;
 	height: 12px;
 }
 .remove_btn:hover{
@@ -451,7 +453,6 @@ header{
   background-color: white;
   color: black;
   border-radius: 5px;
-  display: none;
   z-index: 9998;
   width: 312px;
   overflow-x: hidden;

@@ -70,7 +70,7 @@ public class SseEmitters {
 		}
 	}
   
-	 // 이벤트 발송기를 사용하여 새 사용자 추가
+	// 이벤트 발송기를 사용하여 새 사용자 추가
 	public void add(String id, SseEmitter emitter, LocalDateTime sessionExpiryTime, HttpSession session) {
 		
 		if(id == null || id.length() == 0)
@@ -90,6 +90,7 @@ public class SseEmitters {
 
 	        emitter.onTimeout(() -> {
 	            emitter.complete();
+	            System.out.println("ssetimeout : " + id);
 	        });
 	    }
 	}
@@ -99,7 +100,7 @@ public class SseEmitters {
 	        this.emitters.remove(id);
 	    }
 	}
-	 // 특정 사용자에게 이벤트 데이터를 전송
+	// 특정 사용자에게 이벤트 데이터를 전송
 	public void send(String eventName, Object eventData, String targetId, HttpSession session) {
 		System.out.println("emitter send : "+emitters.size());
 		if(targetId == null || targetId.length() == 0) {

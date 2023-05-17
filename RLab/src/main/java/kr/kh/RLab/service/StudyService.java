@@ -42,7 +42,7 @@ public interface StudyService {
 
 	void deleteStudyMember(int st_num, String me_name);
 
-	void authorizeStudyMember(int sm_st_num, String me_name);
+	String authorizeStudyMember(int sm_st_num, String me_name);
 
 	void deleteStudy(int st_num);
 
@@ -71,8 +71,6 @@ public interface StudyService {
 	List<StudyMemberVO> getOnlineMembers();
 
 	ArrayList<StudyVO> getUserStudyList(String me_id);
-
-	StudyVO getStudyByStnum(int me_study);
 
 	void updateUserFavorite(String me_id, int st_num);
 

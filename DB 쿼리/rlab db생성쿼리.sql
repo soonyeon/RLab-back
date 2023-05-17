@@ -169,14 +169,16 @@ CREATE TABLE `photo_type` (
 	`pt_name`	varchar(5)
 );
 
-DROP TABLE IF EXISTS `alram`;
+DROP TABLE IF EXISTS `alarm`;
 
-CREATE TABLE `alram` (
+CREATE TABLE `alarm` (
 	`al_num`	int auto_increment primary key	NOT NULL,
 	`al_me_id`	varchar(13) NOT NULL,
 	`al_content`	varchar(255) not null,
 	`al_view`	TINYINT(1) NOT NULL DEFAULT 0,
-    `al_type`	enum('like','comment','study') 
+    `al_type`	enum('LIKE','MEMBER','STUDY','GATHER'),
+	`al_table`	VARCHAR(15) NULL DEFAULT 'null',
+	`al_ex_num`	INT NOT NULL
 );
 
 DROP TABLE IF EXISTS `pay`;
