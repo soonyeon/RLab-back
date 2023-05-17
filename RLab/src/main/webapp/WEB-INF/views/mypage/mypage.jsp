@@ -193,14 +193,18 @@
               <div class="article_box pet_container">
              	 <c:if test="${myPet == null}">
 	                <div class="pet_window">
-	                	
-	                  <img src="" alt="" class="pet_talk" />
-	                  <img src="<c:url value="/resources/img/egg.png"></c:url>" alt="펫" class="pet" />
+	                  <div class="pet_box">
+		                  <img src="" alt="" class="pet_talk" />
+		                  <img src="<c:url value="/resources/img/rlab_logo.png"></c:url>" alt="펫" class="pet" width="auto" height="170" />
+	                  </div>
 	                </div>
 	                <div class="pet_description">
 	                  <div class="pet_info_container">
 	 					<span class="txt_new_pet">
-	 						★펫스토어 에서 펫을<br>데려와보세요★
+	 						<div class="pet_phrases1">펫이 당신을 기다리고 있어요!<br></div>
+	 						<div class="pet_phrases2">
+	 							펫스토어에서 펫 데려오기 <i class="pointer_box"><img alt="pointer" src="<c:url value="/resources/img/pointer.png"></c:url>"width="auto" height="20"></i>
+	 						</div>
 	 					</span>
 	                  </div>
 	                    <div id="pet_store_container">
@@ -210,8 +214,10 @@
 	              </c:if>
 	              <c:if test="${myPet != null }">
 	                <div class="pet_window">
-	                  <img src="" alt="" class="pet_talk" />
-	                  <img src="<c:url value="/resources/img${myPet.ev_img}"></c:url>" alt="펫" class="pet" />
+		                <div class="pet_box">
+		                  <img src="" alt="" class="pet_talk" />
+		                  <img src="<c:url value="/resources/img${myPet.ev_img}"></c:url>" alt="펫" class="pet" width="auto" height="170"/>
+		                </div>
 	                </div>
 	                <div class="pet_description">
 	                  <div class="pet_info_container">
@@ -372,7 +378,7 @@
                   </a>
                 </div>
                 
-                <ul class="list_container">
+                <ul class="list_container scrap_list">
                   <!-- 스크랩한 게시글 상세로 이동 -->
                   <c:if test="${myScrapList == null || myScrapList.size() == 0}">
 	                  <div class="noPostMsg">
