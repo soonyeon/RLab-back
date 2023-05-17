@@ -421,8 +421,9 @@
 		<!--  내 펫 정보가져오기 -->
 		<select id="selectMyPet" resultType="kr.kh.RLab.vo.GrowthVO">
 			select * from growth
-				join pet on  pe_num = gr_pe_num
-				join evolution on ev_num = gr_ev_num
+				join pet on gr_pe_num = pe_num
+				join exp on pe_final_level = ex_level
+				join evolution on gr_ev_num = ev_num
 				where gr_me_id = #{me_id};
 		</select>
 		
