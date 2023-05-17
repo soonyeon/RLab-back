@@ -159,12 +159,7 @@
 		                <div id="pet_exp">
 		                  <div class="title">
 		                    <h2 class="property_title">펫 경험치</h2>
-		                    <c:if test="${currentLevel  == 1}">
-		                    	<p class="info exp_info"><strong>${currentExp}</strong>exp / 8exp</p>
-			                </c:if>
-			                <c:if test="${currentLevel  != 1}">
-		                    	<p class="info exp_info"><strong> ${levelUpExp}</strong>exp / ${levelUpExp}&nbsp;exp</p>
-			                </c:if>
+		                    	<p class="info exp_info"><strong> ${currentExp}</strong>exp / ${levelUpExp}&nbsp;exp</p>
 		                  </div>
 		                  <div class="gauge gauge_pet_exp">
 		                    <div class="gauge_colored" style= "background-color:yello"></div>
@@ -588,7 +583,7 @@
 			var ratio = currentExp / levelUpExp;
 			gaugeWidth = ratio * 100 + '%';
 			console.log(gaugeWidth);
-			$('.pet_ex_colored').css("width",gaugeWidth);
+			$('.gauge_colored').css("width",gaugeWidth);
 			if(${myPet.gr_exp != myPet.ex_experience})
 				$('.exp_info strong').text(currentExp);
   		}
