@@ -302,7 +302,10 @@
   .study_card_container{
     margin-left: 20px;
   }
-  .row_study_card{margin-bottom: 20px;}
+  .row_study_card{
+  margin-bottom: 20px;
+  width:945px;
+  }
   .study_card_box{
     width: 296px; 
     height: 329px; 
@@ -349,6 +352,8 @@
     margin-bottom: 9px;
     overflow: hidden;
     box-sizing: border-box;
+    height: 58.542px;
+	overflow: hidden; 
   }
   .study_card_container .study_tag{
     border-radius: var(--border_radius_2); 
@@ -358,6 +363,8 @@
     text-align :center;
     font-size: 13px;
     padding: 5px 10px;
+    height: 16.778px;
+    
   }
   .study_card_container .study_tag_info :nth-child(2n){
     background-color: var(--color_mint);

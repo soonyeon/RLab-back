@@ -50,6 +50,7 @@ public class GatherController {
 	    mv.setViewName("/gather/insertstudy");
 	    return mv;
 	}
+	
 	@PostMapping("/insertstudy")
 	public ModelAndView studyInsertPost(ModelAndView mv,StudyVO study,HttpServletRequest request,RegionVO region,MultipartFile [] files,
 			FileVO file,TagVO tag,TagRegisterVO tagRegister,StudyMemberVO studyMember) {
@@ -92,6 +93,7 @@ public class GatherController {
  		ArrayList<FileVO> fileList = gatherService.selectFileList();
 		ArrayList<TagRegisterVO> tagList = gatherService.selectTagList();
 		ArrayList<Integer> waList =  gatherService.selectWantedStudyList(user);
+		System.out.println(stList);
 		mv.addObject("gaList",gaList);
 		mv.addObject("fileList",fileList);
 		mv.addObject("user",user);
@@ -172,4 +174,39 @@ public class GatherController {
 	    return "success";
 	}
 	
+	//스터디 수정
+	@GetMapping("/updateStudy/{st_num}")
+	public ModelAndView studyUpdate(ModelAndView mv,HttpServletRequest request,@PathVariable("st_num")int st_num) {
+		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
+		StudyVO study = gatherService.selectStudy(st_num);
+		FileVO file =  gatherService.selectFileByStNum(st_num);
+		ArrayList<String> tagList =  gatherService.selectTagListByStNum(st_num);
+		System.out.println(tagList);
+		mv.addObject("tagList",tagList);
+		mv.addObject("file",file);
+		mv.addObject("study",study);
+		mv.setViewName("/gather/updateStudy");
+		return mv;
+	}
+	
+
+	@PostMapping("/updateStudy/{st_num}")
+	public ModelAndView studyUpdatePost(ModelAndView mv,StudyVO study,HttpServletRequest request,RegionVO region,MultipartFile [] files, FileVO file,
+			Integer fileNums,TagVO tag,TagRegisterVO tagRegister,@PathVariable("st_num")int st_num) {
+		MemberVO member = (MemberVO)request.getSession().getAttribute("user");
+		String msg, url;
+		if(gatherService.editStudy(study,member,region,files,file,fileNums,tag,tagRegister,st_num)) {;
+			msg ="수정이 완료했습니다.";
+			url = "/study/management/study/"+st_num;
+		}else {
+			msg ="수정에 실패했습니다.";
+			url = "/study/management/study/"+st_num;
+		}
+		mv.addObject("msg", msg);
+		mv.addObject("url", url);
+		mv.setViewName("/common/message");
+		return mv;
+	}
+	
+
 }

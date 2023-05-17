@@ -356,7 +356,7 @@ main{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  height: 47px;
+  height: 45.938px;
   overflow: hidden;
   padding-bottom: 5px;
 }
@@ -391,14 +391,16 @@ main{
 }
 .like_btn{
   width: 50px;
+  height: 43.333px;
   background-size: 45px 45px;
-  background-image: url(../../img/like_on_red.png);
+  background-image: url('../../img/like_on_red.png');
   background-repeat: no-repeat;	
 }
 .unlike_btn{
   width: 50px;
+  height: 43.333px;
   background-size: 45px 45px;
-  background-image: url(../../img/love_off.png);
+  background-image: url('../../img/love_off.png');
   background-repeat: no-repeat;		
 }
 

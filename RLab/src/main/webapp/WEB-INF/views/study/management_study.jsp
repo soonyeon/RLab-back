@@ -102,6 +102,14 @@
 			</div>
 		</div>
 	
+					<div class="edit_box study_box">
+	                	<div class="sb_title">
+	                		<h3>스터디 수정</h3>
+	                	</div>
+	                	<a  href="<c:url value='/gather/updateStudy/${st_num}'></c:url>" >
+	                		<button class="btn_edit" >스터디 수정</button>
+	                	</a>
+	                </div>       
 	
 	    <!-- 오른쪽 메뉴 -->
 	  <!--  <aside>

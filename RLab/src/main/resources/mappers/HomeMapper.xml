@@ -8,6 +8,8 @@
 	JOIN gather ON ga_st_num = st_num
 	LEFT JOIN tag_register ON tr_st_num = st_num
 	GROUP BY st_num
+	ORDER BY st_num DESC
+	LIMIT 20;
 </select>
 <select id="selectGatherAll" resultType="kr.kh.RLab.vo.GatherVO">
 	select * from gather
