@@ -85,7 +85,7 @@ a{color: var(--color_black);}
 /* 추가(주연): 로고 아이콘 2023-02-10 */
 .btn_home {
     display: flex;
-    width: 69px;
+    width: 73px;
     height: 50px;
     font-size: 14px;
     font-weight: 800;
@@ -93,12 +93,12 @@ a{color: var(--color_black);}
     overflow: hidden;
   }
 .btn_home .icon_home {
-   width: 40px;
+   width: 41px;
    height: 100%;
-   background-size: 55px;
+   /*background-size: 55px;
    background-position: -9px -2px;
    background-image: url(../img/rlab_logo.png);
-   background-repeat: no-repeat;
+   background-repeat: no-repeat;*/
 }
 
 .add_shadow {box-shadow: 5px 5px 0px rgb(7, 7, 7);}
@@ -150,15 +150,6 @@ header #header_container {
 #header_container .header_left{
 	display: flex;
 	gap: 90px;
-}
-.btn_home {
-	display: flex;
-	width: 69px;
-	height: 50px;
-	font-size: 14px;
-	font-weight: 800;
-	line-height: 80px;
-	overflow: hidden;
 }
 	
 .top_menu_container{

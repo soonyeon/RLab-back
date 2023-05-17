@@ -19,7 +19,7 @@ public interface BoardDAO {
 
 	BoardVO getBoard(@Param("bo_num") int bo_num);
 
-	int getCount();
+	int getCount(int st_num);
 
 	void countViews(@Param("bo_num") int bo_num);
 

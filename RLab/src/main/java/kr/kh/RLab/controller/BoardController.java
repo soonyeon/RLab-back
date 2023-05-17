@@ -66,7 +66,8 @@ public class BoardController {
 	public ModelAndView boardList(HttpSession session, ModelAndView mv,BoardCriteria cri, @PathVariable int st_num) {
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		cri.setPerPageNum(10); // 한 페이지당 컨텐츠 갯수
-	    int totalCount = boardService.getCount();
+	    int totalCount = boardService.getCount(st_num);
+	    System.out.println(totalCount);
 	    PageMaker pm = new PageMaker(totalCount, 10, cri);
 	    ArrayList<BoardVO> boardList = boardService.selectBoardList(cri,st_num);
 	    // 스터디 관리

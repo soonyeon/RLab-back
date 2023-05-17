@@ -20,7 +20,7 @@ public interface BoardService {
 	BoardVO getBoard(int bo_num);
 	
 	//게시글 갯수
-	int getCount();
+	int getCount(int st_num);
 	
 	// 게시글 삭제
 	void deleteBoard(int bo_num);

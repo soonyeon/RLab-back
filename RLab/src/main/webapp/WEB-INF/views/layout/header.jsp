@@ -126,7 +126,11 @@
 
       <div id="header_container">
         <div class="header_left">
-          <a href="<c:url value='/'></c:url>" class="btn_home"><i class="icon_home"></i>LAB</a>
+          <a href="<c:url value='/'></c:url>" class="btn_home">
+          	<i class="icon_home">
+          		<img  alt="홈 로고" src="<c:url value='/resources/img/rlab_logo.png'></c:url>" width="auto" height="50">
+          	</i>LAB
+          </a>
           <nav class="top_menu_container">
          	  <a href="<c:url value='/reservation'></c:url>" class="list_item">예약하기</a>
             <a href="<c:url value='/study/${user.me_study}'></c:url>" class="list_item">스터디</a>
