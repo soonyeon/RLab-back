@@ -41,13 +41,13 @@
 						<div class="writer_main">
 							<div class="writer_box">
 								<a href="#" class="writer"> <c:if
-										test="${user.me_profile == null}">
+										test="${bd.me_profile == null}">
 										<img class="icon_writer"
 											src="<c:url value='/resources/img/user.png'></c:url>"
 											width="auto" height="40">
-									</c:if> <c:if test="${user.me_profile != null}">
+									</c:if> <c:if test="${bd.me_profile != null}">
 										<img class="icon_writer"
-											src="<c:url value='/download${user.me_profile}'></c:url>"
+											src="<c:url value='/download${bd.me_profile}'></c:url>"
 											width="auto" height="40">
 									</c:if> <input type="hidden" id="me_id" value="${bd.bo_me_id}">
 									<input type="hidden" id="current_page" value="1" /> <span
