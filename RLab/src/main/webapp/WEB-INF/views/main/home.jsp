@@ -298,29 +298,30 @@
 
 /* 스터디 지점 안내 */	
 	$('.spot_item').click(function(){
-		  var spotName = $(this).find('.spot_name').text();
-		  var spotAdd = $(this).find('.spot_address').text();
-		  var spotNewAdd = $(this).find('.spot_road_address').text();
-		  var spotTel = $(this).find('.spot_tel').text();
-		  var spotCapa = $(this).find('.br_capacity').text();
+		var spotName = $(this).find('.spot_name').text();
+		var spotAdd = $(this).find('.spot_address').text();
+		var spotNewAdd = $(this).find('.spot_road_address').text();
+		var spotTel = $(this).find('.spot_tel').text();
+		var spotCapa = $(this).find('.br_capacity').text();
+		var linkSeat = '<c:url value="/reservation/1/'+$(this).data('num')+'"></c:url>';
+		var linkCabinet = '<c:url value="/reservation/2/'+$(this).data('num')+'"></c:url>';
+		var spotImgSrc = "/RLab/download" + $(this).find('.spot_hidden_box .spot_img_file').text();
 
-		  var spotImgFileValue = $(this).find('.spot_hidden_box .spot_img_file').text();
-		  var spotImgSrc = "/RLab/download" + spotImgFileValue;
+		$('.spot_modal .spot_name').text(spotName);
+		$('.spot_modal .spot_add').text(spotAdd);
+		$('.spot_modal .spot_new_add').text(spotNewAdd);
+		$('.spot_modal .spot_tel').text(spotTel);
+		$('.spot_modal .spot_capacity').text(spotCapa);
+		$('.spot_modal .cabinet_reserv').attr('href',linkCabinet);
+		$('.spot_modal .seat_reserv').attr('href',linkSeat);
+		$('.spot_img_area .spot_img').attr('src', spotImgSrc);
+			
+		$('.spot_modal_container').show();
+	});
 
-		  $('.spot_modal .spot_name').text(spotName);
-		  $('.spot_modal .spot_add').text(spotAdd);
-		  $('.spot_modal .spot_new_add').text(spotNewAdd);
-		  $('.spot_modal .spot_tel').text(spotTel);
-		  $('.spot_modal .spot_capacity').text(spotCapa);
-
-		  $('.spot_img_area .spot_img').attr('src', spotImgSrc);
-
-		  $('.spot_modal_container').show();
-		});
-
-		$('.spot_modal_container').click(function(){
-		  $(this).hide();
-		});
+	$('.spot_modal_container').click(function(){
+		$(this).hide();
+	});
 
 
  	document.querySelector('.btn_spot1').addEventListener('click', function(){

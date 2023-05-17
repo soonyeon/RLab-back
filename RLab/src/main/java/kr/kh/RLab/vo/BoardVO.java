@@ -21,6 +21,7 @@ public class BoardVO {
 	private Date bo_upd_date;
 	private String st_name;
 	private String me_name;
+	private String me_profile;
 	private int scrap_count;
 	private ScrapVO scrapVO; //나의 스크랩에서 sc_num을 사용하기 위해 필요
 	

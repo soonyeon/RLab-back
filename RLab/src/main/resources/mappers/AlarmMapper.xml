@@ -21,6 +21,8 @@
         SELECT COUNT(*) AS count
 		FROM alarm
 		WHERE al_me_id = #{userId} AND al_view = 0;
-
     </select>
+    <update id="updateAlarmView">
+    	update alarm set al_view = 1 where al_num = #{al_num}
+    </update>
 </mapper>

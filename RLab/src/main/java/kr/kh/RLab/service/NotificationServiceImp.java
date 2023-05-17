@@ -79,4 +79,9 @@ public class NotificationServiceImp implements NotificationService {
 	public int getNewAlarmCount(String userId) {
 		return notificationDao.selectNewAlarmCount(userId);
 	}
+
+	@Override
+	public void updateAlarmView(int al_num) {
+		notificationDao.updateAlarmView(al_num);
+	}
 }

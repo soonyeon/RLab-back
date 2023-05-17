@@ -70,6 +70,8 @@ public class CommentController {
 				System.out.println("알림보내기전");
 				notificationService.sendNotificationToUser(userId, message, al_type, al_table, comment.getCo_ex_num());
 				System.out.println("알림 db 등록 완");
+				System.out.println("userId: "+userId);
+				System.out.println("eventData:"+eventData);
 				sseController.sseNewComment(userId,eventData,session);
 				System.out.println("하단 알림 전송 완");
 			}
@@ -95,6 +97,7 @@ public class CommentController {
 
 		List<CommentVO> commentList = commentService.getCommentList(cc);	
 		Map<String, Object> resultMap = new HashMap<String, Object>();
+		System.out.println(commentList);
 		resultMap.put("commentList", commentList);
 		resultMap.put("pm", pm);
 

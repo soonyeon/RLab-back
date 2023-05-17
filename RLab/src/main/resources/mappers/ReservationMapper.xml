@@ -159,7 +159,7 @@
 								)
 						)
 					end as 'exp'
-				from growth
+				from growth where gr_me_id = #{re_me_id}
 			) tmp)
 		where gr_me_id = #{re_me_id}
 	]]>
@@ -178,7 +178,7 @@
 					when  gr_exp>=178 and gr_exp<328 then 5
 					when  gr_exp>=328 and gr_exp<=598 then 6
 				end as 'level'
-			from growth
+			from growth where gr_me_id = #{re_me_id}
 		) tmp)
 	where gr_me_id = #{re_me_id};
 	]]>

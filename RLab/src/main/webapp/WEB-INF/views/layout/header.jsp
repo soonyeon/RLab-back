@@ -151,10 +151,15 @@
      				<form action="<c:url value='/logout'></c:url>" method="post">     
 		  				<div class="logout_box">
               				<div class="alarm_bell_box">
-              					<div class="alarm_modal" id="alarmModal" style=" max-height: 200px; overflow-y: auto;">	
+              					<div class="alarm_modal display_none" id="alarmModal" style=" max-height: 200px; overflow-y: auto;">	
 								    <c:forEach var="alarm" items="${alarm}">
 								   	    <c:if test="${alarm.al_view == 0}">
-											<a class="modal_content" href="#">		   
+											<a class="modal_content" href="
+											<c:if test='${alarm.al_table=="board"}'><c:url value='/board/detail/${alarm.al_ex_num}'></c:url></c:if>
+											<c:if test='${alarm.al_table=="gather"}'><c:url value='/gather/detail/${alarm.al_ex_num}'></c:url></c:if>
+											<c:if test='${alarm.al_table=="photo"}'><c:url value='/study/photo/${alarm.al_ex_num}'></c:url></c:if>
+											<c:if test='${alarm.al_table=="study"}'><c:url value='/study/${alarm.al_ex_num}'></c:url></c:if>
+											">		   
 										    	<div class="alarm_content_box">
 											    	<div class="new_dot"></div>
 											        <p>${alarm.al_content}</p>
@@ -163,7 +168,12 @@
 								   			</a>
 								   		</c:if>
 									    <c:if test="${alarm.al_view == 1}">
-											<a class="modal_content read_content" href="#">		
+											<a class="modal_content read_content" href="
+											<c:if test='${alarm.al_table=="board"}'><c:url value='/board/detail/${alarm.al_ex_num}'></c:url></c:if>
+											<c:if test='${alarm.al_table=="gather"}'><c:url value='/gather/detail/${alarm.al_ex_num}'></c:url></c:if>
+											<c:if test='${alarm.al_table=="photo"}'><c:url value='/study/photo/${alarm.al_ex_num}'></c:url></c:if>
+											<c:if test='${alarm.al_table=="study"}'><c:url value='/study/${alarm.al_ex_num}'></c:url></c:if>
+											">		
 												<div class="alarm_content_box">   
 											        <p>${alarm.al_content}</p>
 								   				</div>
@@ -202,30 +212,42 @@
         	</div>
         </div>
 
-    </div>	
+    </div>
+    <!-- 하단 실시간 알림 -->
 	<div id="notificationModal" class="notification_modal">
         <div class="notification_box">
             <h4 class="notification_title">알림</h4>
             <span class="notification_content"></span>
         </div>
-    </div>
+    </div> 
+    <!-- 상단 알림창 -->
 	<div class="alarm_modal display_none" id="alarmModal" style=" max-height: 200px; overflow-y: auto;">	
 		<div class="alarm_container">
 		    <c:forEach var="alarm" items="${alList}">
 		   	    <c:if test="${alarm.al_view == 0}">
-					<a class="modal_content" href="#">		   
-					    <img class="alarm_remove" data-num="${alarm.al_num}" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="20">
+					<a class="modal_content" data-num="${alarm.al_num}" href="
+					<c:if test='${alarm.al_table=="board"}'><c:url value='/board/detail/${alarm.al_ex_num}'></c:url></c:if>
+					<c:if test='${alarm.al_table=="gather"}'><c:url value='/gather/detail/${alarm.al_ex_num}'></c:url></c:if>
+					<c:if test='${alarm.al_table=="photo"}'><c:url value='/study/photo/${alarm.al_ex_num}'></c:url></c:if>
+					<c:if test='${alarm.al_table=="study"}'><c:url value='/study/${alarm.al_ex_num}'></c:url></c:if>
+					">		   
 				    	<div class="alarm_content_box">
 					    	<div class="new_dot"></div>
 					        <p>${alarm.al_content}</p>
 				    	</div>  
+					    <img class="alarm_remove" data-num="${alarm.al_num}" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="20">
 		   			</a>
 		   		</c:if>
 			    <c:if test="${alarm.al_view == 1}">
-					<a class="modal_content read_content" href="#">		   
-					    <img class="alarm_remove" data-num="${alarm.al_num}" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="20">
-				        <p>${alarm.al_content}</p>
-		   			</a>
+					<a class="modal_content read_content" data-num="${alarm.al_num}" href="
+					<c:if test='${alarm.al_table=="board"}'><c:url value='/board/detail/${alarm.al_ex_num}'></c:url></c:if>
+					<c:if test='${alarm.al_table=="gather"}'><c:url value='/gather/detail/${alarm.al_ex_num}'></c:url></c:if>
+					<c:if test='${alarm.al_table=="photo"}'><c:url value='/study/photo/${alarm.al_ex_num}'></c:url></c:if>
+					<c:if test='${alarm.al_table=="study"}'><c:url value='/study/${alarm.al_ex_num}'></c:url></c:if>
+					">		   
+					    <p>${alarm.al_content}</p>
+		   				<img class="alarm_remove" data-num="${alarm.al_num}" src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="20">
+				    </a>
 		   		</c:if>
 		    </c:forEach> 
 	    </div>
@@ -291,10 +313,80 @@ $(document).mouseup(function (e){
 	}
 });
 
+//아이디 찾기
+function findID() {
+let email = $("#email").val();
+$.ajax({
+  type: "POST",
+  url: "<c:url value='/findID'/>",
+  data: {
+    email: email
+  },
+  success: function(response) {
+    if (response === "found") {
+      alert("이메일로 아이디를 보냈습니다.");
+    } else {
+      alert("해당 이메일로 등록된 아이디가 없습니다.");
+    }
+  },
+  error: function() {
+    alert("이메일로 전송이 실패 했습니다.");
+  }
+});
+}
+
+//비밀번호 찾기
+function findPW() {
+let id = $("#findPW_id").val();
+let email = $("#findPW_email").val();
+$.ajax({
+  type: "POST",
+  url: "<c:url value='/findPW'/>",
+  data: {
+    id: id,
+    email: email
+  },
+  success: function(response) {
+    if (response === "found") {
+      alert("이메일로 임시번호를 보냈습니다.");
+    } else {
+      alert("해당 아이디와 이메일로 등록된 정보가 없습니다.");
+    }
+  },
+  error: function() {
+    alert("이메일로 전송이 실패 했습니다.");
+  }
+});
+}
+
+//로그아웃 버튼 클릭 이벤트
+$("#logout_btn").on("click", function() {
+ $.ajax({
+     url: '/logout',
+     type: 'POST',
+     success: function() {
+         location.reload();
+     },
+     error: function() {
+         console.log("Logout request failed");
+     }
+ });
+});
+
+$('.close_btn').click(function(e) {
+  e.preventDefault();
+  $('.modal_container').hide();
+});
+
+$('.logout_btn').click(function(e) {
+	e.preventDefault();
+	$(this).closest('form').submit();
+});
 
 </script>
 <script>
-var source=null;
+var source = null;
+
 // 스크롤 내리면 헤더에 그림자넣기
 $("body").on("mousewheel", function(e){
 	var wheel = e.originalEvent.wheelDelta;
@@ -308,68 +400,37 @@ $("body").on("mousewheel", function(e){
 	}
 });
 
-//아이디 찾기
-function findID() {
-  let email = $("#email").val();
-  $.ajax({
-    type: "POST",
-    url: "<c:url value='/findID'/>",
-    data: {
-      email: email
-    },
-    success: function(response) {
-      if (response === "found") {
-        alert("이메일로 아이디를 보냈습니다.");
-      } else {
-        alert("해당 이메일로 등록된 아이디가 없습니다.");
-      }
-    },
-    error: function() {
-      alert("이메일로 전송이 실패 했습니다.");
-    }
-  });
-}
-
-// 비밀번호 찾기
-function findPW() {
-  let id = $("#findPW_id").val();
-  let email = $("#findPW_email").val();
-  $.ajax({
-    type: "POST",
-    url: "<c:url value='/findPW'/>",
-    data: {
-      id: id,
-      email: email
-    },
-    success: function(response) {
-      if (response === "found") {
-        alert("이메일로 임시번호를 보냈습니다.");
-      } else {
-        alert("해당 아이디와 이메일로 등록된 정보가 없습니다.");
-      }
-    },
-    error: function() {
-      alert("이메일로 전송이 실패 했습니다.");
-    }
-  });
-}
-  
 // 알림
 $(document).ready(function() {
 	// 알람 누르면 알람 모달 보이기
-	$('.alarm_img').click(
-	function() {
-		console.log('zlert');
-		$('#alarmModal').show();
+	$('.alarm_img').click(function() {
+		$('.alarm_modal').show();
 	})
 });
 
 // 모달 외 영역 눌리면 알림 모달 닫기
 $(document).mouseup(function (e){
-	if($("#alarmModal").has(e.target).length === 0){
-		$("#alarmModal").hide();
+	if($(".alarm_modal").has(e.target).length === 0){
+		$(".alarm_modal").hide();
 	}
 });
+
+//알림 클릭 시 al.view 0->1 변경
+$(document).on("click",'.modal_content',function(){
+	let al_num = $(this).data('num');
+	$.ajax({
+        url: '<c:url value="/update/alview/'+al_num+'"></c:url>',
+        type: 'POST',
+        success: function() {
+        	console.log('알림 확인 변경 성공');
+            //location.reload();
+        },
+        error: function() {
+            console.log("알림 확인 변경 실패");
+        }
+    });
+});
+
 //알림 삭제 버튼
 $(document).on("click",'.alarm_remove',function(){
 	let al_num = $(this).data('num');
@@ -384,33 +445,6 @@ $(document).on("click",'.alarm_remove',function(){
         }
     });
 });
-
-		
-// 로그아웃 버튼 클릭 이벤트
-$("#logout_btn").on("click", function() {
-    $.ajax({
-        url: '/logout',
-        type: 'POST',
-        success: function() {
-            location.reload();
-        },
-        error: function() {
-            console.log("Logout request failed");
-        }
-    });
-});
-
-$('.close_btn').click(function(e) {
-  e.preventDefault();
-  $('.modal_container').hide();
-});
-
-$('.logout_btn').click(function(e) {
-	e.preventDefault();
-	$(this).closest('form').submit();
-});
-
-
 
 connect();
 
@@ -430,7 +464,7 @@ function connect() {
         console.log("SSE error:", event);
     };
     
-    source.addEventListener("newComment", function (event) {
+    source.addEventListener("newComment", function(event) {
     	console.log('새댓글');
     	//이벤트가 일어날 일을 여기밑에다가 쓰기
 	   const data = JSON.parse(event.data);
@@ -512,14 +546,14 @@ function reloadAlarmModal(){
 function showModal(title, message) {
     $(".notification_title").text(title);
     $(".notification_content").text(message);
-    $("#notificationModal").fadeIn(300);
+    $(".notification_modal").fadeIn(300);
 }
 
 function hideModal() {
-    $("#notificationModal").fadeOut(300);
+    $(".notification_modal").fadeOut(300);
 }
 
-//페이지를 떠날 때 
+//페이지를 떠날 때 연결요청한 source 삭제
 $(window).on("beforeunload", function() {
 	if(source != null)
 		source.close();
