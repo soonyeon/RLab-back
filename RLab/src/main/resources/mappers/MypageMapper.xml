@@ -92,7 +92,7 @@
 		</select>
 		
 		<!-- 나의 예약 -->
-			<!-- 좌석 예약 정보 가져오기 -->
+			<!-- 예약 정보 가져오기 -->
 			<select id="selectMySeat" resultMap="reservation">
 				SELECT re_me_id, se_name, br_name, ki_name
 				FROM reservation
@@ -105,15 +105,6 @@
 				<if test="ki_num == 2">
 					where re_me_id = #{userId} and se_ki_num = 2 and re_valid_time > now()
 				</if>
-			</select>
-			<!-- 사물함 예약 정보 가져오기 -->
-			<select id="selectMyLocker" resultMap="reservation">
-				SELECT re_me_id, se_name, br_name, ki_name
-				FROM reservation
-				join seat on re_se_num = se_num
-				join branch on se_br_num = br_num
-				join kind on se_ki_num = ki_num
-				where re_me_id = #{userId} and se_ki_num = 2 and re_valid_time > now()
 			</select>
 			
 			<select id="selectResList" resultType="kr.kh.RLab.vo.ReservationVO">
