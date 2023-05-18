@@ -418,20 +418,12 @@
 				where wa_state=1 and wa_me_id = #{me_id}
 		</select>
 		
-		<!-- 내 펫 정보가져오기 -->
+		<!-- 나의 펫 정보 가져오기 -->
 		<select id="selectMyPet" resultType="kr.kh.RLab.vo.GrowthVO">
 			select * from growth
 				join pet on gr_pe_num = pe_num
-				join exp on pe_final_level = ex_level
-				join evolution on gr_ev_num = ev_num
-				where gr_me_id = #{me_id};
-		</select>
-		
-		<!-- 내 펫 경험치 가져오기 -->
-		<select id="selectPetExp" resultType="kr.kh.RLab.vo.GrowthVO">
-			select * from growth 
-				join pet on gr_pe_num = pe_num
 				join exp on pe_final_level = ex_level <!-- 내 펫의 최종 레벨의 exp를 가져온다 -->
+				join evolution on gr_ev_num = ev_num
 				where gr_me_id = #{me_id};
 		</select>
 </mapper>

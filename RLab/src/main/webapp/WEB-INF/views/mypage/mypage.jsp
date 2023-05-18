@@ -155,8 +155,8 @@
 				<!-- 키우고 있는 펫이 있으면... -->
 				<c:if test="${myPet != null}">
 					<!-- 현재 경험치(gr_exp)가 최종 레벨 경험치(ex_experience)에 도달하면... -->
-	                <c:if test="${petExp.gr_exp == petExp.ex_experience}">
-		                <div id="pet_exp">
+	                <c:if test="${myPet.gr_exp == myPet.ex_experience}">
+		                <div id="pet_exp" class="what1">
 		                  <div class="title">
 		                    <h2 class="property_title">펫 경험치</h2>
 		                    	<p class="info exp_info"><strong> ${currentExp}</strong>exp / ${levelUpExp}&nbsp;exp</p>
@@ -168,8 +168,8 @@
 		                </div>
 	                </c:if>
 	                <!-- 현재 경험치(gr_exp)가 최종 레벨 경험치(ex_experience)와 같지 않다면... -->
-	              <!--   <c:if test="${petExp.gr_exp != petExp.ex_experience}"> -->
-		                <div id="pet_exp">
+	                <c:if test="${myPet.gr_exp != myPet.ex_experience}">
+		                <div id="pet_exp" class="what2">
 		                  <div class="title">
 		                    <h2 class="property_title">펫 경험치</h2>
 		                    <p class="info exp_info"><strong>${currentExp}</strong>exp / ${levelUpExp}&nbsp;exp</p>
@@ -178,8 +178,8 @@
 		                    <div class="gauge_colored pet_ex_colored"></div>
 		                  </div>
 		                </div>
-	                </c:if>
-				<!--</c:if> -->
+		            </c:if>
+	          	</c:if>
               </div>
               <!-- pet_container -->
               <div class="article_box pet_container">
@@ -545,18 +545,14 @@
   	$(document).ready(function(){
   		// 나의 펫이 존재하면...
   		if(${myPet != null}){
-        var gaugeWidth = $('.pet_ex_colored').width(); // 게이지의 너비
-        var currentExp = ${currentExp}; // 현재 경험치
-        var levelUpExp = ${levelUpExp}; // 레벨 업 경험치
-        var ratio = currentExp / levelUpExp; // 현재 경험치 / 레벨 업 경험치
-        gaugeWidth = ratio * 100 + '%'; // 백분율로 계산한 값 = 게이지의 너비
-
-        // 실제 게이지의 너비를 gaugeWidth로 바꿔준다  
-        $('.gauge_colored').css("width",gaugeWidth);
-        // 현재 경험치(gr_exp)가 최종 레벨 경험치(ex_experience)와 같지 않으면...
-        if(${myPet.gr_exp != myPet.ex_experience})
-          // 계산된 현재 경험치를 화면에 표시한다
-          $('.exp_info strong').text(currentExp);
+	        var gaugeWidth = $('.pet_ex_colored').width(); // 게이지의 너비
+	        var currentExp = ${currentExp}; // 현재 경험치
+	        var levelUpExp = ${levelUpExp}; // 레벨 업 경험치
+	        var ratio = currentExp / levelUpExp; // 현재 경험치 / 레벨 업 경험치
+	        gaugeWidth = ratio * 100 + '%'; // 백분율로 계산한 값 = 게이지의 너비
+	
+	        // 실제 게이지의 너비를 gaugeWidth로 바꿔준다  
+	        $('.gauge_colored').css("width",gaugeWidth);
   		}
     });
     

@@ -55,10 +55,11 @@ public class MypageController {
 		// 현재 로그인한 사용자의 아이디를 userId에 담는다
 		String userId = user.getMe_id();
 		
-		// 이용시간 안내
+		// 나의 예약 정보
 		ReservationVO res = reservationService.getMyReservation(1, userId);
+		//ReservationVO res = reservationService.getMyReservation(2, userId);
 		
-		//나의 펫 데려오기
+		// 나의 펫 정보
 		GrowthVO myPet = mypageService.selectMyPet(userId);
 		
 		// 나의 펫이 존재하면...
@@ -77,7 +78,6 @@ public class MypageController {
 				currentExp -= exExp;
 				levelUpExp -= exExp;
 			}
-//			mv.addObject("currentLevel", currentLevel);
 			mv.addObject("currentExp", currentExp);
 			mv.addObject("levelUpExp", levelUpExp);
 		}
