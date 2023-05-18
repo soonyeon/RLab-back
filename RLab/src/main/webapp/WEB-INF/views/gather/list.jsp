@@ -251,7 +251,7 @@ const userId = '${user.me_id}';
 
 $(document).ready(function() {
   $('.want_icon').on('click', function() {
-	  const  studyNum = $(this).data('num');
+	  const studyNum = $(this).data('num');
 	want(studyNum);
   });
   
@@ -268,11 +268,9 @@ $(document).ready(function() {
 	      data: JSON.stringify(requestData),
 	      success: function(response) {
 	        if (response && response.wantState === 1) {
-	        	 $('.unlike_img').removeClass('unlike_img').addClass('like_img');
+	          	alert('스터디를 찜 했습니다.');
 	        	 location.reload();
-	          alert('스터디를 찜 했습니다.');
 	        } else if (response && response.wantState === 0) {
-	        	 $('.like_img').removeClass('like_img').addClass('unlike_img');
 	        	 location.reload();
 	          alert('스터디 찜을 취소 했습니다.');
 	        }

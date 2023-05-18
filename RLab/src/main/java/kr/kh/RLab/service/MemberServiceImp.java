@@ -19,6 +19,9 @@ public class MemberServiceImp implements MemberService {
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
 
+	/**[회원가입]
+	 * @param member : 멤버테이블에 저장하기 위해 
+	 */
 	@Override
 	public boolean signup(MemberVO member) {
 		if (member == null) {
@@ -30,13 +33,13 @@ public class MemberServiceImp implements MemberService {
 
 		try {
 			int result = memberDao.insertMember(member);
-			System.out.println(result);
 			if (result != 0) {
+				//회원의 권한을 멤버 아이디로 1 업데이트
 				memberDao.updateAuthority(member.getMe_id(), 1);
 				return true;
 			}
 		} catch (Exception e) {
-			// 예외 처리 코드 추가
+			// 예외 처리 코드 
 			e.printStackTrace();
 		}
 

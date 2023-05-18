@@ -15,7 +15,7 @@ public interface JoinStudyService {
 	
 	int getJoinCount(int st_num);
 
-	int selectJoinCount();
+	//int selectJoinCount();
 
 
 

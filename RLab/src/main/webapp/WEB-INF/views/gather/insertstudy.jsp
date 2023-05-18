@@ -71,6 +71,7 @@
 </main>
 
 <script>
+<!--
 	$(document).ready(function() {
 		$('.yes_finish').click(function() {
 			$('.datepicker').show();
@@ -85,7 +86,7 @@
 		});
 
 	});
-	
+-->
 	$(document).ready(function() {
 	    $('input.ns_people').on('input', function() {
 	        var max = 50;

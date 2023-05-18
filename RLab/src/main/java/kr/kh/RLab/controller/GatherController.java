@@ -55,8 +55,7 @@ public class GatherController {
 	public ModelAndView studyInsertPost(ModelAndView mv,StudyVO study,HttpServletRequest request,RegionVO region,MultipartFile [] files,
 			FileVO file,TagVO tag,TagRegisterVO tagRegister,StudyMemberVO studyMember) {
 		MemberVO member = (MemberVO)request.getSession().getAttribute("user");
-		boolean res = gatherService.insertStudy(study,member,
-				region,files,file,tag,tagRegister,studyMember);
+		boolean res = gatherService.insertStudy(study,member,region,files,file,tag,tagRegister,studyMember);
 		mv.setViewName("redirect:/gather/list");
 		return mv;
 	}
@@ -72,9 +71,9 @@ public class GatherController {
 	}
 	
 	@PostMapping("/insertgather")
-	public ModelAndView gatherInsertPost(ModelAndView mv,HttpServletRequest request,GatherVO gather,StudyVO study) {
+	public ModelAndView gatherInsertPost(ModelAndView mv,HttpServletRequest request,GatherVO gather) {
 		MemberVO member = (MemberVO)request.getSession().getAttribute("user");
-		boolean res = gatherService.insertGather(member,gather,study);
+		boolean res = gatherService.insertGather(member,gather);
 	    mv.setViewName("redirect:/gather/list");
 	    return mv;
 	}
@@ -93,7 +92,6 @@ public class GatherController {
  		ArrayList<FileVO> fileList = gatherService.selectFileList();
 		ArrayList<TagRegisterVO> tagList = gatherService.selectTagList();
 		ArrayList<Integer> waList =  gatherService.selectWantedStudyList(user);
-		System.out.println(stList);
 		mv.addObject("gaList",gaList);
 		mv.addObject("fileList",fileList);
 		mv.addObject("user",user);
@@ -116,6 +114,7 @@ public class GatherController {
 		ArrayList<TagRegisterVO> tagList = gatherService.selectTagList();
 		ArrayList<Integer> waList =  gatherService.selectWantedStudyList(user);
 		StudyMemberVO smList = gatherService.selelctJoinStudyMemberList(user,st_num);
+		FileVO file =  gatherService.selectFileByStNum(st_num);
 		int joinCount = joinstudyService.getJoinCount(st_num);
 		mv.addObject("smList",smList);
 		mv.addObject("joinCount",joinCount);
@@ -124,10 +123,12 @@ public class GatherController {
 		mv.addObject("tgList",tagList);
 		mv.addObject("st",study);
 		mv.addObject("ga",gather);
+		mv.addObject("file",file);
 		mv.setViewName("/gather/detail");
 	    return mv;
 	}
-	//실시간 검색 태그리스트 가져오기
+	
+	//실시간 태그 검색
 	@ResponseBody
 	@PostMapping("/search")
 	public Map<String,Object> getSearchTagList(@RequestBody TagVO tag) {
@@ -135,12 +136,11 @@ public class GatherController {
 		ArrayList<String> tagSearch = gatherService.getSearchTagList(tag.getTa_name());
 		if(tag.getTa_name().equals(""))
 	    		tagSearch = new ArrayList<String>();
-		System.out.println(tagSearch);
 		map.put("list", tagSearch);
 	    return map;
 	}
 	
-	//모집글 수정
+	//모집글 수정 Get
 	@GetMapping("/update/{ga_num}")
 	public ModelAndView gatherUpdate(ModelAndView mv,HttpServletRequest request,@PathVariable("ga_num")int ga_num) {
 		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
@@ -152,7 +152,7 @@ public class GatherController {
 		return mv;
 	}
 
-	
+	//모집글 수정 Post
 	@PostMapping("/update/{ga_num}")
 	public ModelAndView boardUpdatePost(ModelAndView mv, @PathVariable int ga_num, 
 			GatherVO gather) {
@@ -161,7 +161,7 @@ public class GatherController {
 		return mv;
 	}
 	
-	//모집글 삭제
+	//모집글 삭제 Post
 	@PostMapping("/delete/{ga_num}")
 	@ResponseBody
 	public String deleteGather(@PathVariable("ga_num") int ga_num, HttpServletRequest request) {
@@ -174,7 +174,7 @@ public class GatherController {
 	    return "success";
 	}
 	
-	//스터디 수정
+	//스터디 수정 Get
 	@GetMapping("/updateStudy/{st_num}")
 	public ModelAndView studyUpdate(ModelAndView mv,HttpServletRequest request,@PathVariable("st_num")int st_num) {
 		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
@@ -188,7 +188,7 @@ public class GatherController {
 		return mv;
 	}
 	
-
+	//스터디 수정 Post
 	@PostMapping("/updateStudy/{st_num}")
 	public ModelAndView studyUpdatePost(ModelAndView mv,StudyVO study,HttpServletRequest request,RegionVO region,MultipartFile [] files, FileVO file,
 			Integer fileNums,TagVO tag,TagRegisterVO tagRegister,@PathVariable("st_num")int st_num) {

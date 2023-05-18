@@ -198,7 +198,9 @@
               <div class="bar_banner_textbox">
                 <h1>세상에 없던 나만의 공부 메이트!</h1>
                 <h2>지금 바로 만들어보세요</h2>
-                <button>스터디 만들기</button>
+                <button>
+                	<a href="<c:url value='/gather/insertstudy'></c:url>">스터디 만들기</a>
+                </button>
               </div>
           </div>
         </article>
@@ -230,6 +232,7 @@
       </section>
   </main>   
 <script>
+//찜하기
 const userId = '${user.me_id}'; 
 
 $(document).ready(function() {
@@ -269,7 +272,6 @@ $(document).ready(function() {
 	    });
 	  }
 	});
-
 </script> 
 <script>
 //메인배너

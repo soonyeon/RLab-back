@@ -418,7 +418,7 @@
 		function choosePet(el){
 			let gr_pe_num = el.parents('.pet_box').find('.petnum').val();
 			let ev_num = el.parents('.pet_box').find('.pet_img').data('ev_num');
-			
+			//갖고있는 펫이 있다면 안내창
 		   if (hadPet.length > 0) {
 		        alert('새로운 펫을 데려오려면 펫 돌려보내기를 하세요.');
 		        return;
@@ -467,6 +467,7 @@
 			
 			if (hadPet.length > 0) {
 			    let confirmMsg = '펫을 돌려보내면 펫은 완전히 사라집니다. 그래도 돌려보내시겠습니까?';
+			    //아니요를 누르면 return , 예를 누르면 ajax진행
 			    if (!confirm(confirmMsg)) {
 			      return;
 			    }
@@ -508,6 +509,7 @@
 
 			  if (hadPet.length > 0) {
 			    let confirmMessage = '펫 보상을 받으시겠습니까?';
+			    //아니요를 누르면 return , 예를 누르면 ajax진행
 			    if (!confirm(confirmMessage)) {
 			      return;
 			    }
