@@ -65,6 +65,14 @@
 		
 		        <div class="my_study_container" id="my_container_study">
 		            <div class="option_container">
+			            <div class="edit_box study_box">
+		                	<div class="sb_title">
+		                		<h3>스터디 수정</h3>
+		                	</div>
+		                	<a  href="<c:url value='/gather/updateStudy/${st_num}'></c:url>" >
+		                		<button class="btn_edit" >스터디 수정</button>
+		                	</a>
+		                </div>       
 		                <div class="finish_box study_box">
 		                    <div class="sb_title">
 		                        <h3>스터디 완료 전환</h3>
@@ -102,6 +110,7 @@
 			</div>
 		</div>
 	
+					
 	
 	    <!-- 오른쪽 메뉴 -->
 	  <!--  <aside>

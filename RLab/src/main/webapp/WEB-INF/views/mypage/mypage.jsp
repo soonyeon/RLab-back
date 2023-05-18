@@ -159,10 +159,7 @@
 		                <div id="pet_exp">
 		                  <div class="title">
 		                    <h2 class="property_title">펫 경험치</h2>
-	                    	<p class="info exp_info">
-	                    		<!-- 현재 경험치(currentExp -= exExp) 전 레벨의 최대 경험치를 뺀 값으로 계산되어 나온다(controller 참조) -->
-	                    		<strong> ${levelUpExp}</strong>exp / ${levelUpExp}&nbsp;exp <!-- &nbsp;=띄어 쓰기 -->
-	                    	</p>
+		                    	<p class="info exp_info"><strong> ${currentExp}</strong>exp / ${levelUpExp}&nbsp;exp</p>
 		                  </div>
 		                  <div class="gauge gauge_pet_exp">
 		                  	<!-- 최종 레벨에 도달했으므로 게이지가 100%로 다 차게 된다 -->
@@ -175,20 +172,7 @@
 		                <div id="pet_exp">
 		                  <div class="title">
 		                    <h2 class="property_title">펫 경험치</h2>
-		                    <!--  현재 레벨이 1이면... -->
-		                    <c:if test="${currentLevel == 1}">
-		                    	<p class="info exp_info">
-		                    		<!-- 현재 경험치(currentExp)를 그대로 내보낸다. 8exp는 레벨1의 최대 경험치 -->
-		                    		<strong>${currentExp}</strong>exp / 8exp
-		                    	</p>
-			                </c:if>
-			                <!-- 현재 레벨이 1이 아니면... -->
-			                <c:if test="${currentLevel != 1}">
-		                    	<p class="info exp_info">
-		                    		<!-- 현재 경험치(currentExp -= exExp) 전 레벨의 최대 경험치를 뺀 값으로 계산되어 나온다 -->
-		                    		<strong>${currentExp}</strong>exp / ${levelUpExp}&nbsp;exp<!-- &nbsp;=띄어 쓰기 -->
-		                    	</p>
-			                </c:if>
+		                    <p class="info exp_info"><strong>${currentExp}</strong>exp / ${levelUpExp}&nbsp;exp</p>
 		                  </div>
 		                  <div class="gauge gauge_pet_exp">
 		                    <div class="gauge_colored pet_ex_colored"></div>
@@ -237,12 +221,12 @@
 	                    </div>
 	                    <div class="pet_level">Lv. ${myPet.gr_level}</div>
 	                  </div>
-	                  	<c:if test="${petExp.gr_exp == petExp.ex_experience}">		                    
+	                  	<c:if test="${myPet.gr_exp == myPet.ex_experience}">		                    
 			                <div id="pet_getPrize_container" class="pet_getPrize_container">
 		                      <i class="icon_getPrize"></i>펫 보상받기
 		                    </div>
 		                </c:if>
-		                <c:if test="${petExp.gr_exp != petExp.ex_experience}">		
+		                <c:if test="${myPet.gr_exp != myPet.ex_experience}">		
 		                    <div id="pet_store_container">
 		                      <i class="icon_store"></i> 펫 스토어
 		                    </div>
@@ -561,20 +545,18 @@
   	$(document).ready(function(){
   		// 나의 펫이 존재하면...
   		if(${myPet != null}){
-  			var gaugeWidth = $('.pet_ex_colored').width(); // 게이지의 너비
-			var currentExp = '${currentExp}'; // 현재 경험치
-			var levelUpExp = '${levelUpExp}'; // 레벨 업 경험치
-			// 현재 경험치가 레벨 업 경험치 보다 크거나 같은가? (같으면= 현재 경험치-레벨업 경험치 : 아니면= 현재 경험치)
-			var exp = currentExp >= levelUpExp ? currentExp-levelUpExp : currentExp; // 현재 경험치
-			var ratio = exp / levelUpExp; // 현재 경험치 / 레벨 업 경험치
-			gaugeWidth = ratio * 100 + '%'; // 백분율로 계산한 값 = 게이지의 너비
-			
-			// 실제 게이지의 너비를 gaugeWidth로 바꿔준다
-			$('.pet_ex_colored').width(gaugeWidth);
-			// 현재 경험치(gr_exp)가 최종 레벨 경험치(ex_experience)와 같지 않으면...
-			if(${petExp.gr_exp != petExp.ex_experience})
-				// 계산된 현재 경험치를 화면에 표시한다
-				$('.exp_info strong').text(exp);
+        var gaugeWidth = $('.pet_ex_colored').width(); // 게이지의 너비
+        var currentExp = ${currentExp}; // 현재 경험치
+        var levelUpExp = ${levelUpExp}; // 레벨 업 경험치
+        var ratio = currentExp / levelUpExp; // 현재 경험치 / 레벨 업 경험치
+        gaugeWidth = ratio * 100 + '%'; // 백분율로 계산한 값 = 게이지의 너비
+
+        // 실제 게이지의 너비를 gaugeWidth로 바꿔준다  
+        $('.gauge_colored').css("width",gaugeWidth);
+        // 현재 경험치(gr_exp)가 최종 레벨 경험치(ex_experience)와 같지 않으면...
+        if(${myPet.gr_exp != myPet.ex_experience})
+          // 계산된 현재 경험치를 화면에 표시한다
+          $('.exp_info strong').text(currentExp);
   		}
     });
     

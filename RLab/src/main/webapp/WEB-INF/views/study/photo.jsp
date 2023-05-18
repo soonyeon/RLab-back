@@ -43,7 +43,7 @@
 											            	<label for="category">카테고리 선택</label>
 											                <select id="ph_pt_num" name="ph_pt_num">
 										                		<c:forEach var="pt" items="${ptList}">
-											                    <option value="${pt.pt_num}">${pt.pt_name}</option>
+											                   	 <option value="${pt.pt_num}">${pt.pt_name}</option>
 										                		</c:forEach>
 											                </select>
 										                </div>
@@ -72,13 +72,15 @@
 								                <div class="today_feed_board">
 								                    <c:forEach var="photo" items="${photos}">
 								                        <div class="board">
-								                            <div class="feed_name">${photo.me_name}</div>
-								                            <div class="feed_date">${photo.ph_register_date_str}</div>
+								                        
+								                        	<div class="profile_box">
+									                            <div class="feed_name">${photo.me_name}</div>
+									                            <div class="feed_date">${photo.ph_register_date_str}</div>
+								                            </div>
 								                            <div class="feed_contents_img">
-								                                <img width="350" height="300"		src="<c:url value='/download${photo.ph_img}'/>" alt="이미지">
+								                                <img width="350" height="350"		src="<c:url value='/download${photo.ph_img}'/>" alt="이미지">
 								                            </div>
 								                            <div class="middle_container2">
-								                                <span class="feed_date_min"><fmt:formatDate value="${photo.ph_register_date}" pattern="MM/dd" /></span>
 								                                <span class="feed_contents">${photo.ph_content}</span>
 								                            </div>
 								                            <div class="middle_container3">
@@ -265,8 +267,9 @@ $(document).ready(function() {
 			$("#modal").hide();
 		}
 	});
-$("button").click(function(e){
-	if(${mf == null}){
+	$("button").click(function(e){
+		
+		
 		 e.preventDefault();
 		    let formData = new FormData();
 		    formData.append('photo', $('#photo')[0].files[0]);
@@ -285,6 +288,10 @@ $("button").click(function(e){
 		            if(response === "success"){
 		                alert("인증이 등록되었습니다.");
 		                location.reload();
+		            }else if(response === "already"){
+		            	alert("이미 오늘의 인증을 완료했습니다.")
+		            }else if(response == "noMission"){
+		     			alert("오늘의 미션이 아직 등록되지 않았습니다.")	
 		            }else{
 		                alert("인증 등록에 실패했습니다.");
 		            }
@@ -293,13 +300,9 @@ $("button").click(function(e){
 		            console.log(e);
 		        }
 		    });
-		   
-		}else{
-			alert("이미 오늘의 인증을 완료하였습니다.");
-			modal.hide();
-		}
-});
+		
 
+});
 
 $(".feed_like_img").on("click", function () {
     const li_ph_num = $(this).data("photo-id");

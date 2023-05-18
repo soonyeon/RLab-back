@@ -1,7 +1,6 @@
 package kr.kh.RLab.service;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,15 +33,14 @@ public class ReservationServiceImp implements ReservationService {
 			System.out.println("pa_order_id가 없습니다.");
 			return false;
 		}
-		if(reservationDao.insertPay(payDto)==0) {
+		if(reservationDao.insertPay(payDto)==0) { //pay에 등록
 			System.out.println("pay 등록 실패");
 			return false;
 		}
-		if(reservationDao.insertPayDetail(payDto.getPa_order_id(), payDto.getItemList()) == 0){
+		if(reservationDao.insertPayDetail(payDto.getPa_order_id(), payDto.getItemList()) == 0){ //pay_detail에 '결제중'으로 등록
 			System.out.println("pay_detail 등록 실패");
 			return false;
 		}
-		System.out.println("서비스 임플 - 사전 데이터 등록 성공");
 		return true;
 	}
 
@@ -62,21 +60,20 @@ public class ReservationServiceImp implements ReservationService {
 				System.out.println("결제완료 변경 실패");
 				return;
 			}
-			//ticket_own 테이블에 구매한 티켓 수만큼 데이터 추가
+			//ticket_own 테이블에 구매한 티켓들 추가
 			for(int i=0; i<pd.getPd_amount(); i++) {
 				if(reservationDao.insertTicketOwn(pay.getPa_me_id(),paOrderId,pd) == 0) {
 					System.out.println("ticket_own 데이터 입력 실패");
 					return;
 				}
 			}
-			
 		}
 		//member 누적적립액 수정
 		if(reservationDao.updateMePoint(pay) == 0) {
 			System.out.println("누적적립액 적용 실패");
 			return;
 		}
-		//point 적립내역 추가 (적립,사용액이 0이 아닐때만)
+		//point 적립/사용내역 추가 (적립,사용액이 0이 아닐때만)
 		if(pay.getPa_point()!=0)
 			reservationDao.insertPoint(pay);
 		if(pay.getPa_used_point()!=0)
@@ -85,6 +82,11 @@ public class ReservationServiceImp implements ReservationService {
 	}
 
 	@Override
+	/**
+	 * pay, pay_detail 테이블의 정보를 가져와서 PayDTO 객체를 만드는 메소드
+	 * PayDTO안에 있는 ItemVO(=pay_detail)리스트도 불러와서 set함 
+	 * @param String pa_order_id - pay 테이블 정보를 불러올때 필요한 기본키
+	 */
 	public PayDTO getPayDto(String paOrderId) {
 		PayDTO pay = reservationDao.selectPayByPaOrderId(paOrderId);
 		if(pay==null)
@@ -99,7 +101,6 @@ public class ReservationServiceImp implements ReservationService {
 		//pd테이블 삭제
 		reservationDao.deletePayDetailByPaOrderId(orderId);
 		//pay테이블 삭제
-//		PayDTO pay = reservationDao.selectPayByPaOrderId(orderId);
 		reservationDao.deletePayByPaOrderId(orderId);
 	}
 
@@ -107,7 +108,6 @@ public class ReservationServiceImp implements ReservationService {
 	public String getItemStrList(String paOrderId) {
 		ArrayList<String> itemStrList = reservationDao.selectItemStrList(paOrderId);
 		String itemStr = String.join(", ", itemStrList);
-		System.out.println(itemStr);
 		return itemStr;
 	}
 
@@ -131,6 +131,11 @@ public class ReservationServiceImp implements ReservationService {
 		return reservationDao.selectSeatTicketOwnById(me_id);
 	}
 
+	/** 사용자 아이디와 예약분류번호(1=좌석/2=캐비닛)로 현재 사용중인 예약 정보를 불러오는 메소드 
+	 * @param int kind 좌석/캐비닛을 구분하는 번호
+	 * @param String me_id 사용자 아이디
+	 * @return 아이디와 좌석으로 찾은 나의 현재 예약정보(ReservationVO객체)
+	 */
 	@Override
 	public ReservationVO getMyReservation(int kind, String me_id) {
 		return reservationDao.selectMyReservation(kind, me_id);
@@ -138,6 +143,7 @@ public class ReservationServiceImp implements ReservationService {
 
 	@Override
 	public void reserveSeat(ReservationVO book) {
+		//사용시간(re_hours) 설정: 시간패키지면 값이 등록되어있는데 아닐 경우 해당 이용권의 ti_period값을 가져와서 set
 		int tiNum = reservationDao.selectTiNum(book.getRe_to_num());
 		if(tiNum!=6 && tiNum!=7 && tiNum!=8) 
 			book.setRe_hours(reservationDao.selectTiPeriod(tiNum));
@@ -165,13 +171,14 @@ public class ReservationServiceImp implements ReservationService {
 			//gr_exp 펫 누적경험치 추가(펫의 최대레벨에 해당하는 경험치를 넘어가면 안됨)
 			reservationDao.updatePetExp(book);
 			int exp = myPet.getGr_exp();
-			//펫의 누적경험치가 올라서 레벨업 필요하면 update
+			//펫의 누적경험치가 올라서 레벨업 필요하면 gr_level, gr_ev_num update
 			reservationDao.updateMypetLevel(book.getRe_me_id());
 		}
 	}
 	
 	@Override
 	public void reserveCabinet(ReservationVO book) {
+		//사용시간(re_hours) 설정: 해당 이용권의 ti_period값을 가져와서 set
 		int tiNum = reservationDao.selectTiNum(book.getRe_to_num());
 		book.setRe_hours(reservationDao.selectTiPeriod(tiNum));
 
@@ -198,7 +205,7 @@ public class ReservationServiceImp implements ReservationService {
 			//gr_exp 펫 누적경험치 추가(펫의 최대레벨에 해당하는 경험치를 넘어가면 안됨)
 			reservationDao.updatePetExp(book);
 			int exp = myPet.getGr_exp();
-			//펫의 누적경험치가 올라서 레벨업 필요하면 update
+			//펫의 누적경험치가 올라서 레벨업 필요하면 gr_level, gr_ev_num update
 			reservationDao.updateMypetLevel(book.getRe_me_id());
 		}
 	}

@@ -2,6 +2,7 @@ package kr.kh.RLab.controller;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -19,13 +20,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import kr.kh.RLab.service.BoardService;
 import kr.kh.RLab.service.NotificationService;
 import kr.kh.RLab.service.StudyService;
 import kr.kh.RLab.utils.SseEmitters;
+import kr.kh.RLab.vo.BoardVO;
+import kr.kh.RLab.vo.MemberVO;
 import kr.kh.RLab.vo.PhotoVO;
+import kr.kh.RLab.vo.ScrapVO;
 import kr.kh.RLab.vo.StudyMemberVO;
 import kr.kh.RLab.vo.StudyVO;
 
@@ -52,16 +57,12 @@ public class SseController {
     public ResponseEntity<SseEmitter> connect(@RequestParam String id, HttpSession session) throws IOException {
     	SseEmitter emitter = new SseEmitter(60*30 * 1000L);
     	LocalDateTime sessionExpiryTime = LocalDateTime.now().plusMinutes(30);
+    	sseEmitters.add(id, emitter, sessionExpiryTime, session);
     	Boolean isEmitter = (Boolean)session.getAttribute("emitter");
-    	/*
-    	if(session.getAttribute("emitter") != null) {
-    		return ResponseEntity.ok(sseEmitters.getEmitter(id));
-    	}*/
         if(isEmitter != null) {
         	emitter.send(SseEmitter.event().name("connect").data("connected!"));
         	return ResponseEntity.ok(emitter);
         }
-        sseEmitters.add(id, emitter, sessionExpiryTime, session);
         
         try {
             //emitter.send(SseEmitter.event().name("connect").data("connected!"));
@@ -116,7 +117,6 @@ public class SseController {
     	sseEmitters.send("authorizeStudy",eventData, stm.getSm_me_id(),session);
         return ResponseEntity.ok(sseEmitters);
     }
-    
     //알림 삭제
 	@ResponseBody
 	@RequestMapping(value = "/delete/alarm/{al_num}", method = RequestMethod.POST)
@@ -125,5 +125,19 @@ public class SseController {
 		notificationService.deleteAlarm(al_num);
 		return map;
 	}
-
+	//board댓글 알림 눌렀을 때 링크이동
+	@GetMapping("/board/detail/{bo_num}")
+	public ModelAndView boardGet(ModelAndView mv, @PathVariable int bo_num) {
+		BoardVO board = boardService.getBoard(bo_num);
+	    mv.setViewName("forward:/board/detail/"+board.getBo_st_num()+"/"+bo_num);
+		return mv;
+	}
+    //al_view 0->1 변경
+	@ResponseBody
+	@RequestMapping(value = "/update/alview/{al_num}", method = RequestMethod.POST)
+	public HashMap<String,Object> updateAlarmViewPost(@PathVariable("al_num")int al_num, HttpSession session) {
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		notificationService.updateAlarmView(al_num);
+		return map;
+	}
 }

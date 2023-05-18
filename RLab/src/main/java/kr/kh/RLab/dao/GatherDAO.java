@@ -42,8 +42,6 @@ public interface GatherDAO {
 
 	int selectStudyTotalCount(@Param("cri")GatherCriteria gcri);
 
-	ArrayList<Integer> selectStudyList();
-
 	ArrayList<Integer> selectWantedStudyList(@Param("me_id")String me_id);
 
 	ArrayList<Integer> selectStudyMemberList(@Param("me_id")String me_id);
@@ -75,6 +73,17 @@ public interface GatherDAO {
 
 	void updateMeStudyNumber(@Param("st_num")int st_num, @Param("me_id")String me_id);
 
+	StudyVO selectStudyByStNum(int st_num);
+
+	FileVO selectFileByStNum(int st_num);
+
+	ArrayList<String> selectTagListByStNum(@Param("st_num")int st_num);
+
+	void updateStudy(@Param("study")StudyVO study,@Param("st_num") int st_num);
+
+	void deleteTagByStNum(TagRegisterVO tagRegister,@Param("st_num") int st_num);
+
+	void deleteFileByStNum( @Param("fileNums")int fileNums);
 
 	
 

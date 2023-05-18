@@ -31,6 +31,8 @@ import kr.kh.RLab.service.MypageService;
 import kr.kh.RLab.service.NotificationService;
 import kr.kh.RLab.service.StudyService;
 import kr.kh.RLab.vo.AlarmVO.AlarmType;
+import kr.kh.RLab.vo.FileVO;
+import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.GrowthVO;
 import kr.kh.RLab.vo.LikeVO;
@@ -39,8 +41,11 @@ import kr.kh.RLab.vo.MissionFinishVO;
 import kr.kh.RLab.vo.MissionVO;
 import kr.kh.RLab.vo.PhotoTypeVO;
 import kr.kh.RLab.vo.PhotoVO;
+import kr.kh.RLab.vo.RegionVO;
 import kr.kh.RLab.vo.StudyMemberVO;
 import kr.kh.RLab.vo.StudyVO;
+import kr.kh.RLab.vo.TagRegisterVO;
+import kr.kh.RLab.vo.TagVO;
 import kr.kh.RLab.vo.TodoVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -60,13 +65,14 @@ public class StudyController {
 	@GetMapping("/photo/{st_num}")
 	public String photo(HttpServletRequest request, Model model, HttpSession session,
 			@PathVariable("st_num") int st_num) throws IOException {
-		System.out.println(new Date());
+		
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		model.addAttribute("user", user);
 		ArrayList<PhotoTypeVO> phototypeList = studyService.getListPhotoType();
 		MemberVO member = (MemberVO) request.getSession().getAttribute("user");
 		ArrayList<StudyVO> study = studyService.getStudyByMemberId(member.getMe_id());
 		MissionFinishVO mf = studyService.selectTodayMissionFinsh(member.getMe_id());
+		
 		if (study == null) {
 			return "redirect:/";
 		}
@@ -106,6 +112,15 @@ public class StudyController {
 		photoVO.setPh_st_num(st_num);
 		photoVO.setPh_content(content);
 		photoVO.setPh_pt_num(Integer.parseInt(ph_pt_num));
+
+		MissionVO mission = studyService.selectTodayMission(st_num);
+		if(mission == null && photoVO.getPh_pt_num() == 2) {
+			return "noMission";
+		}
+		MissionFinishVO mf = studyService.selectTodayMissionFinsh(member.getMe_id());
+		if(mf != null && photoVO.getPh_pt_num() == 2) {
+			return "already";
+		}
 		if (photoVO.getPh_pt_num() == 2) {
 			studyService.insertMissionFinishMember(member, st_num);
 		}
@@ -179,7 +194,7 @@ public class StudyController {
 	// 로그인O, me_study정보O 이상적으로 동작할때 도달하는 url
 	@RequestMapping(value = "/{st_num}", method = RequestMethod.GET)
 	public ModelAndView main(ModelAndView mv, HttpSession session, @PathVariable("st_num") int st_num) {
-		System.out.println(new Date());
+		
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		//st_me_id가 유저인 스터디 목록 불러오는 메소드인데 사용되는데가 없는데 지워도되는건가요?
 		ArrayList<StudyVO> study = studyService.getStudyByMemberId(user.getMe_id());
@@ -206,7 +221,8 @@ public class StudyController {
 		
 		ArrayList<TodoVO> tdList = studyService.getTodoList(user.getMe_id());
 		mv.addObject("tdList", tdList);
-		ArrayList<PhotoVO> photo = studyService.selectPhotoPhNumTwo(st_num);
+		ArrayList<PhotoVO> photo = studyService.selectPhotos(st_num);
+		
 		mv.addObject("photo", photo);
 		mv.addObject("st_num", st_num);
 		mv.addObject("study", study);
@@ -409,7 +425,7 @@ public class StudyController {
 	        member.setMe_prog_rate(membersTdProgRateint);
 	        stMemberProgRateList.add(member);
 	    }
-	   // System.out.println("++++++"+stMemberProgRateList);
+	 
 	    
 	  //나의 펫 데려오기
 	  GrowthVO myPet = mypageService.selectMyPet(memberId);
@@ -434,7 +450,7 @@ public class StudyController {
 	@PostMapping("/todo/create") // POST 요청 처리를 위한 매핑 경로 설정
 	public HashMap<String, Object> insertTodo(ModelAndView mv, @RequestBody TodoVO td) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		System.out.println(td);
+		
 		studyService.createTodo(td.getTd_content(), td.getTd_me_id());
 		return map;
 	}
@@ -504,7 +520,7 @@ public class StudyController {
 	// 데일리미션 페이지
 	@GetMapping("/daily/{st_num}")
 	public ModelAndView studyInsert(ModelAndView mv, HttpServletRequest request, @PathVariable("st_num") int st_num) {
-		//System.out.println(new Date());
+		
 		MemberVO user = (MemberVO) request.getSession().getAttribute("user");
 		ArrayList<StudyMemberVO> studyMember = studyService.selectStudyMemberByStNum(st_num);
 		Integer authority = studyService.selectSmAuthority(user, st_num);
@@ -580,4 +596,7 @@ public class StudyController {
 		session.setAttribute("user", user);
 		return map;
 	}
+	
+
+	
 }

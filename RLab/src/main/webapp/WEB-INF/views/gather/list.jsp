@@ -58,24 +58,24 @@
 					<div class="line"></div>
 					<div class="sel_region clearfix">
 						<span class="region_title">지역</span> 
-						<a href="<c:url value='/gather/list?region=지역미지정'></c:url>" class="selected">지역 미지정</a> 
-						<a href="<c:url value='/gather/list?region=서울특별시'></c:url>">서울 특별시</a> 
-						<a href="<c:url value='/gather/list?region=경기도'></c:url>">경기도</a> 
-						<a href="<c:url value='/gather/list?region=부산광역시'></c:url>">부산 광역시</a> 
-						<a href="<c:url value='/gather/list?region=인천광역시'></c:url>">인천 광역시</a> 
-						<a href="<c:url value='/gather/list?region=대구광역시'></c:url>">대구 광역시</a> 
-						<a href="<c:url value='/gather/list?region=경상북도'></c:url>">경상북도</a>
-						<a href="<c:url value='/gather/list?region=경상남도'></c:url>">경상남도</a> 
-						<a href="<c:url value='/gather/list?region=대전광역시'></c:url>">대전 광역시</a> 
-						<a href="<c:url value='/gather/list?region=전라북도'></c:url>">전라북도</a> 
-						<a href="<c:url value='/gather/list?region=전라남도'></c:url>">전라남도</a> 
-						<a href="<c:url value='/gather/list?region=충청북도'></c:url>">충청북도</a> 
-						<a href="<c:url value='/gather/list?region=충청남도'></c:url>">충청남도</a> 
-						<a href="<c:url value='/gather/list?region=광주광역시'></c:url>">광주 광역시</a> 
-						<a href="<c:url value='/gather/list?region=강원도'></c:url>">강원도</a> 
-						<a href="<c:url value='/gather/list?region=울산광역시'></c:url>">울산 광역시</a> 
-						<a href="<c:url value='/gather/list?region=제주특별자치도'></c:url>">제주 특별 자치도</a> 
-						<a href="<c:url value='/gather/list?region=세종특별자치도'></c:url>">세종 특별 자치도</a>
+						<a href="<c:url value='/gather/list?region=지역 미지정'></c:url>" <c:if test='${pm.cri.region == "지역 미지정"}'>class="selected"</c:if>>지역 미지정</a> 
+						<a href="<c:url value='/gather/list?region=서울특별시'></c:url>" <c:if test='${pm.cri.region == "서울특별시"}'>class="selected"</c:if>>서울 특별시</a> 
+						<a href="<c:url value='/gather/list?region=경기도'></c:url>" <c:if test='${pm.cri.region == "경기도"}'>class="selected"</c:if>>경기도</a> 
+						<a href="<c:url value='/gather/list?region=부산광역시'></c:url>" <c:if test='${pm.cri.region == "부산광역시"}'>class="selected"</c:if>>부산 광역시</a> 
+						<a href="<c:url value='/gather/list?region=인천광역시'></c:url>" <c:if test='${pm.cri.region == "인천광역시"}'>class="selected"</c:if>>인천 광역시</a> 
+						<a href="<c:url value='/gather/list?region=대구광역시'></c:url>" <c:if test='${pm.cri.region == "대구광역시"}'>class="selected"</c:if>>대구 광역시</a> 
+						<a href="<c:url value='/gather/list?region=경상북도'></c:url>" <c:if test='${pm.cri.region == "경상북도"}'>class="selected"</c:if>>경상북도</a>
+						<a href="<c:url value='/gather/list?region=경상남도'></c:url>" <c:if test='${pm.cri.region == "경상남도"}'>class="selected"</c:if>>경상남도</a> 
+						<a href="<c:url value='/gather/list?region=대전광역시'></c:url>" <c:if test='${pm.cri.region == "대전광역시"}'>class="selected"</c:if>>대전 광역시</a> 
+						<a href="<c:url value='/gather/list?region=전라북도'></c:url>" <c:if test='${pm.cri.region == "전라북도"}'>class="selected"</c:if>>전라북도</a> 
+						<a href="<c:url value='/gather/list?region=전라남도'></c:url>" <c:if test='${pm.cri.region == "전라남도"}'>class="selected"</c:if>>전라남도</a> 
+						<a href="<c:url value='/gather/list?region=충청북도'></c:url>" <c:if test='${pm.cri.region == "충청북도"}'>class="selected"</c:if>>충청북도</a> 
+						<a href="<c:url value='/gather/list?region=충청남도'></c:url>" <c:if test='${pm.cri.region == "충청남도"}'>class="selected"</c:if>>충청남도</a> 
+						<a href="<c:url value='/gather/list?region=광주광역시'></c:url>" <c:if test='${pm.cri.region == "광주광역시"}'>class="selected"</c:if>>광주 광역시</a> 
+						<a href="<c:url value='/gather/list?region=강원도'></c:url>" <c:if test='${pm.cri.region == "강원도"}'>class="selected"</c:if>>강원도</a> 
+						<a href="<c:url value='/gather/list?region=울산광역시'></c:url>" <c:if test='${pm.cri.region == "울산광역시"}'>class="selected"</c:if>>울산 광역시</a> 
+						<a href="<c:url value='/gather/list?region=제주특별자치도'></c:url>" <c:if test='${pm.cri.region == "제주특별자치도"}'>class="selected"</c:if>>제주 특별 자치도</a> 
+						<a href="<c:url value='/gather/list?region=세종특별자치도'></c:url>" <c:if test='${pm.cri.region == "세종특별자치도"}'>class="selected"</c:if>>세종 특별 자치도</a>
 					</div>
 				</div>
 				<div class="make_rc_box">
@@ -124,6 +124,7 @@
 															</c:if>
 														</c:forEach>
 													</div>
+											</a>
 													<div class="study_content">
 														<div class="study_recruiting">
 															<span>모집중</span> 
@@ -131,7 +132,7 @@
 															<span>/</span> 
 															<span>${stList.get(index).st_total_people}</span>
 														</div>
-														<div class="want_icon">
+														<div class="want_icon" data-num="${stList.get(index).st_num }">
 															<c:if test="${user == null}" >
 																<div class="unlike_img"></div>
 															</c:if>
@@ -145,7 +146,8 @@
 															</c:if>
 														</div>
 													</div>
-												</a>
+												
+											
 										</li>
 									</c:if >
 								</c:forEach>
@@ -243,4 +245,44 @@ $(document).on('click','.hashTag', function(){
 	$('.search_tag').eq(0).remove();
 	$('#gather_form').submit();
 })
+
+//모집글 좋아요
+const userId = '${user.me_id}'; 
+
+$(document).ready(function() {
+  $('.want_icon').on('click', function() {
+	  const  studyNum = $(this).data('num');
+	want(studyNum);
+  });
+  
+  function want(studyNum) {
+	    // 데이터
+	    var requestData = {
+	      wa_me_id: userId,
+	      st_num: studyNum
+	    };
+	    $.ajax({
+	      url: '<c:url value="/wantst" />',
+	      type: 'POST',
+	      contentType: "application/json",
+	      data: JSON.stringify(requestData),
+	      success: function(response) {
+	        if (response && response.wantState === 1) {
+	        	 $('.unlike_img').removeClass('unlike_img').addClass('like_img');
+	        	 location.reload();
+	          alert('스터디를 찜 했습니다.');
+	        } else if (response && response.wantState === 0) {
+	        	 $('.like_img').removeClass('like_img').addClass('unlike_img');
+	        	 location.reload();
+	          alert('스터디 찜을 취소 했습니다.');
+	        }
+	      },
+	      error: function(error) {
+	    	  console.log(error)
+	        alert('찜에 실패하였습니다. 다시 시도해주세요');
+	      }
+	      
+	    });
+	  }
+	});
 </script>

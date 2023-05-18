@@ -50,46 +50,36 @@ public class MypageController {
 	//[마이페이지 홈]
 	@GetMapping("")
 	public ModelAndView mypage(ModelAndView mv, MemberVO member, HttpSession session) {
+		// 현재 로그인한 사용자 정보를 가져옴
 		MemberVO user = (MemberVO)session.getAttribute("user");
+		// 현재 로그인한 사용자의 아이디를 userId에 담는다
 		String userId = user.getMe_id();
-		System.out.println(1);
+		
 		// 이용시간 안내
 		ReservationVO res = reservationService.getMyReservation(1, userId);
-		System.out.println(2);
+		
 		//나의 펫 데려오기
 		GrowthVO myPet = mypageService.selectMyPet(userId);
-		System.out.println(3);
+		
+		// 나의 펫이 존재하면...
 		if(myPet != null) {
 			// 레벨업까지의 경험치 정보
-				// 현재 레벨
-				int currentLevel = myPet.getGr_level();
-				// 현재 경험치
-				int currentExp = myPet.getGr_exp();
-				// 레벨업까지의 최대 경험치
-				int	levelUpExp = mypageService.getLevelUpExp(currentLevel);	
-				// 전 레벨의 최대 경험치
-				int exExp;
-					// 레벨 1이면 그대로
-					if(currentLevel == 1) {
-						exExp = levelUpExp;
-					}else {
-						exExp = mypageService.getLevelUpExp(currentLevel-1);
-						currentExp -= exExp;
-					}		
-				
-				// 레벨업까지의 경험치(화면에 뿌려줄 최대 경험치 값)
-					// 레벨 1이 아니면..
-					if(currentLevel != 1) {					
-						levelUpExp = levelUpExp - exExp;
-					}		
-			mv.addObject("currentLevel", currentLevel);
+			// 현재 레벨
+			int currentLevel = myPet.getGr_level();
+			// 현재 누적경험치
+			int currentExp = myPet.getGr_exp();
+			// 현재 레벨의 최대경험치
+			int	levelUpExp = mypageService.getLevelUpExp(currentLevel);	
+			// 레벨 2이상이면 경험치 데이터를 누적->현재 레벨 시점으로 수정
+			if(currentLevel >= 2) {
+				// 이전 레벨의 최대경험치
+				int exExp = mypageService.getLevelUpExp(currentLevel-1);
+				currentExp -= exExp;
+				levelUpExp -= exExp;
+			}
+//			mv.addObject("currentLevel", currentLevel);
 			mv.addObject("currentExp", currentExp);
 			mv.addObject("levelUpExp", levelUpExp);
-			mv.addObject("exExp", exExp);	
-			
-			// 내 펫 경험치 가져오기
-			GrowthVO petExp = mypageService.selectPetExp(userId); 
-			mv.addObject("petExp",petExp);
 		}
 		
 		// 펫

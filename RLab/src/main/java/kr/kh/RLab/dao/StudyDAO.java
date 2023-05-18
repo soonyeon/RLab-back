@@ -15,6 +15,7 @@ import kr.kh.RLab.vo.PhotoTypeVO;
 import kr.kh.RLab.vo.PhotoVO;
 import kr.kh.RLab.vo.StudyMemberVO;
 import kr.kh.RLab.vo.StudyVO;
+import kr.kh.RLab.vo.TagRegisterVO;
 import kr.kh.RLab.vo.TodoVO;
 
 public interface StudyDAO {
@@ -97,7 +98,7 @@ public interface StudyDAO {
 
 	ArrayList<StudyMemberVO> selectStudyMemberByStNum(int st_num);
 
-	ArrayList<PhotoVO> selectPhotoPhNumTwo(int st_num);
+	ArrayList<PhotoVO> selectPhotos(int st_num);
 
 	ArrayList<MemberVO> selectMember(int st_num);
 
@@ -151,6 +152,7 @@ public interface StudyDAO {
 
 	ArrayList<MemberVO> selectMemberByMemberId(String me_id);
 
-	int selectLeaderCount(String me_id);
+	MissionVO selectTodayMission(int st_num);
 
+	int selectLeaderCount(String me_id);
 }

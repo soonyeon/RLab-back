@@ -154,12 +154,13 @@
 </main>
 
 <script> <!-- 화면 구성 -->
-let ticketStrArr = [];
-let ticketArr = [];
+let ticketStrArr = []; //화면 출력용 html코드 배열
+let ticketArr = []; //결제용 PayDetailVO 배열
 let totalPrice = 0;
 
 showTicketList();
 
+//선택한 티켓정보를 티켓 배열에 추가
 $('.ticket_time').click(function(){
 	let type = $(this).parent().siblings('.ticket_title').text();
 	type = type!='' ? type : '사물함 이용권';
@@ -177,7 +178,7 @@ $('.ticket_time').click(function(){
 	addTicket(ticket);
 	calcTotalPrice();
 });
-
+// x누르면 티켓 삭제
 $(document).on('click','.btn-close', function(){
 	let ticketNum = $(this).parent().parent().data('num');
 	for(index in ticketArr){
@@ -189,7 +190,7 @@ $(document).on('click','.btn-close', function(){
 		}
 	}
 });
-
+//티켓 장수 바꾸면 반영
 $(document).on('change','[name=ticket_count]',function(){
 	let ticketNum = $(this).parent().parent().data('num');
 	let count = +$(this).val();
@@ -199,7 +200,7 @@ $(document).on('change','[name=ticket_count]',function(){
 	}
 	calcTotalPrice();
 });
-
+//사용할 포인트 입력 이벤트
 $('[name=pa_used_point]').change(function(){
 	if($('[name=total_price]').text()=='0' && $('[name=pa_used_point]').val()>0){
 		alert('결제 금액이 0원입니다.');
@@ -212,13 +213,13 @@ $('[name=pa_used_point]').change(function(){
 	calcTotalPrice();
 })
 
-
-//최종 결제금액 구하기
+/****************************************************/
+//최종 결제금액 구하는 함수
 function calcFinalPrice(totalPrice){
 	finalPrice = totalPrice - $('[name=pa_used_point]').val();
 	$('[name=final_price]').text(finalPrice.toLocaleString());
 }
-//총 결제금액 구하기
+//총 결제금액 구하는 함수
 function calcTotalPrice(){
 	let total = 0;
 	for(i=0;i<ticketArr.length;i++){
@@ -231,14 +232,14 @@ function calcTotalPrice(){
 	
 	return;
 }
-//선택된 이용권 리스트 보여줌
+//선택된 이용권 리스트를 html에 반영하는 함수
 function showTicketList(){
 	let tmpStr = '';
 	for(i=0;i<ticketStrArr.length;i++)
 		tmpStr += ticketStrArr[i];
 	$('.selected_tickets').html(tmpStr);
 }
-//이용권 선택 시 이용권 정보 및 쿼리 추가
+//선택된 이용권 정보를 코드와 결제 정보에 추가하는 함수
 function addTicket(ticket){
 	for(index in ticketArr){
 		if(ticketArr[index].num == ticket.num){
@@ -257,13 +258,14 @@ function addTicket(ticket){
 				'<input type="number" min="0" name="ticket_count" class="ticket_count" value='+ticket.count+'>'+
 			'</div>'+
 		'</div>';
-	
-	if(ticketArr.length==0){
+	// 첫 등록때는 정렬할 필요 없이 등록
+	if(ticketArr.length==0){ 
 		ticketArr.push(ticket);
 		ticketStrArr.push(tmpStr);
 		showTicketList();
 		return;		
 	}
+	// 티켓 번호 순으로 정렬되도록 알맞은 자리에 등록
 	for(index in ticketArr){
 		if(ticketArr[index].num > ticket.num){
 			ticketArr.splice(index, 0, ticket);
@@ -285,7 +287,7 @@ var hours = today.getHours(); // 시
 var minutes = today.getMinutes();  // 분
 var seconds = today.getSeconds();  // 초
 var milliseconds = today.getMilliseconds();
-var makeMerchantUid = '${user.me_id}' + hours +  minutes + seconds + milliseconds;
+var makeMerchantUid = '${user.me_id}' + hours +  minutes + seconds + milliseconds; // 주문번호 생성
 
 var items = [];
 let finalName = '';
@@ -294,6 +296,7 @@ var finalPrice = 0;
 let itemsForDb = [];
 let usedPoint = +$('[name=pa_used_point]').val();
 
+// 선택된 이용권 배열을 이용해 결제api 양식에 맞춰 items배열 생성하는 함수
 function makeItemList(){
 	items = [];
 	for(i=0; i<ticketArr.length; i++){
@@ -305,11 +308,13 @@ function makeItemList(){
 		}
 		items.push(item);
 	}
+	// 이용권이 2개 이상일 경우 결재내용을 '~외 n건'으로 설정
 	if(items.length==1)
 		finalName = items[0].name;
 	else if(items.length > 1)
 		finalName = items[0].name +' 외 '+ (items.length-1) +'건';
 }
+// db에 저장하기 위해 items배열의 값들을 VO필드명에 맞춰서 배열 생성
 function makeItemVoList(){
 	itemsForDb = [];
 	for(i in items){
@@ -325,7 +330,6 @@ function makeItemVoList(){
 let response ;
 /* 결제 진행 */
 $('#pay_btn').click(function(){
-	//console.log(makeMerchantUid);
 	makeItemList();//주문용 리스트 생성
 	makeItemVoList();//DB전달용 VO리스트 생성
 	console.log(itemsForDb);
@@ -339,7 +343,7 @@ $('#pay_btn').click(function(){
 			itemList: itemsForDb			
 	}
 	console.log(payDto);
-	//ajax로 어씽크false로 해서 db에 등록하기
+	//ajax로 어씽크false로 해서 DB에 등록하기
 	$.ajax({
         async:false,
         type: 'POST',
@@ -352,7 +356,7 @@ $('#pay_btn').click(function(){
         }
 	});
 	try {
-		response = Bootpay.requestPayment({
+		response = Bootpay.requestPayment({ //아래 정보를 가지고 결제를 진행함
 	   		"application_id": "642d26f2755e27001dad6270",
 	   		"price": finalPrice,
 	   		"order_name": finalName,
@@ -369,24 +373,22 @@ $('#pay_btn').click(function(){
 	   		  "card_quota": "0,2,3",
 	   		  "escrow": false
 	   		}
-	    }).then((response)=>{
+	    }).then((response)=>{ //결제를 진행한 이후 return값(성공/에러/취소 등)에 따른 처리
 	    	console.log(response);
 			switch (response.event) {
 		        case 'issued':// 가상계좌 입금 완료 처리
 		            break
 		        case 'done':// 결제 완료 처리
-		            //비즈니스 로직을 수행하기 전에 결제 유효성 검증을 하길 추천함!
-					//location.replace("/pay/confirm?receipt_id="+response.receipt_id);
-					//location.replace("/reservation/buy/"+);
+		            //(비즈니스 로직을 수행하기 전에 결제 유효성 검증을 하길 추천함!)
 		            console.log('결제완료');
+		        	//결제과정은 DB와 별도로 진행되기때문에 진행된 결제의 고유 영수증번호(receipt_id)를 통해 해당 데이터를 가져와야함->그걸 링크로 보냄
 					location.replace('<c:url value="/receipt/'+response.data.receipt_id+'"></c:url>');
 		            break;
 		        case 'confirm': //payload.extra.separately_confirmed = true; 일 경우 승인 전 해당 이벤트가 호출됨
 		            console.log(response.receipt_id)
 		        	console.log(response);
-		            /* 1. 클라이언트 승인을 하고자 할때
-		             * // validationQuantityFromServer(); //예시) 재고확인과 같은 내부 로직을 처리하기 한다.
-		             */
+		            //1. 클라이언트 승인을 하고자 할때
+		            // validationQuantityFromServer(); //예시) 재고확인과 같은 내부 로직을 처리하기 한다.
 		            const confirmedData = Bootpay.confirm() //결제를 승인한다
 		            if(confirmedData.event === 'done') {
 		                //결제 성공
@@ -405,13 +407,14 @@ $('#pay_btn').click(function(){
 	        	let canceledData = {
 	        			pa_order_id : makeMerchantUid
 	        	};
+	        	//결제 취소할 경우 앞에서 DB에 등록했던거 다시 삭제
 	        	$.ajax({
 	                async:false,
 	                type: 'POST',
 	                data: JSON.stringify(canceledData),
 	                url: '<c:url value="/cancel"></c:url>',
-	                dataType:"json", //success에 있는 data타입(주는거)
-	                contentType:"application/json; charset=UTF-8", //위에있는 data타입(받는거)
+	                dataType:"json", 
+	                contentType:"application/json; charset=UTF-8", 
 	                success : function(data){
 	                	console.log('사전데이터 DB삭제완료');
 	                }
@@ -425,8 +428,8 @@ $('#pay_btn').click(function(){
 	                type: 'POST',
 	                data: JSON.stringify(canceledData),
 	                url: '<c:url value="/cancel"></c:url>',
-	                dataType:"json", //success에 있는 data타입(주는거)
-	                contentType:"application/json; charset=UTF-8", //위에있는 data타입(받는거)
+	                dataType:"json",
+	                contentType:"application/json; charset=UTF-8",
 	                success : function(data){
 	                	console.log('사전데이터 DB삭제완료');
 	                }
@@ -449,52 +452,5 @@ $('#pay_btn').click(function(){
 	            break
 	    }
 	}
-	/* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-	const response = BootPay.request({
-		price: totalPrice,//실제 결제되는 가격
-		application_id: "642d26f2755e27001dad6270",
-		name : finalName, //결제창에서 보여질 이름
-		pg: "이니시스",
-		method: "card", //결제수단, 입력하지 않으면 결제수단 선택부터 화면이 시작
-		show_agree_window: 0, //부트페이 정보동의창 보이기 여부
-		item: [
-			{
-				item_name: item.name, //상품명 ****
-				qty: 1, //수량
-				unique: item.id.toString(), //해당상품을 구분짓는 primary key
-				price: item.price, //상품단가
-			}
-		],
-		order_id: order.id, //고유 주문번호로, 생성한 값을 넣을 것
-	}).error(function(data){
-		//결제 진행 시 에러가 발생하면 수행
-		console.log(data);
-		location.replace("pay/delete?id="+order.id);//DB값 삭제
-	}).ready(function(data){
-		//가상계좌 입금 계좌번호가 발급되면 호출되는 함수
-		console.log(data);
-	}).confirm(function(data){
-		//결제가 실행되기 전에 수행되며, 주로 재고를 확인하는 로직이 들어감
-		//주의 - 카드 수기결제일 경우 이부분 실행되지 않음.
-		console.log(data);
-		var enable = true; //재고 수량 관리 로직 혹은 다른 처리
-		if(enable){
-			BootPay.transactionConfirm(data);//조건이 맞으면 승인처리함
-		}else{
-			BootPay.removePaymentWindow(); //조건이 맞지 않으면 결제창을 닫고 승인X
-		}
-	}).cancle(function(data){
-		//결제가 취소되면 수행됨
-		console.log(data);
-		location.replace("pay/delete?id="+order.id); //DB값 삭제
-	}).close(function(data){
-		//결제창이 닫힐 때 수행됨(성공,실패,취소에 상관없이 모두 수행됨)
-		console.log(data);
-	}).done(function(data){
-		//결제가 정상적으로 완료되면 수행됨
-		//비즈니스 로직을 수행하기 전에 결제 유효성 검증을 하길 추천함!
-		location.replace("pay/confirm?receipt_id="+data.receipt_id);
-		console.log(data);
-	}); */
 });
 </script>

@@ -4,12 +4,17 @@
 
 
 .clearfix{
-	margin: 0px !important;
+
+	margin-top: 70px !important;
+    display: flex;
+    justify-content: center;
+
+	
 }
 main{
   margin-top: 0px !important;
 }
-/* ----------------------------------------------------------------- */
+/* --------------------------------------------------------------- */
 .main_container{
   width: 1200px;
   margin: auto;
@@ -22,6 +27,7 @@ main{
 }
 
 .reservation_btn{
+  font-family: var(--font_main);
   width: 100px;
   height: 100px;
   border-radius: 50px;
@@ -30,10 +36,11 @@ main{
   line-height: 105px;
   font-weight: bold;
   position: fixed;
-  top: 500px;
+  bottom:50px;
   right: 20px;
   z-index: 90;
 }
+.main_area{margin-top: 62px;}
 .main_banner{
   position:absolute;
   left:150px;
@@ -50,10 +57,6 @@ main{
 .main_area_box{
 	height:450px;
 }
-
-
-
-
 
 .slide_wrapper{
   overflow: hidden;
@@ -190,6 +193,7 @@ main{
 .info_left, .info_right{width: 585px;}
 .title_box2{padding-bottom: 20px;}
 [class^=title_box]{
+  font-family: var(--font_main);
   font-size: 25px;
   font-weight: bold;
   padding-left: 10px;
@@ -203,7 +207,7 @@ main{
 }
 
 /* info_top-right */
-.spot_banner_box{
+.info_right .spot_banner_box{
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
@@ -211,8 +215,8 @@ main{
   padding-right: 5px;
   height: 595px;
 }
-.spot_content{padding: 3px 10px;}
-.spot_item{
+.info_right .spot_content{padding: 3px 10px;}
+.info_right .spot_item{
   border-radius: 10px;
   border: var(--border_basic);
   background-color: white;
@@ -220,23 +224,23 @@ main{
   height: 283px;
   width:274.7px;
 }
-.spot_name{
+.info_right .spot_name{
   font-size: 17px;
   font-weight: bold;
-  padding: 0px 0px 5px 0px;
+  padding: 0px 0px 8px 0px;
 }
-.spot_road_address{
-  height:36px;
+.info_right .spot_road_address{
+  height:32px;
   overflow:hidden;
 }
-.spot_address{font-size: 14px;} 
-[class^=spot_img]{
-  border-top-right-radius: 6px;
+.info_right .spot_road_address, .info_right .spot_tel{font-size: 12px;} 
+/*.info_right [class^=spot_img]{
+   border-top-right-radius: 6px;
   border-top-left-radius: 6px;
   display: inline-block; width: 275.012px; height: 188.613px;
-  background-size:278.012px 188.613px;
-  background-image: url(../../img/study_thumb.jpeg);
-}
+  background-size:278.012px 188.613px; 
+  background-image: url(../../img/study_thumb.jpeg); 
+}*/
 .spot_hidden_box{
   display:none;
 }
@@ -252,25 +256,28 @@ main{
   z-index: 95;
 }
 .spot_modal_container .spot_img_area{
-  display: flex;
-  flex-direction: column-reverse;
+  /* display: flex;
+  flex-direction: column; */
   width: 1200px;
   height: 614px;
-  /* background-position: 100%; */
-  background-image: url(../../img/spot.jpg);
-  background-repeat: no-repeat;
+/*   background-image: url(../../img/spot.jpg);*/
+/*   background-repeat: no-repeat; */
   background-size: 1200px;
-  margin: 200px auto 0px;
+  margin: 200px auto 0px; 
 }
 
 .spot_modal_container .info_area{
   display: flex;
   flex-direction: row;
   color: white;
+  width:1150px;
   height: 200px;
   background-color: rgba(12, 12, 12, 0.556);
   padding: 25px;
   justify-content: space-between;
+  position: absolute;
+  top: 566px;
+  
 }
 .spot_modal_container .spot_name{
   font-size: 26px;
@@ -349,13 +356,13 @@ main{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  /* height: 52px; */
+  height: 45.938px;
   overflow: hidden;
   padding-bottom: 5px;
 }
 .recruit_banner_tag span{
   font-size: 12px;
-  padding: 3px 8px 6px;
+  padding: 4px 8px 7px;
   margin: 2px;
   height: 10px;
   border-radius: var(--border_radius_3);
@@ -371,8 +378,8 @@ main{
 .recruit_banner_title{
   font-size: 17px;
   font-weight: bold;
-  margin: 8px 0px 15px 0px;
-  height: 42px;
+  margin: 14px 0px 15px 0px;
+  height: 25px;
   overflow: hidden;
 }
 .recruit_banner_btn{
@@ -384,14 +391,16 @@ main{
 }
 .like_btn{
   width: 50px;
+  height: 43.333px;
   background-size: 45px 45px;
-  background-image: url(../../img/like_on_red.png);
+  background-image: url('../../img/like_on_red.png');
   background-repeat: no-repeat;	
 }
 .unlike_btn{
   width: 50px;
+  height: 43.333px;
   background-size: 45px 45px;
-  background-image: url(../../img/love_off.png);
+  background-image: url('../../img/love_off.png');
   background-repeat: no-repeat;		
 }
 
@@ -469,38 +478,19 @@ main{
   position: absolute;
 }
   .event_banner{
-  /* width: 580px; */
   width:575.1px;
+  height: 245px;
   text-align: center;
   border-radius: 10px;
   border: var(--border_basic);
-  /* margin-right: 40px; */
   margin-right: 35px;
   float: left;
 }
-.event_img1{
-  width: 100%;
+.event_banner img{
   border-radius: 10px;
-  display: inline-block;
-  /* width: 579.996px;  */
-  height:245.930px; 
-  margin-right: 10px;
-  background-size:579.996px 245.930px;
-  background-image: url(../../img/event_thumb.png);
+  width: 575px;
+  height: 246px;
 }
-.event_img2{
-  width: 100%;
-  border-radius: 10px;
-  display: inline-block;
-  /* width: 579.996px;  */
-  height:245.930px; 
-  margin-right: 10px;
-  background-size:579.996px 245.930px;
-  background-image: url(../../img/event_thumb2.png);
-}
-
-
-
 .event_btn_left{position:absolute; top:150px; left:-100px;}
 .event_btn_right{position:absolute; top:150px; right:-100px}
 

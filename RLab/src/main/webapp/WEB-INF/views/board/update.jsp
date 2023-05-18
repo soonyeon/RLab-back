@@ -51,10 +51,8 @@
               	<input type="hidden" name="bo_me_id" value="${memberId}">
                 <input type="hidden" name="bo_st_num" value="${bd.bo_st_num}">
                 <h2>스터디명</h2> 
-                <select id="choose_study" name="bo_st_num" disabled="disabled">
-                	<c:forEach var="study" items="${study}">
-                		<option value="${study.st_num}" <c:if test="${bd.bo_st_num == study.st_num }">selected</c:if>>${study.st_name}</option>>
-           			</c:forEach>
+                <select id="choose_study" name="bo_st_num">
+                		<option value="${studies.st_num}">${studies.st_name}</option>
                 </select> 
                 <h2>제목</h2> 
                 <div class="recruit_title_box"> 

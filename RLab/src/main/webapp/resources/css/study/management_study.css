@@ -173,6 +173,16 @@ main #main_container{
   box-shadow: 3px 3px 3px rgba(92, 92, 92, 0.315);
   cursor: pointer;
 }
+.study_box .btn_edit{
+  width: 200px;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 15px;
+  border: none;
+  border-radius: var(--border_radius_2);
+  box-shadow: 3px 3px 3px rgba(92, 92, 92, 0.315);
+  cursor: pointer;
+}
 .study_box .btn_finish{
   background-color: var(--color_mint);
 }

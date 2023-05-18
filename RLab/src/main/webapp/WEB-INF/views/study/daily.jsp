@@ -5,9 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 
-<link rel="stylesheet"
-	href="<c:url value='/resources/css/study/certification_board.css'></c:url>">
-	<link rel="stylesheet" href="<c:url value='/resources/css/common.css'></c:url>">
+<link rel="stylesheet" href="<c:url value='/resources/css/study/photo.css'></c:url>">
 <link rel="stylesheet" href="<c:url value='/resources/css/study/study.css'></c:url>">
 <link rel="stylesheet" href="<c:url value='/resources/css/study/daily.css'></c:url>">
 <c:set var="now" value="<%=new Date()%>" />
@@ -104,14 +102,26 @@
 			<div id="modal" class="modal">
 				<div class="modal-content">
 				    <span class="close">&times;</span>
+				    <c:if test="${mission == null }">
 				    <h2>미션내용 등록하기</h2>
 					    <form>
 					        <label for="content">미션내용입력:</label>
 					        <textarea id="content" name="content" rows="4" cols="50" maxlength="100" placeholder="내용은 100자 이내"></textarea>
 					        <br>
 					    	 <button class="mission_up">등록하기</button>
+					    		
+						</form>
+					</c:if>	
+					<c:if test="${mission != null }">
+					<h2>미션내용 수정하기</h2>
+					    <form>
+					        <label for="content">미션내용입력:</label>
+					        <textarea id="content" name="content" rows="4" cols="50" maxlength="100" value="${mission.mi_content}" ></textarea>
+					        <br> 
 					    	 <button class="mission_edit">수정하기</button>			
 						</form>
+					</c:if>
+					
 				 </div>
 			</div>
 			
@@ -308,6 +318,7 @@ $(".mission_edit").click(function(e){
     });
 });
 
+$(content).text('${mission.mi_content}');
 
 
 

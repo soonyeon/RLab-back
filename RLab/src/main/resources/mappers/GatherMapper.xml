@@ -157,4 +157,31 @@
 	where
 		me_id = #{me_id}
 </update>
+<select id="selectStudyByStNum" resultType="kr.kh.RLab.vo.StudyVO">
+	select * from study where st_num = #{st_num}
+</select>
+<select id="selectFileByStNum" resultType="kr.kh.RLab.vo.FileVO">
+	select * from file where fi_ex_num=#{st_num} and fi_table = "study"
+</select>
+<select id="selectTagListByStNum" resultType="String">
+	select tr_name from tag_register where tr_st_num = #{st_num}
+</select>
+<update id="updateStudy">
+	update study
+	set 
+		st_name = #{study.st_name},
+		st_info = #{study.st_info},
+		st_total_people = #{study.st_total_people},
+		st_re_name = #{study.st_re_name}
+	where
+		st_num = #{st_num}		
+</update>
+<delete id="deleteTagByStNum">
+	delete from tag_register
+	where tr_st_num = #{st_num}
+</delete>
+<delete id="deleteFileByStNum">
+	delete from file
+	where fi_num = #{fileNums}
+</delete>
 </mapper>
