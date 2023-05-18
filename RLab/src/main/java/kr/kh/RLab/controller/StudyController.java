@@ -217,11 +217,11 @@ public class StudyController {
 	    //board
 	    ArrayList<BoardVO> boardList = boardService.selectBoardListByStNum(st_num);
 	    mv.addObject("boardList", boardList);
-	    System.out.println("=========================================="+boardList);
 		
 		ArrayList<TodoVO> tdList = studyService.getTodoList(user.getMe_id());
 		mv.addObject("tdList", tdList);
 		ArrayList<PhotoVO> photo = studyService.selectPhotos(st_num);
+		System.out.println(photo);
 		
 		mv.addObject("photo", photo);
 		mv.addObject("st_num", st_num);
