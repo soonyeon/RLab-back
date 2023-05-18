@@ -5,9 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 
-<link rel="stylesheet"
-	href="<c:url value='/resources/css/study/certification_board.css'></c:url>">
-	<link rel="stylesheet" href="<c:url value='/resources/css/common.css'></c:url>">
+<link rel="stylesheet" href="<c:url value='/resources/css/study/photo.css'></c:url>">
 <link rel="stylesheet" href="<c:url value='/resources/css/study/study.css'></c:url>">
 <link rel="stylesheet" href="<c:url value='/resources/css/study/daily.css'></c:url>">
 <c:set var="now" value="<%=new Date()%>" />
