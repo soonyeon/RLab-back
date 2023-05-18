@@ -112,7 +112,7 @@
                 </div>  
                 </div>
                 <!-- 이용 시간 -->
-                <!-- 현재 시간 가져오기 -->
+                <!-- 좌석 예약 정보가 없으면... -->
                 <c:if test="${res == null}">
                 	<div id="used_hours">
 		            	<div class="title">
@@ -122,9 +122,11 @@
 		                    	<a class="res_btn" href="<c:url value='/reservation'></c:url>">이용권 예약</a>
 		                    </p>
 		       			</div>
+		       			
 		        		<div class="gauge gauge_used_hours" style= "background-color:#c1c1c1"></div>
 		        	</div>
                 </c:if>
+                <!-- 좌석 예약 정보가 있으면... -->
 				<c:if test="${res != null}">
 		        	<div id="used_hours">
 		            	<div class="title">
@@ -133,9 +135,10 @@
 		                      <strong>~ ${res.re_valid_time_str2}</strong>
 		                    </p>
 		        		</div>
-		                	<div class="gauge gauge_used_hours">
-		                	<div class="gauge_colored use_time_colored"></div>
-		               	</div>
+		        		
+	                	<div class="gauge gauge_used_hours">
+	                		<div class="gauge_colored use_time_colored"></div>
+	               		</div>
 		          	</div>
 	            </c:if>
 				<!-- 펫 경험치 -->
@@ -501,45 +504,45 @@
 		});
 </script>
 <script> <!-- 내 정보란 -->
-    // 이용시간
-   	function updateGauge(resStart, resValid, now){
-		if(now >= resStart){
-			var elapsedTime = now.getTime() - resStart.getTime();
-			var totalTime = resValid.getTime() - resStart.getTime();
-			var percentage = elapsedTime / totalTime * 100;
-			$('.use_time_colored').width(percentage + '%');
-		}
+   // 이용시간
+  	function updateGauge(resStart, resValid, now){
+	if(now >= resStart){
+		var elapsedTime = now.getTime() - resStart.getTime();
+		var totalTime = resValid.getTime() - resStart.getTime();
+		var percentage = elapsedTime / totalTime * 100;
+		$('.use_time_colored').width(percentage + '%');
 	}
-	$(document).ready(function(){
-		var now = new Date();
-		
-		//페이지 진입 시 예약권이 있으면 시간을 계산함
-		if(${res != null}){
-    		var resStart = '${res.re_start_time}';
-    		var resValid = '${res.re_valid_time}';
-    		
-    		intervalId = setInterval(function(){
-    			
-    			$.ajax({
-    				url: '<c:url value="/mypage/timeGauge" />',
-    				type: "GET",
-    				success: function(data){
-    					console.log(1);
-    					//페이지에 있는 도중 예약권이 다 되면 새로고침하며 이용권 만료 메세지 보여줌
-    					if(data==''){
-    						clearInterval(intervalId);
-    						location.href = '<c:url value="/mypage"></c:url>';
-    						return;
-    					}
-    					resStart = new Date(data.re_start_time);
-    					resValid = new Date(data.re_valid_time);
-    					updateGauge(resStart, resValid, now);
-    				}
-    			});
-    		}, 1000); // 1초마다 업데이트
-   		}
-    });
-    let intervalId;	
+}
+$(document).ready(function(){
+	var now = new Date();
+	
+	//페이지 진입 시 예약권이 있으면 시간을 계산함
+	if(${res != null}){
+   		var resStart = '${res.re_start_time}';
+   		var resValid = '${res.re_valid_time}';
+   		
+   		intervalId = setInterval(function(){
+   			
+   			$.ajax({
+   				url: '<c:url value="/mypage/timeGauge" />',
+   				type: "GET",
+   				success: function(data){
+   					console.log(1);
+   					//페이지에 있는 도중 예약권이 다 되면 새로고침하며 이용권 만료 메세지 보여줌
+   					if(data==''){
+   						clearInterval(intervalId);
+   						location.href = '<c:url value="/mypage"></c:url>';
+   						return;
+   					}
+   					resStart = new Date(data.re_start_time);
+   					resValid = new Date(data.re_valid_time);
+   					updateGauge(resStart, resValid, now);
+   				}
+   			});
+   		}, 1000); // 1초마다 업데이트
+  		}
+   });
+   let intervalId;	
     
     // 펫 경험치에 따른 게이지 변화
   	$(document).ready(function(){

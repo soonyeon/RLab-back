@@ -56,8 +56,8 @@ public class MypageController {
 		String userId = user.getMe_id();
 		
 		// 나의 예약 정보
+		// 좌석(1) 정보를 가져오는 메소드
 		ReservationVO res = reservationService.getMyReservation(1, userId);
-		//ReservationVO res = reservationService.getMyReservation(2, userId);
 		
 		// 나의 펫 정보
 		GrowthVO myPet = mypageService.selectMyPet(userId);
