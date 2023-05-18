@@ -56,9 +56,9 @@
 						<li class="main_banner_item">
 							<a href="/RLab/notice/detail/2"value=""><img src="/RLab/download/banner/main_banner02.png">
 								<div class="banner_text_box">
-									<span class="banner_icon">스터디 모임</span>
-									<div class="banner_text_main"  style="color: black">자바 코딩테스트<br>함께 준비해요</div>
-									<div class="banner_text_sub" style="color: black">#자바 #코딩테스트 #합격<br>#동료여어디계신가요?</div>
+									<span class="banner_icon" style="background-color: rgb(27 214 26);">스터디 모임</span>
+									<div class="banner_text_main">자바 코딩테스트<br>함께 준비해요</div>
+									<div class="banner_text_sub">#자바 #코딩테스트 #합격<br>#동료여어디계신가요?</div>
 								</div>
 							</a>
 						</li>
@@ -82,9 +82,8 @@
         <article class="info_area_top">
           <!-- info_left(notice) -->
           <div class="info_left">
-            <div class="title_box">공지사항</div>
-            <div class="notice_banner_img">
-            </div>
+            <a href="/RLab/notice/list"><div class="title_box">공지사항</div></a>
+            <a href="/RLab/notice/list"><div class="notice_banner_img"></div></a>
           </div>
   
           <!-- info_right(spot) -->
@@ -121,7 +120,7 @@
         <!-- info_bottom(recruit) -->
         <article class="info_area_bottom">
           <div class="recruit_btn_left"></div>
-          <div class="title_box2">스터디 모집 공고</div>
+          <a href="/RLab/gather/list"><div class="title_box2">스터디 모집 공고</div></a>
           	<div class="recruit_box">
 	          <div class="recruit_box_container">
 	          	<c:if test="${stList.size() != 0}">
