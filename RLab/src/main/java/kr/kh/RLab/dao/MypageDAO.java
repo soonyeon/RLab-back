@@ -24,8 +24,6 @@ public interface MypageDAO {
 		ReservationVO selectRes(String userId);
 		
 		// 펫 경험치
-		GrowthVO selectPetEx(String userId);	
-		
 		int selectLevelUpExp(int currentLevel);
 		
 		int updateExp(@Param("currentEx")int currentEx, @Param("userId")String userId);

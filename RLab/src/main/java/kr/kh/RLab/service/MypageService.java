@@ -21,8 +21,6 @@ public interface MypageService {
 		ReservationVO getRes(String userId);
 	
 	//[마이페이지 홈 > 펫 경험치]
-		GrowthVO getPetEx(String userId);
-		
 		int getLevelUpExp(int currentLevel);
 		
 		int updateExp(int currentEx, String userId);

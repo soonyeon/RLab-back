@@ -44,14 +44,6 @@ public class MypageServiceImp implements MypageService {
 	
 	//[마이페이지 홈 > 펫 경험치]
 	@Override
-	public GrowthVO getPetEx(String userId) {
-		if (userId == null) {
-			return null;
-	    }
-		return mypageDao.selectPetEx(userId);
-	}
-	
-	@Override
 	public int getLevelUpExp(int currentLevel) {
 		return mypageDao.selectLevelUpExp(currentLevel);
 	}
