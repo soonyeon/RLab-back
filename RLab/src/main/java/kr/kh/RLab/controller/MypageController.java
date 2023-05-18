@@ -89,16 +89,13 @@ public class MypageController {
 		
 		//적립 포인트 데이터 가져오기
 		int myPoint = mypageService.getMyPoint(userId);
-		System.out.println(5);
 		
 		//나의 예약 데이터 가져오기
 			//좌석 예약 정보 가져오기		
 			ReservationVO mySeat = mypageService.getMySeat(userId);
-			System.out.println(6);
 
 			//사물함 예약 정보 가져오기
 			ReservationVO myLocker = mypageService.getMyLocker(userId);
-			System.out.println(7);
 
 		//나의 스터디 데이터 가져오기
 		ArrayList<StudyVO> myStudyList = mypageService.getMainStudyList(userId);
