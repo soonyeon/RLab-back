@@ -170,9 +170,9 @@ public class ReservationServiceImp implements ReservationService {
 		if(myPet != null) {
 			//gr_exp 펫 누적경험치 추가(펫의 최대레벨에 해당하는 경험치를 넘어가면 안됨)
 			reservationDao.updatePetExp(book);
-			int exp = myPet.getGr_exp();
-			//펫의 누적경험치가 올라서 레벨업 필요하면 gr_level, gr_ev_num update
+			//펫의 누적경험치에 따라 해당되는 레벨로 gr_level 다시 세팅
 			reservationDao.updateMypetLevel(book.getRe_me_id());
+			//펫의 누적경험치에 따라 해당되는 레벨로 gr_ev_num 다시 세팅
 		}
 	}
 	
@@ -204,9 +204,9 @@ public class ReservationServiceImp implements ReservationService {
 		if(myPet != null) {
 			//gr_exp 펫 누적경험치 추가(펫의 최대레벨에 해당하는 경험치를 넘어가면 안됨)
 			reservationDao.updatePetExp(book);
-			int exp = myPet.getGr_exp();
-			//펫의 누적경험치가 올라서 레벨업 필요하면 gr_level, gr_ev_num update
+			//펫의 누적경험치에 따라 해당되는 레벨로 gr_level 다시 세팅
 			reservationDao.updateMypetLevel(book.getRe_me_id());
+			//펫의 누적경험치에 따라 해당되는 레벨로 gr_ev_num 다시 세팅
 		}
 	}
 
@@ -245,6 +245,11 @@ public class ReservationServiceImp implements ReservationService {
 	}
 	
 	@Override
+	/** 지점 번호와 예약분류번호(1=좌석/2=캐비닛)로 해당 지점의 좌석 위치, 예약가능 여부를 가져옴
+	 * @param int br_num - 지점 번호
+	 * @param int kind - 좌석/캐비닛을 구분하는 번호
+	 * @return 해당 지점의 좌석/캐비닛 리스트(SeatVO 리스트)
+	 */
 	public ArrayList<SeatVO> getBranchSeat(int br_num, int ki_num) {
 		return reservationDao.selectBranchSeat(br_num, ki_num);
 	}

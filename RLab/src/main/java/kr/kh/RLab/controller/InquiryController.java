@@ -37,7 +37,9 @@ public class InquiryController {
 		ArrayList<InquiryVO> inList = inquiryService.getAllInquiry(cri);
 		int totalCount = inquiryService.getInquiryTotalCount(cri);
 		PageMaker pm = new PageMaker(totalCount,1, cri);
+		// 분류별 검색을 위해 문의 분류 리스트를 가져옴
 		ArrayList<InquiryTypeVO> itList = inquiryService.getAllInquiryType();
+		// 답변완료된 문의글들의 in_num 리스트를 가져옴 -> 문의 완료 여부 표시용
 		ArrayList<Integer> answered = inquiryService.getAnsweredInNum();
 		mv.addObject("user", user);
 		mv.addObject("inList", inList);
@@ -65,12 +67,11 @@ public class InquiryController {
 	public ModelAndView list(ModelAndView mv, @PathVariable("in_num")int in_num, HttpSession session) {
 		InquiryVO in = inquiryService.getInquiryByInnum(in_num);
 		ArrayList<InquiryTypeVO> itList = inquiryService.getAllInquiryType();
-		ArrayList<Integer> answered = inquiryService.getAnsweredInNum();
+		//답변을 가져옴(in_ori_num이 in_num인 글)
 		InquiryVO ans = inquiryService.getInquiryAnswer(in_num);
 		mv.addObject("in", in);
 		mv.addObject("itList", itList);
 		mv.addObject("in_num", in_num);
-		mv.addObject("answered", answered);
 		mv.addObject("ans", ans);
 		mv.setViewName("/inquiry/detail");
 		return mv;
@@ -92,12 +93,12 @@ public class InquiryController {
 			msg = "로그인이 필요한 기능입니다. 로그인을 진행해주세요.";
 			url = "/inquiry/detail/"+in.getIn_num();
 		}else {
-			
-			InquiryVO pastIn = inquiryService.getInquiryByInnum(in.getIn_num());
-			if(pastIn.getIn_ori_num()!=0) {
+			//기존 게시글을 in_ori_num로 가지는 답변을 찾아옴
+			InquiryVO ans = inquiryService.getInquiryAnswer(in.getIn_num());
+			if(ans != null) {
 				msg = "이미 답변이 달려 수정이 불가한 게시글입니다. 답변을 확인한 후 새로운 문의글을 남겨주세요.";
 				url = "/inquiry/detail/"+in.getIn_num();
-			}else {
+			}else { //답변 등록 안된 문의에 한해서 수정
 				if(!inquiryService.updateInquiry(in)) {
 					msg = "게시글 수정에 실패했습니다.";
 					url = "/inquiry/detail/"+in.getIn_num();
@@ -117,7 +118,7 @@ public class InquiryController {
 		String msg, url; 
 		InquiryVO in = inquiryService.getInquiryByInnum(in_num);
 		MemberVO user = (MemberVO)session.getAttribute("user");
-		if(in.getIn_ori_num()==0) {//문의글 삭제 시
+		if(in.getIn_ori_num()==0) {// in_ori_num==0이면 문의글
 			if(user==null) {
 				msg = "로그인이 필요한 기능입니다. 로그인을 진행해주세요.";
 				url = "/inquiry/detail/"+in_num;
@@ -130,7 +131,7 @@ public class InquiryController {
 					url = "/inquiry/list";
 				}
 			}
-		}else { //문의답변 삭제 시
+		}else { // in_ori_num!=0이면 문의답변글
 			if(user==null) {
 				msg = "로그인이 필요한 기능입니다. 로그인을 진행해주세요.";
 				url = "/inquiry/detail/"+in.getIn_ori_num();
@@ -162,7 +163,6 @@ public class InquiryController {
 	@RequestMapping(value = "/update/answer", method = RequestMethod.POST)
 	public HashMap<String,Object> updateAnswerPost(HttpSession session, @RequestBody InquiryVO inquiry) {
 		HashMap<String,Object> map = new HashMap<String,Object>();
-		System.out.println(inquiry);
 		inquiryService.updateInquiryAnswer(inquiry);
 		return map;
 	}

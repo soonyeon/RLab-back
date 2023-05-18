@@ -74,14 +74,12 @@
 								                        <div class="board">
 								                        
 								                        	<div class="profile_box">
+								                        		<img class="photo_feed_img" src="<c:url value='/download${photo.me_profile}'></c:url>"width="30" height="30px">
 									                            <div class="feed_name">${photo.me_name}</div>
 									                            <div class="feed_date">${photo.ph_register_date_str}</div>
 								                            </div>
 								                            <div class="feed_contents_img">
 								                                <img width="350" height="350"		src="<c:url value='/download${photo.ph_img}'/>" alt="이미지">
-								                            </div>
-								                            <div class="middle_container2">
-								                                <span class="feed_contents">${photo.ph_content}</span>
 								                            </div>
 								                            <div class="middle_container3">
 								                                <input type="hidden" id="like_clicked_image_url" value="<c:url value='/resources/img/like_clicked.png'/>">
@@ -95,6 +93,9 @@
 								                                    </c:otherwise>
 								                                </c:choose>
 								                                <div class="feed_like_count">${likeCounts[photo.ph_num]}</div>
+								                            </div>
+								                            <div class="middle_container2">
+								                                <span class="feed_contents">${photo.ph_content}</span>
 								                            </div>
 								                        </div>
 								                        <hr>

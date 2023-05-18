@@ -20,7 +20,7 @@
 	</select>
 	<!-- 오늘 해당하는거만 가져오기 -->
 	<select id="getPhotosByStudyNum" resultType="kr.kh.RLab.vo.PhotoVO">
-		SELECT p.*, m.me_name
+		SELECT p.*, m.*
 		FROM photo p JOIN member m ON p.ph_me_id = m.me_id  
 		WHERE ph_st_num = #{st_num} AND DATE(ph_register_date) = DATE(NOW()) 
 	</select>
@@ -162,6 +162,7 @@
 	</select>
 	<select id="selectPhotos" resultType="kr.kh.RLab.vo.PhotoVO">
 		select * from photo
+		join member on ph_me_id = me_id
 		where ph_st_num = #{st_num} and Date(ph_register_date) = CURDATE();
 	</select>
 	<select id="selectStudyMemberByStNum" resultType="kr.kh.RLab.vo.StudyMemberVO">

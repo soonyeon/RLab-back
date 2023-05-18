@@ -211,7 +211,7 @@ public class ReservationController {
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		book.setRe_me_id(user.getMe_id());
 		reservationService.reserveSeat(book);
-		//예약완료 페이지 출력을 위해 해당 예약의 re_num을 가져와서 넘겨줌 (redirect로 보낼 수 있음)
+		//예약완료 페이지 출력을 위해  book의 정보들로 해당 예약의 re_num을 가져와서 넘겨줌 (redirect로 보낼 수 있음)
 		int reNum = reservationService.getReservationByBookInfo(book).getRe_num();
 		mv.addObject("reNum", reNum);
 		mv.setViewName("redirect:/reservation/1/complete");
@@ -269,7 +269,7 @@ public class ReservationController {
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		book.setRe_me_id(user.getMe_id());
 		reservationService.reserveCabinet(book);
-		//예약 후 결과출력 창으로 정보 보내주려고 re_num 가져와서 redirect로 넘김
+		//예약 후 결과출력 창으로 정보 보내주려고 book의 정보들로 re_num 가져와서 redirect로 넘김
 		int reNum = reservationService.getReservationByBookInfo(book).getRe_num();
 		mv.addObject("reNum", reNum);
 		mv.setViewName("redirect:/reservation/2/complete"); 

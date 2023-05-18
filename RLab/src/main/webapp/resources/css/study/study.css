@@ -299,7 +299,7 @@ input[type="radio"]:checked ~ .tab-content {
   margin-top: 30px;
   display: grid;
   grid-template-columns: 3fr 4fr;
-  grid-gap:24px;
+  grid-gap:18px;
 }
 .time_line_container{
   grid-column: 2;
@@ -477,7 +477,7 @@ cursor: pointer;
   line-height: 2.3em;
   margin-right: 0;
 }
-.feed_writer_img{flex: 2;}
+.feed_writer_img{flex: 1.4;}
 .feed_writer_name{flex:3}
 .feed_writer_name{
   text-align: left;
