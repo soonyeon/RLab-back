@@ -77,6 +77,7 @@ public class StudyController {
 			return "redirect:/";
 		}
 		List<PhotoVO> photos = studyService.getPhotosByStudyNum(st_num);
+		System.out.println("++++++photos : "+photos);
 		// 좋아요
 		Map<Integer, Integer> likeCounts = new HashMap<>();
 		Map<Integer, Boolean> userLikes = new HashMap<>();
@@ -221,7 +222,6 @@ public class StudyController {
 		ArrayList<TodoVO> tdList = studyService.getTodoList(user.getMe_id());
 		mv.addObject("tdList", tdList);
 		ArrayList<PhotoVO> photo = studyService.selectPhotos(st_num);
-		System.out.println(photo);
 		
 		mv.addObject("photo", photo);
 		mv.addObject("st_num", st_num);
