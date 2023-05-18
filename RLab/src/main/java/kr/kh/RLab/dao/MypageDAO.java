@@ -39,7 +39,7 @@ public interface MypageDAO {
 		
 		// 나의 예약
 			//좌석 예약 정보 가져오기
-			ReservationVO selectMySeat(String userId);
+			ReservationVO selectMySeat(@Param("ki_num")int i, @Param("userId")String userId);
 			//사물함 예약 정보 가져오기
 			ReservationVO selectMyLocker(String userId);
 			

@@ -92,11 +92,13 @@ public class MypageController {
 		
 		//나의 예약 데이터 가져오기
 			//좌석 예약 정보 가져오기		
-			ReservationVO mySeat = mypageService.getMySeat(userId);
+			ReservationVO mySeat = mypageService.getMySeat(1, userId);
+			//ReservationVO mySeat = mypageService.getMySeat(userId);
 
 			//사물함 예약 정보 가져오기
-			ReservationVO myLocker = mypageService.getMyLocker(userId);
-
+			//ReservationVO myLocker = mypageService.getMyLocker(userId);
+			//ReservationVO myLocker = mypageService.getMyLocker(2, userId);
+			
 		//나의 스터디 데이터 가져오기
 		ArrayList<StudyVO> myStudyList = mypageService.getMainStudyList(userId);
 		
@@ -107,7 +109,7 @@ public class MypageController {
 		mv.addObject("myPoint", myPoint);
 		mv.addObject("res", res);
 		mv.addObject("mySeat", mySeat);
-		mv.addObject("myLocker", myLocker);
+		//mv.addObject("myLocker", myLocker);
 		mv.addObject("myScrapList", myScrapList);
 		mv.addObject("myStudyList", myStudyList);
 		mv.addObject("petList",petList);

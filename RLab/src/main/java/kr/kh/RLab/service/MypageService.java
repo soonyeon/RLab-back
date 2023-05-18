@@ -30,9 +30,8 @@ public interface MypageService {
 	
 	//[마이페이지 홈 > 나의 예약]
 		//좌석 예약 정보 가져오기
-		ReservationVO getMySeat(String userId);
+		ReservationVO getMySeat(int i, String userId);
 		//사물함 예약 정보 가져오기
-		ReservationVO getMyLocker(String userId);
 		
 		ArrayList<ReservationVO> getResList(String userId);
 		

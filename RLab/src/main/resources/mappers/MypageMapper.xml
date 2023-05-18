@@ -99,7 +99,12 @@
 				join seat on re_se_num = se_name
 				join branch on se_br_num = br_num
 				join kind on se_ki_num = ki_num
-				where re_me_id = #{userId} and se_ki_num = 1 and re_valid_time > now()
+				<if test="ki_num == 1">
+					where re_me_id = #{userId} and se_ki_num = 1 and re_valid_time > now()
+				</if>
+				<if test="ki_num == 2">
+					where re_me_id = #{userId} and se_ki_num = 2 and re_valid_time > now()
+				</if>
 			</select>
 			<!-- 사물함 예약 정보 가져오기 -->
 			<select id="selectMyLocker" resultMap="reservation">
