@@ -108,14 +108,11 @@
                         <span class="p_point">P</span>
                       </div>
                     </div>
-                    <!-- <i class="icon_info"></i>  -->
-                  	<!-- <i class="icon_point"></i> -->
                   </div>
                 </div>  
                 </div>
                 <!-- 이용 시간 -->
                 <!-- 현재 시간 가져오기 -->
-                
                 <c:if test="${res == null}">
                 	<div id="used_hours">
 		            	<div class="title">
@@ -142,6 +139,7 @@
 		          	</div>
 	            </c:if>
 				<!-- 펫 경험치 -->
+				<!-- 키우고 있는 펫이 없으면... -->
 				<c:if test="${myPet == null}">
 					 <div id="pet_exp">
 	                  <div class="title">
@@ -149,37 +147,47 @@
 	                    <p class="info exp_info"><strong>키우고 있는 펫이 없습니다.</strong> </p>
 	                  </div>
 	                  <div class="gauge gauge_pet_exp">
+		                <!-- 게이지가 회색으로 차게 된다 -->
 	                    <div class="gauge_colored" style= "background-color:#c1c1c1"></div>
 	                  </div>
 	                </div>
 				</c:if>
-				
-				<c:if test="${myPet  != null}">
+				<!-- 키우고 있는 펫이 있으면... -->
+				<c:if test="${myPet != null}">
+					<!-- 현재 경험치(gr_exp)가 최종 레벨 경험치(ex_experience)에 도달하면... -->
 	                <c:if test="${petExp.gr_exp == petExp.ex_experience}">
 		                <div id="pet_exp">
 		                  <div class="title">
 		                    <h2 class="property_title">펫 경험치</h2>
-		                    <c:if test="${currentLevel  == 1}">
-		                    	<p class="info exp_info"><strong>${currentExp}</strong>exp / 8exp</p>
-			                </c:if>
-			                <c:if test="${currentLevel  != 1}">
-		                    	<p class="info exp_info"><strong> ${levelUpExp}</strong>exp / ${levelUpExp}&nbsp;exp</p>
-			                </c:if>
+	                    	<p class="info exp_info">
+	                    		<!-- 현재 경험치(currentExp -= exExp) 전 레벨의 최대 경험치를 뺀 값으로 계산되어 나온다(controller 참조) -->
+	                    		<strong> ${levelUpExp}</strong>exp / ${levelUpExp}&nbsp;exp <!-- &nbsp;=띄어 쓰기 -->
+	                    	</p>
 		                  </div>
 		                  <div class="gauge gauge_pet_exp">
-		                    <div class="gauge_colored" style= "background-color:yello"></div>
+		                  	<!-- 최종 레벨에 도달했으므로 게이지가 100%로 다 차게 된다 -->
+		                    <div class="gauge_colored" style= "background-color: yellow"></div>
 		                  </div>
 		                </div>
 	                </c:if>
-	                <c:if test="${petExp.gr_exp != petExp.ex_experience}">
+	                <!-- 현재 경험치(gr_exp)가 최종 레벨 경험치(ex_experience)와 같지 않다면... -->
+	              <!--   <c:if test="${petExp.gr_exp != petExp.ex_experience}"> -->
 		                <div id="pet_exp">
 		                  <div class="title">
 		                    <h2 class="property_title">펫 경험치</h2>
-		                    <c:if test="${currentLevel  == 1}">
-		                    	<p class="info exp_info"><strong>${currentExp}</strong>exp / 8exp</p>
+		                    <!--  현재 레벨이 1이면... -->
+		                    <c:if test="${currentLevel == 1}">
+		                    	<p class="info exp_info">
+		                    		<!-- 현재 경험치(currentExp)를 그대로 내보낸다. 8exp는 레벨1의 최대 경험치 -->
+		                    		<strong>${currentExp}</strong>exp / 8exp
+		                    	</p>
 			                </c:if>
-			                <c:if test="${currentLevel  != 1}">
-		                    	<p class="info exp_info"><strong>${currentExp}</strong>exp / ${levelUpExp}&nbsp;exp</p>
+			                <!-- 현재 레벨이 1이 아니면... -->
+			                <c:if test="${currentLevel != 1}">
+		                    	<p class="info exp_info">
+		                    		<!-- 현재 경험치(currentExp -= exExp) 전 레벨의 최대 경험치를 뺀 값으로 계산되어 나온다 -->
+		                    		<strong>${currentExp}</strong>exp / ${levelUpExp}&nbsp;exp<!-- &nbsp;=띄어 쓰기 -->
+		                    	</p>
 			                </c:if>
 		                  </div>
 		                  <div class="gauge gauge_pet_exp">
@@ -187,7 +195,7 @@
 		                  </div>
 		                </div>
 	                </c:if>
-				</c:if>
+				<!--</c:if> -->
               </div>
               <!-- pet_container -->
               <div class="article_box pet_container">
@@ -243,48 +251,9 @@
 	                </div>
 	              </c:if>
               </div>
-           <!-- <div class="article_box book_container">
-                <div class="title_container">
-                  <h3>나의 예약</h3>
-                  <div class="book_window">
-	                  <c:if test="${mySeat != null && myLocker != null}">
-	                    <div class="book_info">
-		                    <h4>${mySeat.branchVO.br_name}</h4>
-		                    <div class="book_title">${mySeat.ki_name}<h4>${mySeat.se_name}번</h4></div>
-                   		</div>
-	                    <i class="icon_circle"></i>
-	                    <div class="book_info">
-	                    	<h4>${myLocker.branchVO.br_name}</h4>
-                        	<div class="book_title">${myLocker.ki_name}<h4>${myLocker.se_name}번</h4></div>
-	                    </div>
-	                  </c:if>
-	                  
-	                  <c:if test="${mySeat == null && myLocker != null}">
-	                    <div class="book_info">
-	                    	<h4>${myLocker.branchVO.br_name}</h4>
-                        	<div class="book_title">${myLocker.ki_name}<h4>${myLocker.se_name}번</h4></div>
-	                    </div>
-	                  </c:if>
-	                  
-	                  <c:if test="${mySeat != null && myLocker == null}">
-	                    <div class="book_info">
-		                    <h4>${mySeat.branchVO.br_name}</h4>
-		                    <div class="book_title">${mySeat.ki_name}<h4>${mySeat.se_name}번</h4></div>
-                   		</div>
-	                  </c:if>
-	                  
-	                  <c:if test="${mySeat == null && myLocker == null}">
-	                    <div class="book_info">
-		                    <h4>예약 정보가 없습니다.</h4>
-                   		</div>
-	                  </c:if>
-                  </div>
-                </div>
-              </div> --> 
+           
             </article>
-            <!-- article_second(d-day) -->
-              <!-- book_container(나의 예약) -->
-            <!-- <h2 class="dday_title">D-DAY</h2> -->
+            
             <article class="article_second">
             <h3 class="book_head_title">나의 예약</h3>
               <div class="dday_container">
@@ -588,37 +557,25 @@
     });
     let intervalId;	
     
-    // 펫 경험치
+    // 펫 경험치에 따른 게이지 변화
   	$(document).ready(function(){
+  		// 나의 펫이 존재하면...
   		if(${myPet != null}){
-  			var gaugeWidth = $('.pet_ex_colored').width();
-			var currentExp = '${currentExp}';
-			var levelUpExp = '${levelUpExp}';
-			//var levelUpExpOnScreen = '${levelUpExpOnScreen}';
-			var exp =  currentExp >= levelUpExp ? currentExp-levelUpExp : currentExp;
-			var ratio = exp / levelUpExp;
-			gaugeWidth = ratio * 100 + '%';
+  			var gaugeWidth = $('.pet_ex_colored').width(); // 게이지의 너비
+			var currentExp = '${currentExp}'; // 현재 경험치
+			var levelUpExp = '${levelUpExp}'; // 레벨 업 경험치
+			// 현재 경험치가 레벨 업 경험치 보다 크거나 같은가? (같으면= 현재 경험치-레벨업 경험치 : 아니면= 현재 경험치)
+			var exp = currentExp >= levelUpExp ? currentExp-levelUpExp : currentExp; // 현재 경험치
+			var ratio = exp / levelUpExp; // 현재 경험치 / 레벨 업 경험치
+			gaugeWidth = ratio * 100 + '%'; // 백분율로 계산한 값 = 게이지의 너비
+			
+			// 실제 게이지의 너비를 gaugeWidth로 바꿔준다
 			$('.pet_ex_colored').width(gaugeWidth);
+			// 현재 경험치(gr_exp)가 최종 레벨 경험치(ex_experience)와 같지 않으면...
 			if(${petExp.gr_exp != petExp.ex_experience})
+				// 계산된 현재 경험치를 화면에 표시한다
 				$('.exp_info strong').text(exp);
-			console.log(exp);
   		}
-    	
-		/*
-	    // currentExp가 levelUpExpOnScreen값과 같게 되면 게이지가 꽉찬다.
-	    gaugeWidth = ratio * 100 + '%';
-	    $('.pet_ex_colored').width(gaugeWidth);
-	    
-		// 레벨이 올라가면.. 		
-		if(currentExp >= levelUpExpOnScreen && levelUpExpOnScreen != 270){
-			currentExp = 0;
-			gaugeWidth = 0 + '%';
-			$('.pet_ex_colored').width(gaugeWidth);
-			$('.currentExp').text(currentExp); 
-		} else {
-			gaugeWidth = ratio * 100 + '%';
-		} */   
-    	
     });
     
 	// pet_store 모달 열기
