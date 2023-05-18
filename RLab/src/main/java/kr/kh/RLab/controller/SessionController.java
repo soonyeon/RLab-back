@@ -26,22 +26,21 @@ public class SessionController {
 	private MemberService memberService;
 	
 	@Autowired
-	private StudyService studyService;
-	
-	@Autowired
 	private SseEmitters sseEmitters;
 
 	@PostMapping("/login")
 	public ModelAndView loginPost(ModelAndView mv, MemberVO member, HttpServletRequest request, HttpSession session) {
-	    MemberVO user = memberService.login(member);
+	    //입력받은 member정보로 로그인하고, 성공할 경우 해당 회원정보를 가져옴
+		MemberVO user = memberService.login(member);
 	    if (user != null) {
 	        mv.addObject("user", user);
-	        SessionVO sessionVO = new SessionVO();
-	        sessionVO.setMember(user); // 로그인 사용자의 MemberVO 객체를 설정
-	        sessionVO.setSs_in(LocalDateTime.now()); // 현재 시간을 설정
-	        sessionService.login(sessionVO); // 로그인 사용자의 MemberVO 객체와 현재 시간을 전달
+	        //접속자id, 접속시간, 유저정보(MemberVO)로 SessionVO생성
+	        SessionVO sessionVO = new SessionVO(user.getMe_id(),LocalDateTime.now(),user); 
+	        sessionService.login(sessionVO);
 	        session.setAttribute("user", user);
 	        user.setAutoLogin(member.isAutoLogin());
+	        
+	        
 	        String prevUrl = request.getHeader("Referer"); // 이전 페이지 URL을 얻음
 	        if (prevUrl != null && !prevUrl.isEmpty()) {
 	            mv.setViewName("redirect:" + prevUrl);

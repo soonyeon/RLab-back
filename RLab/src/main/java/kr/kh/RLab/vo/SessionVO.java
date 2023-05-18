@@ -16,4 +16,11 @@ public class SessionVO {
     private LocalDateTime ss_in;
     private LocalDateTime ss_out;
     private MemberVO member;
+    
+	public SessionVO(String ss_me_id, LocalDateTime ss_in, MemberVO member) {
+		this.ss_me_id = ss_me_id;
+		this.ss_in = ss_in;
+		this.member = member;
+	}
+    
 }

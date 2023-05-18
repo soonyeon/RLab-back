@@ -132,7 +132,7 @@
 		set gr_exp = (
 			select exp from (
 				select
-					case
+					case <!-- 추가된 경험치가 해당 펫의 최대경험치를 넘어가면 max값으로 update -->
 						when (gr_exp+#{re_hours})<= (
 							select ex_experience from exp
 							where ex_level = (

@@ -33,6 +33,7 @@ public class NoticeController {
 		ArrayList<NoticeVO> noList = noticeService.getAllNotice(cri);
 		int totalCount = noticeService.getNoticeTotalCount(cri);
 		PageMaker pm = new PageMaker(totalCount,1, cri);
+		//게시판 검색을 위해 게시판 타입 리스트 가져옴
 		ArrayList<NoticeTypeVO> ntList = noticeService.getAllNoticeType();
 		mv.addObject("ntList", ntList);
 		mv.addObject("user", user);

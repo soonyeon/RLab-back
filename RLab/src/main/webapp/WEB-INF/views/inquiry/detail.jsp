@@ -43,7 +43,7 @@
                                 </div>
                                 <c:if test="${in.in_me_id == user.me_id}">
 	                                <div class="setting_box">
-	                                	<c:if test="${!answered.contains(in.in_num)}">
+	                                	<c:if test="${ans == null}">
 	                                  		<a href="<c:url value='/inquiry/update/${in_num}'></c:url>" class="update">수정</a>
 	                                	</c:if>
 	                                    <a href="<c:url value='/inquiry/delete/${in_num}'></c:url>" class="delete">삭제</a>
@@ -93,6 +93,11 @@
 	</div>
 </body>
 <script>
+//문의글 삭제
+$('.re_delete').click(function(){
+	location.href = "<c:url value='/inquiry/detail/${in_num}'></c:url>";
+})
+//답변 등록 클릭 이벤트
 $('.btn_reply').click(function(){
 	if(${user == null}){
 		alert('로그인이 필요한 기능입니다.');
@@ -104,7 +109,7 @@ $('.btn_reply').click(function(){
 		'in_title': '문의답변',
 		'in_content': replyContent
 	}
-	console.log(inquiry);
+	//답변등록 ajax-post
 	$.ajax({
 		type:'POST',
 		data: JSON.stringify(inquiry),
@@ -119,9 +124,7 @@ $('.btn_reply').click(function(){
         }
 	})
 });
-$('.re_delete').click(function(){
-	location.href = "<c:url value='/inquiry/detail/${in_num}'></c:url>";
-})
+//문의답변 수정버튼 클릭 시 수정 칸 뜨게
 $(document).on('click','.re_update',function(){
 	if(${user == null}){
 		alert('로그인이 필요한 기능입니다.');
@@ -136,8 +139,8 @@ $(document).on('click','.re_update',function(){
 		    +'</div>'
 		+'</div>';
 	$('.content_container').after(updateStr);
-	console.log(2);
 });
+//문의답변 수정
 $(document).on('click','.btn_update_reply',function(){
 	if(${user == null}){
 		alert('로그인이 필요한 기능입니다.');
@@ -153,6 +156,7 @@ $(document).on('click','.btn_update_reply',function(){
 			'in_num': in_num,
 			'in_content': updateContent
 		}
+	//답변 수정 ajax-post
 	$.ajax({
 		type:'POST',
 		data: JSON.stringify(inquiry),
