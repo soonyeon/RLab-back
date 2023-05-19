@@ -18,7 +18,6 @@ public class SessionServiceImp implements SessionService {
 
 	@Override
 	public void login(SessionVO session) {
-	    session.setSs_me_id(session.getMember().getMe_id()); // 로그인 시도하는 사용자의 ID를 설정
 	    sessionDAO.insertSession(session);
 	}
 

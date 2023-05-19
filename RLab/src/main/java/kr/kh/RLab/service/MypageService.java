@@ -21,8 +21,6 @@ public interface MypageService {
 		ReservationVO getRes(String userId);
 	
 	//[마이페이지 홈 > 펫 경험치]
-		GrowthVO getPetEx(String userId);
-		
 		int getLevelUpExp(int currentLevel);
 		
 		int updateExp(int currentEx, String userId);
@@ -31,10 +29,8 @@ public interface MypageService {
 		int getMyPoint(String userId);	
 	
 	//[마이페이지 홈 > 나의 예약]
-		//좌석 예약 정보 가져오기
-		ReservationVO getMySeat(String userId);
-		//사물함 예약 정보 가져오기
-		ReservationVO getMyLocker(String userId);
+		// 예약 정보 가져오기
+		ReservationVO getMySeat(int i, String userId);
 		
 		ArrayList<ReservationVO> getResList(String userId);
 		

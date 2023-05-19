@@ -74,7 +74,7 @@
 						<p class="success_percent2">달성률 <span class="percent"></span>%</p>
 					</div>
 					<div>
-						<progress id="progress-bar" class="mint" value="0" max="100"></progress>
+						<progress id="progress-bar" class="mint" value="" max="100"></progress>
 					</div>
 					
 					<!--프로필-->
@@ -124,8 +124,6 @@
 					
 				 </div>
 			</div>
-			
-	
 		</section>
 		<!-- 오른쪽 메뉴 -->
 		<aside>
@@ -133,110 +131,48 @@
 				<!-- 메뉴바 3개 -->
 				<div class="study_link_container">
 					<div class="circle_now cc">
-						<div class="now">NOW</div>
-					</div>
+	                	<div class="icon_now">NOW</div>
+	                	<div class="study_name">${nowSt.st_name}</div>
+	            	</div>
 					<div class="circle_star cc">
-						<img class="star" src="<c:url value='/resources/img/favorite_star_on.png'></c:url>">
+	                	<img class="icon_star" src="<c:url value='/resources/img/favorite_star_on.png'></c:url>">
+	                	<div class="study_name"><a href="<c:url value='/study/${favorite.st_num}'></c:url>">${favorite.st_name}</a></div>
 					</div>
 					<div class="my_study_container">
 						<div class="my_list_title">
-	
-							<div class="my">MY</div>
-	
-							<!-- <div class="my_study" >나의 스터디<button id="dropdown_btn">▼</button></div> -->
-						</div>
-						<div id="dropdown_list" style="display: none;">
-							<ul class="dropdown_list_ul">
-								<li class="dropdown_list_li">
-									<div class="dropdown_list_contents">
-										<p class="dropdown_list_contents_title">정보처리기사 스터디</p>
-										<div class="dropdown_list_contents_on_img"></div>
-										<div class="dropdown_hr"></div>
-									</div>
-								</li>
-								<li class="dropdown_list_li">
-									<div class="dropdown_list_contents">
-										<p class="dropdown_list_contents_title">정보처리기사 스터디</p>
-										<div class="dropdown_list_contents_off_img"></div>
-										<div class="dropdown_hr"></div>
-									</div>
-								</li>
-								<li class="dropdown_list_li">
-									<div class="dropdown_list_contents">
-										<p class="dropdown_list_contents_title">정보처리기사 스터디</p>
-										<div class="dropdown_list_contents_off_img"></div>
-										<div class="dropdown_hr"></div>
-									</div>
-								</li>
-								<li class="dropdown_list_li">
-									<div class="dropdown_list_contents">
-										<p class="dropdown_list_contents_title">정보처리기사 스터디</p>
-										<div class="dropdown_list_contents_off_img"></div>
-										<div class="dropdown_hr"></div>
-									</div>
-								</li>
+	                    	<div class="icon_my">MY</div>
+	                    	<div class="my_study">나의 스터디<button class="btn_dropdown">▼</button></div>
+	                	</div>
+	                	<div id="dropdown_list" class="display_none">
+							<ul class="dropdown_list">
+		                    	<c:forEach items="${stList}" var="st">
+		                        	<li class="dropdown_item">
+		                            	<input type="hidden" name="list_st_num" value="${st.st_num}">
+		                                <div class="item_container">
+		                                    <a href="<c:url value='/study/${st.st_num}'></c:url>" class="item_name">${st.st_name}</a>
+		                                    <c:if test="${user.me_study==st.st_num}"><div class="star_on"></div></c:if>
+		                                    <c:if test="${user.me_study!=st.st_num}"><div class="star_off"></div></c:if>
+		                                </div>
+		                          	</li>
+								</c:forEach>
 							</ul>
 						</div>
 					</div>
 				</div>
-			</div>
-			<!-- 접속상태 -->
-			<div class="accessor">
-				<div class="study_title">정보처리기사 스터디</div>
-				<div class="accessor_container">
-					<div class="circle_accessor">
-						<div class="accessor_on"></div>
-					</div>
-					<div class="study_name">김돌탕</div>
-					<span class="your">YOU</span>
+				<!-- 접속상태 -->
+				<div class="accessor">
+					
 				</div>
-				<div class="accessor_container">
-					<div class="circle_accessor"></div>
-					<div class="study_name">김순연</div>
-				</div>
-				<div class="accessor_container">
-					<div class="circle_accessor"></div>
-					<div class="study_name">김세영</div>
-				</div>
-				<div class="accessor_container">
-					<div class="circle_accessor"></div>
-					<div class="study_name">김도현</div>
-				</div>
-				<div class="accessor_container">
-					<div class="circle_accessor"></div>
-					<div class="study_name">이정현</div>
-				</div>
-				<div class="accessor_container">
-					<div class="circle_accessor"></div>
-					<div class="study_name">가나다</div>
-				</div>
-				<div class="accessor_container">
-					<div class="circle_accessor"></div>
-					<div class="study_name">라마바</div>
-				</div>
-				<div class="accessor_container">
-					<div class="circle_accessor"></div>
-					<div class="study_name">사아나</div>
-				</div>
-				<div class="accessor_container">
-					<div class="circle_accessor"></div>
-					<div class="study_name">s아나</div>
-				</div>
-				<div class="accessor_container">
-					<div class="circle_accessor"></div>
-					<div class="study_name">s아나</div>
-				</div>
-				<div class="accessor_container">
-					<div class="circle_accessor"></div>
-					<div class="study_name">s아나</div>
-				</div>
-	
 			</div>
 		</aside>
 	</div>
 </main>
 <script>
-//게이지 채우기
+/*[미션 완료 게이지 채우기]
+ * totalCount = 스터디멤버들 전체 사이즈
+ * currentCount = 미션완료한 리스트 사이즈
+ * percent : 미션완료멤버 / 전체멤버 X 100 로 퍼센트 계산
+ */
 let totalCount = '${studyMember.size()}';
 let currentCount = '${mfList.size()}';
 var percent = currentCount/totalCount*100;
@@ -244,6 +180,7 @@ $('#progress-bar').val(percent)
 $('.percent').text(percent);
 
 
+//오늘의 미션 등록 모달창
 $(document).ready(function() {
     var modal = $("#modal");
 
@@ -266,6 +203,7 @@ $(document).ready(function() {
     });
 });
 
+//미션 등록
 $(".mission_up").click(function(e){
     e.preventDefault();
     let formData = new FormData();
@@ -292,6 +230,7 @@ $(".mission_up").click(function(e){
     });
 });
 
+//미션 수정
 $(".mission_edit").click(function(e){
     e.preventDefault();
     let formData = new FormData();
@@ -318,8 +257,106 @@ $(".mission_edit").click(function(e){
     });
 });
 
-$(content).text('${mission.mi_content}');
+$(content).text(`${mission.mi_content}`);
 
 
 
+</script>
+<script>
+var st_num = '${st_num}';
+var userId = '${userId}'; 
+
+/* 우측 메뉴 이벤트 */
+$(document).ready(function() {
+    loadStudyMembers(st_num, userId);
+});
+
+$(document).ready(function (){
+	$('.btn_dropdown').click(function(){
+		$('#dropdown_list').slideToggle();
+	});
+	
+	//star_off 클릭하면 즐겨찾기 등록하는 ajax post
+	$('.star_off').click(function(){
+		let studyName = $(this).prev().text();
+		let studyNum = $(this).parents('.dropdown_item').find('[name=list_st_num]').val();
+		if(confirm("'"+studyName+"' 스터디를 즐겨찾기로 등록하시겠습니까?")){
+			let obj = {
+				st_num: studyNum,
+				st_me_id: '${user.me_id}'
+			}
+			$.ajax({
+				type: 'POST',
+				data: JSON.stringify(obj),
+				url: '<c:url value="/study/setfavorite"></c:url>',
+				dataType:"json",
+				contentType:"application/json; charset=UTF-8",
+				success : function(data){
+					alert('즐겨찾기를 변경하였습니다.');
+					location.reload();
+				}
+			})
+		}
+	});
+});
+
+//접속멤버를 불러와서 화면에 출력하는 함수
+function loadStudyMembers(st_num, userId) {
+    $.ajax({
+        url: '<c:url value="/onlineMembers"/>',
+        type: 'GET',
+        dataType: 'json',
+        success: function (onlineMembers) {
+            $.ajax({
+                url: '<c:url value="/study/getMembers/"/>${st_num}',
+                type: 'GET',
+                dataType: 'json',
+                success: function (members) {
+                	// 기존 멤버 목록을 삭제
+                    $(".accessor_container").remove();
+                    let memberList = "";
+
+                    // 첫 번째 멤버의 study_title을 가져옴
+                    if (members.length > 0) {
+                        memberList += '<div class="study_title">' + members[0].st_name + '</div>';
+                    }
+
+                    // 온라인 회원 목록 처리 (나->접속자->비접속자)
+                    members.forEach(member => {
+                    const isOnline = onlineMembers.includes(member.me_name);
+                        if(userId === member.me_name)
+                        	memberList += createMemberListItem(member, userId, true);
+                    });
+                    members.forEach(member => {
+                        const isOnline = onlineMembers.includes(member.me_name);
+	                	if(userId != member.me_name && isOnline)
+	                    	memberList += createMemberListItem(member, userId, true);
+                    });
+                    members.forEach(member => {
+                        const isOnline = onlineMembers.includes(member.me_name);
+	                	if(userId != member.me_name && !isOnline)
+	                    	memberList += createMemberListItem(member, userId, false);
+                    });
+                    document.querySelector(".accessor").innerHTML = memberList;
+                }
+            });
+        }
+    });
+}
+//접속멤버란 - 멤버 한명의 html 문자열 리턴하는 함수
+function createMemberListItem(member, userId, isOnline) {
+    const defaultImage = '<c:url value="/resources/img/user.png" />';
+    const userProfileImage = member.me_profile ? '<c:url value="/download" />' + member.me_profile : defaultImage;
+
+    return '<div class="accessor_container">' +
+    	(isOnline ? '<div class="accessor_on"></div>' : '') +
+        '<div class="circle_accessor">' +
+        '<img class="acc_img" src="' + userProfileImage + '" width="auto" height="40">' +
+        '<span class="blind">마이페이지</span>' +
+        //(isOnline ? '<div class="accessor_on"></div>' : '') +
+        '</div>' +
+        '<div class="member_name">' + member.me_name + '</div>' +
+        (userId === member.me_name ? '<span class="your">YOU</span>' : '') +
+        '</div>';
+}
 </script>

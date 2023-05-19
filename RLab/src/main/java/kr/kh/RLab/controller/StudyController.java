@@ -1,9 +1,7 @@
 package kr.kh.RLab.controller;
 
-import java.awt.dnd.DragSourceMotionListener;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,8 +29,6 @@ import kr.kh.RLab.service.MypageService;
 import kr.kh.RLab.service.NotificationService;
 import kr.kh.RLab.service.StudyService;
 import kr.kh.RLab.vo.AlarmVO.AlarmType;
-import kr.kh.RLab.vo.FileVO;
-import kr.kh.RLab.vo.GatherVO;
 import kr.kh.RLab.vo.BoardVO;
 import kr.kh.RLab.vo.GrowthVO;
 import kr.kh.RLab.vo.LikeVO;
@@ -41,11 +37,8 @@ import kr.kh.RLab.vo.MissionFinishVO;
 import kr.kh.RLab.vo.MissionVO;
 import kr.kh.RLab.vo.PhotoTypeVO;
 import kr.kh.RLab.vo.PhotoVO;
-import kr.kh.RLab.vo.RegionVO;
 import kr.kh.RLab.vo.StudyMemberVO;
 import kr.kh.RLab.vo.StudyVO;
-import kr.kh.RLab.vo.TagRegisterVO;
-import kr.kh.RLab.vo.TagVO;
 import kr.kh.RLab.vo.TodoVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -199,6 +192,7 @@ public class StudyController {
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		//st_me_id가 유저인 스터디 목록 불러오는 메소드인데 사용되는데가 없는데 지워도되는건가요?
 		ArrayList<StudyVO> study = studyService.getStudyByMemberId(user.getMe_id());
+		//가입한 스터디 리스트
 		ArrayList<StudyVO> stList = studyService.getUserStudyList(user.getMe_id());
 		StudyVO nowStudy = studyService.getStudy(st_num);
 		StudyVO favoriteStudy = studyService.getStudy(user.getMe_study());
@@ -228,7 +222,7 @@ public class StudyController {
 		mv.addObject("study", study);
 		mv.addObject("loginUserId", user.getMe_id());
 		mv.addObject("stList", stList);
-		mv.addObject("now", nowStudy);
+		mv.addObject("nowSt", nowStudy);
 		mv.addObject("favorite", favoriteStudy);
 		mv.addObject("userId", user.getMe_name());
 		mv.addObject("leaderCount", leaderCount);
@@ -403,6 +397,9 @@ public class StudyController {
 	public ModelAndView todoList(ModelAndView mv, HttpSession session,@PathVariable("st_num") int st_num,StudyMemberVO sm, TodoVO td) {
 	    MemberVO user = (MemberVO) session.getAttribute("user");
 	    String memberId = user.getMe_id();
+
+	    StudyVO nowStudy = studyService.getStudy(st_num);
+	    StudyVO favoriteStudy = studyService.getStudy(user.getMe_study());
 	    
 	    // 유저의 투두 리스트 
 	    ArrayList<TodoVO> tdList = studyService.getTodoList(memberId);
@@ -430,24 +427,26 @@ public class StudyController {
 	        // 진행률이 설정된 멤버 객체를 stMemberProgRateList에 추가
 	        stMemberProgRateList.add(member);
 	    }
-	    
-		//나의 펫 데려오기
-		GrowthVO myPet = mypageService.selectMyPet(memberId);
-		// 스터디 관리
-		int leaderCount = studyService.getLeaderCount(user.getMe_id());
-		  
-		mv.addObject("myStudyList", myStudyList);
-		mv.addObject("tdList", tdList);
-		mv.addObject("memberId",memberId);
-		mv.addObject("myPet", myPet);
-		mv.addObject("stMember",stMember);
-		mv.addObject("stMemberTodo",stMemberTodo);
-		mv.addObject("todoProgressRateint",todoProgressRateint);
-		mv.addObject("stMemberProgRateList",stMemberProgRateList);
-		mv.addObject("leaderCount", leaderCount);
-		mv.setViewName("/study/to_do_list");
-		    return mv;
-		}
+	 
+	  //나의 펫 데려오기
+	  GrowthVO myPet = mypageService.selectMyPet(memberId);
+	  // 스터디 관리
+	  int leaderCount = studyService.getLeaderCount(user.getMe_id());
+
+	  mv.addObject("nowSt", nowStudy);
+	  mv.addObject("favorite", favoriteStudy);
+	  mv.addObject("myStudyList", myStudyList);
+	  mv.addObject("tdList", tdList);
+	  mv.addObject("memberId",memberId);
+	  mv.addObject("myPet", myPet);
+	  mv.addObject("stMember",stMember);
+	  mv.addObject("stMemberTodo",stMemberTodo);
+	  mv.addObject("todoProgressRateint",todoProgressRateint);
+	  mv.addObject("stMemberProgRateList",stMemberProgRateList);
+	  mv.addObject("leaderCount", leaderCount);
+	  mv.setViewName("/study/to_do_list");
+	  return mv;
+	}
 
 	/** 투두_인풋 입력값 가져오기 **/
 	@ResponseBody
@@ -524,14 +523,23 @@ public class StudyController {
 	// 데일리미션 페이지
 	@GetMapping("/daily/{st_num}")
 	public ModelAndView studyInsert(ModelAndView mv, HttpServletRequest request, @PathVariable("st_num") int st_num) {
-		
 		MemberVO user = (MemberVO) request.getSession().getAttribute("user");
+		//우측메뉴
+		StudyVO nowStudy = studyService.getStudy(st_num);
+		StudyVO favoriteStudy = studyService.getStudy(user.getMe_study());
+		ArrayList<StudyVO> stList = studyService.getUserStudyList(user.getMe_id());
+		
 		ArrayList<StudyMemberVO> studyMember = studyService.selectStudyMemberByStNum(st_num);
 		Integer authority = studyService.selectSmAuthority(user, st_num);
 		MissionVO mission = studyService.selectMission(st_num);
 		ArrayList<String> mfList = studyService.selectMissionFinishMember(st_num);
 		// 스터디 관리
 	    int leaderCount = studyService.getLeaderCount(user.getMe_id());
+	    
+	    mv.addObject("nowSt", nowStudy);
+	    mv.addObject("favorite", favoriteStudy);
+		mv.addObject("stList", stList);
+		
 		mv.addObject("mfList", mfList);
 		mv.addObject("mission", mission);
 		mv.addObject("authority", authority);

@@ -21,8 +21,10 @@
 		</div>
 		<div class="title_bottom">
 			<div class="writer_box">
-				<a href="#" class="writer"> <img class="icon_writer"
-					src="<c:url value='/resources/img/profile_img.png'></c:url>"> <span class="writer_name">${ga.me_name}</span></a>
+				<a href="#" class="writer"> 
+					<img class="icon_writer" src="<c:url value='/resources/img/profile_img.png'></c:url>"> 
+					<span class="writer_name">${ga.me_name}</span>
+				</a>
 			</div>
 			
 			<span class="write_date">${ga.ga_reg_date_str}</span>
@@ -37,7 +39,13 @@
 			<div class="main_left_box">${ga.ga_content}</div>	
 			<div class="main_right_box">
 				<div class="rc_img_box">
-					<div class="rc_img"></div>
+					<c:if test="${file == null}">
+						<div class="rc_img"></div>
+					</c:if>
+					<c:if test="${file != null}">
+						<img style=" margin-top: 25px;  width: 200px;  height: 200px;  border-radius: 50%;  border: 1px solid black;  place-items: center;" 
+							src="<c:url value='/download${file.fi_name}'></c:url>">
+					</c:if>
 				</div>
 				<div class="rc_info_box">
 					<div class="study_recruit_content_box">
@@ -49,7 +57,7 @@
 						</div>
 							<div class="want_icon" >
 								<c:if test="${user == null}" >
-									<div class="unlike_img"></div>
+									<div class="unlike_img" id="userNull"></div>
 								</c:if>	
 								<c:if test="${user != null}">
 									<c:if test="${waList.contains(st_num)}">
@@ -70,7 +78,6 @@
 					</div>
 					<div class="join_study">
 				   		<c:if test="${user == null }">
-				   		 	<button class="apply_btn">스터디 가입</button>
 						</c:if>
 						<c:if test="${user != null}">
 							<c:if test="${smList != null && smList.sm_authority == 1}">
@@ -80,6 +87,7 @@
 								<button class="apply_btn">스터디 가입</button>
 							</c:if>
 						</c:if>
+						
 					</div>
 				</div>
 				<c:if test="${user != null && user.me_id == ga.ga_me_id}">

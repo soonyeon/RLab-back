@@ -55,10 +55,11 @@ public class MypageController {
 		// 현재 로그인한 사용자의 아이디를 userId에 담는다
 		String userId = user.getMe_id();
 		
-		// 이용시간 안내
+		// 나의 예약 정보
+		// 좌석(1) 정보를 가져오는 메소드
 		ReservationVO res = reservationService.getMyReservation(1, userId);
 		
-		//나의 펫 데려오기
+		// 나의 펫 정보
 		GrowthVO myPet = mypageService.selectMyPet(userId);
 		
 		// 나의 펫이 존재하면...
@@ -77,7 +78,6 @@ public class MypageController {
 				currentExp -= exExp;
 				levelUpExp -= exExp;
 			}
-//			mv.addObject("currentLevel", currentLevel);
 			mv.addObject("currentExp", currentExp);
 			mv.addObject("levelUpExp", levelUpExp);
 		}
@@ -92,11 +92,10 @@ public class MypageController {
 		
 		//나의 예약 데이터 가져오기
 			//좌석 예약 정보 가져오기		
-			ReservationVO mySeat = mypageService.getMySeat(userId);
-
-			//사물함 예약 정보 가져오기
-			ReservationVO myLocker = mypageService.getMyLocker(userId);
-
+			ReservationVO mySeat = mypageService.getMySeat(1, userId);
+			//좌석 예약 정보 가져오기
+			ReservationVO myLocker = mypageService.getMySeat(2, userId);
+			
 		//나의 스터디 데이터 가져오기
 		ArrayList<StudyVO> myStudyList = mypageService.getMainStudyList(userId);
 		
@@ -115,7 +114,7 @@ public class MypageController {
 		mv.setViewName("/mypage/mypage");
 		return mv;
 	}
-	
+	//[마이페이지 홈 - 이용시간 게이지] 
 	@ResponseBody
 	@GetMapping("/timeGauge")
 	public ReservationVO timeGauge (ModelAndView mv,  HttpSession session) {

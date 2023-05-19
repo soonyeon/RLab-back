@@ -13,7 +13,7 @@ public interface JoinStudyDAO {
 
 	void updateNowPeople(int sm_st_num);
 
-	int getJoinCount();
+	//int getJoinCount();
 
 	void updateStudyNowPeopleUp(int sm_st_num);
 

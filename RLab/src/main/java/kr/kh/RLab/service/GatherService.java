@@ -20,7 +20,7 @@ public interface GatherService {
 	boolean insertStudy(StudyVO study,MemberVO member,RegionVO region,
 			MultipartFile [] files,FileVO file,TagVO tag,TagRegisterVO tagRegister,StudyMemberVO studyMember);
 
-	boolean insertGather(MemberVO member, GatherVO gather, StudyVO study);
+	boolean insertGather(MemberVO member, GatherVO gather);
 
 	ArrayList<StudyVO> selectStudyAll(GatherCriteria gcri);
 

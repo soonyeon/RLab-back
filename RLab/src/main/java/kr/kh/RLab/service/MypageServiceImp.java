@@ -44,14 +44,6 @@ public class MypageServiceImp implements MypageService {
 	
 	//[마이페이지 홈 > 펫 경험치]
 	@Override
-	public GrowthVO getPetEx(String userId) {
-		if (userId == null) {
-			return null;
-	    }
-		return mypageDao.selectPetEx(userId);
-	}
-	
-	@Override
 	public int getLevelUpExp(int currentLevel) {
 		return mypageDao.selectLevelUpExp(currentLevel);
 	}
@@ -83,23 +75,15 @@ public class MypageServiceImp implements MypageService {
 	}
 	
 	//[마이페이지 홈 > 나의 예약]
-		//좌석 예약 정보 가져오기
+		// 예약 정보 가져오기
 		@Override
-		public ReservationVO getMySeat(String userId) {
+		public ReservationVO getMySeat(int i, String userId) {
 			if (userId == null) {
 		        return null;
 		  }
-			return mypageDao.selectMySeat(userId);
+			return mypageDao.selectMySeat(i, userId);
 		}
 		
-		//사물함 예약 정보 가져오기
-		@Override
-		public ReservationVO getMyLocker(String userId) {
-			if (userId == null) {
-		        return null;
-		  }
-			return mypageDao.selectMyLocker(userId);
-		}
 	
 		@Override
 		public ArrayList<ReservationVO> getResList(String userId) {

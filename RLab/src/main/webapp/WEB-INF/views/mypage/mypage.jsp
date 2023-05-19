@@ -112,7 +112,7 @@
                 </div>  
                 </div>
                 <!-- 이용 시간 -->
-                <!-- 현재 시간 가져오기 -->
+                <!-- 좌석 예약 정보가 없으면... -->
                 <c:if test="${res == null}">
                 	<div id="used_hours">
 		            	<div class="title">
@@ -122,9 +122,11 @@
 		                    	<a class="res_btn" href="<c:url value='/reservation'></c:url>">이용권 예약</a>
 		                    </p>
 		       			</div>
+		       			
 		        		<div class="gauge gauge_used_hours" style= "background-color:#c1c1c1"></div>
 		        	</div>
                 </c:if>
+                <!-- 좌석 예약 정보가 있으면... -->
 				<c:if test="${res != null}">
 		        	<div id="used_hours">
 		            	<div class="title">
@@ -133,9 +135,10 @@
 		                      <strong>~ ${res.re_valid_time_str2}</strong>
 		                    </p>
 		        		</div>
-		                	<div class="gauge gauge_used_hours">
-		                	<div class="gauge_colored use_time_colored"></div>
-		               	</div>
+		        		
+	                	<div class="gauge gauge_used_hours">
+	                		<div class="gauge_colored use_time_colored"></div>
+	               		</div>
 		          	</div>
 	            </c:if>
 				<!-- 펫 경험치 -->
@@ -155,8 +158,8 @@
 				<!-- 키우고 있는 펫이 있으면... -->
 				<c:if test="${myPet != null}">
 					<!-- 현재 경험치(gr_exp)가 최종 레벨 경험치(ex_experience)에 도달하면... -->
-	                <c:if test="${petExp.gr_exp == petExp.ex_experience}">
-		                <div id="pet_exp">
+	                <c:if test="${myPet.gr_exp == myPet.ex_experience}">
+		                <div id="pet_exp" class="what1">
 		                  <div class="title">
 		                    <h2 class="property_title">펫 경험치</h2>
 		                    	<p class="info exp_info"><strong> ${currentExp}</strong>exp / ${levelUpExp}&nbsp;exp</p>
@@ -168,8 +171,8 @@
 		                </div>
 	                </c:if>
 	                <!-- 현재 경험치(gr_exp)가 최종 레벨 경험치(ex_experience)와 같지 않다면... -->
-	              <!--   <c:if test="${petExp.gr_exp != petExp.ex_experience}"> -->
-		                <div id="pet_exp">
+	                <c:if test="${myPet.gr_exp != myPet.ex_experience}">
+		                <div id="pet_exp" class="what2">
 		                  <div class="title">
 		                    <h2 class="property_title">펫 경험치</h2>
 		                    <p class="info exp_info"><strong>${currentExp}</strong>exp / ${levelUpExp}&nbsp;exp</p>
@@ -178,8 +181,8 @@
 		                    <div class="gauge_colored pet_ex_colored"></div>
 		                  </div>
 		                </div>
-	                </c:if>
-				<!--</c:if> -->
+		            </c:if>
+	          	</c:if>
               </div>
               <!-- pet_container -->
               <div class="article_box pet_container">
@@ -381,7 +384,7 @@
 		function choosePet(el){
 			let gr_pe_num = el.parents('.pet_box').find('.petnum').val();
 			let ev_num = el.parents('.pet_box').find('.pet_img').data('ev_num');
-			
+			//갖고있는 펫이 있다면 안내창
 		   if (hadPet.length > 0) {
 		        alert('새로운 펫을 데려오려면 펫 돌려보내기를 하세요.');
 		        return;
@@ -430,6 +433,7 @@
 			
 			if (hadPet.length > 0) {
 			    let confirmMsg = '펫을 돌려보내면 펫은 완전히 사라집니다. 그래도 돌려보내시겠습니까?';
+			    //아니요를 누르면 return , 예를 누르면 ajax진행
 			    if (!confirm(confirmMsg)) {
 			      return;
 			    }
@@ -471,6 +475,7 @@
 
 			  if (hadPet.length > 0) {
 			    let confirmMessage = '펫 보상을 받으시겠습니까?';
+			    //아니요를 누르면 return , 예를 누르면 ajax진행
 			    if (!confirm(confirmMessage)) {
 			      return;
 			    }
@@ -501,62 +506,62 @@
 		});
 </script>
 <script> <!-- 내 정보란 -->
-    // 이용시간
-   	function updateGauge(resStart, resValid, now){
+	// 이용시간 게이지 업데이트 
+	function updateGauge(resStart, resValid, now){
+		// 현재 시간이 예약 시작 시간보다 크거나 같을 때...
 		if(now >= resStart){
-			var elapsedTime = now.getTime() - resStart.getTime();
-			var totalTime = resValid.getTime() - resStart.getTime();
-			var percentage = elapsedTime / totalTime * 100;
+			var elapsedTime = now.getTime() - resStart.getTime(); // 경과 시간 = 현재 시간 - 시작 시간 
+			var totalTime = resValid.getTime() - resStart.getTime(); // 전체 시간 = 종료 시간 - 시작 시간 
+			var percentage = elapsedTime / totalTime * 100; // 백분율 = 경과 시간 / 전체 시간 * 100 
+			
+			// 게이지의 width 
 			$('.use_time_colored').width(percentage + '%');
 		}
 	}
 	$(document).ready(function(){
 		var now = new Date();
 		
-		//페이지 진입 시 예약권이 있으면 시간을 계산함
+		// 페이지 진입 시 예약권이 있으면 시간을 계산함
 		if(${res != null}){
-    		var resStart = '${res.re_start_time}';
-    		var resValid = '${res.re_valid_time}';
-    		
-    		intervalId = setInterval(function(){
-    			
-    			$.ajax({
-    				url: '<c:url value="/mypage/timeGauge" />',
-    				type: "GET",
-    				success: function(data){
-    					console.log(1);
-    					//페이지에 있는 도중 예약권이 다 되면 새로고침하며 이용권 만료 메세지 보여줌
-    					if(data==''){
-    						clearInterval(intervalId);
-    						location.href = '<c:url value="/mypage"></c:url>';
-    						return;
-    					}
-    					resStart = new Date(data.re_start_time);
-    					resValid = new Date(data.re_valid_time);
-    					updateGauge(resStart, resValid, now);
-    				}
-    			});
-    		}, 1000); // 1초마다 업데이트
-   		}
-    });
-    let intervalId;	
+	   		var resStart = '${res.re_start_time}';
+	   		var resValid = '${res.re_valid_time}';
+	   		
+	   		intervalId = setInterval(function(){
+	   			
+	   			$.ajax({
+	   				url: '<c:url value="/mypage/timeGauge" />',
+	   				type: "GET",
+	   				success: function(data){
+	   					console.log(1);
+	   					//페이지에 있는 도중 예약권이 다 되면 새로고침하며 이용권 만료 메세지 보여줌
+	   					if(data == ''){
+	   						clearInterval(intervalId);
+	   						location.href = '<c:url value="/mypage"></c:url>';
+	   						return;
+	   					}
+	   					resStart = new Date(data.re_start_time); // 예약 시작 시간 
+	   					resValid = new Date(data.re_valid_time); // 예약 종료 시간 
+	   					// updateGauage 호출 
+	   					updateGauge(resStart, resValid, now);
+	   				}
+	   			});
+	   		}, 1000); // 1초마다 업데이트
+	  		}
+	});
+	let intervalId;	// setInterval()의 반환값 
     
     // 펫 경험치에 따른 게이지 변화
   	$(document).ready(function(){
   		// 나의 펫이 존재하면...
   		if(${myPet != null}){
-        var gaugeWidth = $('.pet_ex_colored').width(); // 게이지의 너비
-        var currentExp = ${currentExp}; // 현재 경험치
-        var levelUpExp = ${levelUpExp}; // 레벨 업 경험치
-        var ratio = currentExp / levelUpExp; // 현재 경험치 / 레벨 업 경험치
-        gaugeWidth = ratio * 100 + '%'; // 백분율로 계산한 값 = 게이지의 너비
-
-        // 실제 게이지의 너비를 gaugeWidth로 바꿔준다  
-        $('.gauge_colored').css("width",gaugeWidth);
-        // 현재 경험치(gr_exp)가 최종 레벨 경험치(ex_experience)와 같지 않으면...
-        if(${myPet.gr_exp != myPet.ex_experience})
-          // 계산된 현재 경험치를 화면에 표시한다
-          $('.exp_info strong').text(currentExp);
+	        var gaugeWidth = $('.pet_ex_colored').width(); // 게이지의 너비
+	        var currentExp = ${currentExp}; // 현재 경험치
+	        var levelUpExp = ${levelUpExp}; // 레벨 업 경험치
+	        var ratio = currentExp / levelUpExp; // 현재 경험치 / 레벨 업 경험치
+	        gaugeWidth = ratio * 100 + '%'; // 백분율로 계산한 값 = 게이지의 너비
+	
+	        // 실제 게이지의 너비를 gaugeWidth로 바꿔준다  
+	        $('.gauge_colored').css("width",gaugeWidth);
   		}
     });
     
@@ -573,4 +578,4 @@
     })
     </script>
 </body>
-</html>
+</html> 
