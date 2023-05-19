@@ -85,6 +85,14 @@ public class StudyController {
 		
 		// 스터디 관리 페이지에 들어가기 위해 내가 스터디장으로 있는 스터디가 있는지 알아보는 메소드
 		int leaderCount = studyService.getLeaderCount(user.getMe_id());
+		//우측 메뉴
+		StudyVO nowStudy = studyService.getStudy(st_num);
+		StudyVO favoriteStudy = studyService.getStudy(user.getMe_study());
+		ArrayList<StudyVO> stList = studyService.getUserStudyList(user.getMe_id());
+		model.addAttribute("nowSt", nowStudy);
+		model.addAttribute("favorite", favoriteStudy);
+		model.addAttribute("stList", stList);
+		
 		model.addAttribute("user", user);
 		model.addAttribute("mf", mf);
 		model.addAttribute("memberId", member);

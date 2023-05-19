@@ -399,30 +399,6 @@ body {
 					<div class="circle_accessor"></div>
 					<div class="member_name">이정현</div>
 				</div>
-				<div class="accessor_container">
-					<div class="circle_accessor"></div>
-					<div class="member_name">가나다</div>
-				</div>
-				<div class="accessor_container">
-					<div class="circle_accessor"></div>
-					<div class="member_name">라마바</div>
-				</div>
-				<div class="accessor_container">
-					<div class="circle_accessor"></div>
-					<div class="member_name">사아나</div>
-				</div>
-				<div class="accessor_container">
-					<div class="circle_accessor"></div>
-					<div class="member_name">s아나</div>
-				</div>
-				<div class="accessor_container">
-					<div class="circle_accessor"></div>
-					<div class="member_name">s아나</div>
-				</div>
-				<div class="accessor_container">
-					<div class="circle_accessor"></div>
-					<div class="member_name">s아나</div>
-				</div>
 			</div>
 		</div>
 	</aside>
