@@ -131,7 +131,8 @@
           <a href="<c:url value='/'></c:url>" class="btn_home">
           	<i class="icon_home">
           		<img  alt="홈 로고" src="<c:url value='/resources/img/rlab_logo.png'></c:url>" width="auto" height="50">
-          	</i>LAB
+          	</i>
+          	<p class="title_text">Lab</p>
           </a>
           <nav class="top_menu_container">
          	  <a href="<c:url value='/reservation'></c:url>" class="list_item">예약하기</a>
