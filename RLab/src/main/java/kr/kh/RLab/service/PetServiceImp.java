@@ -56,13 +56,13 @@ public class PetServiceImp implements PetService{
 	    case 2 : 
 	    	petDao.insertPayPrize(gr_me_id);
 	    	petDao.insertTicektOwnPetPrize(gr_me_id);
-	    	petDao.updateMyTicket(gr_me_id);
+	    	//petDao.updateMyTicket(gr_me_id);
 	        ; 
 	        break; 
 	    case 3:
 	    	petDao.insertPayPrize(gr_me_id);
 	    	petDao.insertTicektOwnPetPrize2(gr_me_id);
-	    	petDao.updateMyTicket2(gr_me_id);
+	    	//petDao.updateMyTicket2(gr_me_id);
 	    	break;
 	    default :
 	       ;    

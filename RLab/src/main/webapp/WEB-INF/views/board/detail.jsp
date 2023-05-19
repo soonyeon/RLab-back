@@ -293,7 +293,7 @@ $(document).ready(function() {
 let currentPage = 1;
 
 $(window).scroll(function() {
-    if ($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+    if ($(window).scrollTop() + $(window).height() > $(document).height()  - 100) {
         if (!isLoading) {
             isLoading = true;
             page = page+1;

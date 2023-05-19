@@ -44,21 +44,21 @@
 	insert into ticket_own (to_me_id, to_ti_num,to_pa_order_id,to_rest_time,to_valid_date,to_state)
 	values(#{gr_me_id},1,'prize',2,date_add(now(),interval 6 month),1)
 </insert>
-<!-- 2번펫 보상 후 멤버테이블 업데이트 -->
+<!-- 2번펫 보상 후 멤버테이블 업데이트 
 <update id="updateMyTicket">
 	update member
 	set me_rest_time = me_rest_time + 2
 	where me_id = #{gr_me_id}
-</update>
+</update>-->
 <!-- 3번펫 보상 -->
 <insert id="insertTicektOwnPetPrize2">
 	insert into ticket_own (to_me_id, to_ti_num,to_pa_order_id,to_rest_time,to_valid_date,to_state)
 	values(#{gr_me_id},3,'prize',6,date_add(now(),interval 6 month),1)
 </insert>
-<!-- 3번펫 보상 후 멤버테이블 업데이트 -->
+<!-- 3번펫 보상 후 멤버테이블 업데이트 
 <update id="updateMyTicket2">
 	update member
 	set me_rest_time = me_rest_time + 6
 	where me_id = #{gr_me_id}
-</update>
+</update>-->
 </mapper>
