@@ -82,6 +82,14 @@ margin-top: 100px;
   border: 1px solid black;
   place-items: center;
 }
+.rc_img_box .rc_img2{
+  margin-top: 25px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 1px solid black;
+  place-items: center;
+}
 .main_right_box .rc_info_box{
   width: 260px;
   border-bottom-left-radius: var(--border_radius_3);
@@ -118,6 +126,7 @@ margin-top: 100px;
   background-image: url('../../img/love_off.png');
   background-size: cover;
 }
+
 .study_content .like_img {
 	width : 30px;
 	height:30px;

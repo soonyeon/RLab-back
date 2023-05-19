@@ -74,7 +74,7 @@
 						<p class="success_percent2">달성률 <span class="percent"></span>%</p>
 					</div>
 					<div>
-						<progress id="progress-bar" class="mint" value="0" max="100"></progress>
+						<progress id="progress-bar" class="mint" value="" max="100"></progress>
 					</div>
 					
 					<!--프로필-->
@@ -236,7 +236,11 @@
 	</div>
 </main>
 <script>
-//게이지 채우기
+/*[미션 완료 게이지 채우기]
+ * totalCount = 스터디멤버들 전체 사이즈
+ * currentCount = 미션완료한 리스트 사이즈
+ * percent : 미션완료멤버 / 전체멤버 X 100 로 퍼센트 계산
+ */
 let totalCount = '${studyMember.size()}';
 let currentCount = '${mfList.size()}';
 var percent = currentCount/totalCount*100;
@@ -244,6 +248,7 @@ $('#progress-bar').val(percent)
 $('.percent').text(percent);
 
 
+//오늘의 미션 등록 모달창
 $(document).ready(function() {
     var modal = $("#modal");
 
@@ -266,6 +271,7 @@ $(document).ready(function() {
     });
 });
 
+//미션 등록
 $(".mission_up").click(function(e){
     e.preventDefault();
     let formData = new FormData();
@@ -292,6 +298,7 @@ $(".mission_up").click(function(e){
     });
 });
 
+//미션 수정
 $(".mission_edit").click(function(e){
     e.preventDefault();
     let formData = new FormData();
@@ -318,7 +325,7 @@ $(".mission_edit").click(function(e){
     });
 });
 
-$(content).text('${mission.mi_content}');
+$(content).text(`${mission.mi_content}`);
 
 
 

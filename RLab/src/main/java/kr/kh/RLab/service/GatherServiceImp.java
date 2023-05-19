@@ -24,17 +24,25 @@ import lombok.RequiredArgsConstructor;
 public class GatherServiceImp implements GatherService {
 
 	private final GatherDAO gatherDao;
-	private final MypageDAO mypageDao;
 	String uploadPath = "D:\\uploadfiles";
 
 	//[모집게시판 > 스터디생성]
+	/** @param study : 스터디 
+	 * 	@param member : 회원 가져옴 
+	 *  @param region : 지역 지정하기 위해 지역 가져옴
+	 *  @param files : 파일을 저장하기 위해 mutlipartFile 필요
+	 *  @param file : 선택한 파일을 db에 저장하기 위해
+	 *  @param tag : tag 저장
+	 *  @tagRegister : 스터디 번호로 해시태그 저장하기 위해 
+	 *  @studyMember : 스터디멤버에 등록하기 위해 
+	 */
 	@Override
 	public boolean insertStudy(StudyVO study, MemberVO member, RegionVO region, MultipartFile[] files, FileVO file,
 			TagVO tag, TagRegisterVO tagRegister, StudyMemberVO studyMember) {
 		if (member == null) {
 			return false;
 		}
-				
+		//study를 생성할때 스터디명 길이가 0 또는 총인원 설정을 1보다 작게 하면 return false		
 		if (study.getSt_name().trim().length() == 0 || study.getSt_total_people() < 1) {
 			return false;
 		}
@@ -44,17 +52,20 @@ public class GatherServiceImp implements GatherService {
 		studyMember.setSm_st_num(study.getSt_num());
 		gatherDao.insertStudyLeader(studyMember);
 		
+		//태그는 , 로 구분
 		String[] tags = tag.getTa_name().split(",");
 		ArrayList<TagVO> tagList = new ArrayList<>();
 		
 		
-		// 태그 추가
+		//[태그 추가]
+			//태그를 작성하지 않아도 넘어가게끔
 		for (String tagName : tags) {
 			tagName = tagName.trim();
 			if (tagName.isEmpty()) {
 				continue;
 			}
 			ArrayList<TagVO> tagVOList = gatherDao.selectTag(tagName);
+			//tagVO에서 태그가 없으면 태그 tag테이블에 추가
 			if (tagVOList.isEmpty()) {
 				TagVO tagVO = new TagVO();
 				tagVO.setTa_name(tagName);
@@ -66,7 +77,7 @@ public class GatherServiceImp implements GatherService {
 			gatherDao.insertStudyTag(study.getSt_num(), tagVO.getTa_name());
 		}
 
-		// 파일 추가
+		// 파일 추가(null이 아니고 파일길이가 0이상일때)
 		if (files != null && files.length > 0) {
 			uploadFiles(files, study.getSt_num(), file.getFi_table());
 		}
@@ -83,31 +94,35 @@ public class GatherServiceImp implements GatherService {
 	private void uploadFiles(MultipartFile[] files, int st_num, String fi_table) {
 		if (files == null || files.length == 0)
 			return;
-		// 諛섎났臾�
+		// 파일 업로드 반복
 		for (MultipartFile file : files) {
 			if (file == null || file.getOriginalFilename().length() == 0)
 				continue;
 			String fileName = "";
-			// 泥⑤��뙆�씪 �꽌踰꾩뿉 �뾽濡쒕뱶
+			// 실제 파일 없로드
 			try {
 				fileName = UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			// 泥⑤��뙆�씪 媛앹껜瑜� �깮�꽦
+			// 업로드된 파일 객체를 생성
 			FileVO fileVo = new FileVO(file.getOriginalFilename(), fileName, st_num);
-
 			fileVo.setFi_table(fi_table);
-			// �뙆�씪 媛앹껜�쓽 st_num �냽�꽦 媛믪쓣 fi_ex_num�쑝濡� �닔�젙
+			// 파일객체의 st_num을 fi_ex_num으로 설정
 			fileVo.setFi_ex_num(st_num);
-			// �떎�삤�뿉寃뚯꽌 泥⑤��뙆�씪 �젙蹂대�� 二쇰㈃�꽌 異붽��븯�씪怨� �슂泥�
+			//파일 추가
 			gatherDao.insertFile(fileVo);
 		}
 	}
 
 	//[모집게시판 > 모집글 작성]
+	/**@param member : 로그인 되어있는 회원 아이디가져옴
+	 * @param gather : gather에 저장
+	 * @param study : 멤버
+	 * 
+	 */
 	@Override
-	public boolean insertGather(MemberVO member, GatherVO gather, StudyVO study) {
+	public boolean insertGather(MemberVO member, GatherVO gather) {
 		if (member == null)
 			return false;
 		if (!checkGather(gather))
@@ -143,8 +158,10 @@ public class GatherServiceImp implements GatherService {
 		ArrayList<TagRegisterVO> tagList = gatherDao.selectTagList();
 		return tagList;
 	}
-
+	
 	@Override
+	/**@param st_num : 모집글 상세보기로 들어갔을 때 st_num을 통해 조회수증가
+	 */
 	public GatherVO getGather(int st_num) {
 		gatherDao.countViews(st_num);
 		return gatherDao.selectGather(st_num);
@@ -250,24 +267,28 @@ public class GatherServiceImp implements GatherService {
 		return gatherDao.selectTagListByStNum(st_num);
 	}
 
-	//[스터디관리 > 스터디 수정]
+	/**[스터디관리 > 스터디 수정]
+	 * @param : fileNums : 기존에 있던 파일을 삭제하기 위해 fi_num을 가져옴
+	 */
 	@Override
 	public boolean editStudy(StudyVO study, MemberVO member, RegionVO region, MultipartFile[] files,FileVO file, Integer fileNums,
 			TagVO tag, TagRegisterVO tagRegister,int st_num) {
 		if (member == null) {
 			return false;
 		}
+		//study를 생성할때 스터디명 길이가 0 또는 총인원 설정을 1보다 작게 하면 return false		
 		if (study.getSt_name().trim().length() == 0 || study.getSt_total_people() < 1) {
 			return false;
 		}
-
+		//study테이블 업데이트(스터디VO와 , 스터디번호)
 		gatherDao.updateStudy(study,st_num);
+		//기존 tagRegister에 스터디번호로 있던 태그들 삭제
 		gatherDao.deleteTagByStNum(tagRegister,st_num);
 		
 		String[] tags = tag.getTa_name().split(",");
 		ArrayList<TagVO> tagList = new ArrayList<>();
 			
-		// 태그 추가
+		// 새롭게 다시 태그 추가
 		for (String tagName : tags) {
 			tagName = tagName.trim();
 			if (tagName.isEmpty()) {
@@ -284,6 +305,7 @@ public class GatherServiceImp implements GatherService {
 			tagList.add(tagVO);
 			gatherDao.insertStudyTag(study.getSt_num(), tagVO.getTa_name());
 		}
+		//파일을 바꾸면 기존 파일 삭제
 		if(fileNums != null)
 			gatherDao.deleteFileByStNum(fileNums);
 		
