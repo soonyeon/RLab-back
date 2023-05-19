@@ -271,7 +271,8 @@ $(document).ready(function() {
 
 </script> 
 <script>
-//메인배너
+
+	/** 메인배너 **/
 	var banner_area = document.querySelector('.main_banner_area'),
 		banner = document.querySelectorAll('.main_banner_area li'),
 		currentIdx = 0,
@@ -286,7 +287,7 @@ $(document).ready(function() {
 	function makeClone(){
 		for(var i = 0; i<bannerCount; i++){
 			var cloneBanner = banner[i].cloneNode(true);
-			cloneBanner.classList.add('clone'); //위에 복사한 cloneSlide에 clone 클래스명을 넣어줌
+			cloneBanner.classList.add('clone'); 
 			banner_area.appendChild(cloneBanner);
 		}
 		
@@ -296,11 +297,11 @@ $(document).ready(function() {
 			banner_area.prepend(cloneBanner);
 		}
 		
-	updateWidth();
-	setInitialPos();
-	setTimeout(function(){
-	banner_area.classList.add('animated');
-	},100);		
+		updateWidth();
+		setInitialPos();
+		setTimeout(function(){
+			banner_area.classList.add('animated');
+		});		
 	}
 	
 	function updateWidth(){
@@ -335,7 +336,9 @@ $(document).ready(function() {
 	}
 
 /* 스터디 지점 안내 */	
+ 	// spot_item을 클릭하면
 	$('.spot_item').click(function(){
+		// 각 클래스를 찾아 태그안에 값을 변수에 할당
 		var spotName = $(this).find('.spot_name').text();
 		var spotAdd = $(this).find('.spot_address').text();
 		var spotNewAdd = $(this).find('.spot_road_address').text();
@@ -343,8 +346,10 @@ $(document).ready(function() {
 		var spotCapa = $(this).find('.br_capacity').text();
 		var linkSeat = '<c:url value="/reservation/1/'+$(this).data('num')+'"></c:url>';
 		var linkCabinet = '<c:url value="/reservation/2/'+$(this).data('num')+'"></c:url>';
+		// spot_img_file클래스값을 조합하여 url경로를 변수에 할당
 		var spotImgSrc = "/RLab/download" + $(this).find('.spot_hidden_box .spot_img_file').text();
 
+		// 각 클래스 위치에 위에서 할당한 값을 넣어줌
 		$('.spot_modal .spot_name').text(spotName);
 		$('.spot_modal .spot_add').text(spotAdd);
 		$('.spot_modal .spot_new_add').text(spotNewAdd);
@@ -353,15 +358,15 @@ $(document).ready(function() {
 		$('.spot_modal .cabinet_reserv').attr('href',linkCabinet);
 		$('.spot_modal .seat_reserv').attr('href',linkSeat);
 		$('.spot_img_area .spot_img').attr('src', spotImgSrc);
-			
 		$('.spot_modal_container').show();
 	});
 
+	// 모달 컨테이너를 클릭하면 하이드 처리(닫힘)
 	$('.spot_modal_container').click(function(){
 		$(this).hide();
 	});
 
-
+	// 각 버튼을 클릭하면 y축 스타일을 값을 변경하여 슬라이드를 이동
  	document.querySelector('.btn_spot1').addEventListener('click', function(){
 	document.querySelector('.spot_container').style.transform = 'translateY(0px)';
 	});
@@ -384,140 +389,159 @@ $(document).ready(function() {
 	    recruitBtnRight = document.querySelector('.recruit_btn_right');
 
 	makeRecruiyClone();
-
+	
+	//클론배너 생성
 	function makeRecruiyClone(){
-	  for(var i = 0; i<recruitBannerCount; i++){
-	    var cloneRecruitBanner = recruitBanner[i].cloneNode(true);
-	    cloneRecruitBanner.classList.add('clone');
-	    recruitBannerContainer.appendChild(cloneRecruitBanner);
-	  }
-	  for(var i = recruitBannerCount-1; i>= 0; i--){
-	    var cloneRecruitBanner = recruitBanner[i].cloneNode(true);
-	    cloneRecruitBanner.classList.add('clone'); 
-	    recruitBannerContainer.prepend(cloneRecruitBanner);
-	  }
-	  
-	  recruitUpdateWidth();
-	  recruitSetInitialPos();
-	  recruitBannerContainer.classList.add('animated');
+		// i가 0부터 3(배너개수보다 작을때)까지 턴하면서 클론배너 생성
+		for(var i = 0; i<recruitBannerCount; i++){
+		    // a.cloneNode() --> a요소를 그대로 복사
+		    // a.cloneNode(true) --> a의 자식요소까지 복사
+			var cloneRecruitBanner = recruitBanner[i].cloneNode(true);
+		    // 위에서 생성한 클론배너에 클래스명 'clone'을 추가
+			cloneRecruitBanner.classList.add('clone');
+		    // a.appendChild(b) --> a요소 뒤에 b를 추가 기존 배너 묶음 뒤에 클론배너를 추가
+			recruitBannerContainer.appendChild(cloneRecruitBanner);
+		}
+		// i가 3(배너개수-1)부터 0(0보다 크거나 같을때)까지 -1씩 턴하면서 클론배너 생성
+		for(var i = recruitBannerCount-1; i>= 0; i--){
+			// recruitBanner의 자식 요소까지 복사해서 cloneRecruitBanner로 변수 선언
+			var cloneRecruitBanner = recruitBanner[i].cloneNode(true);
+			// 위에서 생성한 클론배너에 클래스명 추가
+			cloneRecruitBanner.classList.add('clone');
+			// recruitBannerContainer앞에 cloneRecruitBanner추가
+			recruitBannerContainer.prepend(cloneRecruitBanner);
+		}
+		
+		recruitUpdateWidth();
+		recruitSetInitialPos();
+		recruitBannerContainer.classList.add('animated');
 
 	}
 	  
-
-	  function recruitUpdateWidth(){
-	    var recruitCurrentSlides = document.querySelectorAll('.recruit_banner_box');
-	    var recruitNewSlideCount= recruitCurrentSlides.length;
-
-	    var recruitNewWidth = (recruitBannerWidth + recruitBannerMargin)*recruitNewSlideCount + 'px';
-	    recruitBannerContainer.style.width = recruitNewWidth;
-	  } 
-
-	  function recruitSetInitialPos(){
-	    var recruitInitialTranslateValue = -(recruitBannerWidth + recruitBannerMargin)*recruitBannerCount;
-	    recruitBannerContainer.style.transform = 'translateX('+recruitInitialTranslateValue+'px)';
-	  }
-
-
-	  recruitBtnRight.addEventListener('click',function(){
-	    recruitMoveSlide(recruitCurrentIdx + 1);
-
-	  });
-
-	  recruitBtnLeft.addEventListener('click',function(){
-	      recruitMoveSlide(recruitCurrentIdx - 1);
-	  });
-
-	  function recruitMoveSlide(num){
-	    recruitBannerContainer.style.left = -num * (recruitBannerWidth + recruitBannerMargin) + 'px';
-	    recruitCurrentIdx = num;
-
-	  if(recruitCurrentIdx == recruitBannerCount || recruitCurrentIdx == -recruitBannerCount){
-
-	    setTimeout(function(){
-	      recruitBannerContainer.classList.remove('animated');
-	      recruitBannerContainer.style.left ='0px';
-	      recruitCurrentIdx = 0;
-
-	    },500);
-	    setTimeout(function(){
-	      recruitBannerContainer.classList.add('animated');
-	    },600);
-	    
-	  }
+	// 클론배너 포함 전체 롤링되는 배너의 너비를 구해 업데이트
+	function recruitUpdateWidth(){
+		// 클론포함 모든 배너를 찾아 변수에 할당
+		var recruitCurrentSlides = document.querySelectorAll('.recruit_banner_box')
+		// 클론포함 모든 배너의 개수를 구함
+		var recruitNewSlideCount= recruitCurrentSlides.length;
+		// 새로운 롤링 배너 총 길이를 구함
+		var recruitNewWidth = (recruitBannerWidth + recruitBannerMargin)*recruitNewSlideCount + 'px';
+		// 위에서 구한 배너 총 길이를 배너컨테이너의 너비에 할당해준다
+		recruitBannerContainer.style.width = recruitNewWidth;
 	}
 	
 	
-// 이벤트
+	function recruitSetInitialPos(){
+		// 초기 슬라이드 컨테이너의 이동 위치 값을 계산하여 변수에 할당
+		var recruitInitialTranslateValue = -(recruitBannerWidth + recruitBannerMargin)*recruitBannerCount;
+		// 슬라이드 컨테이너의 transform속성을 업데이트하여 이동
+		recruitBannerContainer.style.transform = 'translateX('+recruitInitialTranslateValue+'px)';
+	}
+	
+	// 오른쪽버튼 클릭하면
+	recruitBtnRight.addEventListener('click',function(){
+		// 슬라이드 오른쪽으로 한 칸씩 이동
+		recruitMoveSlide(recruitCurrentIdx + 1);
+	});
+	
+	// 왼쪽버튼 클릭하면
+	recruitBtnLeft.addEventListener('click',function(){
+		// 슬라이드를 왼쪽으로 한 칸 이동
+		recruitMoveSlide(recruitCurrentIdx - 1);
+	});
+
+	
+	function recruitMoveSlide(num){
+		// 슬라이드 컨테이너의 left 속성을 업데이트하여 슬라이드 이동
+		recruitBannerContainer.style.left = -num * (recruitBannerWidth + recruitBannerMargin) + 'px';
+		recruitCurrentIdx = num;
+	
+		// 현재 인덱스가 슬라이드 개수와 동일하거나 마이너스일 경우(마지막 또는 첫번째 슬라이드에 도달한 경우)
+		if(recruitCurrentIdx == recruitBannerCount || recruitCurrentIdx == -recruitBannerCount){
+			// 0.5초 후에 애니메이션 효과를 제거하고 컨테이너를 초기 위치로 이동
+			setTimeout(function(){
+				// 애니메이션 클래스 제거
+				recruitBannerContainer.classList.remove('animated');
+				// 슬라이드 컨테이너의 left 속성을 초기값인 0으로 설정, 처음 슬라이드로 이동
+				recruitBannerContainer.style.left ='0px';
+				// 현재 인덱스를 0으로 초기화
+				recruitCurrentIdx = 0;
+			
+			},500);
+			// 0.6초 후 애니메이션 클래스 추가
+			setTimeout(function(){
+				recruitBannerContainer.classList.add('animated');
+			},600);
+		}
+	}
+
+	
+	/** 이벤트 **/
 	var eventBannerContainer = document.querySelector('.event_box'),
-	    eventBanner = document.querySelectorAll('.event_banner'),
-	    eventCurrentIdx = 0,
-	    eventBannerCount = eventBanner.length,
-	    eventBannerWidth = 581.1,
-	    eventBannerMargin =35,
-	    eventBtnLeft = document.querySelector('.event_btn_left'),
-	    eventBtnRight = document.querySelector('.event_btn_right');
-
+		eventBanner = document.querySelectorAll('.event_banner'),
+		eventCurrentIdx = 0,
+		eventBannerCount = eventBanner.length,
+		eventBannerWidth = 581.1,
+		eventBannerMargin =35,
+		eventBtnLeft = document.querySelector('.event_btn_left'),
+		eventBtnRight = document.querySelector('.event_btn_right');
+	
 	makeEventClone();
 
 	function makeEventClone(){
-	  for(var i = 0; i<eventBannerCount; i++){
-	    var cloneEventBanner = eventBanner[i].cloneNode(true);
-	    cloneEventBanner.classList.add('clone');
-	    eventBannerContainer.appendChild(cloneEventBanner);
-	  }
-	  for(var i = eventBannerCount-1; i>= 0; i--){
-	    var cloneEventBanner = eventBanner[i].cloneNode(true);
-	    cloneEventBanner.classList.add('clone'); 
-	    eventBannerContainer.prepend(cloneEventBanner);
-	  }
-	  
-	  eventUpdateWidth();
-	  eventSetInitialPos();
-	  eventBannerContainer.classList.add('animated');
-
+		for(var i = 0; i<eventBannerCount; i++){
+			var cloneEventBanner = eventBanner[i].cloneNode(true);
+			cloneEventBanner.classList.add('clone');
+			eventBannerContainer.appendChild(cloneEventBanner);
+		}
+		for(var i = eventBannerCount-1; i>= 0; i--){
+			var cloneEventBanner = eventBanner[i].cloneNode(true);
+			cloneEventBanner.classList.add('clone'); 
+			eventBannerContainer.prepend(cloneEventBanner);
+		}
+		eventUpdateWidth();
+		eventSetInitialPos();
+		eventBannerContainer.classList.add('animated');
 	}
-	  
-	  function eventUpdateWidth(){
-	    var eventCurrentSlides = document.querySelectorAll('.event_banner');
-	    var eventNewSlideCount= eventCurrentSlides.length;
-	    var eventNewWidth = (eventBannerWidth + eventBannerMargin)*eventNewSlideCount + 'px';
-	    eventBannerContainer.style.width = eventNewWidth;
-	  } 
+  
+	function eventUpdateWidth(){
+		var eventCurrentSlides = document.querySelectorAll('.event_banner');
+		var eventNewSlideCount= eventCurrentSlides.length;
+		var eventNewWidth = (eventBannerWidth + eventBannerMargin)*eventNewSlideCount + 'px';
+		eventBannerContainer.style.width = eventNewWidth;
+	} 
 
-	  function eventSetInitialPos(){
-	    var eventInitialTranslateValue = -(eventBannerWidth + eventBannerMargin)*eventBannerCount;
-	    eventBannerContainer.style.transform = 'translateX('+eventInitialTranslateValue+'px)';
-	  }
+	function eventSetInitialPos(){
+		var eventInitialTranslateValue = -(eventBannerWidth + eventBannerMargin)*eventBannerCount;
+		eventBannerContainer.style.transform = 'translateX('+eventInitialTranslateValue+'px)';
+	}
+	
+		eventBtnRight.addEventListener('click',function(){
+		eventMoveSlide(eventCurrentIdx + 1);
+	});
+	
+		eventBtnLeft.addEventListener('click',function(){
+		eventMoveSlide(eventCurrentIdx - 1);
+	});
 
-	  eventBtnRight.addEventListener('click',function(){
-	    eventMoveSlide(eventCurrentIdx + 1);
-	  });
-
-	  eventBtnLeft.addEventListener('click',function(){
-	      eventMoveSlide(eventCurrentIdx - 1);
-	  });
-
-	  function eventMoveSlide(num){
-	    eventBannerContainer.style.left = -num * (eventBannerWidth + eventBannerMargin) + 'px';
-	    eventCurrentIdx = num;
-
-	  if(eventCurrentIdx == eventBannerCount || eventCurrentIdx == -eventBannerCount){
-	    setTimeout(function(){
-	      eventBannerContainer.classList.remove('animated');
-	      eventBannerContainer.style.left ='0px';
-	      eventCurrentIdx = 0;
-
-	    },500);
-	    setTimeout(function(){
-	      eventBannerContainer.classList.add('animated');
-	    },600);
-	    
-	  }
+	function eventMoveSlide(num){
+		eventBannerContainer.style.left = -num * (eventBannerWidth + eventBannerMargin) + 'px';
+		eventCurrentIdx = num;
+	
+		if(eventCurrentIdx == eventBannerCount || eventCurrentIdx == -eventBannerCount){
+			setTimeout(function(){
+			eventBannerContainer.classList.remove('animated');
+			eventBannerContainer.style.left ='0px';
+			eventCurrentIdx = 0;
+			
+			},500);
+			
+			setTimeout(function(){
+			eventBannerContainer.classList.add('animated');
+			
+			},600);
+		}
 	}	
-	  
-	
-	
-
 </script>
 </body>
 

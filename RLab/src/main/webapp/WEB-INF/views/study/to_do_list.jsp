@@ -324,46 +324,48 @@ function createMemberListItem(member, userId, isOnline) {
 }
 
 
-//게이지바
+/** 게이지바 **/
 
 	// 유저의 게이지 바 
-	const canvas = document.getElementById("gauge");
-	const ctx = canvas.getContext("2d");
-	
+	const canvas = document.getElementById("gauge"); // 아이디가qauge인 캔버스 요소 가져오기
+	const ctx = canvas.getContext("2d"); // 2d 컨텍스트 가져오기
 	const value = ${todoProgressRateint}; // 게이지바 값
 	const max = 100; // 게이지바 최대값
 	const barWidth = 100; // 게이지바 너비
 	const barHeight = 20; // 게이지바 높이
-	const centerX = canvas.width / 2 - barWidth/2;
-	const centerY = canvas.height / 2;
+	const centerX = canvas.width / 2 - barWidth/2; // 게이지바의 중앙 x 좌표
+	const centerY = canvas.height / 2; //게이지바의 y좌표
 	
 	// 게이지바 그리기
-	const fillWidth = (value / max) * barWidth;
-	ctx.fillStyle = "rgb(0, 128, 255)";
-	ctx.fillRect(0, 0, fillWidth, barHeight);
+	const fillWidth = (value / max) * barWidth; // 채워질 영역 너비 계산
+	ctx.fillStyle = "rgb(0, 128, 255)"; // 게이지바의 채워질 영역 색상 설정
+	ctx.fillRect(0, 0, fillWidth, barHeight); // 채워질 영역 그림
 	
-
-	
+	// 멤버의 게이지 바
 	$(document).ready(function() {
 		const stMemberSize = ${stMember.size()};
 		
+		// i가 멤버개수보다 작을때까지 턴
 		for (let i = 0; i < stMemberSize; i++) {
-		const canvas = $('.todo_box_member_content').eq(i).find('.gauge');
+			// eq()는 선택한 요소 집합에서 인덱스에 해당하는 요소를 선택하는 제이쿼리
+			const canvas = $('.todo_box_member_content').eq(i).find('.gauge');
+			// 캔버스 요소가 없으면 종료
 			if(canvas.length ==0) return;
-		const name = $('.todo_box_member_content').eq(i).find('.todo_box_member_title h3').text();
-		/* console.log("이름: "+name);
-		console.log(canvas) */
-		const ctx = canvas[0].getContext("2d");
-		const value = parseFloat($('.todo_box_member_content').eq(i).find('.prog').text());
-		/* console.log("멤버의 게이지값: "+value); */
-		
-		const max = 100;
-		const barWidth = 100;
-		const barHeight = 20;
-		
-		const fillWidth = (value / max) * barWidth;
-		ctx.fillStyle = "rgb(0, 128, 255)";
-		ctx.fillRect(0, 0, fillWidth, barHeight);
+			// 각 멤버 이름 가져오기
+			const name = $('.todo_box_member_content').eq(i).find('.todo_box_member_title h3').text();
+			/* console.log(canvas) */
+			// 2d 컨텍스트 가져오기
+			const ctx = canvas[0].getContext("2d");
+			// parseFloat은 문자열을 숫자로 변환
+			const value = parseFloat($('.todo_box_member_content').eq(i).find('.prog').text());
+			
+			const max = 100;
+			const barWidth = 100;
+			const barHeight = 20;
+			
+			const fillWidth = (value / max) * barWidth;
+			ctx.fillStyle = "rgb(0, 128, 255)";
+			ctx.fillRect(0, 0, fillWidth, barHeight);
 		}
 	}); 
 	
@@ -379,12 +381,9 @@ function createMemberListItem(member, userId, isOnline) {
 	    	generateTodo(todoInput.value); // 입력된 할 일을 추가하는 함수 호출
 	        todoInput.value = ""; // 입력란 비우기
 	    }
-	    console.log(1); 
-		
 	});
 	
 	// 할 일을 생성하고 서버에 전송하는 함수
-	
 	const generateTodo = (todo) => {
 	    const obj = {
 	    		td_content : todo,
@@ -454,8 +453,6 @@ function createMemberListItem(member, userId, isOnline) {
 	checkOff.forEach(icon => {
 	    icon.addEventListener("click", (e) => {
 	        var td_num = e.target.parentNode.parentNode.dataset.num;
-	        
-	        console.log(td_num);
 	       
 	        $.ajax({
 	            async: false,

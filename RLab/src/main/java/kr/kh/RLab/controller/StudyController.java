@@ -270,13 +270,15 @@ public class StudyController {
 		mv.setViewName("/study/management");
 		return mv;
 	}
-
+	
+	/** 스터디 관리 **/
 	@RequestMapping(value = "/management", method = RequestMethod.POST)
 	public ModelAndView managementPost(ModelAndView mv, StudyVO study) {
 		mv.setViewName("redirect:/study/management/member/" + study.getSt_num());
 		return mv;
 	}
-
+	
+	/** 스터디 관리_멤버 **/
 	@RequestMapping(value = "/management/member/{st_num}", method = RequestMethod.GET)
 	public ModelAndView managementMember(ModelAndView mv, HttpSession session, MemberVO member, StudyVO study,
 			@PathVariable("st_num") int st_num, Criteria cri) {
@@ -302,7 +304,8 @@ public class StudyController {
 		// ModelAndView 객체를 반환
 		return mv;
 	}
-
+	
+	/** 스터디 관리_멤버 삭제 **/
 	@ResponseBody
 	@RequestMapping(value = "/management/member/delete", method = RequestMethod.POST)
 	public HashMap<String, Object> deleteMember(@RequestBody StudyMemberVO sm) {
@@ -312,10 +315,10 @@ public class StudyController {
 		return map;
 	}
 	
+	/** 스터디 관리_멤버 권한 변경 **/
 	@ResponseBody
 	@RequestMapping(value = "/management/member/authorize", method = RequestMethod.POST)
-	public HashMap<String, Object> authorizeMember(@RequestBody StudyMemberVO sm,
-			HttpSession session) {
+	public HashMap<String, Object> authorizeMember(@RequestBody StudyMemberVO sm,HttpSession session) {
 	    HashMap<String, Object> map = new HashMap<String, Object>();
 	    
 	    // 멤버에게 권한 위임하고 위임받은 회원 id를 리턴
@@ -329,6 +332,7 @@ public class StudyController {
 	    return map;
 	}
 	
+	/** 스터디 관리_스터디 **/
 	@RequestMapping(value = "/management/study/{st_num}", method = RequestMethod.GET)
 	public ModelAndView managementStudy(ModelAndView mv, HttpSession session, @PathVariable("st_num") int st_num) {
 		// HttpSession에서 "user"라는 이름의 속성을 가져와 MemberVO 객체로 형변환하여 변수 user에 저장
@@ -346,7 +350,7 @@ public class StudyController {
 		return mv;
 	}
   
-	//스터디 삭제
+	/** 스터디 관리_스터디 삭제 **/
 	@ResponseBody
 	@RequestMapping(value = "/management/study/delete/{st_num}", method = RequestMethod.POST)
 	public HashMap<String, Object> deleteStudy(@RequestBody StudyVO st,HttpSession session) {
@@ -371,8 +375,8 @@ public class StudyController {
 		}
 		return map;
 	}
-
-	// 스터디 상태 변경 1 -> 0
+	
+	/** 스터디 관리_스터디 상태 변경(1 -> 0) **/
 	@ResponseBody
 	@RequestMapping(value = "/management/study/update/{st_num}", method = RequestMethod.POST)
 	public HashMap<String, Object> stateUpdateStudy(@RequestBody StudyVO st) {
@@ -383,7 +387,7 @@ public class StudyController {
 		return map;
 	}
 
-	// 스터디 상태 변경 0 -> 1
+	/** 스터디 관리_스터디 상태 변경(0 -> 1) **/
 	@ResponseBody
 	@RequestMapping(value = "/management/study/update/undo/{st_num}", method = RequestMethod.POST)
 	public HashMap<String, Object> stateUpdateStudyUndo(@RequestBody StudyVO st) {
@@ -394,58 +398,58 @@ public class StudyController {
 		return map;
 	}
 
+	/** 투두 **/
 	@RequestMapping(value = "/todo/{st_num}", method = RequestMethod.GET)
 	public ModelAndView todoList(ModelAndView mv, HttpSession session,@PathVariable("st_num") int st_num,StudyMemberVO sm, TodoVO td) {
 	    MemberVO user = (MemberVO) session.getAttribute("user");
 	    String memberId = user.getMe_id();
 	    
-	    //유저의 투두 리스트 
+	    // 유저의 투두 리스트 
 	    ArrayList<TodoVO> tdList = studyService.getTodoList(memberId);
-	    
-	    //유저가 참여한 스터디 목록 조회
+	    // 유저가 참여한 스터디 목록 조회
 	    ArrayList<StudyMemberVO> myStudyList = studyService.getMyStudyList(memberId);
-	    
-	    //유저의 투두 진척도
+	    // 유저의 투두 진척도
 	    double todoProgressRate = studyService.getTodoProgressRate(memberId);
+	    // 투두 진척도 반올림
 	    int todoProgressRateint= (int) Math.round(todoProgressRate);
-	    //System.out.println("투두 진척도 : " + todoProgressRate+"%");
 	    
-	    //스터디멤버 리스
+	    // 스터디멤버 리스트
 	    ArrayList<StudyMemberVO> stMember = studyService.getStudyMember(st_num);
-	    
-	    //스터디넘버가 일치하는 스터디 멤버 투두 불러오기
+	    // 스터디넘버가 일치하는 스터디 멤버 투두 불러오기
 	    ArrayList<TodoVO> stMemberTodo = studyService.getStudyMemberTodo(st_num);
 	    
-	    //멤버 투두 진행
-	    //서비스에서 멤버의 투두 총개수,완료 개수를 구해 진척률을 전달받고 정수로 변환->TodoMemberVO에 me_prog_rate를 만들어 값으로 할 
+	    // 멤버 투두 진행
+	    // 서비스에서 멤버의 투두 총개수,완료 개수를 구해 진척률을 전달받고 정수로 변환->TodoMemberVO에 me_prog_rate를 만들어 값으로 할당
 	    ArrayList<StudyMemberVO> stMemberProgRateList = new ArrayList<>();
+	    // stMember객체의 각 요소를 순회하면서 member변수에 할당
 	    for (StudyMemberVO member : stMember) {
 	        double membersTdProgRate = studyService.membersTdProgRate(member.getSm_me_id());
 	        int membersTdProgRateint = (int) Math.round(membersTdProgRate);
+	        // 멤버의 진률을 설정
 	        member.setMe_prog_rate(membersTdProgRateint);
+	        // 진행률이 설정된 멤버 객체를 stMemberProgRateList에 추가
 	        stMemberProgRateList.add(member);
 	    }
-	 
 	    
-	  //나의 펫 데려오기
-	  GrowthVO myPet = mypageService.selectMyPet(memberId);
-	  // 스터디 관리
-	  int leaderCount = studyService.getLeaderCount(user.getMe_id());
-	  
-	    mv.addObject("myStudyList", myStudyList);
-	    mv.addObject("tdList", tdList);
-	    mv.addObject("memberId",memberId);
-	    mv.addObject("myPet", myPet);
-	    mv.addObject("stMember",stMember);
-	    mv.addObject("stMemberTodo",stMemberTodo);
-	    mv.addObject("todoProgressRateint",todoProgressRateint);
-	    mv.addObject("stMemberProgRateList",stMemberProgRateList);
-	    mv.addObject("leaderCount", leaderCount);
-	    mv.setViewName("/study/to_do_list");
-	    return mv;
-	}
+		//나의 펫 데려오기
+		GrowthVO myPet = mypageService.selectMyPet(memberId);
+		// 스터디 관리
+		int leaderCount = studyService.getLeaderCount(user.getMe_id());
+		  
+		mv.addObject("myStudyList", myStudyList);
+		mv.addObject("tdList", tdList);
+		mv.addObject("memberId",memberId);
+		mv.addObject("myPet", myPet);
+		mv.addObject("stMember",stMember);
+		mv.addObject("stMemberTodo",stMemberTodo);
+		mv.addObject("todoProgressRateint",todoProgressRateint);
+		mv.addObject("stMemberProgRateList",stMemberProgRateList);
+		mv.addObject("leaderCount", leaderCount);
+		mv.setViewName("/study/to_do_list");
+		    return mv;
+		}
 
-	//투두 인풋 입력값 가져오기
+	/** 투두_인풋 입력값 가져오기 **/
 	@ResponseBody
 	@PostMapping("/todo/create") // POST 요청 처리를 위한 매핑 경로 설정
 	public HashMap<String, Object> insertTodo(ModelAndView mv, @RequestBody TodoVO td) {
@@ -455,7 +459,7 @@ public class StudyController {
 		return map;
 	}
 
-	// 투두 삭제
+	//** 투두_삭제 **/
 	@ResponseBody
 	@RequestMapping(value = "/todo/delete", method = RequestMethod.POST)
 	public HashMap<String, Object> deleteTodo(@RequestBody TodoVO td) {
@@ -465,7 +469,7 @@ public class StudyController {
 		return map;
 	}
 
-	// 투두 상태 변경 0 -> 1
+	/** 투두_상태 변경(0 -> 1) **/
 	@ResponseBody
 	@RequestMapping(value = "/todo/finish", method = RequestMethod.POST)
 	public HashMap<String, Object> finishTodo(@RequestBody TodoVO td) {
@@ -475,7 +479,7 @@ public class StudyController {
 		return map;
 	}
 
-	// 투두 상태 변경 1 -> 0
+	/** 투두_상태 변경(1 -> 0) **/
 	@ResponseBody
 	@RequestMapping(value = "/todo/finish/undo", method = RequestMethod.POST)
 	public HashMap<String, Object> finishTodoUndo(@RequestBody TodoVO td) {
