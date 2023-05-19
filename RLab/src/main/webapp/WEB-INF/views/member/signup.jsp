@@ -7,10 +7,8 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="<c:url value='/resources/js/jquery.min.js'></c:url>"></script>
 <script src="<c:url value='/resources/js/jquery.validate.min.js'></c:url>"></script>
 <script src="<c:url value='/resources/js/additional-methods.min.js'></c:url>"></script>
-<link rel="stylesheet" href="<c:url value ='/resources/css/common.css'></c:url>">
 <link rel="stylesheet" href="<c:url value ='/resources/css/signup.css'></c:url>">
 <title>signup</title>
 </head>
@@ -36,36 +34,46 @@
 				<h1>회원가입</h1>
 				<form id="signupform" action="#" method="post" class="form_area" encytype="multipart/form-data">
 					<!-- <form action="<c:url value='/signup'></c:url>" method="post"> -->
-					<div class="form_group">
-						<label for="id">아이디:</label> <input type="text"
-							class="form_control" id="me_id" name="me_id" placeholder="영문, 숫자 를 이용하여 5-13자 가능">
+					<div class="form_box">
+						<div class="signup_form_group">
+							<label for="id">아이디</label> <input type="text"
+								class="form_control" id="me_id" name="me_id" placeholder="영문, 숫자 를 이용하여 5-13자 가능">
+						</div>
+						<button class="btn btn_outline_success col-12 btn_check_id" type="button" >아이디
+							중복체크</button>
 					</div>
-					<button class="btn btn_outline_success col-12 btn_check_id" type="button" >아이디
-						중복체크</button>
-					<div class="form_group">
-						<label for="pw">비밀번호:</label> <input type="password"
+					<div class="signup_form_group">
+						<label for="pw">비밀번호</label> <input type="password"
 							class="form_control" id="me_pw" name="me_pw" placeholder="영문, 숫자, !@#를 이용하여 8-20자 가능">
 					</div>
-					<div class="form_group">
-						<label for="pw2">비밀번호 확인:</label> <input type="password"
+					<div class="signup_form_group">
+						<label for="pw2">비밀번호 확인</label> <input type="password"
 							class="form_control" id="pw2" name="me_pw2">
 					</div>
-					<div class="form_group">
-						<label for="nickname">닉네임:</label> <input type="text"
-							class="form_control" id="nickname" name="me_name" placeholder="한글,영어,숫자를 이용하여 2-10자 까지 가능">
+					<div class="form_box">
+						<div class="signup_form_group">
+							<label for="nickname">닉네임</label> <input type="text"
+								class="form_control" id="nickname" name="me_name" placeholder="한글,영어,숫자를 이용하여 2-10자 까지 가능">
+						</div>
+						<button class="btn btn_outline_success col-12 btn_check_name" type="button">닉네임
+							중복체크</button>
 					</div>
-					<button class="btn btn_outline_success col-12 btn_check_name" type="button">닉네임
-						중복체크</button>
-					<div class="form_group">
-						<label for="email">이메일:</label> <input type="text"
-							class="form_control" id="useremail" name="me_email">
+					<div class="form_box">
+						<div class="signup_form_group">
+							<label for="email">이메일</label> <input type="text"
+								class="form_control" id="useremail" name="me_email">
+						</div>
+						<div class="btn_group">
+							<button class="btn btn_outline_success col-12 btn_check_email" type="button" >이메일 중복체크</button>
+							<button class="btn btn_outline_success col-12" type="button"  id="mail_send_btn">인증번호 전송</button>
+						</div>
 					</div>
-					<button class="btn btn_outline_success col-12 btn_check_email" type="button" >이메일 중복체크</button>
-					<button class="btn btn_outline_success col-12" type="button"  id="mail_send_btn">이메일 인증</button>
-					<div class="mail-check-box">
-						<input class="form_control mail_check_input" disabled="disabled" maxlength="6" placeholder="인증번호 6자리를 입력해주세요!">
+					<div class="form_box">
+						<div class="mail-check-box">
+							<input class="form_control mail_check_input" disabled="disabled" maxlength="6" placeholder="인증번호 6자리를 입력해주세요!">
+						</div>
+						<button class="btn btn_outline_success col-12" type="button" id="verify_code_btn">인증번호 확인</button>
 					</div>
-					<button class="btn btn_outline_success col-12" type="button" id="verify_code_btn">인증 번호 확인</button>
 					<button class="btn btn_outline_success col-12 mt-5 btn_signup">회원가입</button>
 				</form>
 			</div>

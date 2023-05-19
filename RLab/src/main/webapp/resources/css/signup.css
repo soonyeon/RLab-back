@@ -6,27 +6,51 @@ a, button{
 }
 
 .sign_up_container{
-  width: 500px;
+  width: 908px;
   text-align: center;
-  background-color: var(--color_beige);
   margin-top: 70px;
   font-size: 18px;
   color: #2d2d2d;
   z-index: -20;
   border-radius: 10px;
   margin : auto;
+  border: 1px solid black;
+  overflow: hidden;
+}
+.sign_up_container h1{
+	margin-bottom: 50px;
+	font-family: var(--font_main);
 }
 .sign_up_container label{
-  text-align: left;
+     display: flex;
+    align-items: center;
+    font-family: var(--font_main);
+    text-align: left;
+    width: 130px;
+    font-size: 20px;
 }
 .sign_up_container .form_area{
+  display: flex;
+  flex-flow: column;
   text-align: left;
-  margin: auto;
+  gap: 20px;
 }
-.sign_up_container .form_group{
-  margin: 20px 0px 7px;
+ .form_box{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.sign_up_container .btn, #signupform .form_control{
+.signup_form_group{
+	display: flex;
+}
+.btn_group{
+	display: flex;
+	flex-flow: column;
+	gap: 5px;
+}
+
+
+.sign_up_container .btn{
   list-style: none;
   height: 35px;
   width: 490px;
@@ -35,8 +59,20 @@ a, button{
   border: 1px solid gray;
   background-color: white;
 }
+#signupform .form_control{
+	 list-style: none;
+  height: 35px;
+  width: 490px;
+  border-radius: 5px;
+  font-size: 15px;
+  border: 1px solid gray;
+  background-color: white;
+}
 .sign_up_container .btn{
-background-color: #dbdbdc71;
+    
+    width: 135px;
+    height: 40px;
+    font-size: 13px;
 }
 
 .email{
