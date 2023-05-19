@@ -1,11 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%><!-- footer -->
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <!-- footer -->
 	<footer>
 		<div class="container">
-			<a href="#" class="btn_home"><i class="icon_home"></i>LAB</a>
+			<a href="<c:url value='/'></c:url>" class="btn_home">
+	          	<i class="icon_home">
+	          		<img  alt="홈 로고" src="<c:url value='/resources/img/rlab_logo.png'></c:url>" width="auto" height="50">
+	          	</i>
+	          	<p class="title_text">Lab</p>
+          	</a>
 			<!-- 관련 정보 섹션 -->
 			<section>
-				<div class="info_container clearfix">
+				<div class="info_container">
 					<div class="direct_num_box">
 						<h1 class="info_title">대표번호 : 123-4567</h1>
 						<ul class="list_tel">
