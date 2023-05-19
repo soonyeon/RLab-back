@@ -343,7 +343,7 @@ body {
 			<div class="study_link_container">
 				<div class="circle_now cc">
                 	<div class="icon_now">NOW</div>
-                	<div class="study_name">${now.st_name}</div>
+                	<div class="study_name">${nowSt.st_name}</div>
             	</div>
 				<div class="circle_star cc">
                 	<img class="icon_star" src="<c:url value='/resources/img/favorite_star_on.png'></c:url>">
@@ -370,56 +370,56 @@ body {
 					</div>
 				</div>
 			</div>
-		</div>
-		<!-- 접속상태 -->
-		<div class="accessor">
-			<div class="study_title">정보처리기사 스터디</div>
-			<div class="accessor_container">
-				<div class="circle_accessor">
-					<div class="accessor_on"></div>
+			<!-- 접속상태 -->
+			<div class="accessor">
+				<div class="study_title">정보처리기사 스터디</div>
+				<div class="accessor_container">
+					<div class="circle_accessor">
+						<div class="accessor_on"></div>
+					</div>
+					<div class="member_name">김돌탕</div>
+					<span class="your">YOU</span>
 				</div>
-				<div class="member_name">김돌탕</div>
-				<span class="your">YOU</span>
-			</div>
-			<div class="accessor_container">
-				<div class="circle_accessor"></div>
-				<div class="member_name">김순연</div>
-			</div>
-			<div class="accessor_container">
-				<div class="circle_accessor"></div>
-				<div class="member_name">김세영</div>
-			</div>
-			<div class="accessor_container">
-				<div class="circle_accessor"></div>
-				<div class="member_name">김도현</div>
-			</div>
-			<div class="accessor_container">
-				<div class="circle_accessor"></div>
-				<div class="member_name">이정현</div>
-			</div>
-			<div class="accessor_container">
-				<div class="circle_accessor"></div>
-				<div class="member_name">가나다</div>
-			</div>
-			<div class="accessor_container">
-				<div class="circle_accessor"></div>
-				<div class="member_name">라마바</div>
-			</div>
-			<div class="accessor_container">
-				<div class="circle_accessor"></div>
-				<div class="member_name">사아나</div>
-			</div>
-			<div class="accessor_container">
-				<div class="circle_accessor"></div>
-				<div class="member_name">s아나</div>
-			</div>
-			<div class="accessor_container">
-				<div class="circle_accessor"></div>
-				<div class="member_name">s아나</div>
-			</div>
-			<div class="accessor_container">
-				<div class="circle_accessor"></div>
-				<div class="member_name">s아나</div>
+				<div class="accessor_container">
+					<div class="circle_accessor"></div>
+					<div class="member_name">김순연</div>
+				</div>
+				<div class="accessor_container">
+					<div class="circle_accessor"></div>
+					<div class="member_name">김세영</div>
+				</div>
+				<div class="accessor_container">
+					<div class="circle_accessor"></div>
+					<div class="member_name">김도현</div>
+				</div>
+				<div class="accessor_container">
+					<div class="circle_accessor"></div>
+					<div class="member_name">이정현</div>
+				</div>
+				<div class="accessor_container">
+					<div class="circle_accessor"></div>
+					<div class="member_name">가나다</div>
+				</div>
+				<div class="accessor_container">
+					<div class="circle_accessor"></div>
+					<div class="member_name">라마바</div>
+				</div>
+				<div class="accessor_container">
+					<div class="circle_accessor"></div>
+					<div class="member_name">사아나</div>
+				</div>
+				<div class="accessor_container">
+					<div class="circle_accessor"></div>
+					<div class="member_name">s아나</div>
+				</div>
+				<div class="accessor_container">
+					<div class="circle_accessor"></div>
+					<div class="member_name">s아나</div>
+				</div>
+				<div class="accessor_container">
+					<div class="circle_accessor"></div>
+					<div class="member_name">s아나</div>
+				</div>
 			</div>
 		</div>
 	</aside>
@@ -554,25 +554,6 @@ checkOff.forEach(icon => {
     });
 }); 
 
-const st_num = '${st_num}';
-const userId = '${userId}'; 
-$(document).ready(function() {
-    loadStudyMembers(st_num, userId);
-});
-
-/*
-const sse = new EventSource("<c:url value='/connect'></c:url>" + "?id=" + userId);
-sse.addEventListener('connect', (e) => {
-    const { data: receivedConnectData } = e;
-    console.log('connect event data: ', receivedConnectData);  // "connected!"
-    console.log(new Date());
-});
-sse.addEventListener('count', e => {
-    const { data: receivedCount } = e;
-    console.log("count event data", receivedCount);
-});
-*/
-
 $('.leave_btn').click(function() {
 	if(confirm('스터디를 탈퇴 하시겠습니까?')) {
 		$.ajax({
@@ -594,7 +575,62 @@ $('.leave_btn').click(function() {
 	}
 })
 
+const canvas = document.getElementById("gauge");
+const ctx = canvas.getContext("2d");
 
+const value = ${todoProgressRateint}; // 게이지바 값
+const max = 100; // 게이지바 최대값
+const barWidth = 100; // 게이지바 너비
+const barHeight = 20; // 게이지바 높이
+const centerX = canvas.width / 2 - barWidth/2;
+const centerY = canvas.height / 2;
+
+// 게이지바 그리기
+const fillWidth = (value / max) * barWidth;
+ctx.fillStyle = "rgb(0, 128, 255)";
+ctx.fillRect(centerX, centerY - barHeight/2, fillWidth, barHeight);
+
+
+</script>
+<script>
+var st_num = '${st_num}';
+var userId = '${userId}'; 
+
+/* 우측 메뉴 이벤트 */
+$(document).ready(function() {
+    loadStudyMembers(st_num, userId);
+});
+
+$(document).ready(function (){
+	$('.btn_dropdown').click(function(){
+		$('#dropdown_list').slideToggle();
+	});
+	
+	//star_off 클릭하면 즐겨찾기 등록하는 ajax post
+	$('.star_off').click(function(){
+		let studyName = $(this).prev().text();
+		let studyNum = $(this).parents('.dropdown_item').find('[name=list_st_num]').val();
+		if(confirm("'"+studyName+"' 스터디를 즐겨찾기로 등록하시겠습니까?")){
+			let obj = {
+				st_num: studyNum,
+				st_me_id: '${user.me_id}'
+			}
+			$.ajax({
+				type: 'POST',
+				data: JSON.stringify(obj),
+				url: '<c:url value="/study/setfavorite"></c:url>',
+				dataType:"json",
+				contentType:"application/json; charset=UTF-8",
+				success : function(data){
+					alert('즐겨찾기를 변경하였습니다.');
+					location.reload();
+				}
+			})
+		}
+	});
+});
+
+//접속멤버를 불러와서 화면에 출력하는 함수
 function loadStudyMembers(st_num, userId) {
     $.ajax({
         url: '<c:url value="/onlineMembers"/>',
@@ -637,6 +673,7 @@ function loadStudyMembers(st_num, userId) {
         }
     });
 }
+//접속멤버란 - 멤버 한명의 html 문자열 리턴하는 함수
 function createMemberListItem(member, userId, isOnline) {
     const defaultImage = '<c:url value="/resources/img/user.png" />';
     const userProfileImage = member.me_profile ? '<c:url value="/download" />' + member.me_profile : defaultImage;
@@ -652,54 +689,4 @@ function createMemberListItem(member, userId, isOnline) {
         (userId === member.me_name ? '<span class="your">YOU</span>' : '') +
         '</div>';
 }
-
-const canvas = document.getElementById("gauge");
-const ctx = canvas.getContext("2d");
-
-const value = ${todoProgressRateint}; // 게이지바 값
-const max = 100; // 게이지바 최대값
-const barWidth = 100; // 게이지바 너비
-const barHeight = 20; // 게이지바 높이
-const centerX = canvas.width / 2 - barWidth/2;
-const centerY = canvas.height / 2;
-
-// 게이지바 그리기
-const fillWidth = (value / max) * barWidth;
-ctx.fillStyle = "rgb(0, 128, 255)";
-ctx.fillRect(centerX, centerY - barHeight/2, fillWidth, barHeight);
-
-
-</script>
-<script>
-
-
-/* 우측 메뉴 이벤트 */
-$(document).ready(function (){
-	$('.btn_dropdown').click(function(){
-		$('#dropdown_list').slideToggle();
-	});
-	
-	//star_off 클릭하면 즐겨찾기 등록하는 ajax post
-	$('.star_off').click(function(){
-		let studyName = $(this).prev().text();
-		let studyNum = $(this).parents('.dropdown_item').find('[name=list_st_num]').val();
-		if(confirm("'"+studyName+"' 스터디를 즐겨찾기로 등록하시겠습니까?")){
-			let obj = {
-				st_num: studyNum,
-				st_me_id: '${user.me_id}'
-			}
-			$.ajax({
-				type: 'POST',
-				data: JSON.stringify(obj),
-				url: '<c:url value="/study/setfavorite"></c:url>',
-				dataType:"json",
-				contentType:"application/json; charset=UTF-8",
-				success : function(data){
-					alert('즐겨찾기를 변경하였습니다.');
-					location.reload();
-				}
-			})
-		}
-	});
-});
 </script>
