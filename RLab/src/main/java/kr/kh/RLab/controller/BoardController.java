@@ -47,6 +47,14 @@ public class BoardController {
 	    //스터디 가져오기
 		StudyVO	studyList = boardService.selectStudy(st_num);
 		
+		//우측메뉴
+		StudyVO nowStudy = studyService.getStudy(st_num);
+		StudyVO favoriteStudy = studyService.getStudy(user.getMe_study());
+		ArrayList<StudyVO> stList = studyService.getUserStudyList(user.getMe_id());
+		mv.addObject("nowSt", nowStudy);
+		mv.addObject("favorite", favoriteStudy);
+		mv.addObject("stList", stList);
+		
 		// 스터디 관리 페이지에 들어가기 위해 내가 스터디장으로 있는 스터디가 있는지 알아보는 메소드
 		int leaderCount = studyService.getLeaderCount(user.getMe_id());
 	    mv.addObject("studies", studyList);
@@ -72,6 +80,13 @@ public class BoardController {
 	    ArrayList<BoardVO> boardList = boardService.selectBoardList(cri,st_num);
 	    // 스터디 관리
 	    int leaderCount = studyService.getLeaderCount(user.getMe_id());
+	    //우측메뉴
+	    StudyVO nowStudy = studyService.getStudy(st_num);
+	    StudyVO favoriteStudy = studyService.getStudy(user.getMe_study());
+	    ArrayList<StudyVO> stList = studyService.getUserStudyList(user.getMe_id());
+	    mv.addObject("nowSt", nowStudy);
+	    mv.addObject("favorite", favoriteStudy);
+	    mv.addObject("stList", stList);
 	    
 	    mv.addObject("st_num", st_num);
 	    mv.addObject("pm", pm);
@@ -97,6 +112,13 @@ public class BoardController {
 	    for (ScrapVO scv : scrapedList) {
 				mv.addObject("scv", scv);
 		}
+	    //우측메뉴
+	    StudyVO nowStudy = studyService.getStudy(st_num);
+	    StudyVO favoriteStudy = studyService.getStudy(user.getMe_study());
+	    ArrayList<StudyVO> stList = studyService.getUserStudyList(user.getMe_id());
+	    mv.addObject("nowSt", nowStudy);
+	    mv.addObject("favorite", favoriteStudy);
+	    mv.addObject("stList", stList);
 	    // 스터디 관리
 	    int leaderCount = studyService.getLeaderCount(user.getMe_id());
 	    mv.addObject("st_num", st_num);
@@ -114,6 +136,13 @@ public class BoardController {
 		mv.addObject("bd", board);
 		//스터디 가져오기
 		StudyVO	studyList = boardService.selectStudy(st_num);
+		//우측메뉴
+		StudyVO nowStudy = studyService.getStudy(st_num);
+		StudyVO favoriteStudy = studyService.getStudy(user.getMe_study());
+		ArrayList<StudyVO> stList = studyService.getUserStudyList(user.getMe_id());
+		mv.addObject("nowSt", nowStudy);
+		mv.addObject("favorite", favoriteStudy);
+		mv.addObject("stList", stList);
 		mv.addObject("studies", studyList);
 	    mv.addObject("st_num", st_num);
 		mv.setViewName("/board/update");

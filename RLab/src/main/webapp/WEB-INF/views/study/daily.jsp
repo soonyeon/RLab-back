@@ -83,7 +83,12 @@
 							<div class="daliy_mission_pro">
 								<c:if test="${!mfList.contains(sm.sm_me_id) || mfList == null}">
 									<div class="pro_circle">
-										<img  class="pro_img" src="<c:url value='/download/${sm.me_profile}'></c:url>" width="auto" height="80" >
+										<c:if test="${sm.me_profile == null || sm.me_profile == ''}">
+											<img  class="pro_img" src="<c:url value='/resources/img/user.png'></c:url>" width="auto" height="80" >	
+										</c:if>
+										<c:if test="${sm.me_profile != null && sm.me_profile != ''}">
+											<img  class="pro_img" src="<c:url value='/download/${sm.me_profile}'></c:url>" width="auto" height="80" >
+										</c:if>
 									</div>
 									<div class="pro_name">${sm.sm_me_id}</div>
 								</c:if>

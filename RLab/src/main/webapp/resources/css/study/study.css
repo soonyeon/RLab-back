@@ -441,7 +441,7 @@ cursor: pointer;
 
 /* 오늘의 인증 */
 .feed_writer_img {
-  background-image: url(../../img/profile_img.png);
+  background-image: url(../../img/user.png);
   width: 30px;
   height: 30px;
   border: none;

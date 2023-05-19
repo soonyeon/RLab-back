@@ -21,8 +21,13 @@
 		</div>
 		<div class="title_bottom">
 			<div class="writer_box">
-				<a href="#" class="writer"> 
-					<img class="icon_writer" src="<c:url value='/resources/img/profile_img.png'></c:url>"> 
+				<a href="#" class="writer">
+					<c:if test="${user.me_profile == null}">
+					<img class="icon_writer" src="<c:url value='/resources/img/user.png'></c:url>"> 
+					</c:if>
+					<c:if test="${user.me_profile != null}">
+		    			<img class="icon_writer" src="<c:url value='/download${user.me_profile}'></c:url>">
+	    			</c:if> 
 					<span class="writer_name">${ga.me_name}</span>
 				</a>
 			</div>
@@ -92,8 +97,8 @@
 				</div>
 				<c:if test="${user != null && user.me_id == ga.ga_me_id}">
 					<div class="btns_leader">
-						<a class="btn_edit" href="<c:url value='/gather/update/${ga.ga_num}'></c:url>" >스터디 수정</a>
-						<button class="btn_delete" type="button">스터디 삭제</button>
+						<a class="btn_edit" href="<c:url value='/gather/update/${ga.ga_num}'></c:url>" >모집글 수정</a>
+						<button class="btn_delete" type="button">모집글 삭제</button>
 					</div>
 				</c:if>
 			</div>

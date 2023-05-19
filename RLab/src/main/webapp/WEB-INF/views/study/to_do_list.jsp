@@ -84,11 +84,20 @@
 	                    		<c:if test="${myPet != null}">
 			                        <div class="pet_message_container">
 				                        <div class="message_box">
-					                        <c:if test="${todoProgressRateint >= 30 && todoProgressRateint < 50}">
+				                        	<c:if test="${todoProgressRateint < 1}">
+				                        		<div class="pet_message">오늘도 힘내요!</div>
+				                        	</c:if>
+				                        	<c:if test="${todoProgressRateint >= 1 && todoProgressRateint < 30}">
 					                            <div class="pet_message">시작이 반이라는 말도 있죠?</div>
 					                        </c:if>
-					                        <c:if test="${todoProgressRateint >= 50 && todoProgressRateint < 100}">
+					                        <c:if test="${todoProgressRateint >= 30 && todoProgressRateint < 50}">
+					                            <div class="pet_message">가보자고~~</div>
+					                        </c:if>
+					                        <c:if test="${todoProgressRateint >= 50 && todoProgressRateint < 90}">
 					                            <div class="pet_message">조금만 더 힘내요!</div>
+					                        </c:if>
+					                        <c:if test="${todoProgressRateint >= 90 && todoProgressRateint < 100}">
+					                            <div class="pet_message">거의.. 조금만더 ..!</div>
 					                        </c:if>
 					                        <c:if test="${todoProgressRateint == 100}">
 					                            <div class="pet_message">오늘 할일 끝!</div>
