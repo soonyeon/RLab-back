@@ -84,10 +84,11 @@ a{color: var(--color_black);}
 }
 /* 추가(주연): 로고 아이콘 2023-02-10 */
 .btn_home {
+	position: relative;
 	font-family: 'Jalnan';
     display: flex;
-    width: 73px;
-    height: 50px;
+    width: 61px;
+    height: 47px;
     font-size: 14px;
     font-weight: 800;
     line-height: 80px;
@@ -96,7 +97,6 @@ a{color: var(--color_black);}
 .icon_home {
    display: flex;
    justify-content: flex-end;
-   position: relative;
    width: 42px;
    height: 100%;
    z-index: -1;
@@ -109,7 +109,7 @@ a{color: var(--color_black);}
 	font-family: 'Jalnan';
 	font-weight: 900;
     position: absolute;
-    left: 203px;
+    left: 34px;
 }
 .add_shadow {box-shadow: 5px 5px 0px rgb(7, 7, 7);}
 
