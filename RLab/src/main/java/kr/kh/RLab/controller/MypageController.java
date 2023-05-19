@@ -114,7 +114,7 @@ public class MypageController {
 		mv.setViewName("/mypage/mypage");
 		return mv;
 	}
-	
+	//[마이페이지 홈 - 이용시간 게이지] 
 	@ResponseBody
 	@GetMapping("/timeGauge")
 	public ReservationVO timeGauge (ModelAndView mv,  HttpSession session) {

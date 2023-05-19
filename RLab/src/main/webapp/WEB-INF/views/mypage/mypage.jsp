@@ -504,45 +504,49 @@
 		});
 </script>
 <script> <!-- 내 정보란 -->
-   // 이용시간
-  	function updateGauge(resStart, resValid, now){
-	if(now >= resStart){
-		var elapsedTime = now.getTime() - resStart.getTime();
-		var totalTime = resValid.getTime() - resStart.getTime();
-		var percentage = elapsedTime / totalTime * 100;
-		$('.use_time_colored').width(percentage + '%');
+	// 이용시간 게이지 업데이트 
+	function updateGauge(resStart, resValid, now){
+		// 현재 시간이 예약 시작 시간보다 크거나 같을 때...
+		if(now >= resStart){
+			var elapsedTime = now.getTime() - resStart.getTime(); // 경과 시간 = 현재 시간 - 시작 시간 
+			var totalTime = resValid.getTime() - resStart.getTime(); // 전체 시간 = 종료 시간 - 시작 시간 
+			var percentage = elapsedTime / totalTime * 100; // 백분율 = 경과 시간 / 전체 시간 * 100 
+			
+			// 게이지의 width 
+			$('.use_time_colored').width(percentage + '%');
+		}
 	}
-}
-$(document).ready(function(){
-	var now = new Date();
-	
-	//페이지 진입 시 예약권이 있으면 시간을 계산함
-	if(${res != null}){
-   		var resStart = '${res.re_start_time}';
-   		var resValid = '${res.re_valid_time}';
-   		
-   		intervalId = setInterval(function(){
-   			
-   			$.ajax({
-   				url: '<c:url value="/mypage/timeGauge" />',
-   				type: "GET",
-   				success: function(data){
-   					console.log(1);
-   					//페이지에 있는 도중 예약권이 다 되면 새로고침하며 이용권 만료 메세지 보여줌
-   					if(data==''){
-   						clearInterval(intervalId);
-   						location.href = '<c:url value="/mypage"></c:url>';
-   						return;
-   					}
-   					resStart = new Date(data.re_start_time);
-   					resValid = new Date(data.re_valid_time);
-   					updateGauge(resStart, resValid, now);
-   				}
-   			});
-   		}, 1000); // 1초마다 업데이트
-  		}
-   });
-   let intervalId;	
+	$(document).ready(function(){
+		var now = new Date();
+		
+		// 페이지 진입 시 예약권이 있으면 시간을 계산함
+		if(${res != null}){
+	   		var resStart = '${res.re_start_time}';
+	   		var resValid = '${res.re_valid_time}';
+	   		
+	   		intervalId = setInterval(function(){
+	   			
+	   			$.ajax({
+	   				url: '<c:url value="/mypage/timeGauge" />',
+	   				type: "GET",
+	   				success: function(data){
+	   					console.log(1);
+	   					//페이지에 있는 도중 예약권이 다 되면 새로고침하며 이용권 만료 메세지 보여줌
+	   					if(data == ''){
+	   						clearInterval(intervalId);
+	   						location.href = '<c:url value="/mypage"></c:url>';
+	   						return;
+	   					}
+	   					resStart = new Date(data.re_start_time); // 예약 시작 시간 
+	   					resValid = new Date(data.re_valid_time); // 예약 종료 시간 
+	   					// updateGauage 호출 
+	   					updateGauge(resStart, resValid, now);
+	   				}
+	   			});
+	   		}, 1000); // 1초마다 업데이트
+	  		}
+	});
+	let intervalId;	// setInterval()의 반환값 
     
     // 펫 경험치에 따른 게이지 변화
   	$(document).ready(function(){
@@ -572,4 +576,4 @@ $(document).ready(function(){
     })
     </script>
 </body>
-</html>
+</html> 
