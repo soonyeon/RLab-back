@@ -24,8 +24,6 @@ public interface MypageDAO {
 		ReservationVO selectRes(String userId);
 		
 		// 펫 경험치
-		GrowthVO selectPetEx(String userId);	
-		
 		int selectLevelUpExp(int currentLevel);
 		
 		int updateExp(@Param("currentEx")int currentEx, @Param("userId")String userId);
@@ -40,10 +38,8 @@ public interface MypageDAO {
 		int selectMyPoint(@Param("userId")String userId);
 		
 		// 나의 예약
-			//좌석 예약 정보 가져오기
-			ReservationVO selectMySeat(String userId);
-			//사물함 예약 정보 가져오기
-			ReservationVO selectMyLocker(String userId);
+			// 예약 정보 가져오기
+			ReservationVO selectMySeat(@Param("ki_num")int i, @Param("userId")String userId);
 			
 			ArrayList<ReservationVO> selectResList(String userId);
 		

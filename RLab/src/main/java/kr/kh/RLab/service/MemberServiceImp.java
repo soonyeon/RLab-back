@@ -73,7 +73,6 @@ public class MemberServiceImp implements MemberService {
 			return null;
 		// 아이디가 일치하는 회원 정보를 가져옴
 		MemberVO user = memberDao.selectMemberById(member.getMe_id());
-//		System.out.println(user);
 
 		if (user == null)
 			return null;

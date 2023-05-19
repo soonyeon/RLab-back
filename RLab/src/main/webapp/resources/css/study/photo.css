@@ -44,9 +44,36 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-bottom: 10px;
   }
-  .feed_date{line-height: 2;}
+  .profile_box .photo_feed_img{
+  	border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    margin-left: 5px;
+    margin-right: 5px;
+    flex:1.4;
+  }
+  .profile_box .feed_name{
+    text-align: left;
+    font-size: 16px;
+    margin-right: 120px;
+    margin-bottom: 10px;
+    flex: 3;
+    font-style: italic;
+	line-height: 2.2;
+  }
+  .profile_box .feed_date{
+    font-style: italic;
+	line-height: 3.8;
+  }
+  .today_feed_board .feed_contents_img img{border-radius:10px;}
+  .middle_container3{
+	display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+  .feed_like_img{margin-right:10px}
+    .feed_like_count{margin-right:20px}
   .time_line_container2::-webkit-scrollbar {
     width: 5px;
     height: 5px;

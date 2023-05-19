@@ -265,7 +265,7 @@ function showSelectedTicket(to_num){
 	
 	let ticketName = $('#ticket_select option:checked').text().substr(0,6);
 	if(ticketName=='시간 패키지'){
-		//시간패키지인 경우 시간고르기
+		//시간패키지 선택하면 해당 이용권의 남은시간 불러와서 그 시간만큼 선택창 보이게
 		$('.time_select').removeClass('display_none');
 		$.ajax({
 	        url: '<c:url value="/reservation/1/${br_num}"></c:url>',
