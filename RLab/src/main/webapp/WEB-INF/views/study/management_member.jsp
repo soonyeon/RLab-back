@@ -82,7 +82,12 @@
 					                            	<td class="post_title">
 				                                        <div class="profile_box">
 		                                            		<div class="img_box">
-			                                                	<img class="profile_img" src="<c:url value='/download${sm.me_profile}'></c:url>"width="auto" height="40">
+																<c:if test="${sm.me_profile == null}">
+				                                                	<img class="profile_img" src="<c:url value='/resources/img/user.png'></c:url>"width="auto" height="40">
+			                                                	</c:if>
+			                                            		<c:if test="${sm.me_profile != null}">
+				                                                	<img class="profile_img" src="<c:url value='/download${sm.me_profile}'></c:url>"width="auto" height="40">
+			                                                	</c:if>
 		                                                	</div>
 				                                            <span name="me_name" class="">${sm.me_name}</span>
 				                                        </div>
