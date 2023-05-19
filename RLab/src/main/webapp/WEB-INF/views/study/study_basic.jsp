@@ -290,9 +290,12 @@ body {
 							<div class="today_feed_board">
 								<div class="feed_board">
 									<ul class="feed_writer_box">
-									
-										<%-- <img class="feed_writer_img" src="<c:url value='/download${ph.me_profile}'></c:url>"width="40" height="40px"> --%>
-										<img class="feed_writer_img" src="<c:url value='/download${ph.me_profile}'></c:url>"width="30" height="30px">
+									<c:if test="${user.me_profile == null}">
+										<img class="feed_writer_img" src="<c:url value='/resources/img/user.png'></c:url>" >
+									</c:if>
+									<c:if test="${user.me_profile != null}">
+										<img class="feed_writer_img" src="<c:url value='/download${user.me_profile}'></c:url>"width="30" height="30px">
+									</c:if>	
 										<i class="feed_writer_name">${ph.ph_me_id}</i>
 										<i class="feed_date">${ph.ph_register_date }</i>
 									</ul>

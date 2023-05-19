@@ -74,7 +74,12 @@
 								                        <div class="board">
 								                        
 								                        	<div class="profile_box">
-								                        		<img class="photo_feed_img" src="<c:url value='/download${photo.me_profile}'></c:url>"width="30" height="30px">
+								                        		<c:if test="${photo.me_profile == null }">
+									                        		<img class="photo_feed_img" src="<c:url value='/resources/img/user.png'></c:url>" width="30" height="30px">
+									                        	</c:if>	
+									                        	<c:if test="${photo.me_profile != null }">
+									                        		<img class="photo_feed_img" src="<c:url value='/download${photo.me_profile}'></c:url>"width="30" height="30px">
+									                        	</c:if>	
 									                            <div class="feed_name">${photo.me_name}</div>
 									                            <div class="feed_date">${photo.ph_register_date_str}</div>
 								                            </div>

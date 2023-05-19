@@ -85,7 +85,7 @@ public class StudyController {
 		
 		// 스터디 관리 페이지에 들어가기 위해 내가 스터디장으로 있는 스터디가 있는지 알아보는 메소드
 		int leaderCount = studyService.getLeaderCount(user.getMe_id());
-		
+		model.addAttribute("user", user);
 		model.addAttribute("mf", mf);
 		model.addAttribute("memberId", member);
 		model.addAttribute("ptList", phototypeList);
@@ -217,6 +217,7 @@ public class StudyController {
 		mv.addObject("tdList", tdList);
 		ArrayList<PhotoVO> photo = studyService.selectPhotos(st_num);
 		
+		mv.addObject("user",user);
 		mv.addObject("photo", photo);
 		mv.addObject("st_num", st_num);
 		mv.addObject("study", study);
@@ -535,11 +536,10 @@ public class StudyController {
 		ArrayList<String> mfList = studyService.selectMissionFinishMember(st_num);
 		// 스터디 관리
 	    int leaderCount = studyService.getLeaderCount(user.getMe_id());
-	    
+	    System.out.println(studyMember);
 	    mv.addObject("nowSt", nowStudy);
 	    mv.addObject("favorite", favoriteStudy);
 		mv.addObject("stList", stList);
-		
 		mv.addObject("mfList", mfList);
 		mv.addObject("mission", mission);
 		mv.addObject("authority", authority);

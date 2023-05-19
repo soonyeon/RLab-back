@@ -116,6 +116,7 @@ public class GatherController {
 		StudyMemberVO smList = gatherService.selelctJoinStudyMemberList(user,st_num);
 		FileVO file =  gatherService.selectFileByStNum(st_num);
 		int joinCount = joinstudyService.getJoinCount(st_num);
+		mv.addObject("user",user);
 		mv.addObject("smList",smList);
 		mv.addObject("joinCount",joinCount);
 		mv.addObject("st_num",st_num);
@@ -134,8 +135,11 @@ public class GatherController {
 	public Map<String,Object> getSearchTagList(@RequestBody TagVO tag) {
 		Map<String,Object> map = new HashMap<String,Object>();
 		ArrayList<String> tagSearch = gatherService.getSearchTagList(tag.getTa_name());
+		//빈 문자열인 경우
 		if(tag.getTa_name().equals(""))
+			//빈 문자열인 경우 tagSearch를 빈 ArrayList로 초기화
 	    		tagSearch = new ArrayList<String>();
+		//tagSearch를 "list"라는 키로 map에 추가
 		map.put("list", tagSearch);
 	    return map;
 	}
