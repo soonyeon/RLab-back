@@ -13,7 +13,7 @@
 	<div class="spot_modal_container">
 	  <div class="spot_modal">
 	    <div class="spot_img_area">
-	     <img class="spot_img" src="/test/download/branch/역삼점.jpg"width="1200px" height="614px">
+	     <img class="spot_img" src=""width="1200px" height="614px">
 	      <div class="info_area">
 	        <div class="spot_info_left">
 	        
