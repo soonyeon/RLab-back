@@ -21,6 +21,7 @@ public class GatherVO {
 	Date ga_upd_date;
 	String me_name;
 	int wa_state;
+	String me_profile;
 	
 	public String getGa_reg_date_str() {
 		SimpleDateFormat format = 
