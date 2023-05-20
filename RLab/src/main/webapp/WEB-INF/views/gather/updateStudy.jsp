@@ -28,7 +28,8 @@
 						<option value="충청남도" <c:if test='${study.st_re_name == "충청남도"}'>selected</c:if>>충청남도</option>
 						<option value="광주광역시" <c:if test='${study.st_re_name == "광주광역시"}'>selected</c:if>>광주광역시</option>
 						<option value="강원도" <c:if test='${study.st_re_name == "강원도"}'>selected</c:if>>강원도</option>
-						<option value="울산광역시" <c:if test='${study.st_re_name == "울산광역시"}'>selected</c:if>>울산광역시</option>
+						<option value="울산광역시" <c:if test='${study.st_re_name == "울산광역시"}'>selected
+						</c:if>>울산광역시</option>
 						<option value="제주특별자치도" <c:if test='${study.st_re_name == "제주특별자치도"}'>selected</c:if>>제주특별자치도</option>
 						<option value="세종특별자치도" <c:if test='${study.st_re_name == "세종특별자치도"}'>selected</c:if>>세종특별자치도</option>
 					</select>
@@ -46,8 +47,13 @@
 			<div class="ns_banner_box">
 				<input name ="fi_table" type="hidden" value="study">
 				<input hidden type="file" class="ns_banner" name="files" accept="image/*" onchange="readURL(this);" >
+				<c:if test="${file == null }">
+					<img class="preview" height="200" width="200" src="<c:url value="/resources/img/no_img.png"></c:url>">
+				</c:if>
+				<c:if test="${file != null }">
 				<img class="preview" height="200" width="200" src="<c:url value="/download/${file.fi_name}"></c:url>">
-				<span class="btn-times" data-num="${file.fi_num}">X</span>
+				<img class="delete_btn" data-num="${file.fi_num}" src="<c:url value="/resources/img/delete.png"></c:url>">
+				</c:if>
 			</div>	
 			<h3>태그</h3>
 			<div class="ns_tag_box">
@@ -109,7 +115,7 @@
 	//'readURL'은 input(첨부파일)값이 변경될때 호출
 	function readURL(input){
 		//미리보기 이미지를 업데이트 하기전 기존 이미지와 관련 데이터를 지우기 위해 실행
-		$('.btn-times').click();
+		$('.delete_btn').click();
 		
 		if(!input.files || !input.files[0]){
 			input.nextElementSibling.src ='';
@@ -124,17 +130,17 @@
 		//파일을 데이터 URL로 읽도록
 		reader.readAsDataURL(input.files[0]);
 		
-		$('.ns_banner_box').append('<span class="btn-times2" >X</span>')
-		$('.btn-times2').click(function(){
-			$(this).siblings('.preview').attr('src', plus_img);
+		$('.ns_banner_box').append('<span class="delete_btn2"><img src="<c:url value="/resources/img/delete.png"></c:url>"></span>')
+		$('.delete_btn2').click(function(){
+			$(this).siblings('.preview').attr('src', '<c:url value="/resources/img/no_img.png"></c:url>');
 			$(this).remove();
 		})
 		
 	}
 	
 	//첨부파일 삭제
-	$('.btn-times').click(function(){
-		$(this).siblings('.preview').attr('src', plus_img);
+	$('.delete_btn').click(function(){
+		$(this).siblings('.preview').attr('src', '<c:url value="/resources/img/no_img.png"></c:url>');
 		$(this).siblings('.file_box').show();
 		
 		//input태그로 삭제할 첨부파일 번호를 전송하기 위한 준비 작업
@@ -143,9 +149,8 @@
 	})
 
 	//사진 삭제후 비어있는 이미지 전역변수
-	var plus_img = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMIAAAEDCAMAAABQ/CumAAAAflBMVEX///+4uLi7u7v7+/vAwMD09PTFxcXp6enc3Nz4+PjIyMi6uro8PDw/Pz/w8PCzs7PPz8/l5eXV1dU4ODinp6dTU1NFRUVZWVlOTk7T09OIiIiXl5eurq50dHRKSkpmZmaUlJR4eHienp6Li4t+fn4sLCxoaGgWFhYmJiYyMjIE2RVEAAAE80lEQVR4nO3b6XqqOhQGYAiBhCHMBEQZHOo53v8NniTYVt2t7dkDyn6+90eLKO1aMWsBbbQsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBFclj26BB+iZOlYUgfHcXP87MgSWie2vGjI/k5LvdI4nHXcknIHx3MT4g5DSlV8StpSJY2k5w4pzZJc5KbhzEhZFEzyWG5F5I0860V8fXjWJdzsJgUVPshNEyZjt21VQGwFZ3yWQYVv52Q3CNTwClV7TSxV8x5cFzfZdoP5bEVJ6YC/IxS1U4XM3981X7Iuf0EocnHJt70eCFim3pkav0sXKl8wmBR8WuUEqqnvBMHlJAgW1r8Sk5JptrpSmWynPZzjYVBtiLqdMaWGb9G1el4Oe3nQ1zNH99373l0iF/h5EL40ab97FOME+8LC0iBhvYdhC4hBS9mn7MXkUJw7/nlp+AghTkghWeAFJ4BUngGSOEZ/P0pLOQaybtzocrCRaRA7twuhMu4X/jC86eQ3Ltn05JnT8FyvvToCAEAAACe3YadN1jTWuzuS5+Sw8uiPW8fxLgrHpBD9gu/Mw72tRT9OQXe1ywtyO8J63/wh/r2ypmVP9wN8ORmRxpbvoo/ksN+J9fTvo3YW/vi7l33HxHX1e2/Z73TFLDDN/vtymweXq6XRZanMTwW8lhy1wqi3bRzLbtWDH864B+xprr9D+xGjPpb2gnRy87saqKrF7G+KkW1mxZqeNFm2ruSUtQPKAVW6RTSNraCTTBNqVKU6usoRL05TpMkjuTVQaNYB+J1kaEXvc6yfEfmvJ1zd9Pbn0mdwrrY1EUhajPWpY5pjGRi2WIqlFzUVwdLqer2ddIH0XrGuN+5gxhMdFzoFHbC3pRpI1K9y6Sw7phqMf001KnYXh6cRZ1lv6XATxcpsDwcu6qbI4VW1v3uIoVI98JGmqI1KVgqwYM8F6otDpcH86hVz6XnR347lbwV52VX90KIppwhg0zWvOt16WWN7kgmhVwO7xNJSeXAWlOeyVTgr+LouOunRhabI1yVL29rVc5yOJTzrEDZiZ21Fnr0WNVk5xTWOlCfvaWwFTR7MQOaRNfjehBCmtc4Rz3DskFNpUL09SHhsy2g2Yogqxv96+LhLYVK5FZad68pZM3gx8VhSmFzdbhfjip9XSednob7Qj3tlatZ18cc5LaPQhPNUa50jInqLNv8EKmNchrzoFCVUDcfpWDwf1Q1tGoAsr4+j3024yImXhXHcznudV2mRWl1TaNOTYEO2LSYbBvrAdazLfwohaSg6u2TuXoLz9PMHSpVUclmnr9Wvv9JsTypSLgs86iXzU7PheA0vr0uLfQ2//f2GsnSZ45cVYEIrErytVmJHg9VqWt67vMEG/Sc3pb+dptM88AdvfenTcOy6AcD26oUtpUMmOjiwXQ3VVdCqsY0R0+9YqL7dKlaePI+eaaNeFaXEUnVZR6JRv1Djs2a86Z5tk/KfNrl1UTiRxKVRNfEVl8yOZ06m7ey/eSA55NEYXbcRDR50YvqG30VtZe5K1VrtvzVo6P7Fla0bl2LwDXXUbGu4fIUeKoyvLZ4eXBw3zSe1ClEXn6wh4/+2Fcyio5L+bhPZjmlfbMvLeSwzh8Szm/DF7xMGgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACM/wDCj0dZezasYAAAAABJRU5ErkJggg=='
+	//var plus_img = "/resources/img/no_img.png"
 
-	
 
 	
 </script>

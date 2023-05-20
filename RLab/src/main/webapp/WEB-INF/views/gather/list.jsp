@@ -172,6 +172,8 @@
                 </c:if>	 
             </div>
 		</div>
+
+	</div>
 </main>
 <script>	
 $('#switch1').change(function(){
