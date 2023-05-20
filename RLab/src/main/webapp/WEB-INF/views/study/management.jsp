@@ -34,7 +34,7 @@
 	                <div class="tab_content">	
 	                    <!-- 나의 스크랩 -->
 	                    <div class="table_area" id="tabs_3">
-	                    	<form action="<c:url value='/study/management'></c:url>" method="post" >
+	                    	<form action="<c:url value='/study/management'></c:url>" method="post">
 		                        <div class="slect_study_box">
 		                          <!-- <h3 class="select_study_title">스터디 선택</h3> --> 
 		                          <select name="st_num" class="slect_study_list">
@@ -154,58 +154,19 @@
 </main>	
 	
 	
-	<script>
-	//icon_info 마우스 hover시 설명창 나타남
-	function toggleInfo(target){
-		$(target).toggleClass("display_none");
-	}
-	
-	$(document).ready(function(){
-		$(".info_1, .info_2").hover(function(){
-			if(this.classList.contains("info_1")){
-				toggleInfo(".info_finish");
-			}else if(this.classList.contains("info_2")){
-				toggleInfo(".info_delete");
-			}
-		})
-	})
+<script>
 
-// 버튼 클릭시 스터디 선택 여부에 따라 confirm창 나타남
-function confirmAction(buttonText, action) {
-  const selectedOptionValue = $("select.slect_study_list option:selected").val();
-  if (selectedOptionValue === "") {
-    alert("스터디를 선택하세요.");
-    return;
-  }
-  if (confirm(buttonText)) {
-    action();
-  } else {
-    console.log("작업 취소");
-  }
-}
+document.addEventListener("DOMContentLoaded", function() {
+  var selectStudy = document.querySelector(".slect_study_list");
+  var chooseBtn = document.querySelector(".btn_choose");
 
-$(".btn_finish").on("click", function() {
-  confirmAction("완료된 스터디로 전환 시 스터디 활동이 일부 제한되며, 자유게시판만 사용가능합니다. 목표를 달성하거나 일정이 모두 완료된 경우에만 전환할 것을 권유드립니다. 정말 완료하시겠습니까?", function() {
-    alert("스터디가 완료처리 되었습니다.")
-		
-  });
-});
+  chooseBtn.addEventListener("click", function(event) {
+    if (selectStudy.value === "") {
+      event.preventDefault(); // 폼 제출을 막음
 
-$(".btn_delete").on("click", function() {
-  confirmAction("스터디 삭제 시 스터디에올라온 게시글, 인증내역, 일정, 회원정보 등 모든 정보가 함께 삭제되며 해당 스터디에 접근이 불가합니다. 정말 삭제하시겠습니까?", function() {
-    alert("스터디가 삭제되었습니다.");
-  });
-});
+      alert("스터디를 선택하세요");
 
-$(".btn_drop").on("click", function() {
-  confirmAction("본 회원을 강퇴시키겠습니까?", function() {
-    alert("강퇴처리 되었습니다.");
-  });
-});
-
-$(".btn_power").on("click", function() {
-  confirmAction("본 회원에게 스터디장을 위임하시겠습니까?", function() {
-    alert("위임처리 되었습니다.");
+    }
   });
 });
 
