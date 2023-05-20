@@ -176,7 +176,7 @@ table {
 .profile_box{
   display: flex;
   gap: 10px;
-  justify-content: center;
+  margin-left:40px;
   align-items: center;
 }
 .profile_box .img_box{
