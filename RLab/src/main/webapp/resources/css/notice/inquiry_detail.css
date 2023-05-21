@@ -19,6 +19,7 @@ textarea{
 }
 .notice_container .inner_container .info_container{
     margin: 15px 0px 4px;
+    display: inline-block;
 }
 .inner_container .info_box{
     float: left;

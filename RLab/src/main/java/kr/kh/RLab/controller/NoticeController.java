@@ -29,10 +29,10 @@ public class NoticeController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list(ModelAndView mv, NoticeCriteria cri, HttpSession session) {
 		MemberVO user = (MemberVO)session.getAttribute("user");
-		cri.setPerPageNum(2);
+		cri.setPerPageNum(5);
 		ArrayList<NoticeVO> noList = noticeService.getAllNotice(cri);
 		int totalCount = noticeService.getNoticeTotalCount(cri);
-		PageMaker pm = new PageMaker(totalCount,1, cri);
+		PageMaker pm = new PageMaker(totalCount,3, cri);
 		//게시판 검색을 위해 게시판 타입 리스트 가져옴
 		ArrayList<NoticeTypeVO> ntList = noticeService.getAllNoticeType();
 		mv.addObject("ntList", ntList);

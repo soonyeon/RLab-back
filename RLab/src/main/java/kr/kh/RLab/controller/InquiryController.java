@@ -33,10 +33,10 @@ public class InquiryController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list(ModelAndView mv, NoticeCriteria cri, HttpSession session) {
 		MemberVO user = (MemberVO)session.getAttribute("user");
-		cri.setPerPageNum(2);
+		cri.setPerPageNum(5);
 		ArrayList<InquiryVO> inList = inquiryService.getAllInquiry(cri);
 		int totalCount = inquiryService.getInquiryTotalCount(cri);
-		PageMaker pm = new PageMaker(totalCount,1, cri);
+		PageMaker pm = new PageMaker(totalCount,5, cri);
 		// 분류별 검색을 위해 문의 분류 리스트를 가져옴
 		ArrayList<InquiryTypeVO> itList = inquiryService.getAllInquiryType();
 		// 답변완료된 문의글들의 in_num 리스트를 가져옴 -> 문의 완료 여부 표시용
