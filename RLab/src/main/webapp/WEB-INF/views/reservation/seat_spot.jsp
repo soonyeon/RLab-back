@@ -33,7 +33,7 @@
 						<form action="<c:url value='/reservation/spot/1'></c:url>" style="display:contents">
 							<select class="choose_region" name="region">
 								<option value="">지역 선택</option>
-								<option value="지역 미지정" <c:if test="${cri.region=='지역 미지정'}">selected</c:if>>지역 미지정</option>
+								<option value="지역미지정" <c:if test="${cri.region=='지역미지정'}">selected</c:if>>지역미지정</option>
 								<option value="서울특별시" <c:if test="${cri.region=='서울특별시'}">selected</c:if>>서울특별시</option>
 								<option value="인천광역시" <c:if test="${cri.region=='인천광역시'}">selected</c:if>>인천광역시</option>
 								<option value="대구광역시" <c:if test="${cri.region=='대구광역시'}">selected</c:if>>대구광역시</option>
@@ -80,7 +80,6 @@
 													<div class="info_running_time">
 														<span>수용인원</span>
 														<span class="hour">${brList.get(index).br_capacity}</span>명
-														<span class="holiday">24시간 연중무휴</span>
 													</div>
 												</div>
 											</a>
@@ -117,32 +116,6 @@
 $('.choose_region').change(function(){
 	let region = $(this).val();
 	let search = $('[name=search]').val();
-	console.log(region);
-	console.log(search);
-	location.replace('<c:url value="/reservation/1/spot?region='+region+'&search='+search+'"></c:url>');
-	/*let cri = {
-			region : region,
-			search : search
-	}
-	$.ajax({
-        async:false,
-        type: 'GET',
-        url: '<c:url value="/reservation/1/spot?region='+region+'&search='+search+'"></c:url>',
-        contentType:"application/json; charset=UTF-8", //위에있는 data타입(받는거)
-        success : function(data){
-        	console.log(data);
-        }
-	});
-	$.ajax({
-        async:false,
-        type: 'POST',
-        data: JSON.stringify(cri),
-        url: '<c:url value="/reservation/1/spot"></c:url>',
-        dataType:"json", //success에 있는 data타입(주는거)
-        contentType:"application/json; charset=UTF-8", //위에있는 data타입(받는거)
-        success : function(data){
-        	console.log(data);
-        }
-	});*/
+	location.replace('<c:url value="/reservation/spot/1?region='+region+'&search='+search+'"></c:url>');
 });
 </script>
