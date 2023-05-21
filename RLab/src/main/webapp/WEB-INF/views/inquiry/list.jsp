@@ -94,7 +94,7 @@
 										<select id="choose_type" name="type">
 											<option value="0">전체</option>
 											<c:forEach items="${itList}" var="it" begin="1">
-												<option value="${it.it_num}">${it.it_name}</option>
+												<option value="${it.it_num}" <c:if test="${pm.cri.type==it.it_num}">selected</c:if>>${it.it_name}</option>
 											</c:forEach>
 										</select>
 										<div class="search_box">
