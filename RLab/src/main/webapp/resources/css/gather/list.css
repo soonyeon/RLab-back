@@ -303,8 +303,7 @@
     margin-left: 20px;
   }
   .row_study_card{
-  margin-bottom: 20px;
-  width:945px;
+   width:945px;
   }
   .study_card_box{
     width: 296px; 
@@ -313,6 +312,7 @@
     float: right; 
     box-shadow: 5px 5px 0px rgb(7, 7, 7);
     border-radius: var(--border_radius_4);
+    margin-bottom: 20px;
   }
   .study_card_box{
     margin-left: 15px;
@@ -415,6 +415,9 @@
     font-weight: bold;
     box-shadow: 3px 3px 3px var(--color_grey);
     text-align: center;
+  }
+  .clearfix::after{
+	clear: both; display: block; content: '';
   }
 
   /* 넘기기 버튼 */
