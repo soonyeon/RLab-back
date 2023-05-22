@@ -352,6 +352,9 @@ main{
 .study_img_box img:nth-child(2){
 	display : none;
 }
+.recruit_img1{
+	width:100%;
+}
 .recruit_banner_tag{
   display: flex;
   flex-direction: row;
