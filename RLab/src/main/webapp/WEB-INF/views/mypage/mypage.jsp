@@ -194,7 +194,7 @@
 	                  </div>
 	                </div>
 	                <div class="pet_description">
-	                  <div class="pet_info_container">
+	                  <div class="pet_info_container" id="pet_wait">
 	 					<span class="txt_new_pet">
 	 						<div class="pet_phrases1">펫이 당신을 기다리고 있어요!<br></div>
 	 						<div class="pet_phrases2">
