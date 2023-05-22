@@ -150,7 +150,7 @@
 		                      </c:if>
 		                      <c:if test="${myGatherList.size() == 0 || myGatherList == null}">
 		                      	<div class="nullMsg">
-		                      		<p> 모집글이 없습니다.</p>
+		                      		<p> 작성한 모집글이 없습니다.</p>
 		                      		<a class="btn_link link_favorite" href="<c:url value='/gather/insertgather'></c:url>">모집글 작성하기</a>
 		                      	</div>
 			                  </c:if>
