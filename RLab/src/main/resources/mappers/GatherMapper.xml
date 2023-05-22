@@ -105,7 +105,7 @@
 <select id="selectStudyById" resultType="kr.kh.RLab.vo.StudyVO">
 	select * from study
 	left join gather on ga_st_num = st_num
-	where st_me_id = #{me_id}
+	where st_me_id = #{me_id} and ga_num is null
 </select>
 <select id="selectGatherAll" resultType="kr.kh.RLab.vo.GatherVO">
 	select * from gather
