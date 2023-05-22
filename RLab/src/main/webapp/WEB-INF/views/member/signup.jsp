@@ -60,21 +60,25 @@
 					</div>
 					<div class="form_box">
 						<div class="signup_form_group">
-							<label for="email">이메일</label> <input type="text"
+							<label for="email">이메일</label> 
+							<input type="text"
 								class="form_control" id="useremail" name="me_email">
 						</div>
 						<div class="btn_group">
 							<button class="btn btn_outline_success col-12 btn_check_email" type="button" >이메일 중복체크</button>
-							<button class="btn btn_outline_success col-12" type="button"  id="mail_send_btn">인증번호 전송</button>
+							<button class="btn btn_outline_success col-12 btn_cer" type="button"  id="mail_send_btn">인증번호 전송</button>
 						</div>
 					</div>
 					<div class="form_box">
-						<div class="mail-check-box">
-							<input class="form_control mail_check_input" disabled="disabled" maxlength="6" placeholder="인증번호 6자리를 입력해주세요!">
+						<div class="signup_form_group mail-check-box">
+							<label for="email_check">인증번호</label>
+							<input id="mail_check"class="form_control mail_check_input" disabled="disabled" maxlength="6" placeholder="인증번호 6자리를 입력해주세요!">
 						</div>
-						<button class="btn btn_outline_success col-12" type="button" id="verify_code_btn">인증번호 확인</button>
+						<button class="btn btn_outline_success col-12 btn_cer" type="button" id="verify_code_btn">인증번호 확인</button>
 					</div>
-					<button class="btn btn_outline_success col-12 mt-5 btn_signup">회원가입</button>
+					<div class="btn_sign_box">
+						<button class="btn btn_outline_success col-12 mt-5" id="btn_signup">회원가입</button>
+					</div>
 				</form>
 			</div>
 		</main>

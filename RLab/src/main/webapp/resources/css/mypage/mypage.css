@@ -308,7 +308,7 @@ article{
     height: 50px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
 }
 .pet_info_container .pet_level{
     width: 58px;
@@ -535,7 +535,9 @@ article{
     right: 0;
     cursor: pointer;
 }
-
+#pet_wait{
+	justify-content: center;
+}
 /* 나의 예약 */
 .article_top .book_container{
     position: relative;

@@ -83,20 +83,23 @@
 							<div class="daliy_mission_pro">
 								<c:if test="${!mfList.contains(sm.sm_me_id) || mfList == null}">
 									<div class="pro_circle">
-										<c:if test="${sm.me_profile == null || sm.me_profile == ''}">
-											<img  class="pro_img" src="<c:url value='/resources/img/user.png'></c:url>" width="auto" height="80" >	
+										<c:if test="${sm.me_profile == null}">
+											<img  class="pro_img" src="<c:url value='/resources/img/user.png'></c:url>" width="80" height="80" >	
 										</c:if>
-										<c:if test="${sm.me_profile != null && sm.me_profile != ''}">
-											<img  class="pro_img" src="<c:url value='/download/${sm.me_profile}'></c:url>" width="auto" height="80" >
+										<c:if test="${sm.me_profile != null}">
+											<img  class="pro_img" src="<c:url value='/download/${sm.me_profile}'></c:url>" width="80" height="80" >
 										</c:if>
 									</div>
 									<div class="pro_name">${sm.sm_me_id}</div>
 								</c:if>
 								<c:if test="${mfList.contains(sm.sm_me_id)}"  >
-									<img class="pro-img-check">
-									<div class="pro_circle">
-										<img  class="pro_img" src="<c:url value='/download/${sm.me_profile}'></c:url>" width="auto" height="80">
-									</div>
+										<div class="pro-img-check"></div>
+										<c:if test="${sm.me_profile == null}">
+											<img  class="pro_img" src="<c:url value='/resources/img/user.png'></c:url>" width="80" height="80" >	
+										</c:if>
+										<c:if test="${sm.me_profile != null}">
+											<img  class="pro_img" src="<c:url value='/download/${sm.me_profile}'></c:url>" width="80" height="80" >
+										</c:if>
 									<div class="pro_name">${sm.sm_me_id}</div>
 								</c:if>
 							</div>
@@ -180,7 +183,7 @@
  */
 let totalCount = '${studyMember.size()}';
 let currentCount = '${mfList.size()}';
-var percent = currentCount/totalCount*100;
+var percent = (currentCount/totalCount*100).toFixed(2);
 $('#progress-bar').val(percent)
 $('.percent').text(percent);
 

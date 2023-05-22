@@ -3,8 +3,7 @@
 	pageEncoding="UTF-8"%>
 <link rel="stylesheet"
 	href="<c:url value='/resources/css/gather/list.css'></c:url>">
-<link rel="stylesheet"
-	href="<c:url value='/resources/css/common.css'></c:url>">
+<link rel="stylesheet" 	href="<c:url value='/resources/css/common.css'></c:url>">
 <script src="<c:url value='/resources/js/jquery.min.js'></c:url>"></script>
 
 <main>
@@ -146,10 +145,8 @@
 															</c:if>
 														</div>
 													</div>
-												
-											
-										</li>
-									</c:if >
+											</li>
+										</c:if >
 								</c:forEach>
 							</div>
 					</c:forEach>
@@ -173,7 +170,7 @@
             </div>
 		</div>
 
-	</div>
+
 </main>
 <script>	
 $('#switch1').change(function(){
