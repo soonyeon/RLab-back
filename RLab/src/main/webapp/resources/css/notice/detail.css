@@ -12,7 +12,8 @@
     font-size: 14px;
 }
 .inner_container .title{
-    font-size: 35px;;
+    font-size: 35px;
+    margin-top: 8px;
 }
 .notice_container .info_container{
 	display: inline-block;
