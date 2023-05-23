@@ -294,7 +294,7 @@ body {
 									<div class="writer_box">
 										<c:if test="${user.me_profile == null}">
 											<div class="feed_writer_img">
-												<img class="" src="<c:url value='/resources/img/user.png'></c:url>" >
+												<img class="" src="<c:url value='/resources/img/user.png'></c:url>" width="auto" height="30px">
 											</div>
 										</c:if>
 										<c:if test="${user.me_profile != null}">
