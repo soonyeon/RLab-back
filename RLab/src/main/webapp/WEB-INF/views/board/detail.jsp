@@ -42,11 +42,15 @@
 							<div class="writer_box">
 								<a href="#" class="writer">
                   <c:if test="${bd.me_profile == null}">
-										<img class="icon_writer" src="<c:url value='/resources/img/user.png'></c:url>" width="auto" height="40">
-									</c:if>
+             		<div class="icon_writer">
+						<img class="" src="<c:url value='/resources/img/user.png'></c:url>" width="auto" height="40">
+					</div>
+				</c:if>
                   <c:if test="${bd.me_profile != null}">
-										<img class="icon_writer" src="<c:url value='/download${bd.me_profile}'></c:url>" width="auto" height="40">
-									</c:if>
+	                  <div class="icon_writer">
+						<img class="" src="<c:url value='/download${bd.me_profile}'></c:url>" width="auto" height="40">
+					</div>
+				</c:if>
                   <input type="hidden" id="me_id" value="${bd.bo_me_id}">
 									<input type="hidden" id="current_page" value="1" /> <span
 									class="writer_name">${bd.me_name}</span></a>
@@ -294,9 +298,9 @@ function loadComments(page1) {
                     listHtml += '<div class="cm_writer">';
                     listHtml += '<a href="#" class="cm_mypage">';
                     if(comment.me_profile == null)
-                    	listHtml += '<img src="<c:url value="/resources/img/user.png"></c:url>" width="auto" height="40">';
+                    	listHtml += '<div class="commenter_img_box"><img src="<c:url value="/resources/img/user.png"></c:url>" width="auto" height="40"></div>';
                     else
-                    	listHtml += '<img src="<c:url value="/download'+comment.me_profile+'"></c:url>" width="auto" height="40">';
+                    	listHtml += '<div class="commenter_img_box"><img src="<c:url value="/download'+comment.me_profile+'"></c:url>" width="auto" height="40"></div>';
                     listHtml += '<span class="nick_name">' + comment.me_name + '</span>';
                     listHtml += '<span class="write_date">' + comment.co_reg_date + '</span>';
                     listHtml += '</a>';
