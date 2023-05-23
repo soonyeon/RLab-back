@@ -365,9 +365,9 @@ main{
 }
 .recruit_banner_tag span{
   font-size: 12px;
-  padding: 4px 8px 7px;
+  padding: 3px 8px 7px;
   margin: 2px;
-  height: 10px;
+  height: 12px;
   border-radius: var(--border_radius_3);
   cursor: pointer;
   ;
