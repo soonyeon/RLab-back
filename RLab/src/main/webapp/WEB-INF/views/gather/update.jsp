@@ -17,7 +17,7 @@
 	<input type="hidden" value="gather" name="ga_table">
 	<input type="hidden" value="${ga.ga_st_num}" name="ga_st_num">
 		<div class="main_title">
-			<h1>모집글 작성</h1>
+			<h1>모집글 수정</h1>
 		</div>
 		<div class="temporary_storage_box">
 			<c:if test="${user != null }">
