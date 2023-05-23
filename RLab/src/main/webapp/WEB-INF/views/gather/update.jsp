@@ -219,6 +219,6 @@ $('form').submit(function(){
 						[ 'view', [ 'fullscreen', 'codeview', 'help' ] ] ]
 			});
 	
-	$('#summernote').summernote('code','${ga.ga_content}');
+	$('#summernote').summernote('code',`${ga.ga_content}`);
 	
 </script>
