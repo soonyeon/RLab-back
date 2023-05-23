@@ -22,13 +22,13 @@
 		<div class="title_bottom">
 			<div class="writer_box">
 				<a href="#" class="writer">
-					<c:if test="${user.me_profile == null}">
-					<img class="icon_writer" src="<c:url value='/resources/img/user.png'></c:url>"> 
+					<c:if test="${meList.me_profile == null}">
+						<img class="icon_writer" src="<c:url value='/resources/img/user.png'></c:url>"> 
 					</c:if>
-					<c:if test="${user.me_profile != null}">
-		    			<img class="icon_writer" src="<c:url value='/download${user.me_profile}'></c:url>">
+					<c:if test="${meList.me_profile != null}">
+		    			<img class="icon_writer" src="<c:url value='/download${meList.me_profile}'></c:url>">
 	    			</c:if> 
-					<span class="writer_name">${ga.me_name}</span>
+
 				</a>
 			</div>
 			

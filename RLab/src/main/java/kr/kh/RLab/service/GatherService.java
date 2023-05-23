@@ -66,6 +66,8 @@ public interface GatherService {
 
 	ArrayList<StudyVO> selectStudyNameById(MemberVO user);
 
+	MemberVO selectStudyMemList(int st_num);
+
 
 	
 

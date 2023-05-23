@@ -189,4 +189,9 @@
 	left join gather on ga_st_num = st_num
 	where st_me_id = #{me_id} 
 </select>
+<select id="selectStudyMemList" resultType="kr.kh.RLab.vo.MemberVO">
+	select * from member 
+	join study on st_me_id = me_id
+	where st_num = #{st_num}
+</select>
 </mapper>
