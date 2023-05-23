@@ -109,6 +109,13 @@
   overflow: auto;
   background-color: rgba(0,0,0,0.5);
 }
+.modal::-webkit-scrollbar {
+  width: 3px;
+}
+.modal::-webkit-scrollbar-thumb {
+  background-color: #343333;
+  border-radius: 20px;
+}
 
 
 .modal-content {
