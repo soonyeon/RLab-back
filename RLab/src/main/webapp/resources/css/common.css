@@ -542,7 +542,9 @@ main{
   margin: 0 auto;
   margin-top: 130px;
 }
-
+.list_item{
+	font-family: var(--font_main);
+}
 /* footer */
 footer{
   margin-top: 150px;

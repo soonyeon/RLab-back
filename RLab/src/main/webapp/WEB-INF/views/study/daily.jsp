@@ -84,10 +84,10 @@
 								<c:if test="${!mfList.contains(sm.sm_me_id) || mfList == null}">
 									<div class="pro_circle">
 										<c:if test="${sm.me_profile == null}">
-											<img  class="pro_img" src="<c:url value='/resources/img/user.png'></c:url>" width="80" height="80" >	
+											<img  class="pro_img" src="<c:url value='/resources/img/user.png'></c:url>" width="auto" height="80" >	
 										</c:if>
 										<c:if test="${sm.me_profile != null}">
-											<img  class="pro_img" src="<c:url value='/download/${sm.me_profile}'></c:url>" width="80" height="80" >
+											<img  class="pro_img" src="<c:url value='/download/${sm.me_profile}'></c:url>" width="auto" height="80" >
 										</c:if>
 									</div>
 									<div class="pro_name">${sm.sm_me_id}</div>
@@ -95,10 +95,10 @@
 								<c:if test="${mfList.contains(sm.sm_me_id)}"  >
 										<div class="pro-img-check"></div>
 										<c:if test="${sm.me_profile == null}">
-											<img  class="pro_img" src="<c:url value='/resources/img/user.png'></c:url>" width="80" height="80" >	
+											<img  class="pro_img" src="<c:url value='/resources/img/user.png'></c:url>" width="auto" height="80" >	
 										</c:if>
 										<c:if test="${sm.me_profile != null}">
-											<img  class="pro_img" src="<c:url value='/download/${sm.me_profile}'></c:url>" width="80" height="80" >
+											<img  class="pro_img" src="<c:url value='/download/${sm.me_profile}'></c:url>" width="auto" height="80" >
 										</c:if>
 									<div class="pro_name">${sm.sm_me_id}</div>
 								</c:if>

@@ -143,6 +143,7 @@
 
 .modal-style {
   position: fixed;
+  width: 300px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -155,7 +156,21 @@
   box-sizing: border-box;
   z-index: 9999;
 }
+.modal-style h2{
+	display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
 
+}
+.temp-title{
+	width: 173px;
+    display: flex;
+}
+#itemList li{
+	display: flex;
+	align-items: center;
+}
 .modal-background {
   position: fixed;
   top: 0;
@@ -170,13 +185,17 @@
   background-color: #d3d3d3; 
   border: none;
   color: black;
-  padding: 10px 20px;
+  padding: 10px 13px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 14px;
   margin: 4px 2px;
   cursor: pointer;
-  border-radius: 5px; 
+white-space: nowrap;
+    box-sizing: border-box;
+    border-radius: var(--border_radius_4);
 }
- 
+.deleteBtn:hover, #deleteAll:hover{
+	background-color:#9f9e9e;
+}

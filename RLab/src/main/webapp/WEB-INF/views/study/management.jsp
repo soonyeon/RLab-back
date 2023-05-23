@@ -161,7 +161,7 @@ document.addEventListener("DOMContentLoaded", function() {
   var chooseBtn = document.querySelector(".btn_choose");
 
   chooseBtn.addEventListener("click", function(event) {
-    if (selectStudy.value === "") {
+    if (selectStudy && selectStudy.value === "") {
       event.preventDefault(); // 폼 제출을 막음
 
       alert("스터디를 선택하세요");
