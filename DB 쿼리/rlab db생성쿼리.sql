@@ -377,7 +377,7 @@ DROP TABLE IF EXISTS `notice`;
 CREATE TABLE `notice` (
 	`no_num`	int auto_increment primary key	NOT NULL,
     `no_nt_num` int not null,
-	`no_title`	varchar(20)	not NULL,
+	`no_title`	varchar(30)	not NULL,
 	`no_me_id`	varchar(13)	NOT NULL,
 	`no_content`	longtext	not NULL,
 	`no_register_date`	datetime	NULL,
@@ -396,7 +396,7 @@ DROP TABLE IF EXISTS `inquiry`;
 CREATE TABLE `inquiry` (
 	`in_num`	int auto_increment	NOT NULL primary key,
 	`in_it_num`	int	NOT NULL,
-	`in_title`	varchar(20)	not null,
+	`in_title`	varchar(30)	not null,
 	`in_me_id`	varchar(13)	NOT NULL,
 	`in_content`	longtext	not NULL,
 	`in_reg_date`	datetime	not NULL,
