@@ -449,6 +449,9 @@ cursor: pointer;
 
 /* 오늘의 인증 */
 .feed_writer_img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 30px;
   height: 30px;
   border: none;
@@ -462,6 +465,10 @@ cursor: pointer;
   overflow: hidden;
 }
 .feed_img{
+	display: flex;
+	justify-content: center;
+  align-items: center;
+   overflow: hidden;
   background-image: url(../../img/certify_img.jpeg);
   background-size: cover;
   min-height: 270px;
@@ -862,7 +869,7 @@ cursor: pointer;
   font-size: 14px;
 }*/
 .accessor::-webkit-scrollbar {
-	width: 5px;
+	width: 3px;
 	border-radius: var(--border_radius_4);
 }
 .accessor::-webkit-scrollbar-thumb{

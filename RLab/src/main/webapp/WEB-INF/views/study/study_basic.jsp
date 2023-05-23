@@ -306,7 +306,9 @@ body {
 									</div>
 											<i class="feed_date">${ph.ph_register_date }</i>
 									</ul>
-										<img class="feed_img" src="<c:url value='/download${ph.ph_img}'></c:url>" "width="auto" height="30px">
+									<div class= "feed_img" >
+										<img class="" src="<c:url value='/download${ph.ph_img}'></c:url>" width="auto" height="350px">
+									</div>
 							</div>
 							<div class="feed_content_item">
 								<div class="feed_like">
