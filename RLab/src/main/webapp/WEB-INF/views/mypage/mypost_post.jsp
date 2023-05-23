@@ -105,7 +105,7 @@
 		                    </c:if>	
 							<c:if test="${myBoardList.size() == 0 || myBoardList == null}">
 	                      	<div class="nullMsg">
-	                      		<p> 작성한 글이 없습니다.</p>
+	                      		<p> 작성한 자유게시글이 없습니다.</p>
 	                      	</div>
 		                	</c:if>		 		                      
 		                   </div>
