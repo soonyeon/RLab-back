@@ -297,7 +297,7 @@ body {
 										<img class="feed_writer_img" src="<c:url value='/download${user.me_profile}'></c:url>"width="30" height="30px">
 									</c:if>	
 										<i class="feed_writer_name">${ph.ph_me_id}</i>
-										<i class="feed_date">${ph.ph_register_date }</i>
+										<i class="feed_date">${ph.ph_register_date_str}</i>
 									</ul>
 							<img class="feed_img" src="<c:url value='/download${ph.ph_img}'></c:url>">
 							</div>
