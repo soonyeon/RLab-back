@@ -57,9 +57,16 @@
 						<span class="rc_title">${st.st_name}</span>
 					</div>
 					<div class="study_content">
-						<div class="study_recruiting">
-							<span>모집중</span> <span class="now_pp">${st.st_now_people}</span> <span>/</span> <span>${st.st_total_people}</span>
-						</div>
+						<c:if test="${st.st_state == 1 }">
+							<div class="study_recruiting">
+								<span>모집중</span> <span class="now_pp">${st.st_now_people}</span> <span>/</span> <span>${st.st_total_people}</span>
+							</div>
+						</c:if>
+						<c:if test="${st.st_state == 0 }">
+							<div class="study_recruiting">
+								<span>모집완료</span>
+							</div>
+						</c:if>
 							<div class="want_icon" >
 								<c:if test="${user == null}" >
 									<div class="unlike_img" id="userNull"></div>
@@ -84,7 +91,7 @@
 					<div class="join_study">
 				   		<c:if test="${user == null }">
 						</c:if>
-						<c:if test="${user != null}">
+						<c:if test="${user != null && st.st_state == 1}">
 							<c:if test="${smList != null && smList.sm_authority == 1}">
 								<button class="already_apply_btn">스터디 가입 완료</button>
 							</c:if>
