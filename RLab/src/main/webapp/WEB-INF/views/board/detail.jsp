@@ -327,12 +327,11 @@ function loadComments(page1) {
                     reReplyHtml += '<img class="re_reply_icon" src="<c:url value="/resources/img/reply.png"></c:url>">';
                     reReplyHtml += '<div class="re_writer">';
                     reReplyHtml += '<a href="#" class="re_mypage">';
-                    <c:if test="${comment.me_profile == null}">
-                    reReplyHtml += '<img src="<c:url value="/resources/img/user.png"></c:url>" width="auto" height="40">';
-                    </c:if>
-                    <c:if test="${comment.me_profile != null}">
-                    reReplyHtml += '<img src="<c:url value="/download${comment.me_profile}"></c:url>" width="auto" height="40">';
-                    </c:if>
+                    if(comment.me_profile == null) {
+                        reReplyHtml += '<img src="<c:url value="/resources/img/user.png"></c:url>" width="auto" height="40">';
+                    } else {
+                        reReplyHtml += '<img src="<c:url value="/download' + comment.me_profile + '"></c:url>" width="auto" height="40">';
+                    }
                     reReplyHtml += '<span class="re_nick_name">' + comment.me_name + '</span>';
                     reReplyHtml += '<span class="re_write_date">' + comment.co_reg_date + '</span>';
                     reReplyHtml += '</a>';
