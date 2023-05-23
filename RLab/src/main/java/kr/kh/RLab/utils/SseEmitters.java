@@ -80,11 +80,11 @@ public class SseEmitters {
 	    if (emitter != null) {
 	        UserSessionInfo userSessionInfo = new UserSessionInfo(emitter, sessionExpiryTime);
 	        this.emitters.put(id, userSessionInfo);
-	        session.setAttribute("emitter", true);
+	        //session.setAttribute("emitter", true);
 	        System.out.println("sseConnect : " + id);
 	        emitter.onCompletion(() -> {
 	            this.emitters.remove(id);
-	            session.removeAttribute("emitter");
+	            //session.removeAttribute("emitter");
 	            System.out.println("ssecomplete : " + id);
 	        });
 
@@ -103,13 +103,14 @@ public class SseEmitters {
 	// 특정 사용자에게 이벤트 데이터를 전송
 	public void send(String eventName, Object eventData, String targetId, HttpSession session) {
 		System.out.println("emitter send : "+emitters.size());
+		System.out.println(emitters);
 		if(targetId == null || targetId.length() == 0) {
 			return;
 		}
-		if(session.getAttribute("emitter") == null) {
+		/*if(session.getAttribute("emitter") == null) {
 			System.out.println("중단: session.getAttribute(\"emitter\") == null");
 			return ;
-		}
+		}*/
 		emitters.forEach((id, userSessionInfo) -> {
 			System.out.println(eventName+" : "+id);
 	        if (id != null && userSessionInfo != null && userSessionInfo.getEmitter() != null) {
@@ -117,6 +118,7 @@ public class SseEmitters {
 	                if (id.equals(targetId)) {
 	                	System.out.println(eventName + " : " +id);
 	                    userSessionInfo.getEmitter().send(SseEmitter.event().name(eventName).data(eventData));
+	                    System.out.println("전송완료");
 	                }
 	            } catch (Exception e) {
 	            	System.out.println("sseEmitter 에러 발생");
