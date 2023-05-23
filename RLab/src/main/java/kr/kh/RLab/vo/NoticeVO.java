@@ -23,6 +23,13 @@ public class NoticeVO {
 	
 	public String getNo_register_date_str() {
 		SimpleDateFormat format = 
+			new SimpleDateFormat("yyyy.MM.dd");
+		if(no_register_date == null) 
+			return "";
+		return format.format(no_register_date);
+	}
+	public String getNo_register_date_str2() {
+		SimpleDateFormat format = 
 			new SimpleDateFormat("yyyy.MM.dd hh:mm");
 		if(no_register_date == null) 
 			return "";

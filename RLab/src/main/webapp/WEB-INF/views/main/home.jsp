@@ -213,10 +213,10 @@
               <div class="event_box_area">
                 <div class="event_box">
                   <div class="event_banner add_shadow">
-                    <a href="/RLab/notice/detail/1"value=""><img src="/RLab/download/banner/event01.jpeg"></a>
+                    <a href="/RLab/notice/detail/5"value=""><img src="/RLab/download/banner/event01.jpeg"></a>
                   </div>
                   <div class="event_banner add_shadow">
-                    <a href="/RLab/notice/detail/2"value=""><img src="/RLab/download/banner/event02.png"></a>
+                    <a href="/RLab/notice/detail/6"value=""><img src="/RLab/download/banner/event02.png"></a>
                   </div>
                   <div class="event_banner add_shadow">
                     <a href="/RLab/notice/detail/3"value=""><img src="/RLab/download/banner/event03.jpg"></a>

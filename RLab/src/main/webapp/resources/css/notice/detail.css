@@ -16,8 +16,9 @@
     margin-top: 8px;
 }
 .notice_container .info_container{
-	display: inline-block;
+	display: flex;
     margin: 15px 0px 4px;
+    justify-content: space-between;
 }
 .inner_container .info_box{
     float: left;
@@ -29,7 +30,6 @@
     width: 25px;
     height: 25px;
     display: inline-block;
-    background-color: #d9fff3;
     border-radius: 50%;
     border-width: 1px solid;
     border-color: rgba(121, 119, 119, 0.529);

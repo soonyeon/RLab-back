@@ -555,8 +555,8 @@
   		// 나의 펫이 존재하면...
   		if(${myPet != null}){
 	        var gaugeWidth = $('.pet_ex_colored').width(); // 게이지의 너비
-	        var currentExp = ${currentExp}; // 현재 경험치
-	        var levelUpExp = ${levelUpExp}; // 레벨 업 경험치
+	        let currentExp = '${currentExp}'; // 현재 경험치
+	        let levelUpExp = '${levelUpExp}'; // 레벨 업 경험치
 	        var ratio = currentExp / levelUpExp; // 현재 경험치 / 레벨 업 경험치
 	        gaugeWidth = ratio * 100 + '%'; // 백분율로 계산한 값 = 게이지의 너비
 	
