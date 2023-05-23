@@ -36,7 +36,7 @@
 	  </div>
 	</div>
   <main class="main_container">
-      <div class="reservation_btn">예약하기</div>
+      <!-- <div class="reservation_btn">예약하기</div> -->
       
       <!-- main_banner -->
       <section class="main_area">
@@ -213,10 +213,10 @@
               <div class="event_box_area">
                 <div class="event_box">
                   <div class="event_banner add_shadow">
-                    <a href="/RLab/notice/detail/1"value=""><img src="/RLab/download/banner/event01.jpeg"></a>
+                    <a href="/RLab/notice/detail/5"value=""><img src="/RLab/download/banner/event01.jpeg"></a>
                   </div>
                   <div class="event_banner add_shadow">
-                    <a href="/RLab/notice/detail/2"value=""><img src="/RLab/download/banner/event02.png"></a>
+                    <a href="/RLab/notice/detail/6"value=""><img src="/RLab/download/banner/event02.png"></a>
                   </div>
                   <div class="event_banner add_shadow">
                     <a href="/RLab/notice/detail/3"value=""><img src="/RLab/download/banner/event03.jpg"></a>
@@ -367,18 +367,32 @@ $(document).ready(function() {
 	$('.spot_modal_container').click(function(){
 		$(this).hide();
 	});
-
+	
+	var btnSpot1 = document.querySelector('.btn_spot1');
+	var btnSpot2 = document.querySelector('.btn_spot2');
+	var btnSpot3 = document.querySelector('.btn_spot3');
+	
+	btnSpot1.style.backgroundColor = '#5d5c5c';
 	// 각 버튼을 클릭하면 y축 스타일을 값을 변경하여 슬라이드를 이동
  	document.querySelector('.btn_spot1').addEventListener('click', function(){
 	document.querySelector('.spot_container').style.transform = 'translateY(0px)';
+	this.style.backgroundColor = '#5d5c5c'; // 버튼의 색상을 검정색으로 설정
+    btnSpot2.style.backgroundColor = '';
+    btnSpot3.style.backgroundColor = '';
 	});
 	document.querySelector('.btn_spot3').addEventListener('click', function(){
 	document.querySelector('.spot_container').style.transform = 'translateY(-1220px)';
+	this.style.backgroundColor = '#5d5c5c'; // 버튼의 색상을 검정색으로 설정
+    btnSpot1.style.backgroundColor = '';
+    btnSpot2.style.backgroundColor = '';
 	});
 	document.querySelector('.btn_spot2').addEventListener('click', function(){
 	document.querySelector('.spot_container').style.transform = 'translateY(-610px)';
+	this.style.backgroundColor = '#5d5c5c'; // 버튼의 색상을 검정색으로 설정
+    btnSpot1.style.backgroundColor = '';
+    btnSpot3.style.backgroundColor = '';
 	});
-	
+	5
 	
 /* 스터디 모집 공고 */
 	var recruitBannerContainer = document.querySelector('.recruit_box_container'),

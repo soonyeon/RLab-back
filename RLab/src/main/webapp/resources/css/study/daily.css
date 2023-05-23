@@ -27,7 +27,7 @@
     font-size: 14px;
   }
   .main_today_mission_button{
-
+	justify-content: flex-end;
   }
   .today_mission_button {
    	display: flex;
@@ -36,7 +36,18 @@
     margin-top: 15px;
     font-weight: bold;
   }
-  
+  .modal-content form{
+  	display: flex;
+    flex-flow: column;
+    gap: 20px;
+}
+  .modal-content h2 {
+  	margin-bottom: 15px;
+  }
+  .remove_box{
+    display: flex;
+    justify-content: flex-end;
+  }
   .mbtn{
   	display: flex;
   	justify-content: center;

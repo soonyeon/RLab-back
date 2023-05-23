@@ -118,27 +118,6 @@
 		    						<div class="circle_btn">인증하기</div>
 		    					</div>
 							</div>
-						<!--  	 <div id="modal" class="modal">
-					        <div class="modal-content">
-					            <span class="close">&times;</span>
-					            <h2>인증하기 양식</h2>
-					            <form>
-					                <label for="photo">사진:</label>
-					                <input type="file" id="photo" name="photo" accept="image/*">
-					                <br>
-					                <label for="content">내용입력:</label>
-					                <textarea id="content" name="content" rows="4" cols="50" maxlength="500" placeholder="내용은 500자 이내"></textarea>
-					                <br>
-					                <label for="category">카테고리 선택:</label>
-						                <select id="ph_pt_num" name="ph_pt_num">
-					                <c:forEach var="pt" items="${ptList}">
-						                    <option value="${pt.pt_num}">${pt.pt_name}</option>
-					                </c:forEach>
-						                </select>
-					                <button>등록하기</button>
-					           </form>
-	                       </div>
-                    	</div>-->
                         </div>
                         
                         

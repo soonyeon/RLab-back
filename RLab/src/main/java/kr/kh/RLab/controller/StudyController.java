@@ -226,6 +226,23 @@ public class StudyController {
 		mv.addObject("tdList", tdList);
 		ArrayList<PhotoVO> photo = studyService.selectPhotos(st_num);
 		
+		List<PhotoVO> photos = studyService.getPhotosByStudyNum(st_num);
+
+		// 좋아요
+		Map<Integer, Integer> likeCounts = new HashMap<>();
+		Map<Integer, Boolean> userLikes = new HashMap<>();
+		for (PhotoVO photo1 : photos) {
+			int li_ph_num = photo1.getPh_num();
+			int likeCount = studyService.countLikesByPhotoId(li_ph_num);
+			LikeVO userLike = studyService.getLikeByUserIdAndPhotoId(user.getMe_id(), li_ph_num);
+
+			likeCounts.put(li_ph_num, likeCount);
+			userLikes.put(li_ph_num, userLike != null && userLike.getLi_state() == 1);
+		}
+		mv.addObject("photos", photos);
+		mv.addObject("likeCounts", likeCounts);
+		mv.addObject("userLikes", userLikes);
+		
 		mv.addObject("user",user);
 		mv.addObject("photo", photo);
 		mv.addObject("st_num", st_num);

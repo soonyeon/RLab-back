@@ -84,10 +84,10 @@
 								<c:if test="${!mfList.contains(sm.sm_me_id) || mfList == null}">
 									<div class="pro_circle">
 										<c:if test="${sm.me_profile == null}">
-											<img  class="pro_img" src="<c:url value='/resources/img/user.png'></c:url>" width="80" height="80" >	
+											<img  class="pro_img" src="<c:url value='/resources/img/user.png'></c:url>" width="auto" height="80" >	
 										</c:if>
 										<c:if test="${sm.me_profile != null}">
-											<img  class="pro_img" src="<c:url value='/download/${sm.me_profile}'></c:url>" width="80" height="80" >
+											<img  class="pro_img" src="<c:url value='/download/${sm.me_profile}'></c:url>" width="auto" height="80" >
 										</c:if>
 									</div>
 									<div class="pro_name">${sm.sm_me_id}</div>
@@ -95,10 +95,10 @@
 								<c:if test="${mfList.contains(sm.sm_me_id)}"  >
 										<div class="pro-img-check"></div>
 										<c:if test="${sm.me_profile == null}">
-											<img  class="pro_img" src="<c:url value='/resources/img/user.png'></c:url>" width="80" height="80" >	
+											<img  class="pro_img" src="<c:url value='/resources/img/user.png'></c:url>" width="auto" height="80" >	
 										</c:if>
 										<c:if test="${sm.me_profile != null}">
-											<img  class="pro_img" src="<c:url value='/download/${sm.me_profile}'></c:url>" width="80" height="80" >
+											<img  class="pro_img" src="<c:url value='/download/${sm.me_profile}'></c:url>" width="auto" height="80" >
 										</c:if>
 									<div class="pro_name">${sm.sm_me_id}</div>
 								</c:if>
@@ -109,23 +109,19 @@
 			</div>
 			<div id="modal" class="modal">
 				<div class="modal-content">
-				    <span class="close">&times;</span>
+				    <div class="remove_btn remove_box"><img  src="<c:url value='/resources/img/delete.png'></c:url>" width="auto" height="20" alt="닫기"></div>
 				    <c:if test="${mission == null }">
-				    <h2>미션내용 등록하기</h2>
-					    <form>
-					        <label for="content">미션내용입력:</label>
-					        <textarea id="content" name="content" rows="4" cols="50" maxlength="100" placeholder="내용은 100자 이내"></textarea>
-					        <br>
-					    	 <button class="mission_up">등록하기</button>
-					    		
-						</form>
+					    <h2>미션내용 등록하기</h2>
+						    <form>
+						        <textarea id="content" name="content" rows="4" cols="50" maxlength="100" placeholder="내용은 100자 이내"></textarea>
+						    	 <button class="mission_up">등록하기</button>
+						    		
+							</form>
 					</c:if>	
 					<c:if test="${mission != null }">
 					<h2>미션내용 수정하기</h2>
 					    <form>
-					        <label for="content">미션내용입력:</label>
 					        <textarea id="content" name="content" rows="4" cols="50" maxlength="100" value="${mission.mi_content}" ></textarea>
-					        <br> 
 					    	 <button class="mission_edit">수정하기</button>			
 						</form>
 					</c:if>
