@@ -308,9 +308,9 @@ function loadComments(page1) {
                     reReplyHtml += '<div class="re_writer">';
                     reReplyHtml += '<a href="#" class="re_mypage">';
                     if(comment.me_profile == null) {
-                        reReplyHtml += '<img src="<c:url value="/resources/img/user.png"></c:url>" width="auto" height="40">';
+                        reReplyHtml += '<img class="commenter_img_box" src="<c:url value="/resources/img/user.png"></c:url>" width="auto" height="40">';
                     } else {
-                        reReplyHtml += '<img src="<c:url value="/download' + comment.me_profile + '"></c:url>" width="auto" height="40">';
+                        reReplyHtml += '<img class="commenter_img_box" src="<c:url value="/download' + comment.me_profile + '"></c:url>" width="auto" height="40">';
                     }
                     reReplyHtml += '<span class="re_nick_name">' + comment.me_name + '</span>';
                     reReplyHtml += '<span class="re_write_date">' + comment.co_reg_date + '</span>';
