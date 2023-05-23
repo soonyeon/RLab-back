@@ -61,7 +61,7 @@ public class MypageController {
 		
 		// 나의 펫 정보
 		GrowthVO myPet = mypageService.selectMyPet(userId);
-		
+		System.out.println("myPet:"+myPet);
 		// 나의 펫이 존재하면...
 		if(myPet != null) {
 			// 레벨업까지의 경험치 정보

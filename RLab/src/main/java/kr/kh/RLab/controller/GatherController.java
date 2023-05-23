@@ -116,7 +116,8 @@ public class GatherController {
 		StudyMemberVO smList = gatherService.selelctJoinStudyMemberList(user,st_num);
 		FileVO file =  gatherService.selectFileByStNum(st_num);
 		int joinCount = joinstudyService.getJoinCount(st_num);
-		mv.addObject("user",user);
+		MemberVO meList = gatherService.selectStudyMemList(st_num);
+		mv.addObject("meList",meList);
 		mv.addObject("smList",smList);
 		mv.addObject("joinCount",joinCount);
 		mv.addObject("st_num",st_num);
@@ -149,7 +150,7 @@ public class GatherController {
 	public ModelAndView gatherUpdate(ModelAndView mv,HttpServletRequest request,@PathVariable("ga_num")int ga_num) {
 		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
 		GatherVO ga = gatherService.selectGather(ga_num,user);
-		ArrayList<StudyVO> studyList = gatherService.selectStudyById(user);
+		ArrayList<StudyVO> studyList = gatherService.selectStudyNameById(user);
 		mv.addObject("studies",studyList);
 		mv.addObject("ga",ga);
 		mv.setViewName("/gather/update");

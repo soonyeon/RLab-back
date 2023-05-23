@@ -37,7 +37,12 @@
                             </div>
                             <div class="info_container clearfix">
                                 <div class="info_box">
-                                   	<img class="profile_box" src="<c:url value='/download${no.me_profile}'></c:url>">
+                                	<c:if test="${no.me_profile == null}">
+										<img class="profile_box" src="<c:url value='/resources/img/user.png'></c:url>" width="auto" height="40">
+									</c:if>
+									<c:if test="${no.me_profile != null}">
+                                   		<img class="profile_box" src="<c:url value='/download${no.me_profile}'></c:url>">
+                                   	</c:if>
                                     <span class="writer">${no.no_me_id}</span>
                                     <span class="date">${no.no_register_date_str}</span>
                                     <img class="icon_view" src="<c:url value='/resources/img/view.png'></c:url>">

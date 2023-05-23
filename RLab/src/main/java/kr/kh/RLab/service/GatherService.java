@@ -64,6 +64,10 @@ public interface GatherService {
 	boolean editStudy(StudyVO study, MemberVO member, RegionVO region, MultipartFile[] files,FileVO file, Integer fileNums, TagVO tag,
 			TagRegisterVO tagRegister,int st_num);
 
+	ArrayList<StudyVO> selectStudyNameById(MemberVO user);
+
+	MemberVO selectStudyMemList(int st_num);
+
 
 	
 

@@ -290,21 +290,37 @@ body {
 							<div class="today_feed_board">
 								<div class="feed_board">
 									<ul class="feed_writer_box">
-									<c:if test="${user.me_profile == null}">
-										<img class="feed_writer_img" src="<c:url value='/resources/img/user.png'></c:url>" >
-									</c:if>
-									<c:if test="${user.me_profile != null}">
-										<img class="feed_writer_img" src="<c:url value='/download${user.me_profile}'></c:url>"width="30" height="30px">
-									</c:if>	
-										<i class="feed_writer_name">${ph.ph_me_id}</i>
-										<i class="feed_date">${ph.ph_register_date_str}</i>
+									
+									<div class="writer_box">
+										<c:if test="${user.me_profile == null}">
+											<div class="feed_writer_img">
+												<img class="" src="<c:url value='/resources/img/user.png'></c:url>" >
+											</div>
+										</c:if>
+										<c:if test="${user.me_profile != null}">
+											<div class="feed_writer_img">
+												<img class="" src="<c:url value='/download${user.me_profile}'></c:url>"width="auto" height="30px">
+											</div>
+										</c:if>	
+											<i class="feed_writer_name">${ph.ph_me_id}</i>
+									</div>
+											<i class="feed_date">${ph.ph_register_date }</i>
 									</ul>
-							<img class="feed_img" src="<c:url value='/download${ph.ph_img}'></c:url>">
+									<div class= "feed_img" >
+										<img class="" src="<c:url value='/download${ph.ph_img}'></c:url>" width="auto" height="350px">
+									</div>
 							</div>
 							<div class="feed_content_item">
 								<div class="feed_like">
-									<div class="feed_like_img"></div>
-									<div class="feed_like_count">10</div>
+									<c:choose>
+	                                    <c:when test="${likeCounts[ph.ph_num] > 0 && userLikes[ph.ph_num]}">
+	                                        <img class="feed_like_img" data-photo-id="${ph.ph_num}" src="<c:url value='/resources/img/like_clicked.png'/>" />
+	                                    </c:when>
+	                                    <c:otherwise>
+	                                        <img class="feed_like_img" data-photo-id="${ph.ph_num}" src="<c:url value='/resources/img/like_off.png'/>" />
+	                                    </c:otherwise>
+	                                </c:choose>
+									<div class="feed_like_count">${likeCounts[ph.ph_num]}</div>
 								</div>
 								<div class="feed_content">
 									<span>${ph.ph_content}</span>
@@ -405,6 +421,35 @@ body {
 	</div>
 </main>
 <script>
+const likeclickedImageUrl = $("#like_clicked_image_url").val();
+const likeOffImageUrl = $("#like_off_image_url").val();
+
+$(".feed_like_img").on("click", function () {
+    const li_ph_num = $(this).data("photo-id");
+    const $likeCount = $(this).siblings(".feed_like_count");
+    const $likeImg = $(this).children(".feed_like_img");
+
+    $.ajax({
+    	url: '<c:url value="/study/toggleLike" />',
+        type: "POST",
+        data: {
+            li_ph_num: li_ph_num
+        },
+        success: function (response) {
+            if (response === "inserted" || response === "updated") {
+                $likeImg.attr("src", likeclickedImageUrl);
+                $likeCount.text(parseInt($likeCount.text()) + 1);
+                location.reload();
+            } else if (response === "canceled") {
+                $likeImg.attr("src", likeOffImageUrl);
+                $likeCount.text(parseInt($likeCount.text()) - 1);
+                location.reload();
+            }
+        },
+    });
+});
+
+
 $(".tab1").click(function() {
     $(this).addClass("tab1_selected");
     $(".tab2").removeClass("tab2_selected");
@@ -414,6 +459,10 @@ $(".tab2").click(function() {
     $(".tab1").removeClass("tab1_selected");
 });
 </script>
+
+
+
+
 <script>
 
 var url = new URL(location.href);
