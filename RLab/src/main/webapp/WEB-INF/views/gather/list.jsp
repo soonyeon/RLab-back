@@ -125,12 +125,19 @@
 													</div>
 											</a>
 													<div class="study_content">
+													<c:if test="${stList.get(index).st_state == 1 }">
 														<div class="study_recruiting">
 															<span>모집중</span> 
 															<span>${stList.get(index).st_now_people}</span> 
 															<span>/</span> 
 															<span>${stList.get(index).st_total_people}</span>
 														</div>
+													</c:if>	
+													<c:if test="${stList.get(index).st_state == 0}">
+														<div class="study_recruiting">
+															<span>모집완료</span> 	
+														</div>
+													</c:if>
 														<div class="want_icon" data-num="${stList.get(index).st_num }">
 															<c:if test="${user == null}" >
 																<div class="unlike_img"></div>
