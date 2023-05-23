@@ -117,7 +117,9 @@
 		                  <c:if test="${myBookList.size() == 0 || myBookList == null}">
 		                      	<div class="nullMsg">
 		                      		<p> 예약내역이 없습니다.</p>
-		                      		<a class="btn_link link_favorite" href="<c:url value='/reservation/book'></c:url>">예약하기</a>
+		                      		<a class="btn_link link_favorite" href="<c:url value='/reservation/book'></c:url>"style="
+									    background-color: var(--color_blue);
+									">예약하기</a>
 		                      	</div>
 			              </c:if> 
 		                 </div>

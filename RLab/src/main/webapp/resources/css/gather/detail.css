@@ -217,6 +217,15 @@ margin-top: 100px;
   margin-top: 5px;
 
 }
+.commenter_img_box{
+	width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: var(--border_radius_1);
+}
 .main_bottom_box .add_comment_box{
     height: 50px;
     display: flex;
@@ -326,7 +335,7 @@ margin-top: 100px;
 .re_reply_top_box {
   display: flex;
   flex-wrap: wrap;
-  width: 690px;
+  width: 765px;
   border: 1px solid var(--color_light-grey);
   height: auto;
   padding: 10px 10px 10px 30px;
@@ -340,6 +349,7 @@ margin-top: 100px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  gap: 5px;
 }
 
 .re_reply_top_box .img_mypage{
