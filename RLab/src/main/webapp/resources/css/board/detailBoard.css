@@ -202,7 +202,7 @@
     background-color: var(--color_blue);
     border-radius: var(--border_radius_4);
     border: none;
-    font-size: 18px;
+    font-size: 16px;
     cursor: pointer;
         font-weight: 800;
 }

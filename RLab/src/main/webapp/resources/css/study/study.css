@@ -166,7 +166,9 @@ footer .corp_container .link_corp:nth-child(1)::before{
   font-size: 15px;
   font-weight: 800;
 }
-
+.list_item{
+	font-family: var(--font_main);
+}
 .left_menu a:visited {
   font-weight: bold; 
   /*클릭했을때 굵어지면서 검정색으로 바뀌게 나중에 수정 */
