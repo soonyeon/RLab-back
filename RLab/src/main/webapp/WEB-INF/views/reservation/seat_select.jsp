@@ -30,115 +30,55 @@
 
 
 		<div class="main_container">
-		<form action="<c:url value='/reservation/1/book'></c:url>" method="post">
-			<!-- 좌석 선택 박스 -->
-			<div class="seat_container main_content">
-				<!-- 타이틀 영역-->
-				<div class="title_area">
-					<i class="icon_seat"></i>
-					<h2>좌석 선택</h2>
-					<i class="icon_info info_seat"></i>
-				</div>
-				<!-- 좌석 선택 영역 -->
-				<div class="seat_area">
-					<div class="seat_table">
-						<table>
-							<c:forEach begin="0" end="${seList.size()-1}" step="10" var="i">
-								<tr class="<c:if test='${i==0}'>row_1</c:if>">
-									<c:forEach begin="${i}" end="${i+9}" var="index">
-										<td class="
-											<c:if test='${seList.get(index).se_usable==0}'></c:if>
-											<c:if test='${seList.get(index).se_usable==1}'>seat_unavailable</c:if>
-											<c:if test='${seList.get(index).se_usable==2}'>seat</c:if>
-										">${seList.get(index).se_name}</td>
-									</c:forEach>
-								</tr>
-							</c:forEach>
-							<tr>
-								<td class="seat">14</td>
-								<td></td>
-								<td class="seat">20</td>
-								<td class="seat">26</td>
-								<td></td>
-								<td></td>
-								<td class="seat">32</td>
-								<td class="seat">38</td>
-								<td></td>
-								<td class="seat">46</td>
-							</tr>
-							<tr>
-								<td class="seat">13</td>
-								<td></td>
-								<td class="seat">19</td>
-								<td class="seat">25</td>
-								<td></td>
-								<td></td>
-								<td class="seat">31</td>
-								<td class="seat">37</td>
-								<td></td>
-								<td class="seat">45</td>
-							</tr>
-							<tr>
-								<td class="seat">12</td>
-								<td></td>
-								<td class="seat">18</td>
-								<td class="seat">24</td>
-								<td></td>
-								<td></td>
-								<td class="seat">30</td>
-								<td class="seat">36</td>
-								<td></td>
-								<td class="seat">44</td>
-							</tr>
-							<tr>
-								<td class="seat">11</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td class="seat">43</td>
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td class="seat">50</td>
-								<td class="seat">51</td>
-								<td class="seat">52</td>
-								<td class="seat">53</td>
-								<td class="seat">54</td>
-								<td class="seat">55</td>
-								<td></td>
-								<td class="seat">42</td>
-							</tr>
-						</table>
+			<form action="<c:url value='/reservation/1/book'></c:url>" method="post">
+				<!-- 좌석 선택 박스 -->
+				<div class="seat_container main_content">
+					<!-- 타이틀 영역-->
+					<div class="title_area">
+						<i class="icon_seat"></i>
+						<h2>좌석 선택</h2>
+						<i class="icon_info info_seat"></i>
 					</div>
-					<div class="seat_info">
-						<div class="seat_info_box">
-							<div class="info_unavailable info"></div><p>예약불가</p>
+					<!-- 좌석 선택 영역 -->
+					<div class="seat_area">
+						<div class="seat_table">
+							<table>
+								<c:forEach begin="0" end="${seList.size()-1}" step="10" var="i">
+									<tr class="<c:if test='${i==0}'>row_1</c:if>">
+										<c:forEach begin="${i}" end="${i+9}" var="index">
+											<td class="
+												<c:if test='${seList.get(index).se_usable==0}'></c:if>
+												<c:if test='${seList.get(index).se_usable==1}'>seat_unavailable</c:if>
+												<c:if test='${seList.get(index).se_usable==2}'>seat</c:if>
+											">${seList.get(index).se_name}</td>
+										</c:forEach>
+									</tr>
+								</c:forEach>
+							</table>
 						</div>
-						<div class="seat_info_box">
-							<div class="info_available info"></div><p>예약가능</p>
+						<div class="seat_info">
+							<div class="seat_info_box">
+								<div class="info_unavailable info"></div><p>예약불가</p>
+							</div>
+							<div class="seat_info_box">
+								<div class="info_available info"></div><p>예약가능</p>
+							</div>
+							<div class="seat_info_box">
+								<div class="info_selected info"></div><p>선택한 좌석</p>
+							</div>
 						</div>
-						<div class="seat_info_box">
-							<div class="info_selected info"></div><p>선택한 좌석</p>
+					</div>
+					<!-- 선택한 좌석번호 영역 -->
+					<div class="seat_num_area">
+						<h3>[${br.br_re_name}] ${br.br_name}<input type="hidden" name="br_num" value="${br_num}"></h3>
+						<div class="seat_num_box">
+							<div class="seat_num_title">선택한 좌석번호 :</div> <div id="seat_num"><input type="hidden" name="se_name" value="">17</div><div class="seat_num_title">번</div>
 						</div>
 					</div>
 				</div>
-				<!-- 선택한 좌석번호 영역 -->
-				<div class="seat_num_area">
-					<h3>[${br.br_re_name}] ${br.br_name}<input type="hidden" name="br_num" value="${br_num}"></h3>
-					<div class="seat_num_box">
-						<div class="seat_num_title">선택한 좌석번호 :</div> <div id="seat_num"><input type="hidden" name="se_name" value="">17</div><div class="seat_num_title">번</div>
-					</div>
-				</div>
-			</div>
-			<!-- 이용권 선택 박스 -->
-			<div class="ticket_container main_content">
 				
+				<!-- 이용권 선택 박스 -->
+				<div class="ticket_container main_content">
 					<!-- 타이틀 영역 -->
 					<div class="title_area">
 						<h2>이용권 선택</h2>
@@ -152,7 +92,6 @@
 							</c:forEach>
 						</select>
 						<select class="time_select display_none" name="re_hours">
-						
 						</select>
 					</div>
 					
@@ -175,11 +114,10 @@
 						<a href="<c:url value='/reservation/buy'></c:url>" class="b_btn"  id="buy_btn"><input type="button" value="이용권 구매"></a>
 						<button class="b_btn" id="book_btn"><input type="submit" value="예약하기" ></button>
 					</div>
-				
-			</div>
+				</div>
+			</form>
 		</div>
 	</div>
-	</form>
 </main>
 <script>
 /* 좌석 선택 관련 이벤트 */
@@ -204,7 +142,14 @@ let useTime;
 let restTime;
 let selectedStr = '';
 
-showSelectedTicket('${toList.get(0).to_num}');
+//가진 이용권이 없을 때
+if(${toList.size() == 0}){
+	$('.ticket_area').html('<div class="no_ticket">사용가능한 이용권이 없습니다. 이용권을 새로 구매해보세요.</div>');
+	$('.selected_area').html(selectedStr);
+	return;		
+}else{
+	//showSelectedTicket('${toList.get(0).to_num}');
+}
 
 $('#ticket_select').change(function(){
 	let re_to_num = $(this).val();
