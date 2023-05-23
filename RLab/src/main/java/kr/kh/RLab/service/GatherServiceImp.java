@@ -317,6 +317,13 @@ public class GatherServiceImp implements GatherService {
 		
 		return true;
 	}
+
+	@Override
+	public ArrayList<StudyVO> selectStudyNameById(MemberVO user) {
+		if (user == null)
+			return null;
+		return gatherDao.selectStudyNameById(user.getMe_id());
+	}
 	
 
 

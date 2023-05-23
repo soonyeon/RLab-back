@@ -149,7 +149,7 @@ public class GatherController {
 	public ModelAndView gatherUpdate(ModelAndView mv,HttpServletRequest request,@PathVariable("ga_num")int ga_num) {
 		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
 		GatherVO ga = gatherService.selectGather(ga_num,user);
-		ArrayList<StudyVO> studyList = gatherService.selectStudyById(user);
+		ArrayList<StudyVO> studyList = gatherService.selectStudyNameById(user);
 		mv.addObject("studies",studyList);
 		mv.addObject("ga",ga);
 		mv.setViewName("/gather/update");
