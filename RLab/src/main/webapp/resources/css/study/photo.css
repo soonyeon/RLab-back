@@ -121,7 +121,7 @@
   .modal {
   display: none; 
   position: absolute; 
-  z-index: 1; 
+  z-index: 100; 
   left: 0;
   top: 0;
   width: 100%; 
@@ -167,10 +167,19 @@
   cursor: pointer;
 }
 
+
 .modal-content form button {
   margin: 0 auto;
+      width: 100px;
+    height: 40px;
+    border-radius: var(--border_radius_2);
+    border: none;
+    background-color: var(--color_blue);
+    font-weight: 600;
 }
-
+.modal-content form button:hover{
+	background-color: var(--blue_hover);
+}
 .inner_container{
 	display: flex;
 	flex-flow: column;
