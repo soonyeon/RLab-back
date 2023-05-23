@@ -146,9 +146,8 @@ let selectedStr = '';
 if(${toList.size() == 0}){
 	$('.ticket_area').html('<div class="no_ticket">사용가능한 이용권이 없습니다. 이용권을 새로 구매해보세요.</div>');
 	$('.selected_area').html(selectedStr);
-	return;		
 }else{
-	//showSelectedTicket('${toList.get(0).to_num}');
+	showSelectedTicket('${toList.get(0).to_num}');
 }
 
 $('#ticket_select').change(function(){
