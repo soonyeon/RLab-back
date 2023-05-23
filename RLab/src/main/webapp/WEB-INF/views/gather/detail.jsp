@@ -382,6 +382,7 @@ $(".cm_upload_btn").click(function() {
                 alert("댓글이 등록되었습니다.");
                 $('.comment_box').empty()
                 loadComments(1);
+                $(".cm_write").val(''); // 입력창 내용 비우기
             } else {
                 alert("댓글 등록에 실패했습니다.");
             }
