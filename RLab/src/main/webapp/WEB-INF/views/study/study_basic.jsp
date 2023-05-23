@@ -304,7 +304,7 @@ body {
 										</c:if>	
 											<i class="feed_writer_name">${ph.ph_me_id}</i>
 									</div>
-											<i class="feed_date">${ph.ph_register_date }</i>
+											<i class="feed_date">${ph.ph_register_date_str }</i>
 									</ul>
 									<div class= "feed_img" >
 										<img class="" src="<c:url value='/download${ph.ph_img}'></c:url>" width="auto" height="350px">
