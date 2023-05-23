@@ -74,17 +74,23 @@
 								                        <div class="board">
 								                        
 								                        	<div class="profile_box">
-								                        		<c:if test="${photo.me_profile == null }">
-									                        		<img class="photo_feed_img" src="<c:url value='/resources/img/user.png'></c:url>" width="30" height="30px">
-									                        	</c:if>	
-									                        	<c:if test="${photo.me_profile != null }">
-									                        		<img class="photo_feed_img" src="<c:url value='/download${photo.me_profile}'></c:url>"width="30" height="30px">
-									                        	</c:if>	
-									                            <div class="feed_name">${photo.me_name}</div>
+								                        		<div class="user_box">
+									                        		<c:if test="${photo.me_profile == null }">
+									                        			<div class="photo_feed_img_box">
+										                        			<img class="photo_feed_img" src="<c:url value='/resources/img/user.png'></c:url>" width="auto" height="40px">
+										                        		</div>
+										                        	</c:if>	
+										                        	<c:if test="${photo.me_profile != null }">
+										                        		<div class="photo_feed_img_box">
+										                        			<img class="photo_feed_img" src="<c:url value='/download${photo.me_profile}'></c:url>"width="auto" height="40px">
+										                        		</div>
+										                        	</c:if>	
+										                            <div class="feed_name">${photo.me_name}</div>
+									                            </div>
 									                            <div class="feed_date">${photo.ph_register_date_str}</div>
 								                            </div>
 								                            <div class="feed_contents_img">
-								                                <img width="350" height="350"		src="<c:url value='/download${photo.ph_img}'/>" alt="이미지">
+								                                <img width="auto" height="350"src="<c:url value='/download${photo.ph_img}'/>" alt="이미지">
 								                            </div>
 								                            <div class="middle_container3">
 								                                <input type="hidden" id="like_clicked_image_url" value="<c:url value='/resources/img/like_clicked.png'/>">
