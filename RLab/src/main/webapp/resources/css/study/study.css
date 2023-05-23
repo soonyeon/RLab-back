@@ -462,13 +462,14 @@ cursor: pointer;
   border-radius: var(--border_radius_4);
 }
 .feed_like_img {
-  background-image: url(../../img/like_off.png);
+ /* background-image: url(../../img/like_off.png);*/
   width: 25px;
   height: 25px;
   border: none;
   border-radius: var(--border_radius_1);
   background-size: 25px 25px;
   background-repeat: no-repeat;
+  cursor: pointer;
 }
 .feed_writer_box{
   padding: 12px 5px 0 5px;
@@ -550,7 +551,13 @@ cursor: pointer;
   padding-top: 10px;
 }
 
-
+  .middle_container3{
+	display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 5px 0 15px 0;
+    gap: 5px;
+  }
 
 
 

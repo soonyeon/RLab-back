@@ -81,8 +81,8 @@
     justify-content: flex-end;
     align-items: center;
     margin: 5px 0 15px 0;
+    gap: 5px;
   }
-  .feed_like_img{margin-right:10px}
   .feed_like_count{margin-right:10px}
   .feed_contents{
   	font-size: 14px;
