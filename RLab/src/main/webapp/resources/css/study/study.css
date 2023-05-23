@@ -237,7 +237,7 @@ footer .corp_container .link_corp:nth-child(1)::before{
 .tab{
 	display: flex;
 	flex-direction: column;
-	width: 120px;
+	width: 135px;
     height: 80px;
 	box-sizing: border-box;
 	text-align: center; 
