@@ -290,16 +290,25 @@ body {
 							<div class="today_feed_board">
 								<div class="feed_board">
 									<ul class="feed_writer_box">
-									<c:if test="${user.me_profile == null}">
-										<img class="feed_writer_img" src="<c:url value='/resources/img/user.png'></c:url>" >
-									</c:if>
-									<c:if test="${user.me_profile != null}">
-										<img class="feed_writer_img" src="<c:url value='/download${user.me_profile}'></c:url>"width="30" height="30px">
-									</c:if>	
-										<i class="feed_writer_name">${ph.ph_me_id}</i>
-										<i class="feed_date">${ph.ph_register_date }</i>
+									
+									<div class="writer_box">
+										<c:if test="${user.me_profile == null}">
+											<div class="feed_writer_img">
+												<img class="" src="<c:url value='/resources/img/user.png'></c:url>" >
+											</div>
+										</c:if>
+										<c:if test="${user.me_profile != null}">
+											<div class="feed_writer_img">
+												<img class="" src="<c:url value='/download${user.me_profile}'></c:url>"width="auto" height="30px">
+											</div>
+										</c:if>	
+											<i class="feed_writer_name">${ph.ph_me_id}</i>
+									</div>
+											<i class="feed_date">${ph.ph_register_date }</i>
 									</ul>
-							<img class="feed_img" src="<c:url value='/download${ph.ph_img}'></c:url>">
+									<div class= "feed_img" >
+										<img class="" src="<c:url value='/download${ph.ph_img}'></c:url>" width="auto" height="350px">
+									</div>
 							</div>
 							<div class="feed_content_item">
 								<div class="feed_like">

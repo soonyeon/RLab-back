@@ -70,7 +70,7 @@
 	align-items: center;
 	gap: 40px;
 	width: 800px;
-	margin: 0 auto;
+	margin: 0 auto 40px;
 }
 .selected{
 	background-color: var(--color_blue);

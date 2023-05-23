@@ -85,6 +85,12 @@ public interface GatherDAO {
 
 	void deleteFileByStNum( @Param("fileNums")int fileNums);
 
+	ArrayList<StudyVO> selectStudyNameById(String me_id);
+
+	MemberVO selectStudyMemList(int st_num);
+
+
+
 	
 
 	

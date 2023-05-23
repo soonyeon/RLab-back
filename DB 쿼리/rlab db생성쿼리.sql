@@ -480,13 +480,6 @@ REFERENCES `member` (
 	`me_id`
 );
 
-ALTER TABLE `todo` ADD CONSTRAINT `FK_study_TO_todo_1` FOREIGN KEY (
-	`td_st_num`
-)
-REFERENCES `study` (
-	`st_num`
-);
-
 ALTER TABLE `todo` ADD CONSTRAINT `FK_member_TO_todo_1` FOREIGN KEY (
 	`td_me_id`
 )
@@ -564,7 +557,7 @@ REFERENCES `study` (
 	`st_num`
 );
 
-ALTER TABLE `alram` ADD CONSTRAINT `FK_member_TO_alram_1` FOREIGN KEY (
+ALTER TABLE `alarm` ADD CONSTRAINT `FK_member_TO_alarm_1` FOREIGN KEY (
 	`al_me_id`
 )
 REFERENCES `member` (

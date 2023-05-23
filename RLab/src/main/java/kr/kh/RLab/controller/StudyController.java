@@ -196,18 +196,22 @@ public class StudyController {
 	// 로그인O, me_study정보O 이상적으로 동작할때 도달하는 url
 	@RequestMapping(value = "/{st_num}", method = RequestMethod.GET)
 	public ModelAndView main(ModelAndView mv, HttpSession session, @PathVariable("st_num") int st_num) {
-		
 		MemberVO user = (MemberVO) session.getAttribute("user");
-		//st_me_id가 유저인 스터디 목록 불러오는 메소드인데 사용되는데가 없는데 지워도되는건가요?
-		ArrayList<StudyVO> study = studyService.getStudyByMemberId(user.getMe_id());
-		//가입한 스터디 리스트
-		ArrayList<StudyVO> stList = studyService.getUserStudyList(user.getMe_id());
+		//우측메뉴
 		StudyVO nowStudy = studyService.getStudy(st_num);
 		StudyVO favoriteStudy = studyService.getStudy(user.getMe_study());
+		ArrayList<StudyVO> stList = studyService.getUserStudyList(user.getMe_id());
+		System.out.println("st_num:"+ st_num);
+		System.out.println("nowStudy:"+nowStudy);
+		System.out.println("favoriteStudy:"+favoriteStudy);
+		mv.addObject("nowSt", nowStudy);
+		mv.addObject("favorite", favoriteStudy);
+		mv.addObject("stList", stList);
+		
 		// 스터디 관리 페이지에 들어가기 위해 내가 스터디장으로 있는 스터디가 있는지 알아보는 메소드
 		int leaderCount = studyService.getLeaderCount(user.getMe_id());
 		// 해당 user가 가입한 스터디가 1개도 없으면 다른 경로로 리다이렉트
-		if (study == null) {
+		if (stList == null) {
 			mv.addObject("msg", "로그인 후 사용가능한 기능입니다.");
 			mv.addObject("url", "redirect:/");
 			mv.setViewName("/common/message");
@@ -216,11 +220,8 @@ public class StudyController {
 		double todoProgressRate = studyService.getTodoProgressRate(memberId);
 	    int todoProgressRateint= (int) Math.round(todoProgressRate);
 	    mv.addObject("todoProgressRateint",todoProgressRateint);
-	    System.out.println("leaderCount" +leaderCount);
-	    //board
 	    ArrayList<BoardVO> boardList = boardService.selectBoardListByStNum(st_num);
 	    mv.addObject("boardList", boardList);
-		
 		ArrayList<TodoVO> tdList = studyService.getTodoList(user.getMe_id());
 		mv.addObject("tdList", tdList);
 		ArrayList<PhotoVO> photo = studyService.selectPhotos(st_num);
@@ -228,11 +229,7 @@ public class StudyController {
 		mv.addObject("user",user);
 		mv.addObject("photo", photo);
 		mv.addObject("st_num", st_num);
-		mv.addObject("study", study);
 		mv.addObject("loginUserId", user.getMe_id());
-		mv.addObject("stList", stList);
-		mv.addObject("nowSt", nowStudy);
-		mv.addObject("favorite", favoriteStudy);
 		mv.addObject("userId", user.getMe_name());
 		mv.addObject("leaderCount", leaderCount);
 		mv.setViewName("/study/study_basic");

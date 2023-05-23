@@ -7,6 +7,7 @@
 	SELECT * FROM study 
 	JOIN gather ON ga_st_num = st_num
 	LEFT JOIN tag_register ON tr_st_num = st_num
+	where st_state = 1
 	GROUP BY st_num
 	ORDER BY st_num DESC
 	LIMIT 20;

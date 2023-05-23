@@ -3,8 +3,7 @@
 	pageEncoding="UTF-8"%>
 <link rel="stylesheet"
 	href="<c:url value='/resources/css/gather/list.css'></c:url>">
-<link rel="stylesheet"
-	href="<c:url value='/resources/css/common.css'></c:url>">
+<link rel="stylesheet" 	href="<c:url value='/resources/css/common.css'></c:url>">
 <script src="<c:url value='/resources/js/jquery.min.js'></c:url>"></script>
 
 <main>
@@ -58,7 +57,7 @@
 					<div class="line"></div>
 					<div class="sel_region clearfix">
 						<span class="region_title">지역</span> 
-						<a href="<c:url value='/gather/list?region=지역 미지정'></c:url>" <c:if test='${pm.cri.region == "지역 미지정"}'>class="selected"</c:if>>지역 미지정</a> 
+						<a href="<c:url value='/gather/list?region=지역미지정'></c:url>" <c:if test='${pm.cri.region == "지역미지정"}'>class="selected"</c:if>>지역미지정</a> 
 						<a href="<c:url value='/gather/list?region=서울특별시'></c:url>" <c:if test='${pm.cri.region == "서울특별시"}'>class="selected"</c:if>>서울 특별시</a> 
 						<a href="<c:url value='/gather/list?region=경기도'></c:url>" <c:if test='${pm.cri.region == "경기도"}'>class="selected"</c:if>>경기도</a> 
 						<a href="<c:url value='/gather/list?region=부산광역시'></c:url>" <c:if test='${pm.cri.region == "부산광역시"}'>class="selected"</c:if>>부산 광역시</a> 
@@ -126,12 +125,19 @@
 													</div>
 											</a>
 													<div class="study_content">
+													<c:if test="${stList.get(index).st_state == 1 }">
 														<div class="study_recruiting">
 															<span>모집중</span> 
 															<span>${stList.get(index).st_now_people}</span> 
 															<span>/</span> 
 															<span>${stList.get(index).st_total_people}</span>
 														</div>
+													</c:if>	
+													<c:if test="${stList.get(index).st_state == 0}">
+														<div class="study_recruiting">
+															<span>모집완료</span> 	
+														</div>
+													</c:if>
 														<div class="want_icon" data-num="${stList.get(index).st_num }">
 															<c:if test="${user == null}" >
 																<div class="unlike_img"></div>
@@ -146,10 +152,8 @@
 															</c:if>
 														</div>
 													</div>
-												
-											
-										</li>
-									</c:if >
+											</li>
+										</c:if >
 								</c:forEach>
 							</div>
 					</c:forEach>
@@ -173,7 +177,7 @@
             </div>
 		</div>
 
-	</div>
+
 </main>
 <script>	
 $('#switch1').change(function(){

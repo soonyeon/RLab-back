@@ -180,7 +180,7 @@
 		                      
 		                      <c:if test="${myProgressList.size() == 0 || myProgressList == null}">
 		                      	<div class="nullMsg">
-		                      		<p> 진행중인 스터디가 없습니다.</p>
+		                      		<p> 참여중인 스터디가 없습니다.</p>
 		                      		<a class="btn_link link_progress" href="<c:url value='/gather/list'></c:url>">모집글 보러가기</a>
 		                      	</div>
 		                      </c:if>
