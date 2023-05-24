@@ -180,23 +180,29 @@
 
 </main>
 <script>	
-$('.link_region').click(function(){
-	let region = $(this).text();
+function getTagStr(){
 	let tagStr='';
 	if(${pm.cri.tagList.size()>0}){
 		<c:forEach items="${pm.cri.tagList}" var="item" varStatus="vs">
 			tagStr += "&tagList%5B${vs.index}%5D=${item}";
 		</c:forEach>
 	} 
+	return tagStr;
+}
+
+$('.link_region').click(function(){
+	let region = $(this).text();
+	let tagStr = getTagStr();
 	let link = "<c:url value='/gather/list?region="+region+"&search=${pm.cri.search}&filter=${pm.cri.filter}"+tagStr+"'></c:url>";
 	location.replace(link);
 });
 
 $('#switch1').change(function(){
+	let tagStr = getTagStr();
 	if(${pm.cri.filter != 'on'}){
-		location.replace('<c:url value="/gather/list?filter=on&region=${pm.cri.region}&search=${pm.cri.search}"></c:url>');
+		location.replace('<c:url value="/gather/list?filter=on&region=${pm.cri.region}&search=${pm.cri.search}'+tagStr+'"></c:url>');
 	}else{
-		location.replace('<c:url value="/gather/list?filter=off&region=${pm.cri.region}&search=${pm.cri.search}"></c:url>');	
+		location.replace('<c:url value="/gather/list?filter=off&region=${pm.cri.region}&search=${pm.cri.search}'+tagStr+'"></c:url>');	
 	}
 })
 //지역검색
