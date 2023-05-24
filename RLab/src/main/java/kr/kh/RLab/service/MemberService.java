@@ -30,6 +30,6 @@ public interface MemberService {
 
 	void updatePW(MemberVO memberVO, String tempPW);
 	
-	boolean checkEmail(MemberVO user);
+	int checkEmail(MemberVO user);
 
 }

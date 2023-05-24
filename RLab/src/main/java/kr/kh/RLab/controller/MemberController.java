@@ -65,7 +65,7 @@ public class MemberController {
 	@RequestMapping(value = "/check/email", method=RequestMethod.POST)
 	public Map<String, Object> nameEmail(@RequestBody MemberVO user) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		boolean res = memberService.checkEmail(user);
+		int res = memberService.checkEmail(user);
 		map.put("res", res);
 		return map;
 	}

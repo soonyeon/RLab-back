@@ -187,10 +187,10 @@ public class MemberServiceImp implements MemberService {
 	}
 	
 	@Override
-	public boolean checkEmail(MemberVO user) {
+	public int checkEmail(MemberVO user) {
 		if (user == null || user.getMe_email() == null || user.getMe_email().trim().length() == 0)
-			return false;
-		return memberDao.selectMemberByEamil(user.getMe_email()) == null;
+			return -1;
+		return memberDao.selectMemberByEamil(user.getMe_email());
 	}
 	
 }

@@ -83,8 +83,8 @@
 		</update>
 
 	<select id="selectMemberByEamil"
-		resultType="kr.kh.RLab.vo.MemberVO">
-		select * from member where me_email = #{me_email}
+		resultType="int">
+		select count(*) from member where me_email = #{me_email}
 	</select>
 
 </mapper>

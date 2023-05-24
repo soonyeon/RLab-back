@@ -273,11 +273,11 @@
 			dataType:"json",
 			contentType:"application/json; charset=UTF-8",
 			success : function(data){
-			    if(data.res){
+			    if(data.res != 0){
+			    	alert('가입한 이메일 입니다.')
+			    }else{
 			    	alert('사용 가능한 이메일 입니다.');
 			    	nameCheck = true;
-			    }else{
-			    	alert('가입한 이메일 입니다.')
 			    }
 			},
 		});

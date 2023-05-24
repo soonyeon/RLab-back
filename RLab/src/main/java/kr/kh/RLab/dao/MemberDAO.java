@@ -28,5 +28,5 @@ public interface MemberDAO {
 
 	void updatePW(MemberVO memberVO);
 	
-	Object selectMemberByEamil(String me_email);
+	int selectMemberByEamil(String me_email);
 }
