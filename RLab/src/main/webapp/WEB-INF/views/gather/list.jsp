@@ -188,9 +188,9 @@ $('.link_region').click(function(){
 
 $('#switch1').change(function(){
 	if(${pm.cri.filter != 'on'}){
-		location.replace('<c:url value="/gather/list?filter=on"></c:url>');
+		location.replace('<c:url value="/gather/list?filter=on&region=${pm.cri.region}&search=${pm.cri.search}"></c:url>');
 	}else{
-		location.replace('<c:url value="/gather/list?filter=off"></c:url>');	
+		location.replace('<c:url value="/gather/list?filter=off&region=${pm.cri.region}&search=${pm.cri.search}"></c:url>');	
 	}
 })
 //지역검색
