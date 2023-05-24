@@ -57,24 +57,24 @@
 					<div class="line"></div>
 					<div class="sel_region clearfix">
 						<span class="region_title">지역</span> 
-						<a href="<c:url value='/gather/list?region=지역미지정'></c:url>" <c:if test='${pm.cri.region == "지역미지정"}'>class="selected"</c:if>>지역미지정</a> 
-						<a href="<c:url value='/gather/list?region=서울특별시'></c:url>" <c:if test='${pm.cri.region == "서울특별시"}'>class="selected"</c:if>>서울 특별시</a> 
-						<a href="<c:url value='/gather/list?region=경기도'></c:url>" <c:if test='${pm.cri.region == "경기도"}'>class="selected"</c:if>>경기도</a> 
-						<a href="<c:url value='/gather/list?region=부산광역시'></c:url>" <c:if test='${pm.cri.region == "부산광역시"}'>class="selected"</c:if>>부산 광역시</a> 
-						<a href="<c:url value='/gather/list?region=인천광역시'></c:url>" <c:if test='${pm.cri.region == "인천광역시"}'>class="selected"</c:if>>인천 광역시</a> 
-						<a href="<c:url value='/gather/list?region=대구광역시'></c:url>" <c:if test='${pm.cri.region == "대구광역시"}'>class="selected"</c:if>>대구 광역시</a> 
-						<a href="<c:url value='/gather/list?region=경상북도'></c:url>" <c:if test='${pm.cri.region == "경상북도"}'>class="selected"</c:if>>경상북도</a>
-						<a href="<c:url value='/gather/list?region=경상남도'></c:url>" <c:if test='${pm.cri.region == "경상남도"}'>class="selected"</c:if>>경상남도</a> 
-						<a href="<c:url value='/gather/list?region=대전광역시'></c:url>" <c:if test='${pm.cri.region == "대전광역시"}'>class="selected"</c:if>>대전 광역시</a> 
-						<a href="<c:url value='/gather/list?region=전라북도'></c:url>" <c:if test='${pm.cri.region == "전라북도"}'>class="selected"</c:if>>전라북도</a> 
-						<a href="<c:url value='/gather/list?region=전라남도'></c:url>" <c:if test='${pm.cri.region == "전라남도"}'>class="selected"</c:if>>전라남도</a> 
-						<a href="<c:url value='/gather/list?region=충청북도'></c:url>" <c:if test='${pm.cri.region == "충청북도"}'>class="selected"</c:if>>충청북도</a> 
-						<a href="<c:url value='/gather/list?region=충청남도'></c:url>" <c:if test='${pm.cri.region == "충청남도"}'>class="selected"</c:if>>충청남도</a> 
-						<a href="<c:url value='/gather/list?region=광주광역시'></c:url>" <c:if test='${pm.cri.region == "광주광역시"}'>class="selected"</c:if>>광주 광역시</a> 
-						<a href="<c:url value='/gather/list?region=강원도'></c:url>" <c:if test='${pm.cri.region == "강원도"}'>class="selected"</c:if>>강원도</a> 
-						<a href="<c:url value='/gather/list?region=울산광역시'></c:url>" <c:if test='${pm.cri.region == "울산광역시"}'>class="selected"</c:if>>울산 광역시</a> 
-						<a href="<c:url value='/gather/list?region=제주특별자치도'></c:url>" <c:if test='${pm.cri.region == "제주특별자치도"}'>class="selected"</c:if>>제주 특별 자치도</a> 
-						<a href="<c:url value='/gather/list?region=세종특별자치도'></c:url>" <c:if test='${pm.cri.region == "세종특별자치도"}'>class="selected"</c:if>>세종 특별 자치도</a>
+						<a class="link_region <c:if test='${pm.cri.region == "지역미지정"}'>selected</c:if>" href="#" >지역미지정</a> 
+						<a class="link_region <c:if test='${pm.cri.region == "서울특별시"}'>selected</c:if>" href="#" >서울특별시</a> 
+						<a class="link_region <c:if test='${pm.cri.region == "경기도"}'>selected</c:if>" href="#" >경기도</a> 
+						<a class="link_region <c:if test='${pm.cri.region == "부산광역시"}'>selected</c:if>" href="#" >부산광역시</a> 
+						<a class="link_region <c:if test='${pm.cri.region == "인천광역시"}'>selected</c:if>" href="#" >인천광역시</a> 
+						<a class="link_region <c:if test='${pm.cri.region == "대구광역시"}'>selected</c:if>" href="#" >대구광역시</a> 
+						<a class="link_region <c:if test='${pm.cri.region == "경상북도"}'>selected</c:if>" href="#" >경상북도</a>
+						<a class="link_region <c:if test='${pm.cri.region == "경상남도"}'>selected</c:if>" href="#" >경상남도</a> 
+						<a class="link_region <c:if test='${pm.cri.region == "대전광역시"}'>selected</c:if>" href="#" >대전광역시</a> 
+						<a class="link_region <c:if test='${pm.cri.region == "전라북도"}'>selected</c:if>" href="#" >전라북도</a> 
+						<a class="link_region <c:if test='${pm.cri.region == "전라남도"}'>selected</c:if>" href="#" >전라남도</a> 
+						<a class="link_region <c:if test='${pm.cri.region == "충청북도"}'>selected</c:if>" href="#" >충청북도</a> 
+						<a class="link_region <c:if test='${pm.cri.region == "충청남도"}'>selected</c:if>" href="#" >충청남도</a> 
+						<a class="link_region <c:if test='${pm.cri.region == "광주광역시"}'>selected</c:if>" href="#" >광주광역시</a> 
+						<a class="link_region <c:if test='${pm.cri.region == "강원도"}'>selected</c:if>" href="#" >강원도</a> 
+						<a class="link_region <c:if test='${pm.cri.region == "울산광역시"}'>selected</c:if>" href="#" >울산광역시</a> 
+						<a class="link_region <c:if test='${pm.cri.region == "제주특별자치도"}'>selected</c:if>" href="#" >제주특별자치도</a> 
+						<a class="link_region <c:if test='${pm.cri.region == "세종특별자치도"}'>selected</c:if>" href="#" >세종특별자치도</a>
 					</div>
 				</div>
 				<div class="make_rc_box">
@@ -180,11 +180,17 @@
 
 </main>
 <script>	
+$('.link_region').click(function(){
+	let region = $(this).text();
+	let link = "<c:url value='/gather/list?region="+region+"&search=${pm.cri.search}&filter=${pm.cri.filter}'></c:url>";
+	location.replace(link);
+});
+
 $('#switch1').change(function(){
 	if(${pm.cri.filter != 'on'}){
-		location.replace('<c:url value="/gather/list?filter=on"></c:url>');
+		location.replace('<c:url value="/gather/list?filter=on&region=${pm.cri.region}&search=${pm.cri.search}"></c:url>');
 	}else{
-		location.replace('<c:url value="/gather/list?filter=off"></c:url>');	
+		location.replace('<c:url value="/gather/list?filter=off&region=${pm.cri.region}&search=${pm.cri.search}"></c:url>');	
 	}
 })
 //지역검색
