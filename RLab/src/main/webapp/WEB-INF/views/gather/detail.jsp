@@ -141,6 +141,10 @@ $(document).ready(function() {
 	});
 
 	function want() {
+		  if(${user == null}){
+			  alert('로그인이 필요한 기능입니다')
+			  return;
+		  }
     	// 데이터
 	    var requestData = {
 	    	wa_me_id: userId1,
