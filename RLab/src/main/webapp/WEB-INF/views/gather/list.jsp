@@ -23,6 +23,8 @@
 					<input type="hidden" name="tagList[${vs.index}]" value="${tag}" class="list_tag">
 				</c:forEach>
 			</div>
+			<input type="hidden" name="region" value="${pm.cri.region}">
+			<input type="hidden" name="filter" value="${pm.cri.filter}">
 		</form>
 			<div class="tag_box">
 				<span class="tag_box_name">관련 태그 : </span>
@@ -280,6 +282,10 @@ $(document).ready(function() {
   });
   
   function want(studyNum) {
+	  if(${user == null}){
+		  alert('로그인이 필요한 기능입니다')
+		  return;
+	  }
 	    // 데이터
 	    var requestData = {
 	      wa_me_id: userId,
