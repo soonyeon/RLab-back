@@ -182,7 +182,13 @@
 <script>	
 $('.link_region').click(function(){
 	let region = $(this).text();
-	let link = "<c:url value='/gather/list?region="+region+"&search=${pm.cri.search}&filter=${pm.cri.filter}'></c:url>";
+	let tagStr='';
+	if(${pm.cri.tagList.size()>0}){
+		<c:forEach items="${pm.cri.tagList}" var="item" varStatus="vs">
+			tagStr += "&tagList%5B${vs.index}%5D=${item}";
+		</c:forEach>
+	} 
+	let link = "<c:url value='/gather/list?region="+region+"&search=${pm.cri.search}&filter=${pm.cri.filter}"+tagStr+"'></c:url>";
 	location.replace(link);
 });
 
