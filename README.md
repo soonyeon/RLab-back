@@ -1,5 +1,6 @@
-# RLab
-<img width="856" alt="image" src="https://github.com/soonyeon/RLab-back/assets/108646588/66db333d-a209-43e7-baee-5eb4d8c2242b">
+
+<!-- <img width="856" alt="image" src="https://github.com/soonyeon/RLab-back/assets/108646588/66db333d-a209-43e7-baee-5eb4d8c2242b"> -->
+<img width="856" src="https://capsule-render.vercel.app/api?type=waving?&color=gradient&height=170&section=header&text=RLab&fontSize=90">
 
 
 ## 목차
