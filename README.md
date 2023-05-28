@@ -15,8 +15,25 @@
 
 
 ## 2. 개발 환경
-<img width="856" alt="image" src="https://github.com/soonyeon/RLab-back/assets/108646588/a66624bf-d195-4f81-8bde-15b05b57f9b7">
-
+<!-- <img width="856" alt="image" src="https://github.com/soonyeon/RLab-back/assets/108646588/a66624bf-d195-4f81-8bde-15b05b57f9b7"> -->
+<div align="left">
+	<img src="https://img.shields.io/badge/Javascript-F7DF1E?style=flat&logo=javascript&logoColor=white" height="40" />
+	<img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=HTML5&logoColor=white" height="40"/>
+	<img src="https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=CSS3&logoColor=white" height="40"/>
+</div>
+<div align="left">
+	<img src="https://img.shields.io/badge/Java-FF0000?style=flat&logo=Java&logoColor=white" height="40"/>
+	<img src="https://img.shields.io/badge/spring-6DB33F?style=flat&logo=spring&logoColor=white" height="40"/>
+	<img src="https://img.shields.io/badge/mysql-4479A1?style=flat&logo=mysql&logoColor=white" height="40"/>
+  <img src="https://img.shields.io/badge/apachetomcat-F8DC75?style=flat&logo=apachetomcat&logoColor=white" height="40"/>
+</div>
+<div align="left">
+	<img src="https://img.shields.io/badge/visualstudiocode-007ACC?style=flat&logo=visualstudiocode&logoColor=white" height="40"/>
+	<img src="https://img.shields.io/badge/eclipseide-2C2255?style=flat&logo=eclipseide&logoColor=white" height="40"/>
+	<img src="https://img.shields.io/badge/github-6E6E6E?style=flat&logo=github&logoColor=white" height="40"/>
+  <img src="https://img.shields.io/badge/gitkraken-179287?style=flat&logo=gitkraken&logoColor=white" height="40"/>
+  <img src="https://img.shields.io/badge/notion-222222?style=flat&logo=notion&logoColor=white" height="40"/>
+</div>
 
 
 ## 3. ERD
